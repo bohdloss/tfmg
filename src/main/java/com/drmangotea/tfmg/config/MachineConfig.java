@@ -1,0 +1,59 @@
+package com.drmangotea.tfmg.config;
+
+import com.simibubi.create.foundation.config.ConfigBase;
+
+public class MachineConfig extends ConfigBase {
+
+    public final ConfigFloat largeGeneratorFeModifier = f(4, 0, "largeGeneratorFEModifier", Comments.largeGenerator);
+    public final ConfigFloat smallGeneratorFeModifier = f(0.4f, 0, "smallGeneratorFEModifier", Comments.generator);
+    public final ConfigInt blastFurnaceMaxHeight = i(10, 3, "blastFurnaceMaxHeight", Comments.blastFurnaceHeight);
+    public final ConfigFloat blastFurnaceHeightSpeedModifier = f(1f, 0.1f, "blastFurnaceHeightSpeedModifier", Comments.blastFurnaceHeightSpeedModifier);
+    public final ConfigInt blastFurnaceFuelConsumption = i(600, 1, "blastFurnaceFuelConsumption", Comments.blastFurnaceFuelConsumption);
+    public final ConfigInt electricMotorMinimumPower = i(3000, 1, "electricMotorMinimumPower", Comments.electricMotorMinimumPower);
+    public final ConfigInt electricMotorMinimumVoltage = i(150, 1, "electricMotorMinimumVoltage", Comments.electricMotorMinimumVoltage);
+    public final ConfigFloat electricMotorPowerUsageModifier = f(1, 0, "electricMotorPowerUsageModifier", Comments.electricMotorPowerUsageModifier);
+    public final ConfigInt cokeOvenMaxSize = i(5, 1, "cokeOvenMaxSize", Comments.cokeOvenMaxSize);
+    public final ConfigInt accumulatorStorage = i(100000, 1, "accumulatorStorage", Comments.accumulatorStorage);
+    public final ConfigInt accumulatorVoltage = i(12, 1, "accumulatorVoltage", Comments.accumulatorVoltage);
+    public final ConfigInt accumulatorMaxAmpOutput = i(20, 1, "accumulatorMaxAmpOutput", Comments.accumulatorMaxAmpOutput);
+    public final ConfigInt accumulatorChargingRate = i(100, 1, "accumulatorChargingRate", Comments.accumulatorChargingRate);
+    public final ConfigFloat FEtoWattTickConversionRate  = f(1, 0, "FEtoWattTickConversionRate", Comments.FEtoWattTickConversionRate);
+    public final ConfigBool fireboxExhaustRequirement = b(true, "fireboxExhaustRequirement", Comments.fireboxExhaustRequirement);
+    public final ConfigInt fireboxFuelConsumption = i(100, 1, "fireboxFuelConsumption", Comments.fireboxFuelConsumption);
+    public final ConfigInt graphiteElectrodeCurrent = i(10, 1, "graphiteElectrodeCurrent", Comments.graphiteElectrodeCurrent);
+    public final ConfigInt electrolysisMinimumCurrent = i(5, 1, "electrolysisMinimumCurrent", Comments.electrolysisMinimumCurrent);
+    public final ConfigInt engineMaxLength = i(5, 1, "engineMaxLength", Comments.engineMaxLength);
+    public final ConfigInt surfaceScannerScanDepth = i(-64, -512, "surfaceScannerScanDepth", Comments.surfaceScannerScanDepth);
+    public final ConfigInt polarizerItemChargingRate = i(1000, 1, "polarizerItemChargingRate", Comments.polarizerItemChargingRate);
+
+
+    @Override
+    public String getName() {
+        return "machines";
+    }
+
+
+    private static class Comments {
+        static String largeGenerator = "Changes the FE production of large generators.";
+        static String generator = "Changes the FE production of small generators.";
+        static String blastFurnaceHeight = "Changes the maximum height of the blast furnace.";
+        static String blastFurnaceHeightSpeedModifier = "Sets the maximum time that can be saved by increasing blast furnace height.";
+        static String blastFurnaceFuelConsumption = "Determines how many ticks does it take to consume one fuel.";
+        static String electricMotorMinimumPower = "Determines the minimum power an electric motor can run on.";
+        static String electricMotorMinimumVoltage = "Determines the minimum voltage an electric motor can run on.";
+        static String electricMotorPowerUsageModifier = "Changes the power usage of electric motors.";
+        static String cokeOvenMaxSize = "Determines the maximum size of coke ovens.";
+        static String accumulatorStorage = "Determines the storage space of accumulators.";
+        static String accumulatorVoltage = "Determines the voltage accumulators output.";
+        static String accumulatorMaxAmpOutput = "Sets the maximum amperage an accumulator can provide.";
+        static String accumulatorChargingRate = "Sets the maximum charging rate of accumulators.";
+        static String fireboxExhaustRequirement = "If set to true,fireboxes will require exhaust management.";
+        static String fireboxFuelConsumption = "Determines the amount of fuel a firebox needs to run for 3 seconds.";
+        static String graphiteElectrodeCurrent = "The minimum electric current that will make graphite electrodes superheated.";
+        static String electrolysisMinimumCurrent = "The minimum electric current that will make electrolyzers operational.";
+        static String engineMaxLength = "The maximum length of engines.";
+        static String surfaceScannerScanDepth = "Y level surface scanner scan at.";
+        static String FEtoWattTickConversionRate = "How much Forge Energy is in one watt-tick.";
+        static String polarizerItemChargingRate = "How much FE can polarizer charge per tick.";
+    }
+}

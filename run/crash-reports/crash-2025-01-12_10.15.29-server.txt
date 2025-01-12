@@ -1,0 +1,168 @@
+---- Minecraft Crash Report ----
+// Don't be sad, have a hug! <3
+
+Time: 2025-01-12 10:15:29
+Description: Ticking block entity
+
+java.lang.OutOfMemoryError: Java heap space
+	at java.util.Arrays.copyOf(Arrays.java:3537) ~[?:?] {re:mixin}
+	at java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:228) ~[?:?] {}
+	at java.lang.AbstractStringBuilder.append(AbstractStringBuilder.java:582) ~[?:?] {}
+	at java.lang.StringBuilder.append(StringBuilder.java:179) ~[?:?] {}
+	at com.simibubi.create.content.redstone.displayLink.source.PercentOrProgressBarDisplaySource.provideLine(PercentOrProgressBarDisplaySource.java:46) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at com.simibubi.create.content.redstone.displayLink.source.SingleLineDisplaySource.provideText(SingleLineDisplaySource.java:46) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at com.simibubi.create.content.redstone.displayLink.source.DisplaySource.provideFlapDisplayText(DisplaySource.java:75) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at com.simibubi.create.content.redstone.displayLink.source.SingleLineDisplaySource.provideFlapDisplayText(SingleLineDisplaySource.java:70) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at com.simibubi.create.content.redstone.displayLink.source.DisplaySource.transferData(DisplaySource.java:34) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at com.simibubi.create.content.redstone.displayLink.DisplayLinkBlockEntity.updateGatheredData(DisplayLinkBlockEntity.java:128) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at com.simibubi.create.content.redstone.displayLink.DisplayLinkBlockEntity.tickSource(DisplayLinkBlockEntity.java:89) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at com.simibubi.create.content.redstone.displayLink.DisplayLinkBlockEntity.tick(DisplayLinkBlockEntity.java:80) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at com.simibubi.create.foundation.blockEntity.SmartBlockEntityTicker.tick(SmartBlockEntityTicker.java:15) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk$BoundTickingBlockEntity.tick(LevelChunk.java:689) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk$RebindableTickingBlockEntityWrapper.tick(LevelChunk.java:782) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:classloading}
+	at net.minecraft.world.level.Level.tickBlockEntities(Level.java:468) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:mixin,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.level.ServerLevel.tick(ServerLevel.java:351) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:mixin,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B,pl:mixin:APP:create.mixins.json:accessor.ServerLevelAccessor,pl:mixin:A}
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:893) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:814) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:89) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:661) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:251) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer$$Lambda$12344/0x000002a5a3569c50.run(Unknown Source) ~[?:?] {}
+	at java.lang.Thread.run(Thread.java:840) ~[?:?] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Server thread
+Suspected Mod: 
+	Create (create), Version: 0.5.1.h-48
+		Issue tracker URL: https://github.com/Creators-of-Create/Create/issues
+		at TRANSFORMER/create@0.5.1.h-48/com.simibubi.create.content.redstone.displayLink.source.PercentOrProgressBarDisplaySource.provideLine(PercentOrProgressBarDisplaySource.java:46)
+Stacktrace:
+	at java.util.Arrays.copyOf(Arrays.java:3537) ~[?:?] {re:mixin}
+	at java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:228) ~[?:?] {}
+	at java.lang.AbstractStringBuilder.append(AbstractStringBuilder.java:582) ~[?:?] {}
+	at java.lang.StringBuilder.append(StringBuilder.java:179) ~[?:?] {}
+	at com.simibubi.create.content.redstone.displayLink.source.PercentOrProgressBarDisplaySource.provideLine(PercentOrProgressBarDisplaySource.java:46) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at com.simibubi.create.content.redstone.displayLink.source.SingleLineDisplaySource.provideText(SingleLineDisplaySource.java:46) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at com.simibubi.create.content.redstone.displayLink.source.DisplaySource.provideFlapDisplayText(DisplaySource.java:75) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at com.simibubi.create.content.redstone.displayLink.source.SingleLineDisplaySource.provideFlapDisplayText(SingleLineDisplaySource.java:70) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at com.simibubi.create.content.redstone.displayLink.source.DisplaySource.transferData(DisplaySource.java:34) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at com.simibubi.create.content.redstone.displayLink.DisplayLinkBlockEntity.updateGatheredData(DisplayLinkBlockEntity.java:128) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at com.simibubi.create.content.redstone.displayLink.DisplayLinkBlockEntity.tickSource(DisplayLinkBlockEntity.java:89) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at com.simibubi.create.content.redstone.displayLink.DisplayLinkBlockEntity.tick(DisplayLinkBlockEntity.java:80) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at com.simibubi.create.foundation.blockEntity.SmartBlockEntityTicker.tick(SmartBlockEntityTicker.java:15) ~[create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-slim.jar%23199!/:0.5.1.h-48] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk$BoundTickingBlockEntity.tick(LevelChunk.java:689) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:classloading}
+-- Block entity being ticked --
+Details:
+	Name: create:display_link // com.simibubi.create.content.redstone.displayLink.DisplayLinkBlockEntity
+	Block: Block{create:display_link}[facing=west,powered=false]
+	Block location: World: (-3155,102,-1380), Section: (at 13,6,12 in -198,6,-87; chunk contains blocks -3168,-64,-1392 to -3153,319,-1377), Region: (-7,-3; contains chunks -224,-96 to -193,-65, blocks -3584,-64,-1536 to -3073,319,-1025)
+	Block: Block{create:display_link}[facing=west,powered=false]
+	Block location: World: (-3155,102,-1380), Section: (at 13,6,12 in -198,6,-87; chunk contains blocks -3168,-64,-1392 to -3153,319,-1377), Region: (-7,-3; contains chunks -224,-96 to -193,-65, blocks -3584,-64,-1536 to -3073,319,-1025)
+Stacktrace:
+	at net.minecraft.world.level.chunk.LevelChunk$BoundTickingBlockEntity.tick(LevelChunk.java:699) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk$RebindableTickingBlockEntityWrapper.tick(LevelChunk.java:782) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:classloading}
+	at net.minecraft.world.level.Level.tickBlockEntities(Level.java:468) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:mixin,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.level.ServerLevel.tick(ServerLevel.java:351) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:mixin,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B,pl:mixin:APP:create.mixins.json:accessor.ServerLevelAccessor,pl:mixin:A}
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:893) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:814) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:89) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:661) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:251) ~[forge-1.20.1-47.3.10_mapped_official_1.20.1.jar%23191!/:?] {re:classloading,pl:accesstransformer:B}
+	at java.lang.Thread.run(Thread.java:840) ~[?:?] {}
+
+
+-- Affected level --
+Details:
+	All players: 1 total; [ServerPlayer['Dev'/227, l='ServerLevel[New World]', x=-3154.82, y=103.00, z=-1391.99]]
+	Chunk stats: 2209
+	Level dimension: minecraft:overworld
+	Level spawn location: World: (-3179,102,-1386), Section: (at 5,6,6 in -199,6,-87; chunk contains blocks -3184,-64,-1392 to -3169,319,-1377), Region: (-7,-3; contains chunks -224,-96 to -193,-65, blocks -3584,-64,-1536 to -3073,319,-1025)
+	Level time: 1482376 game time, 1000 day time
+	Level name: New World
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: true
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Known server brands: forge
+	Removed feature flags: 
+	Level was modded: true
+	Level storage version: 0x04ABD - Anvil
+
+-- System Details --
+Details:
+	Minecraft Version: 1.20.1
+	Minecraft Version ID: 1.20.1
+	Operating System: Windows 11 (amd64) version 10.0
+	Java Version: 17.0.13, Amazon.com Inc.
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Amazon.com Inc.
+	Memory: 2124113376 bytes (2025 MiB) / 4110417920 bytes (3920 MiB) up to 4110417920 bytes (3920 MiB)
+	CPUs: 16
+	Processor Vendor: AuthenticAMD
+	Processor Name: AMD Ryzen 7 8845HS w/ Radeon 780M Graphics     
+	Identifier: AuthenticAMD Family 25 Model 117 Stepping 2
+	Microarchitecture: Zen 3
+	Frequency (GHz): 3.79
+	Number of physical packages: 1
+	Number of physical CPUs: 8
+	Number of logical CPUs: 16
+	Graphics card #0 name: NVIDIA GeForce RTX 4060 Laptop GPU
+	Graphics card #0 vendor: NVIDIA (0x10de)
+	Graphics card #0 VRAM (MB): 4095.00
+	Graphics card #0 deviceId: 0x28e0
+	Graphics card #0 versionInfo: DriverVersion=31.0.15.4656
+	Graphics card #1 name: AMD Radeon 780M Graphics
+	Graphics card #1 vendor: Advanced Micro Devices, Inc. (0x1002)
+	Graphics card #1 VRAM (MB): 512.00
+	Graphics card #1 deviceId: 0x1900
+	Graphics card #1 versionInfo: DriverVersion=31.0.22024.19001
+	Memory slot #0 capacity (MB): 8192.00
+	Memory slot #0 clockSpeed (GHz): 5.60
+	Memory slot #0 type: Unknown
+	Memory slot #1 capacity (MB): 8192.00
+	Memory slot #1 clockSpeed (GHz): 5.60
+	Memory slot #1 type: Unknown
+	Virtual memory max (MB): 36411.66
+	Virtual memory used (MB): 32299.00
+	Swap memory total (MB): 20737.30
+	Swap memory used (MB): 2132.36
+	JVM Flags: 1 total; -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump
+	Server Running: true
+	Player Count: 1 / 8; [ServerPlayer['Dev'/227, l='ServerLevel[New World]', x=-3154.82, y=103.00, z=-1391.99]]
+	Data Packs: vanilla, mod:spark (incompatible), mod:forge, mod:flywheel, mod:create, mod:tfmg (incompatible), mod:jei
+	Enabled Feature Flags: minecraft:vanilla
+	World Generation: Stable
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'forge'; Server brand changed to 'forge'
+	Launched Version: MOD_DEV
+	ModLauncher: 10.0.9+10.0.9+main.dcd20f30
+	ModLauncher launch target: forgeclientuserdev
+	ModLauncher naming: mcp
+	ModLauncher services: 
+		mixin-0.8.5.jar mixin PLUGINSERVICE 
+		eventbus-6.0.5.jar eventbus PLUGINSERVICE 
+		fmlloader-1.20.1-47.3.10.jar slf4jfixer PLUGINSERVICE 
+		fmlloader-1.20.1-47.3.10.jar object_holder_definalize PLUGINSERVICE 
+		fmlloader-1.20.1-47.3.10.jar runtime_enum_extender PLUGINSERVICE 
+		fmlloader-1.20.1-47.3.10.jar capability_token_subclass PLUGINSERVICE 
+		accesstransformers-8.0.4.jar accesstransformer PLUGINSERVICE 
+		fmlloader-1.20.1-47.3.10.jar runtimedistcleaner PLUGINSERVICE 
+		modlauncher-10.0.9.jar mixin TRANSFORMATIONSERVICE 
+		modlauncher-10.0.9.jar fml TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		minecraft@1.0
+		lowcodefml@null
+		javafml@null
+	Mod List: 
+		forge-1.20.1-47.3.10_mapped_official_1.20.1.jar   |Minecraft                     |minecraft                     |1.20.1              |DONE      |Manifest: a1:d4:5e:04:4f:d3:d6:e0:7b:37:97:cf:77:b0:de:ad:4a:47:ce:8c:96:49:5f:0a:cf:8c:ae:b2:6d:4b:8a:3f
+		spark-361579-4505309_mapped_official_1.20.1.jar   |spark                         |spark                         |1.10.37             |DONE      |Manifest: NOSIGNATURE
+		                                                  |Forge                         |forge                         |47.3.10             |DONE      |Manifest: NOSIGNATURE
+		flywheel-forge-1.20.1-0.6.11-12_mapped_official_1.|Flywheel                      |flywheel                      |0.6.11-12           |DONE      |Manifest: NOSIGNATURE
+		create-1.20.1-0.5.1.h-48_mapped_official_1.20.1-sl|Create                        |create                        |0.5.1.h-48          |DONE      |Manifest: NOSIGNATURE
+		main                                              |Create: The Factory Must Grow |tfmg                          |1.0                 |DONE      |Manifest: NOSIGNATURE
+		jei-1.20.1-forge-15.2.0.23_mapped_official_1.20.1.|Just Enough Items             |jei                           |15.2.0.23           |DONE      |Manifest: NOSIGNATURE
+	Flywheel Backend: GL33 Instanced Arrays
+	Crash Report UUID: f6baa66a-c4a5-4a65-9fe7-de810e2f4f18
+	FML: 47.3
+	Forge: net.minecraftforge:47.3.10

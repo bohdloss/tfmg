@@ -1,0 +1,22 @@
+- added fluid interactions
+- improved exhaust smoke
+- improved flarestack effects
+- renamed liquid plastic to molten plastic
+- added furnace gas
+- added hot air
+- added blast furnace hatch
+- added custom death message for falling into a blast furnace
+- added flux tag
+- blast furnaces now accept raw iron and iron dust (raw iron yields double steel)
+- added blast furnace heating mechanic
+- removed blasting mixture
+- implemented forge tags for sulfur dust
+- added smoke particles to the blast furnace
+- added blast furnace fluid byproduct production
+- optimized steel tanks
+- optimized electric blocks
+- added electric current
+- added the multimeter
+- fixed waterlogging of truss blocks
+- added electric network frequency
+

@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "tfmg:steel_bars"
+    },
+    "C": {
+      "item": "tfmg:heavy_machinery_casing"
+    },
+    "G": {
+      "item": "tfmg:steel_cogwheel"
+    },
+    "P": {
+      "item": "create:propeller"
+    },
+    "S": {
+      "item": "create:shaft"
+    },
+    "T": {
+      "item": "tfmg:steel_pipe"
+    }
+  },
+  "pattern": [
+    "SPT",
+    "GCG",
+    " B "
+  ],
+  "result": {
+    "item": "tfmg:air_intake"
+  },
+  "show_notification": true
+}

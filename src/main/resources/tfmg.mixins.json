@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.drmangotea.tfmg.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "Create-The_Factory_Must_Grow.refmap.json",
+  "mixins": [
+      "FluidPropagatorMixin",
+      "FluidPipeBlockMixin",
+      "PipeAttachmentModelMixin",
+      "GoggleOverlayRendererMixin",
+      "RecipeProviderMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

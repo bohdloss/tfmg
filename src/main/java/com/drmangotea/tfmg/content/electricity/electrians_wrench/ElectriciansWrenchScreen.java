@@ -1,0 +1,79 @@
+package com.drmangotea.tfmg.content.electricity.electrians_wrench;
+
+import com.drmangotea.tfmg.registry.TFMGGuiTextures;
+import com.simibubi.create.foundation.gui.AbstractSimiScreen;
+import com.simibubi.create.foundation.gui.AllIcons;
+import com.simibubi.create.foundation.gui.element.GuiGameElement;
+import com.simibubi.create.foundation.gui.widget.IconButton;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
+
+public class ElectriciansWrenchScreen extends AbstractSimiScreen {
+
+    ItemStack wrench;
+    private IconButton addButton;
+    private IconButton subtractButton;
+    private IconButton confirmButton;
+
+    public ElectriciansWrenchScreen(ItemStack wrench) {
+        this.wrench = wrench;
+    }
+
+    @Override
+    protected void renderWindow(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+        int x = guiLeft;
+        int y = guiTop;
+
+        int value = wrench.getOrCreateTag().getInt("Number");
+        String valueString = String.valueOf(value);
+        background().render(graphics, x, y);
+        graphics.drawString(font, valueString, x + 90 -(3*valueString.length()), y + 39, 0xffffff, false);
+        graphics.drawString(font, "Select Group Id", x + 51, y + 4, 0xffffff, false);
+
+        GuiGameElement.of(wrench)
+                .scale(4)
+                .rotate(0, 0, 0)
+                .at(x + 180, y + 50)
+                .render(graphics);
+    }
+
+    @Override
+    public void init() {
+        setWindowSize(background().width, background().height);
+        setWindowOffset(-20, 0);
+        super.init();
+        int x = guiLeft;
+        int y = guiTop;
+
+
+        confirmButton = new IconButton(x + background().width - 33, y + background().height - 24, AllIcons.I_CONFIRM);
+        confirmButton.withCallback(this::onClose);
+        addButton = new IconButton(x + background().width-84, y + background().height-67, AllIcons.I_MTD_RIGHT);
+        addButton.withCallback(this::addNumber);
+        subtractButton = new IconButton(x + background().width - 130, y + background().height - 67, AllIcons.I_MTD_LEFT);
+        subtractButton.withCallback(this::substractNumber);
+        addRenderableWidget(confirmButton);
+        addRenderableWidget(addButton);
+        addRenderableWidget(subtractButton);
+    }
+    public void addNumber(){
+        CompoundTag tag = wrench.getOrCreateTag();
+
+        int number = tag.getInt("Number");
+        tag.putInt("Number", number+1);
+    }
+
+    public void substractNumber(){
+        CompoundTag tag = wrench.getOrCreateTag();
+
+        int number = tag.getInt("Number");
+        if(number>0)
+            tag.putInt("Number", number-1);
+    }
+
+    public TFMGGuiTextures background(){
+        return TFMGGuiTextures.ELECTRICIANS_WRENCH;
+    }
+
+}

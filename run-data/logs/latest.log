@@ -1,0 +1,58 @@
+[12Jan2025 21:50:02.685] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, C:\Users\adamn\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.3.10, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, tfmg, --all, --output, C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\generated\resources, --existing, C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\resources, --mixin.config, tfmg.mixins.json]
+[12Jan2025 21:50:02.693] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.13 by Amazon.com Inc.; OS Windows 11 arch amd64 version 10.0
+[12Jan2025 21:50:02.894] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
+[12Jan2025 21:50:02.974] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/adamn/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
+[12Jan2025 21:50:03.445] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\adamn\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.3.10\7a15037366722893d76a3d0b2e9d1fd13a63a22d\javafmllanguage-1.20.1-47.3.10.jar is missing mods.toml file
+[12Jan2025 21:50:03.448] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\adamn\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.3.10\e67d9b3451d64ccc812cbbd33c066bd3ebbf2167\lowcodelanguage-1.20.1-47.3.10.jar is missing mods.toml file
+[12Jan2025 21:50:03.451] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\adamn\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.3.10\2023f9726a509c5ba5a925cac934944066093de8\mclanguage-1.20.1-47.3.10.jar is missing mods.toml file
+[12Jan2025 21:50:03.454] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\adamn\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.3.10\523aa0cd9a773b2b56268d8689b2fb5c1f072941\fmlcore-1.20.1-47.3.10.jar is missing mods.toml file
+[12Jan2025 21:50:03.609] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
+[12Jan2025 21:50:06.915] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[12Jan2025 21:50:06.930] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\adamn\.gradle\caches\forge_gradle\assets, --assetIndex, 5, --mod, tfmg, --all, --output, C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\generated\resources, --existing, C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\resources]
+[12Jan2025 21:50:07.037] [main/WARN] [mixin/]: Reference map 'Create-The_Factory_Must_Grow.refmap.json' for tfmg.mixins.json could not be read. If this is a development environment you can ignore this message
+[12Jan2025 21:50:07.318] [main/INFO] [mixin/]: Remapping refMap flywheel.refmap.json using C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\build\createSrgToMcp\output.srg
+[12Jan2025 21:50:07.331] [main/INFO] [mixin/]: Remapping refMap flywheel.refmap.json using C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\build\createSrgToMcp\output.srg
+[12Jan2025 21:50:07.334] [main/INFO] [mixin/]: Remapping refMap create.refmap.json using C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\build\createSrgToMcp\output.srg
+[12Jan2025 21:50:08.404] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [tfmg]
+[12Jan2025 21:50:14.358] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.3.10, for MC 1.20.1 with MCP 20230612.114412
+[12Jan2025 21:50:14.360] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.3.10 Initialized
+[12Jan2025 21:50:14.691] [modloading-worker-0/INFO] [com.jozufozu.flywheel.backend.Backend/]: No shaders mod detected.
+[12Jan2025 21:50:15.114] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager...
+[12Jan2025 21:50:15.128] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager took 8.160 ms
+[12Jan2025 21:50:18.343] [main/WARN] [net.minecraft.network.syncher.SynchedEntityData/]: defineId called for: class net.minecraft.world.entity.item.PrimedTnt from class com.drmangotea.tfmg.content.items.weapons.explosives.napalm.NapalmBombEntity
+[12Jan2025 21:50:18.656] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/adamn/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.10_mapped_official_1.20.1/forge-1.20.1-47.3.10_mapped_official_1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
+[12Jan2025 21:50:18.657] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/adamn/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.10_mapped_official_1.20.1/forge-1.20.1-47.3.10_mapped_official_1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
+[12Jan2025 21:50:19.090] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+[12Jan2025 21:50:20.487] [main/INFO] [net.minecraft.data.DataGenerator/]: Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)] finished after 1396 ms
+[12Jan2025 21:50:20.487] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: TFMG's Generated Registry Entries
+[12Jan2025 21:50:20.531] [main/INFO] [net.minecraft.data.DataGenerator/]: TFMG's Generated Registry Entries finished after 43 ms
+[12Jan2025 21:50:20.531] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: TFMG'S Industrial Blasting Recipes
+[12Jan2025 21:50:20.534] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:industrial_blasting recipe (tfmg:steel) specified a duration. Durations have no impact on this type of recipe.
+[12Jan2025 21:50:20.536] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:industrial_blasting recipe (tfmg:steel_from_raw_iron) has more item inputs (3) than supported (2).
+[12Jan2025 21:50:20.536] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:industrial_blasting recipe (tfmg:steel_from_raw_iron) specified a duration. Durations have no impact on this type of recipe.
+[12Jan2025 21:50:20.537] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:industrial_blasting recipe (tfmg:steel_from_dust) specified a duration. Durations have no impact on this type of recipe.
+[12Jan2025 21:50:20.537] [main/INFO] [com.drmangotea.tfmg.TFMG/]: TFMG'S Industrial Blasting Recipes registered 3 recipes
+[12Jan2025 21:50:20.537] [main/INFO] [net.minecraft.data.DataGenerator/]: TFMG'S Industrial Blasting Recipes finished after 5 ms
+[12Jan2025 21:50:20.537] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
+[12Jan2025 21:50:20.538] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:casting recipe (tfmg:steel) specified a duration. Durations have no impact on this type of recipe.
+[12Jan2025 21:50:20.542] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 1 recipe
+[12Jan2025 21:50:20.543] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 5 ms
+[12Jan2025 21:50:20.543] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: TFMG'S Vat Recipes
+[12Jan2025 21:50:20.544] [main/INFO] [com.drmangotea.tfmg.TFMG/]: TFMG'S Vat Recipes registered 3 recipes
+[12Jan2025 21:50:20.544] [main/INFO] [net.minecraft.data.DataGenerator/]: TFMG'S Vat Recipes finished after 1 ms
+[12Jan2025 21:50:20.544] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: TFMG'S Standard Recipes
+[12Jan2025 21:50:20.547] [main/INFO] [com.drmangotea.tfmg.TFMG/]: TFMG'S Standard Recipes registered 55 recipes
+[12Jan2025 21:50:20.548] [main/INFO] [net.minecraft.data.DataGenerator/]: TFMG'S Standard Recipes finished after 3 ms
+[12Jan2025 21:50:20.548] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: TFMG's Processing Recipes
+[12Jan2025 21:50:20.549] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 0 recipes
+[12Jan2025 21:50:20.550] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:coking recipe (tfmg:coal) specified a duration. Durations have no impact on this type of recipe.
+[12Jan2025 21:50:20.550] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:coking recipe (tfmg:charcoal) specified a duration. Durations have no impact on this type of recipe.
+[12Jan2025 21:50:20.550] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 2 recipes
+[12Jan2025 21:50:20.550] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:winding recipe (tfmg:copper_coil) specified a duration. Durations have no impact on this type of recipe.
+[12Jan2025 21:50:20.550] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 1 recipe
+[12Jan2025 21:50:20.550] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 1 recipe
+[12Jan2025 21:50:20.552] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:hot_blast recipe (tfmg:hot_air) specified a duration. Durations have no impact on this type of recipe.
+[12Jan2025 21:50:20.552] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 1 recipe
+[12Jan2025 21:50:20.552] [main/INFO] [net.minecraft.data.DataGenerator/]: TFMG's Processing Recipes finished after 4 ms
+[12Jan2025 21:50:20.553] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 1462 ms
+[12Jan2025 21:50:20.643] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 2271, old count: 2263, new count: 2272, removed stale: 0, written: 10

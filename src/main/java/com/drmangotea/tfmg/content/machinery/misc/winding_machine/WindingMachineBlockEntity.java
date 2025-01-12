@@ -1,0 +1,230 @@
+package com.drmangotea.tfmg.content.machinery.misc.winding_machine;
+
+import com.drmangotea.tfmg.recipes.CokingRecipe;
+import com.drmangotea.tfmg.recipes.WindingRecipe;
+import com.drmangotea.tfmg.registry.TFMGItems;
+import com.drmangotea.tfmg.registry.TFMGRecipeTypes;
+import com.simibubi.create.Create;
+import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
+import com.simibubi.create.foundation.item.SmartInventory;
+import com.simibubi.create.foundation.utility.Lang;
+import com.simibubi.create.foundation.utility.animation.LerpedFloat;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Optional;
+
+import static com.drmangotea.tfmg.content.machinery.misc.winding_machine.WindingMachineBlock.POWERED;
+
+public class WindingMachineBlockEntity extends KineticBlockEntity implements IHaveGoggleInformation {
+
+    LerpedFloat spoolSpeed = LerpedFloat.linear();
+    float angle;
+    public SmartInventory inventory;
+    public LazyOptional<IItemHandlerModifiable> itemCapability;
+    public ItemStack spool = ItemStack.EMPTY;
+    public WindingRecipe recipe;
+    public int amountWinded = 0;
+    public boolean update = false;
+
+    public WindingMachineBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
+        super(typeIn, pos, state);
+        setLazyTickRate(10);
+        inventory = new SmartInventory(1, this)
+                .withMaxStackSize(1)
+                .whenContentsChanged(i->this.onContentsChanged());
+
+        itemCapability = LazyOptional.of(() -> inventory);
+    }
+
+    public void onContentsChanged(){
+
+            findRecipe();
+
+        if(inventory.isEmpty())
+            amountWinded = 0;
+    }
+    public void findRecipe(){
+        Optional<WindingRecipe> optional = TFMGRecipeTypes.WINDING.find(new RecipeWrapper(inventory), level);
+
+        if(optional.isEmpty()) {
+            recipe = null;
+            return;
+        }
+        WindingRecipe windingRecipe = optional.get();
+
+        if(windingRecipe.getIngredient().test(inventory.getItem(0))){
+            recipe = windingRecipe;
+        }
+    }
+
+
+    @Override
+    public void lazyTick() {
+        super.lazyTick();
+        onContentsChanged();
+
+        if(spool.is(TFMGItems.EMPTY_SPOOL.get())&&!getBlockState().getValue(POWERED)){
+            level.setBlock(getBlockPos(), getBlockState().setValue(POWERED, true),2);
+            update = true;
+        }
+        if(!spool.is(TFMGItems.EMPTY_SPOOL.get())&&getBlockState().getValue(POWERED)){
+            level.setBlock(getBlockPos(), getBlockState().setValue(POWERED, false),2);
+            update = true;
+        }
+
+    }
+
+    @Override
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+            Lang.translate("goggles.winding_machine.header")
+                    .style(ChatFormatting.WHITE)
+                    .forGoggles(tooltip,1);
+        if(!spool.isEmpty())
+            Lang.text("   ")
+                    .add(Component.translatable("recipe.winding_machine.wire_left"))
+                    .style(ChatFormatting.WHITE)
+                    .add(Component.literal(" "+spool.getOrCreateTag().getInt("Amount")))
+                    .color(spool.getBarColor())
+                    .add(Component.literal("/200"))
+                    .style(ChatFormatting.WHITE)
+                    .forGoggles(tooltip);
+
+
+        if(inventory.getItem(0).is(TFMGItems.ELECTROMAGNETIC_COIL.get())) {
+            Lang.text("   ")
+                    .add(Component.translatable("goggles.winding_machine.coil_turns"))
+                    .style(ChatFormatting.WHITE)
+                    .add(Component.literal(" " + inventory.getItem(0).getOrCreateTag().getInt("Turns")))
+                    .forGoggles(tooltip);
+        }else
+        if(recipe!=null)
+            Lang.text("   ")
+                    .add(Component.translatable("goggles.winding_machine.wire_needed"))
+                    .style(ChatFormatting.WHITE)
+                    .add(Component.literal(" "+amountWinded))
+                    .color(spool.getBarColor())
+                    .add(Component.literal("/"+recipe.getProcessingDuration()))
+                    .style(ChatFormatting.WHITE)
+                    .forGoggles(tooltip);
+        return true;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+
+        performRecipe();
+
+        if(update){
+            level.updateNeighborsAt(getBlockPos(), getBlockState().getBlock());
+            update = false;
+        }
+
+        if(level.isClientSide)
+            manageRotation();
+
+    }
+    public void performRecipe(){
+
+        if(getSpeed() ==0 )
+            return;
+
+        if(inventory.getItem(0).is(TFMGItems.ELECTROMAGNETIC_COIL.get())&&spool.is(TFMGItems.COPPER_SPOOL.get())&&spool.getOrCreateTag().getInt("Amount")>0){
+            spool.getOrCreateTag().putInt("Amount", spool.getOrCreateTag().getInt("Amount") - 1);
+            inventory.getItem(0).getOrCreateTag().putInt("Turns", inventory.getItem(0).getOrCreateTag().getInt("Turns") + 1);
+
+            return;
+        }
+
+
+        if(spool.getOrCreateTag().getInt("Amount") == 0&&!spool.is(TFMGItems.EMPTY_SPOOL.get())&&spool.getItem() instanceof SpoolItem)
+            spool = TFMGItems.EMPTY_SPOOL.asStack();
+
+        if(recipe == null) {
+            return;
+        }
+        if(amountWinded >= recipe.getProcessingDuration()){
+
+            inventory.setStackInSlot(0, recipe.getResultItem(level.registryAccess()));
+            recipe = null;
+            amountWinded = 0;
+
+            sendData();
+            setChanged();
+
+        }else {
+            if(spool.isEmpty()||spool.is(TFMGItems.EMPTY_SPOOL.get())) {
+                return;
+            }
+            if(spool.getOrCreateTag().getInt("Amount")>0) {
+                if(recipe.getSpool().test(spool)) {
+                    spool.getOrCreateTag().putInt("Amount", spool.getOrCreateTag().getInt("Amount") - 1);
+                    amountWinded++;
+                }
+            } else {
+                inventory.setStackInSlot(0, recipe.getResultItem(level.registryAccess()));
+                sendData();
+                setChanged();
+            }
+
+        }
+    }
+
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+
+        if(cap == ForgeCapabilities.ITEM_HANDLER)
+            return itemCapability.cast();
+
+        return super.getCapability(cap, side);
+    }
+
+    public void manageRotation(){
+        float targetSpeed = (float) Math.min(Math.abs(getSpeed()*1.5),30);
+        spoolSpeed.updateChaseTarget(targetSpeed);
+        spoolSpeed.tickChaser();
+
+    }
+
+    @Override
+    protected void write(CompoundTag compound, boolean clientPacket) {
+        super.write(compound, clientPacket);
+        compound.put("Inventory", inventory.serializeNBT());
+
+        compound.put("Spool", spool.serializeNBT());
+        compound.putInt("AmountWinded", amountWinded);
+    }
+
+    @Override
+    protected void read(CompoundTag compound, boolean clientPacket) {
+        super.read(compound, clientPacket);
+        inventory.deserializeNBT(compound.getCompound("Inventory"));
+
+        spool = ItemStack.of(compound.getCompound("Spool"));
+
+        amountWinded = compound.getInt("AmountWinded");
+        if (clientPacket)
+            spoolSpeed.chase(getGeneratedSpeed(), 1 / 16f, LerpedFloat.Chaser.EXP);
+    }
+
+
+
+}

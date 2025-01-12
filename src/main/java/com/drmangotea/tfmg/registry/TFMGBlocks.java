@@ -1,0 +1,1438 @@
+package com.drmangotea.tfmg.registry;
+
+
+import com.drmangotea.tfmg.base.*;
+import com.drmangotea.tfmg.content.decoration.LithiumTorchBlock;
+import com.drmangotea.tfmg.content.decoration.LithiumTorchGenerator;
+import com.drmangotea.tfmg.content.decoration.cogs.TFMGCogWheelBlock;
+import com.drmangotea.tfmg.content.decoration.cogs.TFMGCogwheelBlockItem;
+import com.drmangotea.tfmg.content.decoration.concrete.*;
+import com.drmangotea.tfmg.content.decoration.doors.TFMGSlidingDoorBlock;
+import com.drmangotea.tfmg.content.decoration.flywheels.TFMGFlywheelBlock;
+import com.drmangotea.tfmg.content.decoration.gearbox.SteelGearboxBlock;
+import com.drmangotea.tfmg.content.decoration.tank.TFMGFluidTankModel;
+import com.drmangotea.tfmg.content.decoration.tank.SteelTankBlock;
+import com.drmangotea.tfmg.content.decoration.tank.SteelTankGenerator;
+import com.drmangotea.tfmg.content.decoration.tank.SteelTankItem;
+import com.drmangotea.tfmg.content.electricity.debug.DebugElectricBlock;
+import com.drmangotea.tfmg.content.electricity.debug.DebugGeneratorBlock;
+import com.drmangotea.tfmg.content.electricity.generators.GeneratorBlock;
+import com.drmangotea.tfmg.content.electricity.generators.creative_generator.CreativeGeneratorBlock;
+import com.drmangotea.tfmg.content.electricity.lights.LampGenerator;
+import com.drmangotea.tfmg.content.electricity.lights.LightBulbBlock;
+import com.drmangotea.tfmg.content.electricity.measurement.AmmeterBlock;
+import com.drmangotea.tfmg.content.electricity.measurement.VoltMeterBlock;
+import com.drmangotea.tfmg.content.electricity.storage.AccumulatorBlock;
+import com.drmangotea.tfmg.content.electricity.storage.AccumulatorItem;
+import com.drmangotea.tfmg.content.electricity.storage.CapacitorCTBehavior;
+import com.drmangotea.tfmg.content.electricity.utilities.diode.ElectricDiodeBlock;
+import com.drmangotea.tfmg.content.electricity.utilities.electric_motor.ElectricMotorBlock;
+import com.drmangotea.tfmg.content.electricity.utilities.electric_pump.ElectricPumpBlock;
+import com.drmangotea.tfmg.content.electricity.utilities.fuse_block.FuseBlock;
+import com.drmangotea.tfmg.content.electricity.utilities.polarizer.PolarizerBlock;
+import com.drmangotea.tfmg.content.electricity.utilities.potentiometer.PotentiometerBlock;
+import com.drmangotea.tfmg.content.electricity.utilities.segmented_display.SegmentedDisplayBlock;
+import com.drmangotea.tfmg.content.electricity.utilities.segmented_display.SegmentedDisplayCTBehavior;
+import com.drmangotea.tfmg.content.electricity.utilities.traffic_light.TrafficLightBlock;
+import com.drmangotea.tfmg.content.electricity.utilities.transformer.TransformerBlock;
+import com.drmangotea.tfmg.content.electricity.utilities.voltage_observer.VoltageObserverBlock;
+import com.drmangotea.tfmg.content.electricity.utilities.voltage_observer.VoltageObserverGenerator;
+import com.drmangotea.tfmg.content.engines.EngineCTBehavior;
+import com.drmangotea.tfmg.content.engines.EngineGenerator;
+import com.drmangotea.tfmg.content.engines.engine_block.EngineBlockBlock;
+import com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineBlock;
+import com.drmangotea.tfmg.content.items.CoalCokeBlockItem;
+import com.drmangotea.tfmg.content.items.weapons.explosives.napalm.NapalmBombBlock;
+import com.drmangotea.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceHatchBlock;
+import com.drmangotea.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlock;
+import com.drmangotea.tfmg.content.machinery.metallurgy.blast_furnace.reinforcement.BlastFurnaceReinforcementBlockItem;
+import com.drmangotea.tfmg.content.machinery.metallurgy.blast_furnace.reinforcement.BlastFurnaceReinforcementWallBlock;
+import com.drmangotea.tfmg.content.machinery.metallurgy.blast_stove.BlastStoveBlock;
+import com.drmangotea.tfmg.content.machinery.metallurgy.blast_stove.MultiblockCTBehavior;
+import com.drmangotea.tfmg.content.machinery.metallurgy.casting_basin.CastingBasinBlock;
+import com.drmangotea.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlock;
+import com.drmangotea.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenCTBehavior;
+import com.drmangotea.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenGenerator;
+import com.drmangotea.tfmg.content.machinery.misc.air_intake.AirIntakeBlock;
+import com.drmangotea.tfmg.content.machinery.misc.air_intake.AirIntakeGenerator;
+import com.drmangotea.tfmg.content.machinery.misc.concrete_hose.ConcreteHoseBlock;
+import com.drmangotea.tfmg.content.machinery.misc.exhaust.ExhaustBlock;
+import com.drmangotea.tfmg.content.machinery.misc.firebox.FireboxBlock;
+import com.drmangotea.tfmg.content.machinery.misc.flarestack.FlarestackBlock;
+import com.drmangotea.tfmg.content.machinery.misc.flarestack.FlarestackGenerator;
+import com.drmangotea.tfmg.content.machinery.misc.machine_input.MachineInputBlock;
+import com.drmangotea.tfmg.content.machinery.misc.smokestack.SmokestackBlock;
+import com.drmangotea.tfmg.content.machinery.misc.smokestack.SmokestackGenerator;
+import com.drmangotea.tfmg.content.machinery.misc.vat_machines.base.VatBlock;
+import com.drmangotea.tfmg.content.machinery.misc.vat_machines.base.VatGenerator;
+import com.drmangotea.tfmg.content.machinery.misc.vat_machines.electrode_holder.ElectrodeHolderBlock;
+import com.drmangotea.tfmg.content.machinery.misc.vat_machines.industrial_mixer.IndustrialMixerBlock;
+import com.drmangotea.tfmg.content.machinery.misc.winding_machine.WindingMachineBlock;
+import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.IndustrialPipeBlock;
+import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.controller.DistillationControllerBlock;
+import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.output.DistillationOutputBlock;
+import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.PumpjackBaseBlock;
+import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.crank.PumpjackCrankBlock;
+import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.PumpjackBlock;
+import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.PumpjackGenerator;
+import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.PumpjackHammerConnectorBlock;
+import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.PumpjackHammerHeadBlock;
+import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.PumpjackHammerPartBlock;
+import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.large.LargePumpjackHammerConnectorBlock;
+import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.large.LargePumpjackHammerHeadBlock;
+import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.large.LargePumpjackHammerPartBlock;
+import com.drmangotea.tfmg.content.machinery.oil_processing.surface_scanner.SurfaceScannerBlock;
+import com.drmangotea.tfmg.content.misc.LithiumBlock;
+import com.simibubi.create.AllTags;
+import com.simibubi.create.content.contraptions.bearing.StabilizedBearingMovementBehaviour;
+import com.simibubi.create.content.decoration.MetalLadderBlock;
+import com.simibubi.create.content.decoration.MetalScaffoldingBlock;
+import com.simibubi.create.content.decoration.encasing.CasingBlock;
+import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
+import com.simibubi.create.content.decoration.slidingDoor.SlidingDoorBlock;
+import com.simibubi.create.content.kinetics.BlockStressDefaults;
+import com.simibubi.create.content.kinetics.gearbox.GearboxBlock;
+import com.simibubi.create.content.kinetics.motor.CreativeMotorGenerator;
+import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockModel;
+import com.simibubi.create.foundation.block.connected.HorizontalCTBehaviour;
+import com.simibubi.create.foundation.data.*;
+import com.simibubi.create.foundation.utility.Couple;
+import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
+import com.tterrag.registrate.util.DataIngredient;
+import com.tterrag.registrate.util.entry.BlockEntry;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraftforge.common.Tags;
+
+import static com.drmangotea.tfmg.TFMG.REGISTRATE;
+import static com.drmangotea.tfmg.base.TFMGBuilderTransformers.*;
+import static com.drmangotea.tfmg.content.electricity.lights.LightBulbBlock.LIGHT;
+import static com.simibubi.create.AllMovementBehaviours.movementBehaviour;
+import static com.simibubi.create.foundation.data.BlockStateGen.axisBlock;
+import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
+import static com.simibubi.create.foundation.data.CreateRegistrate.casingConnectivity;
+import static com.simibubi.create.foundation.data.CreateRegistrate.connectedTextures;
+import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
+import static com.simibubi.create.foundation.data.TagGen.*;
+import static com.simibubi.create.foundation.data.TagGen.tagBlockAndItem;
+@SuppressWarnings("removal")
+public class TFMGBlocks {
+
+
+    public static final String[] TFMG_DECOR_METALS = {"steel", "aluminum", "lead", "cast_iron"};
+
+
+    static {
+        REGISTRATE.setCreativeTab(TFMGCreativeTabs.TFMG_MAIN);
+    }
+
+    //------------------ENGINES------------------//
+    public static final BlockEntry<EngineBlockBlock> ENGINE_BLOCK = REGISTRATE.block("engine_block", EngineBlockBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate(BlockStateGen.horizontalBlockProvider(true))
+            .item()
+            .transform(customItemModel())
+            .register();
+    public static final BlockEntry<RegularEngineBlock> REGULAR_ENGINE = REGISTRATE.block("regular_engine", RegularEngineBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .onRegister(connectedTextures(()->new EngineCTBehavior(TFMGSpriteShifts.REGULAR_ENGINE_TOP, TFMGSpriteShifts.REGULAR_ENGINE_BOTTOM, TFMGSpriteShifts.REGULAR_ENGINE_SIDE)))
+            .blockstate(new EngineGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+    //------------------DISTILLATION_TOWER------------------//
+    @SuppressWarnings("'addLayer(java.util.function.Supplier<java.util.function.Supplier<net.minecraft.client.renderer.RenderType>>)' is deprecated and marked for removal ")
+    public static final BlockEntry<SteelTankBlock> STEEL_FLUID_TANK =
+            REGISTRATE.block("steel_fluid_tank", SteelTankBlock::regular)
+                    .initialProperties(SharedProperties::copperMetal)
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .properties(p -> p.isRedstoneConductor((p1, p2, p3) -> true))
+                    .transform(pickaxeOnly())
+                    .blockstate(new SteelTankGenerator()::generate)
+                    .onRegister(CreateRegistrate.blockModel(() -> TFMGFluidTankModel::standard))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .item(SteelTankItem::new)
+                    .model(AssetLookup.customBlockItemModel("_", "block_single_window"))
+                    .build()
+                    .register();
+
+    public static final BlockEntry<DistillationOutputBlock> STEEL_DISTILLATION_OUTPUT =
+            REGISTRATE.block("steel_distillation_output", DistillationOutputBlock::new)
+                    .initialProperties(SharedProperties::copperMetal)
+                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .transform(pickaxeOnly())
+                    .item()
+                    .build()
+                    .register();
+    public static final BlockEntry<DistillationControllerBlock> STEEL_DISTILLATION_CONTROLLER =
+            REGISTRATE.block("steel_distillation_controller", DistillationControllerBlock::new)
+                    .initialProperties(SharedProperties::copperMetal)
+                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .transform(pickaxeOnly())
+                    .item()
+                    .build()
+                    .register();
+    public static final BlockEntry<IndustrialPipeBlock> INDUSTRIAL_PIPE = REGISTRATE.block("industrial_pipe", IndustrialPipeBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops().noOcclusion())
+            .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+            .transform(pickaxeOnly())
+            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+            .item()
+            .build()
+            .lang("Industrial Pipe")
+            .register();
+    //------------------PUMPJACK------------------//
+    public static final BlockEntry<PumpjackBlock> PUMPJACK_HAMMER =
+            REGISTRATE.block("pumpjack_hammer", PumpjackBlock::new)
+                    .transform(pickaxeOnly())
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate(new PumpjackGenerator()::generate)
+                    .onRegister(movementBehaviour(new StabilizedBearingMovementBehaviour()))
+                    .item()
+                    .transform(customItemModel())
+                    .lang("Pumpjack Hammer Holder")
+                    .register();
+
+
+    public static final BlockEntry<PumpjackCrankBlock> PUMPJACK_CRANK =
+            REGISTRATE.block("pumpjack_crank", PumpjackCrankBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .item()
+                    .build()
+                    .lang("Pumpjack Crank")
+                    .register();
+
+    public static final BlockEntry<PumpjackHammerPartBlock> PUMPJACK_HAMMER_PART = REGISTRATE.block("pumpjack_hammer_part", PumpjackHammerPartBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+
+            .transform(pickaxeOnly())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_SMALL_PART.tag)
+            .item()
+            .build()
+            .register();
+    public static final BlockEntry<PumpjackHammerHeadBlock> PUMPJACK_HAMMER_HEAD = REGISTRATE.block("pumpjack_hammer_head", PumpjackHammerHeadBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .transform(pickaxeOnly())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_HEAD.tag)
+            .item()
+            .build()
+            .register();
+
+    public static final BlockEntry<PumpjackHammerConnectorBlock> PUMPJACK_HAMMER_CONNECTOR = REGISTRATE.block("pumpjack_hammer_connector", PumpjackHammerConnectorBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .transform(pickaxeOnly())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_CONNECTOR.tag)
+            .item()
+            .build()
+            .register();
+    public static final BlockEntry<LargePumpjackHammerPartBlock> LARGE_PUMPJACK_HAMMER_PART = REGISTRATE.block("large_pumpjack_hammer_part", LargePumpjackHammerPartBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .transform(pickaxeOnly())
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_PART.tag)
+            .item()
+            .build()
+            .register();
+
+    public static final BlockEntry<LargePumpjackHammerHeadBlock> LARGE_PUMPJACK_HAMMER_HEAD = REGISTRATE.block("large_pumpjack_hammer_head", LargePumpjackHammerHeadBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .transform(pickaxeOnly())
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_HEAD.tag)
+            .item()
+            .build()
+            .register();
+    public static final BlockEntry<LargePumpjackHammerConnectorBlock> LARGE_PUMPJACK_HAMMER_CONNECTOR = REGISTRATE.block("large_pumpjack_hammer_connector", LargePumpjackHammerConnectorBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .transform(pickaxeOnly())
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_CONNECTOR.tag)
+            .item()
+            .build()
+            .register();
+    public static final BlockEntry<PumpjackBaseBlock> PUMPJACK_BASE = REGISTRATE.block("pumpjack_base", PumpjackBaseBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .transform(pickaxeOnly())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+            .item()
+            .build()
+            .register();
+    public static final BlockEntry<Block> OIL_DEPOSIT = REGISTRATE.block("oil_deposit", Block::new)
+            .initialProperties(() -> Blocks.BEDROCK)
+            .properties(p -> p.strength(69696969))
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .tag(TFMGTags.TFMGBlockTags.SURFACE_SCANNER_FINDABLE.tag)
+            .tag(BlockTags.WITHER_IMMUNE)
+            .tag(BlockTags.DRAGON_IMMUNE)
+            .tag(BlockTags.DRAGON_IMMUNE)
+            .tag(BlockTags.INFINIBURN_OVERWORLD)
+            .tag(BlockTags.FEATURES_CANNOT_REPLACE)
+            .tag(AllTags.AllBlockTags.NON_MOVABLE.tag)
+            .item()
+            .build()
+            .register();
+    //------------------VAT_MACHINES------------------//
+    @SuppressWarnings("'addLayer(java.util.function.Supplier<java.util.function.Supplier<net.minecraft.client.renderer.RenderType>>)' is deprecated and marked for removal ")
+    public static final BlockEntry<VatBlock> STEEL_CHEMICAL_VAT =
+            REGISTRATE.block("steel_chemical_vat", VatBlock::new)
+                    .initialProperties(SharedProperties::copperMetal)
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .properties(p -> p.isRedstoneConductor((p1, p2, p3) -> true))
+                    .transform(pickaxeOnly())
+                    .blockstate(new VatGenerator()::generate)
+                    .onRegister(CreateRegistrate.blockModel(() -> TFMGFluidTankModel::standard))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .item(SteelTankItem::new)
+                    .model(AssetLookup.customBlockItemModel("_", "block_single_window"))
+                    .build()
+                    .register();
+
+    public static final BlockEntry<IndustrialMixerBlock> INDUSTRIAL_MIXER = REGISTRATE.block("industrial_mixer", IndustrialMixerBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .transform(pickaxeOnly())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+            .item()
+            .transform(customItemModel())
+            .register();
+    public static final BlockEntry<ElectrodeHolderBlock> ELECTRODE_HOLDER = REGISTRATE.block("electrode_holder", ElectrodeHolderBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .transform(pickaxeOnly())
+            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+            .item()
+            .transform(customItemModel())
+            .register();
+
+
+
+    //------------------ORES------------------//
+    public static final BlockEntry<Block> LEAD_ORE = REGISTRATE.block("lead_ore", Block::new)
+            .initialProperties(() -> Blocks.GOLD_ORE)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE))
+            .transform(pickaxeOnly())
+            .loot((lt, b) -> lt.add(b,
+                    RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
+                            lt.applyExplosionDecay(b, LootItem.lootTableItem(TFMGItems.RAW_LEAD.get())
+                                    .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))))))
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .tag(Tags.Blocks.ORES)
+            .transform(tagBlockAndItem("ores/lead", "ores_in_ground/stone"))
+            .tag(Tags.Items.ORES)
+            .build()
+            .register();
+
+    public static final BlockEntry<Block> DEEPSLATE_LEAD_ORE = REGISTRATE.block("deepslate_lead_ore", Block::new)
+            .initialProperties(() -> Blocks.DEEPSLATE_GOLD_ORE)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.DEEPSLATE))
+            .transform(pickaxeOnly())
+            .loot((lt, b) -> lt.add(b,
+                    RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
+                            lt.applyExplosionDecay(b, LootItem.lootTableItem(TFMGItems.RAW_LEAD.get())
+                                    .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))))))
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .tag(Tags.Blocks.ORES)
+            .transform(tagBlockAndItem("ores/lead", "ores_in_ground/deepslate"))
+            .tag(Tags.Items.ORES)
+            .build()
+            .register();
+
+    public static final BlockEntry<Block> NICKEL_ORE = REGISTRATE.block("nickel_ore", Block::new)
+            .initialProperties(() -> Blocks.GOLD_ORE)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE))
+            .transform(pickaxeOnly())
+            .loot((lt, b) -> lt.add(b,
+                    RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
+                            lt.applyExplosionDecay(b, LootItem.lootTableItem(TFMGItems.RAW_NICKEL.get())
+                                    .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))))))
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .tag(Tags.Blocks.ORES)
+            .transform(tagBlockAndItem("ores/nickel", "ores_in_ground/stone"))
+            .tag(Tags.Items.ORES)
+            .build()
+            .register();
+
+    public static final BlockEntry<Block> DEEPSLATE_NICKEL_ORE = REGISTRATE.block("deepslate_nickel_ore", Block::new)
+            .initialProperties(() -> Blocks.DEEPSLATE_GOLD_ORE)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.DEEPSLATE))
+            .transform(pickaxeOnly())
+            .loot((lt, b) -> lt.add(b,
+                    RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
+                            lt.applyExplosionDecay(b, LootItem.lootTableItem(TFMGItems.RAW_NICKEL.get())
+                                    .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))))))
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .tag(Tags.Blocks.ORES)
+            .transform(tagBlockAndItem("ores/nickel", "ores_in_ground/deepslate"))
+            .tag(Tags.Items.ORES)
+            .build()
+            .register();
+
+    public static final BlockEntry<Block> LITHIUM_ORE = REGISTRATE.block("lithium_ore", Block::new)
+            .initialProperties(() -> Blocks.GOLD_ORE)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE))
+            .transform(pickaxeOnly())
+            .loot((lt, b) -> lt.add(b,
+                    RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
+                            lt.applyExplosionDecay(b, LootItem.lootTableItem(TFMGItems.RAW_LITHIUM.get())
+                                    .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))))))
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .tag(Tags.Blocks.ORES)
+            .transform(tagBlockAndItem("ores/lithium", "ores_in_ground/stone"))
+            .tag(Tags.Items.ORES)
+            .build()
+            .register();
+
+    public static final BlockEntry<Block> DEEPSLATE_LITHIUM_ORE = REGISTRATE.block("deepslate_lithium_ore", Block::new)
+            .initialProperties(() -> Blocks.DEEPSLATE_GOLD_ORE)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.DEEPSLATE))
+            .transform(pickaxeOnly())
+            .loot((lt, b) -> lt.add(b,
+                    RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
+                            lt.applyExplosionDecay(b, LootItem.lootTableItem(TFMGItems.RAW_LITHIUM.get())
+                                    .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))))))
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .tag(Tags.Blocks.ORES)
+            .transform(tagBlockAndItem("ores/lithium", "ores_in_ground/deepslate"))
+            .tag(Tags.Items.ORES)
+            .build()
+            .register();
+    public static final BlockEntry<Block> SULFUR = REGISTRATE.block("sulfur", Block::new)
+            .initialProperties(() -> Blocks.CALCITE)
+            .transform(pickaxeOnly())
+            .item()
+            .build()
+            .register();
+    public static final BlockEntry<Block> LIGNITE = REGISTRATE.block("lignite", Block::new)
+            .initialProperties(() -> Blocks.CALCITE)
+            .transform(pickaxeOnly())
+            .item()
+            .build()
+            .register();
+    public static final BlockEntry<Block> FIRECLAY = REGISTRATE.block("fireclay", Block::new)
+            .initialProperties(() -> Blocks.CLAY)
+            .tag(BlockTags.MINEABLE_WITH_SHOVEL)
+            .loot((p, b) -> p
+                    .add(b, p.createSingleItemTable(TFMGItems.FIRECLAY_BALL.get())))
+            .simpleItem()
+            .register();
+    //------------------MISC------------------//
+    public static final BlockEntry<Block> FOSSILSTONE = REGISTRATE.block("fossilstone", Block::new)
+            .initialProperties(() -> Blocks.OBSIDIAN)
+            .properties(p -> p.strength(100f, 1200f))
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .item()
+            .build()
+            .lang("Fossilstone")
+            .register();
+    public static final BlockEntry<Block> SLAG_BLOCK =
+            REGISTRATE.block("slag_block", Block::new)
+                    .properties(p -> p
+                            .strength(3.0F)
+                            .requiresCorrectToolForDrops()
+                            .sound(SoundType.CALCITE))
+                    .transform(pickaxeOnly())
+                    .simpleItem()
+                    .lang("Block of Slag")
+                    .register();
+
+
+
+    //------------------MISC_MACHINERY------------------//
+    public static final BlockEntry<AirIntakeBlock> AIR_INTAKE = REGISTRATE.block("air_intake", AirIntakeBlock::steel)
+            .initialProperties(SharedProperties::copperMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(pickaxeOnly())
+            .addLayer(() -> RenderType::cutoutMipped)
+            .blockstate(new AirIntakeGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+    @SuppressWarnings("'addLayer(java.util.function.Supplier<java.util.function.Supplier<net.minecraft.client.renderer.RenderType>>)' is deprecated and marked for removal ")
+    public static final BlockEntry<FireboxBlock> FIREBOX =
+            REGISTRATE.block("firebox", FireboxBlock::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.sound(SoundType.NETHER_BRICKS))
+                    .transform(pickaxeOnly())
+                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+                    .item(SteelTankItem::new)
+                    .build()
+                    .register();
+    public static final BlockEntry<AirIntakeBlock> IRON_AIR_INTAKE = REGISTRATE.block("cast_iron_air_intake", AirIntakeBlock::cast_iron)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(pickaxeOnly())
+            .addLayer(() -> RenderType::cutoutMipped)
+            .blockstate(new AirIntakeGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<WindingMachineBlock> WINDING_MACHINE = REGISTRATE.block("winding_machine", WindingMachineBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(pickaxeOnly())
+            .blockstate(BlockStateGen.horizontalBlockProvider(true))
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<SurfaceScannerBlock> SURFACE_SCANNER = REGISTRATE.block("surface_scanner", SurfaceScannerBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(pickaxeOnly())
+            .addLayer(() -> RenderType::cutoutMipped)
+            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+            .item()
+            .transform(customItemModel())
+            .register();
+    public static final BlockEntry<MachineInputBlock> MACHINE_INPUT =
+            REGISTRATE.block("machine_input", MachineInputBlock::new)
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .properties(p -> p
+                            .strength(4.5F))
+                    .transform(axeOrPickaxe())
+                    .transform(BlockStressDefaults.setImpact(4.0))
+                    .blockstate(BlockStateGen.directionalBlockProvider(true))
+                    .item()
+                    .build()
+                    .register();
+
+    public static final BlockEntry<ConcreteHoseBlock> CONCRETE_HOSE = REGISTRATE.block("concrete_hose", ConcreteHoseBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(pickaxeOnly())
+            .blockstate(simpleCubeAll("steel_block"))
+            .transform(BlockStressDefaults.setImpact(4.0))
+            .item()
+            .transform(customItemModel())
+            .register();
+
+
+    //------------------METALLURGY------------------//
+    public static final BlockEntry<BlastFurnaceOutputBlock> BLAST_FURNACE_OUTPUT = REGISTRATE.block("blast_furnace_output", BlastFurnaceOutputBlock::new)
+            .initialProperties(() -> Blocks.NETHER_BRICKS)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .blockstate(BlockStateGen.horizontalBlockProvider(true))
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<BlastFurnaceHatchBlock> BLAST_FURNACE_HATCH = REGISTRATE.block("blast_furnace_hatch", BlastFurnaceHatchBlock::new)
+            .initialProperties(() -> Blocks.NETHER_BRICKS)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .tag(TFMGTags.TFMGBlockTags.BLAST_FURNACE_WALL.tag)
+            .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_WALL.tag)
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .simpleItem()
+            .register();
+    public static final BlockEntry<Block> FIREPROOF_BRICKS = REGISTRATE.block("fireproof_bricks", Block::new)
+            .initialProperties(() -> Blocks.NETHER_BRICKS)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .tag(TFMGTags.TFMGBlockTags.BLAST_FURNACE_WALL.tag)
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .item()
+            .build()
+            .register();
+
+    public static final BlockEntry<Block> REINFORCED_FIREPROOF_BRICKS = REGISTRATE.block("reinforced_fireproof_bricks", Block::new)
+            .initialProperties(() -> Blocks.NETHER_BRICKS)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_WALL.tag)
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .blockstate(simpleCubeAll("fireproof_bricks"))
+            .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.FIREPROOF_BRICKS.get().asItem()))
+            .register();
+
+    public static final BlockEntry<Block> BLAST_FURNACE_REINFORCEMENT = REGISTRATE.block("blast_furnace_reinforcement", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .onRegister(connectedTextures(()->new HorizontalCTBehaviour(TFMGSpriteShifts.BLAST_FURNACE_REINFORCEMENT)))
+            .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_SUPPORT.tag)
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .item(BlastFurnaceReinforcementBlockItem::new)
+            .build()
+            .register();
+
+    public static final BlockEntry<BlastFurnaceReinforcementWallBlock> BLAST_FURNACE_REINFORCEMENT_WALL = REGISTRATE.block("blast_furnace_reinforcement_wall", BlastFurnaceReinforcementWallBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .onRegister(connectedTextures(()->new HorizontalCTBehaviour(TFMGSpriteShifts.BLAST_FURNACE_REINFORCEMENT)))
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.BLAST_FURNACE_REINFORCEMENT.get().asItem()))
+            .register();
+            //
+            public static final BlockEntry<Block> RUSTED_BLAST_FURNACE_REINFORCEMENT = REGISTRATE.block("rusted_blast_furnace_reinforcement", Block::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.requiresCorrectToolForDrops())
+                    .transform(pickaxeOnly())
+                    .onRegister(connectedTextures(()->new HorizontalCTBehaviour(TFMGSpriteShifts.RUSTED_BLAST_FURNACE_REINFORCEMENT)))
+                    .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_SUPPORT.tag)
+                    .tag(BlockTags.NEEDS_STONE_TOOL)
+                    .item(BlastFurnaceReinforcementBlockItem::new)
+                    .build()
+                    .register();
+
+    public static final BlockEntry<BlastFurnaceReinforcementWallBlock> RUSTED_BLAST_FURNACE_REINFORCEMENT_WALL = REGISTRATE.block("rusted_blast_furnace_reinforcement_wall", BlastFurnaceReinforcementWallBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .onRegister(connectedTextures(()->new HorizontalCTBehaviour(TFMGSpriteShifts.RUSTED_BLAST_FURNACE_REINFORCEMENT)))
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.RUSTED_BLAST_FURNACE_REINFORCEMENT.get().asItem()))
+            .register();
+
+
+    public static final BlockEntry<WallBlock> FIREPROOF_BRICK_REINFORCEMENT = REGISTRATE.block("fireproof_brick_reinforcement", WallBlock::new)
+            .initialProperties(() -> Blocks.NETHER_BRICKS)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .tag(BlockTags.WALLS)
+            .tag(TFMGTags.TFMGBlockTags.BLAST_FURNACE_SUPPORT.tag)
+            .blockstate((c, p) -> TFMGVanillaBlockStates.generateWallBlockState(c, p, "fireproof_brick_reinforcement"))
+            .item()
+            .transform(b -> TFMGVanillaBlockStates.transformWallItem(b, "fireproof_brick_reinforcement"))
+            .build()
+            .register();
+
+
+    public static final BlockEntry<CokeOvenBlock> COKE_OVEN = REGISTRATE.block("coke_oven", CokeOvenBlock::new)
+            .initialProperties(() -> Blocks.BRICKS)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .blockstate(new CokeOvenGenerator()::generate)
+            .transform(pickaxeOnly())
+            .onRegister(connectedTextures(CokeOvenCTBehavior::new))
+            .item()
+            .transform(customItemModel())
+            .register();
+    @SuppressWarnings("'addLayer(java.util.function.Supplier<java.util.function.Supplier<net.minecraft.client.renderer.RenderType>>)' is deprecated and marked for removal ")
+    public static final BlockEntry<BlastStoveBlock> BLAST_STOVE =
+            REGISTRATE.block("blast_stove", BlastStoveBlock::new)
+                    .initialProperties(SharedProperties::copperMetal)
+                    .transform(pickaxeOnly())
+                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+                    .onRegister(CreateRegistrate.connectedTextures(() -> new MultiblockCTBehavior(TFMGSpriteShifts.BLAST_STOVE_SIDE, TFMGSpriteShifts.BLAST_STOVE_TOP)))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .item(SteelTankItem::new)
+                    .build()
+                    .register();
+
+    public static final BlockEntry<CastingBasinBlock> CASTING_BASIN = REGISTRATE.block("casting_basin", CastingBasinBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate(BlockStateGen.horizontalBlockProvider(true))
+            .item()
+            .transform(customItemModel())
+            .register();
+
+
+
+
+
+
+    //------------------GADGETS------------------//
+
+    public static final BlockEntry<NapalmBombBlock> NAPALM_BOMB = REGISTRATE.block("napalm_bomb", NapalmBombBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+            .simpleItem()
+            .register();
+
+    //------------------ELECTRICITY------------------//
+
+    public static final BlockEntry<GeneratorBlock> GENERATOR =
+            REGISTRATE.block("generator", GeneratorBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .transform(BlockStressDefaults.setImpact(40.0))
+                    .blockstate(BlockStateGen.directionalBlockProvider(true))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
+    public static final BlockEntry<ElectricMotorBlock> ELECTRIC_MOTOR =
+            REGISTRATE.block("electric_motor", ElectricMotorBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate(new CreativeMotorGenerator()::generate)
+                    .transform(BlockStressDefaults.setCapacity(45.0))
+                    .transform(BlockStressDefaults.setGeneratorSpeed(() -> Couple.create(0, 256)))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
+    public static final BlockEntry<CreativeGeneratorBlock> CREATIVE_GENERATOR = REGISTRATE.block("creative_generator", CreativeGeneratorBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .simpleItem()
+            .register();
+
+    public static final BlockEntry<AccumulatorBlock> ACCUMULATOR =
+            REGISTRATE.block("accumulator", AccumulatorBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .onRegister(connectedTextures(() -> new CapacitorCTBehavior(TFMGSpriteShifts.ACCUMULATOR)))
+                    .blockstate(BlockStateGen.directionalBlockProvider(true))
+                    .item(AccumulatorItem::new)
+                    .build()
+                    .register();
+;
+    public static final BlockEntry<LightBulbBlock> LIGHT_BULB =
+            REGISTRATE.block("light_bulb", p->new LightBulbBlock(p, TFMGBlockEntities.LIGHT_BULB,TFMGShapes.LIGHT_BULB))
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.lightLevel(s -> s.getValue(LIGHT)))
+                    .transform(pickaxeOnly())
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate(BlockStateGen.directionalBlockProvider(true))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<LightBulbBlock> CIRCULAR_LIGHT =
+            REGISTRATE.block("circular_light", p->new LightBulbBlock(p, TFMGBlockEntities.CIRCULAR_LIGHT,TFMGShapes.CIRCULAR_LIGHT))
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.lightLevel(s -> s.getValue(LIGHT)))
+                    .transform(pickaxeOnly())
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate(new LampGenerator()::generate)
+                    .lang("Circular Lamp")
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<LightBulbBlock> MODERN_LIGHT =
+            REGISTRATE.block("modern_light", p->new LightBulbBlock(p, TFMGBlockEntities.MODERN_LIGHT,TFMGShapes.MODERN_LIGHT))
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.lightLevel(s -> s.getValue(LIGHT)))
+                    .transform(pickaxeOnly())
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate(new LampGenerator()::generate)
+                    .lang("Light Panel")
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<LightBulbBlock> ALUMINUM_LAMP =
+            REGISTRATE.block("aluminum_lamp", p->new LightBulbBlock(p, TFMGBlockEntities.ALUMINUM_LAMP,TFMGShapes.ALUMINUM_LAMP))
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.lightLevel(s -> s.getValue(LIGHT)))
+                    .transform(pickaxeOnly())
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate(new LampGenerator()::generate)
+                    .lang("Aluminum Lamp")
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
+    public static final BlockEntry<ElectricDiodeBlock> DIODE =
+            REGISTRATE.block("electric_diode", ElectricDiodeBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate(new CreativeMotorGenerator()::generate)
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
+    public static final BlockEntry<PotentiometerBlock> POTENTIOMETER =
+            REGISTRATE.block("potentiometer", PotentiometerBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate(new CreativeMotorGenerator()::generate)
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
+    public static final BlockEntry<Block> DEBUG_CONDUCTOR =
+            REGISTRATE.block("debug_conductor", Block::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .simpleItem()
+                    .register();
+    public static final BlockEntry<ElectricPumpBlock> ELECTRIC_PUMP =
+            REGISTRATE.block("electric_pump", ElectricPumpBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate(BlockStateGen.directionalBlockProvider(true))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<VoltageObserverBlock> VOLTAGE_OBSERVER =
+            REGISTRATE.block("voltage_observer", VoltageObserverBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate(new VoltageObserverGenerator()::generate)
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<VoltMeterBlock> VOLTMETER =
+            REGISTRATE.block("voltmeter", VoltMeterBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<AmmeterBlock> AMMETER =
+            REGISTRATE.block("ammeter", AmmeterBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<PolarizerBlock> POLARIZER =
+            REGISTRATE.block("polarizer", PolarizerBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<TrafficLightBlock> TRAFFIC_LIGHT =
+            REGISTRATE.block("traffic_light", TrafficLightBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<SegmentedDisplayBlock> SEGMENTED_DISPLAY =
+            REGISTRATE.block("segmented_display", SegmentedDisplayBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .onRegister(connectedTextures(SegmentedDisplayCTBehavior::new))
+                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
+    public static final BlockEntry<TransformerBlock> TRANSFORMER =
+            REGISTRATE.block("transformer", TransformerBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
+    public static final BlockEntry<FuseBlock> FUSE_BLOCK =
+            REGISTRATE.block("fuse_block", FuseBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
+
+    //------------------EXHAUST/WASTE_REMOVAL------------------//
+    public static final BlockEntry<SmokestackBlock> BRICK_SMOKESTACK = REGISTRATE.block("brick_smokestack", SmokestackBlock::new)
+            .initialProperties(() -> Blocks.BRICKS)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .blockstate(new SmokestackGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<SmokestackBlock> METAL_SMOKESTACK = REGISTRATE.block("metal_smokestack", SmokestackBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .blockstate(new SmokestackGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<SmokestackBlock> CONCRETE_SMOKESTACK = REGISTRATE.block("concrete_smokestack", SmokestackBlock::new)
+            .initialProperties(() -> Blocks.STONE)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .blockstate(new SmokestackGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<ExhaustBlock> EXHAUST =
+            REGISTRATE.block("exhaust", ExhaustBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .blockstate(BlockStateGen.directionalBlockProvider(false))
+                    .transform(pickaxeOnly())
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
+
+    public static final BlockEntry<FlarestackBlock> FLARESTACK =
+            REGISTRATE.block("flarestack", FlarestackBlock::new)
+                    .initialProperties(SharedProperties::copperMetal)
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .properties(p -> p
+                            .lightLevel(s -> s.getValue(FlarestackBlock.LIT) ? 15 : 0)
+                            .noOcclusion())
+                    .blockstate(new FlarestackGenerator()::generate)
+                    .transform(pickaxeOnly())
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
+    //------------------COGWHEELS------------------//
+
+    public static final BlockEntry<TFMGCogWheelBlock> STEEL_COGWHEEL =
+            REGISTRATE.block("steel_cogwheel", TFMGCogWheelBlock::small)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .transform(BlockStressDefaults.setNoImpact())
+                    .transform(axeOrPickaxe())
+                    .blockstate(BlockStateGen.axisBlockProvider(false))
+                    .onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
+                    .item(TFMGCogwheelBlockItem::new)
+                    .build()
+                    .register();
+
+    public static final BlockEntry<TFMGCogWheelBlock> LARGE_STEEL_COGWHEEL =
+            REGISTRATE.block("large_steel_cogwheel", TFMGCogWheelBlock::large)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .transform(axeOrPickaxe())
+                    .transform(BlockStressDefaults.setNoImpact())
+                    .blockstate(BlockStateGen.axisBlockProvider(false))
+                    .onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
+                    .item(TFMGCogwheelBlockItem::new)
+                    .build()
+                    .register();
+    //
+    public static final BlockEntry<TFMGCogWheelBlock> ALUMINUM_COGWHEEL =
+            REGISTRATE.block("aluminum_cogwheel", TFMGCogWheelBlock::small)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.sound(SoundType.COPPER))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .transform(BlockStressDefaults.setNoImpact())
+                    .transform(axeOrPickaxe())
+                    .blockstate(BlockStateGen.axisBlockProvider(false))
+                    .onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
+                    .item(TFMGCogwheelBlockItem::new)
+                    .build()
+                    .register();
+
+    public static final BlockEntry<TFMGCogWheelBlock> LARGE_ALUMINUM_COGWHEEL =
+            REGISTRATE.block("large_aluminum_cogwheel", TFMGCogWheelBlock::large)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.sound(SoundType.COPPER))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .transform(axeOrPickaxe())
+                    .transform(BlockStressDefaults.setNoImpact())
+                    .blockstate(BlockStateGen.axisBlockProvider(false))
+                    .onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
+                    .item(TFMGCogwheelBlockItem::new)
+                    .build()
+                    .register();
+
+    //------------------CASINGS------------------//
+
+    public static final BlockEntry<CasingBlock> STEEL_CASING = REGISTRATE.block("steel_casing", CasingBlock::new)
+            .transform(BuilderTransformers.casing(() -> TFMGSpriteShifts.STEEL_CASING))
+            .register();
+    public static final BlockEntry<CasingBlock> HEAVY_MACHINERY_CASING = REGISTRATE.block("heavy_machinery_casing", CasingBlock::new)
+            .tag(TFMGTags.TFMGBlockTags.SURFACE_SCANNER_FINDABLE.tag)
+            .transform(BuilderTransformers.casing(() -> TFMGSpriteShifts.HEAVY_MACHINERY_CASING))
+            .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+            .register();
+    public static final BlockEntry<CasingBlock> ELECTRIC_CASING = REGISTRATE.block("electric_casing", CasingBlock::new)
+            .transform(BuilderTransformers.casing(() -> TFMGSpriteShifts.ELECTRIC_CASING))
+            .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+            .register();
+    public static final BlockEntry<CasingBlock> ALUMINUM_CASING = REGISTRATE.block("industrial_aluminum_casing", CasingBlock::new)
+            .transform(BuilderTransformers.casing(() -> TFMGSpriteShifts.INDUSTRIAL_ALUMINUM_CASING))
+            .properties(p -> p.sound(SoundType.COPPER))
+            .register();
+    //------------------STORAGE_BLOCKS------------------//
+    public static final BlockEntry<Block> STEEL_BLOCK = REGISTRATE.block("steel_block", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .onRegister(connectedTextures(() -> new EncasedCTBehaviour(TFMGSpriteShifts.STEEL_BLOCK)))
+            .onRegister(casingConnectivity((block, cc) -> cc.makeCasing(block, TFMGSpriteShifts.STEEL_BLOCK)))
+            .transform(pickaxeOnly())
+            .blockstate(simpleCubeAll("steel_block"))
+            .tag(BlockTags.NEEDS_IRON_TOOL)
+            .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_WALL.tag)
+            .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_SUPPORT.tag)
+            .tag(Tags.Blocks.STORAGE_BLOCKS)
+            .tag(BlockTags.BEACON_BASE_BLOCKS)
+            .transform(tagBlockAndItem("storage_blocks/steel"))
+            .tag(Tags.Items.STORAGE_BLOCKS)
+            .build()
+            .lang("Block of Steel")
+            .register();
+    public static final BlockEntry<Block> CAST_IRON_BLOCK = REGISTRATE.block("cast_iron_block", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .onRegister(connectedTextures(() -> new EncasedCTBehaviour(TFMGSpriteShifts.CAST_IRON_BLOCK)))
+            .onRegister(casingConnectivity((block, cc) -> cc.makeCasing(block, TFMGSpriteShifts.CAST_IRON_BLOCK)))
+            .transform(pickaxeOnly())
+            .blockstate(simpleCubeAll("cast_iron_block"))
+            .tag(BlockTags.NEEDS_IRON_TOOL)
+            .tag(Tags.Blocks.STORAGE_BLOCKS)
+            .tag(BlockTags.BEACON_BASE_BLOCKS)
+            .transform(tagBlockAndItem("storage_blocks/cast_iron"))
+            .tag(Tags.Items.STORAGE_BLOCKS)
+            .build()
+            .lang("Block of Cast Iron")
+            .register();
+
+    public static final BlockEntry<Block> ALUMINUM_BLOCK = REGISTRATE.block("aluminum_block", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .onRegister(connectedTextures(() -> new EncasedCTBehaviour(TFMGSpriteShifts.CAST_IRON_BLOCK)))
+            .onRegister(casingConnectivity((block, cc) -> cc.makeCasing(block, TFMGSpriteShifts.CAST_IRON_BLOCK)))
+            .transform(pickaxeOnly())
+            .blockstate(simpleCubeAll("aluminum_block"))
+            .tag(BlockTags.NEEDS_IRON_TOOL)
+            .tag(Tags.Blocks.STORAGE_BLOCKS)
+            .tag(BlockTags.BEACON_BASE_BLOCKS)
+            .transform(tagBlockAndItem("storage_blocks/aluminum"))
+            .tag(Tags.Items.STORAGE_BLOCKS)
+            .build()
+            .lang("Block of Aluminum")
+            .register();
+    public static final BlockEntry<Block> PLASTIC_BLOCK = REGISTRATE.block("plastic_block", Block::new)
+            .initialProperties(() -> Blocks.QUARTZ_BLOCK)
+
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .blockstate(simpleCubeAll("plastic_block"))
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .tag(Tags.Blocks.STORAGE_BLOCKS)
+            .transform(tagBlockAndItem("storage_blocks/plastic"))
+            .tag(Tags.Items.STORAGE_BLOCKS)
+            .build()
+            .lang("Block of Plastic")
+            .register();
+
+    public static final BlockEntry<Block> LEAD_BLOCK = REGISTRATE.block("lead_block", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .onRegister(connectedTextures(() -> new EncasedCTBehaviour(TFMGSpriteShifts.LEAD_BLOCK)))
+            .onRegister(casingConnectivity((block, cc) -> cc.makeCasing(block, TFMGSpriteShifts.LEAD_BLOCK)))
+            .transform(pickaxeOnly())
+            .blockstate(simpleCubeAll("lead_block"))
+            .tag(BlockTags.NEEDS_IRON_TOOL)
+            .tag(Tags.Blocks.STORAGE_BLOCKS)
+            .tag(BlockTags.BEACON_BASE_BLOCKS)
+            .transform(tagBlockAndItem("storage_blocks/lead"))
+            .tag(Tags.Items.STORAGE_BLOCKS)
+            .build()
+            .lang("Block of Lead")
+            .register();
+
+    public static final BlockEntry<Block> CONSTANTAN_BLOCK = REGISTRATE.block("constantan_block", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .blockstate(simpleCubeAll("constantan_block"))
+            .tag(BlockTags.NEEDS_IRON_TOOL)
+            .tag(Tags.Blocks.STORAGE_BLOCKS)
+            .tag(BlockTags.BEACON_BASE_BLOCKS)
+            .transform(tagBlockAndItem("storage_blocks/constantan"))
+            .tag(Tags.Items.STORAGE_BLOCKS)
+            .build()
+            .lang("Block of Constantan")
+            .register();
+
+    public static final BlockEntry<Block> NICKEL_BLOCK = REGISTRATE.block("nickel_block", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .onRegister(connectedTextures(() -> new EncasedCTBehaviour(TFMGSpriteShifts.LEAD_BLOCK)))
+            .onRegister(casingConnectivity((block, cc) -> cc.makeCasing(block, TFMGSpriteShifts.LEAD_BLOCK)))
+            .transform(pickaxeOnly())
+            .tag(BlockTags.NEEDS_IRON_TOOL)
+            .tag(Tags.Blocks.STORAGE_BLOCKS)
+            .tag(BlockTags.BEACON_BASE_BLOCKS)
+            .transform(tagBlockAndItem("storage_blocks/nickel"))
+            .tag(Tags.Items.STORAGE_BLOCKS)
+            .build()
+            .lang("Block of Nickel")
+            .register();
+
+    public static final BlockEntry<LithiumBlock> LITHIUM_BLOCK = REGISTRATE.block("lithium_block", LithiumBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .onRegister(connectedTextures(() -> new EncasedCTBehaviour(TFMGSpriteShifts.LEAD_BLOCK)))
+            .onRegister(casingConnectivity((block, cc) -> cc.makeCasing(block, TFMGSpriteShifts.LEAD_BLOCK)))
+            .transform(pickaxeOnly())
+            .blockstate(simpleCubeAll("lithium_block"))
+            .tag(BlockTags.NEEDS_IRON_TOOL)
+            .tag(Tags.Blocks.STORAGE_BLOCKS)
+            .tag(BlockTags.BEACON_BASE_BLOCKS)
+            .tag(AllTags.forgeBlockTag("storage_blocks/lithium"))
+            .item()
+            .tag(AllTags.forgeItemTag("storage_blocks/lithium"))
+            .tag(Tags.Items.STORAGE_BLOCKS)
+            .build()
+            .lang("Block of Lithium")
+            .register();
+
+
+    public static final BlockEntry<Block> COAL_COKE_BLOCK = REGISTRATE.block("coal_coke_block", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .blockstate(simpleCubeAll("coal_coke_block"))
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .tag(Tags.Blocks.STORAGE_BLOCKS)
+            .item(CoalCokeBlockItem::new)
+            .tag(Tags.Items.STORAGE_BLOCKS)
+            .build()
+            .lang("Block of Coal Coke")
+            .register();
+
+    //------------------DOOR------------------//
+    public static final BlockEntry<TFMGSlidingDoorBlock> HEAVY_CASING_DOOR =
+            REGISTRATE.block("heavy_casing_door", p -> new TFMGSlidingDoorBlock(p, SlidingDoorBlock.GLASS_SET_TYPE.get(), false))
+                    .transform(TFMGBuilderTransformers.slidingDoor("heavy_casing"))
+                    .properties(p -> p
+                            .sound(SoundType.COPPER)
+                            .noOcclusion())
+                    .register();
+    public static final BlockEntry<TFMGSlidingDoorBlock> STEEL_CASING_DOOR =
+            REGISTRATE.block("steel_door", p -> new TFMGSlidingDoorBlock(p, SlidingDoorBlock.GLASS_SET_TYPE.get(), true))
+                    .transform(TFMGBuilderTransformers.slidingDoor("steel"))
+                    .properties(p -> p
+                            .sound(SoundType.COPPER)
+                            .noOcclusion())
+                    .register();
+
+    public static final BlockEntry<TFMGSlidingDoorBlock> ALUMINUM_DOOR =
+            REGISTRATE.block("aluminum_door", p -> new TFMGSlidingDoorBlock(p, SlidingDoorBlock.GLASS_SET_TYPE.get(), false))
+                    .transform(TFMGBuilderTransformers.slidingDoor("aluminum"))
+                    .properties(p -> p
+                            .sound(SoundType.COPPER)
+                            .noOcclusion())
+                    .register();
+    public static final BlockEntry<TFMGSlidingDoorBlock> HEAVY_PLATED_DOOR =
+            REGISTRATE.block("heavy_plated_door", p -> new TFMGSlidingDoorBlock(p, SlidingDoorBlock.GLASS_SET_TYPE.get(), false))
+                    .transform(TFMGBuilderTransformers.slidingDoor("heavy_plated"))
+                    .properties(p -> p
+                            .sound(SoundType.COPPER)
+                            .noOcclusion())
+                    .register();
+
+
+    //------------------DEBUG------------------//
+    public static final BlockEntry<DebugElectricBlock> DEBUG_ELECTRIC_BLOCK = REGISTRATE.block("debug_electric_block", DebugElectricBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .simpleItem()
+            .register();
+
+    public static final BlockEntry<DebugGeneratorBlock> DEBUG_GENERATOR_BLOCK = REGISTRATE.block("debug_generator_block", DebugGeneratorBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .simpleItem()
+            .register();
+
+
+    static {
+        REGISTRATE.setCreativeTab(TFMGCreativeTabs.TFMG_DECORATION);
+    }
+
+    //------------------GEARBOXES------------------//
+    public static final BlockEntry<SteelGearboxBlock> STEEL_GEARBOX = REGISTRATE.block("steel_gearbox", SteelGearboxBlock::new)
+            .initialProperties(SharedProperties::stone)
+            .transform(BlockStressDefaults.setNoImpact())
+            .transform(axeOrPickaxe())
+            .properties(p -> p.noOcclusion())
+            .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(TFMGSpriteShifts.HEAVY_MACHINERY_CASING)))
+            .onRegister(CreateRegistrate.casingConnectivity((block, cc) -> cc.make(block, TFMGSpriteShifts.HEAVY_MACHINERY_CASING,
+                    (s, f) -> f.getAxis() == s.getValue(GearboxBlock.AXIS))))
+            .blockstate((c, p) -> axisBlock(c, p, $ -> AssetLookup.partialBaseModel(c, p), true))
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    //------------------BARS------------------//
+    public static final BlockEntry<IronBarsBlock> STEEL_BARS = TFMGMetalBarsGen.createBars("steel", true,
+            () -> DataIngredient.tag(TFMGTags.forgeItemTag("ingots/steel")), MapColor.TERRACOTTA_CYAN);
+    public static final BlockEntry<IronBarsBlock> ALUMINUM_BARS = TFMGMetalBarsGen.createBars("aluminum", true,
+            () -> DataIngredient.tag(TFMGTags.forgeItemTag("ingots/aluminum")), MapColor.TERRACOTTA_WHITE);
+
+    public static final BlockEntry<IronBarsBlock> CAST_IRON_BARS = TFMGMetalBarsGen.createBars("cast_iron", true,
+            () -> DataIngredient.tag(TFMGTags.forgeItemTag("ingots/cast_iron")), MapColor.COLOR_BLACK);
+
+    public static final BlockEntry<IronBarsBlock> LEAD_BARS = TFMGMetalBarsGen.createBars("lead", true,
+            () -> DataIngredient.tag(TFMGTags.forgeItemTag("ingots/lead")), MapColor.TERRACOTTA_BLUE);
+
+    public static final BlockEntry<IronBarsBlock> NICKEL_BARS = TFMGMetalBarsGen.createBars("nickel", true,
+            () -> DataIngredient.tag(TFMGTags.forgeItemTag("ingots/nickel")), MapColor.TERRACOTTA_YELLOW);
+
+    //------------------LADDERS------------------//
+    public static final BlockEntry<MetalLadderBlock> STEEL_LADDER =
+            REGISTRATE.block("steel_ladder", MetalLadderBlock::new)
+                    .transform(BuilderTransformers.ladder("steel",
+                            () -> DataIngredient.tag(TFMGTags.forgeItemTag("ingots/steel")), MapColor.TERRACOTTA_CYAN))
+                    .register();
+    public static final BlockEntry<MetalLadderBlock> ALUMINUM_LADDER =
+            REGISTRATE.block("aluminum_ladder", MetalLadderBlock::new)
+                    .transform(BuilderTransformers.ladder("aluminum",
+                            () -> DataIngredient.tag(TFMGTags.forgeItemTag("ingots/aluminum")), MapColor.TERRACOTTA_WHITE))
+                    .register();
+
+    public static final BlockEntry<MetalLadderBlock> CAST_IRON_LADDER =
+            REGISTRATE.block("cast_iron_ladder", MetalLadderBlock::new)
+                    .transform(BuilderTransformers.ladder("cast_iron",
+                            () -> DataIngredient.tag(TFMGTags.forgeItemTag("ingots/cast_iron")), MapColor.TERRACOTTA_WHITE))
+                    .register();
+
+    public static final BlockEntry<MetalLadderBlock> LEAD_LADDER =
+            REGISTRATE.block("lead_ladder", MetalLadderBlock::new)
+                    .transform(BuilderTransformers.ladder("lead",
+                            () -> DataIngredient.tag(TFMGTags.forgeItemTag("ingots/lead")), MapColor.TERRACOTTA_WHITE))
+                    .lang("Leadder")
+                    .register();
+
+    public static final BlockEntry<MetalLadderBlock> NICKEL_LADDER =
+            REGISTRATE.block("nickel_ladder", MetalLadderBlock::new)
+                    .transform(BuilderTransformers.ladder("nickel",
+                            () -> DataIngredient.tag(TFMGTags.forgeItemTag("ingots/nickel")), MapColor.TERRACOTTA_WHITE))
+                    .register();
+    public static final BlockEntry<MetalLadderBlock> CONSTANTAN_LADDER =
+            REGISTRATE.block("constantan_ladder", MetalLadderBlock::new)
+                    .transform(BuilderTransformers.ladder("constantan",
+                            () -> DataIngredient.tag(TFMGTags.forgeItemTag("ingots/constantan")), MapColor.TERRACOTTA_WHITE))
+                    .register();
+    //------------------SCAFFOLDINGS------------------//
+    public static final BlockEntry<MetalScaffoldingBlock> STEEL_SCAFFOLD =
+            REGISTRATE.block("steel_scaffolding", MetalScaffoldingBlock::new)
+                    .properties(p -> p
+                            .strength(4.0F)
+                            .requiresCorrectToolForDrops())
+                    .transform(BuilderTransformers.scaffold("steel",
+                            () -> DataIngredient.tag(TFMGTags.forgeItemTag("ingots/steel")), MapColor.TERRACOTTA_CYAN,
+                            TFMGSpriteShifts.STEEL_SCAFFOLD, TFMGSpriteShifts.STEEL_SCAFFOLD_INSIDE, TFMGSpriteShifts.STEEL_CASING))
+                    .register();
+
+    public static final BlockEntry<MetalScaffoldingBlock> ALUMINUM_SCAFFOLD =
+            REGISTRATE.block("aluminum_scaffolding", MetalScaffoldingBlock::new)
+                    .properties(p -> p
+                            .strength(3.0F)
+                            .requiresCorrectToolForDrops())
+
+                    .transform(BuilderTransformers.scaffold("aluminum",
+                            () -> DataIngredient.tag(TFMGTags.forgeItemTag("ingots/aluminum")), MapColor.TERRACOTTA_CYAN,
+                            TFMGSpriteShifts.ALUMINUM_SCAFFOLD, TFMGSpriteShifts.ALUMINUM_SCAFFOLD_INSIDE, TFMGSpriteShifts.ALUMINUM_SCAFFOLD_TOP))
+                    .register();
+    //------------------DECOR------------------//
+    public static final BlockEntry<Block> SLAG_BRICKS =
+            REGISTRATE.block("slag_bricks", Block::new)
+                    .properties(p -> p
+                            .strength(3.0F)
+                            .requiresCorrectToolForDrops()
+                            .sound(SoundType.CALCITE))
+                    .transform(pickaxeOnly())
+                    .simpleItem()
+                    .register();
+
+    public static final MaterialSet SLAG_BRICKS_SET = makeVariants(SLAG_BRICKS);
+    public static final BlockEntry<LithiumTorchBlock> LITHIUM_TORCH =
+            REGISTRATE.block("lithium_torch", LithiumTorchBlock::new)
+                    .initialProperties(() -> Blocks.TORCH)
+                    .properties(p -> p.lightLevel(s -> 14).instabreak().noOcclusion())
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate(new LithiumTorchGenerator()::generate)
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
+    //public static final BlockEntry<TrainTrapdoorBlock> STEEL_TRAPDOOR =
+    //        REGISTRATE.block("steel_trapdoor", TrainTrapdoorBlock::new)
+    //                .initialProperties(SharedProperties::softMetal)
+    //                .properties(p -> p.mapColor(MapColor.TERRACOTTA_CYAN)
+    //                        .sound(SoundType.NETHERITE_BLOCK))
+    //                .transform(BuilderTransformers.trapdoor(true))
+    //                .register();
+
+
+    //------------------FLYWHEELS------------------//
+    public static final BlockEntry<TFMGFlywheelBlock>
+            STEEL_FLYWHEEL = flywheel("steel"),
+            LEAD_FLYWHEEL = flywheel("lead"),
+            CAST_IRON_FLYWHEEL = flywheel("cast_iron"),
+            ALUMINUM_FLYWHEEL = flywheel("aluminum"),
+            NICKEL_FLYWHEEL = flywheel("nickel");
+
+    public static String[] DECOR_METALS = {"steel", "aluminum", "cast_iron", "lead", "nickel","constantan" , "copper", "zinc", "brass"};
+
+    static {
+        //------------------TRUSSES------------------//
+        for (String metal : DECOR_METALS) {
+
+            truss(metal);
+            frame(metal);
+        }
+        //------------------CAUTION_BLOCKS------------------//
+        generateCautionBlocks();
+    }
+
+
+    //------------------CONCRETE------------------//
+    public static final BlockEntry<RebarBlock> REBAR_BLOCK =
+            REGISTRATE.block("rebar_block", RebarBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.noOcclusion())
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<RebarFloorBlock> REBAR_FLOOR =
+            REGISTRATE.block("rebar_floor", RebarFloorBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.noOcclusion())
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<RebarWallBlock> REBAR_WALL =
+            REGISTRATE.block("rebar_wall", RebarWallBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.noOcclusion())
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<TFMGDirectionalBlock> REBAR_PILE =
+            REGISTRATE.block("rebar_pile", TFMGDirectionalBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate(BlockStateGen.directionalBlockProvider(true))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<RebarStairsBlock> REBAR_STAIRS =
+            REGISTRATE.block("rebar_stairs", p->new RebarStairsBlock(REBAR_PILE.getDefaultState(), p))
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.noOcclusion())
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate(new RebarStairsGenerator()::generate)
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
+    public static final BlockEntry<RebarPillarBlock> REBAR_PILLAR =
+            REGISTRATE.block("rebar_pillar", RebarPillarBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.noOcclusion())
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate(BlockStateGen.directionalBlockProvider(true))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
+
+    public static final MaterialSet CONCRETE = generateConcrete(false);
+    public static final MaterialSet REBAR_CONCRETE = generateConcrete(true);
+
+    public static final BlockEntry<Block> ASPHALT = REGISTRATE.block("asphalt", Block::new)
+            .initialProperties(() -> Blocks.STONE)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .item()
+            .build()
+            .register();
+    public static final MaterialSet ASPHALT_SET = makeVariants(ASPHALT);
+
+    static {
+        REGISTRATE.setCreativeTab(TFMGCreativeTabs.TFMG_MAIN);
+    }
+
+
+    public static void init() {
+
+    }
+}

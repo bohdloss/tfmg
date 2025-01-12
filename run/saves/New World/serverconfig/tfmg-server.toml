@@ -1,0 +1,36 @@
+
+#.
+#Fine tune the kinetic stats of individual components
+[stressValues]
+
+	#.
+	#.
+	#[in Stress Units]
+	#Configure the individual stress impact of mechanical blocks. Note that this cost is doubled for every speed increase it receives
+	[stressValues.impact]
+		plastic_mechanical_pump = 4.0
+		cast_iron_mechanical_pump = 4.0
+		aluminum_mechanical_pump = 4.0
+		brass_mechanical_pump = 4.0
+		steel_mechanical_pump = 4.0
+		lead_flywheel = 0.0
+		steel_cogwheel = 0.0
+		large_aluminum_cogwheel = 0.0
+		heavy_casing_encased_steel_cogwheel = 0.0
+		heavy_casing_encased_aluminum_cogwheel = 0.0
+		aluminum_flywheel = 0.0
+		heavy_casing_encased_large_aluminum_cogwheel = 0.0
+		steel_encased_large_steel_cogwheel = 0.0
+		steel_encased_large_aluminum_cogwheel = 0.0
+		aluminum_cogwheel = 0.0
+		steel_gearbox = 0.0
+		steel_encased_aluminum_cogwheel = 0.0
+		heavy_casing_encased_large_steel_cogwheel = 0.0
+		heavy_casing_encased_shaft = 0.0
+		steel_flywheel = 0.0
+		large_steel_cogwheel = 0.0
+		cast_iron_flywheel = 0.0
+		steel_encased_shaft = 0.0
+		steel_encased_steel_cogwheel = 0.0
+		nickel_flywheel = 0.0
+

@@ -1,0 +1,6 @@
+// 1.20.1	2025-01-12T19:55:37.895227	TFMG's Processing Recipes
+ae24d73a2ef5b8059806e660641bcb9dff2a15f4 data/tfmg/recipes/coking/charcoal.json
+9000fbf96dc2c2b822aa4e526b1c8686d5413e5a data/tfmg/recipes/coking/coal.json
+35a1de08776b5725ae21dd4220549bde14d631a3 data/tfmg/recipes/hot_blast/hot_air.json
+499dddbb8a717629960cbbb1513102dc219800ef data/tfmg/recipes/polarizing/magnet.json
+ff8a13be251770ef1a6e55d409002a16579ef5f9 data/tfmg/recipes/winding/copper_coil.json

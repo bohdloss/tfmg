@@ -1,0 +1,101 @@
+
+#.
+#Config options for TFMG's machinery
+[machines]
+	#.
+	#.
+	#Changes the FE production of large generators.
+	#Range: 0.0 ~ 3.4028234663852886E38
+	largeGeneratorFEModifier = 4.0
+	#.
+	#Changes the FE production of small generators.
+	#Range: 0.0 ~ 3.4028234663852886E38
+	smallGeneratorFEModifier = 0.4000000059604645
+	#.
+	#Changes the maximum height of the blast furnace.
+	#Range: > 3
+	blastFurnaceMaxHeight = 10
+	#.
+	#Sets the maximum time that can be saved by increasing blast furnace height.
+	#Range: 0.10000000149011612 ~ 3.4028234663852886E38
+	blastFurnaceHeightSpeedModifier = 1.0
+	#.
+	#Determines how many ticks does it take to consume one fuel.
+	#Range: > 1
+	blastFurnaceFuelConsumption = 600
+	#.
+	#Determines the minimum power an electric motor can run on.
+	#Range: > 1
+	electricMotorMinimumPower = 3000
+	#.
+	#Determines the minimum voltage an electric motor can run on.
+	#Range: > 1
+	electricMotorMinimumVoltage = 150
+	#.
+	#Changes the power usage of electric motors.
+	#Range: 0.0 ~ 3.4028234663852886E38
+	electricMotorPowerUsageModifier = 1.0
+	#.
+	#Determines the maximum size of coke ovens.
+	#Range: > 1
+	cokeOvenMaxSize = 5
+	#.
+	#Determines the storage space of accumulators.
+	#Range: > 1
+	accumulatorStorage = 100000
+	#.
+	#Determines the voltage accumulators output.
+	#Range: > 1
+	accumulatorVoltage = 40
+	#.
+	#Sets the maximum amperage an accumulator can provide.
+	#Range: > 1
+	accumulatorMaxAmpOutput = 200
+	#.
+	#Sets the maximum charging rate of accumulators.
+	#Range: > 1
+	accumulatorChargingRate = 100
+	#.
+	#If set to true,fireboxes will require exhaust management.
+	fireboxExhaustRequirement = true
+	#.
+	#The minimum electric current that will make graphite electrodes superheated.
+	#Range: > 1
+	graphiteElectrodeCurrent = 10
+	#.
+	#The minimum electric current that will make electrolyzers operational.
+	#Range: > 1
+	electrolysisMinimumCurrent = 5
+	#.
+	#Determines the amount of fuel a firebox needs to run for 3 seconds.
+	#Range: > 1
+	fireboxFuelConsumption = 100
+	#.
+	#The maximum length of engines.
+	#Range: > 1
+	engineMaxLength = 5
+	#.
+	#Y level surface scanner scan at.
+	#Range: > -512
+	surfaceScannerScanDepth = -64
+	#.
+	#How much Forge Energy is in one watt-tick.
+	#Range: 0.0 ~ 3.4028234663852886E38
+	FEtoWattTickConversionRate = 1.0
+	#.
+	#How much FE can polarizer charge per tick.
+	#Range: > 1
+	polarizerItemChargingRate = 1000
+
+	#.
+	#Oil Deposit Config
+	[machines.deposits]
+		#.
+		#.
+		#Sets the maximum oil reserves a deposit can have.
+		#Range: > 1000
+		depositMaxReserves = 10000
+		#.
+		#Makes deposits bottomless.
+		infiniteDeposits = false
+

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "tfmg:fireclay_ball"
+    }
+  },
+  "pattern": [
+    "BB ",
+    "BB ",
+    "   "
+  ],
+  "result": {
+    "item": "tfmg:fireclay"
+  },
+  "show_notification": true
+}
