@@ -73,6 +73,7 @@ public class FlarestackBlockEntity extends SmartBlockEntity implements IHaveGogg
 
     protected void onFluidStackChanged(FluidStack newFluidStack) {
         sendData();
+        setChanged();
     }
 
     @Override
@@ -125,6 +126,8 @@ public class FlarestackBlockEntity extends SmartBlockEntity implements IHaveGogg
         }
 
     }
+
+
 
     @Override
     protected void read(CompoundTag compound, boolean clientPacket) {

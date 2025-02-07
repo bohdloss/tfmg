@@ -1,6 +1,5 @@
 package com.drmangotea.tfmg.content.machinery.misc.winding_machine;
 
-import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
 import com.drmangotea.tfmg.registry.TFMGTags;
 import com.jozufozu.flywheel.util.transform.TransformStack;
@@ -71,12 +70,7 @@ public class WindingMachineRenderer extends KineticBlockEntityRenderer<WindingMa
                             .rotateX(12)
                             .unCentre()
                             .renderInto(ms, vb);
-
-
-
                 }
-
-
             }
         }
         if(!be.inventory.isEmpty()){

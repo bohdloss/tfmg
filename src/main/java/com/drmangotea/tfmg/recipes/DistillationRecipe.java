@@ -24,26 +24,32 @@ public class DistillationRecipe extends ProcessingRecipe<SmartInventory> {
     }
 
     @Override
-    protected int getMaxFluidOutputCount() {
+    public int getMaxFluidOutputCount() {
         return 6;
     }
 
     @Override
-    protected int getMaxInputCount() {
+    public int getMaxInputCount() {
         return 0;
     }
 
     @Override
-    protected int getMaxFluidInputCount() {
+    public int getMaxFluidInputCount() {
         return 1;
     }
 
     @Override
-    protected int getMaxOutputCount() {
+    public int getMaxOutputCount() {
         return 0;
     }
 
+    public FluidStack getFirstFluidResult(){
+        return fluidResults.get(0);
+    }
 
+    public int getOutputCount(DistillationRecipe recipe){
+        return recipe.fluidResults.toArray().length;
+    }
 
     public boolean matches(FluidTank inv,int outputs) {
 

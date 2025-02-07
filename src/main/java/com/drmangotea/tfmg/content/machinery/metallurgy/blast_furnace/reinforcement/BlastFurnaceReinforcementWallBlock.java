@@ -41,33 +41,32 @@ public class BlastFurnaceReinforcementWallBlock extends TFMGHorizontalDirectiona
 
         BlockState stateBehind = level.getBlockState(pos.relative(state.getValue(FACING).getOpposite()));
 
-
         if(stateBehind.is(TFMGBlocks.FIREPROOF_BRICKS.get()))
-            changeFireproofBricks((Level) level, pos, state.getValue(FACING).getOpposite(), false);
-        super.onNeighborChange(state, level, pos, neighbor);
+            changeFireproofBricks((Level) level, pos, state.getValue(FACING).getOpposite(), true);
+
 
         super.neighborChanged(state, level, pos, block, neighbor, b);
     }
 
-    //@Override
-    //public void onNeighborChange(BlockState state, LevelReader level, BlockPos pos, BlockPos neighbor) {
-//
-    //    BlockState stateBehind = level.getBlockState(pos.relative(state.getValue(FACING).getOpposite()));
-//
-//
-    //    if(stateBehind.is(TFMGBlocks.FIREPROOF_BRICKS.get()))
-    //        changeFireproofBricks((Level) level, pos, state.getValue(FACING).getOpposite(), false);
-    //    super.onNeighborChange(state, level, pos, neighbor);
-    //}
+    @Override
+    public void onNeighborChange(BlockState state, LevelReader level, BlockPos pos, BlockPos neighbor) {
+        BlockState stateBehind = level.getBlockState(pos.relative(state.getValue(FACING).getOpposite()));
+
+        if(stateBehind.is(TFMGBlocks.FIREPROOF_BRICKS.get()))
+            changeFireproofBricks((Level) level, pos, state.getValue(FACING).getOpposite(), false);
+
+        super.onNeighborChange(state, level, pos, neighbor);
+    }
 
     public static void changeFireproofBricks(Level level, BlockPos pos, Direction direction, boolean reinforce){
-        TFMG.LOGGER.debug("CHANGE");
         BlockState state = level.getBlockState(pos.relative(direction));
         if(reinforce&&state.is(TFMGBlocks.FIREPROOF_BRICKS.get())){
             level.setBlock(pos.relative(direction), TFMGBlocks.REINFORCED_FIREPROOF_BRICKS.getDefaultState(), 2);
         }
         if(!reinforce&&state.is(TFMGBlocks.REINFORCED_FIREPROOF_BRICKS.get())){
+
             level.setBlock(pos.relative(direction), TFMGBlocks.FIREPROOF_BRICKS.getDefaultState(), 2);
         }
+
     }
 }

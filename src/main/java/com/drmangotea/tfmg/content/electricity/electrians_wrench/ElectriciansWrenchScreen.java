@@ -1,23 +1,30 @@
 package com.drmangotea.tfmg.content.electricity.electrians_wrench;
 
 import com.drmangotea.tfmg.registry.TFMGGuiTextures;
+import com.drmangotea.tfmg.registry.TFMGPackets;
 import com.simibubi.create.foundation.gui.AbstractSimiScreen;
 import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.element.GuiGameElement;
 import com.simibubi.create.foundation.gui.widget.IconButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 
 public class ElectriciansWrenchScreen extends AbstractSimiScreen {
 
     ItemStack wrench;
+    protected InteractionHand hand;
     private IconButton addButton;
     private IconButton subtractButton;
     private IconButton confirmButton;
 
-    public ElectriciansWrenchScreen(ItemStack wrench) {
+    int group;
+
+    public ElectriciansWrenchScreen(ItemStack wrench, InteractionHand hand) {
         this.wrench = wrench;
+        this.hand = hand;
+        this.group = wrench.getOrCreateTag().getInt("Number");
     }
 
     @Override
@@ -25,7 +32,8 @@ public class ElectriciansWrenchScreen extends AbstractSimiScreen {
         int x = guiLeft;
         int y = guiTop;
 
-        int value = wrench.getOrCreateTag().getInt("Number");
+        //int value = wrench.getOrCreateTag().getInt("Number");
+        int value = group;
         String valueString = String.valueOf(value);
         background().render(graphics, x, y);
         graphics.drawString(font, valueString, x + 90 -(3*valueString.length()), y + 39, 0xffffff, false);
@@ -57,19 +65,46 @@ public class ElectriciansWrenchScreen extends AbstractSimiScreen {
         addRenderableWidget(addButton);
         addRenderableWidget(subtractButton);
     }
+
     public void addNumber(){
+        group++;
+       // CompoundTag tag = wrench.getOrCreateTag();
+//
+       // int number = tag.getInt("Number");
+       // tag.putInt("Number", number+1);
+//
+       // ElectritiansWrenchPacket packet = new ElectritiansWrenchPacket(tag.getInt("Number"), hand);
+       // packet.applyGroup(wrench);
+       // TFMGPackets.getChannel().sendToServer(packet);
+    }
+
+    @Override
+    public void onClose() {
+        super.onClose();
+
+
         CompoundTag tag = wrench.getOrCreateTag();
 
-        int number = tag.getInt("Number");
-        tag.putInt("Number", number+1);
+        tag.putInt("Number", group);
+
+        ElectriciansWrenchPacket packet = new ElectriciansWrenchPacket(group, hand);
+        packet.applyGroup(wrench);
+        TFMGPackets.getChannel().sendToServer(packet);
     }
 
     public void substractNumber(){
-        CompoundTag tag = wrench.getOrCreateTag();
+        if(group>0)
+            group--;
 
-        int number = tag.getInt("Number");
-        if(number>0)
-            tag.putInt("Number", number-1);
+        //CompoundTag tag = wrench.getOrCreateTag();
+//
+        //int number = tag.getInt("Number");
+        //if(number>0)
+        //    tag.putInt("Number", number-1);
+//
+        //ElectritiansWrenchPacket packet = new ElectritiansWrenchPacket(tag.getInt("Number"), hand);
+        //packet.applyGroup(wrench);
+        //TFMGPackets.getChannel().sendToServer(packet);
     }
 
     public TFMGGuiTextures background(){

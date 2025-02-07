@@ -49,20 +49,12 @@ public class AccumulatorBlock extends DirectionalBlock implements IBE<Accumulato
         withBlockEntityDo(level, pos, be -> be.setCapacity(stack));
     }
 
-
-
     @Override
     public List<ItemStack> getDrops(BlockState p_287732_, LootParams.Builder p_287596_) {
         return Collections.emptyList();
     }
 
-    @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        IBE.onRemove(state, level, pos, newState);
 
-
-
-    }
 
     @Override
     public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
@@ -80,7 +72,10 @@ public class AccumulatorBlock extends DirectionalBlock implements IBE<Accumulato
     public void onPlace(BlockState pState, Level level, BlockPos pos, BlockState pOldState, boolean pIsMoving) {
         withBlockEntityDo(level, pos, IElectric::onPlaced);
     }
-
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        IBE.onRemove(state, level, pos, newState);
+    }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {

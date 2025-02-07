@@ -32,6 +32,7 @@ public abstract class TFMGProcessingRecipeGen extends TFMGRecipeProvider {
 
 		GENERATORS.add(new TFMGPressingRecipeGen(output));
 		GENERATORS.add(new CokingRecipeGen(output));
+		GENERATORS.add(new DistillationRecipeGen(output));
 		GENERATORS.add(new WindingRecipeGen(output));
 		GENERATORS.add(new PolarizingRecipeGen(output));
 		GENERATORS.add(new HotBlastRecipeGen(output));

@@ -1,4 +1,4 @@
-// 1.20.1	2025-01-12T12:36:14.2497476	TFMG'S Standard Recipes
+// 1.20.1	2025-01-31T19:09:00.9537218	TFMG'S Standard Recipes
 db23a2f0a874c52b56611cbc77dc83f9763914ec data/tfmg/advancements/recipes/misc/crafting/kinetics/air_intake.json
 c6dfe8b61c142227826c32f64d7bbb8131eeec11 data/tfmg/advancements/recipes/misc/crafting/kinetics/aluminum_block_from_compacting.json
 13a10ca59d0698dd102646773cf2645f51817925 data/tfmg/advancements/recipes/misc/crafting/kinetics/aluminum_cogwheel.json
@@ -9,7 +9,6 @@ b4123d012b415ec6cf05fb2954af0f07b5935318 data/tfmg/advancements/recipes/misc/cra
 6ff6262e8b155869960284b9de4a68b94644a37d data/tfmg/advancements/recipes/misc/crafting/kinetics/aluminum_nugget_from_decompacting.json
 8955cde7287bb08f7c17331047e67a14f479f1fb data/tfmg/advancements/recipes/misc/crafting/kinetics/blast_furnace_output.json
 9f2a83c8ae2401947e04f209c224f401113a33ac data/tfmg/advancements/recipes/misc/crafting/kinetics/brick_smokestack.json
-8211ef3f33f676595c3390e7eb318a9378f27d6d data/tfmg/advancements/recipes/misc/crafting/kinetics/cast_iron_air_intake.json
 7d3072f175050a338475ce381f0813bed472a5df data/tfmg/advancements/recipes/misc/crafting/kinetics/cast_iron_block_from_compacting.json
 850a476ecbe07dfe3be42db22d597dfda5656d9d data/tfmg/advancements/recipes/misc/crafting/kinetics/cast_iron_flywheel.json
 0a1d21e2712227dfe3d48ed2fa4f79f082969ee9 data/tfmg/advancements/recipes/misc/crafting/kinetics/cast_iron_ingot_from_compacting.json
@@ -54,7 +53,7 @@ d4b688ffa269e25091b4f320d2c5f7a279485fcd data/tfmg/advancements/recipes/misc/cra
 1824f9dfdd41baeb4f67a8b4d552c98ef0caba6d data/tfmg/advancements/recipes/misc/crafting/kinetics/steel_ingot_from_compacting.json
 20e88f6c780a5b908b4f23273c8f9d0dc73b1ece data/tfmg/advancements/recipes/misc/crafting/kinetics/steel_ingot_from_decompacting.json
 9e5f8bb5ee7bcadbf5a1a595f147a9778873066f data/tfmg/advancements/recipes/misc/crafting/kinetics/steel_nugget_from_decompacting.json
-473b2011d9e8307f203a503772d03453200986cb data/tfmg/recipes/crafting/kinetics/air_intake.json
+c888fc7e9362f87124a9e172fef53433fd155784 data/tfmg/recipes/crafting/kinetics/air_intake.json
 095e9a7f9523d026f360eea92718c9e462e1a222 data/tfmg/recipes/crafting/kinetics/aluminum_block_from_compacting.json
 520f7b01732d9ab446fa75431791c1351b28fadb data/tfmg/recipes/crafting/kinetics/aluminum_cogwheel.json
 e6d0640989ea7547d344216c9a792b4ec9476990 data/tfmg/recipes/crafting/kinetics/aluminum_door.json
@@ -64,7 +63,6 @@ cf317a26235fe48fef0a37fae65ade403a1b66dd data/tfmg/recipes/crafting/kinetics/alu
 d7f1f4b18942932d33ae102bfbfbef6fcf09b3c8 data/tfmg/recipes/crafting/kinetics/aluminum_nugget_from_decompacting.json
 388af4c67e2015af2f5d70cc01794be6e1c10e65 data/tfmg/recipes/crafting/kinetics/blast_furnace_output.json
 1b12f55387d82cf4ac731d3e8b323bbe4d5c1387 data/tfmg/recipes/crafting/kinetics/brick_smokestack.json
-7bd69d11c5995dae1d8ab94c67192bd78e16eb5c data/tfmg/recipes/crafting/kinetics/cast_iron_air_intake.json
 7e3e62e029e7ee2ed27436fb9f251ea7fdd120a6 data/tfmg/recipes/crafting/kinetics/cast_iron_block_from_compacting.json
 b52588d14e09e74ea298bef496e79317421b244d data/tfmg/recipes/crafting/kinetics/cast_iron_flywheel.json
 240c82190f1a978d28fa462cf5f7b85b8bcc96b1 data/tfmg/recipes/crafting/kinetics/cast_iron_ingot_from_compacting.json

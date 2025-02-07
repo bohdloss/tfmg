@@ -15,14 +15,10 @@ import static net.minecraft.core.Direction.*;
 
 public class TFMGShapes {
     public static final VoxelShaper
-            ENGINE_BACK = shape(3, 0, 3, 13, 16, 16)
-                .forDirectional(),
-            ENGINE_BACK_VERTICAL = shape(3, 0, 3, 16, 16, 13)
-                    .forDirectional(),
-            ENGINE_VERTICAL = shape(3, 0, 3, 13, 14, 16)
-                .forDirectional(),
-            ENGINE = shape(3, 0, 3, 13, 14, 16)
-                .forDirectional(),
+            ENGINE = shape(0, 0, 0, 16, 7, 16).add(3, 7, 0, 13, 12, 16)
+                .forDirectional(SOUTH),
+            ENGINE_FRONT = shape(0, 0, 1, 16, 7, 16).add(3, 7, 1, 13, 12, 16)
+                    .forDirectional(SOUTH),
             PUMPJACK_HAMMER_PART = shape(0, 2, 0, 16, 14, 16)
                 .forDirectional(),
             RADIAL_ENGINE = shape(1, 4, 1, 15, 12, 15)
@@ -41,6 +37,8 @@ public class TFMGShapes {
             .forDirectional(),
             GALVANIC_CELL = shape(5, 10, 5, 11, 16, 16).add(1, 4, 6, 15, 10, 16)
             .forDirectional(),
+            RESISTOR = shape(6, 0, 3, 10, 4, 13)
+                    .forDirectional(),
             GENERATOR = shape(3, 0, 3, 13, 14, 13).add(0, 4, 0, 16, 10, 16)
             .forDirectional(),
             LIGHT_BULB = shape(5, 0, 5, 11, 9, 11)
@@ -51,15 +49,23 @@ public class TFMGShapes {
                     .forDirectional(),
             ALUMINUM_LAMP = shape(3, 0, 3, 13, 2, 13).add(4, 2, 4, 12, 3, 12)
                     .forDirectional(),
-            RESISTOR = shape(3, 0, 3, 13, 16, 13).add(1, 1, 13, 15, 15, 16)
+            POTENTIOMETER = shape(3, 0, 3, 13, 16, 13).add(1, 1, 13, 15, 15, 16)
             .forDirectional(),
+            WINDING_MACHINE = shape(0, 0, 0, 16, 8, 16).add(0, 8, 4, 10, 12, 12)
+                    .forHorizontal(NORTH),
             RESISTOR_VERTICAL = shape(3, 0, 3, 13, 16, 13)
                     .forDirectional(),
-            BLAST_FURNACE_REINFORCEMENT_WALL = shape(00, 0, 0, 16, 6, 16)
+            BLAST_FURNACE_REINFORCEMENT_WALL = shape(0, 0, 0, 16, 6, 16)
                     .forDirectional(),
 
-            ROTOR = shape(3, 3, 2, 13, 13, 14)
-            .forAxis(),
+            ROTOR = shape(4, 5, 4, 12, 11, 12).add(5, 0, 5, 11, 16, 11)
+            .forDirectional(),
+            STATOR = shape(5, 1, 0, 16, 15.2, 5).add(5, 1, 5, 10, 15.2, 10).add(0, 1, 0, 5, 15.2, 16)
+            .forDirectional(),
+            STATOR_ROTATED = shape(5, 1, 11, 16, 15, 16).add(5, 1, 6, 10, 15, 11).add(0, 1, 0, 5, 15, 16)
+                    .forDirectional(),
+            STATOR_VERTICAL = shape(5, 0, 1, 16, 5, 15).add(5, 5, 1, 10, 10, 15).add(0, 0, 1, 5, 16, 15)
+                    .forDirectional(),
             VOLTMETER = shape(0, 0, 2, 16, 3, 14)
             .forDirectional(),
             DIAGONAL_CABLE_BLOCK_DOWN = shape(3, 3, 11, 13, 13, 16)
@@ -70,6 +76,9 @@ public class TFMGShapes {
                     .add(3, 11, 3, 13, 16, 13)
                     .add(4, 4, 5, 12, 11, 12)
                     .forDirectional(),
+            CASTING_BASIN = shape(0, 0, 0, 16, 8, 16)
+                    .add(4, 8, 14, 12, 13, 16)
+                    .forHorizontal(NORTH),
             CABLE_TUBE = shape(6, 0, 6, 10, 16, 10)
                     .forDirectional(),
             REBAR_PILLAR = shape(3, 0, 3, 13, 16, 13)
@@ -95,8 +104,6 @@ public class TFMGShapes {
     FLARESTACK = shape(3, 0, 3, 13, 14, 14).build(),
     PUMPJACK_BASE = shape(3, 0, 3, 13, 16, 13).build(),
     TRAFFIC_LIGHT = shape(3, 0, 3, 13, 16, 13).build(),
-    CASTING_SPOUT = shape(1, 2, 1, 15, 14, 15)
-            .build(),
     REBAR_FLOOR = shape(0, 4, 0, 16, 12, 16)
             .build(),
     SURFACE_SCANNER = shape(2, 0, 2, 14, 14, 14).build(),

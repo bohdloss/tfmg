@@ -3,8 +3,6 @@ package com.drmangotea.tfmg.content.electricity.utilities.transformer;
 import com.drmangotea.tfmg.base.TFMGHorizontalDirectionalBlock;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.content.electricity.base.IVoltageChanger;
-import com.drmangotea.tfmg.content.machinery.misc.winding_machine.SpoolItem;
-import com.drmangotea.tfmg.content.machinery.misc.winding_machine.WindingMachineBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
 import com.drmangotea.tfmg.registry.TFMGItems;
 import com.simibubi.create.foundation.block.IBE;

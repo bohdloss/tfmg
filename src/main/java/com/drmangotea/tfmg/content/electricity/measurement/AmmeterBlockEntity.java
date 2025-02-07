@@ -20,7 +20,7 @@ public class AmmeterBlockEntity extends VoltMeterBlockEntity {
 
     @Override
     public int getUnit(IElectric be) {
-        return be.getMaxAmps();
+        return (int) be.getData().highestCurrent;
     }
     @Override
     @SuppressWarnings("removal")

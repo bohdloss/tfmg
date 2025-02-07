@@ -91,16 +91,16 @@ public class TransformerBlockEntity extends VoltageAlteringBlockEntity {
 
     @Override
     public float resistance() {
-        if(coilRatio == 0)
-            return 0;
-
-        Direction facing = getBlockState().getValue(FACING);
-        if (level.getBlockEntity(getBlockPos().relative(facing)) instanceof IElectric be) {
-            return Math.max(be.getNetworkResistance(),0);
+        Direction facing = getBlockState().getValue(FACING).getCounterClockWise();
+        if (level.getBlockEntity(getBlockPos().relative(facing)) instanceof IElectric be && be.getData().getId() != data.getId()) {
+            if (be.hasElectricitySlot(facing.getOpposite()))
+                return Math.max(be.getNetworkResistance(), 0);
         }
         return 0;
     }
-
+    public int getPowerUsage() {
+        return (int) ((float)super.getPowerUsage()* coilRatio);
+    }
     @Override
     public boolean hasElectricitySlot(Direction direction) {
         return direction == getBlockState().getValue(FACING).getClockWise();
@@ -109,7 +109,7 @@ public class TransformerBlockEntity extends VoltageAlteringBlockEntity {
     public void onNetworkChanged(int oldVoltage, int oldPower) {
         super.onNetworkChanged(oldVoltage, oldPower);
 
-        if(oldVoltage != getData().getVoltage()||oldPower  != getPowerUsage()) {
+        if (oldVoltage != getData().getVoltage() || oldPower != getPowerUsage()) {
             updateInFront = true;
         }
         sendStuff();

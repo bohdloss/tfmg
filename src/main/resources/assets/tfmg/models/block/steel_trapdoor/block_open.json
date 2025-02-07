@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "create:block/train_door_side",
-		"1": "create:block/train_trapdoor",
-		"particle": "create:block/train_trapdoor"
+		"0": "tfmg:block/heavy_plated_door_side",
+		"1": "tfmg:block/steel_trapdoor",
+		"particle": "tfmg:block/steel_trapdoor"
 	},
 	"elements": [
 		{

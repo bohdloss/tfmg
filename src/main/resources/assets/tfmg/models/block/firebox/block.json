@@ -4,6 +4,7 @@
 	"textures": {
 		"0": "tfmg:block/firebox",
 		"1": "tfmg:block/fireproof_bricks",
+		"2": "tfmg:block/firebox_top",
 		"particle": "tfmg:block/firebox"
 	},
 	"elements": [
@@ -15,7 +16,7 @@
 				"east": {"uv": [0, 0, 16, 16], "texture": "#0"},
 				"south": {"uv": [0, 0, 16, 16], "texture": "#0"},
 				"west": {"uv": [0, 0, 16, 16], "texture": "#0"},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#2"},
 				"down": {"uv": [0, 0, 16, 16], "texture": "#1"}
 			}
 		}

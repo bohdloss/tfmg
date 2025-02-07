@@ -3,8 +3,8 @@
 	"parent": "block/block",
 	"textures": {
 		"1": "tfmg:block/cast_iron_fluid_tank",
-		"3": "tfmg:block/fluid_tank_window",
-		"particle": "tfmg:block/fluid_tank"
+		"2": "tfmg:block/cast_iron_fluid_tank_window",
+		"particle": "tfmg:block/cast_iron_fluid_tank"
 	},
 	"elements": [
 		{
@@ -54,8 +54,8 @@
 			"to": [12, 16, 0.95],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, -23]},
 			"faces": {
-				"north": {"uv": [8, 0, 16, 16], "texture": "#3", "cullface": "north"},
-				"south": {"uv": [8, 0, 16, 16], "texture": "#3", "cullface": "north"}
+				"north": {"uv": [8, 0, 16, 16], "texture": "#2", "cullface": "north"},
+				"south": {"uv": [8, 0, 16, 16], "texture": "#2", "cullface": "north"}
 			}
 		},
 		{
@@ -63,8 +63,8 @@
 			"from": [15.05, 0, 4],
 			"to": [15.05, 16, 12],
 			"faces": {
-				"east": {"uv": [8, 0, 16, 16], "texture": "#3", "cullface": "east"},
-				"west": {"uv": [8, 0, 16, 16], "texture": "#3", "cullface": "east"}
+				"east": {"uv": [8, 0, 16, 16], "texture": "#2", "cullface": "east"},
+				"west": {"uv": [8, 0, 16, 16], "texture": "#2", "cullface": "east"}
 			}
 		},
 		{
@@ -72,8 +72,8 @@
 			"from": [4, 0, 15.05],
 			"to": [12, 16, 15.05],
 			"faces": {
-				"north": {"uv": [8, 0, 16, 16], "texture": "#3", "cullface": "south"},
-				"south": {"uv": [8, 0, 16, 16], "texture": "#3", "cullface": "south"}
+				"north": {"uv": [8, 0, 16, 16], "texture": "#2", "cullface": "south"},
+				"south": {"uv": [8, 0, 16, 16], "texture": "#2", "cullface": "south"}
 			}
 		},
 		{
@@ -81,8 +81,8 @@
 			"from": [0.95, 0, 4],
 			"to": [0.95, 16, 12],
 			"faces": {
-				"east": {"uv": [8, 0, 16, 16], "texture": "#3", "cullface": "west"},
-				"west": {"uv": [8, 0, 16, 16], "texture": "#3", "cullface": "west"}
+				"east": {"uv": [8, 0, 16, 16], "texture": "#2", "cullface": "west"},
+				"west": {"uv": [8, 0, 16, 16], "texture": "#2", "cullface": "west"}
 			}
 		},
 		{

@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "B": {
-      "item": "tfmg:steel_bars"
+      "item": "create:andesite_bars"
     },
     "C": {
-      "item": "tfmg:heavy_machinery_casing"
+      "item": "create:industrial_iron_block"
     },
     "G": {
-      "item": "tfmg:steel_cogwheel"
+      "item": "create:cogwheel"
     },
     "P": {
       "item": "create:propeller"
@@ -18,7 +18,7 @@
       "item": "create:shaft"
     },
     "T": {
-      "item": "tfmg:steel_pipe"
+      "item": "tfmg:cast_iron_pipe"
     }
   },
   "pattern": [

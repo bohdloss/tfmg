@@ -47,6 +47,8 @@ public class CastingBasinBlockEntity extends SmartBlockEntity implements IHaveGo
         itemCapability = LazyOptional.of(() -> inventory);
     }
 
+
+
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         if (side == getBlockState().getValue(FACING).getOpposite() && cap == ForgeCapabilities.FLUID_HANDLER)

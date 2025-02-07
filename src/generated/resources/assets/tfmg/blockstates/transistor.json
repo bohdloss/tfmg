@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "tfmg:block/transistor/block",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "tfmg:block/transistor/block"
+    },
+    "facing=south": {
+      "model": "tfmg:block/transistor/block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "tfmg:block/transistor/block",
+      "y": 270
+    }
+  }
+}

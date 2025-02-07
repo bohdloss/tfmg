@@ -5,6 +5,7 @@ import com.drmangotea.tfmg.base.TFMGCreativeTabs;
 import com.drmangotea.tfmg.base.TFMGRegistrate;
 import com.drmangotea.tfmg.content.electricity.base.ElectricNetworkManager;
 import com.drmangotea.tfmg.content.items.weapons.explosives.thermite_grenades.fire.TFMGColoredFires;
+import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.DepositManager;
 import com.drmangotea.tfmg.datagen.TFMGDatagen;
 import com.drmangotea.tfmg.base.fluid.TFMGFluidInteractions;
 import com.drmangotea.tfmg.config.TFMGConfigs;
@@ -36,6 +37,7 @@ public class TFMG {
 
     public static final String MOD_ID = "tfmg";
     public static final ElectricNetworkManager NETWORK_MANAGER = new ElectricNetworkManager();
+    public static final DepositManager DEPOSITS = new DepositManager();
 
     public static final Logger LOGGER = LogUtils.getLogger();
 

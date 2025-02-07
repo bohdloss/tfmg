@@ -3,15 +3,17 @@ package com.drmangotea.tfmg.content.electricity.debug;
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGUtils;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
+import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnectorBlockEntity;
 import com.drmangotea.tfmg.content.electricity.generators.GeneratorBlockEntity;
-import com.drmangotea.tfmg.content.electricity.utilities.diode.ElectricDiodeBlockEntity;
-import com.drmangotea.tfmg.content.engines.AbstractEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineBlockEntity;
 import com.drmangotea.tfmg.content.machinery.metallurgy.blast_stove.BlastStoveBlockEntity;
 import com.drmangotea.tfmg.content.machinery.metallurgy.casting_basin.CastingBasinBlockEntity;
 import com.drmangotea.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlockEntity;
 import com.drmangotea.tfmg.content.machinery.misc.vat_machines.base.VatBlockEntity;
 import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.PumpjackBaseBlockEntity;
 import com.drmangotea.tfmg.content.machinery.oil_processing.surface_scanner.SurfaceScannerBlockEntity;
+import com.drmangotea.tfmg.registry.TFMGItems;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
@@ -19,7 +21,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class DebugCinderBlockItem extends Item {
     public DebugCinderBlockItem(Properties p_41383_) {
@@ -42,15 +47,20 @@ public class DebugCinderBlockItem extends Item {
             return InteractionResult.SUCCESS;
         }
 
-        if(level.getBlockEntity(pos) instanceof ElectricDiodeBlockEntity be){
-            be.updateInFront();
+        if(level.getBlockEntity(pos) instanceof CableConnectorBlockEntity be){
+            //be.testSigma();
+            be.wiresUpdated();
             return InteractionResult.SUCCESS;
         }
         if(level.getBlockEntity(pos) instanceof IElectric be){
             if(context.getPlayer().isShiftKeyDown()) {
-               // for (IElectric member : be.getOrCreateElectricNetwork().members) {
-               //     level.setBlock(BlockPos.of(member.getPos()).above(), Blocks.GOLD_BLOCK.defaultBlockState(), 3);
-               // }
+                TFMG.LOGGER.debug("///////////////////////////////");
+                TFMG.LOGGER.debug("Group Resistance "+be.getData().group.resistance);
+                TFMG.LOGGER.debug("Resistance "+be.resistance());
+                TFMG.LOGGER.debug("Voltage Supply "+be.getData().voltageSupply);
+                TFMG.LOGGER.debug("Higherst Current "+be.getData().highestCurrent);
+                TFMG.LOGGER.debug("Group "+be.getData().group.id);
+                TFMG.LOGGER.debug("///////////////////////////////");
             }else be.updateNextTick();
         }
         if(level.getBlockEntity(pos) instanceof CokeOvenBlockEntity be){
@@ -66,6 +76,9 @@ public class DebugCinderBlockItem extends Item {
         if(level.getBlockEntity(pos) instanceof FluidTankBlockEntity be){
             TFMGUtils.blowUpTank(be, 5);
         }
+        if(level.getBlockEntity(pos) instanceof RegularEngineBlockEntity be){
+
+        }
         if(level.getBlockEntity(pos) instanceof AbstractEngineBlockEntity be){
             be.connect();
         }
@@ -76,15 +89,13 @@ public class DebugCinderBlockItem extends Item {
             be.findDeposits();
         }
         if(level.getBlockEntity(pos) instanceof PumpjackBaseBlockEntity be){
-            be.loadDepositData();
-            if(be.depositData !=null) {
+            if(TFMG.DEPOSITS.depositData !=null) {
             if(context.getPlayer().isShiftKeyDown()){
-                be.depositData.removeData();
+                TFMG.DEPOSITS.depositData.removeData();
                 return InteractionResult.SUCCESS;
-            }
+            } else TFMG.DEPOSITS.depositData.removeEmptyDeposits();
 
 
-                be.depositData.addDeposit(level, be.getBlockPos().below().asLong());
             }
         }
         return InteractionResult.SUCCESS;

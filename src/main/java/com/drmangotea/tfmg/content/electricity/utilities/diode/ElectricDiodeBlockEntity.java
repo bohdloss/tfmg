@@ -2,12 +2,15 @@ package com.drmangotea.tfmg.content.electricity.utilities.diode;
 
 
 import com.drmangotea.tfmg.TFMG;
+import com.drmangotea.tfmg.base.TFMGHorizontalDirectionalBlock;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.content.electricity.base.UpdateInFrontPacket;
 import com.drmangotea.tfmg.content.electricity.base.VoltageAlteringBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGPackets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
@@ -16,7 +19,7 @@ import static net.minecraft.world.level.block.DirectionalBlock.FACING;
 
 public class ElectricDiodeBlockEntity extends VoltageAlteringBlockEntity {
 
-    boolean updateInFront = false;
+    public boolean updateInFront = false;
 
     public ElectricDiodeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -44,7 +47,7 @@ public class ElectricDiodeBlockEntity extends VoltageAlteringBlockEntity {
 
     @Override
     public float resistance() {
-        Direction facing = getBlockState().getValue(FACING);
+        Direction facing = getDirection();
         if (level.getBlockEntity(getBlockPos().relative(facing)) instanceof IElectric be && be.getData().getId() != data.getId()) {
             if (be.hasElectricitySlot(facing.getOpposite()))
                 return Math.max(be.getNetworkResistance(), 0);
@@ -52,9 +55,17 @@ public class ElectricDiodeBlockEntity extends VoltageAlteringBlockEntity {
         return 0;
     }
 
+    public Direction getDirection(){
+        if(!getBlockState().hasProperty(FACING)){
+            return getBlockState().getValue(TFMGHorizontalDirectionalBlock.FACING).getCounterClockWise();
+        }
+
+        return getBlockState().getValue(FACING);
+    }
+
     @Override
     public boolean hasElectricitySlot(Direction direction) {
-        return getBlockState().getValues().containsKey(FACING) && direction == getBlockState().getValue(FACING).getOpposite();
+        return getDirection().getOpposite() == direction;
     }
 
     @Override
@@ -90,10 +101,9 @@ public class ElectricDiodeBlockEntity extends VoltageAlteringBlockEntity {
 
     public void updateInFront() {
 
-        TFMG.LOGGER.debug("IN_FRONT");
         if(!level.isClientSide)
             TFMGPackets.getChannel().send(PacketDistributor.ALL.noArg(), new UpdateInFrontPacket(BlockPos.of(getPos())));
-        Direction facing = getBlockState().getValue(FACING);
+        Direction facing = getBlockState().hasProperty(FACING) ? getBlockState().getValue(FACING) : getBlockState().getValue(HorizontalDirectionalBlock.FACING).getCounterClockWise();
         if (level.getBlockEntity(getBlockPos().relative(facing)) instanceof IElectric be && be.getData().getId() != data.getId()) {
             if (be.hasElectricitySlot(facing.getOpposite())) {
                 be.updateNextTick();

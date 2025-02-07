@@ -29,7 +29,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
@@ -256,7 +255,7 @@ public class TFMGRecipeProvider extends RecipeProvider {
             return TFMGItems.SYNTHETIC_LEATHER.get();
         }
         public static ItemLike engineChamber() {
-            return TFMGItems.ENGINE_CHAMBER.get();
+            return TFMGItems.ENGINE_CYLINDER.get();
         }
         public static ItemLike screw() {
             return TFMGItems.SCREW.get();

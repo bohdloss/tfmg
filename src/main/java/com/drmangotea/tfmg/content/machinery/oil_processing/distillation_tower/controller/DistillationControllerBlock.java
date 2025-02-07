@@ -1,7 +1,7 @@
 package com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.controller;
 
 import com.drmangotea.tfmg.base.TFMGHorizontalDirectionalBlock;
-import com.drmangotea.tfmg.content.decoration.tank.SteelTankBlock;
+import com.drmangotea.tfmg.content.decoration.tanks.steel.SteelTankBlock;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;

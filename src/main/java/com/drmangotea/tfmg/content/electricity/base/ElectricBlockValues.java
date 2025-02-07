@@ -13,6 +13,9 @@ public class ElectricBlockValues {
     public int frequency = 0;
     public int voltageSupply = 0;
     public int networkPowerGeneration =0;
+    public float highestCurrent=0;
+
+    public boolean setVoltageNextTick = false;
 
     public ElectricalGroup group = new ElectricalGroup(0);
 
@@ -29,6 +32,4 @@ public class ElectricBlockValues {
     public int getVoltage(){
         return voltage;
     }
-
-
 }

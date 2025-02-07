@@ -34,7 +34,6 @@ import static com.simibubi.create.content.kinetics.base.DirectionalKineticBlock.
 
 public class AirIntakeBlockEntity extends KineticBlockEntity implements IWrenchable {
 
-
     int diameter = 1;
 
     boolean isController=false;
@@ -42,7 +41,6 @@ public class AirIntakeBlockEntity extends KineticBlockEntity implements IWrencha
     public boolean hasShaft=true;
 
     boolean isUsedByController = false;
-
 
     public BlockPos controller;
 
@@ -55,9 +53,6 @@ public class AirIntakeBlockEntity extends KineticBlockEntity implements IWrencha
 
     protected FluidTank tankInventory;
     protected LazyOptional<IFluidHandler> fluidCapability;
-
-
-
 
 
     public AirIntakeBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {

@@ -36,6 +36,7 @@
 		nickel_flywheel = 0.0
 		machine_input = 4.0
 		concrete_hose = 4.0
+		rotor = 350.0
 
 	#.
 	#[in Stress Units]

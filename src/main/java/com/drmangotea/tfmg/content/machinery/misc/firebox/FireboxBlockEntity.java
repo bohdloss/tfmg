@@ -91,17 +91,17 @@ public class FireboxBlockEntity extends SmartBlockEntity implements IHaveGoggleI
         FireboxBlockEntity controller = isController() ? this : getControllerBE();
 
         if (!canBurn(controller)) {
-            if(wasRunning)
+            if (wasRunning)
                 level.setBlock(getBlockPos(), getBlockState().setValue(FireboxBlock.HEAT_LEVEL, BlazeBurnerBlock.HeatLevel.NONE), 2);
             running = false;
 
-        }else {
-            if(!wasRunning)
+        } else {
+            if (!wasRunning)
                 level.setBlock(getBlockPos(), getBlockState().setValue(FireboxBlock.HEAT_LEVEL, BlazeBurnerBlock.HeatLevel.FADING), 2);
             running = true;
-            TFMGUtils.drainFilteredTank((SmartFluidTank) controller.tankInventory,100);
-            if(TFMGConfigs.common().machines.fireboxExhaustRequirement.get()){
-                TFMGUtils.fillFilteredTank((SmartFluidTank) controller.exhuastTank,new FluidStack(TFMGFluids.CARBON_DIOXIDE.getSource(), 500));
+            TFMGUtils.drainFilteredTank((SmartFluidTank) controller.tankInventory, 100);
+            if (TFMGConfigs.common().machines.fireboxExhaustRequirement.get()) {
+                TFMGUtils.fillFilteredTank((SmartFluidTank) controller.exhuastTank, new FluidStack(TFMGFluids.CARBON_DIOXIDE.getSource(), 500));
             }
 
         }
@@ -165,11 +165,9 @@ public class FireboxBlockEntity extends SmartBlockEntity implements IHaveGoggleI
     protected void onFluidStackChanged(FluidStack newFluidStack) {
         if (!hasLevel())
             return;
+        setChanged();
+        sendData();
 
-        if (!level.isClientSide) {
-            setChanged();
-            sendData();
-        }
     }
 
 
@@ -303,8 +301,12 @@ public class FireboxBlockEntity extends SmartBlockEntity implements IHaveGoggleI
             height = compound.getInt("Height");
             tankInventory.setCapacity(getTotalTankSize() * getCapacityMultiplier());
             tankInventory.readFromNBT(compound.getCompound("TankContent"));
+            exhuastTank.setCapacity(getTotalTankSize() * getCapacityMultiplier());
+            exhuastTank.readFromNBT(compound.getCompound("Exhaust"));
             if (tankInventory.getSpace() < 0)
                 tankInventory.drain(-tankInventory.getSpace(), IFluidHandler.FluidAction.EXECUTE);
+            if (exhuastTank.getSpace() < 0)
+                exhuastTank.drain(-exhuastTank.getSpace(), IFluidHandler.FluidAction.EXECUTE);
         }
 
         updateCapability = true;
@@ -339,6 +341,7 @@ public class FireboxBlockEntity extends SmartBlockEntity implements IHaveGoggleI
             compound.put("Controller", NbtUtils.writeBlockPos(controller));
         if (isController()) {
             compound.put("TankContent", tankInventory.writeToNBT(new CompoundTag()));
+            compound.put("Exhaust", exhuastTank.writeToNBT(new CompoundTag()));
             compound.putInt("Size", width);
             compound.putInt("Height", height);
         }

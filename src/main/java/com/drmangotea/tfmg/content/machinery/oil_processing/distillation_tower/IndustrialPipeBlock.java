@@ -2,12 +2,15 @@ package com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower;
 
 
 import com.drmangotea.tfmg.base.TFMGShapes;
+import com.drmangotea.tfmg.content.decoration.concrete.SimpleConcreteloggedBlock;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.simibubi.create.foundation.placement.IPlacementHelper;
 import com.simibubi.create.foundation.placement.PlacementHelpers;
 import com.simibubi.create.foundation.placement.PlacementOffset;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -15,7 +18,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -23,14 +25,17 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.function.Predicate;
 
-public class IndustrialPipeBlock extends Block {
+public class IndustrialPipeBlock extends SimpleConcreteloggedBlock {
 
     public static final int placementHelperId = PlacementHelpers.register(new PlacementHelper());
     public IndustrialPipeBlock(Properties pProperties) {
         super(pProperties);
     }
 
-
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource randomSource) {
+        tickDrying(level,state,TFMGBlocks.CONCRETE_ENCASED_INDUSTRIAL_PIPE.getDefaultState(),pos, randomSource);
+    }
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return TFMGShapes.INDUSTRIAL_PIPE;
@@ -38,9 +43,6 @@ public class IndustrialPipeBlock extends Block {
     @Override
     public InteractionResult use(BlockState pState, Level level, BlockPos pos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack itemInHand = pPlayer.getItemInHand(pHand);
-
-
-
         if (pPlayer == null)
             return InteractionResult.PASS;
 

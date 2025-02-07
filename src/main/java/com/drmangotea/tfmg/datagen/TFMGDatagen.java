@@ -1,14 +1,23 @@
 package com.drmangotea.tfmg.datagen;
 
+import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGRegistrateTags;
 import com.drmangotea.tfmg.datagen.recipes.TFMGProcessingRecipeGen;
 import com.drmangotea.tfmg.datagen.recipes.values.CastingRecipeGen;
 import com.drmangotea.tfmg.datagen.recipes.values.TFMGStandardRecipeGen;
 import com.drmangotea.tfmg.datagen.recipes.values.IndustrialBlastingRecipeGen;
 import com.drmangotea.tfmg.datagen.recipes.values.VatRecipeGen;
+import com.drmangotea.tfmg.ponder.TFMGPonderIndex;
+import com.drmangotea.tfmg.ponder.TFMGPonderTag;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.simibubi.create.Create;
+import com.simibubi.create.foundation.ponder.PonderLocalization;
 import com.simibubi.create.foundation.utility.FilesHelper;
+import com.simibubi.create.infrastructure.ponder.AllPonderTags;
+import com.simibubi.create.infrastructure.ponder.GeneralText;
+import com.simibubi.create.infrastructure.ponder.PonderIndex;
+import com.simibubi.create.infrastructure.ponder.SharedText;
 import com.tterrag.registrate.providers.ProviderType;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -51,11 +60,18 @@ public class TFMGDatagen {
             BiConsumer<String, String> langConsumer = provider::add;
 
             provideDefaultLang("interface", langConsumer);
-            provideDefaultLang("ponders", langConsumer);
             provideDefaultLang("tooltips", langConsumer);
 
-
+            providePonderLang(langConsumer);
         });
+    }
+
+    private static void providePonderLang(BiConsumer<String, String> consumer) {
+        TFMGPonderIndex.registerTags();
+        TFMGPonderIndex.register();
+        PonderLocalization.generateSceneLang();
+
+        PonderLocalization.provideLang(TFMG.MOD_ID, consumer);
     }
 
     private static void provideDefaultLang(String fileName, BiConsumer<String, String> consumer) {

@@ -34,6 +34,9 @@
 		steel_encased_steel_cogwheel = 0.0
 		nickel_flywheel = 0.0
 		generator = 40.0
+		concrete_hose = 4.0
+		rotor = 10.0
+		machine_input = 4.0
 
 	#.
 	#[in Stress Units]

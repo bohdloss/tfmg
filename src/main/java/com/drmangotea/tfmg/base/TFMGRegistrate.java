@@ -1,20 +1,17 @@
 package com.drmangotea.tfmg.base;
 
 import com.drmangotea.tfmg.TFMG;
-import com.drmangotea.tfmg.registry.TFMGBlocks;
+import com.drmangotea.tfmg.base.fluid.GasFluidType;
+import com.simibubi.create.content.fluids.VirtualFluid;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.tterrag.registrate.util.DataIngredient;
-import com.tterrag.registrate.util.entry.BlockEntry;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.tags.BlockTags;
+import com.simibubi.create.foundation.data.VirtualFluidBuilder;
+import com.tterrag.registrate.builders.FluidBuilder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
-import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 
 public class TFMGRegistrate extends CreateRegistrate {
     public static String autoLang(String id) {
@@ -31,6 +28,13 @@ public class TFMGRegistrate extends CreateRegistrate {
         }
         return builder.toString();
     }
+
+    public FluidBuilder<VirtualFluid, CreateRegistrate> gasFluid(String name, ResourceLocation still,
+                                                                 ResourceLocation flow) {
+        return entry(name, c -> new VirtualFluidBuilder<>(self(), self(), name, c, still, flow,
+                GasFluidType.create(), VirtualFluid::new));
+    }
+
     protected TFMGRegistrate() {
         super(TFMG.MOD_ID);
     }

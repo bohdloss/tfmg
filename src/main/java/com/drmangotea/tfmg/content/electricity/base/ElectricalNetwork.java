@@ -1,6 +1,8 @@
 package com.drmangotea.tfmg.content.electricity.base;
 
 import com.drmangotea.tfmg.TFMG;
+import com.drmangotea.tfmg.content.electricity.lights.LightBulbBlockEntity;
+import net.minecraft.world.item.DyeColor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,7 +54,8 @@ public class ElectricalNetwork {
             resistance += (int) member.resistance();
             powerGeneration += member.powerGeneration();
             if(member.canBeInGroups())
-                groups.put(groupId, (groups.containsKey(groupId) ? groups.get(groupId) + member.resistance() : member.resistance()));
+                groups.put(groupId, groups.containsKey(groupId) ? groups.get(groupId) + member.resistance() : member.resistance());
+
         }
 
         int powerPercentage = resistance > 0 ? (int) (Math.min(((float) power / (float) resistance * 100f), 100)) : 100;
@@ -61,20 +64,45 @@ public class ElectricalNetwork {
 
             int oldVoltage = member.getData().getVoltage();
             int oldPower = member.getPowerUsage();
-
-            member.setVoltage(maxVoltage);
             member.getData().voltageSupply = maxVoltage;
+            member.setVoltage(maxVoltage);
+            member.getData().setVoltageNextTick = true;
+
             member.getData().networkPowerGeneration = powerGeneration;
             member.setWattage(power);
             member.setFrequency(frequency);
             member.setNetworkResistance(resistance);
             member.onNetworkChanged(oldVoltage, oldPower);
             member.setPowerPercentage(powerPercentage);
-            member.updateNearbyNetworks(member);
+
+
             if(groups.containsKey(member.getData().group.id))
                 member.getData().group.resistance = groups.get(member.getData().group.id);
         }
+        for (IElectric member : members) {
+                member.getData().highestCurrent = getCableCurrent(member);
+                member.updateNearbyNetworks(member);
+        }
 
+    }
+     public static float getCableCurrent(IElectric be){
+
+        float current =0;
+        List<Integer> groups = new ArrayList<>();
+
+        for(IElectric member : be.getOrCreateElectricNetwork().members){
+
+            if(member.canBeInGroups())
+                if(!groups.contains(member.getData().group.id)){
+                    groups.add(member.getData().group.id);
+                    if(member.resistance()!=0)
+
+                        current += member.getData().voltage/member.resistance();
+                }
+        }
+
+
+        return current;
     }
 
     public List<IElectric> getMembers() {

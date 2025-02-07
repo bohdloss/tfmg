@@ -1,6 +1,7 @@
 package com.drmangotea.tfmg.content.electricity.base;
 
 import com.drmangotea.tfmg.TFMG;
+import com.drmangotea.tfmg.content.electricity.lights.LightBulbBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGPackets;
 import com.simibubi.create.content.equipment.goggles.IHaveHoveringInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
@@ -9,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,14 +26,14 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     public ElectricBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         data.connectNextTick = true;
+        if(!canBeInGroups()){
+            data.group = new ElectricalGroup(-1);
+        }
     }
     @Override
     public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         return makeElectricityTooltip(tooltip, isPlayerSneaking);
     }
-
-
-
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
 
@@ -54,6 +56,11 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
                     .remove(data.electricalNetworkId);
             return TFMG.NETWORK_MANAGER.getOrCreateNetworkFor(this);
         }
+    }
+
+    @Override
+    public void lazyTick() {
+        super.lazyTick();
     }
 
     @Override
@@ -121,10 +128,6 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
         return 0;
     }
 
-
-
-
-
     @Override
     public void updateNextTick() {
         data.updateNextTick = true;
@@ -145,6 +148,11 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
 
     @Override
     public void setVoltage(int newVoltage) {
+
+        //if(this instanceof LightBulbBlockEntity be&&be.color == DyeColor.WHITE){
+        //    TFMG.LOGGER.debug("Rezistancja Grup "+data.group.resistance);
+        //}
+
         if(canBeInGroups()){
             data.voltage = (int) (((float)resistance()/data.group.resistance)*(float)data.voltageSupply);
             return;
@@ -205,6 +213,7 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
                             .remove(be.getPos());
                     be.setNetwork(be.getPos());
                     be.onPlaced();
+
                     be.updateNextTick();
                 }
         }
@@ -227,19 +236,27 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
           updateNetwork();
           data.updateNextTick = false;
       }
+        if(data.setVoltageNextTick) {
+            setVoltage(data.voltageSupply);
+            data.setVoltageNextTick = false;
+        }
 
     }
 
     @Override
-    protected void write(CompoundTag tag, boolean clientPacket) {
-        super.write(tag, clientPacket);
+    protected void write(CompoundTag compound, boolean clientPacket) {
+        super.write(compound, clientPacket);
+
+        compound.putInt("GroupId", data.group.id);
+        compound.putFloat("GroupResistance", data.group.resistance);
     }
 
     @Override
-    protected void read(CompoundTag tag, boolean clientPacket) {
-        super.read(tag, clientPacket);
+    protected void read(CompoundTag compound, boolean clientPacket) {
+        super.read(compound, clientPacket);
+        data.group = new ElectricalGroup(compound.getInt("GroupId"));
+        data.group.resistance = compound.getFloat("GroupResistance");
         if(!clientPacket)
             data.connectNextTick = true;
-
     }
 }

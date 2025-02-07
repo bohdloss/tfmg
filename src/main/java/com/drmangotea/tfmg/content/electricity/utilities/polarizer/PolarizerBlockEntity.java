@@ -9,6 +9,7 @@ import com.drmangotea.tfmg.registry.TFMGRecipeTypes;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipe;
 import com.simibubi.create.foundation.item.SmartInventory;
 import com.simibubi.create.foundation.utility.Lang;
+import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -35,12 +36,11 @@ public class PolarizerBlockEntity extends ElectricBlockEntity {
             .whenContentsChanged(this::onInventoryChanged);
     public LazyOptional<IItemHandlerModifiable> itemCapability;
 
+    LerpedFloat angle = LerpedFloat.angular();
+
     public boolean shouldChargeItem = false;
-
     public boolean chargeCapacitors = false;
-
     public int capacitorPercentage = 0;
-
     boolean charged = false;
 
     public PolarizerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -54,9 +54,10 @@ public class PolarizerBlockEntity extends ElectricBlockEntity {
     }
 
     public void onInventoryChanged(int count) {
-        if(inventory.isEmpty()) {
+        if (inventory.isEmpty()) {
             shouldChargeItem = false;
             chargeCapacitors = false;
+            updateNextTick();
             return;
         }
         ItemStack itemStack = inventory.getItem(0);
@@ -64,17 +65,45 @@ public class PolarizerBlockEntity extends ElectricBlockEntity {
         if (getRecipe(itemStack).isPresent()) {
             shouldChargeItem = false;
             chargeCapacitors = true;
-            if (capacitorPercentage == 100) {
+            updateNextTick();
+            if (capacitorPercentage == 200) {
                 performRecipe(getRecipe(itemStack).get());
             }
         } else if (itemStack.getCapability(ForgeCapabilities.ENERGY).isPresent()) {
             shouldChargeItem = true;
             chargeCapacitors = false;
+            updateNextTick();
         } else {
             shouldChargeItem = false;
             chargeCapacitors = false;
+            updateNextTick();
         }
 
+    }
+
+    //@Override
+    //public boolean canBeInGroups() {
+    //    return true;
+    //}
+//
+    @Override
+    public float resistance() {
+        return chargeCapacitors ? 30 : 0;
+    }
+
+    //
+    @Override
+    public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+
+        Lang.number((double) capacitorPercentage / 2f).forGoggles(tooltip);
+        if (chargeCapacitors)
+            Lang.text("CAPACITOR").forGoggles(tooltip);
+        if (shouldChargeItem)
+            Lang.text("ITEM").forGoggles(tooltip);
+
+        super.addToTooltip(tooltip, isPlayerSneaking);
+
+        return true;
     }
 
     @Override
@@ -83,36 +112,23 @@ public class PolarizerBlockEntity extends ElectricBlockEntity {
     }
 
     @Override
-    public float resistance() {
-        return chargeCapacitors ? 1500 : 0;
-    }
-
-    @Override
-    public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-
-        Lang.number(capacitorPercentage).forGoggles(tooltip);
-        if (chargeCapacitors)
-            Lang.text("CAPACITOR").forGoggles(tooltip);
-        if (shouldChargeItem)
-            Lang.text("ITEM").forGoggles(tooltip);
-
-        return super.addToTooltip(tooltip, isPlayerSneaking);
-
-
-    }
-
-    @Override
     public void tick() {
         super.tick();
+        if (level.isClientSide) {
+            angle.chase(180 * (capacitorPercentage / 200f), 0.2f, LerpedFloat.Chaser.EXP);
+            angle.tickChaser();
+        }
         if (!networkUndersupplied())
-            if (chargeCapacitors)
-                if (!charged) {
-                    if (capacitorPercentage < 100) {
-                        capacitorPercentage++;
-                    } else onInventoryChanged(inventory.getStackInSlot(0).getCount());
+            if (getPowerUsage() > 5000)
+                if (chargeCapacitors)
+                    if (!charged) {
+                        if (capacitorPercentage < 200) {
+                            capacitorPercentage++;
+                        } else onInventoryChanged(inventory.getStackInSlot(0).getCount());
 
-                    charged = true;
-                } else charged = false;
+                        charged = true;
+                    } else charged = false;
+
     }
 
     public void performRecipe(PolarizingRecipe recipe) {
@@ -129,7 +145,7 @@ public class PolarizerBlockEntity extends ElectricBlockEntity {
         if (assemblyRecipe.isPresent()) {
             return assemblyRecipe;
         } else {
-          //  inventory.setItem(0, item);
+            //  inventory.setItem(0, item);
             return TFMGRecipeTypes.POLARIZING.find(inventory, this.level);
         }
     }

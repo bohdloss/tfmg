@@ -5,11 +5,13 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "Create-The_Factory_Must_Grow.refmap.json",
   "mixins": [
-      "FluidPropagatorMixin",
-      "FluidPipeBlockMixin",
-      "PipeAttachmentModelMixin",
-      "GoggleOverlayRendererMixin",
-      "RecipeProviderMixin"
+    "FluidPipeBlockMixin",
+    "FluidPropagatorMixin",
+    "GoggleOverlayRendererMixin",
+    "PipeAttachmentModelMixin",
+    "RecipeProviderMixin",
+    "FluidTankBlockEntityMixin",
+    "accessor.FluidTankBlockEntityAccessor"
   ],
   "client": [
   ],

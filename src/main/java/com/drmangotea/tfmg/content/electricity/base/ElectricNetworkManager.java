@@ -1,6 +1,9 @@
 package com.drmangotea.tfmg.content.electricity.base;
 
+import com.drmangotea.tfmg.content.electricity.connection.cables.IHaveCables;
+import com.drmangotea.tfmg.content.electricity.connection.cables.WireNetwork;
 import net.minecraft.world.level.LevelAccessor;
+import org.apache.http.impl.conn.Wire;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,11 +14,9 @@ public class ElectricNetworkManager {
 
     public void onLoadWorld(LevelAccessor world) {
         networks.put(world, new HashMap<>());
-
     }
     public void onUnloadWorld(LevelAccessor world) {
         networks.remove(world);
-
     }
     public ElectricalNetwork getOrCreateNetworkFor(IElectric be) {
         Long id = be.getData().getId();
@@ -26,7 +27,7 @@ public class ElectricNetworkManager {
             network = new ElectricalNetwork(id);
 
             if(be instanceof IElectric) {
-                network.add((IElectric) be);
+                network.add(be);
                 be.setNetwork(be.getData().getId());
             }
             map.put(id, network);
@@ -34,5 +35,4 @@ public class ElectricNetworkManager {
         network = map.get(id);
         return network;
     }
-
 }

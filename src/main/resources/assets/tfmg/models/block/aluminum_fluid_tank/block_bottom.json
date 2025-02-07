@@ -5,7 +5,7 @@
 		"0": "tfmg:block/aluminum_fluid_tank_top",
 		"1": "tfmg:block/aluminum_fluid_tank",
 		"4": "tfmg:block/aluminum_fluid_tank_inner",
-		"particle": "tfmg:block/fluid_tank"
+		"particle": "tfmg:block/aluminum_fluid_tank"
 	},
 	"elements": [
 		{

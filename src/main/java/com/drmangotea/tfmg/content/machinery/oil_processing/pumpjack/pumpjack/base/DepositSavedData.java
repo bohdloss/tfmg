@@ -27,8 +27,11 @@ public class DepositSavedData extends SavedData {
                     reservoirs.remove(reservoir);
                 return;
             }
-
         }
+    }
+
+    public void removeEmptyDeposits(){
+        reservoirs.removeIf(reservoir -> reservoir.oilReserves == 0);
     }
 
     public void addDeposit(Level level, long pos) {
@@ -57,7 +60,6 @@ public class DepositSavedData extends SavedData {
     }
 
     public void removeData() {
-        TFMG.LOGGER.debug("REMOVED DATA");
         reservoirs = new ArrayList<>();
         setDirty();
     }
@@ -117,7 +119,7 @@ public class DepositSavedData extends SavedData {
 
     private static DepositSavedData load(CompoundTag compound) {
         DepositSavedData data = new DepositSavedData();
-
+        TFMG.LOGGER.debug("LOAD");
         for (int i = 0; i < compound.getInt("reservoirCount"); i++) {
             CompoundTag reservoirNBT = compound.getCompound("FluidReservoir" + i);
 
@@ -126,9 +128,7 @@ public class DepositSavedData extends SavedData {
             reservoir.deposits = Arrays.stream(depositArray).boxed().toList();
             reservoir.oilReserves = compound.getInt("Reserves");
             data.reservoirs.add(reservoir);
-
         }
-
         return data;
     }
 

@@ -1,6 +1,12 @@
-// 1.20.1	2025-01-12T19:55:37.895227	TFMG's Processing Recipes
+// 1.20.1	2025-01-31T14:50:29.0691213	TFMG's Processing Recipes
 ae24d73a2ef5b8059806e660641bcb9dff2a15f4 data/tfmg/recipes/coking/charcoal.json
 9000fbf96dc2c2b822aa4e526b1c8686d5413e5a data/tfmg/recipes/coking/coal.json
+55a40ebeb7612a9ba4a938e18adcfe6da4388fff data/tfmg/recipes/distillation/crude_oil.json
+c53735f5bedbc3e6fd8c03f2dcc18047e9391d6a data/tfmg/recipes/distillation/crude_oil_light_distillation.json
+2ef242c09ecf8dc0dbd554dac9ec924b65bdd17d data/tfmg/recipes/distillation/crude_oil_no_naphtha.json
+34371023823fc0686c5e6e3d074c7b723a7c5cd7 data/tfmg/recipes/distillation/heavy_oil.json
+001bc3e8ddeb2fc3d633faf873553157b5c1878c data/tfmg/recipes/distillation/heavy_oil_light_distillation.json
+cfd0a4e4e86ad9698e251e16aa952c951c6ed1c3 data/tfmg/recipes/distillation/heavy_oil_no_naphtha.json
 35a1de08776b5725ae21dd4220549bde14d631a3 data/tfmg/recipes/hot_blast/hot_air.json
 499dddbb8a717629960cbbb1513102dc219800ef data/tfmg/recipes/polarizing/magnet.json
 ff8a13be251770ef1a6e55d409002a16579ef5f9 data/tfmg/recipes/winding/copper_coil.json

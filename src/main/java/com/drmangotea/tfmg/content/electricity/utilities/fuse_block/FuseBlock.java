@@ -50,26 +50,29 @@ public class FuseBlock extends TFMGHorizontalDirectionalBlock implements IBE<Fus
 
                 player.setItemInHand(hand, be.fuse);
                 be.fuse = inHand;
+                be.updateInFrontNextTick();
+                be.updateNextTick();
                 be.updateNetwork();
                 be.updateInFront();
+                be.sendStuff();
                 return InteractionResult.SUCCESS;
 
             }else
                 if(inHand.isEmpty()){
                     player.setItemInHand(hand, be.fuse);
                     be.fuse = ItemStack.EMPTY;
+                    be.updateNextTick();
+                    be.updateNetwork();
                     be.updateNetwork();
                     be.updateInFront();
+                    be.sendStuff();
+                    return InteractionResult.SUCCESS;
                 }
 
         }
 
         return super.use(blockState, level, pos, player, hand, blockHitResult);
     }
-
-
-
-
 
 
     @Override

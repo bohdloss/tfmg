@@ -1,6 +1,9 @@
 package com.drmangotea.tfmg.content.electricity.electrians_wrench;
 
+import com.drmangotea.tfmg.TFMG;
+import com.drmangotea.tfmg.content.electricity.base.ConnectNeightborsPacket;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
+import com.drmangotea.tfmg.registry.TFMGPackets;
 import com.simibubi.create.content.equipment.symmetryWand.SymmetryWandScreen;
 import com.simibubi.create.foundation.gui.ScreenOpener;
 import net.minecraft.core.BlockPos;
@@ -15,6 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.network.PacketDistributor;
 
 public class ElectriciansWrenchItem extends Item {
     public ElectriciansWrenchItem(Properties p_41383_) {
@@ -29,7 +33,7 @@ public class ElectriciansWrenchItem extends Item {
         if (player.isShiftKeyDown()) {
             if (level.isClientSide) {
                 DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-                    openWandGUI(itemStack);
+                    openWandGUI(itemStack, hand);
                 });
                 player.getCooldowns()
                         .addCooldown(this, 5);
@@ -46,8 +50,12 @@ public class ElectriciansWrenchItem extends Item {
 
         if(!context.getPlayer().isShiftKeyDown())
             if(level.getBlockEntity(pos) instanceof IElectric be){
+
                 be.getData().group.id = context.getItemInHand().getOrCreateTag().getInt("Number");
+
+
                 be.updateNextTick();
+                be.sendStuff();
             }
 
 
@@ -55,7 +63,7 @@ public class ElectriciansWrenchItem extends Item {
     }
 
     @OnlyIn(Dist.CLIENT)
-    private void openWandGUI(ItemStack itemStack) {
-        ScreenOpener.open(new ElectriciansWrenchScreen(itemStack));
+    private void openWandGUI(ItemStack itemStack, InteractionHand hand) {
+        ScreenOpener.open(new ElectriciansWrenchScreen(itemStack, hand));
     }
 }

@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class RebarFloorBlock extends RebarBlock{
+public class RebarFloorBlock extends SimpleConcreteloggedBlock {
     public RebarFloorBlock(Properties p_49795_) {
         super(p_49795_);
     }

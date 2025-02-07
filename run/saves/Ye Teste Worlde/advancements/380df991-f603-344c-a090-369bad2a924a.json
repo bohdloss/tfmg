@@ -2068,5 +2068,23 @@
     },
     "done": true
   },
+  "minecraft:recipes/misc/magenta_dye_from_allium": {
+    "criteria": {
+      "has_allium": "2025-01-19 11:16:53 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/light_gray_dye_from_azure_bluet": {
+    "criteria": {
+      "has_azure_bluet": "2025-01-19 11:16:52 +0100"
+    },
+    "done": true
+  },
+  "tfmg:recipes/misc/crafting/kinetics/steel_ingot_from_decompacting": {
+    "criteria": {
+      "has_item": "2025-01-19 11:11:51 +0100"
+    },
+    "done": true
+  },
   "DataVersion": 3465
 }

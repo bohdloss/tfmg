@@ -32,7 +32,7 @@ public class IndustrialMixerRenderer extends KineticBlockEntityRenderer<Industri
     protected void renderSafe(IndustrialMixerBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
                               int light, int overlay) {
 
-
+        super.renderSafe(be,partialTicks,ms,buffer,light,overlay);
         BlockState blockState = be.getBlockState();
         int height = be.vatHeight;
 
@@ -58,7 +58,7 @@ public class IndustrialMixerRenderer extends KineticBlockEntityRenderer<Industri
                     .unCentre()
                     .renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
         }
-        super.renderSafe(be,partialTicks,ms,buffer,light,overlay);
+
     }
     @Override
     protected SuperByteBuffer getRotatedModel(IndustrialMixerBlockEntity be, BlockState state) {

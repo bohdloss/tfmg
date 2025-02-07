@@ -95,7 +95,7 @@ public class LithiumSpark extends ThrowableProjectile {
 
             if(entity instanceof LivingEntity){
 
-                ((LivingEntity)entity).addEffect(new MobEffectInstance(TFMGMobEffects.HELLFIRE.get(),400));
+                ((LivingEntity)entity).addEffect(new MobEffectInstance(TFMGMobEffects.HELLFIRE.get(),60));
 
 
             }

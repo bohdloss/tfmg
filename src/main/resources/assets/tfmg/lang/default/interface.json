@@ -70,6 +70,7 @@
 
 
   "create.resistor.allowed_voltage": "Percentage of Voltage Allowed",
+  "create.winding_machine.turn_percentage": "Allowed Turn Percentage (Fromt 1000)",
   "create.creative_generator.voltage_generation": "Voltage Generation",
 
 
@@ -78,6 +79,10 @@
 
   "death.attack.tfmg.acid": "%1$s took an acid bath",
   "death.attack.tfmg.acid.player": "%1$s took an acid bath",
+
+  "create.tooltip.fuse": "Rating: %1$s",
+  "create.tooltip.resistor": "Resistance: %1$s",
+  "create.tooltip.coils": "Turns: %1$s",
 
   "create.recipe.distillation": "Distillation",
   "create.recipe.advanced_distillation": "Advanced Distillation",

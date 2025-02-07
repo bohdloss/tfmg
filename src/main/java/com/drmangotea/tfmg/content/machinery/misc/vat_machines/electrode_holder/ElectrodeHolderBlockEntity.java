@@ -49,6 +49,23 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
         sendData();
         return false;
     }
+
+
+    @Override
+    public float resistance() {
+
+        if(electrodeType !=ElectrodeType.NONE){
+            if(electrodeType == ElectrodeType.GRAPHITE){
+                return 5;
+            }else {
+                return 20;
+            }
+
+        }
+
+        return 0;
+    }
+
     public boolean setElectrode(String name, boolean simulate) {
         for (ElectrodeType type : ElectrodeType.values()) {
             if (Objects.equals(type.name, name)) {

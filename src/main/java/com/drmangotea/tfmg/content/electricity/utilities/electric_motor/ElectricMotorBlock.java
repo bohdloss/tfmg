@@ -26,13 +26,13 @@ public class ElectricMotorBlock extends DirectionalKineticBlock implements IBE<E
         return AllShapes.MOTOR_BLOCK.get(state.getValue(FACING));
     }
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        IBE.onRemove(state, level, pos, newState);
-    }
-    @Override
     public void onPlace(BlockState pState, Level level, BlockPos pos, BlockState pOldState, boolean pIsMoving) {
         withBlockEntityDo(level,pos, IElectric::onPlaced);
-        withBlockEntityDo(level,pos, be -> be.getData().updateNextTick = true);
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        IBE.onRemove(state, level, pos, newState);
     }
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {

@@ -21,63 +21,73 @@ public class VatRecipeGen extends TFMGRecipeProvider {
     }
 
     GeneratedRecipe
-        CONCRETE = createVatRecipe("concrete", b -> (VatMachineRecipeBuilder) b
-            .require(Blocks.SAND.asItem())
-            .require(Blocks.GRAVEL.asItem())
-            .require(TFMGItems.LIMESAND)
-            .require(Fluids.WATER, 250)
-            .output(TFMGFluids.LIQUID_CONCRETE.get(),1000)
+            CONCRETE = createVatRecipe("concrete", b -> (VatMachineRecipeBuilder) b
+                    .require(Blocks.SAND.asItem())
+                    .require(Blocks.GRAVEL.asItem())
+                    .require(TFMGItems.LIMESAND)
+                    .require(Fluids.WATER, 250)
+                    .output(TFMGFluids.LIQUID_CONCRETE.get(), 1000)
             , mixing()),
-        DEBUG = createVatRecipe("debug", b -> (VatMachineRecipeBuilder) b
-            .require(Blocks.GOLD_BLOCK.asItem())
-            .require(TFMGItems.CINDERBLOCK)
-            .output(TFMGItems.ALUMINUM_INGOT,2)
-            , mixing()),
-        DEBUG_2 = createVatRecipe("debug_2", b -> (VatMachineRecipeBuilder) b
-                .require(TFMGItems.ALUMINUM_INGOT)
-                .require(TFMGItems.CINDERFLOURBLOCK)
-                .output(TFMGItems.BITUMEN,2)
-                , mixing())
-    ;
+            DEBUG = createVatRecipe("debug", b -> (VatMachineRecipeBuilder) b
+                            .require(Blocks.GOLD_BLOCK.asItem())
+                            .require(TFMGItems.CINDERBLOCK)
+                            .output(TFMGItems.ALUMINUM_INGOT, 2)
+                    , mixing()),
+            DEBUG_2 = createVatRecipe("debug_2", b -> (VatMachineRecipeBuilder) b
+                            .require(TFMGItems.ALUMINUM_INGOT)
+                            .require(TFMGItems.CINDERFLOURBLOCK)
+                            .output(TFMGItems.BITUMEN, 2)
+                    , mixing()),
+            ETCHED_CIRCUIT_BOARD = createVatRecipe("etched_circuit_board", b -> (VatMachineRecipeBuilder) b
+                            .require(TFMGItems.COATED_CIRCUIT_BOARD)
+                            .require(Fluids.WATER.getSource(),100)
+                            .output(TFMGItems.ETCHED_CIRCUIT_BOARD)
+                            .duration(100)
+                    , new VatRecipeParams());
 
 
-
-    ///////
-    public VatRecipeParams electrolysis(){
+    /// ////
+    public VatRecipeParams electrolysis() {
         VatRecipeParams params = new VatRecipeParams();
         params.machines.add("tfmg:electrode");
         params.machines.add("tfmg:electrode");
         return params;
     }
-    public VatRecipeParams mixing(){
+
+    public VatRecipeParams mixing() {
         VatRecipeParams params = new VatRecipeParams();
         params.machines.add("tfmg:mixing");
         return params;
     }
-    public VatRecipeParams mixingWithCatalyst(String catalyst){
+
+    public VatRecipeParams mixingWithCatalyst(String catalyst) {
         VatRecipeParams params = new VatRecipeParams();
         params.machines.add("tfmg:mixing");
-        params.machines.add("tfmg:catalyst_"+catalyst);
+        params.machines.add("tfmg:catalyst_" + catalyst);
         return params;
     }
-    public VatRecipeParams centrifuge(){
+
+    public VatRecipeParams centrifuge() {
         VatRecipeParams params = new VatRecipeParams();
         params.machines.add("tfmg:centrifuge");
         return params;
     }
-    public VatRecipeParams freezing(){
+
+    public VatRecipeParams freezing() {
         VatRecipeParams params = new VatRecipeParams();
         params.machines.add("tfmg:freezing");
         return params;
     }
-    public VatRecipeParams intenseFreezing(){
+
+    public VatRecipeParams intenseFreezing() {
         VatRecipeParams params = new VatRecipeParams();
         params.machines.add("tfmg:freezing");
         params.machines.add("tfmg:freezing");
         params.machines.add("tfmg:freezing");
         return params;
     }
-    public VatRecipeParams arcBlasting(){
+
+    public VatRecipeParams arcBlasting() {
         VatRecipeParams params = new VatRecipeParams();
         params.machines.add("tfmg:graphite_electrode");
         params.machines.add("tfmg:graphite_electrode");

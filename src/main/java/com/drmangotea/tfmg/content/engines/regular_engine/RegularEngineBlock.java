@@ -1,19 +1,75 @@
 package com.drmangotea.tfmg.content.engines.regular_engine;
 
-import com.drmangotea.tfmg.content.engines.EngineBlock;
+import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.base.EngineBlock;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
-import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
-import com.simibubi.create.content.kinetics.base.KineticBlock;
+import com.drmangotea.tfmg.registry.TFMGItems;
 import com.simibubi.create.foundation.block.IBE;
-import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class RegularEngineBlock extends EngineBlock implements IBE<RegularEngineBlockEntity> {
+
+    public static final BooleanProperty EXTENDED = BooleanProperty.create("extended");
+
     public RegularEngineBlock(Properties properties) {
         super(properties);
     }
 
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(EXTENDED);
+    }
+
+    @Override
+    public InteractionResult use(BlockState blockState, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
+
+        ItemStack itemStack = player.getItemInHand(hand);
+
+        if (level.getBlockEntity(pos) instanceof AbstractEngineBlockEntity be && !be.isController() && level.getBlockEntity(be.controller) instanceof AbstractEngineBlockEntity controller) {
+            if (controller.nextComponent().test(itemStack))
+                if (controller.componentsInventory.insertItem(itemStack)) {
+                    if (!itemStack.is(TFMGItems.SCREWDRIVER.get()))
+                        itemStack.shrink(1);
+                    controller.playInsertionSound();
+                    controller.setChanged();
+                    controller.sendData();
+                    return InteractionResult.SUCCESS;
+                }
+
+            if(controller instanceof RegularEngineBlockEntity be1&&!be1.pistonInventory.isEmpty()&&!((RegularEngineBlockEntity) controller).pistonInventory.isEmpty())
+                return super.use(blockState, level, pos, player, hand, blockHitResult);
+
+            if (itemStack.is(TFMGItems.SCREWDRIVER.get())) {
+                for (int i = controller.componentsInventory.components.size() - 1; i >= 0; i--) {
+                    if (!controller.componentsInventory.getItem(i).isEmpty()) {
+                        controller.dropItem(controller.componentsInventory.getItem(i));
+                        controller.componentsInventory.setStackInSlot(i, ItemStack.EMPTY);
+                        controller.playRemovalSound();
+                        controller.setChanged();
+                        controller.sendData();
+                        return InteractionResult.SUCCESS;
+                    }
+                }
+
+            }
+
+        }
+
+        return super.use(blockState, level, pos, player, hand, blockHitResult);
+    }
 
     @Override
     public Class<RegularEngineBlockEntity> getBlockEntityClass() {

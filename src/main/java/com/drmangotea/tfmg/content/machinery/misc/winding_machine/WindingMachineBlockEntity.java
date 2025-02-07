@@ -1,17 +1,18 @@
 package com.drmangotea.tfmg.content.machinery.misc.winding_machine;
 
-import com.drmangotea.tfmg.recipes.CokingRecipe;
 import com.drmangotea.tfmg.recipes.WindingRecipe;
 import com.drmangotea.tfmg.registry.TFMGItems;
 import com.drmangotea.tfmg.registry.TFMGRecipeTypes;
-import com.simibubi.create.Create;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
+import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
 import com.simibubi.create.foundation.item.SmartInventory;
 import com.simibubi.create.foundation.utility.Lang;
+import com.simibubi.create.foundation.utility.VecHelper;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -19,6 +20,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -31,6 +33,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.drmangotea.tfmg.content.machinery.misc.winding_machine.WindingMachineBlock.POWERED;
+import static com.simibubi.create.content.kinetics.base.HorizontalKineticBlock.HORIZONTAL_FACING;
 
 public class WindingMachineBlockEntity extends KineticBlockEntity implements IHaveGoggleInformation {
 
@@ -42,6 +45,7 @@ public class WindingMachineBlockEntity extends KineticBlockEntity implements IHa
     public WindingRecipe recipe;
     public int amountWinded = 0;
     public boolean update = false;
+    protected ScrollValueBehaviour turnPercentage;
 
     public WindingMachineBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
@@ -52,7 +56,17 @@ public class WindingMachineBlockEntity extends KineticBlockEntity implements IHa
 
         itemCapability = LazyOptional.of(() -> inventory);
     }
+    @Override
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+        super.addBehaviours(behaviours);
+        int max = 100;
+        turnPercentage = new ScrollValueBehaviour(Lang.translateDirect("winding_machine.turn_percentage"),
+                this, new WindingMachineValueBox());
+        turnPercentage.between(1, max);
+        turnPercentage.value = 20;
+        behaviours.add(turnPercentage);
 
+    }
     public void onContentsChanged(){
 
             findRecipe();
@@ -102,7 +116,7 @@ public class WindingMachineBlockEntity extends KineticBlockEntity implements IHa
                     .style(ChatFormatting.WHITE)
                     .add(Component.literal(" "+spool.getOrCreateTag().getInt("Amount")))
                     .color(spool.getBarColor())
-                    .add(Component.literal("/200"))
+                    .add(Component.literal("/1000"))
                     .style(ChatFormatting.WHITE)
                     .forGoggles(tooltip);
 
@@ -147,7 +161,7 @@ public class WindingMachineBlockEntity extends KineticBlockEntity implements IHa
         if(getSpeed() ==0 )
             return;
 
-        if(inventory.getItem(0).is(TFMGItems.ELECTROMAGNETIC_COIL.get())&&spool.is(TFMGItems.COPPER_SPOOL.get())&&spool.getOrCreateTag().getInt("Amount")>0){
+        if(inventory.getItem(0).is(TFMGItems.ELECTROMAGNETIC_COIL.get())&&spool.is(TFMGItems.COPPER_SPOOL.get())&&spool.getOrCreateTag().getInt("Amount")>0&&inventory.getItem(0).getOrCreateTag().getInt("Turns")< turnPercentage.getValue()*10){
             spool.getOrCreateTag().putInt("Amount", spool.getOrCreateTag().getInt("Amount") - 1);
             inventory.getItem(0).getOrCreateTag().putInt("Turns", inventory.getItem(0).getOrCreateTag().getInt("Turns") + 1);
 
@@ -224,7 +238,17 @@ public class WindingMachineBlockEntity extends KineticBlockEntity implements IHa
         if (clientPacket)
             spoolSpeed.chase(getGeneratedSpeed(), 1 / 16f, LerpedFloat.Chaser.EXP);
     }
+    class WindingMachineValueBox extends ValueBoxTransform.Sided {
+        @Override
+        protected Vec3 getSouthLocation() {
+            return VecHelper.voxelSpace(8, 4, 16.05);
+        }
 
+        @Override
+        protected boolean isSideActive(BlockState state, Direction direction) {
+            return direction == state.getValue(HORIZONTAL_FACING);
+        }
+    }
 
 
 }

@@ -39,7 +39,7 @@ public class GeneratorBlockEntity extends KineticElectricBlockEntity  {
         if(getNetworkResistance() ==0)
             return super.calculateStressApplied();
 
-        return (super.calculateStressApplied()*getGeneratorLoad()*0.0005f);
+        return (super.calculateStressApplied()*getGeneratorLoad()*0.0001f);
     }
 
 

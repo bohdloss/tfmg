@@ -63,7 +63,7 @@ public class SegmentedDisplayRenderer extends SafeBlockEntityRenderer<SegmentedD
 
         //
         put(0,1,2,3,5,6,7);
-        put(1,7,6);
+        put(1,1,2);
         put(2,3,6,4,2,5);
         put(3,3,4,5,6,7);
         put(4,1,4,6,7);
@@ -82,7 +82,7 @@ public class SegmentedDisplayRenderer extends SafeBlockEntityRenderer<SegmentedD
         put("e",1,2,3,4,5);
         put("f",1,2,3,4);
         put("g",1,2,3,5,7);
-        put("h",1,2,4,5,7);
+        put("h",1,2,4,6,7);
         put("i",1,2);
         put("j",6,7,5,2);
         put("k",1,2,9,10);

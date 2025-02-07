@@ -1,22 +1,21 @@
 package com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.controller;
 
-import com.drmangotea.tfmg.content.decoration.tank.SteelTankBlockEntity;
+import com.drmangotea.tfmg.content.decoration.tanks.steel.SteelTankBlockEntity;
 import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.output.DistillationOutputBlockEntity;
 import com.drmangotea.tfmg.recipes.DistillationRecipe;
-import com.drmangotea.tfmg.registry.TFMGBlocks;
-import com.drmangotea.tfmg.registry.TFMGRecipeTypes;
+import com.drmangotea.tfmg.registry.TFMGTags;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
 import com.simibubi.create.foundation.recipe.RecipeFinder;
 import com.simibubi.create.foundation.utility.Lang;
+import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -38,150 +37,122 @@ public class DistillationControllerBlockEntity extends SmartBlockEntity implemen
 
     public DistillationRecipe recipe;
 
-
+    LerpedFloat angle = LerpedFloat.angular();
     protected LazyOptional<IFluidHandler> fluidCapability;
 
-    public final FluidTank tank= new SmartFluidTank(8000,this::onFluidStackChanged);
-
-
-
-
-
+    public final FluidTank tank = new SmartFluidTank(8000, this::onFluidStackChanged);
 
     public DistillationControllerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        fluidCapability = LazyOptional.of(()->tank);
+        fluidCapability = LazyOptional.of(() -> tank);
     }
 
     @Override
-    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+    }
 
 
     @Override
     public void tick() {
         super.tick();
 
+        if (level.isClientSide) {
+            angle.chase(180 * ((float) tank.getFluidAmount() / tank.getCapacity()), 0.2f, LerpedFloat.Chaser.EXP);
+            angle.tickChaser();
+        }
 
+        //
         ArrayList<DistillationOutputBlockEntity> outputs = getOutputs();
-
         BlockEntity beBehind = level.getBlockEntity(getBlockPos().relative(DistillationControllerBlock.getFacing(getBlockState()).getOpposite()));
-        if(!(beBehind instanceof SteelTankBlockEntity be))
+        if (!(beBehind instanceof SteelTankBlockEntity be))
             return;
 
 
-        if(outputs.isEmpty()||be.activeHeat==0)
+        if (outputs.isEmpty() || be.activeHeat == 0)
             return;
         ///
 
-
-
-        if (recipe == null || !recipe.matches(tank,outputs.toArray().length)) {
+        if (recipe == null || !recipe.matches(tank, outputs.toArray().length)) {
             DistillationRecipe recipe = getMatchingRecipes();
 
 
-
-            if (recipe!=null) {
+            if (recipe != null) {
                 this.recipe = recipe;
                 sendData();
             }
         }
-
-        if(recipe==null)
+        if (recipe == null)
             return;
 
         ///
-        float speedModifier = (float) be.activeHeat /2;
-        if(recipe.getInputFluid().getRequiredAmount()*speedModifier>tank.getFluidAmount())
+        float speedModifier = (float) be.activeHeat / 2;
+        if (recipe.getInputFluid().getRequiredAmount() * speedModifier > tank.getFluidAmount())
             return;
 
-        if(recipe.getFluidResults().toArray().length!=getOutputs().toArray().length)
+        if (recipe.getFluidResults().toArray().length != getOutputs().toArray().length)
             return;
-    if(be.isController()) {
-        if (be.getHeight() < outputs.toArray().length * 2||(be.width<2&&outputs.toArray().length>3))
+        if (be.isController()) {
+            if (be.getHeight() < outputs.toArray().length * 2 || (be.width < 2 && outputs.toArray().length > 3))
+                return;
+        } else if (be.getControllerBE().getHeight() < outputs.toArray().length * 2 || be.getControllerBE().width < 2)
             return;
-    }else if (be.getControllerBE().getHeight() < outputs.toArray().length * 2||be.getControllerBE().width<2)
-        return;
 
-
-
-        for(DistillationOutputBlockEntity be1 : outputs){
-            if(be1.tank.getSpace()==0)
+        for (DistillationOutputBlockEntity be1 : outputs) {
+            if (be1.tank.getSpace() == 0)
                 return;
         }
-
-
-
         int numero = 0;
-
-        for(DistillationOutputBlockEntity output : outputs){
-
+        for (DistillationOutputBlockEntity output : outputs) {
             FluidStack fluidStack = recipe.getFluidResults().get(numero);
-
-            if(fluidStack.isEmpty())
+            if (fluidStack.isEmpty())
+                break;
+            if (output.tank.fill(new FluidStack(fluidStack, (int) (fluidStack.getAmount() * speedModifier)), IFluidHandler.FluidAction.SIMULATE) > output.tank.getCapacity())
                 break;
 
-            if(output.tank.fill(new FluidStack(fluidStack, (int) (fluidStack.getAmount()*speedModifier)), IFluidHandler.FluidAction.SIMULATE)>output.tank.getCapacity())
-                break;
+            output.tank.fill(new FluidStack(fluidStack, (int) (fluidStack.getAmount() * speedModifier)), IFluidHandler.FluidAction.EXECUTE);
+            int consumption = (recipe.getInputFluid().getRequiredAmount() / 6);
 
-
-            output.tank.fill(new FluidStack(fluidStack, (int) (fluidStack.getAmount()*speedModifier)), IFluidHandler.FluidAction.EXECUTE);
-            int consumption = (recipe.getInputFluid().getRequiredAmount()/6);
-
-
-            tank.drain((int) (consumption*speedModifier), IFluidHandler.FluidAction.EXECUTE);
-
+            tank.drain((int) (consumption * speedModifier), IFluidHandler.FluidAction.EXECUTE);
             numero++;
-
         }
-
-
-
-
-
-
-
-
     }
+
     protected void onFluidStackChanged(FluidStack newFluidStack) {
         if (!hasLevel())
             return;
-
-
 
         if (!level.isClientSide) {
             setChanged();
             sendData();
         }
-
-
     }
+
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 
         BlockEntity beBehind = level.getBlockEntity(getBlockPos().relative(DistillationControllerBlock.getFacing(getBlockState()).getOpposite()));
-        if(beBehind instanceof SteelTankBlockEntity be) {
+        if (beBehind instanceof SteelTankBlockEntity be) {
 
+            Lang.translate("goggles.distillation_tower.status")
+                    .style(ChatFormatting.GRAY)
+                    .forGoggles(tooltip, 1);
 
-                Lang.translate("goggles.distillation_tower.status")
-                        .style(ChatFormatting.GRAY)
+            if (be.activeHeat > 0) {
+                Lang.translate("goggles.distillation_tower.level", be.activeHeat)
+                        .style(ChatFormatting.GOLD)
                         .forGoggles(tooltip, 1);
-
-        if(be.activeHeat>0) {
-            Lang.translate("goggles.distillation_tower.level", be.activeHeat)
-                    .style(ChatFormatting.GOLD)
-                    .forGoggles(tooltip, 1);
-        }else
-            Lang.translate("goggles.distillation_tower.level", be.activeHeat)
-                    .style(ChatFormatting.RED)
-                    .forGoggles(tooltip, 1);
-        if(getOutputs().toArray().length>0) {
-            Lang.translate("goggles.distillation_tower.found_outputs", getOutputs().toArray().length)
-                    .style(ChatFormatting.GOLD)
-                    .forGoggles(tooltip, 1);
-        }else
-            Lang.translate("goggles.distillation_tower.found_outputs", getOutputs().toArray().length)
-                    .style(ChatFormatting.RED)
-                    .forGoggles(tooltip, 1);
+            } else
+                Lang.translate("goggles.distillation_tower.level", be.activeHeat)
+                        .style(ChatFormatting.RED)
+                        .forGoggles(tooltip, 1);
+            if (getOutputs().toArray().length > 0) {
+                Lang.translate("goggles.distillation_tower.found_outputs", getOutputs().toArray().length)
+                        .style(ChatFormatting.GOLD)
+                        .forGoggles(tooltip, 1);
+            } else
+                Lang.translate("goggles.distillation_tower.found_outputs", getOutputs().toArray().length)
+                        .style(ChatFormatting.RED)
+                        .forGoggles(tooltip, 1);
 
 
         } else
@@ -195,14 +166,14 @@ public class DistillationControllerBlockEntity extends SmartBlockEntity implemen
     }
 
     protected DistillationRecipe getMatchingRecipes() {
-        List<Recipe<?>> list = RecipeFinder.get(getRecipeCacheKey(), level, r->r instanceof DistillationRecipe);
-            for(int i = 0; i < list.toArray().length;i++){
-                DistillationRecipe recipe = (DistillationRecipe) list.get(i);
-                if(recipe.getFluidResults().toArray().length==getOutputs().toArray().length)
-                    for(int y = 0; y < recipe.getFluidIngredients().get(0).getMatchingFluidStacks().toArray().length;y++)
-                        if(tank.getFluid().getFluid()==recipe.getFluidIngredients().get(0).getMatchingFluidStacks().get(y).getFluid())
-                            if(tank.getFluidAmount()>=recipe.getFluidIngredients().get(0).getRequiredAmount())
-                                return recipe;
+        List<Recipe<?>> list = RecipeFinder.get(getRecipeCacheKey(), level, r -> r instanceof DistillationRecipe);
+        for (int i = 0; i < list.toArray().length; i++) {
+            DistillationRecipe recipe = (DistillationRecipe) list.get(i);
+            if (recipe.getFluidResults().toArray().length == getOutputs().toArray().length)
+                for (int y = 0; y < recipe.getFluidIngredients().get(0).getMatchingFluidStacks().toArray().length; y++)
+                    if (tank.getFluid().getFluid() == recipe.getFluidIngredients().get(0).getMatchingFluidStacks().get(y).getFluid())
+                        if (tank.getFluidAmount() >= recipe.getFluidIngredients().get(0).getRequiredAmount())
+                            return recipe;
         }
         return null;
     }
@@ -218,30 +189,32 @@ public class DistillationControllerBlockEntity extends SmartBlockEntity implemen
             return fluidCapability.cast();
         return super.getCapability(cap, side);
     }
-    public ArrayList<DistillationOutputBlockEntity> getOutputs(){
+
+    public ArrayList<DistillationOutputBlockEntity> getOutputs() {
         ArrayList<DistillationOutputBlockEntity> outputs = new ArrayList<>();
         BlockPos checkedPos = this.getBlockPos().above();
-        for(int i = 0;i<11;i++){
-            if(i==0||i==2||i==4||i==6||i==8||i==10){
-                if(level.getBlockEntity(checkedPos) instanceof DistillationOutputBlockEntity be){
+        for (int i = 0; i < 11; i++) {
+            if (i == 0 || i == 2 || i == 4 || i == 6 || i == 8 || i == 10) {
+                if (level.getBlockEntity(checkedPos) instanceof DistillationOutputBlockEntity be) {
                     outputs.add(be);
                 } else break;
-            }else {
-                if(!(level.getBlockState(checkedPos).is(TFMGBlocks.INDUSTRIAL_PIPE.get())))
+            } else {
+                if (!(level.getBlockState(checkedPos).is(TFMGTags.TFMGBlockTags.INDUSTRIAL_PIPE.tag)))
                     break;
             }
             checkedPos = checkedPos.above();
         }
         return outputs;
     }
+
     @Override
     protected void read(CompoundTag compound, boolean clientPacket) {
         super.read(compound, clientPacket);
-            tank.readFromNBT(compound.getCompound("TankContent"));
+        tank.readFromNBT(compound.getCompound("TankContent"));
     }
 
     @Override
     public void write(CompoundTag compound, boolean clientPacket) {
-            compound.put("TankContent", tank.writeToNBT(new CompoundTag()));
+        compound.put("TankContent", tank.writeToNBT(new CompoundTag()));
     }
 }

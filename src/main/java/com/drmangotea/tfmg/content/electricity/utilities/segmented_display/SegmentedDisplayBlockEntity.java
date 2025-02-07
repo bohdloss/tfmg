@@ -40,11 +40,6 @@ public class SegmentedDisplayBlockEntity extends ElectricBlockEntity {
         color = DyeColor.LIME;
     }
 
-
-
-
-
-
     public void setColor(DyeColor color) {
 
 
@@ -57,31 +52,19 @@ public class SegmentedDisplayBlockEntity extends ElectricBlockEntity {
 
     @Override
     public float resistance() {
-
-        if(segmentsToRender.isEmpty()&&segmentsToRender2.isEmpty())
-            return 0;
-
         return 5;
     }
 
     @Override
     public void lazyTick() {
         super.lazyTick();
-
-
-        if(getData().getVoltage()<10||getPowerUsage()<5){
+        if(getPowerUsage()<5){
             segmentsToRender = new ArrayList<>();
             segmentsToRender2 = new ArrayList<>();
         }else {
-
             segmentsToRender = getSegments();
         }
-
-
     }
-
-
-
 
     public void clearCustomText() {
         partIndex = 0;
@@ -162,16 +145,16 @@ public class SegmentedDisplayBlockEntity extends ElectricBlockEntity {
     }
 
     @Override
-    public void read(CompoundTag nbt, boolean clientPacket) {
-        super.read(nbt, clientPacket);
-        color = NBTHelper.readEnum(nbt,"color",DyeColor.class);
-        if (nbt.contains("CustomText")) {
+    public void read(CompoundTag compound, boolean clientPacket) {
+        super.read(compound, clientPacket);
+        color = NBTHelper.readEnum(compound,"color",DyeColor.class);
+        if (compound.contains("CustomText")) {
             DynamicComponent component = customText.orElseGet(DynamicComponent::new);
-            component.read(level, worldPosition, nbt);
+            component.read(level, worldPosition, compound);
 
             if (component.isValid()) {
                 customText = Optional.of(component);
-                partIndex = nbt.getInt("CustomTextIndex");
+                partIndex = compound.getInt("CustomTextIndex");
             } else {
                 customText = Optional.empty();
                 partIndex = 0;
@@ -182,16 +165,18 @@ public class SegmentedDisplayBlockEntity extends ElectricBlockEntity {
             updateDisplayedStrings();
     }
 
-    @Override
-    public void write(CompoundTag nbt, boolean clientPacket) {
-        super.write(nbt, clientPacket);
 
-        NBTHelper.writeEnum(nbt,"color",color);
+
+    @Override
+    public void write(CompoundTag compound, boolean clientPacket) {
+        super.write(compound, clientPacket);
+
+        NBTHelper.writeEnum(compound,"color",color);
 
         if (customText.isPresent()) {
-            nbt.putInt("CustomTextIndex", partIndex);
+            compound.putInt("CustomTextIndex", partIndex);
             customText.get()
-                    .write(nbt);
+                    .write(compound);
         }
     }
 

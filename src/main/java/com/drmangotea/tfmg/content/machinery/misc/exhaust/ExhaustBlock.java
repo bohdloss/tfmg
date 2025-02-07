@@ -1,6 +1,7 @@
 package com.drmangotea.tfmg.content.machinery.misc.exhaust;
 
 
+import com.drmangotea.tfmg.base.TFMGShapes;
 import com.drmangotea.tfmg.base.WallMountBlock;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
 import com.simibubi.create.Create;
@@ -11,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -22,6 +24,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.Random;
 
@@ -42,6 +46,11 @@ public class ExhaustBlock extends WallMountBlock implements IBE<ExhaustBlockEnti
                                   LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pNeighborPos) {
         updateWater(pLevel, pState, pCurrentPos);
         return pState;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
+        return TFMGShapes.CABLE_TUBE.get(p_60555_.getValue(FACING));
     }
 
     @Override

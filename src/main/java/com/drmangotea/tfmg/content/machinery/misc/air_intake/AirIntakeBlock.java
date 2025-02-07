@@ -23,20 +23,10 @@ public class AirIntakeBlock extends DirectionalKineticBlock implements IBE<AirIn
 
     public static final BooleanProperty INVISIBLE = BooleanProperty.create("invisible");
 
-    boolean isSteel;
-
-    public static AirIntakeBlock steel(Properties properties){
-        return new AirIntakeBlock(properties, true);
-    }
-    public static AirIntakeBlock cast_iron(Properties properties){
-        return new AirIntakeBlock(properties, false);
-    }
 
 
-
-    public AirIntakeBlock(Properties properties, boolean isSteel) {
+    public AirIntakeBlock(Properties properties) {
         super(properties);
-        this.isSteel = isSteel;
         this.registerDefaultState(this.stateDefinition.any().setValue(INVISIBLE, false));
     }
 
@@ -95,7 +85,7 @@ public class AirIntakeBlock extends DirectionalKineticBlock implements IBE<AirIn
 
     @Override
     public BlockEntityType<? extends AirIntakeBlockEntity> getBlockEntityType() {
-        return isSteel ? TFMGBlockEntities.AIR_INTAKE.get() : TFMGBlockEntities.CAST_IRON_AIR_INTAKE.get();
+        return TFMGBlockEntities.AIR_INTAKE.get();
     }
     @Override
     public RenderShape getRenderShape(BlockState pState) {

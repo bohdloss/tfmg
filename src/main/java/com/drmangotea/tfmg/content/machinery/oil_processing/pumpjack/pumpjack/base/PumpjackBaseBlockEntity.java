@@ -7,6 +7,7 @@ import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.cr
 import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.PumpjackBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGFluids;
+import com.drmangotea.tfmg.registry.TFMGTags;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -39,7 +40,7 @@ public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGo
     protected LazyOptional<IFluidHandler> fluidCapability;
     public FluidTank tank;
     public BlockPos deposit;
-    public DepositSavedData depositData;
+
 
     public PumpjackBaseBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -52,6 +53,9 @@ public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGo
     @Override
     public void tick() {
         super.tick();
+
+
+
         if (controllerHammer != null)
             if (!(level.getBlockEntity(controllerHammer.getBlockPos()) instanceof PumpjackBlockEntity))
                 controllerHammer = null;
@@ -88,6 +92,15 @@ public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGo
         miningRate = (int) Math.abs(crank.getMachineInputSpeed() * (crank.heightModifier));
         process();
 
+
+
+    }
+
+    @Override
+    public void lazyTick() {
+        super.lazyTick();
+        if(TFMG.DEPOSITS.depositData!=null)
+            TFMG.DEPOSITS.depositData.removeEmptyDeposits();
     }
 
     public void findDeposit() {
@@ -97,7 +110,7 @@ public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGo
                 deposit = checkedPos;
                 return;
             }
-            if (!(level.getBlockState(new BlockPos(checkedPos)).is(TFMGBlocks.INDUSTRIAL_PIPE.get()))) {
+            if (!(level.getBlockState(new BlockPos(checkedPos)).is(TFMGTags.TFMGBlockTags.INDUSTRIAL_PIPE.tag))) {
                 deposit = null;
                 return;
             }
@@ -108,13 +121,12 @@ public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGo
     public void process() {
         if (deposit == null)
             return;
-        if (depositData == null) {
-            loadDepositData();
+        if (TFMG.DEPOSITS.depositData == null) {
             return;
         }
 
-        if (!depositData.containsDeposit(deposit.asLong())) {
-            depositData.addDeposit(level,deposit.asLong());
+        if (!TFMG.DEPOSITS.depositData.containsDeposit(deposit.asLong())) {
+            TFMG.DEPOSITS.depositData.addDeposit(level,deposit.asLong());
         }
 
 
@@ -135,10 +147,10 @@ public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGo
 
         if (randomSource.nextInt(((900000) / amountPumped)+1) == 0) {
 
-            depositData.getReservoirFor(deposit.asLong()).oilReserves--;
-            depositData.setDirty();
-            if(depositData.getReservoirFor(deposit.asLong()).oilReserves <=0){
-                depositData.removeDeposit(deposit.asLong());
+            TFMG.DEPOSITS.depositData.getReservoirFor(deposit.asLong()).oilReserves--;
+            TFMG.DEPOSITS.depositData.setDirty();
+            if(TFMG.DEPOSITS.depositData.getReservoirFor(deposit.asLong()).oilReserves <=0){
+                TFMG.DEPOSITS.depositData.removeDeposit(deposit.asLong());
                 level.setBlock(deposit, Blocks.BEDROCK.defaultBlockState(),3);
                 deposit = null;
                 findDeposit();
@@ -198,12 +210,7 @@ public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGo
         super.write(compound, clientPacket);
     }
 
-    public void loadDepositData() {
-        if (level.getServer() == null)
-            return;
 
-        depositData = DepositSavedData.load(level.getServer());
-    }
 
     @Nonnull
     @Override

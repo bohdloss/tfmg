@@ -75,6 +75,7 @@ public class TFMGTags {
         BLAST_FURNACE_WALL,
         REINFORCED_BLAST_FURNACE_WALL,
         BLAST_FURNACE_SUPPORT,
+        INDUSTRIAL_PIPE,
         REINFORCED_BLAST_FURNACE_SUPPORT,
         SURFACE_SCANNER_FINDABLE,
         PUMPJACK_PART,
@@ -132,6 +133,7 @@ public class TFMGTags {
     public enum TFMGItemTags {
 
         FLUX,
+        SPOOLS,
         BLAST_FURNACE_FUEL,
         RODS
 

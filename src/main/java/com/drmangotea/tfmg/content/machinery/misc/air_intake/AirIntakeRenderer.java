@@ -19,11 +19,9 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 
 public class AirIntakeRenderer  extends KineticBlockEntityRenderer<AirIntakeBlockEntity> {
 
-    boolean isSteel;
 
-    public AirIntakeRenderer(BlockEntityRendererProvider.Context context, boolean isSteel) {
+    public AirIntakeRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
-        this.isSteel = isSteel;
     }
 
 
@@ -37,9 +35,9 @@ public class AirIntakeRenderer  extends KineticBlockEntityRenderer<AirIntakeBloc
 
             SuperByteBuffer frame;
             if (be.hasShaft) {
-                frame = CachedBufferer.partialFacing(isSteel ? TFMGPartialModels.AIR_INTAKE_FRAME : TFMGPartialModels.CAST_IRON_AIR_INTAKE_FRAME, be.getBlockState(), direction);
+                frame = CachedBufferer.partialFacing(TFMGPartialModels.AIR_INTAKE_FRAME, be.getBlockState(), direction);
             } else
-                frame = CachedBufferer.partialFacing(isSteel ? TFMGPartialModels.AIR_INTAKE_FRAME_CLOSED : TFMGPartialModels.CAST_IRON_AIR_INTAKE_FRAME_CLOSED, be.getBlockState(), direction);
+                frame = CachedBufferer.partialFacing(TFMGPartialModels.AIR_INTAKE_FRAME_CLOSED, be.getBlockState(), direction);
             ///
             if (direction == Direction.NORTH)
                 frame.translateZ(0.001);
@@ -58,7 +56,7 @@ public class AirIntakeRenderer  extends KineticBlockEntityRenderer<AirIntakeBloc
 
             ///
             if (be.diameter == 2) {
-                SuperByteBuffer chassisMedium = CachedBufferer.partialFacing(isSteel ? TFMGPartialModels.AIR_INTAKE_MEDIUM : TFMGPartialModels.CAST_IRON_AIR_INTAKE_MEDIUM, be.getBlockState(), direction);
+                SuperByteBuffer chassisMedium = CachedBufferer.partialFacing(TFMGPartialModels.AIR_INTAKE_MEDIUM, be.getBlockState(), direction);
                 if(direction == Direction.UP)
                     chassisMedium.translateZ(1);
                 if(direction.getAxis().isVertical())
@@ -69,7 +67,7 @@ public class AirIntakeRenderer  extends KineticBlockEntityRenderer<AirIntakeBloc
             }
 
             if (be.diameter == 3) {
-                SuperByteBuffer chassisLarge = CachedBufferer.partialFacing(isSteel ? TFMGPartialModels.AIR_INTAKE_LARGE : TFMGPartialModels.CAST_IRON_AIR_INTAKE_LARGE, be.getBlockState(), direction);
+                SuperByteBuffer chassisLarge = CachedBufferer.partialFacing(TFMGPartialModels.AIR_INTAKE_LARGE, be.getBlockState(), direction);
 
                 if (direction.getAxis().isHorizontal()) {
                     chassisLarge.translateY(1);

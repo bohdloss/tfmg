@@ -1,5 +1,7 @@
 package com.drmangotea.tfmg.content.electricity.measurement;
 
+import com.drmangotea.tfmg.TFMG;
+import com.drmangotea.tfmg.content.electricity.base.ElectricalNetwork;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
@@ -43,11 +45,14 @@ public class VoltMeterBlockEntity extends SmartBlockEntity implements IHaveGoggl
     @Override
     public void lazyTick() {
         super.lazyTick();
-        if(!level.isClientSide)
-            return;
+        //if(!level.isClientSide)
+        //    return;
         BlockEntity beBehind = level.getBlockEntity(getBlockPos().relative(getBlockState().getValue(FACING).getOpposite()));
 
         if(beBehind instanceof IElectric be){
+           // TFMG.LOGGER.debug("A "+ ElectricalNetwork.getCableCurrent(be));
+           // TFMG.LOGGER.debug("id group "+be.getData().group.id);
+           // TFMG.LOGGER.debug("resistance group "+be.getData().group.resistance);
             value = Math.min(getUnit(be), range );
 
         } else value = 0;

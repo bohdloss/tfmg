@@ -12,7 +12,6 @@ import com.simibubi.create.foundation.block.render.SpriteShifter;
 public class TFMGSpriteShifts {
 
     public static final CTSpriteShiftEntry CAST_IRON_BLOCK = omni("cast_iron_block"), LEAD_BLOCK = omni("lead_block"), STEEL_BLOCK = omni("steel_block");
-    public static final CTSpriteShiftEntry STEEL_FLUID_TANK = getCT(AllCTTypes.RECTANGLE, "steel_fluid_tank"), STEEL_FLUID_TANK_TOP = getCT(AllCTTypes.RECTANGLE, "steel_fluid_tank_top"), STEEL_FLUID_TANK_INNER = getCT(AllCTTypes.RECTANGLE, "steel_fluid_tank_inner");
     public static final CTSpriteShiftEntry HEAVY_MACHINERY_CASING = omni("heavy_machinery_casing"), ELECTRIC_CASING = omni("electric_casing"), STEEL_CASING = omni("steel_casing"), INDUSTRIAL_ALUMINUM_CASING = omni("industrial_aluminum_casing");
     public static final CTSpriteShiftEntry CAPACITOR = getCT(AllCTTypes.RECTANGLE, "capacitor_side"), ACCUMULATOR = getCT(AllCTTypes.RECTANGLE, "accumulator_side");
     public static final CTSpriteShiftEntry STEEL_SCAFFOLD = horizontal("scaffold/steel_scaffold"), ALUMINUM_SCAFFOLD = horizontal("scaffold/aluminum_scaffold");
@@ -20,6 +19,12 @@ public class TFMGSpriteShifts {
     public static final CTSpriteShiftEntry STEEL_SCAFFOLD_INSIDE = horizontal("scaffold/steel_scaffold_inside"), ALUMINUM_SCAFFOLD_INSIDE = horizontal("scaffold/aluminum_scaffold_inside");
     public static final CTSpriteShiftEntry STEEL_ENCASED_COGWHEEL_SIDE = vertical("steel_encased_cogwheel_side"), STEEL_ENCASED_COGWHEEL_OTHERSIDE = horizontal("steel_encased_cogwheel_side"), HEAVY_CASING_ENCASED_COGWHEEL_SIDE = vertical("heavy_machinery_encased_cogwheel_side"), HEAVY_CASING_ENCASED_COGWHEEL_OTHERSIDE = horizontal("heavy_machinery_encased_cogwheel_side");
     public static final CTSpriteShiftEntry COKE_OVEN_TOP = getCT(AllCTTypes.RECTANGLE, "coke_oven/top"), COKE_OVEN_BOTTOM = getCT(AllCTTypes.RECTANGLE, "coke_oven/bottom"), COKE_OVEN_BACK = getCT(AllCTTypes.RECTANGLE, "coke_oven/side"), COKE_OVEN_SIDE = getCT(AllCTTypes.RECTANGLE, "coke_oven/side");
+
+    public static final CTSpriteShiftEntry FIREBOX_TOP = getCT(AllCTTypes.RECTANGLE, "firebox_top");
+
+    public static final CTSpriteShiftEntry STEEL_FLUID_TANK = getCT(AllCTTypes.RECTANGLE, "steel_fluid_tank"), STEEL_FLUID_TANK_TOP = getCT(AllCTTypes.RECTANGLE, "steel_fluid_tank_top"), STEEL_FLUID_TANK_INNER = getCT(AllCTTypes.RECTANGLE, "steel_fluid_tank_inner");
+    public static final CTSpriteShiftEntry ALUMINUM_FLUID_TANK = getCT(AllCTTypes.RECTANGLE, "aluminum_fluid_tank"), ALUMINUM_FLUID_TANK_TOP = getCT(AllCTTypes.RECTANGLE, "aluminum_fluid_tank_top"), ALUMINUM_FLUID_TANK_INNER = getCT(AllCTTypes.RECTANGLE, "aluminum_fluid_tank_inner");
+    public static final CTSpriteShiftEntry CAST_IRON_FLUID_TANK = getCT(AllCTTypes.RECTANGLE, "cast_iron_fluid_tank"), CAST_IRON_FLUID_TANK_TOP = getCT(AllCTTypes.RECTANGLE, "cast_iron_fluid_tank_top"), CAST_IRON_FLUID_TANK_INNER = getCT(AllCTTypes.RECTANGLE, "cast_iron_fluid_tank_inner");
 
     public static final CTSpriteShiftEntry BLAST_FURNACE_REINFORCEMENT = vertical("blast_furnace_reinforcement");
     public static final CTSpriteShiftEntry RUSTED_BLAST_FURNACE_REINFORCEMENT = vertical("rusted_blast_furnace_reinforcement");
