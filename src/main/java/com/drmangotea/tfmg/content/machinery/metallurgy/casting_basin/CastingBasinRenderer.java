@@ -18,7 +18,7 @@ public class CastingBasinRenderer extends SafeBlockEntityRenderer<CastingBasinBl
         if (be.tank.isEmpty())
             return;
         BlockState blockState = be.getBlockState();
-
+        FluidRenderer.renderFluidBox(be.tank.getFluid(), 0.1f, 0.1f, 0.1f, 0.9f, be.fluidLevel.getValue(partialTicks)/400, 0.9f, buffer, ms, light, false);
         if (be.flowTimer > 0) {
 
             Direction facing = blockState.getValue(FACING);

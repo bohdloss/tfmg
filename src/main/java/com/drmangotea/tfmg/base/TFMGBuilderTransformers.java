@@ -8,18 +8,24 @@ import com.drmangotea.tfmg.content.decoration.doors.TFMGSlidingDoorBlock;
 import com.drmangotea.tfmg.content.decoration.encased.TFMGEncasedCogwheelBlock;
 import com.drmangotea.tfmg.content.decoration.encased.TFMGEncasedShaftBlock;
 import com.drmangotea.tfmg.content.decoration.flywheels.TFMGFlywheelBlock;
+import com.drmangotea.tfmg.content.electricity.connection.copycat_cable.CopycatCableBlock;
+import com.drmangotea.tfmg.content.electricity.lights.neon_tube.NeonTubeBlock;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.contraptions.behaviour.DoorMovingInteraction;
 import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
+import com.simibubi.create.content.decoration.girder.GirderBlock;
 import com.simibubi.create.content.decoration.slidingDoor.SlidingDoorMovementBehaviour;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.content.kinetics.base.RotatedPillarKineticBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.encased.EncasedCogCTBehaviour;
 import com.simibubi.create.foundation.block.connected.CTSpriteShiftEntry;
 import com.simibubi.create.foundation.data.*;
+import com.simibubi.create.foundation.utility.Iterate;
 import com.tterrag.registrate.builders.BlockBuilder;
+import com.tterrag.registrate.providers.DataGenContext;
+import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;
@@ -32,7 +38,9 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 
+import java.nio.channels.Pipe;
 import java.util.function.Supplier;
 
 import static com.drmangotea.tfmg.TFMG.REGISTRATE;
@@ -70,14 +78,43 @@ public class TFMGBuilderTransformers {
                  .build();
      }
 
-    public static <B extends Block, P> NonNullUnaryOperator<BlockBuilder<B, P>> surfaceScanner() {
-        return b -> b.initialProperties(SharedProperties::softMetal)
-                .blockstate((c, p) -> p.horizontalBlock(c.get(), p.models()
-                        .getExistingFile(p.modLoc("block/surface_scanner/block"))))
-                .addLayer(() -> RenderType::cutoutMipped)
-                .item()
-                .transform(ModelGen.customItemModel("surface_scanner", "item"));
+    public static void generateNeonTubeBlockState(DataGenContext<Block, NeonTubeBlock> c, RegistrateBlockstateProvider p) {
+        MultiPartBlockStateBuilder builder = p.getMultipartBuilder(c.get());
+
+
+        builder.part()
+                .modelFile(AssetLookup.partialBaseModel(c, p, "center"))
+                .addModel()
+                .end();
+
+        builder.part().modelFile(AssetLookup.partialBaseModel(c, p, "north"))
+                .addModel()
+                .condition(PipeBlock.NORTH, true)
+                .end();
+        builder.part().modelFile(AssetLookup.partialBaseModel(c, p, "south"))
+                .addModel()
+                .condition(PipeBlock.SOUTH, true)
+                .end();
+        builder.part().modelFile(AssetLookup.partialBaseModel(c, p, "west"))
+                .addModel()
+                .condition(PipeBlock.WEST, true)
+                .end();
+        builder.part().modelFile(AssetLookup.partialBaseModel(c, p, "east"))
+                .addModel()
+                .condition(PipeBlock.EAST, true)
+                .end();
+        builder.part().modelFile(AssetLookup.partialBaseModel(c, p, "top"))
+                .addModel()
+                .condition(PipeBlock.UP, true)
+                .end();
+        builder.part().modelFile(AssetLookup.partialBaseModel(c, p, "bottom"))
+                .addModel()
+                .condition(PipeBlock.DOWN, true)
+                .end();
+
     }
+
+
 
     public static <B extends TFMGEncasedShaftBlock, P> NonNullUnaryOperator<BlockBuilder<B, P>> encasedShaft(String casing,
                                                                                                              Supplier<CTSpriteShiftEntry> casingShift) {
@@ -147,19 +184,19 @@ public class TFMGBuilderTransformers {
                 .transform(BlockStressDefaults.setNoImpact())
                 .loot((p, lb) -> p.dropOther(lb, drop.get()));
     }
-    //public static <B extends CopycatCableBlock, P> NonNullUnaryOperator<BlockBuilder<B, P>> copycatCable() {
-    //    return b -> b.initialProperties(SharedProperties::softMetal)
-    //            .blockstate((c, p) -> p.simpleBlock(c.get(), p.models()
-    //                    .getExistingFile(p.mcLoc("air"))))
-    //            .initialProperties(SharedProperties::softMetal)
-    //            .properties(BlockBehaviour.Properties::noOcclusion)
-    //            .addLayer(() -> RenderType::solid)
-    //            .addLayer(() -> RenderType::cutout)
-    //            .addLayer(() -> RenderType::cutoutMipped)
-    //            // .addLayer(() -> RenderType::translucent)
-    //            .color(() -> CopycatCableBlock::wrappedColor)
-    //            .transform(TagGen.axeOrPickaxe());
-    //}
+    public static <B extends CopycatCableBlock, P> NonNullUnaryOperator<BlockBuilder<B, P>> copycatCable() {
+        return b -> b.initialProperties(SharedProperties::softMetal)
+                .blockstate((c, p) -> p.simpleBlock(c.get(), p.models()
+                        .getExistingFile(p.mcLoc("air"))))
+                .initialProperties(SharedProperties::softMetal)
+                .properties(BlockBehaviour.Properties::noOcclusion)
+                .addLayer(() -> RenderType::solid)
+                .addLayer(() -> RenderType::cutout)
+                .addLayer(() -> RenderType::cutoutMipped)
+                // .addLayer(() -> RenderType::translucent)
+                .color(() -> CopycatCableBlock::wrappedColor)
+                .transform(TagGen.axeOrPickaxe());
+    }
 
     ///////////////
     public static BlockEntry<TFMGFlywheelBlock> flywheel(String name) {

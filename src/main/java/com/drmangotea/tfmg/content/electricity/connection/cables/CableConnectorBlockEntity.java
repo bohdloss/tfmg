@@ -1,30 +1,30 @@
 package com.drmangotea.tfmg.content.electricity.connection.cables;
 
 import com.drmangotea.tfmg.TFMG;
-import com.drmangotea.tfmg.content.electricity.base.ElectricNetworkManager;
-import com.drmangotea.tfmg.registry.TFMGPackets;
+import com.drmangotea.tfmg.base.TFMGUtils;
+import com.drmangotea.tfmg.content.electricity.base.ElectricBlockEntity;
 import com.simibubi.create.content.equipment.goggles.IHaveHoveringInformation;
-import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CableConnectorBlockEntity extends SmartBlockEntity implements IHaveHoveringInformation {
+import static com.drmangotea.tfmg.base.WallMountBlock.FACING;
+import static com.drmangotea.tfmg.content.electricity.connection.cables.CableConnectorBlock.EXTENSION;
+
+public class CableConnectorBlockEntity extends ElectricBlockEntity implements IHaveHoveringInformation {
 
     //player held cable rendering
     public Player player;
@@ -36,6 +36,7 @@ public class CableConnectorBlockEntity extends SmartBlockEntity implements IHave
 
     public List<CableConnection> connections = new ArrayList<>();
     public long id;
+    public boolean removeWiresNextTick = false;
 
     public CableConnectorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -46,17 +47,34 @@ public class CableConnectorBlockEntity extends SmartBlockEntity implements IHave
     }
 
     @Override
-    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+    }
+
     @Override
     public void remove() {
         super.remove();
-        removeConnections(false);
+        notifyRemoval();
     }
 
-    public void removeConnections(boolean client) {
-        if (!level.isClientSide()) {
-            TFMGPackets.getChannel().send(PacketDistributor.ALL.noArg(), new CablePacket(this.getBlockPos()));
-        } else if(!client)
+
+    @Override
+    public boolean hasElectricitySlot(Direction direction) {
+        if(getBlockState().getValue(EXTENSION))
+            return direction.getAxis() == getBlockState().getValue(FACING).getAxis();
+
+        return direction == getBlockState().getValue(FACING).getOpposite();
+    }
+
+    @Override
+    public boolean makeElectricityTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+
+
+        return super.makeElectricityTooltip(tooltip, isPlayerSneaking);
+    }
+
+    public void notifyRemoval() {
+
+        if(level.isClientSide)
             return;
 
         for (CableConnection connection : connections) {
@@ -64,25 +82,119 @@ public class CableConnectorBlockEntity extends SmartBlockEntity implements IHave
             if (itemToDrop.getItem().getCount() > 0) {
                 level.addFreshEntity(itemToDrop);
             }
-            BlockPos pos = connection.blockPos1 == getBlockPos() ? connection.blockPos2 : connection.blockPos1;
-            if (level.getBlockEntity(pos) instanceof CableConnectorBlockEntity be) {
+            BlockPos pos = connection.blockPos1;
 
-                if(be.getBlockPos() == getBlockPos())
+           // level.setBlock(connection.blockPos1.above(), Blocks.GOLD_BLOCK.defaultBlockState(),3);
+            if (level.getBlockEntity(pos) instanceof CableConnectorBlockEntity be) {
+                if (be.getBlockPos() == getBlockPos())
                     continue;
-                be.connections.removeIf(c->c.blockPos1==getBlockPos()||c.blockPos2==getBlockPos());
-                be.setChanged();
-                be.sendData();
-                setChanged();
-                sendData();
+                be.onPlaced();
+                be.removeWiresNextTick = true;
+
             }
         }
     }
 
+   //@Override
+   //public float resistance() {
+   //    float resistance = 0;
+
+   //    for(CableConnection connection : connections){
+   //        if(connection.visible){
+   //            resistance+=connection.type.resistivity*connection.getLength();
+   //        }
+   //    }
+
+   //    return resistance;
+   //}
+
+
+
+    public void removeConnection(){
+        connections.removeIf(c->{
+            BlockPos pos = c.blockPos1;
+
+            return !(level.getBlockEntity(pos) instanceof CableConnectorBlockEntity);
+
+        });
+        sendStuff();
+    }
+
+    @Override
+    public void onConnected() {
+        super.onConnected();
+
+        for(CableConnectorBlockEntity be : getConnectedWires()){
+
+            if (be.getData().getId() != getData().getId()) {
+                be.setNetwork(getData().getId());
+                be.onConnected();
+            }
+
+            be.sendStuff();
+        }
+        sendStuff();
+
+    }
+    public List<CableConnectorBlockEntity> getConnectedWires(){
+        return getConnectedWires(new ArrayList<>());
+    }
+    public List<CableConnectorBlockEntity> getConnectedWires(List<CableConnectorBlockEntity> foundList){
+
+
+        if(!foundList.contains(this)) {
+            foundList.add(this);
+        }
+
+        for(CableConnection connection : connections){
+            BlockPos pos = connection.blockPos1;
+
+
+            //level.setBlockAndUpdate(pos.above(), Blocks.GOLD_BLOCK.defaultBlockState());
+            //level.setBlockAndUpdate(pos2.above(2), Blocks.DIAMOND_BLOCK.defaultBlockState());
+
+
+
+
+
+            if(connection.blockPos1 == getBlockPos())
+                TFMGUtils.debugMessage(level, "PRIMARY IS SUS");
+
+            if(pos ==getBlockPos()){
+                TFMG.LOGGER.debug("WHAT THE SIGMA");
+                continue;
+                }
+          //  TFMGUtils.debugMessage(level, "Eﴤ "+connections.size());
+
+            if(level.getBlockEntity(pos) instanceof CableConnectorBlockEntity bee&&bee.getBlockPos() == getBlockPos())
+                TFMGUtils.debugMessage(level, "SUSSY BEHAVIOUR");
+
+            if(level.getBlockEntity(pos) instanceof CableConnectorBlockEntity be&&!foundList.contains(be)){
+               // TFMGUtils.debugMessage(level, "Bﴤ "+connections.size());
+                be.getConnectedWires(foundList);
+                sendStuff();
+                be.sendStuff();
+
+            }
+        }
+        sendStuff();
+        return foundList;
+    }
+
+
+
     @Override
     public void tick() {
         super.tick();
+        if(removeWiresNextTick) {
+
+            removeConnection();
+            removeWiresNextTick = false;
+        }
         if (player != null)
             managePlayerWire();
+
+
     }
 
     @Override
@@ -90,6 +202,8 @@ public class CableConnectorBlockEntity extends SmartBlockEntity implements IHave
         super.write(compound, clientPacket);
 
         compound.putInt("ConnectionCount", connections.size());
+
+
 
         for (int i = 0; i < connections.size(); i++) {
             CableConnection connection = connections.get(i);
@@ -108,6 +222,7 @@ public class CableConnectorBlockEntity extends SmartBlockEntity implements IHave
     @Override
     protected void read(CompoundTag compound, boolean clientPacket) {
         super.read(compound, clientPacket);
+
         connections = new ArrayList<>();
         for (int i = 0; i < compound.getInt("ConnectionCount"); i++) {
 

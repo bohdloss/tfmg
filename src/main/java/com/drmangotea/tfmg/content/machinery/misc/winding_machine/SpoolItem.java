@@ -33,9 +33,9 @@ import static com.simibubi.create.foundation.utility.Debug.debugMessage;
 
 public class SpoolItem extends Item {
 
-    final PartialModel model;
-    final int barColor;
-    final CableConnection.CableType type;
+    public final PartialModel model;
+    public final int barColor;
+    public final CableConnection.CableType type;
 
     public SpoolItem(Properties properties, PartialModel model, int barColor, CableConnection.CableType type) {
         super(properties);
@@ -106,13 +106,13 @@ public class SpoolItem extends Item {
                      return InteractionResult.SUCCESS;
                  }
 
-                 if(level.getBlockEntity(posToConnect) instanceof CableConnectorBlockEntity be2) {
-                     CableConnectorBlockEntity connectedBe1 = pos.asLong()>posToConnect.asLong() ? be2 : be;
-                     CableConnectorBlockEntity connectedBe2= pos.asLong()>posToConnect.asLong() ? be : be2;
+                 if(level.getBlockEntity(posToConnect) instanceof CableConnectorBlockEntity otherBE) {
+                     //CableConnectorBlockEntity connectedBe1 = pos.asLong()>posToConnect.asLong() ? otherBE : be;
+                     //CableConnectorBlockEntity connectedBe2= pos.asLong()>posToConnect.asLong() ? be : otherBE;
 //
-                     CableConnection connection1 = new CableConnection(connectedBe1.getCablePosition(), connectedBe2.getCablePosition(), connectedBe1.getBlockPos(), connectedBe2.getBlockPos(),type,true);
-                     CableConnection connection2 = new CableConnection(connectedBe1.getCablePosition(), connectedBe2.getCablePosition(), connectedBe1.getBlockPos(), connectedBe2.getBlockPos(),type,false);
-                     if(connectedBe1.connections.contains(connection1)||connectedBe1.connections.contains(connection1)){
+                     CableConnection connection1 = new CableConnection(be.getCablePosition(), otherBE.getCablePosition(), otherBE.getBlockPos(),type,true);
+                     CableConnection connection2 = new CableConnection(otherBE.getCablePosition(), be.getCablePosition(), be.getBlockPos(),type,false);
+                     if(be.connections.contains(connection1)||otherBE.connections.contains(connection1)){
                          if (level.isClientSide)
                              player.displayClientMessage(Lang.translateDirect("wires.connection_already_created")
                                      .withStyle(ChatFormatting.YELLOW), true);
@@ -122,18 +122,19 @@ public class SpoolItem extends Item {
                          return InteractionResult.SUCCESS;
                      }
                      if(!level.isClientSide) {
-                         connectedBe1.connections.add(connection2);
-                         connectedBe2.connections.add(connection1);
+                         be.connections.add(connection1);
+                         otherBE.connections.add(connection2);
+                         be.onPlaced();
                      }
 
                    //  connectedBe1.wiresUpdated();
 
-                     connectedBe1.player = null;
-                     connectedBe2.player = null;
-                     connectedBe1.setChanged();
-                     connectedBe2.setChanged();
-                     connectedBe1.sendData();
-                     connectedBe2.sendData();
+                     be.player = null;
+                     otherBE.player = null;
+                     be.setChanged();
+                     otherBE.setChanged();
+                     be.sendData();
+                     otherBE.sendData();
                      stack.getOrCreateTag().remove("Position");
                      stack.getOrCreateTag().remove("XPos");
                      stack.getOrCreateTag().remove("YPos");

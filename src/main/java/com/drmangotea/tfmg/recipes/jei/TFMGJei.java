@@ -1,5 +1,6 @@
 package com.drmangotea.tfmg.recipes.jei;
 
+import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.recipes.*;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGRecipeTypes;
@@ -43,7 +44,7 @@ import java.util.function.Supplier;
 @ParametersAreNonnullByDefault
 public class TFMGJei implements IModPlugin {
 
-    private static final ResourceLocation ID = Create.asResource("jei_plugin");
+    private static final ResourceLocation ID = TFMG.asResource("jei_plugin");
 
     private final List<CreateRecipeCategory<?>> allCategories = new ArrayList<>();
     private IIngredientManager ingredientManager;
@@ -53,8 +54,6 @@ public class TFMGJei implements IModPlugin {
 
         CreateRecipeCategory<?>
 
-
-
                 advancedDistillation = builder(DistillationRecipe.class)
                 .addTypedRecipes(TFMGRecipeTypes.DISTILLATION)
                 .catalyst(TFMGBlocks.STEEL_DISTILLATION_CONTROLLER::get)
@@ -63,38 +62,51 @@ public class TFMGJei implements IModPlugin {
                 .emptyBackground(177, 150)
                 .build("advanced_distillation", DistillationCategory::new),
 
-                 coking = builder(CokingRecipe.class)
-                 .addTypedRecipes(TFMGRecipeTypes.COKING)
-                 .catalyst(TFMGBlocks.COKE_OVEN::get)
-                 .emptyBackground(177, 123)
-                 .build("coking", CokingCategory::new),
+                coking = builder(CokingRecipe.class)
+                        .addTypedRecipes(TFMGRecipeTypes.COKING)
+                        .catalyst(TFMGBlocks.COKE_OVEN::get)
+                        .emptyBackground(177, 123)
+                        .build("coking", CokingCategory::new),
 
-                 industrial_blasting = builder(IndustrialBlastingRecipe.class)
-                 .addTypedRecipes(TFMGRecipeTypes.INDUSTRIAL_BLASTING)
-                 .catalyst(TFMGBlocks.BLAST_FURNACE_OUTPUT::get)
-                 .catalyst(TFMGBlocks.FIREPROOF_BRICKS::get)
-                 .itemIcon(TFMGBlocks.BLAST_FURNACE_OUTPUT.get())
-                 .emptyBackground(177, 150)
-                 .build("industrial_blasting", IndustrialBlastingCategory::new),
+                industrial_blasting = builder(IndustrialBlastingRecipe.class)
+                        .addTypedRecipes(TFMGRecipeTypes.INDUSTRIAL_BLASTING)
+                        .catalyst(TFMGBlocks.BLAST_FURNACE_OUTPUT::get)
+                        .catalyst(TFMGBlocks.FIREPROOF_BRICKS::get)
+                        .catalyst(TFMGBlocks.FIREPROOF_BRICK_REINFORCEMENT::get)
+                        .catalyst(TFMGBlocks.BLAST_FURNACE_REINFORCEMENT::get)
+                        .catalyst(TFMGBlocks.BLAST_FURNACE_REINFORCEMENT_WALL::get)
+                        .catalyst(TFMGBlocks.BLAST_FURNACE_HATCH::get)
+                        .itemIcon(TFMGBlocks.BLAST_FURNACE_OUTPUT.get())
+                        .emptyBackground(177, 150)
+                        .build("industrial_blasting", IndustrialBlastingCategory::new),
 
+                casting = builder(CastingRecipe.class)
+                        .addTypedRecipes(TFMGRecipeTypes.CASTING)
+                        .catalyst(TFMGBlocks.CASTING_BASIN::get)
+                        .itemIcon(TFMGBlocks.CASTING_BASIN.get())
+                        .emptyBackground(177, 53)
+                        .build("casting", CastingCategory::new),
 
-                 casting = builder(CastingRecipe.class)
-                 .addTypedRecipes(TFMGRecipeTypes.CASTING)
-                 .catalyst(TFMGBlocks.CASTING_BASIN::get)
-                 .itemIcon(TFMGBlocks.STEEL_BLOCK.get())
-                 .emptyBackground(177, 140)
-                 .build("casting", CastingCategory::new),
+                hot_blast = builder(HotBlastRecipe.class)
+                        .addTypedRecipes(TFMGRecipeTypes.HOT_BLAST)
+                        .catalyst(TFMGBlocks.BLAST_STOVE::get)
+                        .itemIcon(TFMGBlocks.BLAST_STOVE.get())
+                        .emptyBackground(177, 110)
+                        .build("hot_blast", HotBlastCategory::new),
 
+                polarizing = builder(PolarizingRecipe.class)
+                        .addTypedRecipes(TFMGRecipeTypes.POLARIZING)
+                        .catalyst(TFMGBlocks.POLARIZER::get)
+                        .itemIcon(TFMGBlocks.POLARIZER.get())
+                        .emptyBackground(177, 53)
+                        .build("polarizing", PolarizingCategory::new),
 
-                 polarizing = builder(PolarizingRecipe.class)
-                 .addTypedRecipes(TFMGRecipeTypes.POLARIZING)
-                 .catalyst(TFMGBlocks.POLARIZER::get)
-                 .itemIcon(TFMGBlocks.POLARIZER.get())
-                 .emptyBackground(177, 53)
-                 .build("polarizing", PolarizingCategory::new)
-
-
-                ;
+                winding = builder(WindingRecipe.class)
+                        .addTypedRecipes(TFMGRecipeTypes.WINDING)
+                        .catalyst(TFMGBlocks.WINDING_MACHINE::get)
+                        .itemIcon(TFMGBlocks.WINDING_MACHINE.get())
+                        .emptyBackground(177, 53)
+                        .build("winding", WindingCategory::new);
 
     }
 
@@ -134,7 +146,6 @@ public class TFMGJei implements IModPlugin {
     }
 
     /**
-     *
      * check
      */
     /*
@@ -147,8 +158,7 @@ public class TFMGJei implements IModPlugin {
     }
 
      */
-
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         registration.addGenericGuiContainerHandler(AbstractSimiContainerScreen.class, new SlotMover());

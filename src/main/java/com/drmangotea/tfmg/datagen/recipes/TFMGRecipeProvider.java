@@ -90,6 +90,9 @@ public class TFMGRecipeProvider extends RecipeProvider {
         public static TagKey<Item> steelNugget() {
             return TFMGTags.forgeItemTag("nuggets/steel");
         }
+        public static TagKey<Item> steelSheet() {
+            return TFMGTags.forgeItemTag("plates/steel");
+        }
         public static TagKey<Item> steelBlock() {
             return TFMGTags.forgeItemTag("storage_blocks/steel");
         }
@@ -101,6 +104,9 @@ public class TFMGRecipeProvider extends RecipeProvider {
         }
         public static TagKey<Item> aluminumBlock() {
             return TFMGTags.forgeItemTag("storage_blocks/aluminum");
+        }
+        public static TagKey<Item> aluminumSheet() {
+            return TFMGTags.forgeItemTag("plates/aluminum");
         }
         public static TagKey<Item> castIronIngot() {
             return TFMGTags.forgeItemTag("ingots/cast_iron");
@@ -129,6 +135,9 @@ public class TFMGRecipeProvider extends RecipeProvider {
         public static TagKey<Item> nickelBlock() {
             return TFMGTags.forgeItemTag("storage_blocks/nickel");
         }
+        public static TagKey<Item> nickelSheet() {
+            return TFMGTags.forgeItemTag("plates/nickel");
+        }
         public static TagKey<Item> lithiumIngot() {
             return TFMGTags.forgeItemTag("ingots/lithium");
         }
@@ -146,6 +155,9 @@ public class TFMGRecipeProvider extends RecipeProvider {
         }
         public static TagKey<Item> constantanBlock() {
             return TFMGTags.forgeItemTag("storage_blocks/constantan");
+        }
+        public static TagKey<Item> copperWire() {
+            return TFMGTags.forgeItemTag("wires/copper");
         }
 
         //
@@ -277,6 +289,9 @@ public class TFMGRecipeProvider extends RecipeProvider {
         }
         public static ItemLike magneticIngot() {
             return TFMGItems.MAGNETIC_ALLOY_INGOT.get();
+        }
+        public static ItemLike magnet() {
+            return TFMGItems.MAGNET.get();
         }
         //
         public static TagKey<Item> redstone() {

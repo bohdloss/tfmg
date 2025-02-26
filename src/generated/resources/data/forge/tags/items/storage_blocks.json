@@ -1,5 +1,8 @@
 {
   "values": [
+    "tfmg:raw_nickel_block",
+    "tfmg:raw_lead_block",
+    "tfmg:raw_lithium_block",
     "tfmg:steel_block",
     "tfmg:cast_iron_block",
     "tfmg:aluminum_block",

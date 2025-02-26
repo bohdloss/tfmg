@@ -30,11 +30,11 @@ public class ConcreteHoseBlockEntity extends KineticBlockEntity {
     LerpedFloat offset;
     boolean isMoving;
 
-    private SmartFluidTank internalTank;
-    private LazyOptional<IFluidHandler> capability;
-    private ConcreteFillingBehavior filler;
-    private ConcreteHoseFluidHandler handler;
-    private boolean infinite;
+    public SmartFluidTank internalTank;
+    public LazyOptional<IFluidHandler> capability;
+    public ConcreteFillingBehavior filler;
+    public ConcreteHoseFluidHandler handler;
+    public boolean infinite;
 
     public ConcreteHoseBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);

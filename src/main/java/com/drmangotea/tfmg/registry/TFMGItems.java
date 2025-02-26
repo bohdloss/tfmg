@@ -3,11 +3,13 @@ package com.drmangotea.tfmg.registry;
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGArmorMaterials;
 import com.drmangotea.tfmg.base.TFMGTiers;
+import com.drmangotea.tfmg.content.engines.CylinderItem;
 import com.drmangotea.tfmg.content.decoration.gearbox.SteelVerticalGearboxItem;
 import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnection;
 import com.drmangotea.tfmg.content.electricity.debug.DebugCinderBlockItem;
 import com.drmangotea.tfmg.content.electricity.electrians_wrench.ElectriciansWrenchItem;
 import com.drmangotea.tfmg.content.electricity.utilities.fuse_block.FuseItem;
+import com.drmangotea.tfmg.content.electricity.utilities.resistor.ResistorItem;
 import com.drmangotea.tfmg.content.electricity.utilities.transformer.ElectromagneticCoilItem;
 import com.drmangotea.tfmg.content.engines.FluidContainingItem;
 import com.drmangotea.tfmg.content.items.CoalCokeItem;
@@ -71,6 +73,7 @@ public class TFMGItems {
             RAW_LITHIUM = taggedIngredient("raw_lithium", forgeItemTag("raw_materials/lithium"), forgeItemTag("raw_materials")),
             COPPER_WIRE = taggedIngredient("copper_wire", forgeItemTag("wires/copper")),
             ALUMINUM_WIRE = taggedIngredient("aluminum_wire", forgeItemTag("wires/aluminum")),
+            CONSTANTAN_WIRE = taggedIngredient("constantan_wire", forgeItemTag("wires/constantan")),
             SYNTHETIC_LEATHER = taggedIngredient("synthetic_leather", Tags.Items.LEATHER, AllTags.forgeItemTag("leather")),
             SYNTHETIC_STRING = taggedIngredient("synthetic_string", Tags.Items.STRING, AllTags.forgeItemTag("string")),
             LIMESAND = taggedIngredient("limesand", TFMGTags.TFMGItemTags.FLUX.tag),
@@ -85,7 +88,7 @@ public class TFMGItems {
             FIREPROOF_BRICK = REGISTRATE.item("fireproof_brick", Item::new).register(),
             FIRECLAY_BALL = REGISTRATE.item("fireclay_ball", Item::new).register(),
             SCREW = REGISTRATE.item("screw", Item::new).register(),
-            ENGINE_CYLINDER = REGISTRATE.item("engine_cylinder", Item::new).register(),
+
             TURBINE_BLADE = REGISTRATE.item("turbine_blade", Item::new).register(),
             THERMITE_POWDER = REGISTRATE.item("thermite_powder", Item::new).register(),
             STEEL_MECHANISM = REGISTRATE.item("steel_mechanism", Item::new).register(),
@@ -102,10 +105,13 @@ public class TFMGItems {
             ZINC_SULFATE = REGISTRATE.item("zinc_sulfate", Item::new).register(),
             COPPER_SULFATE = REGISTRATE.item("copper_sulfate", Item::new).register(),
             LITHIUM_CHARGE = REGISTRATE.item("lithium_charge", Item::new).register(),
+                    TURBO = REGISTRATE.item("turbo", Item::new).register(),
+                    GOLDEN_TURBO = REGISTRATE.item("golden_turbo", Item::new).register(),
+                    TRANSMISSION = REGISTRATE.item("transmission", Item::new).register(),
 
-            CINDERBLOCK = REGISTRATE.item("cinderblock", Item::new)
-                    //  .recipe((c, p) -> p.stonecutting(DataIngredient.items(TFMGBlocks.CONCRETE.get()), RecipeCategory.BUILDING_BLOCKS, c::get, 4))
-                    .register(),
+    CINDERBLOCK = REGISTRATE.item("cinderblock", Item::new)
+            //  .recipe((c, p) -> p.stonecutting(DataIngredient.items(TFMGBlocks.CONCRETE.get()), RecipeCategory.BUILDING_BLOCKS, c::get, 4))
+            .register(),
             CINDERFLOURBLOCK = REGISTRATE.item("cinderflourblock", Item::new).register(),
             NAPALM_POTATO = REGISTRATE.item("napalm_potato", Item::new).register(),
             MIXER_BLADE = REGISTRATE.item("mixer_blade", Item::new).register(),
@@ -120,26 +126,39 @@ public class TFMGItems {
                     .properties(p -> p.stacksTo(1))
                     .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/copper_electrode_model"))).register(),
 
-            ZINC_ELECTRODE = REGISTRATE.item("zinc_electrode", Item::new)
-                    .properties(p -> p.stacksTo(1))
-                    .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/zinc_electrode_model"))).register(),
+    ZINC_ELECTRODE = REGISTRATE.item("zinc_electrode", Item::new)
+            .properties(p -> p.stacksTo(1))
+            .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/zinc_electrode_model"))).register(),
 
-            GRAPHITE_ELECTRODE = REGISTRATE.item("graphite_electrode", Item::new)
-                    .properties(p -> p.stacksTo(1))
-                    .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/graphite_electrode_model"))).register();
+    GRAPHITE_ELECTRODE = REGISTRATE.item("graphite_electrode", Item::new)
+            .properties(p -> p.stacksTo(1))
+            .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/graphite_electrode_model"))).register(),
+
+    UNFIRED_INSULATOR = REGISTRATE.item("unfired_insulator", Item::new)
+            .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/unfired_insulator_model"))).register(),
+            UNFINISHED_INSULATOR = REGISTRATE.item("unfinished_insulator", Item::new)
+                    .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/unfinished_insulator_model"))).register(),
+            GLASS_INSULATOR_SEGMENT = REGISTRATE.item("glass_insulator_segment", Item::new)
+                    .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/glass_insulator_segment_model"))).register();
 
 
+    public static final ItemEntry<ResistorItem>
+            UNFINISHED_RESISTOR = REGISTRATE.item("unfinished_resistor", ResistorItem::new).register();
+    public static final ItemEntry<CylinderItem>
+        ENGINE_CYLINDER = REGISTRATE.item("engine_cylinder", CylinderItem::new).register();
     public static final ItemEntry<SpoolItem>
             EMPTY_SPOOL = spoolItem("empty", null, 0x000000, CableConnection.CableType.NONE),
             COPPER_SPOOL = spoolItem("copper", TFMGPartialModels.COPPER_SPOOL, 0xD8735A, CableConnection.CableType.COPPER),
             ALUMINUM_SPOOL = spoolItem("aluminum", TFMGPartialModels.ALUMINUM_SPOOL, 0xEDEFEF, CableConnection.CableType.ALUMINUM),
-            CONSTANTAN_SPOOL = spoolItem("constantan", TFMGPartialModels.CONSTANTAN_SPOOL, 0xCFC2A8, CableConnection.CableType.NONE);
+            CONSTANTAN_SPOOL = spoolItem("constantan", TFMGPartialModels.CONSTANTAN_SPOOL, 0xCFC2A8, CableConnection.CableType.CONSTANTAN);
 
     public static final ItemEntry<ElectromagneticCoilItem> ELECTROMAGNETIC_COIL =
             REGISTRATE.item("electromagnetic_coil", ElectromagneticCoilItem::new)
                     .properties(p -> p.stacksTo(1))
                     .register();
-    public static final ItemEntry<FuseItem> FUSE = REGISTRATE.item("fuse", FuseItem::new).register();
+    public static final ItemEntry<FuseItem> FUSE = REGISTRATE.item("fuse", FuseItem::new)
+            .properties(p->p.stacksTo(1))
+            .register();
     public static final ItemEntry<CoalCokeItem> COAL_COKE_DUST = REGISTRATE.item("coal_coke_dust", CoalCokeItem::new)
             .tag(forgeItemTag("dusts/coal_coke"), TFMGTags.TFMGItemTags.BLAST_FURNACE_FUEL.tag)
             .register();
@@ -197,6 +216,17 @@ public class TFMGItems {
                     .properties(p -> p.stacksTo(1))
                     .register();
 
+    public static final ItemEntry<SequencedAssemblyItem>
+            UNFINISHED_POTENTIOMETER = sequencedIngredient("unfinished_potentiometer", "block/potentiometer/unfinished"),
+            UNFINISHED_ELECTRIC_MOTOR = sequencedIngredient("unfinished_electric_motor", "block/electric_motor/unfinished"),
+            UNFINISHED_GENERATOR = sequencedIngredient("unfinished_generator", "item/unfinished_generator_model"),
+            UNFINISHED_STEEL_MECHANISM = sequencedIngredient("unfinished_steel_mechanism"),
+            UNFINISHED_TRANSISTOR = sequencedIngredient("unfinished_transistor"),
+            UNFINISHED_CAPACITOR = sequencedIngredient("unfinished_capacitor"),
+            UNPROCESSED_HEAVY_PLATE = sequencedIngredient("unprocessed_heavy_plate")
+
+                    ;
+
 
     public static final ItemEntry<QuadPotatoCannonItem> QUAD_POTATO_CANNON =
             REGISTRATE.item("quad_potato_cannon", QuadPotatoCannonItem::new)
@@ -208,15 +238,15 @@ public class TFMGItems {
             .register();
 
     public static final ItemEntry<FluidContainingItem>
-            OIL_CAN = REGISTRATE.item("oil_can", p->new FluidContainingItem(p, TFMGFluids.LUBRICATION_OIL))
-            .properties(p->p.stacksTo(1))
+            OIL_CAN = REGISTRATE.item("oil_can", p -> new FluidContainingItem(p, TFMGFluids.LUBRICATION_OIL))
+            .properties(p -> p.stacksTo(1))
             .register(),
-            COOLING_FLUID_BOTTLE = REGISTRATE.item("cooling_fluid_bottle", p->new FluidContainingItem(p, TFMGFluids.COOLING_FLUID))
-                    .properties(p->p.stacksTo(1))
+            COOLING_FLUID_BOTTLE = REGISTRATE.item("cooling_fluid_bottle", p -> new FluidContainingItem(p, TFMGFluids.COOLING_FLUID))
+                    .properties(p -> p.stacksTo(1))
                     .register();
     public static final ItemEntry<ElectriciansWrenchItem>
             ELECTRICIANS_WRENCH = REGISTRATE.item("electricians_wrench", ElectriciansWrenchItem::new)
-            .lang("Electrician's Wrench")
+            .lang("Configuration Wrench")
             .register();
 
     public static final ItemEntry<ThermiteGrenadeItem>
@@ -226,7 +256,18 @@ public class TFMGItems {
     public static final ItemEntry<ThermiteGrenadeItem>
             COPPER_GRENADE = thermiteGrenade("copper_grenade", BLUE);
 
-////////////////////////////
+    ////////////////////////////
+
+    private static ItemEntry<SequencedAssemblyItem> sequencedIngredient(String name, String model) {
+        return REGISTRATE.item(name, SequencedAssemblyItem::new)
+                .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource(model)))
+                .register();
+    }
+
+    private static ItemEntry<SequencedAssemblyItem> sequencedIngredient(String name) {
+        return REGISTRATE.item(name, SequencedAssemblyItem::new)
+                .register();
+    }
 
     private static ItemEntry<ArmorItem> armor(String name, ArmorMaterial material, ArmorItem.Type slot) {
         return REGISTRATE.item(name, p -> new ArmorItem(material, slot, p)).register();
@@ -260,8 +301,6 @@ public class TFMGItems {
                         .withExistingParent(material + "_sword", "minecraft:item/handheld")
                         .texture("layer0", "tfmg:item/" + material + "_sword"))
                 .register();
-
-
     }
 
     public static final ItemEntry<SteelVerticalGearboxItem> STEEL_VERTICAL_GEARBOX =
@@ -300,8 +339,6 @@ public class TFMGItems {
                         .withExistingParent("lead_sword", "minecraft:item/handheld")
                         .texture("layer0", "tfmg:item/lead_sword"))
                 .register();
-
-
     }
 
 

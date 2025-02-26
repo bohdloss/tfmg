@@ -4,6 +4,7 @@ import com.drmangotea.tfmg.base.TFMGBuilderTransformers;
 import com.drmangotea.tfmg.base.TFMGSpriteShifts;
 import com.drmangotea.tfmg.content.decoration.encased.TFMGEncasedCogwheelBlock;
 import com.drmangotea.tfmg.content.decoration.encased.TFMGEncasedShaftBlock;
+import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.decoration.encasing.EncasingRegistry;
 import com.simibubi.create.content.kinetics.simpleRelays.encased.EncasedCogCTBehaviour;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -17,25 +18,19 @@ import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 
 public class TFMGEncasedBlocks {
 
-
-
-
-
     public static final BlockEntry<TFMGEncasedShaftBlock> STEEL_ENCASED_SHAFT =
             REGISTRATE.block("steel_encased_shaft", p -> new TFMGEncasedShaftBlock(p, TFMGBlocks.STEEL_CASING::get))
                     .transform(TFMGBuilderTransformers.encasedShaft("steel", () -> TFMGSpriteShifts.STEEL_CASING))
-                    //     .transform(EncasingRegistry.addVariantTo(AllBlocks.SHAFT))
+                    .transform(EncasingRegistry.addVariantTo(AllBlocks.SHAFT))
                     .transform(axeOrPickaxe())
                     .register();
 
     public static final BlockEntry<TFMGEncasedShaftBlock> HEAVY_CASING_ENCASED_SHAFT =
             REGISTRATE.block("heavy_casing_encased_shaft", p -> new TFMGEncasedShaftBlock(p, TFMGBlocks.HEAVY_MACHINERY_CASING::get))
                     .transform(TFMGBuilderTransformers.encasedShaft("heavy_casing", () -> TFMGSpriteShifts.HEAVY_MACHINERY_CASING))
-                    //.transform(EncasingRegistry.addVariantTo(AllBlocks.SHAFT))
+                    .transform(EncasingRegistry.addVariantTo(AllBlocks.SHAFT))
                     .transform(axeOrPickaxe())
                     .register();
-
-
 
     public static final BlockEntry<TFMGEncasedCogwheelBlock> STEEL_ENCASED_STEEL_COGWHEEL =
             REGISTRATE.block("steel_encased_steel_cogwheel", p -> steel(p, false, TFMGBlocks.STEEL_CASING::get))
@@ -118,9 +113,6 @@ public class TFMGEncasedBlocks {
             .transform(EncasingRegistry.addVariantTo(TFMGBlocks.LARGE_ALUMINUM_COGWHEEL))
             .transform(axeOrPickaxe())
             .register();
-
-
-
 
     public static void init() {}
 

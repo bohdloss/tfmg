@@ -1,6 +1,9 @@
 package com.drmangotea.tfmg.content.engines.base;
 
+import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGShapes;
+import com.drmangotea.tfmg.content.engines.upgrades.EnginePipingUpgrade;
+import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import net.minecraft.core.BlockPos;
@@ -9,19 +12,19 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import java.util.Optional;
 
 import static com.drmangotea.tfmg.content.engines.base.EngineBlock.EngineState.NORMAL;
 import static com.drmangotea.tfmg.content.engines.base.EngineBlock.EngineState.SHAFT;
@@ -39,16 +42,30 @@ public class EngineBlock extends HorizontalKineticBlock {
     public InteractionResult onWrenched(BlockState state, UseOnContext context) {
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
-        if (level.getBlockEntity(pos) instanceof AbstractEngineBlockEntity be)
+        if (level.getBlockEntity(pos) instanceof AbstractEngineBlockEntity be) {
+            if(be.hasUpgrade()){
+
+                be.playRemovalSound();
+                be.dropItem(be.upgrade.get().getItem().getDefaultInstance());
+                be.upgrade = Optional.empty();
+                be.updateRotation();
+
+                return InteractionResult.SUCCESS;
+            }
+
             if (state.getValue(ENGINE_STATE) == SHAFT) {
                 be.playRemovalSound();
                 be.dropItem(AllBlocks.SHAFT.asStack());
                 level.setBlock(pos, state.setValue(ENGINE_STATE, NORMAL), 2);
                 be.connectNextTick = true;
+                be.detachKinetics();
+                if (be.getOrCreateNetwork() != null)
+                    be.getOrCreateNetwork().remove(be);
                 be.setChanged();
                 be.sendData();
                 return InteractionResult.SUCCESS;
             }
+        }
         return InteractionResult.PASS;
     }
 
@@ -77,6 +94,17 @@ public class EngineBlock extends HorizontalKineticBlock {
         super.createBlockStateDefinition(builder);
         builder.add(ENGINE_STATE);
     }
+
+     @Override
+     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos neighbor, boolean b) {
+        if(level.getBlockEntity(pos) instanceof AbstractEngineBlockEntity be){
+            if(be.hasUpgrade()&&be.upgrade.get().getItem() == TFMGBlocks.INDUSTRIAL_PIPE.asItem()){
+                ((EnginePipingUpgrade)be.upgrade.get()).findTank(be);
+            }
+        }
+
+         super.neighborChanged(state, level, pos, block, neighbor, b);
+     }
 
 
 

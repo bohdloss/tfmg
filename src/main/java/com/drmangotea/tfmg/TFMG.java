@@ -4,6 +4,7 @@ import com.drmangotea.tfmg.base.TFMGContraptions;
 import com.drmangotea.tfmg.base.TFMGCreativeTabs;
 import com.drmangotea.tfmg.base.TFMGRegistrate;
 import com.drmangotea.tfmg.content.electricity.base.ElectricNetworkManager;
+import com.drmangotea.tfmg.content.engines.fuels.BaseFuelTypes;
 import com.drmangotea.tfmg.content.items.weapons.explosives.thermite_grenades.fire.TFMGColoredFires;
 import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.DepositManager;
 import com.drmangotea.tfmg.datagen.TFMGDatagen;
@@ -92,7 +93,7 @@ public class TFMG {
         TFMGFluidInteractions.registerFluidInteractions();
 
         event.enqueueWork(() -> {
-
+            BaseFuelTypes.register();
             registerHeater(TFMGBlocks.FIREBOX.get(), (level, pos, state) -> {
                 BlazeBurnerBlock.HeatLevel value = state.getValue(BlazeBurnerBlock.HEAT_LEVEL);
                 if (value == BlazeBurnerBlock.HeatLevel.NONE) {

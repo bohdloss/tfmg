@@ -17,6 +17,8 @@ public class ElectricBlockValues {
 
     public boolean setVoltageNextTick = false;
 
+    public int failTimer = 0;
+
     public ElectricalGroup group = new ElectricalGroup(0);
 
     public ElectricBlockValues(long pos){

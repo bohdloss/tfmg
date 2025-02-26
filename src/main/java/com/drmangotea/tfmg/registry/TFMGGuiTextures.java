@@ -21,6 +21,7 @@ public enum TFMGGuiTextures implements ScreenElement {
     DISTILLATION_TOWER_MIDDLE("distillation_tower", 0, 12, 44, 24),
     DISTILLATION_TOWER_BOTTOM("distillation_tower", 0, 36, 44, 24),
     DISTILLATION_TOWER_FIRE("distillation_tower", 0, 60, 44, 12),
+    BLAST_STOVE("distillation_tower", 60, 0, 45, 105),
 
     ;
 

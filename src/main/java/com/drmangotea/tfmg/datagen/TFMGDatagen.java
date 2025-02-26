@@ -3,10 +3,7 @@ package com.drmangotea.tfmg.datagen;
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGRegistrateTags;
 import com.drmangotea.tfmg.datagen.recipes.TFMGProcessingRecipeGen;
-import com.drmangotea.tfmg.datagen.recipes.values.CastingRecipeGen;
-import com.drmangotea.tfmg.datagen.recipes.values.TFMGStandardRecipeGen;
-import com.drmangotea.tfmg.datagen.recipes.values.IndustrialBlastingRecipeGen;
-import com.drmangotea.tfmg.datagen.recipes.values.VatRecipeGen;
+import com.drmangotea.tfmg.datagen.recipes.values.*;
 import com.drmangotea.tfmg.ponder.TFMGPonderIndex;
 import com.drmangotea.tfmg.ponder.TFMGPonderTag;
 import com.google.gson.JsonElement;
@@ -48,6 +45,7 @@ public class TFMGDatagen {
             generator.addProvider(true, new CastingRecipeGen(output));
             generator.addProvider(true, new VatRecipeGen(output));
             generator.addProvider(true, new TFMGStandardRecipeGen(output));
+            generator.addProvider(true, new TFMGSequencedAssemblyRecipeGen(output));
             TFMGProcessingRecipeGen.registerAll(generator, output);
         }
 

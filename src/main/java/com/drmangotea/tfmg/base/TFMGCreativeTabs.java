@@ -8,6 +8,7 @@ import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -40,6 +41,7 @@ public class TFMGCreativeTabs {
             .build());
     public static void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTab() == TFMG_MAIN.get()){
+            event.acceptAll(customAdditions());
             for(RegistryEntry<Item> item : REGISTRATE.getAll(Registries.ITEM)){
 
                 if(!CreateRegistrate.isInCreativeTab(item,TFMG_MAIN))
@@ -49,7 +51,6 @@ public class TFMGCreativeTabs {
                 if(item.get() instanceof SequencedAssemblyItem)
                     continue;
                 if(item.get() instanceof SpoolItem&&!item.is(TFMGItems.EMPTY_SPOOL.get())){
-
                     ItemStack spool = item.get().getDefaultInstance();
                     spool.getOrCreateTag().putInt("Amount", 1000);
                     event.accept(spool);
@@ -71,6 +72,7 @@ public class TFMGCreativeTabs {
                 event.accept(item);
 
             }
+
         }
     }
     public static void register(IEventBus modEventBus){
@@ -79,6 +81,41 @@ public class TFMGCreativeTabs {
 
     public static List<RegistryEntry<Item>> blacklist(){
         List<RegistryEntry<Item>> list = new ArrayList<>();
+        return list;
+    }
+    public static List<ItemStack> customAdditions(){
+        List<ItemStack> list = new ArrayList<>();
+
+        CompoundTag gasolineTag = new CompoundTag();
+        gasolineTag.putString("gasoline", "forge:gasoline");
+        CompoundTag gasolineTagName = new CompoundTag();
+        gasolineTagName.putString("gasoline", "Gasoline");
+        //
+        CompoundTag dieselTag = new CompoundTag();
+        dieselTag.putString("diesel", "forge:diesel");
+        CompoundTag dieselTagName = new CompoundTag();
+        dieselTagName.putString("diesel", "Diesel");
+        //
+        CompoundTag lpgTag = new CompoundTag();
+        lpgTag.putString("lpg", "forge:lpg");
+        CompoundTag lpgTagName = new CompoundTag();
+        lpgTagName.putString("lpg", "LPG");
+        //
+
+
+        ItemStack gasoline = TFMGItems.ENGINE_CYLINDER.asStack();
+        gasoline.getOrCreateTag().put("Fuels", gasolineTag);
+        gasoline.getOrCreateTag().put("FuelNames", gasolineTagName);
+        list.add(gasoline);
+        ItemStack diesel = TFMGItems.ENGINE_CYLINDER.asStack();
+        diesel.getOrCreateTag().put("Fuels", dieselTag);
+        diesel.getOrCreateTag().put("FuelNames", dieselTagName);
+        list.add(diesel);
+        ItemStack lpg = TFMGItems.ENGINE_CYLINDER.asStack();
+        lpg.getOrCreateTag().put("Fuels", lpgTag);
+        lpg.getOrCreateTag().put("FuelNames", lpgTagName);
+        list.add(lpg);
+
         return list;
     }
 

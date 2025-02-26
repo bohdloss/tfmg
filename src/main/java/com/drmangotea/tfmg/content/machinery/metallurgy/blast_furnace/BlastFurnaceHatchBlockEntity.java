@@ -5,6 +5,7 @@ import com.drmangotea.tfmg.registry.TFMGFluids;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.item.SmartInventory;
 import com.simibubi.create.foundation.utility.VecHelper;
 import net.minecraft.core.BlockPos;
@@ -64,6 +65,11 @@ public class BlastFurnaceHatchBlockEntity extends SmartBlockEntity implements IH
         dropItems();
     }
 
+    @Override
+    public void destroy() {
+        super.destroy();
+        ItemHelper.dropContents(level, worldPosition, inventory);
+    }
 
     public void dropItems(){
 

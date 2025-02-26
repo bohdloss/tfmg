@@ -1,5 +1,6 @@
 package com.drmangotea.tfmg.recipes;
 
+import com.drmangotea.tfmg.recipes.jei.PolarizingCategory;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGRecipeTypes;
 import com.google.gson.JsonObject;
@@ -58,8 +59,7 @@ public class PolarizingRecipe extends ProcessingRecipe<RecipeWrapper> implements
     
     @Override
     public Supplier<Supplier<SequencedAssemblySubCategory>> getJEISubCategory() {
-       // return () -> PolarizingCategory.AssemblyPolarizing::new;
-        return null;
+        return () -> PolarizingCategory.AssemblyPolarizing::new;
     }
 
 

@@ -1,5 +1,6 @@
 package com.drmangotea.tfmg.content.electricity.utilities.transformer;
 
+import com.drmangotea.tfmg.base.TFMGHorizontalDirectionalBlock;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.content.electricity.base.VoltageAlteringBlockEntity;
 import com.simibubi.create.foundation.utility.Lang;
@@ -46,6 +47,20 @@ public class TransformerBlockEntity extends VoltageAlteringBlockEntity {
             updateInFront();
             updateInFront = false;
         }
+    }
+
+    @Override
+    public int getPowerUsage() {
+
+
+        Direction facing = getDirection();
+        if (level.getBlockEntity(getBlockPos().relative(facing)) instanceof IElectric be && be.getData().getId() != data.getId()) {
+            if (be.hasElectricitySlot(facing.getOpposite()))
+                return Math.max(be.getNetworkPowerUsage(this), 0);
+        }
+
+        return 0;
+
     }
 
     @Override
@@ -98,9 +113,14 @@ public class TransformerBlockEntity extends VoltageAlteringBlockEntity {
         }
         return 0;
     }
-    public int getPowerUsage() {
-        return (int) ((float)super.getPowerUsage()* coilRatio);
+    public Direction getDirection(){
+        if(!getBlockState().hasProperty(DirectionalBlock.FACING)){
+            return getBlockState().getValue(TFMGHorizontalDirectionalBlock.FACING).getCounterClockWise();
+        }
+
+        return getBlockState().getValue(DirectionalBlock.FACING);
     }
+
     @Override
     public boolean hasElectricitySlot(Direction direction) {
         return direction == getBlockState().getValue(FACING).getClockWise();

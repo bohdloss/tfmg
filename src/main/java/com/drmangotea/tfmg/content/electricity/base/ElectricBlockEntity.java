@@ -1,7 +1,6 @@
 package com.drmangotea.tfmg.content.electricity.base;
 
 import com.drmangotea.tfmg.TFMG;
-import com.drmangotea.tfmg.content.electricity.lights.LightBulbBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGPackets;
 import com.simibubi.create.content.equipment.goggles.IHaveHoveringInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
@@ -10,7 +9,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,22 +21,26 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     public ElectricBlockValues data = new ElectricBlockValues(getPos());
 
     int powerPercentage = 100;
+
     public ElectricBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         data.connectNextTick = true;
-        if(!canBeInGroups()){
+        if (!canBeInGroups()) {
             data.group = new ElectricalGroup(-1);
         }
     }
+
     @Override
     public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         return makeElectricityTooltip(tooltip, isPlayerSneaking);
     }
-    @Override
-    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
 
     @Override
-    public LevelAccessor getLevelAccessor(){
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+    }
+
+    @Override
+    public LevelAccessor getLevelAccessor() {
         return level;
     }
 
@@ -49,7 +51,7 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
 
     @Override
     public ElectricalNetwork getOrCreateElectricNetwork() {
-        if(level.getBlockEntity(BlockPos.of(data.electricalNetworkId)) instanceof IElectric) {
+        if (level.getBlockEntity(BlockPos.of(data.electricalNetworkId)) instanceof IElectric) {
             return TFMG.NETWORK_MANAGER.getOrCreateNetworkFor((IElectric) level.getBlockEntity(BlockPos.of(data.electricalNetworkId)));
         } else {
             ElectricNetworkManager.networks.get(getLevel())
@@ -61,13 +63,20 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     @Override
     public void lazyTick() {
         super.lazyTick();
+        if(data.failTimer >=4){
+            this.blockFail();
+            data.failTimer = 0;
+            sendStuff();
+        } else if((data.voltage>getMaxVoltage()&&getMaxVoltage()>0)||(getCurrent()>getMaxCurrent()&&getMaxCurrent()>0)){
+            blockFail();
+            data.failTimer++;
+        }
     }
 
     @Override
     public ElectricBlockValues getData() {
         return data;
     }
-
 
 
     @Override
@@ -79,25 +88,26 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     public float resistance() {
         return 0;
     }
+
     @Override
     public int voltageGeneration() {
 
         int voltageGeneration = 0;
 
-        for(Direction direction : Direction.values()){
-            if(hasElectricitySlot(direction)){
+        for (Direction direction : Direction.values()) {
+            if (hasElectricitySlot(direction)) {
 
-                if(level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be)
-                    if(be.getData().getId() !=getData().getId())
-                        if(be.getData().getVoltage()!=0)
-                            if(be.hasElectricitySlot(direction)){
-                                voltageGeneration = Math.max(voltageGeneration,be.getOutputVoltage());
+                if (level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be)
+                    if (be.getData().getId() != getData().getId())
+                        if (be.getData().getVoltage() != 0)
+                            if (be.hasElectricitySlot(direction)) {
+                                voltageGeneration = Math.max(voltageGeneration, be.getOutputVoltage());
                                 data.getsOutsidePower = true;
                             }
             }
         }
 
-        if(voltageGeneration == 0)
+        if (voltageGeneration == 0)
             data.getsOutsidePower = false;
 
         return voltageGeneration;
@@ -108,15 +118,16 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
 
         int powerGeneration = 0;
 
-        for(Direction direction : Direction.values()){
-            if(hasElectricitySlot(direction)){
+        for (Direction direction : Direction.values()) {
+            if (hasElectricitySlot(direction)) {
 
-                if(level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be)
-                    if(be.getData().getId() !=getData().getId())
-                        if(be.getData().getVoltage()!=0)
-                            if(be.hasElectricitySlot(direction)){
-                                powerGeneration = Math.max(powerGeneration,be.getOutputPower());
+                if (level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be) {
+                    if (be.getData().getId() != getData().getId())
+                        if (be.getData().getVoltage() != 0)
+                            if (be.hasElectricitySlot(direction)) {
+                                powerGeneration = Math.max(powerGeneration, be.getPowerUsage()) + 1;
                             }
+                }
             }
         }
 
@@ -136,7 +147,7 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     @Override
     public void updateNetwork() {
         getOrCreateElectricNetwork().updateNetwork();
-        if(!level.isClientSide)
+        if (!level.isClientSide)
             TFMGPackets.getChannel().send(PacketDistributor.ALL.noArg(), new NetworkUpdatePacket(BlockPos.of(getPos())));
         sendData();
     }
@@ -153,8 +164,8 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
         //    TFMG.LOGGER.debug("Rezistancja Grup "+data.group.resistance);
         //}
 
-        if(canBeInGroups()){
-            data.voltage = (int) (((float)resistance()/data.group.resistance)*(float)data.voltageSupply);
+        if (canBeInGroups()) {
+            data.voltage = (int) (((float) resistance() / data.group.resistance) * (float) data.voltageSupply);
             return;
         }
         data.voltage = newVoltage;
@@ -187,13 +198,13 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     @Override
     public void setNetwork(long network) {
         this.data.electricalNetworkId = network;
-        if(network!=getPos())
+        if (network != getPos())
             ElectricNetworkManager.networks.get(getLevel())
                     .remove(getPos());
     }
 
-    public boolean networkUndersupplied(){
-        return getNetworkPowerUsage()>data.networkPowerGeneration;
+    public boolean networkUndersupplied() {
+        return getNetworkPowerUsage() > data.networkPowerGeneration;
     }
 
 
@@ -206,21 +217,20 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     public void remove() {
         super.remove();
         this.data.destroyed = true;
-        for(Direction d : Direction.values()) {
-            if(hasElectricitySlot(d))
-                if(getLevelAccessor().getBlockEntity(BlockPos.of(getPos()).relative(d)) instanceof IElectric be&&be.hasElectricitySlot(d.getOpposite())) {
+        for (Direction d : Direction.values()) {
+            if (hasElectricitySlot(d))
+                if (getLevelAccessor().getBlockEntity(BlockPos.of(getPos()).relative(d)) instanceof IElectric be && be.hasElectricitySlot(d.getOpposite())) {
                     ElectricNetworkManager.networks.get(getLevel())
                             .remove(be.getPos());
                     be.setNetwork(be.getPos());
                     be.onPlaced();
-
                     be.updateNextTick();
                 }
         }
-        if(data.electricalNetworkId != getPos())
+        if (data.electricalNetworkId != getPos())
             getOrCreateElectricNetwork().getMembers().remove(this);
 
-        if(data.electricalNetworkId == getPos())
+        if (data.electricalNetworkId == getPos())
             ElectricNetworkManager.networks.get(getLevel())
                     .remove(getData().getId());
     }
@@ -228,15 +238,16 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     @Override
     public void tick() {
         super.tick();
-      if(data.connectNextTick) {
-          onPlaced();
-          data.connectNextTick = false;
-      }
-      if(data.updateNextTick) {
-          updateNetwork();
-          data.updateNextTick = false;
-      }
-        if(data.setVoltageNextTick) {
+        if (data.connectNextTick) {
+            TFMG.LOGGER.debug("SIGMA  A");
+            onPlaced();
+            data.connectNextTick = false;
+        }
+        if (data.updateNextTick) {
+            updateNetwork();
+            data.updateNextTick = false;
+        }
+        if (data.setVoltageNextTick) {
             setVoltage(data.voltageSupply);
             data.setVoltageNextTick = false;
         }
@@ -256,7 +267,7 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
         super.read(compound, clientPacket);
         data.group = new ElectricalGroup(compound.getInt("GroupId"));
         data.group.resistance = compound.getFloat("GroupResistance");
-        if(!clientPacket)
+        if (!clientPacket)
             data.connectNextTick = true;
     }
 }

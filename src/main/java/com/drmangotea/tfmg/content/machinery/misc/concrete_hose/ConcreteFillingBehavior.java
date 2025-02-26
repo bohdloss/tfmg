@@ -1,5 +1,6 @@
 package com.drmangotea.tfmg.content.machinery.misc.concrete_hose;
 
+import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.registry.TFMGFluids;
 import com.simibubi.create.content.fluids.transfer.FluidManipulationBehaviour;
 import com.simibubi.create.foundation.advancement.AllAdvancements;
@@ -120,14 +121,14 @@ public class ConcreteFillingBehavior extends TFMGFluidManipulationBehaviour {
 		if (affectedArea == null)
 			affectedArea = BoundingBox.fromCorners(root, root);
 
-		if (revalidateIn == 0) {
-			visited.clear();
-			infinityCheckFrontier.clear();
-			infinityCheckVisited.clear();
-			infinityCheckFrontier.add(new BlockPosEntry(root, 0));
-			setValidationTimer();
-			softReset(root);
-		}
+		//if (revalidateIn == 0) {
+		//	visited.clear();
+		//	infinityCheckFrontier.clear();
+		//	infinityCheckVisited.clear();
+		//	infinityCheckFrontier.add(new BlockPosEntry(root, 0));
+		//	setValidationTimer();
+		//	softReset(root);
+		//}
 
 		Level world = getWorld();
 		int maxRange = maxRange();
@@ -152,16 +153,17 @@ public class ConcreteFillingBehavior extends TFMGFluidManipulationBehaviour {
 				int k = root.getZ();
 				world.playSound(null, i, j, k, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5F,
 					2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
-			} else if (!canPlaceSources)
-				blockEntity.award(AllAdvancements.HOSE_PULLEY);
+			}
 			return true;
 		}
 
 		boolean success = false;
+
+		TFMG.LOGGER.debug("queueweueue "+queue.size());
+
 		for (int i = 0; !success && !queue.isEmpty() && i < searchedPerTick; i++) {
 			BlockPosEntry entry = queue.first();
 			BlockPos currentPos = entry.pos();
-
 			if (visited.contains(currentPos)) {
 				queue.dequeue();
 				continue;
@@ -186,8 +188,6 @@ public class ConcreteFillingBehavior extends TFMGFluidManipulationBehaviour {
 				success = true;
 				if (!simulate) {
 					playEffect(world, currentPos, fluid, false);
-
-
 					BlockState blockState = world.getBlockState(currentPos);
 					if (blockState.hasProperty(CONCRETELOGGED) && fluid.isSame(TFMGFluids.LIQUID_CONCRETE.getSource())) {
 						if (!blockEntity.isVirtual())

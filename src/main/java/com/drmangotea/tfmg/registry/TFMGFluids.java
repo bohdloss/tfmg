@@ -35,7 +35,7 @@ public class TFMGFluids {
             BUTANE = gasFuel("butane", TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag),
             PROPANE = gasFuel("propane", TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag),
 
-            FURNACE_GAS = gasFuel("furnace_gas", TFMGTags.TFMGFluidTags.BLAST_STOVE_FUEL.tag),
+            FURNACE_GAS = gasFuel("furnace_gas", TFMGTags.TFMGFluidTags.BLAST_STOVE_FUEL.tag, TFMGTags.TFMGFluidTags.FURNACE_GAS.tag),
           //  METHANE = gasFuel("methane"),
             ETHYLENE = gas("ethylene"),
             PROPYLENE =gas("propylene"),

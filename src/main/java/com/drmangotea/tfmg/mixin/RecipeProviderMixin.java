@@ -1,5 +1,6 @@
 package com.drmangotea.tfmg.mixin;
 
+import com.drmangotea.tfmg.datagen.recipes.values.TFMGSequencedAssemblyRecipeGen;
 import com.drmangotea.tfmg.datagen.recipes.values.TFMGStandardRecipeGen;
 import com.drmangotea.tfmg.datagen.recipes.values.IndustrialBlastingRecipeGen;
 import com.drmangotea.tfmg.datagen.recipes.values.VatRecipeGen;
@@ -21,6 +22,8 @@ public class RecipeProviderMixin {
             cir.setReturnValue("TFMG'S Vat Recipes");
         if((Object)this instanceof TFMGStandardRecipeGen)
             cir.setReturnValue("TFMG'S Standard Recipes");
+        if((Object)this instanceof TFMGSequencedAssemblyRecipeGen)
+            cir.setReturnValue("TFMG'S Sequenced Assembly Recipes");
 
     }
 

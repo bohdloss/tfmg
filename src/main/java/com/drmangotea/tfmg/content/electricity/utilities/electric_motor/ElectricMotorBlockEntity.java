@@ -1,9 +1,10 @@
 package com.drmangotea.tfmg.content.electricity.utilities.electric_motor;
 
+import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.config.MachineConfig;
 import com.drmangotea.tfmg.config.TFMGConfigs;
 import com.drmangotea.tfmg.content.electricity.base.KineticElectricBlockEntity;
-import com.electronwill.nightconfig.core.Config;
+import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.content.kinetics.motor.KineticScrollValueBehaviour;
@@ -43,38 +44,61 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
         generatedSpeed.between(-max, max);
         generatedSpeed.value = DEFAULT_SPEED;
         generatedSpeed.withCallback(i -> this.updateGeneratedRotation());
-        generatedSpeed.withCallback(i ->this.updateNextTick());
         behaviours.add(generatedSpeed);
     }
 
-
     @Override
-    public void updateNetwork() {
-        super.updateNetwork();
-        updateGeneratedRotation();
+    public boolean hasElectricitySlot(Direction direction) {
+        return direction == getBlockState().getValue(FACING).getOpposite()||(direction.getAxis().isHorizontal()&&direction == Direction.DOWN);
     }
+
 
     @Override
     public void onNetworkChanged(int oldVoltage, int oldPower) {
-        updateGeneratedRotation();
+        if(oldPower!=getPowerUsage()||oldVoltage!=data.voltage) {
+            updateGeneratedRotation();
+        }
     }
 
     @Override
     public float getGeneratedSpeed() {
 
         MachineConfig machineConfig = TFMGConfigs.common().machines;
-        if(getPowerUsage() >= machineConfig.electricMotorMinimumPower.get()&&getData().getVoltage()>=machineConfig.electricMotorMinimumVoltage.get()&&getPowerPercentage()>0){
 
-            return Math.min(generatedSpeed.getValue(),getData().getVoltage())*((float) getPowerPercentage() /100);
+        //if(getPowerUsage() <machineConfig.electricMotorMinimumPower.get())
+        //    return 0;
 
-        }
+        //if(getPowerUsage() >= machineConfig.electricMotorMinimumPower.get()){
 
-        return 0;
+            return Math.min(Math.abs(generatedSpeed.getValue()),data.getVoltage()/2);
+
+        //}
+
+        //return 0;
+    }
+
+
+    @Override
+    public boolean canBeInGroups() {
+        return true;
     }
 
     @Override
     public float resistance() {
-        return (int) (13 * Math.min(generatedSpeed.getValue(),getData().getVoltage())*TFMGConfigs.common().machines.electricMotorPowerUsageModifier.get());
+
+        return TFMGConfigs.common().machines.electricMotorInternalResistance.getF();
+    }
+
+    @Override
+    public int getPowerUsage() {
+
+        if(Math.min(generatedSpeed.getValue(),data.getVoltage()/2) ==0)
+            return super.getPowerUsage();
+
+        float speedModifier = (Math.min(Math.abs(generatedSpeed.getValue()),data.getVoltage())/256f)*5;
+
+
+        return (int) ((float)super.getPowerUsage()* speedModifier);
     }
 
     class MotorValueBox extends ValueBoxTransform.Sided {

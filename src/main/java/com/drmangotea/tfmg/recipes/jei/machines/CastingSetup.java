@@ -24,7 +24,7 @@ public class CastingSetup extends AnimatedKinetics {
         int scale =  23;
 
         blockElement(TFMGBlocks.CASTING_BASIN.getDefaultState())
-                .atLocal(0,2,0)
+                .rotate(0,180,0)
                 .scale(scale)
                 .render(graphics);
 

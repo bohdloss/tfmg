@@ -1,12 +1,17 @@
 package com.drmangotea.tfmg.content.electricity.electrians_wrench;
 
 import com.drmangotea.tfmg.TFMG;
+import com.drmangotea.tfmg.base.TFMGUtils;
 import com.drmangotea.tfmg.content.electricity.base.ConnectNeightborsPacket;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
+import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGPackets;
 import com.simibubi.create.content.equipment.symmetryWand.SymmetryWandScreen;
 import com.simibubi.create.foundation.gui.ScreenOpener;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -48,15 +53,24 @@ public class ElectriciansWrenchItem extends Item {
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
 
-        if(!context.getPlayer().isShiftKeyDown())
-            if(level.getBlockEntity(pos) instanceof IElectric be){
+        if(!context.getPlayer().isShiftKeyDown()) {
+            if (level.getBlockEntity(pos) instanceof IElectric be && be.canBeInGroups()) {
 
                 be.getData().group.id = context.getItemInHand().getOrCreateTag().getInt("Number");
-
+                TFMGUtils.playSound(level, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, context.getPlayer());
 
                 be.updateNextTick();
                 be.sendStuff();
+                return InteractionResult.SUCCESS;
             }
+            if (level.getBlockEntity(pos) instanceof AbstractEngineBlockEntity be ) {
+
+                be.changeDirection();
+                return InteractionResult.SUCCESS;
+
+            }
+
+        }
 
 
         return super.useOn(context);

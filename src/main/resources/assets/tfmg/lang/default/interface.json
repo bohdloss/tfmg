@@ -74,6 +74,7 @@
   "create.creative_generator.voltage_generation": "Voltage Generation",
 
 
+
   "death.attack.tfmg.concrete": "%1$s tried to eat Concrete",
   "death.attack.tfmg.concrete.player": "%1$s tried to eat Concrete",
 
@@ -83,6 +84,7 @@
   "create.tooltip.fuse": "Rating: %1$s",
   "create.tooltip.resistor": "Resistance: %1$s",
   "create.tooltip.coils": "Turns: %1$s",
+  "create.tooltip.cylinder": "Supported Fuels:",
 
   "create.recipe.distillation": "Distillation",
   "create.recipe.advanced_distillation": "Advanced Distillation",

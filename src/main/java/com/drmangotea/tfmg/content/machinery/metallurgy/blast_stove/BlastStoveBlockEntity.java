@@ -3,12 +3,14 @@ package com.drmangotea.tfmg.content.machinery.metallurgy.blast_stove;
 
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGUtils;
+import com.drmangotea.tfmg.content.decoration.pipes.TFMGPipeBlockEntity;
 import com.drmangotea.tfmg.recipes.DistillationRecipe;
 import com.drmangotea.tfmg.recipes.HotBlastRecipe;
 import com.drmangotea.tfmg.registry.TFMGFluids;
 import com.simibubi.create.Create;
 import com.simibubi.create.api.connectivity.ConnectivityHandler;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.content.fluids.pipes.FluidPipeBlockEntity;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.foundation.blockEntity.IMultiBlockEntityContainer;
 import com.simibubi.create.foundation.fluid.CombinedTankWrapper;
@@ -90,6 +92,8 @@ public class BlastStoveBlockEntity extends FluidTankBlockEntity implements IHave
                     if (level.getBlockEntity(
                             worldPosition.offset(xOffset, yOffset, zOffset)) instanceof BlastStoveBlockEntity fbe)
                         fbe.refreshCapability();
+
+
 
         if (level.isClientSide)
             return;
@@ -272,6 +276,7 @@ public class BlastStoveBlockEntity extends FluidTankBlockEntity implements IHave
         secondaryCapability = LazyOptional.of(() -> handlerForSecondaryCapability());
         oldCap.invalidate();
         oldSecondaryCap.invalidate();
+
     }
 
 

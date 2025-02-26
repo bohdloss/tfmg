@@ -1,5 +1,6 @@
 package com.drmangotea.tfmg.recipes;
 
+import com.drmangotea.tfmg.recipes.jei.WindingCategory;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGRecipeTypes;
 import com.simibubi.create.compat.jei.category.sequencedAssembly.SequencedAssemblySubCategory;
@@ -61,11 +62,11 @@ public class WindingRecipe extends ProcessingRecipe<RecipeWrapper>  implements I
 
 	@Override
 	public void addAssemblyIngredients(List<Ingredient> list) {
-
+		list.add(ingredients.get(1));
 	}
 
 	@Override
 	public Supplier<Supplier<SequencedAssemblySubCategory>> getJEISubCategory() {
-		return null;
+		return ()->WindingCategory.AssemblyWinding::new;
 	}
 }

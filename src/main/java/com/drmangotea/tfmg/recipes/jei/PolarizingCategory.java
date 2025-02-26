@@ -48,8 +48,6 @@ public class PolarizingCategory extends CreateRecipeCategory<PolarizingRecipe> {
         }
 
         public void setRecipe(IRecipeLayoutBuilder builder, SequencedRecipe<?> recipe, IFocusGroup focuses, int x) {
-            IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.INPUT, x + 4, 15).setBackground(CreateRecipeCategory.getRenderedSlot(), -1, -1).addIngredients(recipe.getRecipe().getIngredients().get(0));
-            IAssemblyRecipe var7 = recipe.getAsAssemblyRecipe();
 
         }
 

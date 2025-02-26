@@ -22,6 +22,12 @@ public class EngineRenderer extends KineticBlockEntityRenderer<AbstractEngineBlo
     @Override
     protected void renderSafe(AbstractEngineBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
 
+
+        if(be.hasUpgrade()){
+            be.upgrade.get().render(be, partialTicks, ms, buffer,light);
+        }
+
+
         if(be.getBlockState().getValue(ENGINE_STATE) == EngineBlock.EngineState.SHAFT)
             super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
     }

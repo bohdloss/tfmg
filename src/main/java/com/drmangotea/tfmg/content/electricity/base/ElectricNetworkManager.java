@@ -1,9 +1,6 @@
 package com.drmangotea.tfmg.content.electricity.base;
 
-import com.drmangotea.tfmg.content.electricity.connection.cables.IHaveCables;
-import com.drmangotea.tfmg.content.electricity.connection.cables.WireNetwork;
 import net.minecraft.world.level.LevelAccessor;
-import org.apache.http.impl.conn.Wire;
 
 import java.util.HashMap;
 import java.util.Map;

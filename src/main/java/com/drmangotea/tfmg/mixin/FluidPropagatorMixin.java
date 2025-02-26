@@ -1,6 +1,7 @@
 package com.drmangotea.tfmg.mixin;
 
 import com.drmangotea.tfmg.content.decoration.pipes.TFMGPipes;
+import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.fluids.FluidPropagator;
@@ -90,8 +91,8 @@ public class FluidPropagatorMixin {
                             !TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).get(3).has(targetState)&&
                             !TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).get(3).has(targetState)&&
                             !TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).get(3).has(targetState)&&
-                            !TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).get(3).has(targetState)
-
+                            !TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).get(3).has(targetState)&&
+                            !TFMGBlocks.ELECTRIC_PUMP.has(targetState)
                             || targetState.getValue(PumpBlock.FACING)
                             .getAxis() != direction.getAxis())
                         continue;

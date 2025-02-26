@@ -2,18 +2,14 @@ package com.drmangotea.tfmg.content.electricity.lights;
 
 
 
-import com.drmangotea.tfmg.TFMG;
+import com.drmangotea.tfmg.base.TFMGUtils;
 import com.drmangotea.tfmg.content.electricity.base.ElectricBlockEntity;
-import com.drmangotea.tfmg.registry.TFMGBlockEntities;
-import com.drmangotea.tfmg.registry.TFMGBlocks;
-import com.drmangotea.tfmg.registry.TFMGPackets;
-import com.drmangotea.tfmg.registry.TFMGPartialModels;
-import com.jozufozu.flywheel.core.PartialModel;
 import com.simibubi.create.foundation.utility.NBTHelper;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.DyeColor;
@@ -67,6 +63,22 @@ public class LightBulbBlockEntity extends ElectricBlockEntity {
 
         this.color = color;
         notifyUpdate();
+    }
+
+    @Override
+    public void blockFail() {
+        super.blockFail();
+        TFMGUtils.playSound(level,getBlockPos(), SoundEvents.GLASS_BREAK, SoundSource.BLOCKS);
+    }
+
+    @Override
+    public int getMaxVoltage() {
+        return 500;
+    }
+
+    @Override
+    public int getMaxCurrent() {
+        return 4;
     }
 
     @Override

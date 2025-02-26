@@ -4,20 +4,51 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5adddef9-58d4-4cd7-8594-867c37eea04c" name="Changes" comment="initial">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Create-The_Factory_Must_Grow.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Create-The_Factory_Must_Grow.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Create-The_Factory_Must_Grow.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Create-The_Factory_Must_Grow.test.iml" afterDir="false" />
+    <list default="true" id="5adddef9-58d4-4cd7-8594-867c37eea04c" name="Changes" comment="wire sigma behaviour">
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-07-2.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-10.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-11.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-12.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-13.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-14.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-15.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-16.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-17.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-18.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-19.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-2.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-3.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-4.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-5.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-6.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-7.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-8.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-08-9.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-09-2.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-09-3.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-09-4.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-09-5.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-09-6.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-09-7.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2025-02-09-8.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/screenshots/2025-02-08_14.16.24.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/screenshots/2025-02-08_14.16.24_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/connection/cables/CableRemovalPacket.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/block_corner_horizontal_old.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/block_corner_old.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/block_corner_up_old.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/block_side_old.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/block_side_rotated_old.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run-data/logs/2025-01-12-1.log.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run-data/logs/2025-01-12-2.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/2025-01-12-2.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run-data/logs/2025-01-12-3.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/2025-01-12-3.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run-data/logs/2025-01-12-4.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/2025-01-12-4.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run-data/logs/2025-01-12-5.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/2025-01-12-5.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run-data/logs/2025-01-12-6.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/2025-01-12-6.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run-data/logs/2025-01-12-7.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/2025-01-12-7.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run-data/logs/2025-01-12-8.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/2025-01-12-8.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/changelog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/changelog.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-data/logs/2025-01-31-1.log.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-data/logs/2025-01-31-2.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/2025-01-31-2.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-data/logs/2025-01-31-3.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/2025-01-31-3.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-data/logs/2025-01-31-4.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/2025-01-31-4.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-data/logs/2025-01-31-5.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/2025-01-31-5.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-data/logs/2025-01-31-6.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/2025-01-31-6.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-data/logs/2025-01-31-7.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/2025-01-31-7.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-data/logs/2025-01-31-8.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/2025-01-31-8.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run-data/logs/debug-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/debug-1.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run-data/logs/debug-2.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/debug-2.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run-data/logs/debug-3.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/debug-3.log.gz" afterDir="false" />
@@ -25,154 +56,51 @@
       <change beforePath="$PROJECT_DIR$/run-data/logs/debug-5.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/debug-5.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run-data/logs/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/debug.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run-data/logs/latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/run-data/logs/latest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/config/createaddition-common.toml" beforeDir="false" afterPath="$PROJECT_DIR$/run/config/createaddition-common.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/config/flywheel-client.toml" beforeDir="false" afterPath="$PROJECT_DIR$/run/config/flywheel-client.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/config/jei/ingredient-list-mod-sort-order.ini" beforeDir="false" afterPath="$PROJECT_DIR$/run/config/jei/ingredient-list-mod-sort-order.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/config/jei/recipe-category-sort-order.ini" beforeDir="false" afterPath="$PROJECT_DIR$/run/config/jei/recipe-category-sort-order.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/config/jei/world/local/New_World__1/bookmarks.ini" beforeDir="false" afterPath="$PROJECT_DIR$/run/config/jei/world/local/New_World__1/bookmarks.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/config/spark/activity.json" beforeDir="false" afterPath="$PROJECT_DIR$/run/config/spark/activity.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-11-27_21.42.45-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-11-28_16.33.10-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-11-28_17.31.44-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-11-29_23.05.05-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-11-30_18.00.51-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-03_19.51.25-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-03_19.58.29-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-04_17.02.06-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-04_17.02.11-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-05_16.48.17-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-06_18.40.07-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-11_19.22.48-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-11_19.27.14-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-11_20.28.24-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-11_20.38.32-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-11_22.03.21-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-13_23.30.11-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-14_18.10.54-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-14_18.32.30-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-14_19.42.50-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-14_22.07.11-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-16_16.52.57-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-16_17.09.37-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-17_17.09.57-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-17_17.16.45-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-18_18.11.31-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-18_18.22.44-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-18_18.39.35-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-18_18.44.24-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-18_18.51.33-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-18_18.55.40-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-18_19.00.54-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-18_19.06.08-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-18_19.12.23-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-18_19.17.33-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-18_21.05.52-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-18_21.13.17-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-18_21.43.07-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-18_21.58.40-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-18_22.13.37-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-19_15.07.34-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-19_15.12.24-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-19_15.17.01-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-19_16.02.22-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-19_16.09.15-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-19_16.22.06-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-21_20.03.43-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-21_21.42.23-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-21_22.56.53-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-22_14.21.02-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-22_15.08.11-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-22_15.36.34-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-22_22.54.10-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-22_22.54.19-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-22_22.59.50-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-22_22.59.57-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-22_23.10.23-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-22_23.39.35-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-22_23.39.40-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-30_12.29.38-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-30_13.52.26-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-30_22.05.33-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-31_13.12.03-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2024-12-31_13.18.15-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-01_16.32.52-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-01_17.56.22-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-01_20.12.19-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-01_20.30.29-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-01_21.09.45-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-01_21.31.05-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-03_11.39.43-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-03_11.45.13-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-03_12.57.04-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-03_13.02.02-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-04_14.32.06-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-04_14.38.17-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-08_19.04.24-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-08_19.21.55-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-08_20.38.10-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-08_21.54.55-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-09_15.17.07-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-09_15.17.14-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-09_15.23.36-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-09_16.03.15-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-09_16.03.22-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-09_16.08.36-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-09_17.44.57-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-09_19.47.15-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-09_20.11.19-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-09_20.11.25-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-11_15.31.18-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-11_16.28.04-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-11_16.33.05-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-11_17.07.01-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-11_17.19.46-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-11_20.07.08-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-12_10.15.29-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-12_12.02.00-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-12_12.10.47-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-12_13.12.51-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-12_13.57.04-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-12_14.12.20-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-12_14.32.55-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-12_14.55.39-server.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-12_20.18.00-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-12_21.41.44-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-12_21.44.06-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-12_21.48.28-client.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-1.log.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-10.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-10.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-11.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-11.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-12.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-12.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-13.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-13.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-14.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-14.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-15.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-15.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-16.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-16.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-17.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-17.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-18.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-18.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-19.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-19.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-2.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-2.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-20.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-20.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-21.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-21.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-22.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-22.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-23.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-23.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-24.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-24.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-25.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-25.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-26.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-26.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-27.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-27.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-28.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-28.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-29.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-29.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-3.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-3.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-30.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-30.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-31.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-31.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-32.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-32.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-33.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-33.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-34.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-34.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-4.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-4.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-5.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-5.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-6.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-6.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-7.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-7.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-8.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-8.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2025-01-12-9.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-01-12-9.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/config/tfmg-common.toml" beforeDir="false" afterPath="$PROJECT_DIR$/run/config/tfmg-common.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-14_22.14.05-server.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-14_22.28.53-server.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-15_19.06.40-server.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-16_16.03.29-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-16_16.08.46-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-16_16.12.18-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-16_16.14.56-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-16_22.29.27-server.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-18_13.53.22-server.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-19_11.08.23-server.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-19_11.39.30-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-19_11.52.42-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-19_12.04.23-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-21_15.55.07-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-21_19.26.30-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-21_19.28.33-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-21_19.30.32-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-21_21.23.55-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-21_21.26.50-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-21_21.28.26-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-21_21.38.00-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-21_22.12.08-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-21_23.05.55-fml.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-21_23.07.25-fml.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-21_23.09.12-fml.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-22_16.11.40-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-22_16.14.23-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-22_16.19.21-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-22_16.21.23-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-22_18.26.00-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-22_18.32.48-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-01-31_22.34.59-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-02-02_17.46.19-server.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-02-03_16.15.35-server.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-02-03_17.31.06-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-02-04_18.03.55-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-02-04_20.30.20-server.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-02-04_21.39.37-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-02-05_21.22.40-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/crash-reports/crash-2025-02-05_21.29.38-client.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/logs/2025-02-07-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2025-02-07-3.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/debug-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug-1.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/debug-2.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug-2.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/debug-3.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug-3.log.gz" afterDir="false" />
@@ -197,255 +125,164 @@
       <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/playerdata/380df991-f603-344c-a090-369bad2a924a.dat" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/playerdata/380df991-f603-344c-a090-369bad2a924a.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/playerdata/380df991-f603-344c-a090-369bad2a924a.dat_old" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/playerdata/380df991-f603-344c-a090-369bad2a924a.dat_old" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/poi/r.-6.-3.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/poi/r.-6.-3.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/poi/r.-6.-4.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/poi/r.-6.-4.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/poi/r.-7.-3.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/poi/r.-7.-3.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/poi/r.-7.-4.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/poi/r.-7.-4.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/region/r.-1.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/region/r.-1.-1.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/region/r.-1.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/region/r.-1.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/region/r.-6.-2.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/region/r.-6.-2.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/region/r.-6.-3.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/region/r.-6.-3.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/region/r.-6.-4.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/region/r.-6.-4.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/region/r.-7.-2.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/region/r.-7.-2.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/region/r.-7.-3.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/region/r.-7.-3.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/region/r.-7.-4.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/region/r.-7.-4.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/region/r.0.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/region/r.0.-1.mca" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/region/r.0.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/region/r.0.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/serverconfig/tfmg-server.toml" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/serverconfig/tfmg-server.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/session.lock" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/session.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/saves/New World (1)/stats/380df991-f603-344c-a090-369bad2a924a.json" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/New World (1)/stats/380df991-f603-344c-a090-369bad2a924a.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/DIM-1/data/raids.dat" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/DIM-1/data/raids.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/DIM1/data/raids_end.dat" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/DIM1/data/raids_end.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/advancements/380df991-f603-344c-a090-369bad2a924a.json" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/advancements/380df991-f603-344c-a090-369bad2a924a.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/data/raids.dat" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/data/raids.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/data/random_sequences.dat" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/data/random_sequences.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/entities/r.-1.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/entities/r.-1.-1.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/entities/r.-1.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/entities/r.-1.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/entities/r.0.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/entities/r.0.-1.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/entities/r.0.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/entities/r.0.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/level.dat" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/level.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/level.dat_old" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/level.dat_old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/playerdata/380df991-f603-344c-a090-369bad2a924a.dat" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/playerdata/380df991-f603-344c-a090-369bad2a924a.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/playerdata/380df991-f603-344c-a090-369bad2a924a.dat_old" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/playerdata/380df991-f603-344c-a090-369bad2a924a.dat_old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/poi/r.0.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/poi/r.0.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/region/r.-1.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/region/r.-1.-1.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/region/r.-1.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/region/r.-1.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/region/r.0.-1.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/region/r.0.-1.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/region/r.0.0.mca" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/region/r.0.0.mca" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/serverconfig/tfmg-server.toml" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/serverconfig/tfmg-server.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/stats/380df991-f603-344c-a090-369bad2a924a.json" beforeDir="false" afterPath="$PROJECT_DIR$/run/saves/Ye Teste Worlde/stats/380df991-f603-344c-a090-369bad2a924a.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/screenshots/2025-01-12_00.05.29.png" beforeDir="false" afterPath="$PROJECT_DIR$/run/screenshots/2025-01-12_00.05.29.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/screenshots/2025-01-12_18.33.25.png" beforeDir="false" afterPath="$PROJECT_DIR$/run/screenshots/2025-01-12_18.33.25.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/usercache.json" beforeDir="false" afterPath="$PROJECT_DIR$/run/usercache.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/.cache/558671a70d72448b144c649d2d414a66be9fb0a4" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/.cache/558671a70d72448b144c649d2d414a66be9fb0a4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/.cache/5b8c0f5df972d0059948e36f3c0712dca4487541" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/.cache/5b8c0f5df972d0059948e36f3c0712dca4487541" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/.cache/c5d1eddcf072f02c4997a7ec80c1b21ad739b1b3" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/.cache/c5d1eddcf072f02c4997a7ec80c1b21ad739b1b3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/generated/resources/.cache/e54e4c34b4f65d271b7b9f53d4ba815125cff8b9" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/.cache/e54e4c34b4f65d271b7b9f53d4ba815125cff8b9" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/blockstates/cast_iron_air_intake.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/blockstates/electric_pump.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/blockstates/engine_block.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/blockstates/regular_engine.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/blockstates/regular_engine.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/blockstates/cable_connector.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/blockstates/cable_connector.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/blockstates/concrete_hose.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/blockstates/concrete_hose.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/blockstates/electrical_switch.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/blockstates/electrical_switch.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/blockstates/transistor.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/lang/en_ud.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/lang/en_ud.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/lang/en_us.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/lang/en_us.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/models/item/cast_iron_air_intake.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/models/item/electric_pump.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/models/item/engine_block.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/models/item/engine_chamber.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/models/item/resistor_item.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/models/block/concrete_hose.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/models/item/transistor.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/create/tags/blocks/fan_transparent.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/create/tags/blocks/fan_transparent.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/forge/tags/blocks/storage_blocks.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/forge/tags/blocks/storage_blocks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/forge/tags/items/storage_blocks.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/forge/tags/items/storage_blocks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/minecraft/tags/blocks/mineable/axe.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/minecraft/tags/blocks/mineable/axe.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/generated/resources/data/minecraft/tags/blocks/mineable/pickaxe.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/minecraft/tags/blocks/mineable/pickaxe.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/minecraft/tags/blocks/needs_stone_tool.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/minecraft/tags/blocks/needs_stone_tool.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/minecraft/tags/blocks/slabs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/minecraft/tags/blocks/slabs.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/minecraft/tags/blocks/stairs.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/minecraft/tags/blocks/stairs.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/minecraft/tags/blocks/walls.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/minecraft/tags/blocks/walls.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/tfmg/advancements/recipes/misc/crafting/kinetics/cast_iron_air_intake.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/tfmg/loot_tables/blocks/cast_iron_air_intake.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/tfmg/loot_tables/blocks/electric_pump.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/tfmg/loot_tables/blocks/engine_block.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/tfmg/recipes/crafting/kinetics/air_intake.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/tfmg/recipes/crafting/kinetics/air_intake.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/tfmg/recipes/crafting/kinetics/cast_iron_air_intake.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/tfmg/tags/fluids/blast_stove_fuel.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/tfmg/tags/fluids/blast_stove_fuel.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/minecraft/tags/blocks/needs_iron_tool.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/minecraft/tags/blocks/needs_iron_tool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/tfmg/loot_tables/blocks/transistor.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/TFMG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/TFMG.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/TFMGClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/TFMGClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/base/TFMGBuilderTransformers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/base/TFMGBuilderTransformers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/base/TFMGCreativeTabs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/base/TFMGCreativeTabs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/base/TFMGRegistrate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/base/TFMGRegistrate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/base/TFMGShapes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/base/TFMGShapes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/base/TFMGSpriteShifts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/base/TFMGSpriteShifts.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/base/TFMGUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/base/TFMGUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/concrete/RebarBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/concrete/SimpleConcreteloggedBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/concrete/RebarFloorBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/concrete/RebarFloorBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/concrete/RebarWallBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/concrete/RebarWallBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/tank/SteelFluidTankRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/tanks/steel/SteelFluidTankRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/tank/SteelTankBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/tanks/steel/SteelTankBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/tank/SteelTankBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/tanks/steel/SteelTankBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/tank/SteelTankGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/tanks/TFMGTankGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/tank/SteelTankItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/tanks/steel/SteelTankItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/tank/TFMGFluidTankModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/tanks/steel/SteelFluidTankModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/base/events/TFMGCommonEvents.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/base/events/TFMGCommonEvents.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/config/MachineConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/config/MachineConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/base/ElectricBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/base/ElectricBlockEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/base/ElectricBlockValues.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/base/ElectricBlockValues.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/base/ElectricNetworkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/base/ElectricNetworkManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/base/ElectricalNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/base/ElectricalNetwork.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/base/IElectric.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/base/IElectric.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/base/KineticElectricBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/base/KineticElectricBlockEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/connection/cables/CableConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/connection/cables/CableConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/connection/cables/CableConnectorBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/connection/cables/CableConnectorBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/connection/cables/CableConnectorBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/connection/cables/CableConnectorBlockEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/connection/cables/CableConnectorRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/connection/cables/CableConnectorRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/connection/cables/CablePacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/connection/cables/CablePlacePacket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/connection/cables/WireNetwork.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/debug/DebugCinderBlockItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/debug/DebugCinderBlockItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/electrians_wrench/ElectriciansWrenchItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/electrians_wrench/ElectriciansWrenchItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/electrians_wrench/ElectriciansWrenchScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/electrians_wrench/ElectriciansWrenchScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/generators/GeneratorBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/generators/GeneratorBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/lights/AluminumLampRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/lights/variants/AluminumLampRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/lights/CircularLightRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/lights/variants/CircularLightRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/lights/LightBulbBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/lights/LightBulbBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/lights/LightBulbBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/lights/LightBulbBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/lights/LightBulbRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/lights/LightBulbRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/lights/ModernLightRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/lights/variants/ModernLightRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/measurement/AmmeterBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/measurement/AmmeterBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/measurement/VoltMeterBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/measurement/VoltMeterBlockEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/storage/AccumulatorBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/storage/AccumulatorBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/storage/AccumulatorItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/storage/AccumulatorItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/diode/ElectricDiodeBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/diode/ElectricDiodeBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/storage/AccumulatorBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/storage/AccumulatorBlockEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/storage/TFMGForgeEnergyStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/storage/TFMGForgeEnergyStorage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/diode/ElectricDiodeBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/diode/ElectricDiodeBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/electric_motor/ElectricMotorBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/electric_motor/ElectricMotorBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/electric_motor/ElectricMotorBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/electric_motor/ElectricMotorBlockEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/electric_pump/ElectricPumpBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/electric_pump/ElectricPumpBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/fuse_block/FuseBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/fuse_block/FuseBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/electric_pump/ElectricPumpBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/electric_pump/ElectricPumpBlockEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/electrical_switch/ElectricalSwitchBlock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/electrical_switch/ElectricalSwitchBlockEntity.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/fuse_block/FuseBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/fuse_block/FuseBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/polarizer/PolarizerBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/polarizer/PolarizerBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/polarizer/PolarizerBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/polarizer/PolarizerBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/polarizer/PolarizerRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/polarizer/PolarizerRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/potentiometer/PotentiometerBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/potentiometer/PotentiometerBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/segmented_display/SegmentedDisplayBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/segmented_display/SegmentedDisplayBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/segmented_display/SegmentedDisplayRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/segmented_display/SegmentedDisplayRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/transformer/ElectromagneticCoilItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/transformer/ElectromagneticCoilItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/potentiometer/PotentiometerBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/potentiometer/PotentiometerBlockEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/transformer/TransformerBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/transformer/TransformerBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/transformer/TransformerBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/transformer/TransformerBlockEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/transformer/TransformerRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/transformer/TransformerRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/AbstractEngineBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/base/AbstractEngineBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/EngineBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/base/EngineBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/EngineCTBehavior.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/base/EngineCTBehavior.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/EngineComponentsInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/base/EngineComponentsInventory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/EngineGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/base/EngineGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/EngineInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/base/EngineInstance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/EngineProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/base/EngineProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/EngineRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/base/EngineRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/regular_engine/PistonPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/regular_engine/PistonPosition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/transistor/TransistorBlock.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/transistor/TransistorBlockEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/voltage_observer/VoltageObserverBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/voltage_observer/VoltageObserverBlockEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/FluidContainingItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/FluidContainingItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/base/AbstractEngineBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/base/AbstractEngineBlockEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/base/EngineBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/base/EngineBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/base/EngineRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/base/EngineRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/engine_block/EngineBlockBlock.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/regular_engine/RegularEngineBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/regular_engine/RegularEngineBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/regular_engine/RegularEngineBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/regular_engine/RegularEngineBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/items/ScrewdriverItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/items/ScrewdriverItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/items/weapons/lithium_blade/LithiumSpark.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/items/weapons/lithium_blade/LithiumSpark.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/blast_furnace/reinforcement/BlastFurnaceReinforcementBlock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/blast_furnace/reinforcement/BlastFurnaceReinforcementWallBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/blast_furnace/reinforcement/BlastFurnaceReinforcementWallBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/blast_furnace/BlastFurnaceHatchBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/blast_furnace/BlastFurnaceHatchBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/blast_furnace/BlastFurnaceHatchBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/blast_furnace/BlastFurnaceHatchBlockEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/blast_furnace/BlastFurnaceOutputBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/blast_furnace/BlastFurnaceOutputBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/blast_furnace/BlastFurnaceOutputBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/blast_furnace/BlastFurnaceOutputBlockEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/blast_stove/BlastStoveBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/blast_stove/BlastStoveBlockEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/casting_basin/CastingBasinBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/casting_basin/CastingBasinBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/casting_basin/CastingBasinBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/casting_basin/CastingBasinBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/air_intake/AirIntakeBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/air_intake/AirIntakeBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/air_intake/AirIntakeBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/air_intake/AirIntakeBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/air_intake/AirIntakeRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/air_intake/AirIntakeRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/casting_basin/CastingBasinRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/metallurgy/casting_basin/CastingBasinRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/concrete_hose/ConcreteFillingBehavior.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/concrete_hose/ConcreteFillingBehavior.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/concrete_hose/ConcreteHoseBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/concrete_hose/ConcreteHoseBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/exhaust/ExhaustBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/exhaust/ExhaustBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/exhaust/ExhaustBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/exhaust/ExhaustBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/firebox/FireboxBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/firebox/FireboxBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/flarestack/FlarestackBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/flarestack/FlarestackBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/smokestack/SmokestackBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/smokestack/SmokestackBlockEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/vat_machines/base/VatBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/vat_machines/base/VatBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/vat_machines/electrode_holder/ElectrodeHolderBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/vat_machines/electrode_holder/ElectrodeHolderBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/vat_machines/industrial_mixer/IndustrialMixerRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/vat_machines/industrial_mixer/IndustrialMixerRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/vat_machines/base/VatRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/vat_machines/base/VatRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/vat_machines/base/stuff.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/winding_machine/SpoolItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/winding_machine/SpoolItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/winding_machine/WindingMachineBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/winding_machine/WindingMachineBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/winding_machine/WindingMachineBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/winding_machine/WindingMachineBlockEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/winding_machine/WindingMachineRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/winding_machine/WindingMachineRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/oil_processing/distillation_tower/IndustrialPipeBlock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/oil_processing/distillation_tower/controller/DistillationControllerBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/oil_processing/distillation_tower/controller/DistillationControllerBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/oil_processing/distillation_tower/controller/DistillationControllerBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/oil_processing/distillation_tower/controller/DistillationControllerBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/oil_processing/pumpjack/pumpjack/base/DepositSavedData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/oil_processing/pumpjack/pumpjack/base/DepositSavedData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/oil_processing/pumpjack/pumpjack/base/PumpjackBaseBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/oil_processing/pumpjack/pumpjack/base/PumpjackBaseBlockEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/misc/LithiumBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/decoration/LithiumBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/oil_processing/distillation_tower/output/DistillationOutputBlockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/oil_processing/distillation_tower/output/DistillationOutputBlockEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/TFMGDatagen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/TFMGDatagen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/recipes/TFMGProcessingRecipeGen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/recipes/TFMGProcessingRecipeGen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/recipes/TFMGRecipeProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/recipes/TFMGRecipeProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/recipes/values/HotBlastRecipeGen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/recipes/values/HotBlastRecipeGen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/recipes/values/TFMGStandardRecipeGen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/recipes/values/TFMGStandardRecipeGen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/recipes/values/VatRecipeGen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/recipes/values/VatRecipeGen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/recipes/DistillationRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/recipes/DistillationRecipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/mixin/FluidPropagatorMixin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/mixin/FluidPropagatorMixin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/mixin/RecipeProviderMixin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/mixin/RecipeProviderMixin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/recipes/PolarizingRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/recipes/PolarizingRecipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/recipes/WindingRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/recipes/WindingRecipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/recipes/jei/CastingCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/recipes/jei/CastingCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/recipes/jei/IndustrialBlastingCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/recipes/jei/IndustrialBlastingCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/recipes/jei/PolarizingCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/recipes/jei/PolarizingCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/recipes/jei/TFMGJei.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/recipes/jei/TFMGJei.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/recipes/jei/machines/CastingSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/recipes/jei/machines/CastingSetup.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGBlockEntities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGBlockEntities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGBlocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGBlocks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGEncasedBlocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGEncasedBlocks.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGFluids.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGFluids.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGGuiTextures.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGGuiTextures.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGItems.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGPackets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGPackets.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGPartialModels.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGPartialModels.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGTags.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGTags.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/lang/default/interface.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/lang/default/interface.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/lang/default/ponders.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/aluminum_fluid_tank/block_bottom.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/aluminum_fluid_tank/block_bottom.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/aluminum_fluid_tank/block_middle_window.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/aluminum_fluid_tank/block_middle_window.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/aluminum_fluid_tank/block_single_window_se.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/aluminum_fluid_tank/block_single_window_se.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_bottom.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_bottom_window.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_bottom_window_ne.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_bottom_window_nw.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_bottom_window_se.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_bottom_window_sw.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_middle.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_middle_window.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_middle_window_ne.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_middle_window_nw.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_middle_window_se.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_middle_window_sw.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_single.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_single_window.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_single_window_ne.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_single_window_nw.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_single_window_se.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_single_window_sw.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_top.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_top_window.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_top_window_ne.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_top_window_nw.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_top_window_se.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/brass_fluid_tank/block_top_window_sw.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/cast_iron_fluid_tank/block_bottom.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/cast_iron_fluid_tank/block_bottom.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/cast_iron_fluid_tank/block_middle_window.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/cast_iron_fluid_tank/block_middle_window.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/cast_iron_fluid_tank/block_single_window_se.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/cast_iron_fluid_tank/block_single_window_se.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/cable_connector/block.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/cable_connector/block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/cable_connector/block_extension.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/cable_connector/block_extension.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/cable_connector/item.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/cable_connector/item.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/coke_oven/block.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/coke_oven/block.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/coke_oven/item.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/coke_oven/item.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/concrete_hose/block.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/concrete_hose/block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/concrete_hose/block_horizontal.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/concrete_hose/item.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/concrete_hose/item.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/converter/block.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/converter/block_vertical.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/converter/item.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/copycat_cable_block/item.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/copycat_cable_block/item.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/electrical_switch/block.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/electrical_switch/block.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/electrical_switch/item.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/electrical_switch/item.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/firebox/block.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/firebox/block.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/pumpjack_hammer/block_wide.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/pumpjack_hammer/block_wide.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/regular_engine/block_front.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/regular_engine/block_front.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/rotor/block.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/rotor/block.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/rotor/item.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/rotor/item.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/rotor/rotor.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/rotor/rotor.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/segmented_display/item.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/segmented_display/item.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/block_corner.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/block_corner_old.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/block_corner_horizontal.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/block_corner_horizontal_old.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/block_corner_up.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/block_corner_up_old.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/block_side.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/block_side_old.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/block_side_rotated.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/block_side_rotated_old.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/generataor.bbmodel" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/generataor.bbmodel" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/item.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/stator/item.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/electrical_switch/block_powered.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/electrical_switch/item.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/electrical_switch/lever.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/glass_cable_connector/block.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/glass_cable_connector/block_extension.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/glass_cable_connector/item.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/industrial_mixer/mixer.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/industrial_mixer/mixer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/industrial_mixer/mixer_small.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/industrial_mixer/mixer_small.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/steel_distillation_controller/block.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/steel_distillation_controller/block.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/steel_distillation_controller/item.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/steel_distillation_controller/item.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/steel_trapdoor/block_open.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/steel_trapdoor/block_open.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/steel_trapdoor/block_top.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/steel_trapdoor/block_top.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/engines.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/engines.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/ponder/blast_furnace.nbt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/ponder/casting.nbt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/ponder/coke_oven.nbt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/ponder/diesel_engine.nbt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/ponder/diesel_engine_expansion.nbt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/ponder/distillation_tower.nbt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/ponder/large_generator.nbt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/ponder/pumpjack.nbt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/ponder/radial_engines.nbt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/ponder/radial_engines_.nbt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/ponder/radial_engines__.nbt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/ponder/small_engines.nbt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/ponder/surface_scanner.nbt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/constantan_block.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/constantan_block.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/copper_spool.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/copper_spool.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/item/unfinished_generator.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/item/unfinished_generator_model.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/bars/nickel_bars.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/bars/nickel_bars.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/bars/nickel_bars_edge.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/bars/nickel_bars_edge.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/coke_oven/coke_oven_front_bottom_on.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/coke_oven/coke_oven_front_bottom_on.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/coke_oven/coke_oven_front_middle_on.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/coke_oven/coke_oven_front_middle_on.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/coke_oven/coke_oven_front_top_on.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/coke_oven/coke_oven_front_top_on.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/distillation_controller.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/distillation_controller.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/distillation_controller_front.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/distillation_controller_front.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/distillation_controller_top.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/distillation_controller_top.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/firebox.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/firebox.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/fireproof_brick_reinforcement.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/fireproof_brick_reinforcement.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/fireproof_bricks.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/item/engine_chamber.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/item/engine_cylinder.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/item/industrial_bottle.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/item/lithium_nugget.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/item/lithium_nugget.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tfmg.mixins.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tfmg.mixins.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/distillation_tower_output.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/distillation_tower_output.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/industrial_pipe.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/industrial_pipe.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/ladder_constantan_hoop.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/ladder_constantan_hoop.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/ladder_nickel_hoop.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/ladder_nickel_hoop.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/neon_tube.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/neon_tube.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/nickel_flywheel.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/block/nickel_flywheel.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/gui/distillation_tower.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/gui/distillation_tower.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/gui/icons.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/gui/icons.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/item/electricians_wrench.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/item/electricians_wrench.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/item/fuse.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/item/fuse.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/item/resistor_item.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/item/resistor_item.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/textures/item/the_rock.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -517,6 +354,10 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/base/TFMGCreativeTabs.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/base/EngineRenderer.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/regular_engine/RegularEngineBlockEntity.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/engines/upgrades/EnginePipingUpgrade.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/content/machinery/misc/winding_machine/SpoolItem.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGBlocks.java" root0="SKIP_INSPECTION" />
   </component>
@@ -545,26 +386,26 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/adamn/.gradle/caches/forge_gradle/deobf_dependencies/curse/maven/createaddition-439890/6084982_mapped_official_1.20.1/createaddition-439890-6084982_mapped_official_1.20.1.jar&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/adamn/Documents/minecraft/mods/Create-The_Factory_Must_Grow/src/main/java/com/drmangotea/tfmg/content/electricity/utilities/copper_coil&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\java\com\drmangotea\tfmg\content\decoration\tanks\cast_iron" />
-      <recent name="C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\java\com\drmangotea\tfmg\content\decoration\tanks" />
-      <recent name="C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\java\com\drmangotea\tfmg\recipes\jei" />
-      <recent name="C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\resources\assets\tfmg\ponder" />
-      <recent name="C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\java\com\drmangotea\tfmg\ponder" />
+      <recent name="C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\java\com\drmangotea\tfmg\content\electricity\utilities\copper_coil" />
+      <recent name="C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\resources\assets\tfmg\models\block\engine_upgrades" />
+      <recent name="C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\java\com\drmangotea\tfmg\content\electricity\connection\copycat_cable" />
+      <recent name="C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\resources\assets\tfmg\models\block\concrete_hose" />
+      <recent name="C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\resources\assets\tfmg\models\block\converter" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\resources\assets\tfmg\ponder" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.drmangotea.tfmg.content.electricity.connection.cables" />
-      <recent name="com.drmangotea.tfmg.content.machinery.misc.winding_machine" />
-      <recent name="com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.controller" />
-      <recent name="com.drmangotea.tfmg.content.decoration.tanks" />
-      <recent name="com.drmangotea.tfmg.content.decoration.tanks.aluminum" />
+      <recent name="com.drmangotea.tfmg.recipes.jei" />
+      <recent name="com.drmangotea.tfmg.content.engines.upgrades" />
+      <recent name="com.drmangotea.tfmg.datagen.recipes.values" />
+      <recent name="com.drmangotea.tfmg.recipes.jei.machines" />
+      <recent name="com.drmangotea.tfmg.content.electricity.utilities.resistor" />
     </key>
   </component>
   <component name="RunManager" selected="Gradle.Create-The_Factory_Must_Grow [runClient]">
@@ -659,7 +500,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736717028541</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="some stuff">
+      <option name="closed" value="true" />
+      <created>1738969927140</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1738969927140</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -675,7 +524,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial" />
+    <MESSAGE value="some stuff" />
+    <MESSAGE value="wire sigma behaviour" />
+    <option name="LAST_COMMIT_MESSAGE" value="wire sigma behaviour" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

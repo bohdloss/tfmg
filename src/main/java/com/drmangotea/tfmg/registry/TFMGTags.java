@@ -193,6 +193,7 @@ public class TFMGTags {
         KEROSENE(NameSpace.FORGE),
 
         CREOSOTE(NameSpace.FORGE),
+        FURNACE_GAS(NameSpace.FORGE),
 
         LPG(NameSpace.FORGE),
         HEAVY_OIL(NameSpace.FORGE),

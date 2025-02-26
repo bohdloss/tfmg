@@ -1,8 +1,13 @@
 package com.drmangotea.tfmg.content.electricity.base;
 
 import com.drmangotea.tfmg.TFMG;
+import com.drmangotea.tfmg.base.TFMGUtils;
+import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnectorBlockEntity;
 import com.drmangotea.tfmg.content.electricity.lights.LightBulbBlockEntity;
+import com.drmangotea.tfmg.registry.TFMGBlocks;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,11 +32,9 @@ public class ElectricalNetwork {
         List<Long> posList = new ArrayList<>();
 
         members.forEach(member -> posList.add(member.getData().getId()));
-
         if (posList.contains(be.getData().getId()))
             return;
         members.add(be);
-
     }
 
     public void updateNetwork() {
@@ -42,10 +45,10 @@ public class ElectricalNetwork {
         int powerGeneration = 0;
 
 
-
         Map<Integer, Float> groups = new HashMap<>();
 
         for (IElectric member : members) {
+
             int groupId = member.getData().group.id;
 
             maxVoltage = Math.max(member.voltageGeneration(), maxVoltage);

@@ -29,7 +29,7 @@ public class VoltageObserverBlockEntity extends ElectricBlockEntity {
     }
 
     public int getComparatorOutput() {
-        return ComparatorUtil.fractionToRedstoneLevel((double) getData().getVoltage() /1000);
+        return ComparatorUtil.fractionToRedstoneLevel((double) getData().getVoltage() /250);
     }
 
     @Override

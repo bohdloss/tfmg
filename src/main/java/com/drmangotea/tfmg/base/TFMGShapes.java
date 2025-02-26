@@ -16,33 +16,33 @@ import static net.minecraft.core.Direction.*;
 public class TFMGShapes {
     public static final VoxelShaper
             ENGINE = shape(0, 0, 0, 16, 7, 16).add(3, 7, 0, 13, 12, 16)
-                .forDirectional(SOUTH),
+            .forDirectional(SOUTH),
             ENGINE_FRONT = shape(0, 0, 1, 16, 7, 16).add(3, 7, 1, 13, 12, 16)
                     .forDirectional(SOUTH),
             PUMPJACK_HAMMER_PART = shape(0, 2, 0, 16, 14, 16)
-                .forDirectional(),
+                    .forDirectional(),
             RADIAL_ENGINE = shape(1, 4, 1, 15, 12, 15)
-                .forDirectional(),
+                    .forDirectional(),
             LARGE_RADIAL_ENGINE = shape(-3, 4, -3, 19, 12, 19)
                     .forDirectional(),
             PUMPJACK_HEAD = shape(1, 0, -4, 15, 14, 24)
-                .forDirectional(),
+                    .forDirectional(),
             COMPACT_ENGINE_VERTICAL = shape(3, 0, 3, 13, 14, 14)
-                .forDirectional(),
+                    .forDirectional(),
             COMPACT_ENGINE = shape(3, 0, 3, 13, 14, 14)
-                .forDirectional(),
+                    .forDirectional(),
             CABLE_CONNECTOR = shape(6, 0, 6, 10, 9, 10)
-            .forDirectional(),
+                    .forDirectional(),
             CABLE_CONNECTOR_MIDDLE = shape(6, 0, 6, 10, 16, 10)
-            .forDirectional(),
+                    .forDirectional(),
             GALVANIC_CELL = shape(5, 10, 5, 11, 16, 16).add(1, 4, 6, 15, 10, 16)
-            .forDirectional(),
+                    .forDirectional(),
             RESISTOR = shape(6, 0, 3, 10, 4, 13)
                     .forDirectional(),
             GENERATOR = shape(3, 0, 3, 13, 14, 13).add(0, 4, 0, 16, 10, 16)
-            .forDirectional(),
+                    .forDirectional(),
             LIGHT_BULB = shape(5, 0, 5, 11, 9, 11)
-            .forDirectional(),
+                    .forDirectional(),
             MODERN_LIGHT = shape(0, 0, 0, 16, 3, 16)
                     .forDirectional(),
             CIRCULAR_LIGHT = shape(3, 0, 3, 13, 10, 13)
@@ -50,7 +50,7 @@ public class TFMGShapes {
             ALUMINUM_LAMP = shape(3, 0, 3, 13, 2, 13).add(4, 2, 4, 12, 3, 12)
                     .forDirectional(),
             POTENTIOMETER = shape(3, 0, 3, 13, 16, 13).add(1, 1, 13, 15, 15, 16)
-            .forDirectional(),
+                    .forDirectional(),
             WINDING_MACHINE = shape(0, 0, 0, 16, 8, 16).add(0, 8, 4, 10, 12, 12)
                     .forHorizontal(NORTH),
             RESISTOR_VERTICAL = shape(3, 0, 3, 13, 16, 13)
@@ -58,16 +58,21 @@ public class TFMGShapes {
             BLAST_FURNACE_REINFORCEMENT_WALL = shape(0, 0, 0, 16, 6, 16)
                     .forDirectional(),
 
-            ROTOR = shape(4, 5, 4, 12, 11, 12).add(5, 0, 5, 11, 16, 11)
+    ROTOR = shape(4, 5, 4, 12, 11, 12).add(5, 0, 5, 11, 16, 11)
             .forDirectional(),
             STATOR = shape(5, 1, 0, 16, 15.2, 5).add(5, 1, 5, 10, 15.2, 10).add(0, 1, 0, 5, 15.2, 16)
-            .forDirectional(),
+                    .forDirectional(),
             STATOR_ROTATED = shape(5, 1, 11, 16, 15, 16).add(5, 1, 6, 10, 15, 11).add(0, 1, 0, 5, 15, 16)
                     .forDirectional(),
             STATOR_VERTICAL = shape(5, 0, 1, 16, 5, 15).add(5, 5, 1, 10, 10, 15).add(0, 0, 1, 5, 16, 15)
                     .forDirectional(),
             VOLTMETER = shape(0, 0, 2, 16, 3, 14)
-            .forDirectional(),
+                    .forDirectional(),
+            ELECTRIC_PUMP = shape(2, 6, 2, 14, 10, 14)
+                    .add(4, 3, 4, 12, 11, 12)
+                    .add(3, 11, 3, 13, 16, 13)
+                    .add(3, 0, 3, 13, 5, 13)
+                    .forDirectional(),
             DIAGONAL_CABLE_BLOCK_DOWN = shape(3, 3, 11, 13, 13, 16)
                     .add(3, 11, 3, 13, 16, 13)
                     .add(4, 4, 5, 12, 11, 12)
@@ -79,38 +84,41 @@ public class TFMGShapes {
             CASTING_BASIN = shape(0, 0, 0, 16, 8, 16)
                     .add(4, 8, 14, 12, 13, 16)
                     .forHorizontal(NORTH),
+            TRANSFORMER = shape(0, 0, 0, 16, 6, 16)
+                    .add(1, 6, 5, 15, 15, 11)
+                    .forHorizontal(NORTH),
             CABLE_TUBE = shape(6, 0, 6, 10, 16, 10)
                     .forDirectional(),
             REBAR_PILLAR = shape(3, 0, 3, 13, 16, 13)
                     .forDirectional(),
             ELECTRICAL_SWITCH = shape(5, 0, 3, 11, 3, 13)
-            .forHorizontalAxis(),
+                    .forHorizontalAxis(),
             ELECTRICAL_SWITCH_CEILING = shape(5, 13, 3, 11, 16, 13)
                     .forHorizontalAxis(),
             ELECTRICAL_SWITCH_WALL = shape(5, 3, 0, 11, 13, 3)
                     .forHorizontal(SOUTH),
+
             POLARIZER = shape(4, 8, 0, 12, 12, 2)
                     .add(5, 8, 14, 11, 11, 16)
                     .add(11, 8, 4, 15, 12, 11)
                     .add(1, 8, 4, 5, 12, 11)
                     .add(0, 0, 0, 16, 8, 16)
-                    .forHorizontal(NORTH)
-    ;
+                    .forHorizontal(NORTH);
     public static final VoxelShape
 
-    EMPTY = shape(0, 0, 0, 0, 0, 0).build(),
-    PUMPJACK_CRANK = shape(0, 0, 0, 16, 8, 16).build(),
-    INDUSTRIAL_PIPE = shape(4, 0, 4, 12, 16, 12).build(),
-    FLARESTACK = shape(3, 0, 3, 13, 14, 14).build(),
-    PUMPJACK_BASE = shape(3, 0, 3, 13, 16, 13).build(),
-    TRAFFIC_LIGHT = shape(3, 0, 3, 13, 16, 13).build(),
-    REBAR_FLOOR = shape(0, 4, 0, 16, 12, 16)
-            .build(),
-    SURFACE_SCANNER = shape(2, 0, 2, 14, 14, 14).build(),
-    FULL = shape(0, 0, 0, 16, 16, 16).build(),
-    ELECTRIC_POST = shape(4, 0, 4, 12, 16, 12).build(),
-    SLAB = shape(0, 0, 0, 16, 8, 16).build();
-;
+            EMPTY = shape(0, 0, 0, 0, 0, 0).build(),
+            PUMPJACK_CRANK = shape(0, 0, 0, 16, 8, 16).build(),
+            INDUSTRIAL_PIPE = shape(4, 0, 4, 12, 16, 12).build(),
+            FLARESTACK = shape(3, 0, 3, 13, 14, 14).build(),
+            PUMPJACK_BASE = shape(3, 0, 3, 13, 16, 13).build(),
+            TRAFFIC_LIGHT = shape(3, 0, 3, 13, 16, 13).build(),
+            REBAR_FLOOR = shape(0, 4, 0, 16, 12, 16)
+                    .build(),
+            SURFACE_SCANNER = shape(2, 0, 2, 14, 14, 14).build(),
+            FULL = shape(0, 0, 0, 16, 16, 16).build(),
+            ELECTRIC_POST = shape(4, 0, 4, 12, 16, 12).build(),
+            SLAB = shape(0, 0, 0, 16, 8, 16).build();
+    ;
 
     private static Builder shape(VoxelShape shape) {
         return new Builder(shape);
@@ -156,6 +164,7 @@ public class TFMGShapes {
         public VoxelShaper build(BiFunction<VoxelShape, Axis, VoxelShaper> factory, Axis axis) {
             return factory.apply(shape, axis);
         }
+
         public VoxelShaper forDirectional(Direction direction) {
             return build(VoxelShaper::forDirectional, direction);
         }

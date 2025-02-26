@@ -1,12 +1,15 @@
 package com.drmangotea.tfmg.content.electricity.storage;
 
+import com.drmangotea.tfmg.base.TFMGDirectionalBlock;
 import com.drmangotea.tfmg.content.electricity.base.ConnectNeightborsPacket;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
+import com.drmangotea.tfmg.content.electricity.connection.cables.IHaveCables;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGPackets;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,11 +18,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -31,17 +38,15 @@ import net.minecraftforge.network.PacketDistributor;
 import java.util.Collections;
 import java.util.List;
 
-public class AccumulatorBlock extends DirectionalBlock implements IBE<AccumulatorBlockEntity> {
+public class AccumulatorBlock extends TFMGDirectionalBlock implements IBE<AccumulatorBlockEntity> {
+
+
 
 
     public AccumulatorBlock(Properties p_49795_) {
         super(p_49795_);
-
     }
 
-    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(FACING, pContext.getClickedFace());
-    }
 
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
@@ -69,20 +74,36 @@ public class AccumulatorBlock extends DirectionalBlock implements IBE<Accumulato
     }
 
     @Override
-    public void onPlace(BlockState pState, Level level, BlockPos pos, BlockState pOldState, boolean pIsMoving) {
-        withBlockEntityDo(level, pos, IElectric::onPlaced);
+    public void onNeighborChange(BlockState state, LevelReader level, BlockPos pos, BlockPos neighbor) {
+
+
+        withBlockEntityDo(level,pos,AccumulatorBlockEntity::refreshMultiblock);
+
+        super.onNeighborChange(state, level, pos, neighbor);
     }
+
+    @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState blockState1, boolean a) {
+
+
+        withBlockEntityDo(level,pos, IElectric::onPlaced);
+        withBlockEntityDo(level,pos,b->b.refreshNextTick =true);
+
+        super.onPlace(state, level, pos, blockState1, a);
+    }
+
     @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        for(Direction direction : Direction.values()){
+            BlockPos neighborPos = pos.relative(direction);
+            if(level.getBlockState(pos).is(TFMGBlocks.ACCUMULATOR.get()))
+                withBlockEntityDo(level,neighborPos,AccumulatorBlockEntity::refreshMultiblock);
+//
+        }
         IBE.onRemove(state, level, pos, newState);
     }
 
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
-        builder.add(FACING);
 
-    }
 
     @Override
     public Class<AccumulatorBlockEntity> getBlockEntityClass() {

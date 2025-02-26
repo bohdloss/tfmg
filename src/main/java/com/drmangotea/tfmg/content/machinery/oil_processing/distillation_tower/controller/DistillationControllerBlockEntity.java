@@ -98,7 +98,7 @@ public class DistillationControllerBlockEntity extends SmartBlockEntity implemen
             return;
 
         for (DistillationOutputBlockEntity be1 : outputs) {
-            if (be1.tank.getSpace() == 0)
+            if (be1.tank.getSpace() == 0&&be1.mode.get() == DistillationOutputBlockEntity.DistillationOutputMode.KEEP_FLUID)
                 return;
         }
         int numero = 0;
@@ -106,7 +106,7 @@ public class DistillationControllerBlockEntity extends SmartBlockEntity implemen
             FluidStack fluidStack = recipe.getFluidResults().get(numero);
             if (fluidStack.isEmpty())
                 break;
-            if (output.tank.fill(new FluidStack(fluidStack, (int) (fluidStack.getAmount() * speedModifier)), IFluidHandler.FluidAction.SIMULATE) > output.tank.getCapacity())
+            if (output.tank.fill(new FluidStack(fluidStack, (int) (fluidStack.getAmount() * speedModifier)), IFluidHandler.FluidAction.SIMULATE) > output.tank.getCapacity()&&output.mode.get() == DistillationOutputBlockEntity.DistillationOutputMode.KEEP_FLUID)
                 break;
 
             output.tank.fill(new FluidStack(fluidStack, (int) (fluidStack.getAmount() * speedModifier)), IFluidHandler.FluidAction.EXECUTE);

@@ -18,5 +18,33 @@
 - added electric current
 - added the multimeter
 - fixed waterlogging of truss blocks
-- added electric network frequency
+
+
+///////////////////////////////
+Primary Pos -3153 102 -1393
+Secondary Pos -3152 102 -1393
+Primary Pos -3154 102 -1393
+Secondary Pos -3153 102 -1393
+///////////////////////////////
+///////////////////////////////
+Primary Pos -3153 102 -1393
+Secondary Pos -3152 102 -1393
+Primary Pos -3154 102 -1393
+Secondary Pos -3153 102 -1393
+///////////////////////////////
+
+///////////////////////////////
+Primary Pos -3153 102 -1393
+Secondary Pos -3152 102 -1393
+Primary Pos -3154 102 -1393
+Secondary Pos -3153 102 -1393
+///////////////////////////////
+///////////////////////////////
+Primary Pos -3153 102 -1393
+Secondary Pos -3152 102 -1393
+Primary Pos -3154 102 -1393
+Secondary Pos -3153 102 -1393
+///////////////////////////////
+
+
 

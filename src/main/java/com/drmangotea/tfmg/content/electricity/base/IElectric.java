@@ -29,18 +29,28 @@ public interface IElectric {
     }
 
     default void onPlaced() {
+
         if (!getLevelAccessor().isClientSide())
             TFMGPackets.getChannel().send(PacketDistributor.ALL.noArg(), new ConnectNeightborsPacket(BlockPos.of(getPos())));
         TFMG.NETWORK_MANAGER.getOrCreateNetworkFor(this);
         setNetwork(getPos());
+        getData().electricalNetworkId = getPos();
         updateNetwork();
+
         onConnected();
         sendStuff();
         updateNextTick();
     }
 
-    default void onConnected() {
+    default int getMaxVoltage() {
+        return 0;
+    }
 
+    default int getMaxCurrent() {
+        return 0;
+    }
+
+    default void onConnected() {
 
         BlockPos pos = BlockPos.of(getPos());
         for (Direction d : Direction.values()) {
@@ -51,6 +61,7 @@ public interface IElectric {
                             getOrCreateElectricNetwork().add(be);
                             if (be.getData().getId() != getData().getId()) {
                                 be.setNetwork(getData().getId());
+                                TFMG.LOGGER.debug("KONNEQT ");
                                 be.onConnected();
                                 if (!getLevelAccessor().isClientSide())
                                     sendStuff();
@@ -62,12 +73,16 @@ public interface IElectric {
                 }
         }
         sendStuff();
+
+
     }
 
 
     default boolean makeElectricityTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-
-
+        Lang.number(getOrCreateElectricNetwork().members.size()).forGoggles(tooltip, 1);
+        if (getData().failTimer > 0)
+            Lang.text("Skill issue: " + getData().failTimer).forGoggles(tooltip, 1);
+        Lang.text("X " + BlockPos.of(getData().electricalNetworkId).getX() + " Y " + BlockPos.of(getData().electricalNetworkId).getY() + " Z " + BlockPos.of(getData().electricalNetworkId).getZ()).forGoggles(tooltip, 1);
         Lang.translate("multimeter.header")
                 .style(ChatFormatting.WHITE)
                 .forGoggles(tooltip, 1);
@@ -136,13 +151,27 @@ public interface IElectric {
 
     ElectricBlockValues getData();
 
+    default void blockFail() {
+        getLevelAccessor().destroyBlock(BlockPos.of(getPos()), false);
+    }
+
     default int getPowerUsage() {
         return (int) (getData().getVoltage() * getCurrent());
+    }
+
+    default int getNetworkPowerUsage(IElectric blocked) {
+        int power = 0;
+        for (IElectric member : getOrCreateElectricNetwork().members)
+            if (member.getPos() != blocked.getPos()) {
+                power += member.getPowerUsage();
+            } else blocked.updateNextTick();
+        return power;
     }
 
     default int getNetworkPowerUsage() {
         int power = 0;
         for (IElectric member : getOrCreateElectricNetwork().members)
+
             power += member.getPowerUsage();
         return power;
     }
@@ -181,18 +210,20 @@ public interface IElectric {
     default float getCurrent() {
         return getData().getVoltage() == 0 || resistance() == 0 ? 0 : ((float) getData().getVoltage() / (float) resistance());
     }
-    default float getCableCurrent(){
-        float current =0;
+
+    default float getCableCurrent() {
+        float current = 0;
         List<Integer> groups = new ArrayList<>();
-        for(IElectric member : getOrCreateElectricNetwork().members){
-            if(member.canBeInGroups())
-                if(!groups.contains(member.getData().group.id)){
-                    current+=member.getCurrent();
+        for (IElectric member : getOrCreateElectricNetwork().members) {
+            if (member.canBeInGroups())
+                if (!groups.contains(member.getData().group.id)) {
+                    current += member.getCurrent();
                     groups.add(member.getData().group.id);
                 }
         }
         return current;
     }
+
     void updateNextTick();
 
     void updateNetwork();

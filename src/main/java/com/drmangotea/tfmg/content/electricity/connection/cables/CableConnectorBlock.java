@@ -2,6 +2,7 @@ package com.drmangotea.tfmg.content.electricity.connection.cables;
 
 import com.drmangotea.tfmg.base.TFMGShapes;
 import com.drmangotea.tfmg.base.WallMountBlock;
+import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
@@ -29,13 +30,20 @@ public class CableConnectorBlock extends WallMountBlock implements IBE<CableConn
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState blockState1, boolean b) {
         updateExtension(level,state,pos);
-
+        withBlockEntityDo(level,pos, IElectric::onPlaced);
         BlockPos below = pos.relative(state.getValue(FACING).getOpposite());
         BlockState stateBelow = level.getBlockState(below);
         if(stateBelow.getBlock() instanceof IHaveCables)
             updateExtension(level,stateBelow,below);
 
         super.onPlace(state, level, pos, blockState1, b);
+    }
+
+
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        IBE.onRemove(state, level, pos, newState);
     }
 
     //@Override
@@ -90,7 +98,7 @@ public class CableConnectorBlock extends WallMountBlock implements IBE<CableConn
         BlockPos above = pos.relative(state.getValue(FACING));
         BlockState stateAbove = level.getBlockState(above);
 
-        if(stateAbove.getBlock() instanceof IHaveCables) {
+        if(stateAbove.getBlock() instanceof IHaveCables&&stateAbove.getValue(FACING)==state.getValue(FACING)) {
             level.setBlockAndUpdate(pos, state.setValue(EXTENSION, true));
         } else {
             level.setBlockAndUpdate(pos, state.setValue(EXTENSION, false));

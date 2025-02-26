@@ -9,9 +9,9 @@ public class MachineConfig extends ConfigBase {
     public final ConfigInt blastFurnaceMaxHeight = i(10, 3, "blastFurnaceMaxHeight", Comments.blastFurnaceHeight);
     public final ConfigFloat blastFurnaceHeightSpeedModifier = f(1f, 0.1f, "blastFurnaceHeightSpeedModifier", Comments.blastFurnaceHeightSpeedModifier);
     public final ConfigInt blastFurnaceFuelConsumption = i(600, 1, "blastFurnaceFuelConsumption", Comments.blastFurnaceFuelConsumption);
-    public final ConfigInt electricMotorMinimumPower = i(3000, 1, "electricMotorMinimumPower", Comments.electricMotorMinimumPower);
+    public final ConfigInt electricMotorMinimumPower = i(250, 1, "electricMotorMinimumPower", Comments.electricMotorMinimumPower);
     public final ConfigInt electricMotorMinimumVoltage = i(150, 1, "electricMotorMinimumVoltage", Comments.electricMotorMinimumVoltage);
-    public final ConfigFloat electricMotorPowerUsageModifier = f(1, 0, "electricMotorPowerUsageModifier", Comments.electricMotorPowerUsageModifier);
+    public final ConfigFloat electricMotorInternalResistance = f(100, 0, "electricMotorInternalResistance", Comments.electricMotorInternalResistance);
     public final ConfigInt cokeOvenMaxSize = i(5, 1, "cokeOvenMaxSize", Comments.cokeOvenMaxSize);
     public final ConfigInt accumulatorStorage = i(100000, 1, "accumulatorStorage", Comments.accumulatorStorage);
     public final ConfigInt accumulatorVoltage = i(12, 1, "accumulatorVoltage", Comments.accumulatorVoltage);
@@ -41,7 +41,7 @@ public class MachineConfig extends ConfigBase {
         static String blastFurnaceFuelConsumption = "Determines how many ticks does it take to consume one fuel.";
         static String electricMotorMinimumPower = "Determines the minimum power an electric motor can run on.";
         static String electricMotorMinimumVoltage = "Determines the minimum voltage an electric motor can run on.";
-        static String electricMotorPowerUsageModifier = "Changes the power usage of electric motors.";
+        static String electricMotorInternalResistance = "Sets the internal resistance of the electric motor.";
         static String cokeOvenMaxSize = "Determines the maximum size of coke ovens.";
         static String accumulatorStorage = "Determines the storage space of accumulators.";
         static String accumulatorVoltage = "Determines the voltage accumulators output.";

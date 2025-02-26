@@ -2,17 +2,22 @@ package com.drmangotea.tfmg.content.engines.regular_engine;
 
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.fuels.FuelType;
 import com.drmangotea.tfmg.registry.TFMGItems;
+import com.drmangotea.tfmg.registry.TFMGTags;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.foundation.item.SmartInventory;
 import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -21,6 +26,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +34,8 @@ import java.util.Set;
 
 import static com.drmangotea.tfmg.content.engines.base.EngineProperties.*;
 import static com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineBlock.EXTENDED;
+import static com.drmangotea.tfmg.registry.TFMGTags.forgeFluidTag;
+import static com.drmangotea.tfmg.registry.TFMGTags.optionalTag;
 import static com.simibubi.create.content.kinetics.base.HorizontalKineticBlock.HORIZONTAL_FACING;
 
 public class RegularEngineBlockEntity extends AbstractEngineBlockEntity {
@@ -37,96 +45,131 @@ public class RegularEngineBlockEntity extends AbstractEngineBlockEntity {
 
     public SmartInventory pistonInventory;
 
+    List<TagKey<Fluid>> supportedFuels = new ArrayList<>();
+
+    boolean updateFuel = true;
+
     public RegularEngineBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
         pistonInventory = createInventory();
 
     }
 
-    public void updateInventory(){
+    public void updateInventory() {
         pistonInventory = createInventory();
     }
 
-    public SmartInventory createInventory(){
-        return new SmartInventory(type.pistons.size(),this)
+    public SmartInventory createInventory() {
+        return new SmartInventory(type.pistons.size(), this)
                 .withMaxStackSize(1)
                 .whenContentsChanged(this::onInventoryChanged)
                 ;
     }
 
+
     private void onInventoryChanged(int integer) {
+        refreshFuels();
         updateRotation();
         sendData();
         setChanged();
     }
 
+    public void refreshFuels() {
+
+        CompoundTag fuelsToAllow = pistonInventory.getItem(0).getOrCreateTag().getCompound("Fuels");
+
+        List<TagKey<Fluid>> fuelsFound = new ArrayList<>();
+        for (String key : fuelsToAllow.getAllKeys()) {
+
+            String id = fuelsToAllow.getString(key);
+
+            TagKey<Fluid> tag = optionalTag(ForgeRegistries.FLUIDS, new ResourceLocation(id));
+
+            fuelsFound.add(tag);
+        }
+
+        if (level.getBlockEntity(controller) instanceof RegularEngineBlockEntity be) {
+            be.supportedFuels = new ArrayList<>(fuelsFound);
+
+            for (Long position : be.engines) {
+                BlockPos pos = BlockPos.of(position);
+                if (level.getBlockEntity(pos) instanceof RegularEngineBlockEntity be1) {
+                    be1.supportedFuels = new ArrayList<>(fuelsFound);
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<TagKey<Fluid>> getSupportedFuels() {
+        return supportedFuels;
+    }
+
     @Override
     public boolean canWork() {
 
-        for(int i =0;i<pistonInventory.getSlots();i++){
-            if(pistonInventory.getStackInSlot(i).isEmpty())
-                return false;
-        }
 
-        return super.canWork();
+        if (level.getBlockEntity(controller) instanceof RegularEngineBlockEntity controller) {
+
+            for (Long position : controller.getAllEngines()) {
+
+                if (level.getBlockEntity(BlockPos.of(position)) instanceof RegularEngineBlockEntity be) {
+                    for(int i =0;i<be.pistonInventory.getSlots();i++){
+                        if(be.pistonInventory.getItem(i).isEmpty()) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return super.canWork();
+        }
+        return false;
     }
 
     @Override
     public boolean insertItem(ItemStack itemStack, boolean shifting, Player player, InteractionHand hand) {
 
 
-        if(itemStack.is(AllItems.EMPTY_SCHEMATIC.get())){
+        if (itemStack.is(AllItems.EMPTY_SCHEMATIC.get())) {
             boolean next = false;
 
-            if(type == EngineType.BOXER){
+            if (type == EngineType.BOXER) {
                 updateEngineType(EngineType.I);
                 AllSoundEvents.CONFIRM.play(level, null, getBlockPos(), 1, 1);
                 return true;
             }
-            for(EngineType engineType : EngineType.values()){
-                if(next){
+            for (EngineType engineType : EngineType.values()) {
+                if (next) {
                     updateEngineType(engineType);
                     AllSoundEvents.CONFIRM.play(level, null, getBlockPos(), 1, 1);
                     return true;
                 }
-                if(engineType == type){
+                if (engineType == type) {
                     next = true;
                 }
             }
         }
-        if(hasAllComponents())
-            if(itemStack.is(TFMGItems.ENGINE_CYLINDER.get())){
-                    for (int i = pistonInventory.getSlots() - 1; i >= 0; i--) {
-                        if (pistonInventory.getItem(i).isEmpty()) {
-                            pistonInventory.setItem(i,new ItemStack(itemStack.getItem(),1));
-                            itemStack.shrink(1);
-                            playInsertionSound();
-                            setChanged();
-                            sendData();
-                            return true;
-                        }
-                    }
-            }
 
         if (itemStack.is(TFMGItems.SCREWDRIVER.get())) {
-            if(!pistonInventory.isEmpty()){
-                for (int i = pistonInventory.getSlots()-1; i >= 0; i--) {
+            if (!pistonInventory.isEmpty()) {
+                for (int i = 0; i < pistonInventory.getSlots(); i++) {
                     if (!pistonInventory.getItem(i).isEmpty()) {
                         dropItem(pistonInventory.getItem(i));
                         pistonInventory.setItem(i, ItemStack.EMPTY);
                         playRemovalSound();
+                        updateRotation();
                         setChanged();
                         sendData();
                         return true;
                     }
                 }
             }
-
             for (int i = componentsInventory.components.size() - 1; i >= 0; i--) {
                 if (!componentsInventory.getItem(i).isEmpty()) {
                     dropItem(componentsInventory.getItem(i));
                     componentsInventory.setItem(i, ItemStack.EMPTY);
                     playRemovalSound();
+                    updateRotation();
                     setChanged();
                     sendData();
                     return true;
@@ -134,20 +177,75 @@ public class RegularEngineBlockEntity extends AbstractEngineBlockEntity {
             }
 
         }
-        if (nextComponent().test(itemStack)&&!isController()) {
+        if (hasAllComponents())
+            if (itemStack.is(TFMGItems.ENGINE_CYLINDER.get()) && isCylinderSame(itemStack)) {
+                for (int i = pistonInventory.getSlots() - 1; i >= 0; i--) {
+                    if (pistonInventory.getItem(i).isEmpty()) {
+                        ItemStack toInsert = itemStack.copy();
+                        toInsert.setCount(1);
+                        pistonInventory.setItem(i, toInsert);
+                        itemStack.shrink(1);
+                        playInsertionSound();
+                        updateRotation();
+                        setChanged();
+                        sendData();
+                        return true;
+                    }
+                }
+            }
+        if (nextComponent().test(itemStack) && !isController()) {
 
-            if(level.getBlockEntity(controller) instanceof AbstractEngineBlockEntity be){
-                return be.insertItem(itemStack,shifting,player,hand);
+            if (level.getBlockEntity(controller) instanceof AbstractEngineBlockEntity be) {
+                return be.insertItem(itemStack, shifting, player, hand);
             }
 
         }
 
-        return super.insertItem(itemStack, shifting,player, hand);
+        return super.insertItem(itemStack, shifting, player, hand);
     }
 
+    public boolean isCylinderSame(ItemStack stack) {
+
+        CompoundTag tag = stack.getOrCreateTag().getCompound("Fuels");
 
 
-    public boolean updateEngineType(EngineType newType){
+        if (level.getBlockEntity(controller) instanceof RegularEngineBlockEntity controller) {
+
+            List<Long> engines = new ArrayList<>(controller.engines);
+            engines.add(this.controller.asLong());
+
+
+            for (int i = 0; i < controller.engineLength() + 1; i++) {
+                BlockPos pos = BlockPos.of(engines.get(i));
+                if (level.getBlockEntity(pos) instanceof RegularEngineBlockEntity be) {
+                    for (int y = 0; y < be.pistonInventory.getSlots(); y++) {
+                        if (!be.pistonInventory.getItem(y).is(TFMGItems.ENGINE_CYLINDER.get()))
+                            continue;
+
+                        CompoundTag tagInside = be.pistonInventory.getItem(y).getOrCreateTag().getCompound("Fuels");
+                        if (!tagInside.toString().equals(tag.toString()))
+                            return false;
+
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (updateFuel) {
+            refreshFuels();
+            updateFuel = false;
+        }
+
+    }
+
+    public boolean updateEngineType(EngineType newType) {
 
         Direction updateDirection = getBlockState().getValue(HORIZONTAL_FACING).getAxis() == Direction.Axis.X ? Direction.WEST : Direction.NORTH;
         if (level.getBlockEntity(getBlockPos().relative(updateDirection)) instanceof RegularEngineBlockEntity be) {
@@ -155,18 +253,18 @@ public class RegularEngineBlockEntity extends AbstractEngineBlockEntity {
         }
         for (int i = 0; i <= engineLength(); i++) {
             BlockPos pos = getBlockPos().relative(updateDirection.getOpposite(), i);
-            if(level.getBlockEntity(pos) instanceof RegularEngineBlockEntity be){
+            if (level.getBlockEntity(pos) instanceof RegularEngineBlockEntity be) {
                 //be.type = EngineType.I;
-                if(!be.pistonInventory.isEmpty())
+                if (!be.pistonInventory.isEmpty())
                     return false;
             }
         }
         for (int i = 0; i <= engineLength(); i++) {
             BlockPos pos = getBlockPos().relative(updateDirection.getOpposite(), i);
-            if(level.getBlockEntity(pos) instanceof RegularEngineBlockEntity be){
+            if (level.getBlockEntity(pos) instanceof RegularEngineBlockEntity be) {
                 be.type = newType;
                 be.updateInventory();
-                level.setBlockAndUpdate(pos,be.getBlockState().setValue(EXTENDED, newType == EngineType.I||newType == EngineType.U));
+                level.setBlockAndUpdate(pos, be.getBlockState().setValue(EXTENDED, newType == EngineType.I || newType == EngineType.U));
             }
         }
 
@@ -177,98 +275,91 @@ public class RegularEngineBlockEntity extends AbstractEngineBlockEntity {
     protected void write(CompoundTag compound, boolean clientPacket) {
         super.write(compound, clientPacket);
         compound.putString("Type", type.name);
-
         compound.put("Cylinders", pistonInventory.serializeNBT());
-
     }
 
     @Override
     protected void read(CompoundTag compound, boolean clientPacket) {
         super.read(compound, clientPacket);
 
-        for(EngineType engineType : EngineType.values()){
-            if(engineType.name.matches(compound.getString("Type"))){
+        for (EngineType engineType : EngineType.values()) {
+            if (engineType.name.matches(compound.getString("Type"))) {
                 type = engineType;
                 break;
             }
         }
-
-        //TFMG.LOGGER.debug(compound.getString("Type"));
-//
-        //type = EngineType.V;
-        //type = EngineType.valueOf(compound.getString("Type"));
-//
-        //TFMG.LOGGER.debug(compound.getString("TypeE"));
-
         pistonInventory.deserializeNBT(compound.getCompound("Cylinders"));
-
-    }
-
-    @Override
-    public int effectiveSpeed() {
-        return type.effectiveSpeed;
     }
 
     @Override
     public float efficiencyModifier() {
-        return type.effeciencyModifier;
+        return type.effeciencyModifier * getFuelType().getEfficiency()*getUpgradeEfficiencyModifier();
     }
 
     @Override
     public float speedModifier() {
-        return type.speedModifier;
+        return type.speedModifier * getFuelType().getSpeed()*getUpgradeSpeedModifier();
     }
 
     @Override
     public float torqueModifier() {
-        return type.torqueModifier;
+        return type.torqueModifier * getFuelType().getStress()*getUpgradeTorqueModifier();
     }
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 
-        Lang.text("Piston Inv Size: "+pistonInventory.getSlots()).forGoggles(tooltip);
+        for (TagKey<Fluid> tag : supportedFuels) {
 
-        Lang.text("Type: "+type.name).forGoggles(tooltip);
+            Lang.text(tag.toString()).forGoggles(tooltip);
 
-         super.addToGoggleTooltip(tooltip, isPlayerSneaking);
+        }
 
-         return true;
+        Lang.text("Type: " + type.name).forGoggles(tooltip);
+
+        super.addToGoggleTooltip(tooltip, isPlayerSneaking);
+
+        return true;
     }
 
     @Override
     public String engineId() {
         return type.name;
     }
-    enum EngineType{
-        I("engine_i",pistonsI(),12,1,1,1),
-        V("engine_v",pistonsV(),14,1.2f,1.3f,0.8f),
-        W("engine_w",pistonsW(),16,1.3f,1.1f,0.5f),
-        U("engine_u",pistonsU(),12,1,1.5f,0.9f),
-        BOXER("engine_boxer",pistonsBoxer(),11,1,0.8f,1.2f)
-        ;
-        public final int effectiveSpeed;
+
+    public enum EngineType {
+        I("engine_i", pistonsI(), 1, 1, 1,true),
+        V("engine_v", pistonsV(), 1.2f, 1.3f, 0.8f),
+        W("engine_w", pistonsW(), 1.3f, 1.1f, 0.5f),
+        U("engine_u", pistonsU(), 1, 1.5f, 0.9f,true),
+        BOXER("engine_boxer", pistonsBoxer(), 1, 0.8f, 1.2f);
         public final float speedModifier;
         public final float torqueModifier;
         public final float effeciencyModifier;
         public final List<PistonPosition> pistons;
         public final List<Fluid> fluidBlacklist;
         public final String name;
+        public final boolean upgradesOnSide;
 
-        EngineType(String name, List<PistonPosition> positions, int effectiveSpeed, float speedModifier,
-                   float torqueModifier, float efficiencyModifier){
-             this(name,positions, effectiveSpeed, speedModifier, torqueModifier, efficiencyModifier, new ArrayList<>());
+        EngineType(String name, List<PistonPosition> positions, float speedModifier,
+                   float torqueModifier, float efficiencyModifier, boolean upgradesOnSide) {
+            this(name, positions, speedModifier, torqueModifier, efficiencyModifier,upgradesOnSide, new ArrayList<>());
         }
 
-        EngineType(String name, List<PistonPosition> positions, int effectiveSpeed, float speedModifier,
-                   float torqueModifier, float efficiencyModifier , List<Fluid> fluidBlacklist){
+        EngineType(String name, List<PistonPosition> positions, float speedModifier,
+                   float torqueModifier, float efficiencyModifier) {
+            this(name, positions, speedModifier, torqueModifier, efficiencyModifier,false, new ArrayList<>());
+        }
+
+        EngineType(String name, List<PistonPosition> positions, float speedModifier,
+                   float torqueModifier, float efficiencyModifier,boolean upgradesOnSide , List<Fluid> fluidBlacklist) {
             this.name = name;
             this.pistons = positions;
-            this.effectiveSpeed = effectiveSpeed;
             this.speedModifier = speedModifier;
             this.torqueModifier = torqueModifier;
             this.effeciencyModifier = efficiencyModifier;
             this.fluidBlacklist = fluidBlacklist;
+            this.upgradesOnSide = upgradesOnSide;
 
         }
 

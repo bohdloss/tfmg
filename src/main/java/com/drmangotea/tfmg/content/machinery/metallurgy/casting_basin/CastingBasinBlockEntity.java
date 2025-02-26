@@ -6,8 +6,10 @@ import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
+import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.item.SmartInventory;
 import com.simibubi.create.foundation.recipe.RecipeFinder;
+import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -40,6 +42,8 @@ public class CastingBasinBlockEntity extends SmartBlockEntity implements IHaveGo
     public CastingRecipe recipe = null;
     public int timer = 0;
     private static final Object castingRecipeKey = new Object();
+
+    LerpedFloat fluidLevel = LerpedFloat.linear();
 
     public CastingBasinBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -81,8 +85,14 @@ public class CastingBasinBlockEntity extends SmartBlockEntity implements IHaveGo
                 } else findRecipe();
             } else timer = 0;
         }
-        if(level.isClientSide&&flowTimer>0){
-            flowTimer--;
+
+        if(level.isClientSide){
+
+            if(flowTimer>0)
+                flowTimer--;
+
+            fluidLevel.chase(tank.getFluidAmount(), 0.3f, LerpedFloat.Chaser.EXP);
+            fluidLevel.tickChaser();
         }
     }
 
@@ -109,6 +119,12 @@ public class CastingBasinBlockEntity extends SmartBlockEntity implements IHaveGo
         flowTimer = 10;
         sendData();
         setChanged();
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        ItemHelper.dropContents(level, worldPosition, inventory);
     }
 
     @Override

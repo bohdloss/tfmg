@@ -3,18 +3,26 @@ package com.drmangotea.tfmg.content.engines;
 import com.drmangotea.tfmg.content.items.weapons.flamethrover.FlamethrowerItem;
 import com.drmangotea.tfmg.registry.TFMGItems;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
+import com.simibubi.create.foundation.utility.Lang;
 import com.tterrag.registrate.util.entry.FluidEntry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+
+import java.util.List;
 
 public class FluidContainingItem extends Item {
 
@@ -26,7 +34,14 @@ public class FluidContainingItem extends Item {
         super(p_41383_);
         this.fluid = fluid;
     }
-
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(Lang.translateDirect("tooltip.fluid_item", stack.getOrCreateTag().getInt("amount"))
+                .withStyle(ChatFormatting.GREEN)
+        );
+        super.appendHoverText(stack, world, tooltip, flag);
+    }
 
     @Override
     public InteractionResult useOn(UseOnContext context) {

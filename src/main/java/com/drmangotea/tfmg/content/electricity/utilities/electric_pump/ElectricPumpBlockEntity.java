@@ -41,10 +41,8 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
         super(typeIn, pos, state);
         setLazyTickRate(10);
         data.connectNextTick = true;
+
     }
-
-
-
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 
@@ -139,7 +137,6 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
         Map<Integer, Set<BlockFace>> validFaces = new HashMap<>();
         searchForEndpointRecursively(pipeGraph, targets, validFaces,
                 new BlockFace(start.getPos(), start.getOppositeFace()), pull);
-
         float pressure = getPowerUsage() == 0 ? 0 : Math.min(1500,data.getVoltage()*2);
         for (Set<BlockFace> set : validFaces.values()) {
             int parallelBranches = Math.max(1, set.size() - 1);
@@ -199,19 +196,17 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
         boolean isFront = side == front;
         return isFront;
     }
+
     //////////////////////
+
     @Override
     public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         return makeElectricityTooltip(tooltip, isPlayerSneaking);
-
-
-
     }
 
 
-
     @Override
-    public LevelAccessor getLevelAccessor(){
+    public LevelAccessor getLevelAccessor() {
         return level;
     }
 
@@ -222,14 +217,25 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
 
     @Override
     public ElectricalNetwork getOrCreateElectricNetwork() {
-        if(level.getBlockEntity(BlockPos.of(network)) instanceof IElectric) {
-            return TFMG.NETWORK_MANAGER.getOrCreateNetworkFor((IElectric) level.getBlockEntity(BlockPos.of(network)));
+        if (level.getBlockEntity(BlockPos.of(data.electricalNetworkId)) instanceof IElectric) {
+            return TFMG.NETWORK_MANAGER.getOrCreateNetworkFor((IElectric) level.getBlockEntity(BlockPos.of(data.electricalNetworkId)));
         } else {
             ElectricNetworkManager.networks.get(getLevel())
-                    .remove(network);
+                    .remove(data.electricalNetworkId);
             return TFMG.NETWORK_MANAGER.getOrCreateNetworkFor(this);
         }
     }
+
+    @Override
+    public void lazyTick() {
+        super.lazyTick();
+    }
+
+    @Override
+    public ElectricBlockValues getData() {
+        return data;
+    }
+
 
     @Override
     public int getPowerPercentage() {
@@ -238,8 +244,9 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
 
     @Override
     public float resistance() {
-        return 0;
+        return 50;
     }
+
 
 
     @Override
@@ -247,19 +254,20 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
 
         int voltageGeneration = 0;
 
-        for(Direction direction : Direction.values()){
-            if(hasElectricitySlot(direction)){
-                if(level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be)
-                    if(be.data.getId() !=data.getId())
-                        if(be.data.getVoltage()!=0)
-                            if(be.hasElectricitySlot(direction)){
-                                voltageGeneration = Math.max(voltageGeneration,be.getOutputVoltage());
+        for (Direction direction : Direction.values()) {
+            if (hasElectricitySlot(direction)) {
+
+                if (level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be)
+                    if (be.getData().getId() != getData().getId())
+                        if (be.getData().getVoltage() != 0)
+                            if (be.hasElectricitySlot(direction)) {
+                                voltageGeneration = Math.max(voltageGeneration, be.getOutputVoltage());
                                 data.getsOutsidePower = true;
                             }
             }
         }
 
-        if(voltageGeneration == 0)
+        if (voltageGeneration == 0)
             data.getsOutsidePower = false;
 
         return voltageGeneration;
@@ -270,15 +278,16 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
 
         int powerGeneration = 0;
 
-        for(Direction direction : Direction.values()){
-            if(hasElectricitySlot(direction)){
+        for (Direction direction : Direction.values()) {
+            if (hasElectricitySlot(direction)) {
 
-                if(level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be)
-                    if(be.data.getId() !=data.getId())
-                        if(be.data.getVoltage()!=0)
-                            if(be.hasElectricitySlot(direction)){
-                                powerGeneration = Math.max(powerGeneration,be.getOutputPower());
+                if (level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be) {
+                    if (be.getData().getId() != getData().getId())
+                        if (be.getData().getVoltage() != 0)
+                            if (be.hasElectricitySlot(direction)) {
+                                powerGeneration = Math.max(powerGeneration, be.getPowerUsage()) + 1;
                             }
+                }
             }
         }
 
@@ -290,7 +299,6 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
         return 0;
     }
 
-
     @Override
     public void updateNextTick() {
         data.updateNextTick = true;
@@ -299,7 +307,7 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
     @Override
     public void updateNetwork() {
         getOrCreateElectricNetwork().updateNetwork();
-        if(!level.isClientSide)
+        if (!level.isClientSide)
             TFMGPackets.getChannel().send(PacketDistributor.ALL.noArg(), new NetworkUpdatePacket(BlockPos.of(getPos())));
         sendData();
     }
@@ -311,6 +319,12 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
 
     @Override
     public void setVoltage(int newVoltage) {
+
+
+        if (canBeInGroups()) {
+            data.voltage = (int) (((float) resistance() / data.group.resistance) * (float) data.voltageSupply);
+            return;
+        }
         data.voltage = newVoltage;
     }
 
@@ -340,14 +354,12 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
 
     @Override
     public void setNetwork(long network) {
-        this.network = network;
-
-
-
-        if(network!=getPos())
+        this.data.electricalNetworkId = network;
+        if (network != getPos())
             ElectricNetworkManager.networks.get(getLevel())
                     .remove(getPos());
     }
+
 
 
 
@@ -359,69 +371,61 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
     @Override
     public void remove() {
         super.remove();
-
-
         this.data.destroyed = true;
-
-        for(Direction d : Direction.values()) {
-            if(hasElectricitySlot(d))
-                if(getLevelAccessor().getBlockEntity(BlockPos.of(getPos()).relative(d)) instanceof IElectric be&&be.hasElectricitySlot(d.getOpposite())) {
+        for (Direction d : Direction.values()) {
+            if (hasElectricitySlot(d))
+                if (getLevelAccessor().getBlockEntity(BlockPos.of(getPos()).relative(d)) instanceof IElectric be && be.hasElectricitySlot(d.getOpposite())) {
                     ElectricNetworkManager.networks.get(getLevel())
                             .remove(be.getPos());
                     be.setNetwork(be.getPos());
-
                     be.onPlaced();
-                    be.updateNetwork();
+                    be.updateNextTick();
                 }
         }
-        if(network != getPos())
+        if (data.electricalNetworkId != getPos())
             getOrCreateElectricNetwork().getMembers().remove(this);
 
-        if(network == getPos())
+        if (data.electricalNetworkId == getPos())
             ElectricNetworkManager.networks.get(getLevel())
-                    .remove(data.getId());
-
+                    .remove(getData().getId());
     }
 
     @Override
     public void tick() {
         super.tick();
-
-        if(data.connectNextTick) {
+        if (data.connectNextTick) {
             onPlaced();
             data.connectNextTick = false;
         }
-        if(data.updateNextTick) {
+        if (data.updateNextTick) {
             updateNetwork();
             data.updateNextTick = false;
+        }
+        if (data.setVoltageNextTick) {
+            setVoltage(data.voltageSupply);
+            data.setVoltageNextTick = false;
         }
 
     }
 
     @Override
-    protected void write(CompoundTag tag, boolean clientPacket) {
-        super.write(tag, clientPacket);
+    protected void write(CompoundTag compound, boolean clientPacket) {
+        super.write(compound, clientPacket);
+
+        compound.putInt("GroupId", data.group.id);
+        compound.putFloat("GroupResistance", data.group.resistance);
     }
 
     @Override
-    protected void read(CompoundTag tag, boolean clientPacket) {
-        super.read(tag, clientPacket);
-        if(!clientPacket)
+    protected void read(CompoundTag compound, boolean clientPacket) {
+        super.read(compound, clientPacket);
+        data.group = new ElectricalGroup(compound.getInt("GroupId"));
+        data.group.resistance = compound.getFloat("GroupResistance");
+        if (!clientPacket)
             data.connectNextTick = true;
-
     }
 
-    @Override
-    public boolean hasElectricitySlot(Direction direction) {
-        return direction.getAxis() != getBlockState().getValue(FACING).getAxis();
-    }
-
-    @Override
-    public ElectricBlockValues getData() {
-        return data;
-    }
-
-
+    /// ////////////////
     class ElectricPumpTransferBehavior extends FluidTransportBehaviour {
 
         public ElectricPumpTransferBehavior(SmartBlockEntity be) {
@@ -452,7 +456,5 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
                 return AttachmentTypes.NONE;
             return attachment;
         }
-
     }
-
 }

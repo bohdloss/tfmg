@@ -44,6 +44,19 @@ public class ElectricDiodeBlockEntity extends VoltageAlteringBlockEntity {
         }
     }
 
+    @Override
+    public int getPowerUsage() {
+
+
+        Direction facing = getDirection();
+        if (level.getBlockEntity(getBlockPos().relative(facing)) instanceof IElectric be && be.getData().getId() != data.getId()) {
+            if (be.hasElectricitySlot(facing.getOpposite()))
+                return Math.max(be.getNetworkPowerUsage(this), 0);
+        }
+
+        return 0;
+
+    }
 
     @Override
     public float resistance() {

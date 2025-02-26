@@ -1271,6 +1271,7 @@
   },
   "minecraft:adventure/kill_all_mobs": {
     "criteria": {
+      "minecraft:skeleton": "2025-02-11 23:32:15 +0100",
       "minecraft:spider": "2025-02-01 19:39:37 +0100",
       "minecraft:creeper": "2025-01-05 12:48:50 +0100",
       "minecraft:enderman": "2025-01-19 18:40:10 +0100",
@@ -3465,6 +3466,120 @@
   "minecraft:recipes/brewing/fermented_spider_eye": {
     "criteria": {
       "has_spider_eye": "2025-02-01 19:39:38 +0100"
+    },
+    "done": true
+  },
+  "create:recipes/misc/crafting/kinetics/stressometerfrom_conversion": {
+    "criteria": {
+      "has_item": "2025-02-10 15:54:41 +0100"
+    },
+    "done": true
+  },
+  "minecraft:story/lava_bucket": {
+    "criteria": {
+      "lava_bucket": "2025-02-10 20:31:54 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/redstone": {
+    "criteria": {
+      "has_redstone_block": "2025-02-12 11:45:06 +0100"
+    },
+    "done": true
+  },
+  "minecraft:husbandry/balanced_diet": {
+    "criteria": {
+      "cooked_beef": "2025-02-14 11:10:05 +0100"
+    },
+    "done": false
+  },
+  "minecraft:recipes/building_blocks/dye_brown_bed": {
+    "criteria": {
+      "has_needed_dye": "2025-02-14 16:44:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/brown_candle": {
+    "criteria": {
+      "has_brown_dye": "2025-02-14 16:44:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/dye_brown_wool": {
+    "criteria": {
+      "has_needed_dye": "2025-02-14 16:44:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/dye_brown_carpet": {
+    "criteria": {
+      "has_needed_dye": "2025-02-14 16:44:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/brown_stained_glass_pane_from_glass_pane": {
+    "criteria": {
+      "has_brown_dye": "2025-02-14 16:44:50 +0100"
+    },
+    "done": true
+  },
+  "create:recipes/misc/crafting/curiosities/brown_toolbox": {
+    "criteria": {
+      "has_item": "2025-02-16 14:21:31 +0100"
+    },
+    "done": true
+  },
+  "create:deployer": {
+    "criteria": {
+      "0": "2025-02-16 15:34:46 +0100"
+    },
+    "done": true
+  },
+  "tfmg:recipes/decorations/lead_bars_from_ingots_lead_stonecutting": {
+    "criteria": {
+      "has_ingots_lead": "2025-02-21 16:22:35 +0100"
+    },
+    "done": true
+  },
+  "tfmg:recipes/misc/crafting/kinetics/lead_flywheel": {
+    "criteria": {
+      "has_item": "2025-02-21 16:22:35 +0100"
+    },
+    "done": true
+  },
+  "tfmg:recipes/misc/crafting/kinetics/lead_block_from_compacting": {
+    "criteria": {
+      "has_item": "2025-02-21 16:22:35 +0100"
+    },
+    "done": true
+  },
+  "tfmg:recipes/decorations/lead_ladder_from_ingots_lead_stonecutting": {
+    "criteria": {
+      "has_ingots_lead": "2025-02-21 16:22:35 +0100"
+    },
+    "done": true
+  },
+  "tfmg:recipes/misc/crafting/kinetics/lead_nugget_from_decompacting": {
+    "criteria": {
+      "has_item": "2025-02-21 16:22:35 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/raw_iron_block": {
+    "criteria": {
+      "has_raw_iron": "2025-02-25 17:29:32 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/iron_ingot_from_smelting_raw_iron": {
+    "criteria": {
+      "has_raw_iron": "2025-02-25 17:29:32 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/iron_ingot_from_blasting_raw_iron": {
+    "criteria": {
+      "has_raw_iron": "2025-02-25 17:29:32 +0100"
     },
     "done": true
   },

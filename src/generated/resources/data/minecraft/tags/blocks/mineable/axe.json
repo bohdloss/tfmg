@@ -1,6 +1,7 @@
 {
   "values": [
     "tfmg:machine_input",
+    "tfmg:copycat_cable_block",
     "tfmg:steel_cogwheel",
     "tfmg:large_steel_cogwheel",
     "tfmg:aluminum_cogwheel",

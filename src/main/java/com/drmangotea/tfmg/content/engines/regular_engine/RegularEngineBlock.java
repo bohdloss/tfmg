@@ -1,5 +1,6 @@
 package com.drmangotea.tfmg.content.engines.regular_engine;
 
+import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
 import com.drmangotea.tfmg.content.engines.base.EngineBlock;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
@@ -38,12 +39,13 @@ public class RegularEngineBlock extends EngineBlock implements IBE<RegularEngine
 
         ItemStack itemStack = player.getItemInHand(hand);
 
-        if (level.getBlockEntity(pos) instanceof AbstractEngineBlockEntity be && !be.isController() && level.getBlockEntity(be.controller) instanceof AbstractEngineBlockEntity controller) {
+        if (level.getBlockEntity(pos) instanceof RegularEngineBlockEntity be && !be.isController() && level.getBlockEntity(be.controller) instanceof AbstractEngineBlockEntity controller) {
             if (controller.nextComponent().test(itemStack))
                 if (controller.componentsInventory.insertItem(itemStack)) {
                     if (!itemStack.is(TFMGItems.SCREWDRIVER.get()))
                         itemStack.shrink(1);
                     controller.playInsertionSound();
+                    controller.updateRotation();
                     controller.setChanged();
                     controller.sendData();
                     return InteractionResult.SUCCESS;
@@ -52,12 +54,13 @@ public class RegularEngineBlock extends EngineBlock implements IBE<RegularEngine
             if(controller instanceof RegularEngineBlockEntity be1&&!be1.pistonInventory.isEmpty()&&!((RegularEngineBlockEntity) controller).pistonInventory.isEmpty())
                 return super.use(blockState, level, pos, player, hand, blockHitResult);
 
-            if (itemStack.is(TFMGItems.SCREWDRIVER.get())) {
+            if (itemStack.is(TFMGItems.SCREWDRIVER.get())&&be.pistonInventory.isEmpty()) {
                 for (int i = controller.componentsInventory.components.size() - 1; i >= 0; i--) {
                     if (!controller.componentsInventory.getItem(i).isEmpty()) {
                         controller.dropItem(controller.componentsInventory.getItem(i));
                         controller.componentsInventory.setStackInSlot(i, ItemStack.EMPTY);
                         controller.playRemovalSound();
+                        controller.updateRotation();
                         controller.setChanged();
                         controller.sendData();
                         return InteractionResult.SUCCESS;
@@ -70,7 +73,14 @@ public class RegularEngineBlock extends EngineBlock implements IBE<RegularEngine
 
         return super.use(blockState, level, pos, player, hand, blockHitResult);
     }
-
+    @Override
+    public void onPlace(BlockState pState, Level level, BlockPos pos, BlockState pOldState, boolean pIsMoving) {
+        withBlockEntityDo(level, pos, IElectric::onPlaced);
+    }
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        IBE.onRemove(state, level, pos, newState);
+    }
     @Override
     public Class<RegularEngineBlockEntity> getBlockEntityClass() {
         return RegularEngineBlockEntity.class;

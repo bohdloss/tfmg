@@ -112,7 +112,7 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
                     if(be.getData().getId() !=getData().getId())
                         if(be.getData().getVoltage()!=0)
                             if(be.hasElectricitySlot(direction)){
-                                powerGeneration = Math.max(powerGeneration,be.getOutputPower());
+                                powerGeneration = Math.max(powerGeneration,be.getOutputPower())+10;
                             }
             }
         }
@@ -124,9 +124,6 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
     public int frequencyGeneration() {
         return 0;
     }
-
-
-
 
 
     @Override
@@ -149,6 +146,7 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
 
     @Override
     public void setVoltage(int newVoltage) {
+
         if(canBeInGroups()){
             data.voltage = (int) (((float)resistance()/data.group.resistance)*(float)data.voltageSupply);
             return;
@@ -202,20 +200,20 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
     public void remove() {
         super.remove();
         this.data.destroyed = true;
-        for(Direction d : Direction.values()) {
-            if(hasElectricitySlot(d))
-                if(getLevelAccessor().getBlockEntity(BlockPos.of(getPos()).relative(d)) instanceof IElectric be&&be.hasElectricitySlot(d.getOpposite())) {
+        for (Direction d : Direction.values()) {
+            if (hasElectricitySlot(d))
+                if (getLevelAccessor().getBlockEntity(BlockPos.of(getPos()).relative(d)) instanceof IElectric be && be.hasElectricitySlot(d.getOpposite())) {
                     ElectricNetworkManager.networks.get(getLevel())
                             .remove(be.getPos());
                     be.setNetwork(be.getPos());
-                    be.onPlaced();
+                    be.getData().connectNextTick = true;
                     be.updateNextTick();
                 }
         }
-        if(data.electricalNetworkId != getPos())
+        if (data.electricalNetworkId != getPos())
             getOrCreateElectricNetwork().getMembers().remove(this);
 
-        if(data.electricalNetworkId == getPos())
+        if (data.electricalNetworkId == getPos())
             ElectricNetworkManager.networks.get(getLevel())
                     .remove(getData().getId());
     }
@@ -241,6 +239,20 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
             data.updateNextTick = false;
         }
 
+    }
+
+    @Override
+    public void lazyTick() {
+        super.lazyTick();
+
+        if(data.failTimer >=4){
+            this.blockFail();
+            data.failTimer = 0;
+            sendStuff();
+        } else if((data.voltage>getMaxVoltage()&&getMaxVoltage()>0)||(getCurrent()>getMaxCurrent()&&getMaxCurrent()>0)){
+            blockFail();
+            data.failTimer++;
+        }
     }
 
     @Override

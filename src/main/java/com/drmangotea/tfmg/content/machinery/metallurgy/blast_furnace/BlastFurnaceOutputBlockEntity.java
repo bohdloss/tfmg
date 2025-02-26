@@ -361,6 +361,7 @@ public class BlastFurnaceOutputBlockEntity extends SmartBlockEntity implements I
     public void destroy() {
         super.destroy();
         ItemHelper.dropContents(level, worldPosition, inputInventory);
+        ItemHelper.dropContents(level, worldPosition, fluxInventory);
     }
 
     public int getSize() {

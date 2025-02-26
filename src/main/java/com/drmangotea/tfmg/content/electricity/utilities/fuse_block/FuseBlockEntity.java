@@ -30,6 +30,8 @@ public class FuseBlockEntity extends ElectricDiodeBlockEntity {
 
     public ItemStack fuse = ItemStack.EMPTY;
 
+    boolean testFuse = false;
+
 
     public FuseBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -58,6 +60,7 @@ public class FuseBlockEntity extends ElectricDiodeBlockEntity {
                 be.updateNextTick();
             }
         }
+
         sendStuff();
         setChanged();
     }
@@ -79,7 +82,12 @@ public class FuseBlockEntity extends ElectricDiodeBlockEntity {
     public void onNetworkChanged(int oldVoltage, int oldPower) {
         super.onNetworkChanged(oldVoltage, oldPower);
 
+        if (hasFuse() && getData().highestCurrent >= (float) fuse.getOrCreateTag().getInt("AmpRating")) {
+            blowFuse();
+            updateNetwork();
+            updateInFront();
 
+        }
         Direction facing = getBlockState().getValue(FACING).getCounterClockWise();
         if (level.getBlockEntity(getBlockPos().relative(facing)) instanceof IElectric be) {
 
@@ -91,6 +99,8 @@ public class FuseBlockEntity extends ElectricDiodeBlockEntity {
             }
         }
     }
+
+
 
     @Override
     public void setVoltage(int newVoltage) {
@@ -105,15 +115,50 @@ public class FuseBlockEntity extends ElectricDiodeBlockEntity {
 
             }
         }
+        if (hasFuse() && getData().highestCurrent >= (float) fuse.getOrCreateTag().getInt("AmpRating")) {
+            blowFuse();
+            updateNetwork();
+            updateInFront();
 
+        }
+        testFuse = true;
+
+    }
+
+    public void testFuse(){
+        Direction facing = getBlockState().getValue(FACING).getCounterClockWise();
+        if (level.getBlockEntity(getBlockPos().relative(facing)) instanceof IElectric be) {
+
+            if (hasFuse() && be.getData().highestCurrent >= (float) fuse.getOrCreateTag().getInt("AmpRating")) {
+                blowFuse();
+                updateNetwork();
+                updateInFront();
+
+            }
+        }
+        if (hasFuse() && getData().highestCurrent >= (float) fuse.getOrCreateTag().getInt("AmpRating")) {
+            blowFuse();
+            updateNetwork();
+            updateInFront();
+
+        }
+        testFuse = true;
     }
 
     @Override
     public void tick() {
         super.tick();
+
+
+        if(testFuse){
+            testFuse();
+            testFuse = false;
+        }
+
+
         Direction facing = getBlockState().getValue(FACING).getCounterClockWise();
         if (level.getBlockEntity(getBlockPos().relative(facing)) instanceof IElectric be) {
-        //    TFMG.LOGGER.debug("AMPS " + be.getData().highestCurrent);
+            TFMG.LOGGER.debug("AMPS " + be.getData().highestCurrent);
         }
 
     }

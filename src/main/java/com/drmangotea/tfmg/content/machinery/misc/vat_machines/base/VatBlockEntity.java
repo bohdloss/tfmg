@@ -769,8 +769,8 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
         Lang.text("Heat "+heatLevel).forGoggles(tooltip);
         for(String operation : machines)
             Lang.text(operation).forGoggles(tooltip);
-        if(true)
-            return true;
+
+        
         Lang.translate("gui.goggles.basin_contents")
                 .forGoggles(tooltip);
 
@@ -887,8 +887,13 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
     }
 
     public float getFillState() {
-        //     return (float) tankInventory.getFluidAmount() / tankInventory.getCapacity();
-        return 1;
+        IFluidHandler fluidHandler = this.getCapability(ForgeCapabilities.FLUID_HANDLER).orElse(null);
+        for(int i =0;i<fluidHandler.getTanks();i++)
+          if(!fluidHandler.getFluidInTank(i).isEmpty())
+                return (float) fluidHandler.getFluidInTank(i).getAmount() / fluidHandler.getTankCapacity(0);
+
+        return 0;
+
     }
 
     @Override

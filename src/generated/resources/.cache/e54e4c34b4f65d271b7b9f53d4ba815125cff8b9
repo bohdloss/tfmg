@@ -1,4 +1,4 @@
-// 1.20.1	2025-01-31T19:38:20.6663693	Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-02-20T20:30:41.8392612	Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 ff5a5721633b83465ab501cbdfdc579a0f20e938 assets/tfmg/blockstates/accumulator.json
 e982a263b6af75821042107fdeff7bd809436d08 assets/tfmg/blockstates/air_intake.json
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
@@ -55,7 +55,7 @@ b846b257ecd76322e904bd9c78a8b263a2799ad5 assets/tfmg/blockstates/brown_concrete.
 8b756fc85daef6d064edf3ea2b2e4c397e67c4a2 assets/tfmg/blockstates/brown_rebar_concrete_slab.json
 99c8ea149db01211c82a02af3d738494694b2114 assets/tfmg/blockstates/brown_rebar_concrete_stairs.json
 0ee9e3a46eaad9b1aa6eeaf1046044a7bf410af8 assets/tfmg/blockstates/brown_rebar_concrete_wall.json
-6af2ee6cde5159868287bfb01d0997f0ce0695d3 assets/tfmg/blockstates/cable_connector.json
+840c72a290cd0731b678233786a87602f3fa8c31 assets/tfmg/blockstates/cable_connector.json
 e22bcb9d31726a734c6741fca494e409c590bf14 assets/tfmg/blockstates/cable_tube.json
 86df9d2a2840b9ca6d2ef8f2a2f62bf285bed3a1 assets/tfmg/blockstates/casting_basin.json
 2ccbf31047ec5a9b3dd285fda5a402281869f721 assets/tfmg/blockstates/cast_iron_bars.json
@@ -76,7 +76,7 @@ c67b91a7fd9f16cd2d7eaa92dd9b945042d58130 assets/tfmg/blockstates/concrete.json
 d0709116064c94684adca52587bd0f48b3900423 assets/tfmg/blockstates/concrete_encased_cable_tube.json
 4a5b7c93ccd3bf2eeee42a6ae4b8209938980b72 assets/tfmg/blockstates/concrete_encased_electric_post.json
 2dcc62250e0e7a2f7f49c21e72176905243c7e76 assets/tfmg/blockstates/concrete_encased_industrial_pipe.json
-07c54b869311e56ecf8e740c6d5e103dc302c2c8 assets/tfmg/blockstates/concrete_hose.json
+69c8b627d7b93cddf1a777ec77fe8ebdd0e88a77 assets/tfmg/blockstates/concrete_hose.json
 9c9cac30f015e72418736cbec2d721a6dec56fb7 assets/tfmg/blockstates/concrete_slab.json
 1bb17c9ead851661909f9d223aa3947267c0a84e assets/tfmg/blockstates/concrete_smokestack.json
 84fcaec7626f69e9a27ef235121f9a9db9955530 assets/tfmg/blockstates/concrete_stairs.json
@@ -85,6 +85,7 @@ ff85a7b17cfc90735a0d6a868ff05bb77797adc4 assets/tfmg/blockstates/concrete_wall.j
 597a80861fc67cab5c0081f6887c868b7f1608c4 assets/tfmg/blockstates/constantan_frame.json
 53a7c2c917f5074fe2c683b839a33487c1194e9a assets/tfmg/blockstates/constantan_ladder.json
 53b8e39bebcf7f672cc05c9004ad1c0ab15797b8 assets/tfmg/blockstates/constantan_truss.json
+9070d146f25231108735e25ea0fee258aa2dea4e assets/tfmg/blockstates/converter.json
 dca4728ef33ca9d54fb55d707761c2eeb77c32b1 assets/tfmg/blockstates/cooling_fluid.json
 8b9225e35a3b3543d5866650bf4ac9775942368e assets/tfmg/blockstates/copper_cable_hub.json
 a8ffe111ead9a06af01f91232ce3b2f152deaab2 assets/tfmg/blockstates/copper_encased_aluminum_pipe.json
@@ -94,6 +95,8 @@ e097073364c3d4214212332ba036eefb9e857715 assets/tfmg/blockstates/copper_encased_
 8b6052f05d1b9cd80062de3fb79e36eb0727ecd5 assets/tfmg/blockstates/copper_encased_steel_pipe.json
 083f2b157fbc14718db084169776596d8f750c14 assets/tfmg/blockstates/copper_frame.json
 fb27cbbba0cfc4169f0d20524fd8fa9ddad18144 assets/tfmg/blockstates/copper_truss.json
+ee52b1eec63e67a98244c87d2cce7f045c483593 assets/tfmg/blockstates/copycat_cable_base.json
+3dff9e1ec59415779195d2abfa9f07bc17b428a1 assets/tfmg/blockstates/copycat_cable_block.json
 0b0aafe0a045dd28968cb8260db0afde9d11472b assets/tfmg/blockstates/creative_generator.json
 fa1fa0509cd94e57da7624b5d094c228d6b92593 assets/tfmg/blockstates/creosote.json
 d284d43a9b9527128c706adbd3dff3fa6e8ca048 assets/tfmg/blockstates/crude_oil.json
@@ -130,11 +133,12 @@ da3ce72a164ba44b83d2e0a34aba7a2e0bf1f7e0 assets/tfmg/blockstates/deepslate_lead_
 0c1f4a179de5361677ab6a190f3b3279374dfdf0 assets/tfmg/blockstates/deepslate_nickel_ore.json
 c9291b06874778c72b970c234fdf7b48cbc443cb assets/tfmg/blockstates/diagonal_cable_block.json
 03983ce3de10310cd75b98f17c9161653b7034cd assets/tfmg/blockstates/diesel.json
-78c9f8ef78402e4e4e2ed6050a4d144ce0145aae assets/tfmg/blockstates/electrical_switch.json
+9e5371b956a65a7a49581208e331ee1fc8b8acc2 assets/tfmg/blockstates/electrical_switch.json
 3cb8f9a5ab392d7fb37dea856f16e3d501986ef8 assets/tfmg/blockstates/electric_casing.json
 fce44cbe5ec7bc7ec527327088be37cea56ac85c assets/tfmg/blockstates/electric_diode.json
 fec8a2ce3fa897609383099ca2f30b92f591428b assets/tfmg/blockstates/electric_motor.json
 edaa0018b0c7dffe0b552e5f7dd539c5484600fb assets/tfmg/blockstates/electric_post.json
+637b5240220dcff1f51dfa02ae44ceb43392a55b assets/tfmg/blockstates/electric_pump.json
 5258f718a70e0e9b9f1433aa67fd7faa0a8f28c5 assets/tfmg/blockstates/electrode_holder.json
 e452793b4673eaf1821619357692b41c297988f7 assets/tfmg/blockstates/encased_diode.json
 5cd35edc93b0e5bc3fe86e4fd160ba2a660404ff assets/tfmg/blockstates/encased_potentiometer.json
@@ -156,6 +160,7 @@ b0a3f4da5d9efdd01800c8b9738aee194565c6e7 assets/tfmg/blockstates/gasoline.json
 307dfb8175dbcda4107a36d25b25004d41b901ca assets/tfmg/blockstates/generator.json
 c58cc6ae649bc1bafe76b85f0ad4a96c78c237a7 assets/tfmg/blockstates/glass_aluminum_pipe.json
 de3098b3dfd1bdaabbd437af409b9fdef7d5ccd6 assets/tfmg/blockstates/glass_brass_pipe.json
+6d70d188380a7c925b52c44e3d8306aa1088e4c7 assets/tfmg/blockstates/glass_cable_insulator.json
 be2ae6bcf2aead92612fafa57edcac1f0e7775db assets/tfmg/blockstates/glass_cast_iron_pipe.json
 078297bd91c6b0f19bed8e1b415c3fc48c879ef3 assets/tfmg/blockstates/glass_plastic_pipe.json
 d23c28129bc7885986c65290071fb7a9cc5391d7 assets/tfmg/blockstates/glass_steel_pipe.json
@@ -259,6 +264,7 @@ a4d0f4f955fe3ac39933613a721521849bcae8c6 assets/tfmg/blockstates/molten_steel.js
 ebd6804b999acea36abbf07c2381ee6dee0d7a16 assets/tfmg/blockstates/napalm.json
 d4912088a46f9bdff74bf95f2d78aec4e4c8a6cb assets/tfmg/blockstates/napalm_bomb.json
 89f2902010903aad686571ef37c781b111147456 assets/tfmg/blockstates/naphtha.json
+50554cd2533852d92fd55438c7b334a66d0b394a assets/tfmg/blockstates/neon_tube.json
 b143304f44f6eb7a2d1a6a9ee6b42b8aa4e0bd03 assets/tfmg/blockstates/nickel_bars.json
 2804515ba81747bf9d1f04dc38c4d1aad7751b7f assets/tfmg/blockstates/nickel_block.json
 846b7738390847af67e357932b3ac8dbefd83074 assets/tfmg/blockstates/nickel_flywheel.json
@@ -315,6 +321,9 @@ d213b1e171f2c1cb3da1e18f05fa6bb263562901 assets/tfmg/blockstates/purple_rebar_co
 0e498253d6e9cc8085dba93440b5531d6f4e6d3f assets/tfmg/blockstates/purple_rebar_concrete_slab.json
 cd0efffbfec34f486ff8754fe101d549ecb89b4f assets/tfmg/blockstates/purple_rebar_concrete_stairs.json
 aa93dabc5a9694f94d2a91e6b4060eccfa108a0c assets/tfmg/blockstates/purple_rebar_concrete_wall.json
+61c3fb463cbf621b692307cada7201e3882b26ed assets/tfmg/blockstates/raw_lead_block.json
+0000593f18477817db98661055ab25034c12990f assets/tfmg/blockstates/raw_lithium_block.json
+8f4e79b9966ed492e30afd07cdc2e77465e0a4de assets/tfmg/blockstates/raw_nickel_block.json
 4cc9b6e69063a86660c3bc8d0b2105bf32d0c29d assets/tfmg/blockstates/rebar_block.json
 b96efc46401770e0661dc36466ff6b233232e7f5 assets/tfmg/blockstates/rebar_concrete.json
 9c9cac30f015e72418736cbec2d721a6dec56fb7 assets/tfmg/blockstates/rebar_concrete_slab.json
@@ -386,7 +395,6 @@ e7bbd21def546ff0b7db68091c877da4ac3fe301 assets/tfmg/blockstates/sulfur.json
 5a477cb69a83689c52ad333d7dbc3c4c93680c6d assets/tfmg/blockstates/surface_scanner.json
 630732e33c7cab7e8a9f126bf3b5f0cc58d3c5fd assets/tfmg/blockstates/traffic_light.json
 22e56693892c3c7113999216111223b271cf7783 assets/tfmg/blockstates/transformer.json
-701d3292946ce29234fb8da435ec010879d6bafd assets/tfmg/blockstates/transistor.json
 1a9d971bfb2af3594592ce835b54a94ed8f76f7b assets/tfmg/blockstates/voltage_observer.json
 253af20ab871a235c0cfd95d6212760a6dac352d assets/tfmg/blockstates/voltmeter.json
 3ae604025ac79eccc5fd1ff34d3854c50b17ce76 assets/tfmg/blockstates/white_caution_block.json
@@ -410,8 +418,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-1c4cbd77879f25d9d8a71c500da46e8f6e20eefc assets/tfmg/lang/en_ud.json
-5b5f6a784c1a5b830571c6cb32fbd4c3c5fc4b7b assets/tfmg/lang/en_us.json
+bed3816da4b736c65b2b721c2abf68a6baad8dec assets/tfmg/lang/en_ud.json
+23d8d0235ab141ddade59ee9bacb4a962d0d2269 assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 1d33a893d6ac05f9adaceb7f84423ebe9b195c01 assets/tfmg/models/block/aluminum_cable_hub.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
@@ -564,7 +572,6 @@ a9024b0da6c2087e52429770d5e855dd285cc1c6 assets/tfmg/models/block/cast_iron_side
 50c47672a7e9f7180af78c4bef42d5db1822b08b assets/tfmg/models/block/coal_coke_block.json
 75c31d328fc5d6d46c8b43e8bde7504f4e51dadc assets/tfmg/models/block/concrete.json
 a7b301c044049a3037f6695fb165e77264e84519 assets/tfmg/models/block/concrete_bottom.json
-0ceb30eaff16a495c9a165ca16c925cbff836755 assets/tfmg/models/block/concrete_hose.json
 031cd9564cc8af1c8712627d8cb3931be6ccc46d assets/tfmg/models/block/concrete_stairs.json
 7251c262b597916cad63fa470fdddca80d814591 assets/tfmg/models/block/concrete_stairs_inner.json
 67229ab94c818bbdafe561cb5ab62f7a0f3f6dcc assets/tfmg/models/block/concrete_stairs_outer.json
@@ -860,6 +867,9 @@ ed75898bcabca38c33cf3b5f4cdf542ad8f43823 assets/tfmg/models/block/purple_concret
 53fec6bdb6dfe8b9a75efc0e6e58560c8b616231 assets/tfmg/models/block/purple_concrete_wall_side.json
 dc6efe4ecdf11fdabd48bd635343571341e0c7a1 assets/tfmg/models/block/purple_concrete_wall_side_tall.json
 ba6f69e143915fedf081f7bf3434e2ecfe9c86a7 assets/tfmg/models/block/purple_rebar_concrete.json
+6f2b4e6eabcd6eb785a6f0490d576e7c9542e004 assets/tfmg/models/block/raw_lead_block.json
+b5dbb2a95f6c0035ac1d9b1a398523ebbf4389ee assets/tfmg/models/block/raw_lithium_block.json
+4365f59397d10a5a90fc396b7b3b554c195fc9ab assets/tfmg/models/block/raw_nickel_block.json
 75c31d328fc5d6d46c8b43e8bde7504f4e51dadc assets/tfmg/models/block/rebar_concrete.json
 8b901f38d5d1f28d81e44eff725b1a7d5d74c164 assets/tfmg/models/block/red_caution_block.json
 1a7e3178749d61380189e5d2e82a449a7af955e9 assets/tfmg/models/block/red_concrete.json
@@ -1096,6 +1106,8 @@ dfc11d8b61afa72b969c79a0c6cc01e8d6fca169 assets/tfmg/models/item/constantan_ingo
 381e0d64eeb5c13f759e3d4fe9842dea759ee073 assets/tfmg/models/item/constantan_nugget.json
 6b458b591be15313380988f3154fa6df067aac46 assets/tfmg/models/item/constantan_spool.json
 a7e0b0c5b9cdcb7e48ce92754b4714cdec94095e assets/tfmg/models/item/constantan_truss.json
+fbef525eaae76c32fb3d7ef415a94f39d033a1ae assets/tfmg/models/item/constantan_wire.json
+1d29da201c5d3cbd80ffddafebe9a740f7c9e985 assets/tfmg/models/item/converter.json
 cbebe27349c77edc77e836d00339571a9d42d1c6 assets/tfmg/models/item/cooling_fluid_bottle.json
 e8c4e68647a6ced815cfca649c679e709fcc7751 assets/tfmg/models/item/cooling_fluid_bucket.json
 04bf0e4e6afcdcf4e1712536afdbac6ae64091c3 assets/tfmg/models/item/copper_cable_hub.json
@@ -1106,6 +1118,7 @@ cd782e6a5296067494443920d220889937a6de65 assets/tfmg/models/item/copper_spool.js
 45a8624d38d2723f58678704b4bcf9a738006551 assets/tfmg/models/item/copper_sulfate.json
 19e87f4dcd3cd01daf1eec8b06df743898dcc775 assets/tfmg/models/item/copper_truss.json
 d34ea5d4a5fbae394f3773155c901da7e8a9f99e assets/tfmg/models/item/copper_wire.json
+ad22e8940129ab3a0601244b48387b1832bcb80e assets/tfmg/models/item/copycat_cable_block.json
 594b3b4201e8a781bc1280d668a8ba43fc64c945 assets/tfmg/models/item/crankshaft.json
 e90663032572b10fff3b45cdf2435211cb1ef05b assets/tfmg/models/item/creative_generator.json
 0abf2b2d61995c4fd3e3c88656e740ffe0a2f083 assets/tfmg/models/item/creosote_bucket.json
@@ -1151,6 +1164,7 @@ aa89976b1ba543ff94656cc405d57f2d91ef1cb5 assets/tfmg/models/item/electric_casing
 d2ddba2549ea27f94ff7de3f91414235edd9e827 assets/tfmg/models/item/electric_diode.json
 b90d6ceb1c64ade022a893ed4b442b0e100e42b1 assets/tfmg/models/item/electric_motor.json
 deb7528506dca13e6f3c7a9057105b97c7faddef assets/tfmg/models/item/electric_post.json
+e36f2280b360cbd37267b3351a131ebcfb499fe7 assets/tfmg/models/item/electric_pump.json
 1a73802a404a841834fa695ed6ee985741e6ec4b assets/tfmg/models/item/electrode_holder.json
 7b898ca0de43a97cda3733b254c3aa112f6a5251 assets/tfmg/models/item/electromagnetic_coil.json
 969c1a0cf944e95b0807ba0d9fe0641e052e1a7f assets/tfmg/models/item/empty_circuit_board.json
@@ -1179,6 +1193,8 @@ c8a7e3f8161d0ab32be2af91cd590b63b5f1aa93 assets/tfmg/models/item/fuse_block.json
 acd5c31ea8e24ca099199932affdc705e5abe3fd assets/tfmg/models/item/galena_pillar.json
 ed2830b2988403aebaca633b2e315878b41f7503 assets/tfmg/models/item/gasoline_bucket.json
 b577d1d699bbea896237f71a8f5582bcdfcd4534 assets/tfmg/models/item/generator.json
+06d25769506a7173b15af2069573b2983b587cc4 assets/tfmg/models/item/glass_cable_insulator.json
+35bca54df08df5acb0bb3e86537571db39f7d165 assets/tfmg/models/item/glass_insulator_segment.json
 b3aebfc27e431cb0b099c3df6dc30dea1e1b6ec3 assets/tfmg/models/item/graphite_electrode.json
 f80ea87018220fdac6fe8e4cc7490bcdb90cb5d0 assets/tfmg/models/item/gray_caution_block.json
 c7d4cc91447bc3512efbe18bc7b2344a42196a88 assets/tfmg/models/item/gray_concrete.json
@@ -1303,6 +1319,7 @@ b41853a4ae8b890f924058e57d274e956e6f4e37 assets/tfmg/models/item/napalm_bucket.j
 9edf655bf9d93785d47b42106ab1a326d57125b4 assets/tfmg/models/item/napalm_potato.json
 aa94f1afebb7c458e85849d8ddff76c27efefb80 assets/tfmg/models/item/naphtha_bucket.json
 693ee4907e6e65975a4aefba6af81ccd9e6fb206 assets/tfmg/models/item/neon_bucket.json
+9fc098be5e50d8a65de98bb6fc90e5f45e0ab968 assets/tfmg/models/item/neon_tube.json
 6bf4a2c685296b40e5f3919518579a855cfa6e22 assets/tfmg/models/item/nickel_bars.json
 43b15f990e2656ae97be24051dc98917255e960c assets/tfmg/models/item/nickel_block.json
 fa02415636ae9c5f0aee76fc4e97893e2bfd123c assets/tfmg/models/item/nickel_flywheel.json
@@ -1372,8 +1389,11 @@ fcc22d0322de977957e8353c7b9108e79fdca094 assets/tfmg/models/item/purple_rebar_co
 6c3eaf18f8d57793c6378fd0c05175612ca7319a assets/tfmg/models/item/p_semiconductor.json
 3cfdbac1c06b4e75416fcd24a93616d98f59d6e3 assets/tfmg/models/item/quad_potato_cannon.json
 7b98c40428b278303a2251ff729593ef5e4047b2 assets/tfmg/models/item/raw_lead.json
+beaf17bc426f3260739d710bee368a107c3df7ea assets/tfmg/models/item/raw_lead_block.json
 87f214f3eeeb0b7a2ddaf504f9e02e975e078835 assets/tfmg/models/item/raw_lithium.json
+1fa5b5a655f29ea8468504fa8f3faa3c4dfaaa1b assets/tfmg/models/item/raw_lithium_block.json
 ba559e572a5602073bd24bd6e5810d07e5774387 assets/tfmg/models/item/raw_nickel.json
+a3eede49ded9c130255768790203be049bcd8bea assets/tfmg/models/item/raw_nickel_block.json
 212327f9d3eebd3f0c363d57a42d75b79a82a1f8 assets/tfmg/models/item/rebar_block.json
 94dd27526967032c1ab4f94d19ad24a60a03c278 assets/tfmg/models/item/rebar_concrete.json
 685e08733e5195a8714284be2eeba8f47736115e assets/tfmg/models/item/rebar_concrete_slab.json
@@ -1467,9 +1487,18 @@ e2fb504cbb8808de330d4ea87030f0d089921e23 assets/tfmg/models/item/surface_scanner
 31ca5e14f8583f2e73a3aeea14e129026ec79974 assets/tfmg/models/item/thermite_powder.json
 dc7cec557984ae6aeaa1cb4136acc12e95123f9c assets/tfmg/models/item/traffic_light.json
 ceca2b38bca3eca6e17419064b782ad745dd229b assets/tfmg/models/item/transformer.json
-c7a287237f856b6006610eef6b1fab49279dd00b assets/tfmg/models/item/transistor.json
 cd6944ca5fe85883cdc520778f9b2ecf4830c2de assets/tfmg/models/item/transistor_item.json
 7bffba77b51ec27a99bd5a20f62c23315c31fe13 assets/tfmg/models/item/turbine_blade.json
+a11cee5b22052675790c9115cf615b3a2beeee01 assets/tfmg/models/item/unfinished_capacitor.json
+ce1c112f8068e82082834562d661e7d94bf2a262 assets/tfmg/models/item/unfinished_electric_motor.json
+d4562d6022360cefd8fe93fc7257a89aa9caa5df assets/tfmg/models/item/unfinished_generator.json
+e1315ad9ba1bb749c3c746bb4dd1f1333293fc9e assets/tfmg/models/item/unfinished_insulator.json
+f268aff3ae208a366d98b816356594de497507dd assets/tfmg/models/item/unfinished_potentiometer.json
+83751c3e8ecd4157c95d286451222978ecb9d62c assets/tfmg/models/item/unfinished_resistor.json
+108b74837387c74cbcfe24bdd4dc0cb5c0ee2b93 assets/tfmg/models/item/unfinished_steel_mechanism.json
+4bbea3b514f7799fa37718ae2371c8ef20486e0a assets/tfmg/models/item/unfinished_transistor.json
+43eac4a385f1b4d6b5637218e1601f0eafbfa85c assets/tfmg/models/item/unfired_insulator.json
+5a772b5ff15b50bbfb3c8ff5c67d499aae4082d2 assets/tfmg/models/item/unprocessed_heavy_plate.json
 0374bdc855791f3d90600a025a46f56a4fbfc324 assets/tfmg/models/item/voltage_observer.json
 0ae8adf5d09cd1ced828eae47298be7a77e52bc1 assets/tfmg/models/item/voltmeter.json
 abc7aeba84770fef277f2892536738c7af407d9f assets/tfmg/models/item/white_caution_block.json
@@ -1513,7 +1542,7 @@ c1c3c38f057a7d55140398a9b7d7ab85e160b1b0 data/create/recipes/polished_cut_galena
 9c7da3eec428e48ad5977ecfa2e058fff7c81156 data/create/recipes/small_bauxite_brick_slab_recycling.json
 a3b4393f7a5ff503b7bef1f941b666b28d42c2f0 data/create/recipes/small_galena_brick_slab_recycling.json
 b202817c001ed31fd0aafc2c4b4102b8adbde108 data/create/tags/blocks/casing.json
-4c51fc6154c49a68dc342c5e0e001073f8942e3e data/create/tags/blocks/fan_transparent.json
+f89b8482c9709a46bb2161a70330596c2a723657 data/create/tags/blocks/fan_transparent.json
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/create/tags/blocks/non_movable.json
 92db31919c2410ef20a6a586eac2f4a9f231bf63 data/create/tags/blocks/safe_nbt.json
 4c51fc6154c49a68dc342c5e0e001073f8942e3e data/create/tags/blocks/wrench_pickup.json
@@ -1527,7 +1556,7 @@ d24579a31b2842ed918f938ad204e91ab405cc32 data/forge/tags/blocks/ores/lithium.jso
 4a4923c9c00653a98fb9b247ee5ac9191d7c2ede data/forge/tags/blocks/ores/nickel.json
 94ba62223301585f0de8d7bee24c39cce84f6ae8 data/forge/tags/blocks/ores_in_ground/deepslate.json
 eefda4e96e7bc3a3c3c130eb5593a811b50255ce data/forge/tags/blocks/ores_in_ground/stone.json
-87c5a787906199c4270b17d45d0e73ae2f16212e data/forge/tags/blocks/storage_blocks.json
+a2029f4d5ac94eb5514d525fa8296d78e65d338f data/forge/tags/blocks/storage_blocks.json
 5f36040d029001793eb338e1a8c5d95b9abcc9b3 data/forge/tags/blocks/storage_blocks/aluminum.json
 7c5615c56bb169570a061f052ebb1f5115760c16 data/forge/tags/blocks/storage_blocks/cast_iron.json
 b9900e5c7523b9c0a71b5695576d1d9923ea7625 data/forge/tags/blocks/storage_blocks/constantan.json
@@ -1535,6 +1564,9 @@ d26621b9617890011a68780cf7ab40fbb4658edc data/forge/tags/blocks/storage_blocks/l
 d90a1f9c03f64fad5c3248d46176b6332004b78d data/forge/tags/blocks/storage_blocks/lithium.json
 87e39c96c409f7e862d71e20bcf8a96d5936f2f9 data/forge/tags/blocks/storage_blocks/nickel.json
 5d9ffd0da6bdb068c0aa92a6919a722339b5a039 data/forge/tags/blocks/storage_blocks/plastic.json
+23308e52c71940a45a2ec590c5ca89966e115451 data/forge/tags/blocks/storage_blocks/raw_lead.json
+c06711f911c6e48111c6441978c6185cc1ef8641 data/forge/tags/blocks/storage_blocks/raw_lithium.json
+a1f3c8498ccc83ea4a9015e4214c596753f58a81 data/forge/tags/blocks/storage_blocks/raw_nickel.json
 37b1c9c3ae722d8110db48015993ede3e194c0a0 data/forge/tags/blocks/storage_blocks/steel.json
 98d0545decb38ccb6b4da967c598af78bac888ea data/forge/tags/fluids/creosote.json
 d0e3e4382c78a56c7e341aa2009c6e3c8cf75cb4 data/forge/tags/fluids/crude_oil.json
@@ -1609,7 +1641,7 @@ bcd97e4d08daef6f60e6e0239222009540dac177 data/forge/tags/items/plates/steel.json
 3f7807c4bc7aece02066f3dc5e0f436a0d5fa078 data/forge/tags/items/raw_materials/lead.json
 808564cbcb70936b3da0a2a1bfa063752a0688d3 data/forge/tags/items/raw_materials/lithium.json
 88f3d6f99c74dabb2491637c6b2ba766a1f662f1 data/forge/tags/items/raw_materials/nickel.json
-87c5a787906199c4270b17d45d0e73ae2f16212e data/forge/tags/items/storage_blocks.json
+a2029f4d5ac94eb5514d525fa8296d78e65d338f data/forge/tags/items/storage_blocks.json
 5f36040d029001793eb338e1a8c5d95b9abcc9b3 data/forge/tags/items/storage_blocks/aluminum.json
 7c5615c56bb169570a061f052ebb1f5115760c16 data/forge/tags/items/storage_blocks/cast_iron.json
 b9900e5c7523b9c0a71b5695576d1d9923ea7625 data/forge/tags/items/storage_blocks/constantan.json
@@ -1617,9 +1649,13 @@ d26621b9617890011a68780cf7ab40fbb4658edc data/forge/tags/items/storage_blocks/le
 d90a1f9c03f64fad5c3248d46176b6332004b78d data/forge/tags/items/storage_blocks/lithium.json
 87e39c96c409f7e862d71e20bcf8a96d5936f2f9 data/forge/tags/items/storage_blocks/nickel.json
 5d9ffd0da6bdb068c0aa92a6919a722339b5a039 data/forge/tags/items/storage_blocks/plastic.json
+23308e52c71940a45a2ec590c5ca89966e115451 data/forge/tags/items/storage_blocks/raw_lead.json
+c06711f911c6e48111c6441978c6185cc1ef8641 data/forge/tags/items/storage_blocks/raw_lithium.json
+a1f3c8498ccc83ea4a9015e4214c596753f58a81 data/forge/tags/items/storage_blocks/raw_nickel.json
 37b1c9c3ae722d8110db48015993ede3e194c0a0 data/forge/tags/items/storage_blocks/steel.json
 d030bcdb3da4c37703a22037cc3a26830c7a9498 data/forge/tags/items/string.json
 ffb77323df69802d55e95d7fc30a45b3fbca8db8 data/forge/tags/items/wires/aluminum.json
+ccae2d221dc320981c331f4b8e07fe159176557a data/forge/tags/items/wires/constantan.json
 863e668119b306cf119cb6a7a62a2d1e12bee1ff data/forge/tags/items/wires/copper.json
 543dbb3bba839c96d454f6e26e7e97ce5ae9dc4e data/minecraft/tags/blocks/azalea_root_replaceable.json
 0b452fe131e1fd26fe896792aa41e5cd8fe16acf data/minecraft/tags/blocks/beacon_base_blocks.json
@@ -1630,11 +1666,11 @@ ffb77323df69802d55e95d7fc30a45b3fbca8db8 data/forge/tags/items/wires/aluminum.js
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/blocks/features_cannot_replace.json
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/blocks/infiniburn_overworld.json
 543dbb3bba839c96d454f6e26e7e97ce5ae9dc4e data/minecraft/tags/blocks/lush_ground_replaceable.json
-4f7716833abf51fabd165bf2481a84ea431fffe1 data/minecraft/tags/blocks/mineable/axe.json
-e8578d82319fcd78f187553328f67168139b7769 data/minecraft/tags/blocks/mineable/pickaxe.json
+410b2ee2d8668a6fc91c7c33d5bf5ec8798421d3 data/minecraft/tags/blocks/mineable/axe.json
+f09cb368a68ceada919774666a5ab7ac6dc5c109 data/minecraft/tags/blocks/mineable/pickaxe.json
 9aa107af39387783bd5f8c05bfdb9293387ccea4 data/minecraft/tags/blocks/mineable/shovel.json
 543dbb3bba839c96d454f6e26e7e97ce5ae9dc4e data/minecraft/tags/blocks/moss_replaceable.json
-0b452fe131e1fd26fe896792aa41e5cd8fe16acf data/minecraft/tags/blocks/needs_iron_tool.json
+dfca9f1cc79d30334f344f024c13a7c717bf4027 data/minecraft/tags/blocks/needs_iron_tool.json
 6345cd343d2a625dd38b37d7ff953813fcfa63b3 data/minecraft/tags/blocks/needs_stone_tool.json
 cf379823a7829c966e31763524da2bd584e77bc5 data/minecraft/tags/blocks/slabs.json
 47ad300c492fb6b0afd3b6b499802d6a92fe76e9 data/minecraft/tags/blocks/stairs.json
@@ -1815,6 +1851,7 @@ a26bbb17cb091dc44faa0211c3c1481fb0d4e017 data/tfmg/loot_tables/blocks/concrete_h
 5e1c3e074ff1f5a2778cb9c8a9b06dba6dbac0b4 data/tfmg/loot_tables/blocks/constantan_frame.json
 51cc26c05d868b26a9928045c071ca574a269a1f data/tfmg/loot_tables/blocks/constantan_ladder.json
 467b8e3858a8d712b09aabdef9c57a14a3e1ad14 data/tfmg/loot_tables/blocks/constantan_truss.json
+6e1ec2a21b3ad3bd0df2e6e2d40f53f71bb0b8c1 data/tfmg/loot_tables/blocks/converter.json
 73e770fe84929435e079304c35fdb3ae6c16cb86 data/tfmg/loot_tables/blocks/copper_cable_hub.json
 b1ca7d57591fa444b6e1cb6e7073e0aafb4e149a data/tfmg/loot_tables/blocks/copper_encased_aluminum_pipe.json
 2b284725c7823fa65778e737018acfa018e0f394 data/tfmg/loot_tables/blocks/copper_encased_brass_pipe.json
@@ -1823,6 +1860,8 @@ b1ca7d57591fa444b6e1cb6e7073e0aafb4e149a data/tfmg/loot_tables/blocks/copper_enc
 8389fc272d983d9137551fb9eff8c5c29a6404ab data/tfmg/loot_tables/blocks/copper_encased_steel_pipe.json
 6f8260ed2477e9980e1b2ba5caddf018130c39b0 data/tfmg/loot_tables/blocks/copper_frame.json
 5ef528dac7a07d3f6276a591c515b57a0232f217 data/tfmg/loot_tables/blocks/copper_truss.json
+f1648d2a817fbd3e73998515175546f0db4a5d89 data/tfmg/loot_tables/blocks/copycat_cable_base.json
+40097204f87c08bfa7a398fc72ecaff7c3a6bb49 data/tfmg/loot_tables/blocks/copycat_cable_block.json
 e3d8605c9ca9206c059bed870ec68f1a1ee01f1c data/tfmg/loot_tables/blocks/creative_generator.json
 721347336ee749165c6ac8447b0666f6d4c9e673 data/tfmg/loot_tables/blocks/cut_bauxite.json
 82da0500317157c4246fc37dc1dc3fb12fddfcc1 data/tfmg/loot_tables/blocks/cut_bauxite_bricks.json
@@ -1861,6 +1900,7 @@ a1aa5b0d4cee5067aff0598d083e27bf318bde04 data/tfmg/loot_tables/blocks/electrical
 5d500af70bee2658fe37e7be1dd252a2ccb75a7e data/tfmg/loot_tables/blocks/electric_diode.json
 b8bdebe81f97872eb5dbb1b645b871922b2fb4b7 data/tfmg/loot_tables/blocks/electric_motor.json
 4166590bfa4d891f7ddc21d8f116e08a57bbc9db data/tfmg/loot_tables/blocks/electric_post.json
+261790b99184c00192f41e8938b0bcb30d7e2a93 data/tfmg/loot_tables/blocks/electric_pump.json
 657af76ea4fdd97034dadac49f2663671f404212 data/tfmg/loot_tables/blocks/electrode_holder.json
 7b5b916ebb11d9f7a634add40226533fee29aa82 data/tfmg/loot_tables/blocks/encased_diode.json
 28a38b257764d5c13546a5328166b54d718584da data/tfmg/loot_tables/blocks/encased_potentiometer.json
@@ -1881,6 +1921,7 @@ f8274f88b8a4171676976b58bd30ab283571f6b8 data/tfmg/loot_tables/blocks/galena_pil
 90322865e154696c6845fbadc81cafd8b5c9f78d data/tfmg/loot_tables/blocks/generator.json
 2eb72789f8dd117af17aafd0adbddbbbe574ad27 data/tfmg/loot_tables/blocks/glass_aluminum_pipe.json
 dc7461e6cd019a5af3f71de7e6f04c0d89607d51 data/tfmg/loot_tables/blocks/glass_brass_pipe.json
+c74c62e9958bd621f69a29c6626e12d9196e37a9 data/tfmg/loot_tables/blocks/glass_cable_insulator.json
 e8aa3a5242276f5ca80d096b0cfa03211fedbf12 data/tfmg/loot_tables/blocks/glass_cast_iron_pipe.json
 518d85c4092bc22a07f3d5dec1375d7c728bb613 data/tfmg/loot_tables/blocks/glass_plastic_pipe.json
 1854d11f8657d6d8a3c9ec3fac12e412f65be8fd data/tfmg/loot_tables/blocks/glass_steel_pipe.json
@@ -1973,6 +2014,7 @@ fa2ab4bc3da24a1870702d7fd65628ed55b6ac41 data/tfmg/loot_tables/blocks/magenta_co
 647b27bf2a5ff3376cde7422c44dbeffd8130ecd data/tfmg/loot_tables/blocks/metal_smokestack.json
 04588ccbc6f960a7a415d5f1cd83c38553aea219 data/tfmg/loot_tables/blocks/modern_light.json
 35d8d0fc24380f370f65f6ff8d3f2cee4a765a78 data/tfmg/loot_tables/blocks/napalm_bomb.json
+33a1d653364c4f28cb3c35067ed789bdbca77990 data/tfmg/loot_tables/blocks/neon_tube.json
 0ae9b931267bc7e518b9e2a98a401bcbd3e91318 data/tfmg/loot_tables/blocks/nickel_bars.json
 303f10e7adba41c5776d77e326b2f1f5a2bcb276 data/tfmg/loot_tables/blocks/nickel_block.json
 b897a01f80c17acb0695f99df2d1ae5bcd7c3151 data/tfmg/loot_tables/blocks/nickel_flywheel.json
@@ -2029,6 +2071,9 @@ fe680d135d2cbc3e1d16b22dc55264857da885f1 data/tfmg/loot_tables/blocks/purple_con
 d2fa9f08a6af6b93f6f7c9d5bd4d5224762073d1 data/tfmg/loot_tables/blocks/purple_rebar_concrete_slab.json
 1815c93721aa88d56ba19bb531748309f2dc5d53 data/tfmg/loot_tables/blocks/purple_rebar_concrete_stairs.json
 e2d793873db74a1225db5984149c86333683a610 data/tfmg/loot_tables/blocks/purple_rebar_concrete_wall.json
+c151aeccce85ffc594ea4a02fb55c2d83ac43d04 data/tfmg/loot_tables/blocks/raw_lead_block.json
+fea2cdc5d851988d3274f3809aaf3dab4edcf611 data/tfmg/loot_tables/blocks/raw_lithium_block.json
+2075bb2a9d6c60f0aece85373668a96a8dcdd192 data/tfmg/loot_tables/blocks/raw_nickel_block.json
 58657ba63913ebfb0cabd48e262bcb5032609e37 data/tfmg/loot_tables/blocks/rebar_block.json
 9701e07427b96c5beccd0aab015be98cf51402f4 data/tfmg/loot_tables/blocks/rebar_concrete.json
 23ea2541f57bb395658a582d12b102649862a7df data/tfmg/loot_tables/blocks/rebar_concrete_slab.json
@@ -2100,7 +2145,6 @@ aad98868e2a12899a9ae9f30ce409b936d9ba7bd data/tfmg/loot_tables/blocks/steel_trap
 b9d01fccfddf5458a705560da5cd2450bdfde9ec data/tfmg/loot_tables/blocks/surface_scanner.json
 ed5b75cddc07db30b57b633c9ce5572546899aa2 data/tfmg/loot_tables/blocks/traffic_light.json
 b112d5170c07072a431a3e36476a653ff2647160 data/tfmg/loot_tables/blocks/transformer.json
-e4b46675a978b0d1019273cfb9c9fcb982ff7718 data/tfmg/loot_tables/blocks/transistor.json
 b5310b6e5e668d1b4fa3225e9672fd185f6831c2 data/tfmg/loot_tables/blocks/voltage_observer.json
 e8d2138992850b78009c0af31dcf3a743a41ecde data/tfmg/loot_tables/blocks/voltmeter.json
 295dc761fbdb402edc3f990ec2d676e0f6fc29bf data/tfmg/loot_tables/blocks/white_caution_block.json

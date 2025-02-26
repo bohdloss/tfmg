@@ -11,18 +11,16 @@ import org.checkerframework.checker.units.qual.C;
 
 public class CableConnection {
 
-    final CablePos pos1;
-    final CablePos pos2;
-    final BlockPos blockPos1;
-    final BlockPos blockPos2;
-    final boolean visible;
-    final CableType type;
+    public final CablePos pos1;
+    public final CablePos pos2;
+    public final BlockPos blockPos1;
+    public final boolean visible;
+    public final CableType type;
 
-    public CableConnection(CablePos pos1, CablePos pos2,BlockPos blockPos1,BlockPos blockPos2,CableType type, boolean visible){
+    public CableConnection(CablePos pos1, CablePos pos2,BlockPos blockPos1,CableType type, boolean visible){
         this.pos1 = pos1;
         this.pos2 = pos2;
         this.blockPos1 = blockPos1;
-        this.blockPos2 = blockPos2;
         this.visible = visible;
         this.type = type;
     }
@@ -41,13 +39,9 @@ public class CableConnection {
         //compoundTag.putLong("BlockPos1", blockPos1.asLong());
         //compoundTag.putLong("BlockPos2", blockPos2.asLong());
 
-        compoundTag.putInt("XX1", blockPos1.getX());
-        compoundTag.putInt("YY1", blockPos1.getY());
-        compoundTag.putInt("ZZ1", blockPos1.getZ());
+        compoundTag.putLong("Pos", blockPos1.asLong());
 
-        compoundTag.putInt("XX2", blockPos2.getX());
-        compoundTag.putInt("YY2", blockPos2.getY());
-        compoundTag.putInt("ZZ2", blockPos2.getZ());
+
 
 
         compoundTag.putBoolean("Visible", visible);
@@ -66,13 +60,11 @@ public class CableConnection {
         //BlockPos blockPos1 = BlockPos.of(compoundTag.getLong("BlockPos1"));
         //BlockPos blockPos2 = BlockPos.of(compoundTag.getLong("BlockPos2"));
 
-        BlockPos blockPos1 = new BlockPos(compoundTag.getInt("XX1"),compoundTag.getInt("YY1"),compoundTag.getInt("ZZ1"));
-        BlockPos blockPos2 = new BlockPos(compoundTag.getInt("XX2"),compoundTag.getInt("YY2"),compoundTag.getInt("ZZ2"));
+        BlockPos blockPos1 = BlockPos.of(compoundTag.getLong("Pos"));
 
         boolean visible = compoundTag.getBoolean("Visible");
         CableType type = CableType.valueOf(compoundTag.getString("CableType"));
-
-        return new CableConnection(pos1,pos2,blockPos1,blockPos2,type,visible);
+        return new CableConnection(pos1,pos2,blockPos1,type,visible);
     }
     public float getLength(){
         return TFMGUtils.getDistance(new BlockPos((int) pos1.x(), (int) pos1.y(), (int) pos1.z()),new BlockPos((int) pos2.x(), (int) pos2.y(), (int) pos2.z()), false);
@@ -82,9 +74,10 @@ public class CableConnection {
 
     public enum CableType{
         NONE(TFMGItems.COPPER_WIRE, 0,0xffffff),
-        COPPER(TFMGItems.COPPER_WIRE, 0.0188f,0xD8735A),
-        ALUMINUM(TFMGItems.ALUMINUM_WIRE, 0.0188f,0xEDEFEF),
-        STEEL_REINFORCED_ALUMINUM(TFMGItems.COPPER_WIRE, 0.0188f,0x595E5F)
+        COPPER(TFMGItems.COPPER_WIRE, 0.00188f,0xD8735A),
+        ALUMINUM(TFMGItems.ALUMINUM_WIRE, 0.0027f,0xEDEFEF),
+        CONSTANTAN(TFMGItems.CONSTANTAN_WIRE, 1f,0xEDEFEF),
+        STEEL_REINFORCED_ALUMINUM(TFMGItems.COPPER_WIRE, 0.0027f,0xB8A08D)
         ;
         public final ItemEntry<?> wire;
         public final float resistivity;

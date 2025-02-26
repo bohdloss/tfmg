@@ -1,8 +1,6 @@
 package com.drmangotea.tfmg.recipes.jei;
 
 
-
-
 import com.drmangotea.tfmg.recipes.CastingRecipe;
 import com.drmangotea.tfmg.recipes.jei.machines.CastingSetup;
 import com.drmangotea.tfmg.registry.TFMGItems;
@@ -23,59 +21,42 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class CastingCategory extends CreateRecipeCategory<CastingRecipe> {
 
-	private final CastingSetup castingSetup = new CastingSetup();
+    private final CastingSetup castingSetup = new CastingSetup();
 
-	public CastingCategory(Info<CastingRecipe> info) {
-		super(info);
-	}
-
-
+    public CastingCategory(Info<CastingRecipe> info) {
+        super(info);
+    }
 
 
-	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, CastingRecipe recipe, IFocusGroup focuses) {
+    @Override
+    public void setRecipe(IRecipeLayoutBuilder builder, CastingRecipe recipe, IFocusGroup focuses) {
 
 
+        RegistryAccess registryAccess = Minecraft.getInstance().level.registryAccess();
+        builder
+                .addSlot(RecipeIngredientRole.OUTPUT, 130, 20)
+                .setBackground(getRenderedSlot(), -1, -1)
+                .addItemStack(recipe.getResultItem(registryAccess));
 
 
-			RegistryAccess registryAccess = Minecraft.getInstance().level.registryAccess();
-			builder
-					.addSlot(RecipeIngredientRole.OUTPUT, 130, 0)
-					.setBackground(getRenderedSlot(), -1, -1)
-					.addItemStack(recipe.getResultItem(registryAccess));
+        builder
+                .addSlot(RecipeIngredientRole.INPUT, 15, 20)
+                .setBackground(getRenderedSlot(), -1, -1)
+                .addIngredients(ForgeTypes.FLUID_STACK, withImprovedVisibility(recipe.getFluidIngredients().get(0).getMatchingFluidStacks()))
+                .addTooltipCallback(addFluidTooltip(recipe.getFluidIngredients().get(0).getRequiredAmount()));
 
 
+    }
+
+    @Override
+    public void draw(CastingRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
+        castingSetup
+                .draw(graphics, 72, 40);
 
 
+        AllGuiTextures.JEI_ARROW.render(graphics, 78, 23);
 
 
-
-		//fluid
-
-		builder
-				.addSlot(RecipeIngredientRole.INPUT, 2, 33)
-				.setBackground(getRenderedSlot(), -1, -1)
-				.addIngredients(ForgeTypes.FLUID_STACK, withImprovedVisibility(recipe.getFluidIngredients().get(0).getMatchingFluidStacks()))
-				.addTooltipCallback(addFluidTooltip(recipe.getFluidIngredients().get(0).getRequiredAmount()));
-
-
-	}
-
-	@Override
-	public void draw(CastingRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
-		castingSetup
-				.draw(graphics, 65, 50);
-
-
-
-		AllGuiTextures.JEI_ARROW.render(graphics, 20, 36);
-
-
-
-
-
-
-
-	}
+    }
 
 }

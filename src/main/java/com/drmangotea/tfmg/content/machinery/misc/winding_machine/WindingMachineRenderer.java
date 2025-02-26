@@ -42,6 +42,7 @@ public class WindingMachineRenderer extends KineticBlockEntityRenderer<WindingMa
         }
         if(!be.spool.isEmpty()) {
             CachedBufferer.partial(TFMGPartialModels.SPOOL, blockState)
+                    .light(light)
                     .centre()
                     .rotateY(blockState.getValue(HORIZONTAL_FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot() - 180) : blockState.getValue(FACING).toYRot())
                     .translateZ(-0.4)
@@ -51,6 +52,7 @@ public class WindingMachineRenderer extends KineticBlockEntityRenderer<WindingMa
                     .renderInto(ms, bufferSource.getBuffer(RenderType.cutoutMipped()));
             if(((SpoolItem)be.spool.getItem()).model !=null){
                 CachedBufferer.partial(((SpoolItem)be.spool.getItem()).model, blockState)
+                        .light(light)
                         .centre()
                         .rotateY(blockState.getValue(HORIZONTAL_FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot() - 180) : blockState.getValue(FACING).toYRot())
                         .translateZ(-0.4)
@@ -62,6 +64,7 @@ public class WindingMachineRenderer extends KineticBlockEntityRenderer<WindingMa
                 if(!be.inventory.isEmpty()){
 
                     CachedBufferer.partial(be.getSpeed()!=0 ? TFMGPartialModels.CONNNECTING_WIRE_ANIMATED : TFMGPartialModels.CONNNECTING_WIRE, blockState)
+                            .light(light)
                             .centre()
                             .rotateY(blockState.getValue(HORIZONTAL_FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot() - 180) : blockState.getValue(FACING).toYRot())
                             .translateY(0.4f)

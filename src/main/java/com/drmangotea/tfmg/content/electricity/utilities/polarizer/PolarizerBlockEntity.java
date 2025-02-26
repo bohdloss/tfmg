@@ -38,10 +38,8 @@ public class PolarizerBlockEntity extends ElectricBlockEntity {
 
     LerpedFloat angle = LerpedFloat.angular();
 
-    public boolean shouldChargeItem = false;
     public boolean chargeCapacitors = false;
     public int capacitorPercentage = 0;
-    boolean charged = false;
 
     public PolarizerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -54,8 +52,9 @@ public class PolarizerBlockEntity extends ElectricBlockEntity {
     }
 
     public void onInventoryChanged(int count) {
+        sendData();
+        setChanged();
         if (inventory.isEmpty()) {
-            shouldChargeItem = false;
             chargeCapacitors = false;
             updateNextTick();
             return;
@@ -63,29 +62,22 @@ public class PolarizerBlockEntity extends ElectricBlockEntity {
         ItemStack itemStack = inventory.getItem(0);
 
         if (getRecipe(itemStack).isPresent()) {
-            shouldChargeItem = false;
+
+            TFMGUtils.debugMessage(level, "AMOGUS SIGMA");
+
             chargeCapacitors = true;
             updateNextTick();
-            if (capacitorPercentage == 200) {
+            if (capacitorPercentage >= 200) {
                 performRecipe(getRecipe(itemStack).get());
             }
-        } else if (itemStack.getCapability(ForgeCapabilities.ENERGY).isPresent()) {
-            shouldChargeItem = true;
-            chargeCapacitors = false;
-            updateNextTick();
         } else {
-            shouldChargeItem = false;
             chargeCapacitors = false;
             updateNextTick();
         }
 
     }
 
-    //@Override
-    //public boolean canBeInGroups() {
-    //    return true;
-    //}
-//
+
     @Override
     public float resistance() {
         return chargeCapacitors ? 30 : 0;
@@ -98,8 +90,6 @@ public class PolarizerBlockEntity extends ElectricBlockEntity {
         Lang.number((double) capacitorPercentage / 2f).forGoggles(tooltip);
         if (chargeCapacitors)
             Lang.text("CAPACITOR").forGoggles(tooltip);
-        if (shouldChargeItem)
-            Lang.text("ITEM").forGoggles(tooltip);
 
         super.addToTooltip(tooltip, isPlayerSneaking);
 
@@ -114,20 +104,21 @@ public class PolarizerBlockEntity extends ElectricBlockEntity {
     @Override
     public void tick() {
         super.tick();
+
+
         if (level.isClientSide) {
             angle.chase(180 * (capacitorPercentage / 200f), 0.2f, LerpedFloat.Chaser.EXP);
             angle.tickChaser();
         }
-        if (!networkUndersupplied())
-            if (getPowerUsage() > 5000)
-                if (chargeCapacitors)
-                    if (!charged) {
-                        if (capacitorPercentage < 200) {
-                            capacitorPercentage++;
-                        } else onInventoryChanged(inventory.getStackInSlot(0).getCount());
 
-                        charged = true;
-                    } else charged = false;
+
+            if (getPowerUsage() > 2000) {
+                if (chargeCapacitors) {
+                    if (capacitorPercentage < 200) {
+                        capacitorPercentage++;
+                    } else onInventoryChanged(inventory.getStackInSlot(0).getCount());
+                }
+            }
 
     }
 
@@ -159,7 +150,6 @@ public class PolarizerBlockEntity extends ElectricBlockEntity {
         super.write(compound, clientPacket);
         compound.put("Inventory", inventory.serializeNBT());
         compound.putInt("CapacitorPercentage", capacitorPercentage);
-        compound.putBoolean("ChargeItem", shouldChargeItem);
         compound.putBoolean("ChargeCapacitors", chargeCapacitors);
     }
 
@@ -168,7 +158,6 @@ public class PolarizerBlockEntity extends ElectricBlockEntity {
         super.read(compound, clientPacket);
         inventory.deserializeNBT(compound.getCompound("Inventory"));
         capacitorPercentage = compound.getInt("CapacitorPercentage");
-        shouldChargeItem = compound.getBoolean("ChargeItem");
         chargeCapacitors = compound.getBoolean("ChargeCapacitors");
     }
 

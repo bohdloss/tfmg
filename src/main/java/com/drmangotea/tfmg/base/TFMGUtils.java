@@ -8,6 +8,7 @@ import com.drmangotea.tfmg.content.electricity.connection.cables.CablePos;
 import com.drmangotea.tfmg.registry.TFMGEntityTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
@@ -20,9 +21,12 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
@@ -68,6 +72,18 @@ public class TFMGUtils {
             level.addFreshEntity(spark);
         }
         level.explode(null, pos.getX(), pos.getY(), pos.getZ(), radius, Level.ExplosionInteraction.BLOCK);
+    }
+    public static void playSound(Level level, BlockPos pos, SoundEvent sound, SoundSource source){
+        playSound(level,pos,sound,source,1,1,null);
+    }
+    public static void playSound(Level level, BlockPos pos, SoundEvent sound, SoundSource source, Player player){
+        playSound(level,pos,sound,source,1,1,player);
+    }
+    public static void playSound(Level level, BlockPos pos, SoundEvent sound, SoundSource source, float volume, float pitch){
+        playSound(level,pos,sound,source,volume,pitch,null);
+    }
+    public static void playSound(Level level, BlockPos pos, SoundEvent sound, SoundSource source, float volume, float pitch, Player player){
+        level.playSound(player,pos,sound,source,volume,pitch);
     }
 
     public static void blowUpTank(FluidTankBlockEntity tank, int power) {
@@ -262,6 +278,10 @@ public class TFMGUtils {
             public FluidStack drain(FluidStack resource, FluidAction action) {
                 if (!extractionAllowed) return FluidStack.EMPTY;
                 return super.drain(resource, action);
+            }
+
+            public FluidStack forceDrain(FluidStack resource, FluidAction action){
+                return super.drain(resource,action);
             }
 
             @Override
