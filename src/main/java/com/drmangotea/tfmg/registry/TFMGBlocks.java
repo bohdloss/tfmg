@@ -64,6 +64,8 @@ import com.drmangotea.tfmg.content.electricity.utilities.voltage_observer.Voltag
 import com.drmangotea.tfmg.content.electricity.utilities.voltage_observer.VoltageObserverGenerator;
 import com.drmangotea.tfmg.content.engines.base.EngineCTBehavior;
 import com.drmangotea.tfmg.content.engines.base.EngineGenerator;
+import com.drmangotea.tfmg.content.engines.engine_controller.EngineControllerBlock;
+import com.drmangotea.tfmg.content.engines.engine_gearbox.EngineGearboxBlock;
 import com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineBlock;
 import com.drmangotea.tfmg.content.items.CoalCokeBlockItem;
 import com.drmangotea.tfmg.content.items.weapons.explosives.napalm.NapalmBombBlock;
@@ -166,6 +168,23 @@ public class TFMGBlocks {
             .properties(BlockBehaviour.Properties::noOcclusion)
             .onRegister(connectedTextures(()->new EngineCTBehavior(TFMGSpriteShifts.REGULAR_ENGINE_TOP, TFMGSpriteShifts.REGULAR_ENGINE_BOTTOM, TFMGSpriteShifts.REGULAR_ENGINE_SIDE)))
             .blockstate(new EngineGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+    public static final BlockEntry<EngineGearboxBlock> ENGINE_GEARBOX = REGISTRATE.block("engine_gearbox", EngineGearboxBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate(BlockStateGen.horizontalBlockProvider(true))
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<EngineControllerBlock> ENGINE_CONTROLLER = REGISTRATE.block("engine_controller", EngineControllerBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate(BlockStateGen.horizontalBlockProvider(true))
             .item()
             .transform(customItemModel())
             .register();

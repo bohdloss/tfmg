@@ -9,6 +9,9 @@ import com.drmangotea.tfmg.content.electricity.base.UpdateInFrontPacket;
 import com.drmangotea.tfmg.content.electricity.connection.cables.CablePlacePacket;
 import com.drmangotea.tfmg.content.electricity.connection.cables.CableRemovalPacket;
 import com.drmangotea.tfmg.content.electricity.electrians_wrench.ElectriciansWrenchPacket;
+import com.drmangotea.tfmg.content.engines.engine_controller.packets.EngineControllerBindPacket;
+import com.drmangotea.tfmg.content.engines.engine_controller.packets.EngineControllerInputPacket;
+import com.drmangotea.tfmg.content.engines.engine_controller.packets.EngineControllerStopControllerPacket;
 import com.drmangotea.tfmg.content.items.weapons.advanced_potato_cannon.AdvancedPotatoCannonPacket;
 import com.drmangotea.tfmg.content.items.weapons.quad_potato_cannon.QuadPotatoCannonPacket;
 import com.drmangotea.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenPacket;
@@ -44,6 +47,10 @@ public enum TFMGPackets {
     CABLE_PACKET(CableRemovalPacket.class, CableRemovalPacket::new, PLAY_TO_CLIENT),
     CABLE_PLACE_PACKET(CablePlacePacket.class, CablePlacePacket::new, PLAY_TO_CLIENT),
     ELECTRICIANS_WRENCH_PACKET(ElectriciansWrenchPacket.class, ElectriciansWrenchPacket::new, PLAY_TO_SERVER),
+    ENGINE_CONTROLLER_INPUT(EngineControllerInputPacket.class, EngineControllerInputPacket::new, PLAY_TO_SERVER),
+    ENGINE_CONTROLLER_BIND(EngineControllerBindPacket.class, EngineControllerBindPacket::new, PLAY_TO_SERVER),
+    ENGINE_CONTROLLER_USE_LECTERN(EngineControllerStopControllerPacket.class, EngineControllerStopControllerPacket::new,
+            PLAY_TO_SERVER);
 
 
 

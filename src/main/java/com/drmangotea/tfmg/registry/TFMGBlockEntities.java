@@ -54,6 +54,11 @@ import com.drmangotea.tfmg.content.electricity.utilities.transformer.Transformer
 import com.drmangotea.tfmg.content.electricity.utilities.transformer.TransformerRenderer;
 import com.drmangotea.tfmg.content.electricity.utilities.voltage_observer.VoltageObserverBlockEntity;
 import com.drmangotea.tfmg.content.engines.base.EngineInstance;
+import com.drmangotea.tfmg.content.engines.engine_controller.EngineControllerBlock;
+import com.drmangotea.tfmg.content.engines.engine_controller.EngineControllerBlockEntity;
+import com.drmangotea.tfmg.content.engines.engine_gearbox.EngineGearboxBlockEntity;
+import com.drmangotea.tfmg.content.engines.engine_gearbox.EngineGearboxInstance;
+import com.drmangotea.tfmg.content.engines.engine_gearbox.EngineGearboxRenderer;
 import com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineBlockEntity;
 import com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineRenderer;
 import com.drmangotea.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceHatchBlockEntity;
@@ -275,7 +280,19 @@ public class TFMGBlockEntities {
                     .renderer(() -> TFMGSlidingDoorRenderer::new)
                     .validBlocks(TFMGBlocks.HEAVY_CASING_DOOR, TFMGBlocks.STEEL_CASING_DOOR, TFMGBlocks.HEAVY_PLATED_DOOR, TFMGBlocks.ALUMINUM_DOOR)
                     .register();
+    public static final BlockEntityEntry<EngineGearboxBlockEntity> ENGINE_GEARBOX = REGISTRATE
+            .blockEntity("engine_gearbox", EngineGearboxBlockEntity::new)
+            .instance(() -> ShaftInstance::new, false)
+            .validBlocks(TFMGBlocks.ENGINE_GEARBOX)
+            .renderer(() -> EngineGearboxRenderer::new)
+            .register();
 
+    public static final BlockEntityEntry<EngineControllerBlockEntity> ENGINE_CONTROLLER = REGISTRATE
+            .blockEntity("engine_controller", EngineControllerBlockEntity::new)
+           // .instance(() -> ShaftInstance::new, false)
+            .validBlocks(TFMGBlocks.ENGINE_CONTROLLER)
+            //.renderer(() -> EngineGearboxRenderer::new)
+            .register();
     public static final BlockEntityEntry<IndustrialMixerBlockEntity> INDUSTRIAL_MIXER = REGISTRATE
             .blockEntity("industrial_mixer", IndustrialMixerBlockEntity::new)
             .instance(() -> IndustrialMixerInstance::new, true)
@@ -315,6 +332,8 @@ public class TFMGBlockEntities {
             .blockEntity("blast_stove", BlastStoveBlockEntity::new)
             .validBlocks(TFMGBlocks.BLAST_STOVE)
             .register();
+
+
 
     public static final BlockEntityEntry<CreativeGeneratorBlockEntity> CREATIVE_GENERATOR = REGISTRATE
             .blockEntity("creative_generator", CreativeGeneratorBlockEntity::new)

@@ -32,14 +32,36 @@ public interface IElectric {
 
         if (!getLevelAccessor().isClientSide())
             TFMGPackets.getChannel().send(PacketDistributor.ALL.noArg(), new ConnectNeightborsPacket(BlockPos.of(getPos())));
-        TFMG.NETWORK_MANAGER.getOrCreateNetworkFor(this);
+        ElectricalNetwork network = TFMG.NETWORK_MANAGER.getOrCreateNetworkFor(this);
         setNetwork(getPos());
         getData().electricalNetworkId = getPos();
-        updateNetwork();
+
+        //BlockPos pos = BlockPos.of(getPos());
+        ///// ////
+//
+//
+        //for (Direction d : Direction.values()) {
+        //    if (hasElectricitySlot(d))
+        //        if (getLevelAccessor().getBlockEntity(pos.relative(d)) instanceof IElectric be) {
+        //            if (be.hasElectricitySlot(d.getOpposite())) {
+        //                if (!be.destroyed()) {
+//
+//
+        //                    for(IElectric member : be.getOrCreateElectricNetwork().members){
+        //                        network.add(member);
+        //                        member.setNetwork(this.getData().electricalNetworkId);
+//
+        //                    }
+//
+        //                }
+        //            }
+        //        }
+        //}
+        //updateNextTick();
 
         onConnected();
         sendStuff();
-        updateNextTick();
+
     }
 
     default int getMaxVoltage() {
@@ -52,6 +74,7 @@ public interface IElectric {
 
     default void onConnected() {
 
+
         BlockPos pos = BlockPos.of(getPos());
         for (Direction d : Direction.values()) {
             if (hasElectricitySlot(d))
@@ -61,7 +84,6 @@ public interface IElectric {
                             getOrCreateElectricNetwork().add(be);
                             if (be.getData().getId() != getData().getId()) {
                                 be.setNetwork(getData().getId());
-                                TFMG.LOGGER.debug("KONNEQT ");
                                 be.onConnected();
                                 if (!getLevelAccessor().isClientSide())
                                     sendStuff();

@@ -216,6 +216,7 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     @Override
     public void remove() {
         super.remove();
+
         this.data.destroyed = true;
         for (Direction d : Direction.values()) {
             if (hasElectricitySlot(d))
@@ -229,7 +230,7 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
         }
         if (data.electricalNetworkId != getPos())
             getOrCreateElectricNetwork().getMembers().remove(this);
-
+//
         if (data.electricalNetworkId == getPos())
             ElectricNetworkManager.networks.get(getLevel())
                     .remove(getData().getId());
@@ -239,7 +240,7 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     public void tick() {
         super.tick();
         if (data.connectNextTick) {
-            TFMG.LOGGER.debug("SIGMA  A");
+            TFMG.LOGGER.debug("AAAAAAA");
             onPlaced();
             data.connectNextTick = false;
         }

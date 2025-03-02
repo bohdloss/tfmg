@@ -17,6 +17,16 @@ public class TFMGShapes {
     public static final VoxelShaper
             ENGINE = shape(0, 0, 0, 16, 7, 16).add(3, 7, 0, 13, 12, 16)
             .forDirectional(SOUTH),
+            ENGINE_GEARBOX = shape(0, 0, -1, 3, 5, 15)
+                    .add(13, 0, -1, 16, 5, 15)
+                    .add(3, 0, -1, 13, 12, 11)
+                    .add(3, 0, 11, 13, 11, 15)
+                    .add(13, 5, 3, 16, 13, 13)
+                    .add(0, 5, 3, 3, 13, 13)
+                    .add(13, 5, -1, 16, 7, 1)
+                    .add(0, 5, -1, 3, 7, 1)
+                    .add(15, 5, 9, 15, 11, 9)
+                    .forDirectional(SOUTH),
             ENGINE_FRONT = shape(0, 0, 1, 16, 7, 16).add(3, 7, 1, 13, 12, 16)
                     .forDirectional(SOUTH),
             PUMPJACK_HAMMER_PART = shape(0, 2, 0, 16, 14, 16)
@@ -98,12 +108,12 @@ public class TFMGShapes {
             ELECTRICAL_SWITCH_WALL = shape(5, 3, 0, 11, 13, 3)
                     .forHorizontal(SOUTH),
 
-            POLARIZER = shape(4, 8, 0, 12, 12, 2)
-                    .add(5, 8, 14, 11, 11, 16)
-                    .add(11, 8, 4, 15, 12, 11)
-                    .add(1, 8, 4, 5, 12, 11)
-                    .add(0, 0, 0, 16, 8, 16)
-                    .forHorizontal(NORTH);
+    POLARIZER = shape(4, 8, 0, 12, 12, 2)
+            .add(5, 8, 14, 11, 11, 16)
+            .add(11, 8, 4, 15, 12, 11)
+            .add(1, 8, 4, 5, 12, 11)
+            .add(0, 0, 0, 16, 8, 16)
+            .forHorizontal(NORTH);
     public static final VoxelShape
 
             EMPTY = shape(0, 0, 0, 0, 0, 0).build(),

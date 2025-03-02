@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-20T20:30:41.8392612	Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-02-28T19:36:17.6982441	Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 ff5a5721633b83465ab501cbdfdc579a0f20e938 assets/tfmg/blockstates/accumulator.json
 e982a263b6af75821042107fdeff7bd809436d08 assets/tfmg/blockstates/air_intake.json
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
@@ -142,6 +142,8 @@ edaa0018b0c7dffe0b552e5f7dd539c5484600fb assets/tfmg/blockstates/electric_post.j
 5258f718a70e0e9b9f1433aa67fd7faa0a8f28c5 assets/tfmg/blockstates/electrode_holder.json
 e452793b4673eaf1821619357692b41c297988f7 assets/tfmg/blockstates/encased_diode.json
 5cd35edc93b0e5bc3fe86e4fd160ba2a660404ff assets/tfmg/blockstates/encased_potentiometer.json
+66f1fa15f217954d9a24dec65a327a6e034b2d3f assets/tfmg/blockstates/engine_controller.json
+d95a6906271097b15b19b7421d871600386137bd assets/tfmg/blockstates/engine_gearbox.json
 08007e8e0e57b4ad322e9125fd05b010aa9a5a0b assets/tfmg/blockstates/exhaust.json
 41ad3bce75918278f4f48ca3ecf23b1980f9963d assets/tfmg/blockstates/factory_floor.json
 10f47e08c249406dd1f2122d1e209998c45d848d assets/tfmg/blockstates/factory_floor_slab.json
@@ -418,8 +420,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-bed3816da4b736c65b2b721c2abf68a6baad8dec assets/tfmg/lang/en_ud.json
-23d8d0235ab141ddade59ee9bacb4a962d0d2269 assets/tfmg/lang/en_us.json
+ff30d3fdfb832013df283ea913edc01670913683 assets/tfmg/lang/en_ud.json
+52885f6f2f3f59e4a0ab8de856589d6a28a62414 assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 1d33a893d6ac05f9adaceb7f84423ebe9b195c01 assets/tfmg/models/block/aluminum_cable_hub.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
@@ -1169,7 +1171,9 @@ e36f2280b360cbd37267b3351a131ebcfb499fe7 assets/tfmg/models/item/electric_pump.j
 7b898ca0de43a97cda3733b254c3aa112f6a5251 assets/tfmg/models/item/electromagnetic_coil.json
 969c1a0cf944e95b0807ba0d9fe0641e052e1a7f assets/tfmg/models/item/empty_circuit_board.json
 a20d047772ef89454ead4a2ba0879f4a35fdbfc4 assets/tfmg/models/item/empty_spool.json
+fabcbafee0ac08f1eb9de23d85897dccfb80376e assets/tfmg/models/item/engine_controller.json
 8a1765bf23403f6f3ac3771183ced343d2bc3f89 assets/tfmg/models/item/engine_cylinder.json
+32db3976d447778cb15b6ed80ca894e7e6cb3a3d assets/tfmg/models/item/engine_gearbox.json
 f469a8d7eb37fce928a5fec614dc2473075f98cd assets/tfmg/models/item/etched_circuit_board.json
 af32c2651e6a26f4600f8e5b8ce687348f7e7990 assets/tfmg/models/item/ethylene_bucket.json
 941e9eac84bd6bfce1f801ea6a9c98d79d8a7c9d assets/tfmg/models/item/exhaust.json
@@ -1195,6 +1199,7 @@ ed2830b2988403aebaca633b2e315878b41f7503 assets/tfmg/models/item/gasoline_bucket
 b577d1d699bbea896237f71a8f5582bcdfcd4534 assets/tfmg/models/item/generator.json
 06d25769506a7173b15af2069573b2983b587cc4 assets/tfmg/models/item/glass_cable_insulator.json
 35bca54df08df5acb0bb3e86537571db39f7d165 assets/tfmg/models/item/glass_insulator_segment.json
+ba135000708c3c77cb3660ff6ed58132961a44db assets/tfmg/models/item/golden_turbo.json
 b3aebfc27e431cb0b099c3df6dc30dea1e1b6ec3 assets/tfmg/models/item/graphite_electrode.json
 f80ea87018220fdac6fe8e4cc7490bcdb90cb5d0 assets/tfmg/models/item/gray_caution_block.json
 c7d4cc91447bc3512efbe18bc7b2344a42196a88 assets/tfmg/models/item/gray_concrete.json
@@ -1488,7 +1493,9 @@ e2fb504cbb8808de330d4ea87030f0d089921e23 assets/tfmg/models/item/surface_scanner
 dc7cec557984ae6aeaa1cb4136acc12e95123f9c assets/tfmg/models/item/traffic_light.json
 ceca2b38bca3eca6e17419064b782ad745dd229b assets/tfmg/models/item/transformer.json
 cd6944ca5fe85883cdc520778f9b2ecf4830c2de assets/tfmg/models/item/transistor_item.json
+53ebfd2817d21cc7b345f8b8991e883ec1be4e21 assets/tfmg/models/item/transmission.json
 7bffba77b51ec27a99bd5a20f62c23315c31fe13 assets/tfmg/models/item/turbine_blade.json
+f56b4e352ffdd38cf71b10c4e2789eade1949e27 assets/tfmg/models/item/turbo.json
 a11cee5b22052675790c9115cf615b3a2beeee01 assets/tfmg/models/item/unfinished_capacitor.json
 ce1c112f8068e82082834562d661e7d94bf2a262 assets/tfmg/models/item/unfinished_electric_motor.json
 d4562d6022360cefd8fe93fc7257a89aa9caa5df assets/tfmg/models/item/unfinished_generator.json
@@ -1572,6 +1579,7 @@ a1f3c8498ccc83ea4a9015e4214c596753f58a81 data/forge/tags/blocks/storage_blocks/r
 d0e3e4382c78a56c7e341aa2009c6e3c8cf75cb4 data/forge/tags/fluids/crude_oil.json
 71db87b21ddeb2537e4f4b83479106d3827c14e5 data/forge/tags/fluids/diesel.json
 1901f8375216e7ea7d2746dbc37fa518354ee37b data/forge/tags/fluids/fuel.json
+a199be216c3e67c6b874b71c4d577a6942cfe884 data/forge/tags/fluids/furnace_gas.json
 01926303c50719ac274cd63eb7297bd59271a056 data/forge/tags/fluids/gasoline.json
 5dd542885e85fba3798b2b01d1a1b9b0a6388701 data/forge/tags/fluids/heavy_oil.json
 2ed9c924fe33eac4bb37bdb8f05c37aa982f36dd data/forge/tags/fluids/kerosene.json
@@ -1904,6 +1912,8 @@ b8bdebe81f97872eb5dbb1b645b871922b2fb4b7 data/tfmg/loot_tables/blocks/electric_m
 657af76ea4fdd97034dadac49f2663671f404212 data/tfmg/loot_tables/blocks/electrode_holder.json
 7b5b916ebb11d9f7a634add40226533fee29aa82 data/tfmg/loot_tables/blocks/encased_diode.json
 28a38b257764d5c13546a5328166b54d718584da data/tfmg/loot_tables/blocks/encased_potentiometer.json
+1f83380841098a03623c745ed8513b69b768f921 data/tfmg/loot_tables/blocks/engine_controller.json
+a0702614a6cb5299a45b06f2a67feb79c4938f1c data/tfmg/loot_tables/blocks/engine_gearbox.json
 f110a1f94b2b12bc3301728fdbf0c885c1c5e461 data/tfmg/loot_tables/blocks/exhaust.json
 dd2ace3ebd61456b31d0069bfd8abe19111f748c data/tfmg/loot_tables/blocks/factory_floor.json
 a84d11a777ea8334c27703b96830a1e1df7b2d04 data/tfmg/loot_tables/blocks/factory_floor_slab.json

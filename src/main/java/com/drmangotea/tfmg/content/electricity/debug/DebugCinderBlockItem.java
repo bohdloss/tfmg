@@ -9,6 +9,7 @@ import com.drmangotea.tfmg.content.electricity.generators.GeneratorBlockEntity;
 import com.drmangotea.tfmg.content.electricity.storage.AccumulatorBlockEntity;
 import com.drmangotea.tfmg.content.electricity.utilities.electric_motor.ElectricMotorBlockEntity;
 import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.engine_controller.EngineControllerBlockEntity;
 import com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineBlockEntity;
 import com.drmangotea.tfmg.content.machinery.metallurgy.blast_stove.BlastStoveBlockEntity;
 import com.drmangotea.tfmg.content.machinery.metallurgy.casting_basin.CastingBasinBlockEntity;
@@ -52,18 +53,24 @@ public class DebugCinderBlockItem extends Item {
 
         BlockPos pos = context.getClickedPos();
         Level level = context.getLevel();
+
+        if(level.getBlockEntity(pos) instanceof EngineControllerBlockEntity be){
+            context.getPlayer().getPersistentData().remove("IsUsingEngineController");
+            TFMG.LOGGER.debug("REMOVED PERSISTENT DATA");
+            return InteractionResult.SUCCESS;
+        }
         if(level.getBlockEntity(pos) instanceof RegularEngineBlockEntity be){
             be.updateRotation();
             return InteractionResult.SUCCESS;
         }
-        if(level.getBlockEntity(pos) instanceof GeneratorBlockEntity be){
-            be.updateStress();
-            return InteractionResult.SUCCESS;
-        }
-        if(level.getBlockEntity(pos) instanceof ElectricMotorBlockEntity be){
-            be.onPlaced();
-            return InteractionResult.SUCCESS;
-        }
+        //if(level.getBlockEntity(pos) instanceof GeneratorBlockEntity be){
+        //    be.updateStress();
+        //    return InteractionResult.SUCCESS;
+        //}
+        //if(level.getBlockEntity(pos) instanceof ElectricMotorBlockEntity be){
+        //    be.onPlaced();
+        //    return InteractionResult.SUCCESS;
+        //}
 
         if(level.getBlockEntity(pos) instanceof ConcreteHoseBlockEntity be){
 
@@ -90,6 +97,10 @@ public class DebugCinderBlockItem extends Item {
             return InteractionResult.SUCCESS;
         }
         if(level.getBlockEntity(pos) instanceof IElectric be){
+
+            be.onPlaced();
+
+
             if(context.getPlayer().isShiftKeyDown()) {
                 TFMG.LOGGER.debug("///////////////////////////////");
                 TFMG.LOGGER.debug("Group Resistance "+be.getData().group.resistance);
