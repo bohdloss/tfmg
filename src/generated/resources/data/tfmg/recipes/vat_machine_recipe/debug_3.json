@@ -1,0 +1,33 @@
+{
+  "type": "tfmg:vat_machine_recipe",
+  "allowedVatTypes": [
+    "tfmg:steel_vat",
+    "tfmg:cast_iron_vat",
+    "tfmg:firebrick_lined_vat"
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:gold_block"
+    },
+    {
+      "amount": 1,
+      "fluid": "tfmg:liquid_concrete",
+      "nbt": {}
+    },
+    {
+      "amount": 1,
+      "fluid": "tfmg:heavy_oil",
+      "nbt": {}
+    }
+  ],
+  "machines": [
+    "tfmg:mixing"
+  ],
+  "minSize": 1,
+  "results": [
+    {
+      "count": 2,
+      "item": "tfmg:aluminum_ingot"
+    }
+  ]
+}

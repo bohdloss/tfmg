@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#forge:is_desert",
+  "features": "tfmg:tfmg_striated_ores_nether",
+  "step": "underground_ores"
+}

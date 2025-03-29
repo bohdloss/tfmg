@@ -1,0 +1,29 @@
+{
+  "type": "tfmg:vat_machine_recipe",
+  "allowedVatTypes": [
+    "firebrick_lined_vat"
+  ],
+  "ingredients": [
+    {
+      "item": "create:crushed_raw_iron"
+    },
+    {
+      "tag": "tfmg:flux"
+    },
+    {
+      "tag": "tfmg:blast_furnace_fuel"
+    }
+  ],
+  "machines": [
+    "tfmg:graphite_electrode",
+    "tfmg:graphite_electrode",
+    "tfmg:graphite_electrode"
+  ],
+  "minSize": 9,
+  "results": [
+    {
+      "count": 2,
+      "item": "tfmg:steel_ingot"
+    }
+  ]
+}

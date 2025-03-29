@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "tfmg:block/slag_bricks_bottom"
+    },
+    "type=double": {
+      "model": "tfmg:block/slag_bricks"
+    },
+    "type=top": {
+      "model": "tfmg:block/slag_bricks_top"
+    }
+  }
+}

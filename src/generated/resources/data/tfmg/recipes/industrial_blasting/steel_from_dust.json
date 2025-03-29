@@ -1,0 +1,27 @@
+{
+  "type": "tfmg:industrial_blasting",
+  "hotAirUsage": 20,
+  "ingredients": [
+    {
+      "tag": "forge:dusts/iron"
+    },
+    {
+      "tag": "tfmg:flux"
+    }
+  ],
+  "processingTime": 50,
+  "results": [
+    {
+      "amount": 144,
+      "fluid": "tfmg:molten_steel"
+    },
+    {
+      "amount": 144,
+      "fluid": "tfmg:molten_slag"
+    },
+    {
+      "amount": 20,
+      "fluid": "tfmg:furnace_gas"
+    }
+  ]
+}

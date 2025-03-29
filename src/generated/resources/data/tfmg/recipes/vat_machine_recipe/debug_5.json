@@ -1,0 +1,76 @@
+{
+  "type": "tfmg:vat_machine_recipe",
+  "allowedVatTypes": [
+    "tfmg:steel_vat",
+    "tfmg:cast_iron_vat",
+    "tfmg:firebrick_lined_vat"
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:gold_block"
+    },
+    {
+      "item": "minecraft:diamond_block"
+    },
+    {
+      "item": "minecraft:iron_block"
+    },
+    {
+      "item": "minecraft:coal_block"
+    },
+    {
+      "amount": 1,
+      "fluid": "tfmg:liquid_concrete",
+      "nbt": {}
+    },
+    {
+      "amount": 1,
+      "fluid": "tfmg:heavy_oil",
+      "nbt": {}
+    },
+    {
+      "amount": 1,
+      "fluid": "tfmg:cooling_fluid",
+      "nbt": {}
+    },
+    {
+      "amount": 1,
+      "fluid": "tfmg:crude_oil",
+      "nbt": {}
+    }
+  ],
+  "machines": [
+    "tfmg:mixing"
+  ],
+  "minSize": 1,
+  "results": [
+    {
+      "item": "minecraft:egg"
+    },
+    {
+      "item": "minecraft:arrow"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:string"
+    },
+    {
+      "amount": 1,
+      "fluid": "tfmg:liquid_concrete"
+    },
+    {
+      "amount": 1,
+      "fluid": "tfmg:heavy_oil"
+    },
+    {
+      "amount": 1,
+      "fluid": "tfmg:cooling_fluid"
+    },
+    {
+      "amount": 1,
+      "fluid": "tfmg:crude_oil"
+    }
+  ]
+}

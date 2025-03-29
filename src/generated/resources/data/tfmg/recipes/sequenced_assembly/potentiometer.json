@@ -1,0 +1,97 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "tfmg:heavy_machinery_casing"
+  },
+  "loops": 3,
+  "results": [
+    {
+      "chance": 120.0,
+      "item": "tfmg:potentiometer"
+    },
+    {
+      "chance": 8.0,
+      "item": "tfmg:steel_casing"
+    },
+    {
+      "chance": 8.0,
+      "item": "tfmg:steel_cogwheel"
+    },
+    {
+      "chance": 8.0,
+      "item": "tfmg:electric_post"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "tfmg:winding",
+      "ingredients": [
+        {
+          "item": "tfmg:unfinished_potentiometer"
+        },
+        {
+          "item": "tfmg:constantan_spool"
+        }
+      ],
+      "processingTime": 100,
+      "results": [
+        {
+          "item": "tfmg:unfinished_potentiometer"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "tfmg:unfinished_potentiometer"
+        },
+        {
+          "item": "tfmg:steel_cogwheel"
+        }
+      ],
+      "results": [
+        {
+          "item": "tfmg:unfinished_potentiometer"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "tfmg:unfinished_potentiometer"
+        },
+        {
+          "item": "tfmg:copper_wire"
+        }
+      ],
+      "results": [
+        {
+          "item": "tfmg:unfinished_potentiometer"
+        }
+      ]
+    },
+    {
+      "type": "create:filling",
+      "ingredients": [
+        {
+          "item": "tfmg:unfinished_potentiometer"
+        },
+        {
+          "amount": 50,
+          "fluid": "tfmg:lubrication_oil",
+          "nbt": {}
+        }
+      ],
+      "results": [
+        {
+          "item": "tfmg:unfinished_potentiometer"
+        }
+      ]
+    }
+  ],
+  "transitionalItem": {
+    "item": "tfmg:unfinished_potentiometer"
+  }
+}

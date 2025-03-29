@@ -1,0 +1,17 @@
+{
+  "type": "tfmg:winding",
+  "ingredients": [
+    {
+      "item": "minecraft:gold_block"
+    },
+    {
+      "item": "tfmg:copper_spool"
+    }
+  ],
+  "processingTime": 200,
+  "results": [
+    {
+      "item": "tfmg:coal_coke"
+    }
+  ]
+}

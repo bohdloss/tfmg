@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/aluminum"
+    },
+    {
+      "item": "create:shaft"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "tfmg:aluminum_cogwheel"
+  }
+}
