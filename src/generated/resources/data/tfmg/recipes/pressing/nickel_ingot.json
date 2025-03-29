@@ -1,0 +1,14 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/nickel"
+    }
+  ],
+  "processingTime": 50,
+  "results": [
+    {
+      "item": "tfmg:nickel_sheet"
+    }
+  ]
+}

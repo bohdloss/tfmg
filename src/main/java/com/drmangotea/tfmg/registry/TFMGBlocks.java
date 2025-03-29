@@ -3,8 +3,7 @@ package com.drmangotea.tfmg.registry;
 
 import com.drmangotea.tfmg.base.*;
 import com.drmangotea.tfmg.config.TFMGStress;
-import com.drmangotea.tfmg.content.decoration.LithiumTorchBlock;
-import com.drmangotea.tfmg.content.decoration.LithiumTorchGenerator;
+import com.drmangotea.tfmg.content.decoration.*;
 import com.drmangotea.tfmg.content.decoration.cogs.TFMGCogWheelBlock;
 import com.drmangotea.tfmg.content.decoration.cogs.TFMGCogwheelBlockItem;
 import com.drmangotea.tfmg.content.decoration.concrete.*;
@@ -108,7 +107,6 @@ import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.ha
 import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.large.LargePumpjackHammerHeadBlock;
 import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.large.LargePumpjackHammerPartBlock;
 import com.drmangotea.tfmg.content.machinery.oil_processing.surface_scanner.SurfaceScannerBlock;
-import com.drmangotea.tfmg.content.decoration.LithiumBlock;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.contraptions.bearing.StabilizedBearingMovementBehaviour;
@@ -136,6 +134,9 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraftforge.common.Tags;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.drmangotea.tfmg.TFMG.REGISTRATE;
 import static com.drmangotea.tfmg.base.TFMGBuilderTransformers.*;
@@ -1392,6 +1393,7 @@ public class TFMGBlocks {
     public static final BlockEntry<CasingBlock> ALUMINUM_CASING = REGISTRATE.block("industrial_aluminum_casing", CasingBlock::new)
             .transform(BuilderTransformers.casing(() -> TFMGSpriteShifts.INDUSTRIAL_ALUMINUM_CASING))
             .properties(p -> p.sound(SoundType.COPPER))
+            .lang("Aluminum Casing")
             .register();
     //------------------STORAGE_BLOCKS------------------//
     public static final BlockEntry<Block> STEEL_BLOCK = REGISTRATE.block("steel_block", Block::new)
@@ -1722,12 +1724,15 @@ public class TFMGBlocks {
 
     public static String[] DECOR_METALS = {"steel", "aluminum", "cast_iron", "lead", "nickel","constantan" , "copper", "zinc", "brass"};
 
+    public static final List<BlockEntry<TrussBlock>> TRUSSES = new ArrayList<>();
+    public static final List<BlockEntry<FrameBlock>> FRAMES = new ArrayList<>();
+
     static {
         //------------------TRUSSES------------------//
         for (String metal : DECOR_METALS) {
 
-            truss(metal);
-            frame(metal);
+            TRUSSES.add(truss(metal));
+            FRAMES.add(frame(metal));
         }
         //------------------CAUTION_BLOCKS------------------//
         generateCautionBlocks();

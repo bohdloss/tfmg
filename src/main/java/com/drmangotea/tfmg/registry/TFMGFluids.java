@@ -55,18 +55,14 @@ public class TFMGFluids {
             NAPHTHA = fuel("naphtha", 0x010101, TFMGTags.TFMGFluidTags.NAPHTHA.tag, TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag),
             KEROSENE = fuel("kerosene", 0x010101, TFMGTags.TFMGFluidTags.KEROSENE.tag, TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag),
             CREOSOTE = fuel("creosote", 0x010101, TFMGTags.TFMGFluidTags.CREOSOTE.tag, TFMGTags.TFMGFluidTags.BLAST_STOVE_FUEL.tag),
-
-    MOLTEN_STEEL = hotFluid("molten_steel", 0x010101, TFMGTags.TFMGFluidTags.MOLTEN_STEEL.tag),
+            MOLTEN_STEEL = hotFluid("molten_steel", 0x010101, TFMGTags.TFMGFluidTags.MOLTEN_STEEL.tag),
             MOLTEN_SLAG = hotFluid("molten_slag", 0x010101),
             MOLTEN_PLASTIC = hotFluid("molten_plastic", 0x010101),
             LIQUID_SILICON = hotFluid("liquid_silicon", 0x010101),
-
-    LUBRICATION_OIL = fluid("lubrication_oil", 0x010101, TFMGTags.TFMGFluidTags.LUBRICATION_OIL.tag, TFMGTags.TFMGFluidTags.FLAMMABLE.tag),
-
-    COOLING_FLUID = fluid("cooling_fluid", 0x010101),
-
-    NAPALM = fluid("napalm", 0x010101),
-            SULFURIC_ACID = fluid("napalm", 0x010101),
+            LUBRICATION_OIL = fluid("lubrication_oil", 0x010101, TFMGTags.TFMGFluidTags.LUBRICATION_OIL.tag, TFMGTags.TFMGFluidTags.FLAMMABLE.tag),
+            COOLING_FLUID = fluid("cooling_fluid", 0x010101),
+            NAPALM = fluid("napalm", 0x010101),
+            SULFURIC_ACID = fluid("sulfuric_acid", 0x010101),
 
     LIQUID_CONCRETE = concreteFluid("liquid_concrete", 0x010101, ConcreteFluid.Source::new),
 

@@ -12,7 +12,7 @@
       "item": "tfmg:cast_iron_pipe"
     },
     "S": {
-      "item": "tfmg:spark_plug"
+      "item": "minecraft:flint_and_steel"
     }
   },
   "pattern": [

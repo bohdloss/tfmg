@@ -53,7 +53,7 @@ public class TFMGItems {
             STEEL_INGOT = taggedIngredient("steel_ingot", forgeItemTag("ingots/steel"), CREATE_INGOTS.tag),
             CAST_IRON_INGOT = taggedIngredient("cast_iron_ingot", forgeItemTag("ingots/cast_iron"), CREATE_INGOTS.tag),
             ALUMINUM_INGOT = taggedIngredient("aluminum_ingot", forgeItemTag("ingots/aluminum"), CREATE_INGOTS.tag),
-    PLASTIC_SHEET = taggedIngredient("plastic_sheet", forgeItemTag("ingots/plastic"), CREATE_INGOTS.tag),
+            PLASTIC_SHEET = taggedIngredient("plastic_sheet", forgeItemTag("ingots/plastic"), CREATE_INGOTS.tag),
             HEAVY_PLATE = taggedIngredient("heavy_plate", forgeItemTag("plates/steel")),
             ALUMINUM_SHEET = taggedIngredient("aluminum_sheet", forgeItemTag("plates/aluminum")),
             NICKEL_SHEET = taggedIngredient("nickel_sheet", forgeItemTag("plates/nickel")),
@@ -81,7 +81,8 @@ public class TFMGItems {
             LIMESAND = taggedIngredient("limesand", TFMGTags.TFMGItemTags.FLUX.tag),
             SULFUR_DUST = taggedIngredient("sulfur_dust", forgeItemTag("dusts/sulfur")),
             RUBBER_SHEET = taggedIngredient("rubber_sheet", forgeItemTag("ingots/rubber")),
-            SILICON_INGOT = taggedIngredient("silicon_ingot", forgeItemTag("ingots/silicon"));
+            SILICON_INGOT = taggedIngredient("silicon_ingot", forgeItemTag("ingots/silicon")),
+            REBAR = taggedIngredient("rebar", forgeItemTag("rods/steel"));
 
     public static final ItemEntry<Item>
             SPARK_PLUG = REGISTRATE.item("spark_plug", Item::new).register(),
@@ -90,8 +91,7 @@ public class TFMGItems {
             FIREPROOF_BRICK = REGISTRATE.item("fireproof_brick", Item::new).register(),
             FIRECLAY_BALL = REGISTRATE.item("fireclay_ball", Item::new).register(),
             SCREW = REGISTRATE.item("screw", Item::new).register(),
-
-    TURBINE_BLADE = REGISTRATE.item("turbine_blade", Item::new).register(),
+            TURBINE_BLADE = REGISTRATE.item("turbine_blade", Item::new).register(),
             THERMITE_POWDER = REGISTRATE.item("thermite_powder", Item::new).register(),
             STEEL_MECHANISM = REGISTRATE.item("steel_mechanism", Item::new).register(),
             NITRATE_DUST = REGISTRATE.item("nitrate_dust", Item::new).register(),
@@ -109,11 +109,9 @@ public class TFMGItems {
             LITHIUM_CHARGE = REGISTRATE.item("lithium_charge", Item::new).register(),
             TURBO = REGISTRATE.item("turbo", Item::new).register(),
             GOLDEN_TURBO = REGISTRATE.item("golden_turbo", Item::new).register(),
-
-
-    CINDERBLOCK = REGISTRATE.item("cinderblock", Item::new)
-            //  .recipe((c, p) -> p.stonecutting(DataIngredient.items(TFMGBlocks.CONCRETE.get()), RecipeCategory.BUILDING_BLOCKS, c::get, 4))
-            .register(),
+            CINDERBLOCK = REGISTRATE.item("cinderblock", Item::new)
+                    //  .recipe((c, p) -> p.stonecutting(DataIngredient.items(TFMGBlocks.CONCRETE.get()), RecipeCategory.BUILDING_BLOCKS, c::get, 4))
+                    .register(),
             CINDERFLOURBLOCK = REGISTRATE.item("cinderflourblock", Item::new).register(),
             NAPALM_POTATO = REGISTRATE.item("napalm_potato", Item::new).register(),
             MIXER_BLADE = REGISTRATE.item("mixer_blade", Item::new).register(),
@@ -128,17 +126,14 @@ public class TFMGItems {
             COPPER_ELECTRODE = REGISTRATE.item("copper_electrode", Item::new)
                     .properties(p -> p.stacksTo(1))
                     .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/copper_electrode_model"))).register(),
-
-    ZINC_ELECTRODE = REGISTRATE.item("zinc_electrode", Item::new)
-            .properties(p -> p.stacksTo(1))
-            .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/zinc_electrode_model"))).register(),
-
-    GRAPHITE_ELECTRODE = REGISTRATE.item("graphite_electrode", Item::new)
-            .properties(p -> p.stacksTo(1))
-            .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/graphite_electrode_model"))).register(),
-
-    UNFIRED_INSULATOR = REGISTRATE.item("unfired_insulator", Item::new)
-            .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/unfired_insulator_model"))).register(),
+            ZINC_ELECTRODE = REGISTRATE.item("zinc_electrode", Item::new)
+                    .properties(p -> p.stacksTo(1))
+                    .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/zinc_electrode_model"))).register(),
+            GRAPHITE_ELECTRODE = REGISTRATE.item("graphite_electrode", Item::new)
+                    .properties(p -> p.stacksTo(1))
+                    .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/graphite_electrode_model"))).register(),
+            UNFIRED_INSULATOR = REGISTRATE.item("unfired_insulator", Item::new)
+                    .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/unfired_insulator_model"))).register(),
             UNFINISHED_INSULATOR = REGISTRATE.item("unfinished_insulator", Item::new)
                     .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/unfinished_insulator_model"))).register(),
             GLASS_INSULATOR_SEGMENT = REGISTRATE.item("glass_insulator_segment", Item::new)
@@ -371,8 +366,8 @@ public class TFMGItems {
         REGISTRATE.item("multimeter", MultimeterItem::new)
                 .register();
 
-        for(String color : COLORS){
-            REGISTRATE.item(color+"_multimeter", MultimeterItem::new)
+        for (String color : COLORS) {
+            REGISTRATE.item(color + "_multimeter", MultimeterItem::new)
                     .register();
         }
     }

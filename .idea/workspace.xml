@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="73ee1137-5050-4fa7-b664-d4db3ae300b8" name="Changes" comment="stuff">
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/blockstates/engine_expansion.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/models/block/engine_expansion.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/models/item/engine_expansion.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/models/item/rebar.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/forge/tags/items/rods/steel.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/tfmg/advancements/recipes/misc/crafting/kinetics/aluminum_fluid_tank.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/tfmg/advancements/recipes/misc/crafting/kinetics/cast_iron_fluid_tank.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/tfmg/loot_tables/blocks/engine_expansion.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/tfmg/recipes/crafting/kinetics/aluminum_fluid_tank.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/tfmg/recipes/crafting/kinetics/cast_iron_fluid_tank.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/tfmg/recipes/pressing/aluminum_ingot.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/tfmg/recipes/pressing/cast_iron_ingot.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/tfmg/recipes/pressing/lead_ingot.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generated/resources/data/tfmg/recipes/pressing/nickel_ingot.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/engine_expansion/block.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/engine_expansion/item.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/lang/en_ud.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/lang/en_ud.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/lang/en_us.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/assets/tfmg/lang/en_us.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generated/resources/data/tfmg/recipes/crafting/kinetics/flarestack.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/generated/resources/data/tfmg/recipes/crafting/kinetics/flarestack.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/recipes/TFMGRecipeProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/recipes/TFMGRecipeProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/recipes/values/TFMGPressingRecipeGen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/recipes/values/TFMGPressingRecipeGen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/recipes/values/TFMGStandardRecipeGen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/datagen/recipes/values/TFMGStandardRecipeGen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGBlocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGBlocks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGFluids.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGFluids.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/drmangotea/tfmg/registry/TFMGItems.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/radial_engine/radial_engine.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/radial_engine/radial_engine.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/turbine_engine/turbine_engine.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/turbine_engine/turbine_engine.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/voltmeter/item.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/tfmg/models/block/voltmeter/item.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Create-The_Factory_Must_Grow" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Create-The_Factory_Must_Grow" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Create-The_Factory_Must_Grow" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="forgegradle runs" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "DrMango14"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/DrMango14/Create-The_Factory_Must_Grow-1.0_Update.git",
+    "accountId": "45100dcf-eae4-4822-95fb-885deef9ce5f"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2v0cq6UOl3e2hXdPRjHCWJ4S3pt" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.C:/Users/adamn/Documents/minecraft/mods/Create-The_Factory_Must_Grow [createMcpToSrg].executor": "Run",
+    "Gradle.Create-The_Factory_Must_Grow [createMcpToSrg].executor": "Run",
+    "Gradle.Create-The_Factory_Must_Grow [runClient].executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Create-The_Factory_Must_Grow [runClient]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="runClient" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Create-The_Factory_Must_Grow" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Create-The_Factory_Must_Grow" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.Create-The_Factory_Must_Grow [runClient]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="73ee1137-5050-4fa7-b664-d4db3ae300b8" name="Changes" comment="" />
+      <created>1743285620405</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1743285620405</updated>
+    </task>
+    <task id="LOCAL-00001" summary="stuff">
+      <option name="closed" value="true" />
+      <created>1743286543685</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1743286543685</updated>
+    </task>
+    <task id="LOCAL-00002" summary="stuff">
+      <option name="closed" value="true" />
+      <created>1743286637244</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1743286637244</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="stuff" />
+  </component>
+</project>

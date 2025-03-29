@@ -3,6 +3,7 @@ package com.drmangotea.tfmg.datagen.recipes.values;
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.datagen.recipes.TFMGRecipeProvider;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
+import com.drmangotea.tfmg.registry.TFMGFluids;
 import com.drmangotea.tfmg.registry.TFMGItems;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
@@ -20,7 +21,6 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -200,7 +200,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
             .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
             .viaShaped(b -> b
                     .define('B', Blocks.BARREL)
-                    .define('P', aluminumIngot())
+                    .define('P', aluminumSheet())
                     .pattern(" P ")
                     .pattern(" B ")
                     .pattern(" P ")),
@@ -209,7 +209,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
             .unlockedBy(TFMGItems.CAST_IRON_INGOT::get)
             .viaShaped(b -> b
                     .define('B', Blocks.BARREL)
-                    .define('P', castIronIngot())
+                    .define('P', castIronSheet())
                     .pattern(" P ")
                     .pattern(" B ")
                     .pattern(" P ")),
@@ -230,10 +230,286 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .define('B', Blocks.IRON_BARS)
                     .define('P', castIronPipe())
                     .define('C', steelIngot())
-                    .define('S', TFMGItems.SPARK_PLUG)
+                    .define('S', Items.FLINT_AND_STEEL)
                     .pattern("SPS")
                     .pattern("BPB")
                     .pattern("CPC")),
+
+    SURFACE_SCANNER = create(TFMGBlocks.SURFACE_SCANNER)
+            .unlockedBy(TFMGBlocks.HEAVY_MACHINERY_CASING::get)
+            .viaShaped(b -> b
+                    .define('H', heavyMachineryCasing())
+                    .define('T', electronTube())
+                    .define('M', steelMechanism())
+                    .pattern("TTT")
+                    .pattern("TTT")
+                    .pattern("MHM")),
+
+    POLARIZER = create(TFMGBlocks.POLARIZER)
+            .unlockedBy(TFMGBlocks.STEEL_CASING::get)
+            .viaShaped(b -> b
+                    .define('B', brassSheet())
+                    .define('W', copperWire())
+                    .define('V', TFMGBlocks.VOLTMETER)
+                    .define('S', steelCasing())
+                    .define('R', resistor100Ohms())
+                    .define('C', capacitor())
+                    .pattern("BWB")
+                    .pattern("CVC")
+                    .pattern("RST")),
+
+    ELECTRODE_HOLDER = create(TFMGBlocks.ELECTRODE_HOLDER)
+            .unlockedBy(TFMGBlocks.HEAVY_MACHINERY_CASING::get)
+            .viaShaped(b -> b
+                    .define('S', steelIngot())
+                    .define('W', copperWire())
+                    .define('C', heavyMachineryCasing())
+                    .define('L', leadSheet())
+                    .pattern("SLS")
+                    .pattern("WCW")
+                    .pattern("SLS")),
+
+    TURBO = create(TFMGItems.TURBO)
+            .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
+            .viaShaped(b -> b
+                    .define('P', aluminumPipe())
+                    .define('F', propeller())
+                    .define('B', TFMGBlocks.STEEL_BARS)
+                    .pattern("PPP")
+                    .pattern("BFP")
+                    .pattern("PPP")),
+
+    TRANSFORMER = create(TFMGBlocks.TRANSFORMER)
+            .unlockedBy(TFMGBlocks.STEEL_CASING::get)
+            .viaShaped(b -> b
+                    .define('C', steelCasing())
+                    .define('M', magneticIngot())
+                    .define('N', nickelSheet())
+                    .define('W', copperWire())
+                    .pattern("MMM")
+                    .pattern("MNM")
+                    .pattern("WCW")),
+
+    CONCRETE_HOSE = create(TFMGBlocks.CONCRETE_HOSE)
+            .unlockedBy(TFMGBlocks.STEEL_CASING::get)
+            .viaShaped(b -> b
+                    .define('C', heavyMachineryCasing())
+                    .define('K', Items.KELP)
+                    .define('N', nickelSheet())
+                    .define('P', steelPipe())
+                    .pattern(" C ")
+                    .pattern("SKP")
+                    .pattern(" N ")),
+
+    ACCUMULATOR = create(TFMGBlocks.ACCUMULATOR)
+            .unlockedBy(TFMGFluids.SULFURIC_ACID.getBucket()::get)
+            .viaShaped(b -> b
+                    .define('C', aluminumCasing())
+                    .define('L', leadSheet())
+                    .define('W', copperWire())
+                    .define('S', TFMGFluids.SULFURIC_ACID.getBucket().get())
+                    .define('B', leadBlock())
+                    .pattern("LWL")
+                    .pattern("SBS")
+                    .pattern("LCL")),
+
+    ACCUMULATOR_LITHIUM = create(TFMGBlocks.ACCUMULATOR)
+            .unlockedBy(TFMGItems.LITHIUM_INGOT::get)
+            .viaShaped(b -> b
+                    .define('C', aluminumCasing())
+                    .define('L', lithiumBlock())
+                    .define('A', aluminumSheet())
+                    .define('I', lithiumIngot())
+                    .pattern("AWA")
+                    .pattern("ILI")
+                    .pattern("ACA")),
+
+    STEEL_TRUSS = create(steelTruss()::asItem).returns(4)
+            .unlockedBy(TFMGItems.STEEL_INGOT::get)
+            .viaShaped(b -> b
+                    .define('N', steelNugget())
+                    .pattern("N N")
+                    .pattern("NNN")
+                    .pattern("N N")),
+
+    ALUMINUM_TRUSS = create(aluminumTruss()::asItem).returns(4)
+            .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
+            .viaShaped(b -> b
+                    .define('N', aluminumNugget())
+                    .pattern("N N")
+                    .pattern("NNN")
+                    .pattern("N N")),
+
+    CAST_IRON_TRUSS = create(castIronTruss()::asItem).returns(4)
+            .unlockedBy(TFMGItems.CAST_IRON_INGOT::get)
+            .viaShaped(b -> b
+                    .define('N', castIronNugget())
+                    .pattern("N N")
+                    .pattern("NNN")
+                    .pattern("N N")),
+
+    LEAD_TRUSS = create(leadTruss()::asItem).returns(4)
+            .unlockedBy(TFMGItems.LEAD_INGOT::get)
+            .viaShaped(b -> b
+                    .define('N', leadNugget())
+                    .pattern("N N")
+                    .pattern("NNN")
+                    .pattern("N N")),
+
+    NICKEL_TRUSS = create(nickelTruss()::asItem).returns(4)
+            .unlockedBy(TFMGItems.NICKEL_INGOT::get)
+            .viaShaped(b -> b
+                    .define('N', nickelNugget())
+                    .pattern("N N")
+                    .pattern("NNN")
+                    .pattern("N N")),
+
+    CONSTANTAN_TRUSS = create(constantanTruss()::asItem).returns(4)
+            .unlockedBy(TFMGItems.CONSTANTAN_INGOT::get)
+            .viaShaped(b -> b
+                    .define('N', constantanNugget())
+                    .pattern("N N")
+                    .pattern("NNN")
+                    .pattern("N N")),
+
+    COPPER_TRUSS = create(copperTruss()::asItem).returns(4)
+            .unlockedBy(Items.COPPER_INGOT::asItem)
+            .viaShaped(b -> b
+                    .define('N', copperNugget())
+                    .pattern("N N")
+                    .pattern("NNN")
+                    .pattern("N N")),
+
+    ZINC_TRUSS = create(zincTruss()::asItem).returns(4)
+            .unlockedBy(AllItems.ZINC_INGOT::get)
+            .viaShaped(b -> b
+                    .define('N', zincNugget())
+                    .pattern("N N")
+                    .pattern("NNN")
+                    .pattern("N N")),
+
+    BRASS_TRUSS = create(brassTruss()::asItem).returns(4)
+            .unlockedBy(AllItems.BRASS_INGOT::get)
+            .viaShaped(b -> b
+                    .define('N', brassNugget())
+                    .pattern("N N")
+                    .pattern("NNN")
+                    .pattern("N N")),
+    ////////////////////////
+
+    STEEL_FRAME = create(steelFrame()::asItem).returns(4)
+            .unlockedBy(TFMGItems.STEEL_INGOT::get)
+            .viaShaped(b -> b
+                    .define('N', steelNugget())
+                    .pattern("NNN")
+                    .pattern("N N")
+                    .pattern("NNN")),
+
+    ALUMINUM_FRAME = create(aluminumFrame()::asItem).returns(4)
+            .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
+            .viaShaped(b -> b
+                    .define('N', aluminumNugget())
+                    .pattern("NNN")
+                    .pattern("N N")
+                    .pattern("NNN")),
+
+    CAST_IRON_FRAME = create(castIronFrame()::asItem).returns(4)
+            .unlockedBy(TFMGItems.CAST_IRON_INGOT::get)
+            .viaShaped(b -> b
+                    .define('N', castIronNugget())
+                    .pattern("NNN")
+                    .pattern("N N")
+                    .pattern("NNN")),
+
+    LEAD_FRAME = create(leadFrame()::asItem).returns(4)
+            .unlockedBy(TFMGItems.LEAD_INGOT::get)
+            .viaShaped(b -> b
+                    .define('N', leadNugget())
+                    .pattern("NNN")
+                    .pattern("N N")
+                    .pattern("NNN")),
+
+    NICKEL_FRAME = create(nickelFrame()::asItem).returns(4)
+            .unlockedBy(TFMGItems.NICKEL_INGOT::get)
+            .viaShaped(b -> b
+                    .define('N', nickelNugget())
+                    .pattern("NNN")
+                    .pattern("N N")
+                    .pattern("NNN")),
+
+    CONSTANTAN_FRAME = create(constantanFrame()::asItem).returns(4)
+            .unlockedBy(TFMGItems.CONSTANTAN_INGOT::get)
+            .viaShaped(b -> b
+                    .define('N', constantanNugget())
+                    .pattern("NNN")
+                    .pattern("N N")
+                    .pattern("NNN")),
+
+    COPPER_FRAME = create(copperFrame()::asItem).returns(4)
+            .unlockedBy(Items.COPPER_INGOT::asItem)
+            .viaShaped(b -> b
+                    .define('N', copperNugget())
+                    .pattern("NNN")
+                    .pattern("N N")
+                    .pattern("NNN")),
+
+    ZINC_FRAME = create(zincFrame()::asItem).returns(4)
+            .unlockedBy(AllItems.ZINC_INGOT::get)
+            .viaShaped(b -> b
+                    .define('N', zincNugget())
+                    .pattern("NNN")
+                    .pattern("N N")
+                    .pattern("NNN")),
+
+    BRASS_FRAME = create(brassFrame()::asItem).returns(4)
+            .unlockedBy(AllItems.BRASS_INGOT::get)
+            .viaShaped(b -> b
+                    .define('N', brassNugget())
+                    .pattern("NNN")
+                    .pattern("N N")
+                    .pattern("NNN")),
+    /// /////////////////////////
+
+    FIREBOX = create(TFMGBlocks.FIREBOX)
+            .unlockedBy(TFMGBlocks.INDUSTRIAL_PIPE::get)
+            .viaShaped(b -> b
+                    .define('B', fireproofBricks())
+                    .define('P', brassPipe())
+                    .define('T', steelTank())
+                    .pattern("BTB")
+                    .pattern("PPP")
+                    .pattern("BPB")),
+
+    EMPTY_CIRCUIT_BOARD = create(TFMGItems.EMPTY_CIRCUIT_BOARD)
+            .unlockedBy(TFMGItems.PLASTIC_SHEET::get)
+            .viaShaped(b -> b
+                    .define('P', plasticSheet())
+                    .define('G', greenDye())
+                    .pattern("   ")
+                    .pattern(" G ")
+                    .pattern("PPP")),
+
+    INDUSTRIAL_MIXER = create(TFMGBlocks.INDUSTRIAL_MIXER)
+            .unlockedBy(TFMGBlocks.HEAVY_MACHINERY_CASING::get)
+            .viaShaped(b -> b
+                    .define('M', steelMechanism())
+                    .define('H', heavyMachineryCasing())
+                    .define('C', TFMGBlocks.LARGE_STEEL_COGWHEEL)
+                    .define('S', shaft())
+                    .pattern(" S ")
+                    .pattern("MHM")
+                    .pattern(" C ")),
+
+    MACHINE_INPUT = create(TFMGBlocks.MACHINE_INPUT)
+            .unlockedBy(TFMGBlocks.HEAVY_MACHINERY_CASING::get)
+            .viaShaped(b -> b
+                    .define('M', steelMechanism())
+                    .define('H', heavyMachineryCasing())
+                    .define('S', shaft())
+                    .pattern(" S ")
+                    .pattern("MHM")
+                    .pattern(" M ")),
+
 
     BRICK_SMOKESTACK = create(TFMGBlocks.BRICK_SMOKESTACK).returns(4)
             .unlockedBy(TFMGBlocks.INDUSTRIAL_PIPE::get)
@@ -243,32 +519,25 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("BPB")
                     .pattern("BPB")
                     .pattern("BPB")),
-            CONCRETE_SMOKESTACK = create(TFMGBlocks.CONCRETE_SMOKESTACK).returns(4)
-                    .unlockedBy(TFMGBlocks.INDUSTRIAL_PIPE::get)
-                    .viaShaped(b -> b
-                            .define('B', TFMGBlocks.CONCRETE.block)
-                            .define('P', industrialPipe())
-                            .pattern("BPB")
-                            .pattern("BPB")
-                            .pattern("BPB")),
-            METAL_SMOKESTACK = create(TFMGBlocks.METAL_SMOKESTACK).returns(4)
-                    .unlockedBy(TFMGBlocks.INDUSTRIAL_PIPE::get)
-                    .viaShaped(b -> b
-                            .define('B', steelNugget())
-                            .define('P', industrialPipe())
-                            .pattern("BPB")
-                            .pattern("BPB")
-                            .pattern("BPB")),
-            INDUSTRIAL_MIXER = create(TFMGBlocks.INDUSTRIAL_MIXER)
-                    .unlockedBy(TFMGBlocks.HEAVY_MACHINERY_CASING::get)
-                    .viaShaped(b -> b
-                            .define('S', shaft())
-                            .define('C', heavyMachineryCasing())
-                            .define('K', TFMGBlocks.STEEL_COGWHEEL)
-                            .define('M', steelMechanism())
-                            .pattern(" S ")
-                            .pattern("KCM")
-                            .pattern(" S ")),
+
+    CONCRETE_SMOKESTACK = create(TFMGBlocks.CONCRETE_SMOKESTACK).returns(4)
+            .unlockedBy(TFMGBlocks.INDUSTRIAL_PIPE::get)
+            .viaShaped(b -> b
+                    .define('B', TFMGBlocks.CONCRETE.block)
+                    .define('P', industrialPipe())
+                    .pattern("BPB")
+                    .pattern("BPB")
+                    .pattern("BPB")),
+
+    METAL_SMOKESTACK = create(TFMGBlocks.METAL_SMOKESTACK).returns(4)
+            .unlockedBy(TFMGBlocks.INDUSTRIAL_PIPE::get)
+            .viaShaped(b -> b
+                    .define('B', steelNugget())
+                    .define('P', industrialPipe())
+                    .pattern("BPB")
+                    .pattern("BPB")
+                    .pattern("BPB")),
+
 
     HEAVY_PLATED_DOOR = create(TFMGBlocks.HEAVY_PLATED_DOOR).returns(3)
             .unlockedBy(TFMGItems.STEEL_INGOT::get)
@@ -277,24 +546,26 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("II ")
                     .pattern("II ")
                     .pattern("II ")),
-            ALUMINUM_DOOR = create(TFMGBlocks.ALUMINUM_DOOR).returns(3)
-                    .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
-                    .viaShaped(b -> b
-                            .define('I', aluminumIngot())
-                            .pattern("II ")
-                            .pattern("II ")
-                            .pattern("II ")),
+
+    ALUMINUM_DOOR = create(TFMGBlocks.ALUMINUM_DOOR).returns(3)
+            .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
+            .viaShaped(b -> b
+                    .define('I', aluminumIngot())
+                    .pattern("II ")
+                    .pattern("II ")
+                    .pattern("II ")),
 
     STEEL_CASING_DOOR = create(TFMGBlocks.STEEL_CASING_DOOR)
             .unlockedBy(() -> TFMGItems.STEEL_INGOT)
             .viaShapeless(b -> b
                     .requires(steelCasing())
                     .requires(ItemTags.WOODEN_DOORS)),
-            HEAVY_CASING_DOOR = create(TFMGBlocks.HEAVY_CASING_DOOR)
-                    .unlockedBy(() -> TFMGItems.STEEL_INGOT)
-                    .viaShapeless(b -> b
-                            .requires(heavyMachineryCasing())
-                            .requires(ItemTags.WOODEN_DOORS));
+
+    HEAVY_CASING_DOOR = create(TFMGBlocks.HEAVY_CASING_DOOR)
+            .unlockedBy(() -> TFMGItems.STEEL_INGOT)
+            .viaShapeless(b -> b
+                    .requires(heavyMachineryCasing())
+                    .requires(ItemTags.WOODEN_DOORS));
 
 
     /// ////////////////////
