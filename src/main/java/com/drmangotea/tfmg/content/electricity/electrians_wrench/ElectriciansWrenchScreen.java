@@ -2,10 +2,10 @@ package com.drmangotea.tfmg.content.electricity.electrians_wrench;
 
 import com.drmangotea.tfmg.registry.TFMGGuiTextures;
 import com.drmangotea.tfmg.registry.TFMGPackets;
-import com.simibubi.create.foundation.gui.AbstractSimiScreen;
 import com.simibubi.create.foundation.gui.AllIcons;
-import com.simibubi.create.foundation.gui.element.GuiGameElement;
 import com.simibubi.create.foundation.gui.widget.IconButton;
+import net.createmod.catnip.gui.AbstractSimiScreen;
+import net.createmod.catnip.gui.element.GuiGameElement;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;

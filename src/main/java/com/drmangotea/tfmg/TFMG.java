@@ -1,19 +1,20 @@
 package com.drmangotea.tfmg;
 
+import com.drmangotea.tfmg.base.TFMGBoilerHeaters;
 import com.drmangotea.tfmg.base.TFMGContraptions;
 import com.drmangotea.tfmg.base.TFMGCreativeTabs;
 import com.drmangotea.tfmg.base.TFMGRegistrate;
 import com.drmangotea.tfmg.content.electricity.base.ElectricNetworkManager;
 import com.drmangotea.tfmg.content.engines.fuels.BaseFuelTypes;
 import com.drmangotea.tfmg.content.items.weapons.explosives.thermite_grenades.fire.TFMGColoredFires;
-import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.DepositManager;
+import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.TestSavedDataManager;
 import com.drmangotea.tfmg.datagen.TFMGDatagen;
 import com.drmangotea.tfmg.base.fluid.TFMGFluidInteractions;
 import com.drmangotea.tfmg.config.TFMGConfigs;
 import com.drmangotea.tfmg.content.decoration.pipes.TFMGPipes;
 import com.drmangotea.tfmg.registry.*;
+import com.drmangotea.tfmg.worldgen.TFMGFeatures;
 import com.mojang.logging.LogUtils;
-import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
@@ -27,9 +28,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.RegisterEvent;
 import org.slf4j.Logger;
 
-import static com.simibubi.create.content.fluids.tank.BoilerHeaters.registerHeater;
 
 
 @SuppressWarnings("removal")
@@ -38,18 +39,21 @@ public class TFMG {
 
     public static final String MOD_ID = "tfmg";
     public static final ElectricNetworkManager NETWORK_MANAGER = new ElectricNetworkManager();
-    public static final DepositManager DEPOSITS = new DepositManager();
-
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final TFMGRegistrate REGISTRATE = TFMGRegistrate.create();
+    public static final TestSavedDataManager DEPOSITS = new TestSavedDataManager();
 
+
+
+    public static final TFMGRegistrate REGISTRATE = TFMGRegistrate.create();
 
 
     public TFMG() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         REGISTRATE.registerEventListeners(modEventBus);
+
+
 
         TFMGBlocks.init();
         TFMGBlockEntities.init();
@@ -58,6 +62,7 @@ public class TFMG {
         TFMGPartialModels.init();
         TFMGPipes.init();
         TFMGFluids.init();
+        TFMGMenuTypes.init();
         TFMGEncasedBlocks.init();
         TFMGPaletteBlocks.init();
 
@@ -67,9 +72,9 @@ public class TFMG {
         TFMGMobEffects.register(modEventBus);
         TFMGRecipeTypes.register(modEventBus);
         TFMGColoredFires.register(modEventBus);
+        TFMGFeatures.register(modEventBus);
 
-
-        TFMGContraptions.prepare();
+        modEventBus.addListener(TFMG::onRegister);
         TFMGPackets.registerPackets();
         TFMGConfigs.register(ModLoadingContext.get());
         modEventBus.addListener(EventPriority.LOWEST, TFMGDatagen::gatherData);
@@ -80,6 +85,7 @@ public class TFMG {
         modEventBus.addListener(TFMGCreativeTabs::addCreative);
 
     }
+
     @SuppressWarnings("removal")
     private void clientSetup(final FMLClientSetupEvent event) {
         ItemBlockRenderTypes.setRenderLayer(TFMGColoredFires.GREEN_FIRE.get(), RenderType.cutout());
@@ -94,20 +100,14 @@ public class TFMG {
 
         event.enqueueWork(() -> {
             BaseFuelTypes.register();
-            registerHeater(TFMGBlocks.FIREBOX.get(), (level, pos, state) -> {
-                BlazeBurnerBlock.HeatLevel value = state.getValue(BlazeBurnerBlock.HEAT_LEVEL);
-                if (value == BlazeBurnerBlock.HeatLevel.NONE) {
-                    return -1;
-                }
-                if (value.isAtLeast(BlazeBurnerBlock.HeatLevel.FADING)) {
-                    return 1;
-                }
-                return -1;
-            });
+            TFMGBoilerHeaters.registerDefaults();
 
         });
     }
 
+    public static void onRegister(final RegisterEvent event) {
+        TFMGContraptions.prepare();
+    }
 
 
     public static ResourceLocation asResource(String path) {

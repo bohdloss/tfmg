@@ -11,10 +11,10 @@ import com.simibubi.create.content.equipment.blueprint.BlueprintScreen;
 import com.simibubi.create.content.logistics.filter.AbstractFilterScreen;
 import com.simibubi.create.content.redstone.link.controller.LinkedControllerScreen;
 import com.simibubi.create.content.trains.schedule.ScheduleScreen;
-import com.simibubi.create.foundation.config.ConfigBase;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.config.CRecipes;
 import mezz.jei.api.IModPlugin;
@@ -24,6 +24,7 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IIngredientManager;
+import net.createmod.catnip.config.ConfigBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -65,8 +66,20 @@ public class TFMGJei implements IModPlugin {
                 coking = builder(CokingRecipe.class)
                         .addTypedRecipes(TFMGRecipeTypes.COKING)
                         .catalyst(TFMGBlocks.COKE_OVEN::get)
+                        .itemIcon(TFMGBlocks.COKE_OVEN.get())
                         .emptyBackground(177, 123)
                         .build("coking", CokingCategory::new),
+
+                chemical_vat = builder(VatMachineRecipe.class)
+                        .addTypedRecipes(TFMGRecipeTypes.VAT_MACHINE_RECIPE)
+                        .catalyst(TFMGBlocks.STEEL_CHEMICAL_VAT::get)
+                        .catalyst(TFMGBlocks.CAST_IRON_CHEMICAL_VAT::get)
+                        .catalyst(TFMGBlocks.FIREPROOF_CHEMICAL_VAT::get)
+                        .catalyst(TFMGBlocks.INDUSTRIAL_MIXER::get)
+                        .catalyst(TFMGBlocks.ELECTRODE_HOLDER::get)
+                        .itemIcon(TFMGBlocks.STEEL_CHEMICAL_VAT.get())
+                        .emptyBackground(177, 123)
+                        .build("chemical_vat", ChemicalVatCategory::new),
 
                 industrial_blasting = builder(IndustrialBlastingRecipe.class)
                         .addTypedRecipes(TFMGRecipeTypes.INDUSTRIAL_BLASTING)
@@ -96,6 +109,7 @@ public class TFMGJei implements IModPlugin {
 
                 polarizing = builder(PolarizingRecipe.class)
                         .addTypedRecipes(TFMGRecipeTypes.POLARIZING)
+
                         .catalyst(TFMGBlocks.POLARIZER::get)
                         .itemIcon(TFMGBlocks.POLARIZER.get())
                         .emptyBackground(177, 53)
@@ -316,8 +330,8 @@ public class TFMGJei implements IModPlugin {
             }
 
             CreateRecipeCategory.Info<T> info = new CreateRecipeCategory.Info<>(
-                    new mezz.jei.api.recipe.RecipeType<>(Create.asResource(name), recipeClass),
-                    Lang.translateDirect("recipe." + name), background, icon, recipesSupplier, catalysts);
+                    new mezz.jei.api.recipe.RecipeType<>(TFMG.asResource(name), recipeClass),
+                    CreateLang.translateDirect("recipe." + name), background, icon, recipesSupplier, catalysts);
             CreateRecipeCategory<T> category = factory.create(info);
             allCategories.add(category);
             return category;

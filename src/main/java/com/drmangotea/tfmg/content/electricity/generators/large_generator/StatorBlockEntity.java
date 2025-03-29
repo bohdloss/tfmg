@@ -1,7 +1,7 @@
 package com.drmangotea.tfmg.content.electricity.generators.large_generator;
 
 import com.drmangotea.tfmg.content.electricity.base.ElectricBlockEntity;
-import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntityType;

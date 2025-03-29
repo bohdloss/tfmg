@@ -25,7 +25,7 @@ public class BlastFurnace extends AnimatedKinetics {
         matrixStack.mulPose(Axis.XP.rotationDegrees(-15.5f));
         matrixStack.mulPose(Axis.YP.rotationDegrees(22.5f));
         int scale =  23;
-        BlazeBurnerBlock.HeatLevel heatLevel = BlazeBurnerBlock.HeatLevel.SMOULDERING;
+
 
 
         blockElement(TFMGBlocks.BLAST_FURNACE_OUTPUT.getDefaultState())
@@ -55,7 +55,6 @@ public class BlastFurnace extends AnimatedKinetics {
                     .scale(scale)
                     .render(graphics);
 
-            if(i!=3){
 
                 blockElement(TFMGBlocks.FIREPROOF_BRICK_REINFORCEMENT.getDefaultState().setValue(NORTH_WALL, WallSide.TALL).setValue(WEST_WALL, WallSide.TALL))
                         .atLocal(1, -i, 0)
@@ -74,7 +73,6 @@ public class BlastFurnace extends AnimatedKinetics {
                         .scale(scale)
                         .render(graphics);
 
-            }
 
         }
 

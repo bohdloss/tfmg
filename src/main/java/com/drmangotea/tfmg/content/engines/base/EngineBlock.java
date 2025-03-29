@@ -2,7 +2,9 @@ package com.drmangotea.tfmg.content.engines.base;
 
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGShapes;
+import com.drmangotea.tfmg.content.engines.engine_controller.EngineControllerBlockEntity;
 import com.drmangotea.tfmg.content.engines.upgrades.EnginePipingUpgrade;
+import com.drmangotea.tfmg.content.engines.upgrades.TransmissionUpgrade;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
@@ -43,10 +45,22 @@ public class EngineBlock extends HorizontalKineticBlock {
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         if (level.getBlockEntity(pos) instanceof AbstractEngineBlockEntity be) {
-            if(be.hasUpgrade()){
+            if (be.hasUpgrade()) {
 
-                be.playRemovalSound();
-                be.dropItem(be.upgrade.get().getItem().getDefaultInstance());
+                if (be.upgrade.isPresent()) {
+                    be.playRemovalSound();
+                    be.dropItem(be.upgrade.get().getItem().getDefaultInstance());
+                    if (be.upgrade.get() instanceof TransmissionUpgrade) {
+                        if (be.getControllerBE().controllerPosition != null)
+                            if (level.getBlockEntity(be.getControllerBE().controllerPosition) instanceof EngineControllerBlockEntity engineController) {
+                                engineController.enginePos = null;
+                                engineController.engine = null;
+
+                            }
+                        be.getControllerBE().controllerPosition = null;
+                    }
+
+                }
                 be.upgrade = Optional.empty();
                 be.updateRotation();
 
@@ -95,17 +109,16 @@ public class EngineBlock extends HorizontalKineticBlock {
         builder.add(ENGINE_STATE);
     }
 
-     @Override
-     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos neighbor, boolean b) {
-        if(level.getBlockEntity(pos) instanceof AbstractEngineBlockEntity be){
-            if(be.hasUpgrade()&&be.upgrade.get().getItem() == TFMGBlocks.INDUSTRIAL_PIPE.asItem()){
-                ((EnginePipingUpgrade)be.upgrade.get()).findTank(be);
+    @Override
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos neighbor, boolean b) {
+        if (level.getBlockEntity(pos) instanceof AbstractEngineBlockEntity be) {
+            if (be.hasUpgrade() && be.upgrade.get().getItem() == TFMGBlocks.INDUSTRIAL_PIPE.asItem()) {
+                ((EnginePipingUpgrade) be.upgrade.get()).findTank(be);
             }
         }
 
-         super.neighborChanged(state, level, pos, block, neighbor, b);
-     }
-
+        super.neighborChanged(state, level, pos, block, neighbor, b);
+    }
 
 
     @Override

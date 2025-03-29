@@ -2,10 +2,10 @@ package com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.h
 
 
 import com.drmangotea.tfmg.base.TFMGShapes;
-import com.simibubi.create.foundation.placement.IPlacementHelper;
-import com.simibubi.create.foundation.placement.PlacementHelpers;
-import com.simibubi.create.foundation.placement.PlacementOffset;
 import com.simibubi.create.foundation.placement.PoleHelper;
+import net.createmod.catnip.placement.IPlacementHelper;
+import net.createmod.catnip.placement.PlacementHelpers;
+import net.createmod.catnip.placement.PlacementOffset;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

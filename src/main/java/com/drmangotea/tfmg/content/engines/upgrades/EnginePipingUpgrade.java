@@ -48,6 +48,10 @@ public class EnginePipingUpgrade extends EngineUpgrade {
             FluidTankBlockEntity tankBE = tank.get();
             int maxOutput = tankBE.getTankInventory().drain(500, IFluidHandler.FluidAction.SIMULATE).getAmount();
             int maxInput = tankBE.getTankInventory().fill(new FluidStack(tankBE.getFluid(0), 500), IFluidHandler.FluidAction.SIMULATE);
+            if(controller == null)
+                return;
+            if(controller.fuelTank == null)
+                return;
 
             int amount = Math.min(maxInput, Math.min(maxOutput, controller.fuelTank.getSpace()));
 

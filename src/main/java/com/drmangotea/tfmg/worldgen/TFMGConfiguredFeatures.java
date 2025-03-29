@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
@@ -21,6 +22,8 @@ import static net.minecraft.data.worldgen.features.FeatureUtils.register;
 
 public class TFMGConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>>
+            OIL_DEPOSIT = key("oil_deposit"),
+            OIL_WELL = key("oil_well"),
             LEAD_ORE = key("lead_ore"),
             NICKEL_ORE = key("nickel_ore"),
             LITHIUM_ORE = key("lithium_ore"),
@@ -34,6 +37,8 @@ public class TFMGConfiguredFeatures {
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> ctx) {
         RuleTest stoneOreReplaceables = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateOreReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
+
+
 
         List<OreConfiguration.TargetBlockState> leadTargetStates = List.of(
                 OreConfiguration.target(stoneOreReplaceables, TFMGBlocks.LEAD_ORE.get()
@@ -53,6 +58,10 @@ public class TFMGConfiguredFeatures {
                 OreConfiguration.target(deepslateOreReplaceables, TFMGBlocks.DEEPSLATE_LITHIUM_ORE.get()
                         .defaultBlockState())
         );
+
+
+        register(ctx, OIL_DEPOSIT, TFMGFeatures.OIL_DEPOSIT.get(),new NoneFeatureConfiguration());
+        register(ctx, OIL_WELL, TFMGFeatures.OIL_WELL.get(),new NoneFeatureConfiguration());
 
         register(ctx, LEAD_ORE, Feature.ORE, new OreConfiguration(leadTargetStates, 12));
         register(ctx, NICKEL_ORE, Feature.ORE, new OreConfiguration(nickelTargetStates, 10));

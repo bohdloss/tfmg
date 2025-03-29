@@ -2,16 +2,16 @@ package com.drmangotea.tfmg.content.decoration.cogs;
 
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
-import com.jozufozu.flywheel.backend.Backend;
-import com.jozufozu.flywheel.core.PartialModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.content.kinetics.simpleRelays.SimpleKineticBlockEntity;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.render.SuperByteBuffer;
-import com.simibubi.create.foundation.utility.AnimationTickHolder;
+import dev.engine_room.flywheel.api.visualization.VisualizationManager;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import net.createmod.catnip.animation.AnimationTickHolder;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.render.SuperByteBuffer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
@@ -30,7 +30,7 @@ public class TFMGCogwheelRenderer extends KineticBlockEntityRenderer<SimpleKinet
 	protected void renderSafe(SimpleKineticBlockEntity be, float partialTicks, PoseStack ms,
 		MultiBufferSource buffer, int light, int overlay) {
 
-		if (Backend.canUseInstancing(be.getLevel()))
+		if (VisualizationManager.supportsVisualization(be.getLevel()))
 			return;
 
 		if (!AllBlocks.LARGE_COGWHEEL.has(be.getBlockState())) {
@@ -40,16 +40,14 @@ public class TFMGCogwheelRenderer extends KineticBlockEntityRenderer<SimpleKinet
 
 		Axis axis = getRotationAxisOf(be);
 		Direction facing = Direction.fromAxisAndDirection(axis, AxisDirection.POSITIVE);
-
 		PartialModel model = be.getBlockState().is(TFMGBlocks.LARGE_ALUMINUM_COGWHEEL.get()) ? TFMGPartialModels.LARGE_ALUMINUM_COGHWEEL : TFMGPartialModels.LARGE_STEEL_COGHWEEL;
-
 		renderRotatingBuffer(be,
-			CachedBufferer.partialFacingVertical(model, be.getBlockState(), facing),
+			CachedBuffers.partialFacingVertical(model, be.getBlockState(), facing),
 			ms, buffer.getBuffer(RenderType.cutoutMipped()), light);
 
 		float angle = getAngleForLargeCogShaft(be, axis);
 		SuperByteBuffer shaft =
-			CachedBufferer.partialFacingVertical(AllPartialModels.COGWHEEL_SHAFT, be.getBlockState(), facing);
+			CachedBuffers.partialFacingVertical(AllPartialModels.COGWHEEL_SHAFT, be.getBlockState(), facing);
 		kineticRotationTransform(shaft, be, axis, angle, light);
 		shaft.renderInto(ms, buffer.getBuffer(RenderType.solid()));
 	}

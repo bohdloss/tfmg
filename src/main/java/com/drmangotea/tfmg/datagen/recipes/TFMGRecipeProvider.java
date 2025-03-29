@@ -15,7 +15,7 @@ import com.simibubi.create.AllTags;
 import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
-import com.simibubi.create.foundation.utility.RegisteredObjects;
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -116,6 +116,9 @@ public class TFMGRecipeProvider extends RecipeProvider {
         }
         public static TagKey<Item> castIronBlock() {
             return TFMGTags.forgeItemTag("storage_blocks/cast_iron");
+        }
+        public static TagKey<Item> castIronSheet() {
+            return TFMGTags.forgeItemTag("plates/cast_iron");
         }
         public static TagKey<Item> leadIngot() {
             return TFMGTags.forgeItemTag("ingots/lead");
@@ -225,7 +228,8 @@ public class TFMGRecipeProvider extends RecipeProvider {
             return TFMGItems.NAPALM_POTATO.get();
         }
         public static ItemLike heavyMachineryCasing() {
-            return TFMGBlocks.HEAVY_MACHINERY_CASING.get();
+
+           return TFMGBlocks.HEAVY_MACHINERY_CASING.get();
         }
         public static ItemLike steelCasing() {
             return TFMGBlocks.STEEL_CASING.get();
@@ -233,9 +237,18 @@ public class TFMGRecipeProvider extends RecipeProvider {
         public static ItemLike heavyPlate() {
             return TFMGItems.HEAVY_PLATE.get();
         }
-        //public static ItemLike charcoalDust() {
-        //    return TFMGItems.CHARCOAL_DUST.get();
-        //}
+        public static ItemLike castIronSheetTFMG() {
+            return TFMGItems.CAST_IRON_SHEET.get();
+        }
+        public static ItemLike nickelIronSheetTFMG() {
+            return TFMGItems.NICKEL_SHEET.get();
+        }
+        public static ItemLike leadSheetTFMG() {
+            return TFMGItems.LEAD_SHEET.get();
+        }
+        public static ItemLike aluminumSheetTFMG() {
+            return TFMGItems.ALUMINUM_SHEET.get();
+        }
         public static ItemLike crushedRawIron() {
             return AllItems.CRUSHED_IRON.get();
         }
@@ -622,7 +635,7 @@ public class TFMGRecipeProvider extends RecipeProvider {
             ItemLike itemLike = singleIngredient.get();
             transform
                     .apply((IndustrialBlastingRecipeBuilder) new IndustrialBlastingRecipeBuilder(serializer.getFactory(),hotAirUsage,
-                            new ResourceLocation(namespace, RegisteredObjects.getKeyOrThrow(itemLike.asItem())
+                            new ResourceLocation(namespace, CatnipServices.REGISTRIES.getKeyOrThrow(itemLike.asItem())
                                     .getPath())).withItemIngredients(Ingredient.of(itemLike)))
                     .build(c);
         };
@@ -667,7 +680,7 @@ public class TFMGRecipeProvider extends RecipeProvider {
             ItemLike itemLike = singleIngredient.get();
             transform
                     .apply((VatMachineRecipeBuilder) new VatMachineRecipeBuilder(serializer.getFactory(),params,
-                            new ResourceLocation(namespace, RegisteredObjects.getKeyOrThrow(itemLike.asItem())
+                            new ResourceLocation(namespace, CatnipServices.REGISTRIES.getKeyOrThrow(itemLike.asItem())
                                     .getPath())).withItemIngredients(Ingredient.of(itemLike)))
                     .build(c);
         };

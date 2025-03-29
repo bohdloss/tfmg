@@ -42,15 +42,39 @@ public class VoltMeterBlock extends TFMGHorizontalDirectionalBlock implements IB
 
         return onBlockEntityUse(level, pos, be -> {
 
-            be.range = be.getRange() + 100;
+            boolean shouldChange = false;
 
-            if(be.getRange() > 2000)
-                be.range = 100;
+            for(VoltMeterBlockEntity.MeasureMode mode : VoltMeterBlockEntity.MeasureMode.values()){
+
+                if(mode == VoltMeterBlockEntity.MeasureMode.POWER){
+                    be.mode = VoltMeterBlockEntity.MeasureMode.VOLTAGE;
+                    break;
+                }
+
+                if(shouldChange) {
+                    be.mode = mode;
+                    break;
+                }
+                if(mode == be.mode)
+                    shouldChange = true;
+
+
+            }
 
             return InteractionResult.SUCCESS;
-
-
         });
+
+        //return onBlockEntityUse(level, pos, be -> {
+//
+        //    be.range = be.getRange() + 100;
+//
+        //    if(be.getRange() > 2000)
+        //        be.range = 100;
+//
+        //    return InteractionResult.SUCCESS;
+//
+//
+        //});
 
 
     }

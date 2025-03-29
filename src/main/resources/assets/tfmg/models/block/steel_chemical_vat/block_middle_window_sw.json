@@ -2,47 +2,47 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"1": "tfmg:block/steel_fluid_tank",
-		"3": "tfmg:block/steel_fluid_tank_window",
-		"particle": "tfmg:block/steel_fluid_tank"
+		"1": "tfmg:block/steel_vat",
+		"3": "tfmg:block/steel_vat_window",
+		"particle": "tfmg:block/steel_vat"
 	},
 	"elements": [
 		{
 			"name": "SideRight",
-			"from": [0, 0, 4],
+			"from": [0, 0, 5],
 			"to": [1, 16, 16],
 			"faces": {
 				"north": {"uv": [12, 0, 13, 16], "texture": "#1"},
 				"east": {"uv": [0, 0, 12, 16], "texture": "#1"},
-				"west": {"uv": [4, 0, 16, 16], "texture": "#1"}
+				"west": {"uv": [5, 0, 16, 16], "texture": "#1"}
 			}
 		},
 		{
 			"name": "Window",
-			"from": [12, 0, 15],
+			"from": [11, 0, 15],
 			"to": [16, 16, 15],
 			"faces": {
-				"north": {"uv": [12, 0, 16, 16], "texture": "#3"},
-				"south": {"uv": [8, 0, 12, 16], "texture": "#3"}
+				"north": {"uv": [7.5, 0, 10, 8], "texture": "#3"},
+				"south": {"uv": [5, 0, 7.5, 8], "texture": "#3"}
 			}
 		},
 		{
 			"name": "Window",
 			"from": [1, 0, 0],
-			"to": [1, 16, 4],
+			"to": [1, 16, 5],
 			"faces": {
-				"east": {"uv": [8, 0, 12, 16], "texture": "#3"},
-				"west": {"uv": [12, 0, 16, 16], "texture": "#3"}
+				"east": {"uv": [5, 0, 7.5, 8], "texture": "#3"},
+				"west": {"uv": [7.5, 0, 10, 8], "texture": "#3"}
 			}
 		},
 		{
 			"name": "SideLeft",
 			"from": [0, 0, 15],
-			"to": [12, 16, 16],
+			"to": [11, 16, 16],
 			"faces": {
 				"north": {"uv": [4, 0, 16, 16], "texture": "#1"},
 				"east": {"uv": [3, 0, 4, 16], "texture": "#1"},
-				"south": {"uv": [0, 0, 12, 16], "texture": "#1"}
+				"south": {"uv": [0, 0, 11, 16], "texture": "#1"}
 			}
 		}
 	],
@@ -50,6 +50,7 @@
 		{
 			"name": "tank",
 			"origin": [8, 8, -23],
+			"color": 0,
 			"children": [0, 1, 2, 3]
 		}
 	]

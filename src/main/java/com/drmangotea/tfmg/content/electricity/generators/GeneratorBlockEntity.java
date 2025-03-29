@@ -1,9 +1,7 @@
 package com.drmangotea.tfmg.content.electricity.generators;
 
-import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.config.TFMGConfigs;
 import com.drmangotea.tfmg.content.electricity.base.KineticElectricBlockEntity;
-import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,12 +32,12 @@ public class GeneratorBlockEntity extends KineticElectricBlockEntity  {
     @Override
     public float calculateStressApplied() {
         if(getData().voltageSupply == 0)
-            return 0;
+            return super.calculateStressApplied();
 
         if(getNetworkResistance() ==0)
             return super.calculateStressApplied();
 
-        return (super.calculateStressApplied()*getGeneratorLoad()*0.0001f);
+        return (int)(Math.min(super.calculateStressApplied()+(getGeneratorLoad() * 0.01f), 1000));
     }
 
 
@@ -59,9 +57,10 @@ public class GeneratorBlockEntity extends KineticElectricBlockEntity  {
     }
 
     public int generation() {
-        float modifier = TFMGConfigs.common().machines.smallGeneratorFeModifier.getF();
+        float modifier = TFMGConfigs.common().machines.generatorModifier.getF();
+        float maxSpeed = TFMGConfigs.common().machines.generatorMinSpeed.getF();
 
-        return  (int) (((Math.log(Math.abs(getSpeed()))/Math.log(1.026))-22)*modifier*3.5f);
+        return (int) Math.max(0,((Math.abs(getSpeed())-maxSpeed)* modifier));
     }
 
 

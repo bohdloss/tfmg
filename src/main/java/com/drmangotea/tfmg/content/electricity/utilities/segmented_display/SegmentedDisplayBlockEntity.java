@@ -2,13 +2,13 @@ package com.drmangotea.tfmg.content.electricity.utilities.segmented_display;
 
 import com.drmangotea.tfmg.content.electricity.base.ElectricBlockEntity;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkBlock;
-import com.simibubi.create.foundation.utility.Components;
-import com.simibubi.create.foundation.utility.Couple;
 import com.simibubi.create.foundation.utility.DynamicComponent;
-import com.simibubi.create.foundation.utility.NBTHelper;
+import net.createmod.catnip.data.Couple;
+import net.createmod.catnip.nbt.NBTHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -141,7 +141,7 @@ public class SegmentedDisplayBlockEntity extends ElectricBlockEntity {
 
     public MutableComponent getFullText() {
         return customText.map(DynamicComponent::get)
-                .orElse(Components.literal(""));
+                .orElse(Component.literal(""));
     }
 
     @Override

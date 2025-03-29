@@ -4,19 +4,21 @@ import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGUtils;
 import com.drmangotea.tfmg.config.TFMGConfigs;
 import com.drmangotea.tfmg.content.electricity.base.KineticElectricBlockEntity;
+import com.drmangotea.tfmg.content.engines.engine_controller.EngineControllerBlockEntity;
 import com.drmangotea.tfmg.content.engines.fuels.BaseFuelTypes;
 import com.drmangotea.tfmg.content.engines.fuels.EngineFuelTypeManager;
 import com.drmangotea.tfmg.content.engines.fuels.FuelType;
 import com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineBlockEntity;
 import com.drmangotea.tfmg.content.engines.upgrades.EnginePipingUpgrade;
 import com.drmangotea.tfmg.content.engines.upgrades.EngineUpgrade;
+import com.drmangotea.tfmg.content.engines.upgrades.TransmissionUpgrade;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGFluids;
 import com.drmangotea.tfmg.registry.TFMGItems;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.foundation.fluid.CombinedTankWrapper;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.VecHelper;
+import com.simibubi.create.foundation.utility.CreateLang;
+import net.createmod.catnip.math.VecHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -72,17 +74,19 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
     //
     public float rpm = 0;
     float torque = 0;
-    float fuelInjectionRate = 0;
+    public float fuelInjectionRate = 0;
     //
     boolean reverse = false;
     //
-    int highestSignal;
-    int signal;
+    public int highestSignal;
+    public int signal;
     boolean signalChanged;
     //
     int fuelConsumptionTimer = 0;
     //
     public Optional<? extends EngineUpgrade> upgrade = Optional.empty();
+    //
+    public BlockPos controllerPosition = null;
 
 
     public AbstractEngineBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
@@ -124,8 +128,9 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
     @Override
     public void lazyTick() {
         super.lazyTick();
-        neighbourChanged();
-
+        if (controllerPosition == null) {
+            neighbourChanged();
+        }
         upgrade.ifPresent(engineUpgrade -> engineUpgrade.lazyTickUpgrade(this));
 
         exhaustTank.forceFill(new FluidStack(TFMGFluids.CARBON_DIOXIDE.get(), Math.min(300, getFuelConsumption() * 7)), IFluidHandler.FluidAction.EXECUTE);
@@ -256,14 +261,11 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
         if (hasLevel())
 
             if (level.getBlockEntity(controller) instanceof AbstractEngineBlockEntity controller) {
-
                 if (controller.fuelTank.isEmpty())
                     return 0;
                 if (!controller.canWork())
                     return 0;
-
-                speed = rpm / 23;
-
+                speed = rpm / 40;
                 if (reverse)
                     speed = speed * -1;
 
@@ -298,6 +300,9 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
     }
 
     protected void analogSignalChanged() {
+
+        if (controllerPosition != null)
+            return;
 
         int newSignal = level.getBestNeighborSignal(getBlockPos());
 
@@ -445,8 +450,19 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
                 upgrade = itemUpgrade;
                 playInsertionSound();
                 updateRotation();
-                upgrade.ifPresent(u->u.updateUpgrade(this));
+                upgrade.ifPresent(u -> u.updateUpgrade(this));
                 itemStack.shrink(1);
+                if (upgrade.isPresent())
+                    if (upgrade.get() instanceof TransmissionUpgrade transmissionUpgrade) {
+                        if (itemStack.getOrCreateTag().contains("Position") && itemStack.getOrCreateTag().get("Position") != null) {
+                            BlockPos pos = BlockPos.of(itemStack.getOrCreateTag().getLong("Position"));
+                            if (level.getBlockEntity(pos) instanceof EngineControllerBlockEntity engineControllerBE) {
+                                getControllerBE().controllerPosition = pos;
+                                engineControllerBE.enginePos = this.getBlockPos();
+                                getControllerBE().highestSignal = 0;
+                            }
+                        }
+                    }
                 setChanged();
                 sendData();
                 return true;
@@ -520,8 +536,8 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
     @Override
     public void onLoad() {
         super.onLoad();
-        if(this.hasUpgrade()&&this.upgrade.get().getItem() == TFMGBlocks.INDUSTRIAL_PIPE.asItem()){
-            ((EnginePipingUpgrade)this.upgrade.get()).findTank(this);
+        if (this.hasUpgrade() && this.upgrade.get().getItem() == TFMGBlocks.INDUSTRIAL_PIPE.asItem()) {
+            ((EnginePipingUpgrade) this.upgrade.get()).findTank(this);
         }
     }
 
@@ -534,6 +550,8 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
         if (EngineUpgrade.getUpgrades().get(ItemStack.of(compound.getCompound("UpgradeItem")).getItem()) != null)
             upgrade = Optional.of(EngineUpgrade.getUpgrades().get(ItemStack.of(compound.getCompound("UpgradeItem")).getItem()));
         if (isController()) {
+            if (!BlockPos.of(compound.getLong("ControllerPos")).equals(new BlockPos(0, 0, 0)))
+                controllerPosition = BlockPos.of(compound.getLong("ControllerPos"));
             componentsInventory.deserializeNBT(compound.getCompound("Components"));
             fuelTank.readFromNBT(compound.getCompound("FuelTank"));
             exhaustTank.readFromNBT(compound.getCompound("ExhaustTank"));
@@ -550,6 +568,9 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
         if (upgrade.isPresent())
             compound.put("UpgradeItem", upgrade.get().getItem().getDefaultInstance().serializeNBT());
         if (isController()) {
+            if (controllerPosition != null) {
+                compound.putLong("ControllerPos", controllerPosition.asLong());
+            } else compound.remove("ControllerPos");
             compound.put("Components", componentsInventory.serializeNBT());
             compound.put("FuelTank", fuelTank.writeToNBT(new CompoundTag()));
             compound.put("ExhaustTank", exhaustTank.writeToNBT(new CompoundTag()));
@@ -564,18 +585,24 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        Lang.text("Speed Efficiency " + getSpeedEfficiency()).forGoggles(tooltip);
-        Lang.text("Efficiency " + efficiencyModifier()).forGoggles(tooltip);
-        Lang.text("Fuel Consumption " + getFuelConsumption()).forGoggles(tooltip);
-        Lang.text("Rpm " + rpm).forGoggles(tooltip);
-        Lang.text("Torque " + torque).forGoggles(tooltip);
-        Lang.text("Injection Rate " + fuelInjectionRate).forGoggles(tooltip);
-        Lang.number(rpm).style(ChatFormatting.AQUA).forGoggles(tooltip);
+
+        if (controllerPosition != null)
+            CreateLang.text("CONTROLLED").forGoggles(tooltip);
 
 
-        Lang.number(engineNumber).style(ChatFormatting.DARK_GREEN).forGoggles(tooltip);
+        CreateLang.text("Speed Efficiency " + getSpeedEfficiency()).forGoggles(tooltip);
+        CreateLang.text("Efficiency " + efficiencyModifier()).forGoggles(tooltip);
+        CreateLang.text("Fuel Consumption " + getFuelConsumption()).forGoggles(tooltip);
+        CreateLang.text("Rpm " + rpm).forGoggles(tooltip);
+        CreateLang.text("Torque " + torque).forGoggles(tooltip);
+        CreateLang.text("Injection Rate " + fuelInjectionRate).forGoggles(tooltip);
+        CreateLang.text("Signal " + highestSignal).forGoggles(tooltip);
+        CreateLang.number(rpm).style(ChatFormatting.AQUA).forGoggles(tooltip);
+
+
+        CreateLang.number(engineNumber).style(ChatFormatting.DARK_GREEN).forGoggles(tooltip);
         if (isController() && !nextComponent().isEmpty())
-            Lang.text(nextComponent().getItems()[0].getDisplayName().getString()).forGoggles(tooltip);
+            CreateLang.text(nextComponent().getItems()[0].getDisplayName().getString()).forGoggles(tooltip);
 
         TFMGUtils.createFluidTooltip(this, tooltip);
 

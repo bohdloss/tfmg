@@ -10,15 +10,17 @@ import com.drmangotea.tfmg.registry.TFMGFluids;
 import com.drmangotea.tfmg.registry.TFMGRecipeTypes;
 import com.drmangotea.tfmg.registry.TFMGTags;
 import com.simibubi.create.Create;
-import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.fluid.CombinedTankWrapper;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
 import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.item.SmartInventory;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
+
+import com.simibubi.create.foundation.utility.CreateLang;
+import net.createmod.catnip.animation.LerpedFloat;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -112,17 +114,17 @@ public class BlastFurnaceOutputBlockEntity extends SmartBlockEntity implements I
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 
-        Lang.translate("goggles.blast_furnace.stats", inputInventory.getStackInSlot(0).getCount())
+        CreateLang.translate("goggles.blast_furnace.stats", inputInventory.getStackInSlot(0).getCount())
                 .style(ChatFormatting.GRAY)
                 .forGoggles(tooltip, 1);
 
-        Lang.translate("goggles.blast_furnace.height", getSize())
+        CreateLang.translate("goggles.blast_furnace.height", getSize())
                 .forGoggles(tooltip, 1);
-        Lang.translate("goggles.blast_furnace.fuel_amount", fuel)
+        CreateLang.translate("goggles.blast_furnace.fuel_amount", fuel)
                 .forGoggles(tooltip, 1);
 
         if(isReinforced)
-            Lang.translate("goggles.blast_furnace.reinforced")
+            CreateLang.translate("goggles.blast_furnace.reinforced")
                     .style(ChatFormatting.GREEN)
                     .forGoggles(tooltip);
 

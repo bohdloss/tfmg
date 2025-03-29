@@ -9,13 +9,11 @@ import com.drmangotea.tfmg.content.electricity.base.UpdateInFrontPacket;
 import com.drmangotea.tfmg.content.electricity.connection.cables.CablePlacePacket;
 import com.drmangotea.tfmg.content.electricity.connection.cables.CableRemovalPacket;
 import com.drmangotea.tfmg.content.electricity.electrians_wrench.ElectriciansWrenchPacket;
-import com.drmangotea.tfmg.content.engines.engine_controller.packets.EngineControllerBindPacket;
-import com.drmangotea.tfmg.content.engines.engine_controller.packets.EngineControllerInputPacket;
-import com.drmangotea.tfmg.content.engines.engine_controller.packets.EngineControllerStopControllerPacket;
+import com.drmangotea.tfmg.content.engines.engine_controller.packets.*;
 import com.drmangotea.tfmg.content.items.weapons.advanced_potato_cannon.AdvancedPotatoCannonPacket;
 import com.drmangotea.tfmg.content.items.weapons.quad_potato_cannon.QuadPotatoCannonPacket;
 import com.drmangotea.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenPacket;
-import com.drmangotea.tfmg.content.machinery.misc.vat_machines.base.VatEvaluationPacket;
+import com.drmangotea.tfmg.content.machinery.vat.base.VatEvaluationPacket;
 import com.simibubi.create.foundation.networking.SimplePacketBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -49,8 +47,10 @@ public enum TFMGPackets {
     ELECTRICIANS_WRENCH_PACKET(ElectriciansWrenchPacket.class, ElectriciansWrenchPacket::new, PLAY_TO_SERVER),
     ENGINE_CONTROLLER_INPUT(EngineControllerInputPacket.class, EngineControllerInputPacket::new, PLAY_TO_SERVER),
     ENGINE_CONTROLLER_BIND(EngineControllerBindPacket.class, EngineControllerBindPacket::new, PLAY_TO_SERVER),
-    ENGINE_CONTROLLER_USE_LECTERN(EngineControllerStopControllerPacket.class, EngineControllerStopControllerPacket::new,
-            PLAY_TO_SERVER);
+    ENGINE_TRANSMISSION_PACKET(TransmissionShiftPacket.class, TransmissionShiftPacket::new, PLAY_TO_SERVER),
+    ENGINE_CONTROLLER_STOP_CONTROL(EngineControllerStopControllerPacket.class, EngineControllerStopControllerPacket::new, PLAY_TO_SERVER),
+    ENGINE_START(EngineStartPacket.class, EngineStartPacket::new, PLAY_TO_SERVER),
+    ;
 
 
 

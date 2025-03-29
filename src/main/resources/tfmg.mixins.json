@@ -11,7 +11,8 @@
     "PipeAttachmentModelMixin",
     "RecipeProviderMixin",
     "FluidTankBlockEntityMixin",
-    "accessor.FluidTankBlockEntityAccessor"
+    "accessor.FluidTankBlockEntityAccessor",
+    "accessor.TankSegmentAccessor"
   ],
   "client": [
   ],

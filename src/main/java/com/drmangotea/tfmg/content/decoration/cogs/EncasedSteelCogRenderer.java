@@ -1,7 +1,6 @@
 package com.drmangotea.tfmg.content.decoration.cogs;
 
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
-import com.jozufozu.flywheel.backend.Backend;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.IRotate;
@@ -9,9 +8,10 @@ import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEntityRenderer;
 import com.simibubi.create.content.kinetics.simpleRelays.SimpleKineticBlockEntity;
 import com.simibubi.create.content.kinetics.simpleRelays.encased.EncasedCogwheelBlock;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.render.SuperByteBuffer;
-import com.simibubi.create.foundation.utility.Iterate;
+import dev.engine_room.flywheel.api.visualization.VisualizationManager;
+import net.createmod.catnip.data.Iterate;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.render.SuperByteBuffer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -41,7 +41,7 @@ public class EncasedSteelCogRenderer extends KineticBlockEntityRenderer<SimpleKi
     protected void renderSafe(SimpleKineticBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
                               int light, int overlay) {
         super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
-        if (Backend.canUseInstancing(be.getLevel()))
+        if (VisualizationManager.supportsVisualization(be.getLevel()))
             return;
 
         BlockState blockState = be.getBlockState();
@@ -53,18 +53,18 @@ public class EncasedSteelCogRenderer extends KineticBlockEntityRenderer<SimpleKi
         Direction.Axis axis = getRotationAxisOf(be);
         BlockPos pos = be.getBlockPos();
         float angle = large ? BracketedKineticBlockEntityRenderer.getAngleForLargeCogShaft(be, axis)
-                : getAngleForTe(be, pos, axis);
+                : getAngleForBe(be, pos, axis);
         for (Direction d : Iterate.directionsInAxis(getRotationAxisOf(be))) {
             if (!def.hasShaftTowards(be.getLevel(), be.getBlockPos(), blockState, d))
                 continue;
-            SuperByteBuffer shaft = CachedBufferer.partialFacing(AllPartialModels.SHAFT_HALF, be.getBlockState(), d);
+            SuperByteBuffer shaft = CachedBuffers.partialFacing(AllPartialModels.SHAFT_HALF, be.getBlockState(), d);
             kineticRotationTransform(shaft, be, axis, angle, light);
             shaft.renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
         }
     }
     @Override
     protected SuperByteBuffer getRotatedModel(SimpleKineticBlockEntity be, BlockState state) {
-        return CachedBufferer.partialFacingVertical(
+        return CachedBuffers.partialFacingVertical(
                 large ? TFMGPartialModels.LARGE_STEEL_COGHWEEL : TFMGPartialModels.STEEL_COGHWEEL, state,
                 Direction.fromAxisAndDirection(state.getValue(EncasedCogwheelBlock.AXIS), Direction.AxisDirection.POSITIVE));
     }

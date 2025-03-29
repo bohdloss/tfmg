@@ -31,8 +31,8 @@ public class TFMGRegistrate extends CreateRegistrate {
 
     public FluidBuilder<VirtualFluid, CreateRegistrate> gasFluid(String name, ResourceLocation still,
                                                                  ResourceLocation flow) {
-        return entry(name, c -> new VirtualFluidBuilder<>(self(), self(), name, c, still, flow,
-                GasFluidType.create(), VirtualFluid::new));
+        return entry(name, c -> new VirtualFluidBuilder<>(self(),self(), name, c, still, flow,
+                GasFluidType.create(),VirtualFluid::createSource,VirtualFluid::createFlowing));
     }
 
     protected TFMGRegistrate() {

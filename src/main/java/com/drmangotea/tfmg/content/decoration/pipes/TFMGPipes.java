@@ -1,5 +1,6 @@
 package com.drmangotea.tfmg.content.decoration.pipes;
 
+import com.drmangotea.tfmg.config.TFMGStress;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllSpriteShifts;
 import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
@@ -7,7 +8,6 @@ import com.simibubi.create.content.decoration.encasing.EncasingRegistry;
 import com.simibubi.create.content.fluids.PipeAttachmentModel;
 import com.simibubi.create.content.fluids.pipes.SmartFluidPipeGenerator;
 import com.simibubi.create.content.fluids.pipes.valve.FluidValveBlock;
-import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -63,13 +63,14 @@ public class TFMGPipes {
                             .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(AllSpriteShifts.COPPER_CASING)))
                             .onRegister(CreateRegistrate.casingConnectivity((block, cc) -> cc.make(block, AllSpriteShifts.COPPER_CASING,
                                     (s, f) -> !s.getValue(TFMGEncasedPipeBlock.FACING_TO_PROPERTY_MAP.get(f)))))
-                            .onRegister(CreateRegistrate.blockModel(() -> PipeAttachmentModel::new))
+                            .onRegister(CreateRegistrate.blockModel(() -> PipeAttachmentModel::withoutAO))
                             .loot((p, b) -> p.dropOther(b, pipe.get()))
-                            .transform(EncasingRegistry.addVariantTo(AllBlocks.FLUID_PIPE))
+                            .transform(EncasingRegistry.addVariantTo(pipe))
                             .register();
 
             pipes.add(copper_encased_pipe);
-
+           //if(true)
+           //    break;
             BlockEntry<TFMGGlassPipeBlock> glass_pipe =
                     REGISTRATE.block("glass_" + pipeType.name + "_pipe", p -> new TFMGGlassPipeBlock(p, pipeType))
                             .initialProperties(SharedProperties::copperMetal)
@@ -100,7 +101,7 @@ public class TFMGPipes {
                             .transform(pickaxeOnly())
                             .blockstate(BlockStateGen.directionalBlockProviderIgnoresWaterlogged(true))
                             .onRegister(CreateRegistrate.blockModel(() -> t -> new TFMGPipeAttachmentModel(t, pipeType)))
-                            .transform(BlockStressDefaults.setImpact(4.0))
+                            .transform(TFMGStress.setImpact(4.0))
                             .item()
                             .transform(customItemModel())
                             .register();

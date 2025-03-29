@@ -1,12 +1,13 @@
 package com.drmangotea.tfmg.config;
 
-import com.simibubi.create.foundation.config.ConfigBase;
+
+import net.createmod.catnip.config.ConfigBase;
 
 public class TFMGServerConfig extends ConfigBase {
 
 
 
-	public final StressConfig stressValues = nested(0, StressConfig::new, "Fine tune the kinetic stats of individual components");
+	public final TFMGStress stressValues = nested(0, TFMGStress::new, "Fine tune the kinetic stats of individual components");
 
 	@Override
 	public String getName() {

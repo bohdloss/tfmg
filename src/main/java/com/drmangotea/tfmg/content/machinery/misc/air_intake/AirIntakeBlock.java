@@ -55,7 +55,7 @@ public class AirIntakeBlock extends DirectionalKineticBlock implements IBE<AirIn
             //////////
             BlockPos pos = context.getClickedPos();
 
-            playRotateSound(level,pos);
+            IWrenchable.playRotateSound(level,pos);
 
             AirIntakeBlockEntity kineticBlockEntity = (AirIntakeBlockEntity) level.getBlockEntity(pos);
             if(!kineticBlockEntity.hasShaft) {

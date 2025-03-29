@@ -26,11 +26,11 @@ public class DepositItem extends Item {
         if(level.getServer()==null)
             return InteractionResult.PASS;
         if(level.getBlockState(pos).is(TFMGBlocks.OIL_DEPOSIT.get())) {
-            DepositSavedData data = DepositSavedData.load(level.getServer());
-            if(data.getReservoirFor(pos.asLong())!=null) {
-                data.getReservoirFor(pos.asLong()).oilReserves = level.getRandom().nextInt(1000, TFMGConfigs.common().deposits.depositMaxReserves.get());
-                return InteractionResult.SUCCESS;
-            }
+            //DepositSavedData data = DepositSavedData.load(level.getServer());
+           // if(data.getReservoirFor(pos.asLong())!=null) {
+           //     data.getReservoirFor(pos.asLong()).oilReserves = level.getRandom().nextInt(1000, TFMGConfigs.common().deposits.depositMaxReserves.get());
+           //     return InteractionResult.SUCCESS;
+           // }
         }
         return InteractionResult.PASS;
     }

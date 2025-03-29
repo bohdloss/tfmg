@@ -6,7 +6,8 @@ import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.content.electricity.base.UpdateInFrontPacket;
 import com.drmangotea.tfmg.content.electricity.utilities.diode.ElectricDiodeBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGPackets;
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -41,7 +42,7 @@ public class FuseBlockEntity extends ElectricDiodeBlockEntity {
     public boolean makeElectricityTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 
         if(!fuse.isEmpty())
-            Lang.text("RATING "+TFMGUtils.formatUnits(fuse.getOrCreateTag().getInt("AmpRating"), "A"))
+            CreateLang.text("RATING "+TFMGUtils.formatUnits(fuse.getOrCreateTag().getInt("AmpRating"), "A"))
                     .style(ChatFormatting.RED)
                     .forGoggles(tooltip, 1);
 

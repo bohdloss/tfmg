@@ -2,6 +2,7 @@
 	"credit": "Made with Blockbench",
 	"parent": "create:block/large_wheels",
 	"texture_size": [32, 32],
+	"render_type": "minecraft:cutout",
 	"textures": {
 		"0": "tfmg:block/aluminum_coghweel",
 		"particle": "tfmg:block/aluminum_coghweel"

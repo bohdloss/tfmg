@@ -1,6 +1,7 @@
 package com.drmangotea.tfmg.content.electricity.utilities.fuse_block;
 
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -23,7 +24,7 @@ public class FuseItem extends Item{
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flag) {
 
-        tooltip.add(Lang.translateDirect("tooltip.fuse", stack.getOrCreateTag().getInt("AmpRating")).append("A")
+        tooltip.add(CreateLang.translateDirect("tooltip.fuse", stack.getOrCreateTag().getInt("AmpRating")).append("A")
                 .withStyle(ChatFormatting.GREEN)
         );
 

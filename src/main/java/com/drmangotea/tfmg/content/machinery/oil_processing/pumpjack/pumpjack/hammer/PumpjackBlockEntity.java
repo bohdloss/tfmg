@@ -18,8 +18,8 @@ import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
 import com.simibubi.create.content.kinetics.transmission.sequencer.SequencerInstructions;
 import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.ServerSpeedProvider;
+import net.createmod.catnip.math.AngleHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -349,86 +349,6 @@ public class PumpjackBlockEntity extends GeneratingKineticBlockEntity
         sendData();
         return false;
     }
-    ////////////////////////
-    //private boolean findHeadAndConnector() {
-    //    Direction direction = getBlockState().getValue(FACING);
-    //    BlockPos checkedPos = this.getBlockPos().above();
-    //    connectorPosition = null;
-    //    headPosition = null;
-    //    for (int i = 0; i < 7; i++) {
-    //        if (connectorPosition != null && headPosition != null
-    //        ) {
-    //            sendData();
-//
-    //            return true;
-    //        }
-//
-    //        if (i != 0)
-    //            if (level.getBlockState(checkedPos).getBlock() instanceof PumpjackHammerHeadBlock || (level.getBlockState(checkedPos).getBlock() instanceof LargePumpjackHammerHeadBlock)) {
-    //                headPosition = checkedPos;
-    //                headAtFront = true;
-    //                checkedPos = checkedPos.relative(direction);
-    //                sendData();
-    //                continue;
-    //            }
-    //        if (i != 0)
-    //            if (level.getBlockState(checkedPos).getBlock() instanceof PumpjackHammerConnectorBlock || level.getBlockState(checkedPos).getBlock() instanceof LargePumpjackHammerConnectorBlock) {
-    //                if (level.getBlockState(checkedPos).getValue(HorizontalDirectionalBlock.FACING).getAxis() == this.getBlockState().getValue(FACING).getAxis()) {
-    //                    connectorPosition = checkedPos;
-    //                    connectorAtFront = true;
-    //                    checkedPos = checkedPos.relative(direction);
-    //                    sendData();
-    //                    continue;
-    //                }
-    //            }
-    //        if (!(level.getBlockState(checkedPos).getBlock() instanceof PumpjackHammerPartBlock) && !(level.getBlockState(checkedPos).getBlock() instanceof LargePumpjackHammerPartBlock)) {
-    //            break;
-    //        } else {
-    //            if (level.getBlockState(checkedPos).getValue(HorizontalDirectionalBlock.FACING).getAxis() != this.getBlockState().getValue(FACING).getAxis()) {
-    //                break;
-    //            }
-    //        }
-    //        checkedPos = checkedPos.relative(direction);
-    //    }
-    //    checkedPos = this.getBlockPos().above();
-    //    for (int i = 0; i < 7; i++) {
-    //        if (connectorPosition != null && headPosition != null) {
-    //            sendData();
-    //            return true;
-    //        }
-    //        if (i != 0)
-    //            if (level.getBlockState(checkedPos).getBlock() instanceof PumpjackHammerHeadBlock || (level.getBlockState(checkedPos).getBlock() instanceof LargePumpjackHammerHeadBlock)) {
-    //                headPosition = checkedPos;
-    //                headAtFront = false;
-    //                checkedPos = checkedPos.relative(direction.getOpposite());
-//
-    //                sendData();
-    //                continue;
-    //            }
-    //        if (i != 0)
-    //            if (level.getBlockState(checkedPos).getBlock() instanceof PumpjackHammerConnectorBlock || level.getBlockState(checkedPos).getBlock() instanceof LargePumpjackHammerConnectorBlock) {
-    //                if (level.getBlockState(checkedPos).getValue(HorizontalDirectionalBlock.FACING).getAxis() == this.getBlockState().getValue(FACING).getAxis()) {
-    //                    connectorPosition = checkedPos;
-    //                    connectorAtFront = false;
-    //                    checkedPos = checkedPos.relative(direction.getOpposite());
-//
-    //                    sendData();
-    //                    continue;
-    //                }
-    //            }
-    //        if (!(level.getBlockState(checkedPos).getBlock() instanceof PumpjackHammerPartBlock) && !(level.getBlockState(checkedPos).getBlock() instanceof LargePumpjackHammerPartBlock)) {
-    //            break;
-    //        } else {
-    //            if (level.getBlockState(checkedPos).getValue(HorizontalDirectionalBlock.FACING).getAxis() != this.getBlockState().getValue(FACING).getAxis()) {
-//
-    //                break;
-    //            }
-    //        }
-    //        checkedPos = checkedPos.relative(direction.getOpposite());
-    //    }
-    //    sendData();
-    //    return false;
-    //}
 
     public void disassemble() {
         if (!running && movedContraption == null)

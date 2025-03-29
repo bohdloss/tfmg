@@ -1,17 +1,17 @@
 package com.drmangotea.tfmg.content.decoration.tanks.steel;
 
 import com.drmangotea.tfmg.registry.TFMGBlocks;
+import com.simibubi.create.api.boiler.BoilerHeater;
 import com.simibubi.create.api.connectivity.ConnectivityHandler;
-import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.BoilerHeaters;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.foundation.blockEntity.IMultiBlockEntityContainer;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
-import com.simibubi.create.foundation.utility.Iterate;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat.Chaser;
+import net.createmod.catnip.data.Iterate;
+import net.createmod.catnip.animation.LerpedFloat;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -90,7 +90,7 @@ public class SteelTankBlockEntity extends FluidTankBlockEntity implements IHaveG
     public void tick() {
         super.tick();
         getGaugeRotation();
-        visualGaugeRotation.chase(gaugeRotation, 0.2f, Chaser.EXP);
+        visualGaugeRotation.chase(gaugeRotation, 0.2f, LerpedFloat.Chaser.EXP);
         visualGaugeRotation.tickChaser();
         if (syncCooldown > 0) {
             syncCooldown--;
@@ -169,7 +169,7 @@ public class SteelTankBlockEntity extends FluidTankBlockEntity implements IHaveG
             if (fluidLevel == null)
                 fluidLevel = LerpedFloat.linear()
                         .startWithValue(getFillState());
-            fluidLevel.chase(getFillState(), .5f, Chaser.EXP);
+            fluidLevel.chase(getFillState(), .5f, LerpedFloat.Chaser.EXP);
         }
     }
 
@@ -352,7 +352,7 @@ public class SteelTankBlockEntity extends FluidTankBlockEntity implements IHaveG
             for (int zOffset = 0; zOffset < be.width; zOffset++) {
                 BlockPos pos = pos1.offset(xOffset, -1, zOffset);
                 BlockState blockState = level.getBlockState(pos);
-                float heat = BoilerHeaters.getActiveHeat(level, pos, blockState);
+                float heat = BoilerHeater.findHeat(level, pos, blockState);
                 if (heat > 0) {
                     activeHeat += heat;
                 }
@@ -468,7 +468,7 @@ public class SteelTankBlockEntity extends FluidTankBlockEntity implements IHaveG
             if (compound.contains("ForceFluidLevel") || fluidLevel == null)
                 fluidLevel = LerpedFloat.linear()
                         .startWithValue(fillState);
-            fluidLevel.chase(fillState, 0.5f, Chaser.EXP);
+            fluidLevel.chase(fillState, 0.5f, LerpedFloat.Chaser.EXP);
         }
         if (luminosity != prevLum && hasLevel())
             level.getChunkSource()
@@ -476,7 +476,7 @@ public class SteelTankBlockEntity extends FluidTankBlockEntity implements IHaveG
                     .checkBlock(worldPosition);
 
         if (compound.contains("LazySync"))
-            fluidLevel.chase(fluidLevel.getChaseTarget(), 0.125f, Chaser.EXP);
+            fluidLevel.chase(fluidLevel.getChaseTarget(), 0.125f, LerpedFloat.Chaser.EXP);
     }
     public void getGaugeRotation() {
 
@@ -531,7 +531,7 @@ public class SteelTankBlockEntity extends FluidTankBlockEntity implements IHaveG
         //registerAwardables(behaviours, AllAdvancements.STEAM_ENGINE_MAXED, AllAdvancements.PIPE_ORGAN);
     }
 
-    public IFluidTank getTankInventory() {
+    public FluidTank getTankInventory() {
         return tankInventory;
     }
     public int getTotalTankSize() {

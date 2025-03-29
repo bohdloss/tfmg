@@ -1,11 +1,11 @@
 package com.drmangotea.tfmg.content.electricity.utilities.polarizer;
 
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
-import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import com.simibubi.create.foundation.render.CachedBufferer;
+import dev.engine_room.flywheel.lib.transform.TransformStack;
+import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -29,13 +29,13 @@ public class PolarizerRenderer extends SafeBlockEntityRenderer<PolarizerBlockEnt
 							  int light, int overlay) {
 		BlockState blockState = be.getBlockState();
 		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
-		CachedBufferer.partial(TFMGPartialModels.POLARIZER_DIAL,blockState)
-				.centre()
-				.rotateY(blockState.getValue(FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot() - 180) : blockState.getValue(FACING).toYRot())
-				.translateY(-0.025)
-				.rotateZ(be.angle.getValue(partialTicks))
-				.translateX(0.05)
-				.unCentre()
+		CachedBuffers.partial(TFMGPartialModels.POLARIZER_DIAL,blockState)
+				.center()
+				.rotateYDegrees(blockState.getValue(FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot() - 180) : blockState.getValue(FACING).toYRot())
+				.translateY(-0.025f)
+				.rotateZDegrees(be.angle.getValue(partialTicks))
+				.translateX(0.05f)
+				.uncenter()
 				.renderInto(ms, vb);
 		ItemStack heldItem = be.inventory.getItem(0);
 		if (heldItem.isEmpty())
@@ -49,11 +49,11 @@ public class PolarizerRenderer extends SafeBlockEntityRenderer<PolarizerBlockEnt
 		ms.pushPose();
 
 
-		TransformStack msr = TransformStack.cast(ms)
-			.centre()
-			.rotateY(blockState.getValue(HorizontalDirectionalBlock.FACING).getAxis()== Direction.Axis.X ? 90 : 0)
+		var msr = TransformStack.of(ms)
+			.center()
+			.rotateYDegrees(blockState.getValue(HorizontalDirectionalBlock.FACING).getAxis()== Direction.Axis.X ? 90 : 0)
 			.translate(0, 0.4, 0)
-			.rotateX(90)
+			.rotateXDegrees(90)
 			.scale(blockItem ? .5f : .375f);
 
 		itemRenderer.renderStatic(heldItem, ItemDisplayContext.FIXED, light, overlay, ms, buffer,be.getLevel(), 0);

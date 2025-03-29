@@ -8,8 +8,9 @@ import com.drmangotea.tfmg.recipes.PolarizingRecipe;
 import com.drmangotea.tfmg.registry.TFMGRecipeTypes;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipe;
 import com.simibubi.create.foundation.item.SmartInventory;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
+
+import com.simibubi.create.foundation.utility.CreateLang;
+import net.createmod.catnip.animation.LerpedFloat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -87,9 +88,9 @@ public class PolarizerBlockEntity extends ElectricBlockEntity {
     @Override
     public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 
-        Lang.number((double) capacitorPercentage / 2f).forGoggles(tooltip);
+        CreateLang.number((double) capacitorPercentage / 2f).forGoggles(tooltip);
         if (chargeCapacitors)
-            Lang.text("CAPACITOR").forGoggles(tooltip);
+            CreateLang.text("CAPACITOR").forGoggles(tooltip);
 
         super.addToTooltip(tooltip, isPlayerSneaking);
 

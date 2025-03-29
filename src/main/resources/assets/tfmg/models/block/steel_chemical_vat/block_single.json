@@ -2,10 +2,9 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"0": "tfmg:block/steel_fluid_tank_top",
-		"1": "tfmg:block/steel_fluid_tank",
-		"4": "tfmg:block/steel_fluid_tank_inner",
-		"particle": "tfmg:block/steel_fluid_tank"
+		"1": "tfmg:block/steel_vat",
+		"4": "tfmg:block/steel_vat_top",
+		"particle": "tfmg:block/steel_vat"
 	},
 	"elements": [
 		{
@@ -19,7 +18,7 @@
 				"south": {"uv": [0, 12, 16, 16], "texture": "#1", "cullface": "south"},
 				"west": {"uv": [0, 12, 16, 16], "texture": "#1", "cullface": "west"},
 				"up": {"uv": [0, 0, 16, 16], "texture": "#4"},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#0", "cullface": "down"}
+				"down": {"uv": [0, 0, 16, 16], "texture": "#4", "cullface": "down"}
 			}
 		},
 		{
@@ -62,7 +61,7 @@
 				"east": {"uv": [0, 0, 16, 4], "texture": "#1", "cullface": "east"},
 				"south": {"uv": [0, 0, 16, 4], "texture": "#1", "cullface": "south"},
 				"west": {"uv": [0, 0, 16, 4], "texture": "#1", "cullface": "west"},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#0", "cullface": "up"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#4", "cullface": "up"},
 				"down": {"uv": [0, 0, 16, 16], "texture": "#4"}
 			}
 		},

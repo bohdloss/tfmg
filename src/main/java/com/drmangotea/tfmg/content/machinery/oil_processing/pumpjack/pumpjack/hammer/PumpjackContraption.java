@@ -3,11 +3,9 @@ package com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.h
 
 
 import com.drmangotea.tfmg.base.TFMGContraptions;
+import com.simibubi.create.api.contraption.ContraptionType;
 import com.simibubi.create.content.contraptions.AssemblyException;
-import com.simibubi.create.content.contraptions.ContraptionType;
-import com.simibubi.create.content.contraptions.bearing.AnchoredLighter;
 import com.simibubi.create.content.contraptions.bearing.BearingContraption;
-import com.simibubi.create.content.contraptions.render.ContraptionLighter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -36,7 +34,7 @@ public class PumpjackContraption extends BearingContraption {
 
 	@Override
 	public ContraptionType getType() {
-		return TFMGContraptions.PUMPJACK_CONTRAPTION;
+		return TFMGContraptions.PUMPJACK_CONTRAPTION.get();
 	}
 
 	@Override
@@ -44,9 +42,5 @@ public class PumpjackContraption extends BearingContraption {
 		return pos.equals(anchor.below());
 	}
 
-    @OnlyIn(Dist.CLIENT)
-	@Override
-	public ContraptionLighter<?> makeLighter() {
-		return new AnchoredLighter(this);
-	}
+
 }

@@ -3,8 +3,8 @@ package com.drmangotea.tfmg.mixin;
 
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.registry.TFMGItems;
+import com.simibubi.create.api.equipment.goggles.IProxyHoveringInformation;
 import com.simibubi.create.content.equipment.goggles.GoggleOverlayRenderer;
-import com.simibubi.create.content.equipment.goggles.IProxyHoveringInformation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.ClientLevel;

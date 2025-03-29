@@ -35,23 +35,7 @@ public class EngineControllerBindPacket extends EngineControllerPacketBase {
 		buffer.writeBlockPos(linkLocation);
 	}
 
-	@Override
-	protected void handleItem(ServerPlayer player, ItemStack heldItem) {
-		if (player.isSpectator())
-			return;
 
-		ItemStackHandler frequencyItems = LinkedControllerItem.getFrequencyItems(heldItem);
-		LinkBehaviour linkBehaviour = BlockEntityBehaviour.get(player.level(), linkLocation, LinkBehaviour.TYPE);
-		if (linkBehaviour == null)
-			return;
-
-		linkBehaviour.getNetworkKey()
-			.forEachWithContext((f, first) -> frequencyItems.setStackInSlot(button * 2 + (first ? 0 : 1), f.getStack()
-				.copy()));
-
-		heldItem.getTag()
-			.put("Items", frequencyItems.serializeNBT());
-	}
 
 	@Override
 	protected void handleController(ServerPlayer player, EngineControllerBlockEntity lectern) {}

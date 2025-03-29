@@ -5,7 +5,7 @@ import com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineBlockEnti
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.foundation.render.CachedBufferer;
+import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
@@ -36,13 +36,13 @@ public class GeneratorEngineUpgrade extends EngineUpgrade {
             side = blockEntity.type.upgradesOnSide;
         }
 
-        CachedBufferer.partial(TFMGPartialModels.ENGINE_GENERATOR, state)
-                .centre()
+        CachedBuffers.partial(TFMGPartialModels.ENGINE_GENERATOR, state)
+                .center()
                 .translateY(side ? -2/16f :0)
-                .rotateY(facing.toYRot())
-                .rotateZ(side ? 90 : 0)
+                .rotateYDegrees(facing.toYRot())
+                .rotateZDegrees(side ? 90 : 0)
                 .translateY(side ? 4 / 16f : 0)
-                .unCentre()
+                .uncenter()
                 .light(light)
                 .renderInto(ms, buffer.getBuffer(RenderType.solid()));
 

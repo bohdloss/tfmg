@@ -1,8 +1,8 @@
 package com.drmangotea.tfmg.config;
 
-import com.simibubi.create.content.kinetics.BlockStressValues;
-import com.simibubi.create.foundation.config.ConfigBase;
+import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.infrastructure.config.CCommon;
+import net.createmod.catnip.config.ConfigBase;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TFMGConfigs {
 
-	private static final Map<ModConfig.Type, ConfigBase> CONFIGS = new EnumMap<>(ModConfig.Type.class);
+	private static final Map<ModConfig.Type, net.createmod.catnip.config.ConfigBase> CONFIGS = new EnumMap<>(ModConfig.Type.class);
 
 	private static TFMGServerConfig server;
 	private static TFMGCommonConfig common;
@@ -55,8 +55,9 @@ public class TFMGConfigs {
 		common = register(TFMGCommonConfig::new, ModConfig.Type.COMMON);
 		for (Map.Entry<ModConfig.Type, ConfigBase> pair : CONFIGS.entrySet())
 			context.registerConfig(pair.getKey(), pair.getValue().specification);
-
-		BlockStressValues.registerProvider(context.getActiveNamespace(), server().stressValues);
+		TFMGStress stress = TFMGConfigs.server().stressValues;
+		BlockStressValues.IMPACTS.registerProvider(stress::getImpact);
+		BlockStressValues.CAPACITIES.registerProvider(stress::getCapacity);
 	}
 
 	@SubscribeEvent

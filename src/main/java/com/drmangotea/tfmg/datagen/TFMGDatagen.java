@@ -1,26 +1,22 @@
 package com.drmangotea.tfmg.datagen;
 
-import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGRegistrateTags;
 import com.drmangotea.tfmg.datagen.recipes.TFMGProcessingRecipeGen;
+import com.drmangotea.tfmg.datagen.recipes.TFMGRecipeProvider;
 import com.drmangotea.tfmg.datagen.recipes.values.*;
-import com.drmangotea.tfmg.ponder.TFMGPonderIndex;
-import com.drmangotea.tfmg.ponder.TFMGPonderTag;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.simibubi.create.Create;
-import com.simibubi.create.foundation.ponder.PonderLocalization;
 import com.simibubi.create.foundation.utility.FilesHelper;
-import com.simibubi.create.infrastructure.ponder.AllPonderTags;
-import com.simibubi.create.infrastructure.ponder.GeneralText;
-import com.simibubi.create.infrastructure.ponder.PonderIndex;
-import com.simibubi.create.infrastructure.ponder.SharedText;
 import com.tterrag.registrate.providers.ProviderType;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.data.event.GatherDataEvent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
@@ -28,7 +24,7 @@ import java.util.function.BiConsumer;
 import static com.drmangotea.tfmg.TFMG.REGISTRATE;
 
 public class TFMGDatagen {
-
+    protected static final List<TFMGRecipeProvider> RECIPE_GENERATORS = new ArrayList<>();
     public static void gatherData(GatherDataEvent event) {
         addExtraRegistrateData();
         DataGenerator generator = event.getGenerator();
@@ -40,12 +36,35 @@ public class TFMGDatagen {
             //lookupProvider = generatedEntriesProvider.getRegistryProvider();
             generator.addProvider(true, generatedEntriesProvider);
 
-            //generator.addProvider(true, new DamageTypeTagGen(output, lookupProvider, existingFileHelper));
-            generator.addProvider(true, new IndustrialBlastingRecipeGen(output));
-            generator.addProvider(true, new CastingRecipeGen(output));
-            generator.addProvider(true, new VatRecipeGen(output));
-            generator.addProvider(true, new TFMGStandardRecipeGen(output));
+          //  generator.addProvider(true, new DamageTypeTagGen(output, lookupProvider, existingFileHelper));
+
+            RECIPE_GENERATORS.add(new IndustrialBlastingRecipeGen(output));
+            RECIPE_GENERATORS.add(new CastingRecipeGen(output));
+            RECIPE_GENERATORS.add(new VatRecipeGen(output));
+            RECIPE_GENERATORS.add(new TFMGStandardRecipeGen(output));
+
             generator.addProvider(true, new TFMGSequencedAssemblyRecipeGen(output));
+
+            generator.addProvider(true, new DataProvider() {
+
+                @Override
+                public String getName() {
+                    return "TFMG's Recipes";
+                }
+
+                @Override
+                public CompletableFuture<?> run(CachedOutput dc) {
+                    return CompletableFuture.allOf(RECIPE_GENERATORS.stream()
+                            .map(gen -> gen.run(dc))
+                            .toArray(CompletableFuture[]::new));
+                }
+            });
+
+            //generator.addProvider(true, new IndustrialBlastingRecipeGen(output));
+            //generator.addProvider(true, new CastingRecipeGen(output));
+            //generator.addProvider(true, new VatRecipeGen(output));
+            //generator.addProvider(true, new TFMGStandardRecipeGen(output));
+            //generator.addProvider(true, new TFMGSequencedAssemblyRecipeGen(output));
             TFMGProcessingRecipeGen.registerAll(generator, output);
         }
 
@@ -65,11 +84,11 @@ public class TFMGDatagen {
     }
 
     private static void providePonderLang(BiConsumer<String, String> consumer) {
-        TFMGPonderIndex.registerTags();
-        TFMGPonderIndex.register();
-        PonderLocalization.generateSceneLang();
-
-        PonderLocalization.provideLang(TFMG.MOD_ID, consumer);
+        //TFMGPonderIndex.registerTags();
+        //TFMGPonderIndex.register();
+        //PonderLocalization.generateSceneLang();
+//
+        //PonderLocalization.provideLang(TFMG.MOD_ID, consumer);
     }
 
     private static void provideDefaultLang(String fileName, BiConsumer<String, String> consumer) {

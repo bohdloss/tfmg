@@ -1,13 +1,13 @@
 package com.drmangotea.tfmg.content.electricity.measurement;
 
-import com.drmangotea.tfmg.TFMG;
-import com.drmangotea.tfmg.content.electricity.base.ElectricalNetwork;
+import com.drmangotea.tfmg.base.TFMGUtils;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
-import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
+
+import com.simibubi.create.foundation.utility.CreateLang;
+import net.createmod.catnip.animation.LerpedFloat;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -27,9 +27,11 @@ public class VoltMeterBlockEntity extends SmartBlockEntity implements IHaveGoggl
     public LerpedFloat angle = LerpedFloat.angular();
 
 
-    public int value = 0;
+    public float value = 0;
 
-    public int range = 500;
+   // public int range = 500;
+
+    public MeasureMode mode = MeasureMode.VOLTAGE;
 
     public VoltMeterBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -53,13 +55,18 @@ public class VoltMeterBlockEntity extends SmartBlockEntity implements IHaveGoggl
            // TFMG.LOGGER.debug("A "+ ElectricalNetwork.getCableCurrent(be));
            // TFMG.LOGGER.debug("id group "+be.getData().group.id);
            // TFMG.LOGGER.debug("resistance group "+be.getData().group.resistance);
-            value = Math.min(getUnit(be), range );
+            value = Math.min(getUnit(be), mode.defaultRange );
 
         } else value = 0;
 
     }
-    public int getUnit(IElectric be){
-        return be.getData().getVoltage();
+    public float getUnit(IElectric be){
+        return switch (mode){
+            case VOLTAGE,HIGH_VOLTAGE -> be.getData().getVoltage();
+            case CURRENT -> be.getCurrent();
+            case RESISTANCE,HIGH_RESISTANCE ->  be.resistance();
+            case POWER -> be.powerGeneration() > 0 ? be.powerGeneration() : be.getPowerUsage();
+        };
     }
 
     @Override
@@ -68,70 +75,61 @@ public class VoltMeterBlockEntity extends SmartBlockEntity implements IHaveGoggl
         if(!level.isClientSide)
             return;
 
-
-
         float value = (float) Math.abs(this.value) / getRange();
-
         if(value>1)
             value = 1;
 
         float targetAngle = Math.abs(value*180);
 
-
-
         angle.chase(Math.abs(targetAngle),0.05f, LerpedFloat.Chaser.EXP);
         angle.tickChaser();
-
-
 
     }
 
 
     public int getRange(){
-        return range;
-    }
-
-    @Override
-    public void write(CompoundTag compound, boolean clientPacket) {
-        super.write(compound, clientPacket);
-
-
-        compound.putInt("range",range);
-        compound.putFloat("angle", (float) Math.abs(value) / getRange());
-
-    }
-
-    @Override
-    protected void read(CompoundTag compound, boolean clientPacket) {
-        super.read(compound, clientPacket);
-        range = compound.getInt("range");
-
-        angle.setValue(compound.getFloat("angle"));
-
-
-
-
+        return mode.defaultRange;
     }
 
     @Override
     @SuppressWarnings("removal")
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 
-        Lang.translate("goggles.voltmeter")
+        CreateLang.text(mode.displayName)
                 .style(ChatFormatting.DARK_GRAY)
                 .forGoggles(tooltip, 1);
 
-        Lang.translate("goggles.voltmeter.voltage", Math.min(value,range))
+        CreateLang.translate("goggles.gauge.value")
+                .add(CreateLang.text(TFMGUtils.formatUnits(value,mode.unit)))
                 .style(ChatFormatting.AQUA)
                 .forGoggles(tooltip, 1);
-        Lang.translate("goggles.voltmeter.range", range)
+        CreateLang.translate("goggles.voltmeter.range", mode.defaultRange)
                 .style(ChatFormatting.DARK_AQUA)
                 .forGoggles(tooltip, 1);
 
-
-
-
-
         return true;
+    }
+
+    public enum MeasureMode{
+
+        VOLTAGE("Voltage","V",500),
+        HIGH_VOLTAGE("Voltage (High)","V",10000),
+        CURRENT("Current","A",16),
+        RESISTANCE("Resistance","A",500),
+        HIGH_RESISTANCE("Resistance (High)","Ω",500),
+        POWER("Power","A",5000)
+
+
+        ;
+        public final String displayName;
+        public final String unit;
+        public final int defaultRange;
+
+        MeasureMode(String displayName, String unit, int defaultRange){
+            this.unit = unit;
+            this.displayName = displayName;
+            this.defaultRange = defaultRange;
+        }
+
     }
 }

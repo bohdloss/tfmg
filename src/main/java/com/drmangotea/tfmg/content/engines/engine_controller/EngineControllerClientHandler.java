@@ -1,30 +1,24 @@
 package com.drmangotea.tfmg.content.engines.engine_controller;
 
 import com.drmangotea.tfmg.TFMG;
-import com.drmangotea.tfmg.content.engines.engine_controller.packets.EngineControllerBindPacket;
-import com.drmangotea.tfmg.content.engines.engine_controller.packets.EngineControllerInputPacket;
-import com.drmangotea.tfmg.content.engines.engine_controller.packets.EngineControllerStopControllerPacket;
+import com.drmangotea.tfmg.content.engines.engine_controller.packets.*;
+import com.drmangotea.tfmg.registry.TFMGBlocks;
+import com.drmangotea.tfmg.registry.TFMGKeys;
 import com.drmangotea.tfmg.registry.TFMGPackets;
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.*;
 import com.simibubi.create.content.redstone.link.LinkBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.item.TooltipHelper;
-import com.simibubi.create.foundation.utility.Components;
 import com.simibubi.create.foundation.utility.ControlsUtil;
-import com.simibubi.create.foundation.utility.Lang;
-import net.minecraft.ChatFormatting;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Options;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.*;
@@ -35,7 +29,7 @@ public class EngineControllerClientHandler {
     public static Mode MODE = Mode.IDLE;
     public static int PACKET_RATE = 5;
     public static Collection<Integer> currentlyPressed = new HashSet<>();
-    private static BlockPos controllerPos;
+    public static BlockPos controllerPos;
     private static BlockPos selectedLocation = BlockPos.ZERO;
     private static int packetCooldown;
 
@@ -69,24 +63,24 @@ public class EngineControllerClientHandler {
     }
 
     public static void deactivateInLectern() {
-        if (MODE == Mode.ACTIVE && inLectern()) {
+        if (MODE == Mode.ACTIVE && isController()) {
             MODE = Mode.IDLE;
             TFMG.LOGGER.debug("DEACTIVATE");
             onReset();
         }
     }
 
-    public static boolean inLectern() {
+    public static boolean isController() {
         return controllerPos != null;
     }
 
     protected static void onReset() {
-        ControlsUtil.getControls()
+        getControls()
                 .forEach(kb -> kb.setDown(ControlsUtil.isActuallyPressed(kb)));
         packetCooldown = 0;
         selectedLocation = BlockPos.ZERO;
-
-        if (inLectern())
+        TFMG.LOGGER.debug("OnReset");
+        if (isController())
             TFMGPackets.getChannel().sendToServer(new EngineControllerStopControllerPacket(controllerPos));
         controllerPos = null;
 
@@ -94,11 +88,11 @@ public class EngineControllerClientHandler {
             TFMGPackets.getChannel().sendToServer(new EngineControllerInputPacket(currentlyPressed, false));
         currentlyPressed.clear();
 
-  //      LinkedControllerItemRenderer.resetButtons();
+        //      LinkedControllerItemRenderer.resetButtons();
     }
 
     public static void tick() {
-    //    LinkedControllerItemRenderer.tick();
+        //    LinkedControllerItemRenderer.tick();
 
         if (MODE == Mode.IDLE)
             return;
@@ -116,7 +110,7 @@ public class EngineControllerClientHandler {
             return;
         }
 
-        if (!inLectern() && !AllItems.LINKED_CONTROLLER.isIn(heldItem)) {
+        if (!isController() && !AllItems.LINKED_CONTROLLER.isIn(heldItem)) {
             heldItem = player.getOffhandItem();
             if (!AllItems.LINKED_CONTROLLER.isIn(heldItem)) {
                 MODE = Mode.IDLE;
@@ -126,7 +120,7 @@ public class EngineControllerClientHandler {
             }
         }
 
-        if (inLectern() && AllBlocks.LECTERN_CONTROLLER.get()
+        if (isController() && TFMGBlocks.ENGINE_CONTROLLER.get()
                 .getBlockEntityOptional(mc.level, controllerPos)
                 .map(be -> !be.isUsedBy(mc.player))
                 .orElse(true)) {
@@ -149,7 +143,7 @@ public class EngineControllerClientHandler {
             return;
         }
 
-        Vector<KeyMapping> controls = ControlsUtil.getControls();
+        Vector<KeyMapping> controls = getControls();
         Collection<Integer> pressedKeys = new HashSet<>();
         for (int i = 0; i < controls.size(); i++) {
             if (ControlsUtil.isActuallyPressed(controls.get(i)))
@@ -165,13 +159,42 @@ public class EngineControllerClientHandler {
             // Released Keys
             if (!releasedKeys.isEmpty()) {
                 TFMGPackets.getChannel().sendToServer(new EngineControllerInputPacket(releasedKeys, false, controllerPos));
+                if(player.level().getBlockEntity(controllerPos) instanceof EngineControllerBlockEntity be){
+
+                    be.handleInput(releasedKeys,false);
+                }
                 AllSoundEvents.CONTROLLER_CLICK.playAt(player.level(), player.blockPosition(), 1f, .5f, true);
+
             }
 
             // Newly Pressed Keys
             if (!newKeys.isEmpty()) {
                 TFMGPackets.getChannel().sendToServer(new EngineControllerInputPacket(newKeys, true, controllerPos));
+                if(player.level().getBlockEntity(controllerPos) instanceof EngineControllerBlockEntity be){
+                    be.handleInput(newKeys,true);
+                }
+                if (newKeys.contains(5) || newKeys.contains(6)) {
+                    TFMGPackets.getChannel().sendToServer(new TransmissionShiftPacket(newKeys, controllerPos));
+                    if(player.level().getBlockEntity(controllerPos) instanceof EngineControllerBlockEntity be){
+
+                        if(newKeys.contains(6)) {
+                            be.shiftBack();
+                        }else {
+
+                            be.shiftForward();
+
+                        }
+                    }
+                }
+                if(newKeys.contains(8)){
+                    TFMG.LOGGER.debug("BBBBBBBBBBBBBBBBBBBBBB");
+                    TFMGPackets.getChannel().sendToServer(new EngineStartPacket(controllerPos));
+                    if(player.level().getBlockEntity(controllerPos) instanceof EngineControllerBlockEntity be){
+                        be.toggleEngine();
+                    }
+                }
                 packetCooldown = PACKET_RATE;
+
                 AllSoundEvents.CONTROLLER_CLICK.playAt(player.level(), player.blockPosition(), 1f, .75f, true);
             }
 
@@ -179,6 +202,9 @@ public class EngineControllerClientHandler {
             if (packetCooldown == 0) {
                 if (!pressedKeys.isEmpty()) {
                     TFMGPackets.getChannel().sendToServer(new EngineControllerInputPacket(pressedKeys, true, controllerPos));
+                    if(player.level().getBlockEntity(controllerPos) instanceof EngineControllerBlockEntity be){
+                        be.handleInput(newKeys,true);
+                    }
                     packetCooldown = PACKET_RATE;
                 }
             }
@@ -187,17 +213,13 @@ public class EngineControllerClientHandler {
         if (MODE == Mode.BIND) {
             VoxelShape shape = mc.level.getBlockState(selectedLocation)
                     .getShape(mc.level, selectedLocation);
-            if (!shape.isEmpty())
-                CreateClient.OUTLINER.showAABB("controller", shape.bounds()
-                                .move(selectedLocation))
-                        .colored(0xB73C2D)
-                        .lineWidth(1 / 16f);
+
 
             for (Integer integer : newKeys) {
                 LinkBehaviour linkBehaviour = BlockEntityBehaviour.get(mc.level, selectedLocation, LinkBehaviour.TYPE);
                 if (linkBehaviour != null) {
                     TFMGPackets.getChannel().sendToServer(new EngineControllerBindPacket(integer, selectedLocation));
-                    Lang.translate("linked_controller.key_bound", controls.get(integer)
+                    CreateLang.translate("linked_controller.key_bound", controls.get(integer)
                                     .getTranslatedKeyMessage()
                                     .getString())
                             .sendStatus(mc.player);
@@ -211,46 +233,24 @@ public class EngineControllerClientHandler {
         controls.forEach(kb -> kb.setDown(false));
     }
 
-    public static void renderOverlay(ForgeGui gui, GuiGraphics graphics, float partialTicks, int width1,
-                                     int height1) {
-        Minecraft mc = Minecraft.getInstance();
-        if (mc.options.hideGui)
-            return;
+    private static Vector<KeyMapping> standardControls;
 
-        if (MODE != Mode.BIND)
-            return;
-
-        PoseStack poseStack = graphics.pose();
-        poseStack.pushPose();
-        Screen tooltipScreen = new Screen(Components.immutableEmpty()) {
-        };
-        tooltipScreen.init(mc, width1, height1);
-
-        Object[] keys = new Object[6];
-        Vector<KeyMapping> controls = ControlsUtil.getControls();
-        for (int i = 0; i < controls.size(); i++) {
-            KeyMapping keyBinding = controls.get(i);
-            keys[i] = keyBinding.getTranslatedKeyMessage()
-                    .getString();
+    public static Vector<KeyMapping> getControls() {
+        if (standardControls == null) {
+            Options gameSettings = Minecraft.getInstance().options;
+            standardControls = new Vector<>(6);
+            standardControls.add(gameSettings.keyUp);//0
+            standardControls.add(gameSettings.keyDown);//1
+            standardControls.add(gameSettings.keyLeft);//2
+            standardControls.add(gameSettings.keyRight);//3
+            standardControls.add(gameSettings.keyJump);//4
+            standardControls.add(TFMGKeys.TRANSMISSION_SHIFT_UP.getKeybind());//5
+            standardControls.add(TFMGKeys.TRANSMISSION_SHIFT_DOWN.getKeybind());//6
+            standardControls.add(TFMGKeys.ENGINE_CONTROLLER_CUSTOM_BUTTON.getKeybind());//7
+            standardControls.add(TFMGKeys.ENGINE_START.getKeybind());//8
+            standardControls.add(gameSettings.keyShift);//9
         }
-
-        List<Component> list = new ArrayList<>();
-        list.add(Lang.translateDirect("linked_controller.bind_mode")
-                .withStyle(ChatFormatting.GOLD));
-        list.addAll(TooltipHelper.cutTextComponent(Lang.translateDirect("linked_controller.press_keybind", keys),
-                TooltipHelper.Palette.ALL_GRAY));
-
-        int width = 0;
-        int height = list.size() * mc.font.lineHeight;
-        for (Component iTextComponent : list)
-            width = Math.max(width, mc.font.width(iTextComponent));
-        int x = (width1 / 3) - width / 2;
-        int y = height1 - height - 24;
-
-
-        graphics.renderComponentTooltip(Minecraft.getInstance().font, list, x, y);
-
-        poseStack.popPose();
+        return standardControls;
     }
 
     public enum Mode {

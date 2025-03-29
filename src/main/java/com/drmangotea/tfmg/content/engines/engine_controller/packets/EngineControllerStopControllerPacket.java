@@ -23,7 +23,6 @@ public class EngineControllerStopControllerPacket extends EngineControllerPacket
 		lectern.tryStopUsing(player);
 	}
 
-	@Override
-	protected void handleItem(ServerPlayer player, ItemStack heldItem) { }
+
 
 }

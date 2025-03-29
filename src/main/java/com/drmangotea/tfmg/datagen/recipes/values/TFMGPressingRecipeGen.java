@@ -3,29 +3,32 @@ package com.drmangotea.tfmg.datagen.recipes.values;
 import com.drmangotea.tfmg.datagen.recipes.TFMGProcessingRecipeGen;
 import com.simibubi.create.AllRecipeTypes;
 import net.minecraft.data.PackOutput;
-import net.minecraft.world.item.Items;
 
+import static com.drmangotea.tfmg.datagen.recipes.TFMGRecipeProvider.I.*;
 
 public class TFMGPressingRecipeGen extends TFMGProcessingRecipeGen {
 
-	//GeneratedRecipe
+    GeneratedRecipe
+            
+            CAST_IRON_SHEET = create("cast_iron_ingot", b -> b.require(castIronIngot())
+            .output(castIronSheetTFMG()).duration(50)),
 
-//	SUGAR_CANE = create(() -> Items.SUGAR_CANE, b -> b.output(Items.PAPER))
-	//,
+    ALUMINUM_SHEET = create("aluminum_ingot", b -> b.require(aluminumIngot())
+            .output(aluminumSheetTFMG()).duration(50)),
 
+    LEAD_SHEET = create("lead_ingot", b -> b.require(castIronIngot())
+            .output(castIronSheetTFMG()).duration(50)),
 
-		//BRASS = create("brass_ingot", b -> b.require(brass())
-		//	.output(AllItems.BRASS_SHEET.get()).duration(50))
+    NICKEL_SHEET = create("nickel_ingot", b -> b.require(castIronIngot())
+            .output(castIronSheetTFMG()).duration(50));
 
-	//;
+    public TFMGPressingRecipeGen(PackOutput output) {
+        super(output);
+    }
 
-	public TFMGPressingRecipeGen(PackOutput output) {
-		super(output);
-	}
-
-	@Override
-	protected AllRecipeTypes getRecipeType() {
-		return AllRecipeTypes.PRESSING;
-	}
+    @Override
+    protected AllRecipeTypes getRecipeType() {
+        return AllRecipeTypes.PRESSING;
+    }
 
 }

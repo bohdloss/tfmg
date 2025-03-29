@@ -40,7 +40,7 @@ public class ConverterBlock extends TFMGHorizontalDirectionalBlock implements IB
     @Override
     public InteractionResult onWrenched(BlockState state, UseOnContext context) {
         context.getLevel().setBlockAndUpdate(context.getClickedPos(), state.setValue(INPUT, !state.getValue(INPUT)));
-        playRotateSound(context.getLevel(), context.getClickedPos());
+        IWrenchable.playRotateSound(context.getLevel(), context.getClickedPos());
         return InteractionResult.SUCCESS;
     }
 

@@ -38,13 +38,13 @@ public class CastingCategory extends CreateRecipeCategory<CastingRecipe> {
                 .setBackground(getRenderedSlot(), -1, -1)
                 .addItemStack(recipe.getResultItem(registryAccess));
 
-
-        builder
-                .addSlot(RecipeIngredientRole.INPUT, 15, 20)
-                .setBackground(getRenderedSlot(), -1, -1)
-                .addIngredients(ForgeTypes.FLUID_STACK, withImprovedVisibility(recipe.getFluidIngredients().get(0).getMatchingFluidStacks()))
-                .addTooltipCallback(addFluidTooltip(recipe.getFluidIngredients().get(0).getRequiredAmount()));
-
+        addFluidSlot(builder,15,20,recipe.getFluidIngredients().get(0));
+        //builder
+        //        .addSlot(RecipeIngredientRole.INPUT, 15, 20)
+        //        .setBackground(getRenderedSlot(), -1, -1)
+        //        .addIngredients(ForgeTypes.FLUID_STACK, withImprovedVisibility(recipe.getFluidIngredients().get(0).getMatchingFluidStacks()))
+        //        .addRichTooltipCallback(addFluidTooltip(recipe.getFluidIngredients().get(0).getRequiredAmount()));
+//
 
     }
 

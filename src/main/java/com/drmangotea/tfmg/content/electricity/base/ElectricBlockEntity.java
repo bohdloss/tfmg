@@ -2,7 +2,7 @@ package com.drmangotea.tfmg.content.electricity.base;
 
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.registry.TFMGPackets;
-import com.simibubi.create.content.equipment.goggles.IHaveHoveringInformation;
+import com.simibubi.create.api.equipment.goggles.IHaveHoveringInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
@@ -240,7 +240,6 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     public void tick() {
         super.tick();
         if (data.connectNextTick) {
-            TFMG.LOGGER.debug("AAAAAAA");
             onPlaced();
             data.connectNextTick = false;
         }

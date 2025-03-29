@@ -3,7 +3,8 @@ package com.drmangotea.tfmg.content.engines;
 import com.drmangotea.tfmg.content.items.weapons.flamethrover.FlamethrowerItem;
 import com.drmangotea.tfmg.registry.TFMGItems;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import com.tterrag.registrate.util.entry.FluidEntry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -37,7 +38,7 @@ public class FluidContainingItem extends Item {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Lang.translateDirect("tooltip.fluid_item", stack.getOrCreateTag().getInt("amount"))
+        tooltip.add(CreateLang.translateDirect("tooltip.fluid_item", stack.getOrCreateTag().getInt("amount"))
                 .withStyle(ChatFormatting.GREEN)
         );
         super.appendHoverText(stack, world, tooltip, flag);

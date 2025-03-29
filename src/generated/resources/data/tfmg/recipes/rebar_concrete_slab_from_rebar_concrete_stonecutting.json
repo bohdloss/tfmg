@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 2,
-  "ingredient": {
-    "item": "tfmg:rebar_concrete"
-  },
-  "result": "tfmg:rebar_concrete_slab"
-}

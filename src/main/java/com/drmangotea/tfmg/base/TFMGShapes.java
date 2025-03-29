@@ -1,7 +1,7 @@
 package com.drmangotea.tfmg.base;
 
 
-import com.simibubi.create.foundation.utility.VoxelShaper;
+import net.createmod.catnip.math.VoxelShaper;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.world.level.block.Block;

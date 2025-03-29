@@ -3,22 +3,23 @@ package com.drmangotea.tfmg.content.decoration.encased;
 
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
-import com.simibubi.create.content.contraptions.ITransformableBlock;
+import com.simibubi.create.api.contraption.transformable.TransformableBlock;
+import com.simibubi.create.api.schematic.requirement.SpecialBlockItemRequirement;
 import com.simibubi.create.content.contraptions.StructureTransform;
 import com.simibubi.create.content.decoration.encasing.EncasedBlock;
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.base.RotatedPillarKineticBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.CogWheelBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.ICogWheel;
 import com.simibubi.create.content.kinetics.simpleRelays.SimpleKineticBlockEntity;
-import com.simibubi.create.content.schematics.requirement.ISpecialBlockItemRequirement;
 import com.simibubi.create.content.schematics.requirement.ItemRequirement;
 import com.simibubi.create.foundation.block.IBE;
-import com.simibubi.create.foundation.utility.Iterate;
-import com.simibubi.create.foundation.utility.VoxelShaper;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import net.createmod.catnip.data.Iterate;
+import net.createmod.catnip.math.VoxelShaper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -44,7 +45,7 @@ import net.minecraft.world.phys.HitResult;
 import java.util.function.Supplier;
 
 public class TFMGEncasedCogwheelBlock extends RotatedPillarKineticBlock
-        implements ICogWheel, IBE<SimpleKineticBlockEntity>, ISpecialBlockItemRequirement, ITransformableBlock, EncasedBlock {
+        implements ICogWheel, IBE<SimpleKineticBlockEntity>, SpecialBlockItemRequirement, TransformableBlock, EncasedBlock {
     public static final BooleanProperty TOP_SHAFT = BooleanProperty.create("top_shaft");
     public static final BooleanProperty BOTTOM_SHAFT = BooleanProperty.create("bottom_shaft");
     protected final boolean isLarge;
@@ -55,6 +56,7 @@ public class TFMGEncasedCogwheelBlock extends RotatedPillarKineticBlock
     private final BlockEntityEntry<SimpleKineticBlockEntity> beLarge;
 
     public static TFMGEncasedCogwheelBlock steel(Properties properties, boolean large, Supplier<Block> casing) {
+
         return new TFMGEncasedCogwheelBlock(properties, large, casing, TFMGBlocks.STEEL_COGWHEEL, TFMGBlocks.LARGE_STEEL_COGWHEEL, TFMGBlockEntities.ENCASED_STEEL_COGWHEEL, TFMGBlockEntities.ENCASED_LARGE_STEEL_COGWHEEL);
     }
 
@@ -124,7 +126,7 @@ public class TFMGEncasedCogwheelBlock extends RotatedPillarKineticBlock
         BlockPos pos = context.getClickedPos();
         KineticBlockEntity.switchToBlockState(level, pos, state.cycle(context.getClickedFace()
                 .getAxisDirection() == Direction.AxisDirection.POSITIVE ? TOP_SHAFT : BOTTOM_SHAFT));
-        playRotateSound(level, pos);
+        IWrenchable.playRotateSound(level, pos);
         return InteractionResult.SUCCESS;
     }
 

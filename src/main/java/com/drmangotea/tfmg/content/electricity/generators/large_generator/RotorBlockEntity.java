@@ -3,9 +3,8 @@ package com.drmangotea.tfmg.content.electricity.generators.large_generator;
 
 import com.drmangotea.tfmg.config.TFMGConfigs;
 import com.drmangotea.tfmg.content.electricity.base.KineticElectricBlockEntity;
-import com.drmangotea.tfmg.registry.TFMGBlockEntities;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
+import net.createmod.catnip.animation.LerpedFloat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -73,8 +72,10 @@ public class RotorBlockEntity extends KineticElectricBlockEntity {
     }
 
     public int generation() {
-        float modifier = TFMGConfigs.common().machines.largeGeneratorFeModifier.getF();
-        return  (int) (((Math.log(Math.abs(getSpeed()))/Math.log(1.026))-22)*modifier*3.5f);
+        float modifier = TFMGConfigs.common().machines.largeGeneratorModifier.getF();
+        float maxSpeed = TFMGConfigs.common().machines.largeGeneratorMinSpeed.getF();
+
+        return (int) Math.max(0,((Math.abs(getSpeed())-maxSpeed)*modifier));
     }
 
     @Override
@@ -126,7 +127,9 @@ public class RotorBlockEntity extends KineticElectricBlockEntity {
 
     public static Map<Axis,Map<StatorOffset, BlockState>> setStatorPositons(){
         Map<Axis,Map<StatorOffset, BlockState>> statorPositions = new HashMap<>();
+
         BlockState defaultState = TFMGBlocks.STATOR.getDefaultState();
+
         BlockState cornerState = defaultState.setValue(STATOR_STATE,StatorState.CORNER);
         BlockState horizontal = defaultState.setValue(STATOR_STATE,StatorState.CORNER_HORIZONTAL);
         BlockState sideState = defaultState.setValue(STATOR_STATE,StatorState.SIDE);

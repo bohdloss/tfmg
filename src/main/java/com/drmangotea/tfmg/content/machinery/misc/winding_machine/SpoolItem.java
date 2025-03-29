@@ -5,9 +5,9 @@ import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnection
 import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnectorBlockEntity;
 import com.drmangotea.tfmg.content.electricity.connection.cables.CablePos;
 import com.drmangotea.tfmg.registry.TFMGItems;
-import com.jozufozu.flywheel.core.PartialModel;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.Pair;
+import com.simibubi.create.foundation.utility.CreateLang;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -56,7 +56,7 @@ public class SpoolItem extends Item {
             stack.getOrCreateTag().remove("YPos");
             stack.getOrCreateTag().remove("ZPos");
             if (level.isClientSide)
-                player.displayClientMessage(Lang.translateDirect("wires.removed_data")
+                player.displayClientMessage(CreateLang.translateDirect("wires.removed_data")
                         .withStyle(ChatFormatting.YELLOW), true);
             return InteractionResultHolder.success(stack);
 
@@ -68,12 +68,12 @@ public class SpoolItem extends Item {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Lang.translateDirect("tooltip.coils", stack.getOrCreateTag().getInt("Amount"))
+        tooltip.add(CreateLang.translateDirect("tooltip.coils", stack.getOrCreateTag().getInt("Amount"))
                 .withStyle(ChatFormatting.GREEN)
         );
         BlockPos pos = BlockPos.of(stack.getOrCreateTag().getLong("Position"));
         if(pos.asLong()!=0)
-            tooltip.add(Lang.text("" + pos.getX() + " " + pos.getY() + " " + pos.getZ()).component()
+            tooltip.add(CreateLang.text("" + pos.getX() + " " + pos.getY() + " " + pos.getZ()).component()
                     .withStyle(ChatFormatting.AQUA)
             );
         super.appendHoverText(stack, world, tooltip, flag);
@@ -98,7 +98,7 @@ public class SpoolItem extends Item {
                  if(posToConnect == pos){
                      stack.getOrCreateTag().putLong("Position",0);
                      if (level.isClientSide)
-                         player.displayClientMessage(Lang.translateDirect("wires.cant_connect_itself")
+                         player.displayClientMessage(CreateLang.translateDirect("wires.cant_connect_itself")
                                  .withStyle(ChatFormatting.YELLOW), true);
                      be.player = null;
                      be.sendData();
@@ -114,7 +114,7 @@ public class SpoolItem extends Item {
                      CableConnection connection2 = new CableConnection(otherBE.getCablePosition(), be.getCablePosition(), be.getBlockPos(),type,false);
                      if(be.connections.contains(connection1)||otherBE.connections.contains(connection1)){
                          if (level.isClientSide)
-                             player.displayClientMessage(Lang.translateDirect("wires.connection_already_created")
+                             player.displayClientMessage(CreateLang.translateDirect("wires.connection_already_created")
                                      .withStyle(ChatFormatting.YELLOW), true);
                          be.player = null;
                          be.sendData();

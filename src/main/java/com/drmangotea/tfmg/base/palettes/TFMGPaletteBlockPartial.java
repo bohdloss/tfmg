@@ -1,11 +1,13 @@
 package com.drmangotea.tfmg.base.palettes;
 
 
+import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGCreativeTabs;
 import com.drmangotea.tfmg.registry.TFMGPaletteStoneTypes;
 import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.builders.ItemBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
@@ -57,7 +59,7 @@ public abstract class TFMGPaletteBlockPartial<B extends Block> {
 
     public @NonnullType BlockBuilder<B, CreateRegistrate> create(String variantName, TFMGPaletteBlockPattern pattern,
                                                                  BlockEntry<? extends Block> block, TFMGPaletteStoneTypes variant) {
-        String patternName = Lang.nonPluralId(pattern.createName(variantName));
+        String patternName = CreateLang.nonPluralId(pattern.createName(variantName));
         String blockName = patternName + "_" + this.name;
 
         BlockBuilder<B, CreateRegistrate> blockBuilder = REGISTRATE
@@ -196,7 +198,7 @@ public abstract class TFMGPaletteBlockPartial<B extends Block> {
                     .requires(ingredient)
                     .requires(ingredient)
                     .unlockedBy("has_" + c.getName(), ingredient.getCritereon(p))
-                    .save(p, Create.ID + ":" + c.getName() + "_recycling");
+                    .save(p, TFMG.MOD_ID + ":" + c.getName() + "_recycling");
         }
 
         @Override

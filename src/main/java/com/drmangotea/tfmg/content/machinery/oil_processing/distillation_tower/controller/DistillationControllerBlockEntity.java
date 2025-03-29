@@ -4,13 +4,14 @@ import com.drmangotea.tfmg.content.decoration.tanks.steel.SteelTankBlockEntity;
 import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.output.DistillationOutputBlockEntity;
 import com.drmangotea.tfmg.recipes.DistillationRecipe;
 import com.drmangotea.tfmg.registry.TFMGTags;
-import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
 import com.simibubi.create.foundation.recipe.RecipeFinder;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
+
+import com.simibubi.create.foundation.utility.CreateLang;
+import net.createmod.catnip.animation.LerpedFloat;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -133,30 +134,30 @@ public class DistillationControllerBlockEntity extends SmartBlockEntity implemen
         BlockEntity beBehind = level.getBlockEntity(getBlockPos().relative(DistillationControllerBlock.getFacing(getBlockState()).getOpposite()));
         if (beBehind instanceof SteelTankBlockEntity be) {
 
-            Lang.translate("goggles.distillation_tower.status")
+            CreateLang.translate("goggles.distillation_tower.status")
                     .style(ChatFormatting.GRAY)
                     .forGoggles(tooltip, 1);
 
             if (be.activeHeat > 0) {
-                Lang.translate("goggles.distillation_tower.level", be.activeHeat)
+                CreateLang.translate("goggles.distillation_tower.level", be.activeHeat)
                         .style(ChatFormatting.GOLD)
                         .forGoggles(tooltip, 1);
             } else
-                Lang.translate("goggles.distillation_tower.level", be.activeHeat)
+                CreateLang.translate("goggles.distillation_tower.level", be.activeHeat)
                         .style(ChatFormatting.RED)
                         .forGoggles(tooltip, 1);
             if (getOutputs().toArray().length > 0) {
-                Lang.translate("goggles.distillation_tower.found_outputs", getOutputs().toArray().length)
+                CreateLang.translate("goggles.distillation_tower.found_outputs", getOutputs().toArray().length)
                         .style(ChatFormatting.GOLD)
                         .forGoggles(tooltip, 1);
             } else
-                Lang.translate("goggles.distillation_tower.found_outputs", getOutputs().toArray().length)
+                CreateLang.translate("goggles.distillation_tower.found_outputs", getOutputs().toArray().length)
                         .style(ChatFormatting.RED)
                         .forGoggles(tooltip, 1);
 
 
         } else
-            Lang.translate("goggles.distillation_tower.tank_not_found")
+            CreateLang.translate("goggles.distillation_tower.tank_not_found")
                     .style(ChatFormatting.RED)
                     .forGoggles(tooltip, 1);
         containedFluidTooltip(tooltip, isPlayerSneaking,

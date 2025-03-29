@@ -5,9 +5,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.render.SuperByteBuffer;
-import com.simibubi.create.foundation.utility.AnimationTickHolder;
+import net.createmod.catnip.animation.AnimationTickHolder;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.render.SuperByteBuffer;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -35,28 +35,28 @@ public class AirIntakeRenderer  extends KineticBlockEntityRenderer<AirIntakeBloc
 
             SuperByteBuffer frame;
             if (be.hasShaft) {
-                frame = CachedBufferer.partialFacing(TFMGPartialModels.AIR_INTAKE_FRAME, be.getBlockState(), direction);
+                frame = CachedBuffers.partialFacing(TFMGPartialModels.AIR_INTAKE_FRAME, be.getBlockState(), direction).light(light);
             } else
-                frame = CachedBufferer.partialFacing(TFMGPartialModels.AIR_INTAKE_FRAME_CLOSED, be.getBlockState(), direction);
+                frame = CachedBuffers.partialFacing(TFMGPartialModels.AIR_INTAKE_FRAME_CLOSED, be.getBlockState(), direction).light(light);
             ///
             if (direction == Direction.NORTH)
-                frame.translateZ(0.001);
+                frame.translateZ(0.001f);
             if (direction == Direction.SOUTH)
-                frame.translateZ(-0.001);
+                frame.translateZ(-0.001f);
             if (direction == Direction.WEST)
-                frame.translateX(0.001);
+                frame.translateX(0.001f);
             if (direction == Direction.EAST)
-                frame.translateX(-0.001);
+                frame.translateX(-0.001f);
             if (direction == Direction.UP)
-                frame.translateY(-0.001);
+                frame.translateY(-0.001f);
             if (direction == Direction.DOWN)
-                frame.translateY(0.001);
+                frame.translateY(0.001f);
 
             frame.renderInto(ms, vb);
 
             ///
             if (be.diameter == 2) {
-                SuperByteBuffer chassisMedium = CachedBufferer.partialFacing(TFMGPartialModels.AIR_INTAKE_MEDIUM, be.getBlockState(), direction);
+                SuperByteBuffer chassisMedium = CachedBuffers.partialFacing(TFMGPartialModels.AIR_INTAKE_MEDIUM, be.getBlockState(), direction).light(light);
                 if(direction == Direction.UP)
                     chassisMedium.translateZ(1);
                 if(direction.getAxis().isVertical())
@@ -67,7 +67,7 @@ public class AirIntakeRenderer  extends KineticBlockEntityRenderer<AirIntakeBloc
             }
 
             if (be.diameter == 3) {
-                SuperByteBuffer chassisLarge = CachedBufferer.partialFacing(TFMGPartialModels.AIR_INTAKE_LARGE, be.getBlockState(), direction);
+                SuperByteBuffer chassisLarge = CachedBuffers.partialFacing(TFMGPartialModels.AIR_INTAKE_LARGE, be.getBlockState(), direction).light(light);
 
                 if (direction.getAxis().isHorizontal()) {
                     chassisLarge.translateY(1);
@@ -97,24 +97,24 @@ public class AirIntakeRenderer  extends KineticBlockEntityRenderer<AirIntakeBloc
             int lightInFront = LevelRenderer.getLightColor(be.getLevel(), be.getBlockPos().relative(direction));
 
             SuperByteBuffer shaftHalf =
-                    CachedBufferer.partialFacing(AllPartialModels.SHAFT_HALF, be.getBlockState(), direction.getOpposite());
+                    CachedBuffers.partialFacing(AllPartialModels.SHAFT_HALF, be.getBlockState(), direction.getOpposite());
 
 
 
 
                 SuperByteBuffer fanInner =
-                        CachedBufferer.partialFacing(AllPartialModels.ENCASED_FAN_INNER, be.getBlockState(), direction.getOpposite());
+                        CachedBuffers.partialFacing(AllPartialModels.ENCASED_FAN_INNER, be.getBlockState(), direction.getOpposite());
 
 
 
             if (be.diameter == 2) {
                 fanInner =
-                        CachedBufferer.partialFacing(TFMGPartialModels.AIR_INTAKE_FAN_MEDIUM, be.getBlockState(), direction.getOpposite());
+                        CachedBuffers.partialFacing(TFMGPartialModels.AIR_INTAKE_FAN_MEDIUM, be.getBlockState(), direction.getOpposite());
             }
 
             if (be.diameter == 3) {
                 fanInner =
-                        CachedBufferer.partialFacing(TFMGPartialModels.AIR_INTAKE_FAN_LARGE, be.getBlockState(), direction.getOpposite());
+                        CachedBuffers.partialFacing(TFMGPartialModels.AIR_INTAKE_FAN_LARGE, be.getBlockState(), direction.getOpposite());
 
             }
 

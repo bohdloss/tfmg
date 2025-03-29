@@ -1,11 +1,14 @@
 package com.drmangotea.tfmg.content.electricity.utilities.traffic_light;
 
-import com.jozufozu.flywheel.util.transform.TransformStack;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
-import com.simibubi.create.foundation.utility.AngleHelper;
-import com.simibubi.create.foundation.utility.VecHelper;
+import dev.engine_room.flywheel.lib.transform.TransformStack;
+import net.createmod.catnip.math.AngleHelper;
+import net.createmod.catnip.math.VecHelper;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
@@ -13,7 +16,7 @@ import net.minecraft.world.phys.Vec3;
 public class TrafficLightScrollSlot extends ValueBoxTransform {
 
 	@Override
-	public Vec3 getLocalOffset(BlockState state) {
+	public Vec3 getLocalOffset(LevelAccessor level, BlockPos pos, BlockState state) {
 
 		Direction direction = state.getValue(TrafficLightBlock.FACING);
 
@@ -37,9 +40,9 @@ public class TrafficLightScrollSlot extends ValueBoxTransform {
 	}
 
 	@Override
-	public void rotate(BlockState state, PoseStack ms) {
+	public void rotate(LevelAccessor level, BlockPos pos, BlockState state, PoseStack ms) {
 		float yRot = AngleHelper.horizontalAngle(state.getValue(BlockStateProperties.HORIZONTAL_FACING)) + 180;
-		TransformStack.cast(ms)
+		TransformStack.of(ms)
 			.rotateY(yRot+180)
 			.rotateX(0);
 	}

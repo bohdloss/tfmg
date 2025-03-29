@@ -1,5 +1,6 @@
 package com.drmangotea.tfmg.mixin;
 
+import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.datagen.recipes.values.TFMGSequencedAssemblyRecipeGen;
 import com.drmangotea.tfmg.datagen.recipes.values.TFMGStandardRecipeGen;
 import com.drmangotea.tfmg.datagen.recipes.values.IndustrialBlastingRecipeGen;
@@ -16,6 +17,7 @@ public class RecipeProviderMixin {
 
     @Inject(at = @At("HEAD"), method = "getName",cancellable = true , remap = false)
     public final void getName(CallbackInfoReturnable<String> cir) {
+        TFMG.LOGGER.debug("ALMOOGUS");
         if((Object)this instanceof IndustrialBlastingRecipeGen)
             cir.setReturnValue("TFMG'S Industrial Blasting Recipes");
         if((Object)this instanceof VatRecipeGen)

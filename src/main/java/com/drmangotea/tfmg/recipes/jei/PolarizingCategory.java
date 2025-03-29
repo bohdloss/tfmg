@@ -9,7 +9,7 @@ import com.simibubi.create.compat.jei.category.sequencedAssembly.SequencedAssemb
 import com.simibubi.create.content.processing.sequenced.IAssemblyRecipe;
 import com.simibubi.create.content.processing.sequenced.SequencedRecipe;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
-import com.simibubi.create.foundation.utility.Lang;
+
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;

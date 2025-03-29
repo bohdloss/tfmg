@@ -85,7 +85,7 @@ public class DiagonalCableBlock extends DirectionalBlock implements SimpleWaterl
         context.getLevel().setBlock(context.getClickedPos(),state.setValue(FACING_UP,!state.getValue(FACING_UP)),2);
 
         withBlockEntityDo(context.getLevel(),context.getClickedPos(), IElectric::onPlaced);
-        playRotateSound(context.getLevel(), context.getClickedPos());
+        IWrenchable.playRotateSound(context.getLevel(), context.getClickedPos());
         return onWrenched;
     }
 

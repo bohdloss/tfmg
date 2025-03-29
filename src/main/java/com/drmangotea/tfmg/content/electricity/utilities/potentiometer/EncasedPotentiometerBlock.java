@@ -17,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -45,6 +46,7 @@ public class EncasedPotentiometerBlock extends TFMGDirectionalBlock implements I
             return InteractionResult.SUCCESS;
         context.getLevel()
                 .levelEvent(2001, context.getClickedPos(), Block.getId(state));
+
         KineticBlockEntity.switchToBlockState(context.getLevel(), context.getClickedPos(),
                 TFMGBlocks.POTENTIOMETER.getDefaultState()
                         .setValue(FACING, state.getValue(FACING)));

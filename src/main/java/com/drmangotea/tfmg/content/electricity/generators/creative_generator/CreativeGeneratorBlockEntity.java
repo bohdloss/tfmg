@@ -7,10 +7,12 @@ import com.simibubi.create.Create;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.VecHelper;
+
+import com.simibubi.create.foundation.utility.CreateLang;
+import net.createmod.catnip.math.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -28,7 +30,7 @@ public class CreativeGeneratorBlockEntity extends ElectricBlockEntity {
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         super.addBehaviours(behaviours);
         int max = 250;
-        outputVoltage = new ScrollValueBehaviour(Lang.translateDirect("creative_generator.voltage_generation"),
+        outputVoltage = new ScrollValueBehaviour(CreateLang.translateDirect("creative_generator.voltage_generation"),
                 this, new CreativeGeneratorValueBox());
         outputVoltage.between(0, max);
         outputVoltage.value = 50;
@@ -58,14 +60,10 @@ public class CreativeGeneratorBlockEntity extends ElectricBlockEntity {
             return VecHelper.voxelSpace(8, 8, 16);
         }
 
-        @Override
-        public Vec3 getLocalOffset(BlockState state) {
-            return super.getLocalOffset(state);
-        }
 
         @Override
-        public void rotate(BlockState state, PoseStack ms) {
-            super.rotate(state, ms);
+        public void rotate(LevelAccessor level, BlockPos pos, BlockState state, PoseStack ms) {
+            super.rotate(level,pos,state, ms);
         }
 
         @Override

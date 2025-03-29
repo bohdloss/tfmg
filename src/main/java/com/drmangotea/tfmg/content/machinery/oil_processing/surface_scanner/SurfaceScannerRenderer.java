@@ -4,7 +4,7 @@ import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import com.simibubi.create.foundation.render.CachedBufferer;
+import net.createmod.catnip.render.CachedBuffers;
 import com.simibubi.create.foundation.render.RenderTypes;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -24,11 +24,11 @@ public class SurfaceScannerRenderer extends SafeBlockEntityRenderer<SurfaceScann
             for (int z = 0; z < 5; z++) {
 
                     if(be.grid[x][z]!=null && be.grid[x][z])
-                        CachedBufferer.partial(TFMGPartialModels.SURFACE_SCANNER_LIGHT, blockState)
+                        CachedBuffers.partial(TFMGPartialModels.SURFACE_SCANNER_LIGHT, blockState)
                                 .translate((x - 2)*0.19, 0, (z - 2)*0.19)
                                 .light(LightTexture.FULL_BRIGHT)
                                 .color(255, 69, 96, 255)
-                                .renderInto(ms, bufferSource.getBuffer(RenderTypes.getAdditive()));
+                                .renderInto(ms, bufferSource.getBuffer(RenderTypes.additive()));
 
             }
         }

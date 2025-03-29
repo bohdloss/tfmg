@@ -2,11 +2,11 @@ package com.drmangotea.tfmg.content.electricity.lights.neon_tube;
 
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
+import com.drmangotea.tfmg.content.electricity.connection.cables.SimplePos;
 import com.drmangotea.tfmg.content.electricity.lights.LightBulbBlock;
 import com.drmangotea.tfmg.content.electricity.lights.LightBulbBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
-import com.simibubi.create.content.contraptions.behaviour.dispenser.SimplePos;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
@@ -130,6 +130,7 @@ public class NeonTubeBlock extends PipeBlock implements IBE<NeonTubeBlockEntity>
 
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState p_60569_, boolean p_60570_) {
+
 
     if(!p_60569_.is(TFMGBlocks.NEON_TUBE.get()))
         for(Direction facing : Direction.values()) {

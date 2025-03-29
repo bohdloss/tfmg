@@ -4,8 +4,9 @@ import com.drmangotea.tfmg.content.electricity.base.ElectricBlockEntity;
 import com.simibubi.create.Create;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
+
+import com.simibubi.create.foundation.utility.CreateLang;
+import net.createmod.catnip.animation.LerpedFloat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -30,7 +31,7 @@ public class TrafficLightBlockEntity extends ElectricBlockEntity {
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         super.addBehaviours(behaviours);
-        timerLength = new TimerScrollBehaviour(Lang.translateDirect("traffic_light.timer"), this,
+        timerLength = new TimerScrollBehaviour(CreateLang.translateDirect("traffic_light.timer"), this,
                 new TrafficLightScrollSlot()).between(180, 60 * 20 * 60);
         timerLength.withFormatter(this::format);
         timerLength.withCallback(value-> timer = value);

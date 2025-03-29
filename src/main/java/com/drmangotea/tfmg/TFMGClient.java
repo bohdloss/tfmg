@@ -3,7 +3,6 @@ package com.drmangotea.tfmg;
 import com.drmangotea.tfmg.content.items.weapons.advanced_potato_cannon.AdvancedPotatoCannonRenderHandler;
 import com.drmangotea.tfmg.content.items.weapons.flamethrover.FlamethrowerRenderHandler;
 import com.drmangotea.tfmg.content.items.weapons.quad_potato_cannon.QuadPotatoCannonRenderHandler;
-import com.drmangotea.tfmg.ponder.TFMGPonderIndex;
 import com.drmangotea.tfmg.registry.TFMGParticleTypes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -37,7 +36,7 @@ public class TFMGClient {
 
     @SubscribeEvent
     public void setup(final FMLClientSetupEvent event) {
-        TFMGPonderIndex.register();
-        TFMGPonderIndex.registerTags();
+        //TFMGPonderIndex.register();
+        //TFMGPonderIndex.registerTags();
     }
 }

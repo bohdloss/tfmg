@@ -5,7 +5,7 @@ import com.drmangotea.tfmg.recipes.PolarizingRecipe;
 import com.drmangotea.tfmg.recipes.WindingRecipe;
 import com.drmangotea.tfmg.recipes.jei.machines.Polarizer;
 import com.drmangotea.tfmg.recipes.jei.machines.WindingMachine;
-import com.jozufozu.flywheel.core.PartialModel;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.jei.category.animations.AnimatedDeployer;
@@ -13,7 +13,7 @@ import com.simibubi.create.compat.jei.category.sequencedAssembly.SequencedAssemb
 import com.simibubi.create.content.processing.sequenced.IAssemblyRecipe;
 import com.simibubi.create.content.processing.sequenced.SequencedRecipe;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
-import com.simibubi.create.foundation.render.CachedBufferer;
+import net.createmod.catnip.render.CachedBuffers;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;

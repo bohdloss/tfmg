@@ -6,7 +6,7 @@ import com.drmangotea.tfmg.config.TFMGConfigs;
 import com.drmangotea.tfmg.registry.TFMGFluids;
 import com.drmangotea.tfmg.registry.TFMGTags;
 import com.simibubi.create.api.connectivity.ConnectivityHandler;
-import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.simibubi.create.foundation.advancement.AllAdvancements;
@@ -108,6 +108,9 @@ public class FireboxBlockEntity extends SmartBlockEntity implements IHaveGoggleI
     }
 
     public boolean canBurn(FireboxBlockEntity controller) {
+        if(exhuastTank == null)
+            return false;
+
         return controller.exhuastTank.getSpace() > 0 && controller.tankInventory.getFluidAmount() >= TFMGConfigs.common().machines.fireboxFuelConsumption.get() && controller.tankInventory.getFluid().getFluid().is(TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag);
     }
 

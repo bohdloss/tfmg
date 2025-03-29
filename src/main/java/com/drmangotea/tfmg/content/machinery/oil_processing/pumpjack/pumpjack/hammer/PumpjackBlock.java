@@ -6,7 +6,7 @@ import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.simibubi.create.content.contraptions.bearing.BearingBlock;
 import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.foundation.block.IBE;
-import com.simibubi.create.foundation.utility.Iterate;
+import net.createmod.catnip.data.Iterate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;

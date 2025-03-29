@@ -1,8 +1,6 @@
 package com.drmangotea.tfmg.base;
 
 import com.drmangotea.tfmg.TFMG;
-import com.simibubi.create.Create;
-import com.simibubi.create.foundation.utility.WorldAttached;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

@@ -1,6 +1,7 @@
 package com.drmangotea.tfmg.base.events;
 
 import com.drmangotea.tfmg.content.engines.engine_controller.EngineControllerClientHandler;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.*;
@@ -19,7 +20,8 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 
-import static com.jozufozu.flywheel.backend.Backend.isGameActive;
+
+
 
 @EventBusSubscriber(Dist.CLIENT)
 public class TFMGClientEvents {
@@ -35,5 +37,8 @@ public class TFMGClientEvents {
 
 		}
 
+	}
+	protected static boolean isGameActive() {
+		return !(Minecraft.getInstance().level == null || Minecraft.getInstance().player == null);
 	}
 }

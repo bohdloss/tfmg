@@ -3,8 +3,8 @@ package com.drmangotea.tfmg.content.engines.base;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.render.SuperByteBuffer;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.render.SuperByteBuffer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -34,6 +34,6 @@ public class EngineRenderer extends KineticBlockEntityRenderer<AbstractEngineBlo
 
     @Override
     protected SuperByteBuffer getRotatedModel(AbstractEngineBlockEntity be, BlockState state) {
-        return CachedBufferer.partialFacing(AllPartialModels.SHAFT_HALF, state,state.getValue(HORIZONTAL_FACING));
+        return CachedBuffers.partialFacing(AllPartialModels.SHAFT_HALF, state,state.getValue(HORIZONTAL_FACING));
     }
 }

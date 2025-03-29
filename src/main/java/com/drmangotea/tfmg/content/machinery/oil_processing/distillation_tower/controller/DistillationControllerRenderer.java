@@ -2,12 +2,12 @@ package com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.
 
 import com.drmangotea.tfmg.content.electricity.utilities.polarizer.PolarizerBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
-import com.jozufozu.flywheel.util.transform.TransformStack;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.animation.LerpedFloat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -23,8 +23,6 @@ import static net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING;
 
 public class DistillationControllerRenderer extends SafeBlockEntityRenderer<DistillationControllerBlockEntity> {
 
-
-
 	public DistillationControllerRenderer(BlockEntityRendererProvider.Context context) {}
 
 	@Override
@@ -33,16 +31,14 @@ public class DistillationControllerRenderer extends SafeBlockEntityRenderer<Dist
 		BlockState blockState = be.getBlockState();
 		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
 		ms.pushPose();
-		CachedBufferer.partial(TFMGPartialModels.DISTILLATION_CONTROLLER_DIAL,blockState)
-				.centre()
+		CachedBuffers.partial(TFMGPartialModels.DISTILLATION_CONTROLLER_DIAL,blockState)
+				.center()
 				.rotateY(blockState.getValue(FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot() - 180) : blockState.getValue(FACING).toYRot())
-				.translateY(0.01)
-				.rotateZ(be.angle.getValue(partialTicks))
-				.translateX(0.09)
-				.unCentre()
+				.translateY(0.01f)
+				.rotateZDegrees(be.angle.getValue(partialTicks))
+				.translateX(0.09f)
+				.uncenter()
 				.renderInto(ms, vb);
-
-
 		ms.popPose();
 	}
 }

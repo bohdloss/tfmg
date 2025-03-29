@@ -34,6 +34,7 @@ public class SteelGearboxBlock extends RotatedPillarKineticBlock implements IBE<
 			Player player) {
 		if (state.getValue(AXIS).isVertical())
 			return super.getCloneItemStack(state, target, world, pos, player);
+
 		return new ItemStack(TFMGItems.STEEL_VERTICAL_GEARBOX.get());
 	}
 

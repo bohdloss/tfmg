@@ -4,8 +4,8 @@ package com.drmangotea.tfmg.content.electricity.lights;
 
 import com.drmangotea.tfmg.base.TFMGUtils;
 import com.drmangotea.tfmg.content.electricity.base.ElectricBlockEntity;
-import com.simibubi.create.foundation.utility.NBTHelper;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
+import net.createmod.catnip.animation.LerpedFloat;
+import net.createmod.catnip.nbt.NBTHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -71,15 +71,15 @@ public class LightBulbBlockEntity extends ElectricBlockEntity {
         TFMGUtils.playSound(level,getBlockPos(), SoundEvents.GLASS_BREAK, SoundSource.BLOCKS);
     }
 
-    @Override
-    public int getMaxVoltage() {
-        return 500;
-    }
-
-    @Override
-    public int getMaxCurrent() {
-        return 4;
-    }
+    //@Override
+    //public int getMaxVoltage() {
+    //    return 500;
+    //}
+//
+    //@Override
+    //public int getMaxCurrent() {
+    //    return 4;
+    //}
 
     @Override
     public void setVoltage(int newVoltage) {

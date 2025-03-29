@@ -3,7 +3,7 @@ package com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.c
 import com.drmangotea.tfmg.content.machinery.misc.machine_input.MachineInputBlockEntity;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.utility.AnimationTickHolder;
+import net.createmod.catnip.animation.AnimationTickHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntityType;

@@ -7,7 +7,8 @@ import com.simibubi.create.compat.jei.category.sequencedAssembly.SequencedAssemb
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder.ProcessingRecipeParams;
 import com.simibubi.create.content.processing.sequenced.IAssemblyRecipe;
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -52,7 +53,7 @@ public class WindingRecipe extends ProcessingRecipe<RecipeWrapper>  implements I
 //
 	@Override
 	public Component getDescriptionForAssembly() {
-		return Lang.translateDirect("recipe.assembly.winding");
+		return CreateLang.translateDirect("recipe.assembly.winding");
 	}
 
 	@Override

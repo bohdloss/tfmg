@@ -6,16 +6,17 @@ import com.drmangotea.tfmg.recipes.PolarizingRecipe;
 import com.drmangotea.tfmg.recipes.WindingRecipe;
 import com.drmangotea.tfmg.registry.TFMGItems;
 import com.drmangotea.tfmg.registry.TFMGRecipeTypes;
-import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipe;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
 import com.simibubi.create.foundation.item.SmartInventory;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.VecHelper;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
+
+import com.simibubi.create.foundation.utility.CreateLang;
+import net.createmod.catnip.math.VecHelper;
+import net.createmod.catnip.animation.LerpedFloat;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -71,7 +72,7 @@ public class WindingMachineBlockEntity extends KineticBlockEntity implements IHa
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         super.addBehaviours(behaviours);
         int max = 100;
-        turnPercentage = new ScrollValueBehaviour(Lang.translateDirect("winding_machine.turn_percentage"),
+        turnPercentage = new ScrollValueBehaviour(CreateLang.translateDirect("winding_machine.turn_percentage"),
                 this, new WindingMachineValueBox());
         turnPercentage.between(1, max);
         turnPercentage.value = 20;
@@ -122,11 +123,11 @@ public class WindingMachineBlockEntity extends KineticBlockEntity implements IHa
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        Lang.translate("goggles.winding_machine.header")
+        CreateLang.translate("goggles.winding_machine.header")
                 .style(ChatFormatting.WHITE)
                 .forGoggles(tooltip, 1);
         if (!spool.isEmpty())
-            Lang.text("   ")
+            CreateLang.text("   ")
                     .add(Component.translatable("recipe.winding_machine.wire_left"))
                     .style(ChatFormatting.WHITE)
                     .add(Component.literal(" " + spool.getOrCreateTag().getInt("Amount")))
@@ -136,13 +137,13 @@ public class WindingMachineBlockEntity extends KineticBlockEntity implements IHa
                     .forGoggles(tooltip);
 
         if (inventory.getItem(0).is(TFMGItems.ELECTROMAGNETIC_COIL.get())) {
-            Lang.text("   ")
+            CreateLang.text("   ")
                     .add(Component.translatable("goggles.winding_machine.coil_turns"))
                     .style(ChatFormatting.WHITE)
                     .add(Component.literal(" " + inventory.getItem(0).getOrCreateTag().getInt("Turns")))
                     .forGoggles(tooltip);
         } else if (recipe != null)
-            Lang.text("   ")
+            CreateLang.text("   ")
                     .add(Component.translatable("goggles.winding_machine.wire_needed"))
                     .style(ChatFormatting.WHITE)
                     .add(Component.literal(" " + amountWinded))

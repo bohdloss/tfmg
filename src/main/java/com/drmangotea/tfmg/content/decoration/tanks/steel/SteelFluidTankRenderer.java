@@ -2,15 +2,15 @@ package com.drmangotea.tfmg.content.decoration.tanks.steel;
 
 
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
-import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import com.simibubi.create.foundation.fluid.FluidRenderer;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.utility.Iterate;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
+import dev.engine_room.flywheel.lib.transform.TransformStack;
+import net.createmod.catnip.data.Iterate;
+import net.createmod.catnip.animation.LerpedFloat;
+import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -71,35 +71,37 @@ public class SteelFluidTankRenderer extends SafeBlockEntityRenderer<SteelTankBlo
 
         ms.pushPose();
         ms.translate(0, clampedLevel - totalHeight, 0);
-        FluidRenderer.renderFluidBox(fluidStack, xMin, yMin, zMin, xMax, yMax, zMax, buffer, ms, light, false);
+        FluidRenderer.renderFluidBox(fluidStack.getFluid(),fluidStack.getAmount(), xMin, yMin, zMin, xMax, yMax, zMax, buffer, ms, light, false,true,fluidStack.getTag());
         ms.popPose();
     }
 
-    protected void renderAsDistillationTower(SteelTankBlockEntity te, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+    protected void renderAsDistillationTower(SteelTankBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
                                              int light, int overlay) {
-        BlockState blockState = te.getBlockState();
-        VertexConsumer vb = buffer.getBuffer(RenderType.solid());
+        BlockState blockState = be.getBlockState();
+        VertexConsumer vb = buffer.getBuffer(RenderType.cutoutMipped());
         ms.pushPose();
-        TransformStack msr = TransformStack.cast(ms);
-        msr.translate(te.width / 2f, 0.5, te.width / 2f);
+        var msr = TransformStack.of(ms);
+        msr.translate(be.width / 2f, 0.5, be.width / 2f);
 
         float dialPivot = 5.75f / 16;
 
         for (Direction d : Iterate.horizontalDirections) {
             ms.pushPose();
-            CachedBufferer.partial(TFMGPartialModels.TOWER_GAUGE, blockState)
-                    .rotateY(d.toYRot())
-                    .unCentre()
-                    .translate(te.width / 2f - 6 / 16f, 0, 0)
+            CachedBuffers.partial(TFMGPartialModels.TOWER_GAUGE, blockState)
+                    .rotateYDegrees(d.toYRot())
+                    .uncenter()
+                    .translate(be.width / 2f - 6 / 16f, 0, 0)
                     .light(light)
                     .renderInto(ms, vb);
-            CachedBufferer.partial(AllPartialModels.BOILER_GAUGE_DIAL, blockState)
-                    .rotateY(d.toYRot())
-                    .unCentre()
-                    .translate(te.width / 2f - 6 / 16f, 0, 0)
-                    .translate(0, dialPivot, dialPivot)
-                    .rotateX(-te.visualGaugeRotation.getValue(partialTicks))
-                    .translate(0, -dialPivot, -dialPivot)
+            float dialPivotY = 6f / 16;
+            float dialPivotZ = 8f / 16;
+            CachedBuffers.partial(AllPartialModels.BOILER_GAUGE_DIAL, blockState)
+                    .rotateYDegrees(d.toYRot())
+                    .uncenter()
+                    .translate(be.width / 2f - 6 / 16f, 0, 0)
+                    .translate(0, dialPivotY, dialPivotZ)
+                    .rotateXDegrees(-be.visualGaugeRotation.getValue(partialTicks) + 90)
+                    .translate(0, -dialPivotY, -dialPivotZ)
                     .light(light)
                     .renderInto(ms, vb);
             ms.popPose();

@@ -14,7 +14,8 @@ import com.drmangotea.tfmg.content.items.weapons.explosives.thermite_grenades.Th
 import com.drmangotea.tfmg.content.items.weapons.lithium_blade.LithiumSpark;
 import com.drmangotea.tfmg.content.items.weapons.lithium_blade.LithiumSparkRenderer;
 import com.simibubi.create.foundation.data.CreateEntityBuilder;
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import com.tterrag.registrate.util.entry.EntityEntry;
 import com.tterrag.registrate.util.nullness.NonNullConsumer;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
@@ -76,7 +77,7 @@ public class TFMGEntityTypes {
                                                                          NonNullSupplier<NonNullFunction<EntityRendererProvider.Context, EntityRenderer<? super T>>> renderer,
                                                                          MobCategory group, int range, int updateFrequency, boolean sendVelocity, boolean immuneToFire,
                                                                          NonNullConsumer<EntityType.Builder<T>> propertyBuilder) {
-        String id = Lang.asId(name);
+        String id = CreateLang.asId(name);
         return (CreateEntityBuilder<T, ?>) TFMG.REGISTRATE
                 .entity(id, factory, group)
                 .properties(b -> b.setTrackingRange(range)

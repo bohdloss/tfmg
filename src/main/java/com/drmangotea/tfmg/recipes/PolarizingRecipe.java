@@ -8,7 +8,8 @@ import com.simibubi.create.compat.jei.category.sequencedAssembly.SequencedAssemb
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.sequenced.IAssemblyRecipe;
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.GsonHelper;
@@ -44,11 +45,12 @@ public class PolarizingRecipe extends ProcessingRecipe<RecipeWrapper> implements
     
     @Override
     public Component getDescriptionForAssembly() {
-        return Lang.translateDirect("recipe.assembly.polarizing");
+        return CreateLang.translateDirect("recipe.assembly.polarizing");
     }
     
     @Override
     public void addRequiredMachines(Set<ItemLike> set) {
+
         set.add(TFMGBlocks.POLARIZER.get());
     }
     

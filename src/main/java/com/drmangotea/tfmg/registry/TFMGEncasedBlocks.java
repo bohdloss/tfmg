@@ -8,8 +8,8 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.decoration.encasing.EncasingRegistry;
 import com.simibubi.create.content.kinetics.simpleRelays.encased.EncasedCogCTBehaviour;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import net.createmod.catnip.data.Couple;
 
 import static com.drmangotea.tfmg.TFMG.REGISTRATE;
 import static com.drmangotea.tfmg.content.decoration.encased.TFMGEncasedCogwheelBlock.aluminum;
@@ -21,14 +21,14 @@ public class TFMGEncasedBlocks {
     public static final BlockEntry<TFMGEncasedShaftBlock> STEEL_ENCASED_SHAFT =
             REGISTRATE.block("steel_encased_shaft", p -> new TFMGEncasedShaftBlock(p, TFMGBlocks.STEEL_CASING::get))
                     .transform(TFMGBuilderTransformers.encasedShaft("steel", () -> TFMGSpriteShifts.STEEL_CASING))
-                    .transform(EncasingRegistry.addVariantTo(AllBlocks.SHAFT))
+                   // .transform(EncasingRegistry.addVariantTo(AllBlocks.SHAFT))
                     .transform(axeOrPickaxe())
                     .register();
 
     public static final BlockEntry<TFMGEncasedShaftBlock> HEAVY_CASING_ENCASED_SHAFT =
             REGISTRATE.block("heavy_casing_encased_shaft", p -> new TFMGEncasedShaftBlock(p, TFMGBlocks.HEAVY_MACHINERY_CASING::get))
                     .transform(TFMGBuilderTransformers.encasedShaft("heavy_casing", () -> TFMGSpriteShifts.HEAVY_MACHINERY_CASING))
-                    .transform(EncasingRegistry.addVariantTo(AllBlocks.SHAFT))
+                    //.transform(EncasingRegistry.addVariantTo(AllBlocks.SHAFT))
                     .transform(axeOrPickaxe())
                     .register();
 

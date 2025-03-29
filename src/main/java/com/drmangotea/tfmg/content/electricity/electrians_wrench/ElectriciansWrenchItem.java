@@ -7,7 +7,7 @@ import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGPackets;
 import com.simibubi.create.content.equipment.symmetryWand.SymmetryWandScreen;
-import com.simibubi.create.foundation.gui.ScreenOpener;
+import net.createmod.catnip.gui.ScreenOpener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;

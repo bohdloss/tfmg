@@ -4,7 +4,8 @@ package com.drmangotea.tfmg.registry;
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.spark.ElectricSparkParticle;
 import com.simibubi.create.foundation.particle.ICustomParticleData;
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -25,7 +26,7 @@ public enum TFMGParticleTypes {
 	private final ParticleEntry<?> entry;
 
 	<D extends ParticleOptions> TFMGParticleTypes(Supplier<? extends ICustomParticleData<D>> typeFactory) {
-		String name = Lang.asId(name());
+		String name = CreateLang.asId(name());
 		entry = new ParticleEntry<>(name, typeFactory);
 	}
 

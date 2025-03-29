@@ -2,7 +2,7 @@ package com.drmangotea.tfmg.content.machinery.misc.machine_input;
 
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
-import com.simibubi.create.foundation.utility.Lang;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

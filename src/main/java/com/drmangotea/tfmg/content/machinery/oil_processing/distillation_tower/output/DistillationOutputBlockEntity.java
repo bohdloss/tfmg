@@ -1,7 +1,7 @@
 package com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.output;
 
 import com.drmangotea.tfmg.base.TFMGIcons;
-import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.kinetics.mechanicalArm.ArmBlockEntity;
 import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
@@ -11,8 +11,9 @@ import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.INamedIc
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollOptionBehaviour;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
 import com.simibubi.create.foundation.gui.AllIcons;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.VecHelper;
+
+import com.simibubi.create.foundation.utility.CreateLang;
+import net.createmod.catnip.math.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -48,7 +49,7 @@ public class DistillationOutputBlockEntity extends SmartBlockEntity implements I
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         mode = new ScrollOptionBehaviour<DistillationOutputMode>(DistillationOutputMode.class,
-                Lang.translateDirect("distillation_output.when_tank_is_full"), this, new DistillationOutputValueBox());
+                CreateLang.translateDirect("distillation_output.when_tank_is_full"), this, new DistillationOutputValueBox());
         behaviours.add(mode);
     }
 
@@ -123,7 +124,7 @@ public class DistillationOutputBlockEntity extends SmartBlockEntity implements I
 
         @Override
         public String getTranslationKey() {
-            return "distillation_output.mode."+ Lang.asId(name());
+            return "distillation_output.mode."+ CreateLang.asId(name());
         }
     }
 }

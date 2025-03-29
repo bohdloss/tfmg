@@ -3,6 +3,7 @@ package com.drmangotea.tfmg.registry;
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGArmorMaterials;
 import com.drmangotea.tfmg.base.TFMGTiers;
+import com.drmangotea.tfmg.content.electricity.measurement.MultimeterItem;
 import com.drmangotea.tfmg.content.engines.CylinderItem;
 import com.drmangotea.tfmg.content.decoration.gearbox.SteelVerticalGearboxItem;
 import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnection;
@@ -12,6 +13,7 @@ import com.drmangotea.tfmg.content.electricity.utilities.fuse_block.FuseItem;
 import com.drmangotea.tfmg.content.electricity.utilities.resistor.ResistorItem;
 import com.drmangotea.tfmg.content.electricity.utilities.transformer.ElectromagneticCoilItem;
 import com.drmangotea.tfmg.content.engines.FluidContainingItem;
+import com.drmangotea.tfmg.content.engines.upgrades.TransmissionItem;
 import com.drmangotea.tfmg.content.items.CoalCokeItem;
 import com.drmangotea.tfmg.content.items.ScrewdriverItem;
 import com.drmangotea.tfmg.content.items.weapons.LeadAxeItem;
@@ -26,7 +28,7 @@ import com.drmangotea.tfmg.content.items.weapons.lithium_blade.LithiumBladeItem;
 import com.drmangotea.tfmg.content.items.weapons.quad_potato_cannon.QuadPotatoCannonItem;
 import com.drmangotea.tfmg.content.machinery.misc.winding_machine.SpoolItem;
 import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.DepositItem;
-import com.jozufozu.flywheel.core.PartialModel;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import com.simibubi.create.foundation.data.AssetLookup;
@@ -36,6 +38,7 @@ import net.minecraft.world.item.*;
 import net.minecraftforge.common.Tags;
 
 import static com.drmangotea.tfmg.TFMG.REGISTRATE;
+import static com.drmangotea.tfmg.base.TFMGBuilderTransformers.COLORS;
 import static com.drmangotea.tfmg.content.items.weapons.explosives.thermite_grenades.ThermiteGrenade.ChemicalColor.*;
 import static com.simibubi.create.AllTags.AllItemTags.CREATE_INGOTS;
 import static com.simibubi.create.AllTags.forgeItemTag;
@@ -50,7 +53,6 @@ public class TFMGItems {
             STEEL_INGOT = taggedIngredient("steel_ingot", forgeItemTag("ingots/steel"), CREATE_INGOTS.tag),
             CAST_IRON_INGOT = taggedIngredient("cast_iron_ingot", forgeItemTag("ingots/cast_iron"), CREATE_INGOTS.tag),
             ALUMINUM_INGOT = taggedIngredient("aluminum_ingot", forgeItemTag("ingots/aluminum"), CREATE_INGOTS.tag),
-
     PLASTIC_SHEET = taggedIngredient("plastic_sheet", forgeItemTag("ingots/plastic"), CREATE_INGOTS.tag),
             HEAVY_PLATE = taggedIngredient("heavy_plate", forgeItemTag("plates/steel")),
             ALUMINUM_SHEET = taggedIngredient("aluminum_sheet", forgeItemTag("plates/aluminum")),
@@ -89,7 +91,7 @@ public class TFMGItems {
             FIRECLAY_BALL = REGISTRATE.item("fireclay_ball", Item::new).register(),
             SCREW = REGISTRATE.item("screw", Item::new).register(),
 
-            TURBINE_BLADE = REGISTRATE.item("turbine_blade", Item::new).register(),
+    TURBINE_BLADE = REGISTRATE.item("turbine_blade", Item::new).register(),
             THERMITE_POWDER = REGISTRATE.item("thermite_powder", Item::new).register(),
             STEEL_MECHANISM = REGISTRATE.item("steel_mechanism", Item::new).register(),
             NITRATE_DUST = REGISTRATE.item("nitrate_dust", Item::new).register(),
@@ -105,9 +107,9 @@ public class TFMGItems {
             ZINC_SULFATE = REGISTRATE.item("zinc_sulfate", Item::new).register(),
             COPPER_SULFATE = REGISTRATE.item("copper_sulfate", Item::new).register(),
             LITHIUM_CHARGE = REGISTRATE.item("lithium_charge", Item::new).register(),
-                    TURBO = REGISTRATE.item("turbo", Item::new).register(),
-                    GOLDEN_TURBO = REGISTRATE.item("golden_turbo", Item::new).register(),
-                    TRANSMISSION = REGISTRATE.item("transmission", Item::new).register(),
+            TURBO = REGISTRATE.item("turbo", Item::new).register(),
+            GOLDEN_TURBO = REGISTRATE.item("golden_turbo", Item::new).register(),
+
 
     CINDERBLOCK = REGISTRATE.item("cinderblock", Item::new)
             //  .recipe((c, p) -> p.stonecutting(DataIngredient.items(TFMGBlocks.CONCRETE.get()), RecipeCategory.BUILDING_BLOCKS, c::get, 4))
@@ -116,8 +118,9 @@ public class TFMGItems {
             NAPALM_POTATO = REGISTRATE.item("napalm_potato", Item::new).register(),
             MIXER_BLADE = REGISTRATE.item("mixer_blade", Item::new).register(),
             CENTRIFUGE = REGISTRATE.item("centrifuge", Item::new).register(),
-            MULTIMETER = REGISTRATE.item("multimeter", Item::new).register(),
-            CRANKSHAFT = REGISTRATE.item("crankshaft", Item::new).register(),
+            CRANKSHAFT = REGISTRATE.item("crankshaft", Item::new)
+                    .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/crankshaft_model")))
+                    .register(),
             P_SEMICONDUCTOR = REGISTRATE.item("p_semiconductor", Item::new)
                     .lang("P-Semiconductor").register(),
             N_SEMICONDUCTOR = REGISTRATE.item("n_semiconductor", Item::new)
@@ -140,12 +143,13 @@ public class TFMGItems {
                     .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/unfinished_insulator_model"))).register(),
             GLASS_INSULATOR_SEGMENT = REGISTRATE.item("glass_insulator_segment", Item::new)
                     .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/glass_insulator_segment_model"))).register();
-
+    public static final ItemEntry<TransmissionItem>
+            TRANSMISSION = REGISTRATE.item("transmission", TransmissionItem::new).register();
 
     public static final ItemEntry<ResistorItem>
             UNFINISHED_RESISTOR = REGISTRATE.item("unfinished_resistor", ResistorItem::new).register();
     public static final ItemEntry<CylinderItem>
-        ENGINE_CYLINDER = REGISTRATE.item("engine_cylinder", CylinderItem::new).register();
+            ENGINE_CYLINDER = REGISTRATE.item("engine_cylinder", CylinderItem::new).register();
     public static final ItemEntry<SpoolItem>
             EMPTY_SPOOL = spoolItem("empty", null, 0x000000, CableConnection.CableType.NONE),
             COPPER_SPOOL = spoolItem("copper", TFMGPartialModels.COPPER_SPOOL, 0xD8735A, CableConnection.CableType.COPPER),
@@ -157,7 +161,7 @@ public class TFMGItems {
                     .properties(p -> p.stacksTo(1))
                     .register();
     public static final ItemEntry<FuseItem> FUSE = REGISTRATE.item("fuse", FuseItem::new)
-            .properties(p->p.stacksTo(1))
+            .properties(p -> p.stacksTo(1))
             .register();
     public static final ItemEntry<CoalCokeItem> COAL_COKE_DUST = REGISTRATE.item("coal_coke_dust", CoalCokeItem::new)
             .tag(forgeItemTag("dusts/coal_coke"), TFMGTags.TFMGItemTags.BLAST_FURNACE_FUEL.tag)
@@ -216,6 +220,10 @@ public class TFMGItems {
                     .properties(p -> p.stacksTo(1))
                     .register();
 
+    static {
+        multimeters();
+    }
+
     public static final ItemEntry<SequencedAssemblyItem>
             UNFINISHED_POTENTIOMETER = sequencedIngredient("unfinished_potentiometer", "block/potentiometer/unfinished"),
             UNFINISHED_ELECTRIC_MOTOR = sequencedIngredient("unfinished_electric_motor", "block/electric_motor/unfinished"),
@@ -223,9 +231,7 @@ public class TFMGItems {
             UNFINISHED_STEEL_MECHANISM = sequencedIngredient("unfinished_steel_mechanism"),
             UNFINISHED_TRANSISTOR = sequencedIngredient("unfinished_transistor"),
             UNFINISHED_CAPACITOR = sequencedIngredient("unfinished_capacitor"),
-            UNPROCESSED_HEAVY_PLATE = sequencedIngredient("unprocessed_heavy_plate")
-
-                    ;
+            UNPROCESSED_HEAVY_PLATE = sequencedIngredient("unprocessed_heavy_plate");
 
 
     public static final ItemEntry<QuadPotatoCannonItem> QUAD_POTATO_CANNON =
@@ -240,6 +246,7 @@ public class TFMGItems {
     public static final ItemEntry<FluidContainingItem>
             OIL_CAN = REGISTRATE.item("oil_can", p -> new FluidContainingItem(p, TFMGFluids.LUBRICATION_OIL))
             .properties(p -> p.stacksTo(1))
+            .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/oil_can_model")))
             .register(),
             COOLING_FLUID_BOTTLE = REGISTRATE.item("cooling_fluid_bottle", p -> new FluidContainingItem(p, TFMGFluids.COOLING_FLUID))
                     .properties(p -> p.stacksTo(1))
@@ -256,7 +263,7 @@ public class TFMGItems {
     public static final ItemEntry<ThermiteGrenadeItem>
             COPPER_GRENADE = thermiteGrenade("copper_grenade", BLUE);
 
-    ////////////////////////////
+    /// /////////////////////////
 
     private static ItemEntry<SequencedAssemblyItem> sequencedIngredient(String name, String model) {
         return REGISTRATE.item(name, SequencedAssemblyItem::new)
@@ -358,6 +365,16 @@ public class TFMGItems {
     public static ItemEntry<SequencedAssemblyItem> assemblyItem(String name) {
         return REGISTRATE.item(name, SequencedAssemblyItem::new)
                 .register();
+    }
+
+    public static void multimeters() {
+        REGISTRATE.item("multimeter", MultimeterItem::new)
+                .register();
+
+        for(String color : COLORS){
+            REGISTRATE.item(color+"_multimeter", MultimeterItem::new)
+                    .register();
+        }
     }
 
     public static ItemEntry<SpoolItem> spoolItem(String name, PartialModel model, int barColor, CableConnection.CableType type) {

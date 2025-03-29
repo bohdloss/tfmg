@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"1": "tfmg:block/steel_fluid_tank",
-		"particle": "tfmg:block/steel_fluid_tank"
+		"1": "tfmg:block/steel_vat",
+		"particle": "tfmg:block/steel_vat"
 	},
 	"elements": [
 		{
@@ -51,6 +51,7 @@
 		{
 			"name": "tank",
 			"origin": [8, 8, -23],
+			"color": 0,
 			"children": [0, 1, 2, 3]
 		}
 	]

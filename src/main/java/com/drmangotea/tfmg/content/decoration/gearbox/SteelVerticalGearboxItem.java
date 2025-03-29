@@ -3,7 +3,7 @@ package com.drmangotea.tfmg.content.decoration.gearbox;
 
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.simibubi.create.content.kinetics.base.IRotate;
-import com.simibubi.create.foundation.utility.Iterate;
+import net.createmod.catnip.data.Iterate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;

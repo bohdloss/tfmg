@@ -2,6 +2,7 @@ package com.drmangotea.tfmg.base;
 
 
 import com.drmangotea.tfmg.TFMG;
+import com.drmangotea.tfmg.config.TFMGStress;
 import com.drmangotea.tfmg.content.decoration.FrameBlock;
 import com.drmangotea.tfmg.content.decoration.TrussBlock;
 import com.drmangotea.tfmg.content.decoration.doors.TFMGSlidingDoorBlock;
@@ -17,17 +18,16 @@ import com.simibubi.create.content.contraptions.behaviour.DoorMovingInteraction;
 import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
 import com.simibubi.create.content.decoration.girder.GirderBlock;
 import com.simibubi.create.content.decoration.slidingDoor.SlidingDoorMovementBehaviour;
-import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.content.kinetics.base.RotatedPillarKineticBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.encased.EncasedCogCTBehaviour;
 import com.simibubi.create.foundation.block.connected.CTSpriteShiftEntry;
 import com.simibubi.create.foundation.data.*;
-import com.simibubi.create.foundation.utility.Iterate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
@@ -44,8 +44,8 @@ import java.nio.channels.Pipe;
 import java.util.function.Supplier;
 
 import static com.drmangotea.tfmg.TFMG.REGISTRATE;
-import static com.simibubi.create.AllInteractionBehaviours.interactionBehaviour;
-import static com.simibubi.create.AllMovementBehaviours.movementBehaviour;
+import static com.simibubi.create.api.behaviour.interaction.MovingInteractionBehaviour.interactionBehaviour;
+import static com.simibubi.create.api.behaviour.movement.MovementBehaviour.movementBehaviour;
 import static com.simibubi.create.foundation.data.BlockStateGen.axisBlock;
 import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
@@ -181,7 +181,7 @@ public class TFMGBuilderTransformers {
                                                                                            Supplier<ItemLike> drop) {
         return b.initialProperties(SharedProperties::stone)
                 .properties(BlockBehaviour.Properties::noOcclusion)
-                .transform(BlockStressDefaults.setNoImpact())
+                .transform(TFMGStress.setNoImpact())
                 .loot((p, lb) -> p.dropOther(lb, drop.get()));
     }
     public static <B extends CopycatCableBlock, P> NonNullUnaryOperator<BlockBuilder<B, P>> copycatCable() {
@@ -199,12 +199,12 @@ public class TFMGBuilderTransformers {
     }
 
     ///////////////
-    public static BlockEntry<TFMGFlywheelBlock> flywheel(String name) {
-        return REGISTRATE.block(name + "_flywheel", TFMGFlywheelBlock::new)
+    public static BlockEntry<TFMGFlywheelBlock> flywheel(String name, NonNullFunction<BlockBehaviour.Properties, TFMGFlywheelBlock> block) {
+        return REGISTRATE.block(name + "_flywheel", block)
                 .initialProperties(SharedProperties::softMetal)
                 .properties(BlockBehaviour.Properties::noOcclusion)
                 .transform(axeOrPickaxe())
-                .transform(BlockStressDefaults.setNoImpact())
+                .transform(TFMGStress.setNoImpact())
                 .blockstate(BlockStateGen.axisBlockProvider(true))
                 .item()
                 .transform(customItemModel())

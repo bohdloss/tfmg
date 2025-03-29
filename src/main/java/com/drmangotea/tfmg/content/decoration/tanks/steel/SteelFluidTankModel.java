@@ -6,7 +6,7 @@ import com.simibubi.create.api.connectivity.ConnectivityHandler;
 import com.simibubi.create.content.fluids.tank.FluidTankCTBehaviour;
 import com.simibubi.create.foundation.block.connected.CTModel;
 import com.simibubi.create.foundation.block.connected.CTSpriteShiftEntry;
-import com.simibubi.create.foundation.utility.Iterate;
+import net.createmod.catnip.data.Iterate;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.model.BakedModel;
@@ -30,6 +30,19 @@ public class SteelFluidTankModel extends CTModel {
     public static SteelFluidTankModel standard(BakedModel originalModel) {
         return new SteelFluidTankModel(originalModel, TFMGSpriteShifts.STEEL_FLUID_TANK, TFMGSpriteShifts.STEEL_FLUID_TANK_TOP,
                 TFMGSpriteShifts.STEEL_FLUID_TANK_INNER);
+    }
+
+    public static SteelFluidTankModel steelVat(BakedModel originalModel) {
+        return new SteelFluidTankModel(originalModel, TFMGSpriteShifts.STEEL_VAT, TFMGSpriteShifts.STEEL_VAT_TOP,
+                TFMGSpriteShifts.STEEL_VAT_INNER);
+    }
+    public static SteelFluidTankModel castIronVat(BakedModel originalModel) {
+        return new SteelFluidTankModel(originalModel, TFMGSpriteShifts.CAST_IRON_VAT, TFMGSpriteShifts.CAST_IRON_VAT_TOP,
+                TFMGSpriteShifts.CAST_IRON_VAT_INNER);
+    }
+    public static SteelFluidTankModel fireproofVat(BakedModel originalModel) {
+        return new SteelFluidTankModel(originalModel, TFMGSpriteShifts.FIREPROOF_VAT, TFMGSpriteShifts.FIREPROOF_VAT_TOP,
+                TFMGSpriteShifts.FIREPROOF_VAT_INNER);
     }
 
 

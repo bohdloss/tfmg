@@ -59,8 +59,8 @@
   "create.goggles.electricity.insufficient_voltage": "Insufficient Voltage",
 
   "create.goggles.voltmeter": "Voltmeter:",
-  "create.goggles.voltmeter.voltage": "   Measured Voltage: %1$s V",
-  "create.goggles.voltmeter.range": "   Measuring Range: %1$s V",
+  "create.goggles.gauge.value": "   Measured Voltage:",
+  "create.goggles.voltmeter.range": "   Measuring Range: %1$s",
 
   "create.goggles.ammeter": "Ammeter:",
   "create.goggles.ammeter.amps": "   Measured Amps: %1$s V",

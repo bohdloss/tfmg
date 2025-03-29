@@ -8,7 +8,8 @@ import com.drmangotea.tfmg.registry.TFMGTags;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.foundation.item.SmartInventory;
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -311,11 +312,11 @@ public class RegularEngineBlockEntity extends AbstractEngineBlockEntity {
 
         for (TagKey<Fluid> tag : supportedFuels) {
 
-            Lang.text(tag.toString()).forGoggles(tooltip);
+            CreateLang.text(tag.toString()).forGoggles(tooltip);
 
         }
 
-        Lang.text("Type: " + type.name).forGoggles(tooltip);
+        CreateLang.text("Type: " + type.name).forGoggles(tooltip);
 
         super.addToGoggleTooltip(tooltip, isPlayerSneaking);
 

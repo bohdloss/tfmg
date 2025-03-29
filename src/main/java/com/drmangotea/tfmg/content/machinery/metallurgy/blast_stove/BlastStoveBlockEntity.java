@@ -9,15 +9,17 @@ import com.drmangotea.tfmg.recipes.HotBlastRecipe;
 import com.drmangotea.tfmg.registry.TFMGFluids;
 import com.simibubi.create.Create;
 import com.simibubi.create.api.connectivity.ConnectivityHandler;
-import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.pipes.FluidPipeBlockEntity;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.foundation.blockEntity.IMultiBlockEntityContainer;
 import com.simibubi.create.foundation.fluid.CombinedTankWrapper;
 import com.simibubi.create.foundation.recipe.RecipeFinder;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.LangBuilder;
+
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
+import net.createmod.catnip.lang.LangBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -357,47 +359,47 @@ public class BlastStoveBlockEntity extends FluidTankBlockEntity implements IHave
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 
-        LangBuilder mb = Lang.translate("generic.unit.millibuckets");
+        LangBuilder mb = CreateLang.translate("generic.unit.millibuckets");
 
-        Lang.translate("goggles.blast_stove.header")
+        CreateLang.translate("goggles.blast_stove.header")
                         .forGoggles(tooltip);
-        Lang.builder()
-                .add(Lang.translate("goggles.blast_stove.tank1"))
-                .add(Lang.number(secondaryCapability.orElseGet(null).getFluidInTank(0).getAmount())
+        CreateLang.builder()
+                .add(CreateLang.translate("goggles.blast_stove.tank1"))
+                .add(CreateLang.number(secondaryCapability.orElseGet(null).getFluidInTank(0).getAmount())
                         .add(mb)
                         .style(ChatFormatting.DARK_GREEN))
                 .text(ChatFormatting.GRAY, " / ")
-                .add(Lang.number(8000)
+                .add(CreateLang.number(8000)
                         .add(mb)
                         .style(ChatFormatting.DARK_GRAY))
                 .forGoggles(tooltip, 1);
-        Lang.builder()
-                .add(Lang.translate("goggles.blast_stove.tank2"))
-                .add(Lang.number(primaryCapability.orElseGet(null).getFluidInTank(1).getAmount())
+        CreateLang.builder()
+                .add(CreateLang.translate("goggles.blast_stove.tank2"))
+                .add(CreateLang.number(primaryCapability.orElseGet(null).getFluidInTank(1).getAmount())
                         .add(mb)
                         .style(ChatFormatting.DARK_GREEN))
                 .text(ChatFormatting.GRAY, " / ")
-                .add(Lang.number(8000)
+                .add(CreateLang.number(8000)
                         .add(mb)
                         .style(ChatFormatting.DARK_GRAY))
                 .forGoggles(tooltip, 1);
-        Lang.builder()
-                .add(Lang.translate("goggles.blast_stove.tank3"))
-                .add(Lang.number(primaryCapability.orElseGet(null).getFluidInTank(0).getAmount())
+        CreateLang.builder()
+                .add(CreateLang.translate("goggles.blast_stove.tank3"))
+                .add(CreateLang.number(primaryCapability.orElseGet(null).getFluidInTank(0).getAmount())
                         .add(mb)
                         .style(ChatFormatting.YELLOW))
                 .text(ChatFormatting.GRAY, " / ")
-                .add(Lang.number(8000)
+                .add(CreateLang.number(8000)
                         .add(mb)
                         .style(ChatFormatting.DARK_GRAY))
                 .forGoggles(tooltip, 1);
-        Lang.builder()
-                .add(Lang.translate("goggles.blast_stove.tank4"))
-                .add(Lang.number(secondaryCapability.orElseGet(null).getFluidInTank(1).getAmount())
+        CreateLang.builder()
+                .add(CreateLang.translate("goggles.blast_stove.tank4"))
+                .add(CreateLang.number(secondaryCapability.orElseGet(null).getFluidInTank(1).getAmount())
                         .add(mb)
                         .style(ChatFormatting.YELLOW))
                 .text(ChatFormatting.GRAY, " / ")
-                .add(Lang.number(8000)
+                .add(CreateLang.number(8000)
                         .add(mb)
                         .style(ChatFormatting.DARK_GRAY))
                 .forGoggles(tooltip, 1);
@@ -464,7 +466,7 @@ public class BlastStoveBlockEntity extends FluidTankBlockEntity implements IHave
     }
 
 
-    public IFluidTank getTankInventory() {
+    public FluidTank getTankInventory() {
         return primaryOutputInventory;
     }
 

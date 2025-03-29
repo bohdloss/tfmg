@@ -5,8 +5,8 @@ import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueSettingsBoard;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueSettingsFormatter;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
-import com.simibubi.create.foundation.utility.Components;
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
@@ -21,7 +21,7 @@ public class TimerScrollBehaviour extends ScrollValueBehaviour {
 	@Override
 	public ValueSettingsBoard createBoard(Player player, BlockHitResult hitResult) {
 		return new ValueSettingsBoard(label, 60, 10,
-			Lang.translatedOptions("generic.unit", "ticks", "seconds", "minutes"),
+			CreateLang.translatedOptions("generic.unit", "ticks", "seconds", "minutes"),
 			new ValueSettingsFormatter(this::formatSettings));
 	}
 
@@ -58,7 +58,7 @@ public class TimerScrollBehaviour extends ScrollValueBehaviour {
 
 	public MutableComponent formatSettings(ValueSettings settings) {
 		int value = Math.max(1, settings.value());
-		return Components.literal(switch (settings.row()) {
+		return Component.literal(switch (settings.row()) {
 		case 0 -> Math.max(2, value) + "t";
 		case 1 -> "0:" + (value < 10 ? "0" : "") + value;
 		default -> value + ":00";

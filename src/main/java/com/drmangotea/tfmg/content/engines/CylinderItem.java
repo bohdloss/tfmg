@@ -1,6 +1,7 @@
 package com.drmangotea.tfmg.content.engines;
 
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -28,12 +29,12 @@ public class CylinderItem extends Item {
 
         if(fuels.isEmpty())
             return;
-        tooltip.add(Lang.translateDirect("tooltip.cylinder")
+        tooltip.add(CreateLang.translateDirect("tooltip.cylinder")
                 .withStyle(ChatFormatting.GRAY));
 
         for(String key : fuels.getAllKeys()) {
 
-            tooltip.add(Lang.text("- "+fuels.getString(key)).component()
+            tooltip.add(CreateLang.text("- "+fuels.getString(key)).component()
                     .withStyle(ChatFormatting.AQUA));
         }
 

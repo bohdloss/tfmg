@@ -2,10 +2,11 @@ package com.drmangotea.tfmg.content.electricity.utilities.traffic_light;
 
 
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
-import com.jozufozu.flywheel.util.transform.TransformStack;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import com.simibubi.create.foundation.render.CachedBufferer;
+import dev.engine_room.flywheel.lib.transform.TransformStack;
+import net.createmod.catnip.render.CachedBuffers;
 import com.simibubi.create.foundation.render.RenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -22,7 +23,7 @@ public class TrafficLightRenderer extends SafeBlockEntityRenderer<TrafficLightBl
 
 
         BlockState blockState = be.getBlockState();
-        TransformStack msr = TransformStack.cast(ms);
+        var msr = TransformStack.of(ms);
 
 
         ms.pushPose();
@@ -33,12 +34,12 @@ public class TrafficLightRenderer extends SafeBlockEntityRenderer<TrafficLightBl
       //  if(be.glow.getValue()!=0) {
 
         if(be.getData().getVoltage()>0&&be.getPowerUsage()>0)
-                CachedBufferer.partialFacing(TFMGPartialModels.TRAFFIC_LIGHT, blockState, blockState.getValue(HorizontalDirectionalBlock.FACING).getOpposite())
+                CachedBuffers.partialFacing(TFMGPartialModels.TRAFFIC_LIGHT, blockState, blockState.getValue(HorizontalDirectionalBlock.FACING).getOpposite())
                         .light((int) glow * 3 + 80)
                         .color(be.light == 0 ? 0x4CFF00 : be.light == 1 ? 0xF78000 : 0xE22B16)
                         .disableDiffuse()
-                        .translateY(be.light == 0 ? 0 : be.light == 1 ? 0.3125 : 0.625)
-                        .renderInto(ms, buffer.getBuffer(RenderTypes.getAdditive()));
+                        .translateY(be.light == 0 ? 0 : (float) (be.light == 1 ? 0.3125 : 0.625))
+                        .renderInto(ms, buffer.getBuffer(RenderTypes.additive()));
 
 
       //  }

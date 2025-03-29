@@ -3,7 +3,8 @@ package com.drmangotea.tfmg.content.electricity.base;
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGUtils;
 import com.drmangotea.tfmg.registry.TFMGPackets;
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -35,29 +36,30 @@ public interface IElectric {
         ElectricalNetwork network = TFMG.NETWORK_MANAGER.getOrCreateNetworkFor(this);
         setNetwork(getPos());
         getData().electricalNetworkId = getPos();
+        network.add(this);
 
-        //BlockPos pos = BlockPos.of(getPos());
-        ///// ////
+        BlockPos pos = BlockPos.of(getPos());
+        /// ////
+
+
+       // for (Direction d : Direction.values()) {
+       //     if (hasElectricitySlot(d))
+       //         if (getLevelAccessor().getBlockEntity(pos.relative(d)) instanceof IElectric be) {
+       //             if (be.hasElectricitySlot(d.getOpposite())) {
+       //                 if (!be.destroyed()) {
 //
 //
-        //for (Direction d : Direction.values()) {
-        //    if (hasElectricitySlot(d))
-        //        if (getLevelAccessor().getBlockEntity(pos.relative(d)) instanceof IElectric be) {
-        //            if (be.hasElectricitySlot(d.getOpposite())) {
-        //                if (!be.destroyed()) {
+       //                     for(IElectric member : be.getOrCreateElectricNetwork().members){
+       //                         network.add(member);
+       //                         member.setNetwork(this.getData().electricalNetworkId);
 //
+       //                     }
 //
-        //                    for(IElectric member : be.getOrCreateElectricNetwork().members){
-        //                        network.add(member);
-        //                        member.setNetwork(this.getData().electricalNetworkId);
-//
-        //                    }
-//
-        //                }
-        //            }
-        //        }
-        //}
-        //updateNextTick();
+       //                 }
+       //             }
+       //         }
+       // }
+        updateNextTick();
 
         onConnected();
         sendStuff();
@@ -101,53 +103,53 @@ public interface IElectric {
 
 
     default boolean makeElectricityTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        Lang.number(getOrCreateElectricNetwork().members.size()).forGoggles(tooltip, 1);
+        CreateLang.number(getOrCreateElectricNetwork().members.size()).forGoggles(tooltip, 1);
         if (getData().failTimer > 0)
-            Lang.text("Skill issue: " + getData().failTimer).forGoggles(tooltip, 1);
-        Lang.text("X " + BlockPos.of(getData().electricalNetworkId).getX() + " Y " + BlockPos.of(getData().electricalNetworkId).getY() + " Z " + BlockPos.of(getData().electricalNetworkId).getZ()).forGoggles(tooltip, 1);
-        Lang.translate("multimeter.header")
+            CreateLang.text("Skill issue: " + getData().failTimer).forGoggles(tooltip, 1);
+        CreateLang.text("X " + BlockPos.of(getData().electricalNetworkId).getX() + " Y " + BlockPos.of(getData().electricalNetworkId).getY() + " Z " + BlockPos.of(getData().electricalNetworkId).getZ()).forGoggles(tooltip, 1);
+        CreateLang.translate("multimeter.header")
                 .style(ChatFormatting.WHITE)
                 .forGoggles(tooltip, 1);
-        Lang.text("   R = " + TFMGUtils.formatUnits(voltageGeneration() > 0 ? getGeneratorResistance() : resistance(), "Ω"))
+        CreateLang.text("   R = " + TFMGUtils.formatUnits(voltageGeneration() > 0 ? getGeneratorResistance() : resistance(), "Ω"))
                 .style(ChatFormatting.GOLD)
                 .forGoggles(tooltip, 1);
-        Lang.text("   P = " + TFMGUtils.formatUnits(getPowerUsage(), "W"))
+        CreateLang.text("   P = " + TFMGUtils.formatUnits(getPowerUsage(), "W"))
                 .style(ChatFormatting.GOLD)
                 .forGoggles(tooltip, 1);
-        Lang.text("   U = " + TFMGUtils.formatUnits(getData().getVoltage(), "V"))
+        CreateLang.text("   U = " + TFMGUtils.formatUnits(getData().getVoltage(), "V"))
                 .style(ChatFormatting.AQUA)
                 .forGoggles(tooltip, 1);
-        Lang.text("   I = " + TFMGUtils.formatUnits(getCurrent(), "A"))
+        CreateLang.text("   I = " + TFMGUtils.formatUnits(getCurrent(), "A"))
                 .style(ChatFormatting.GREEN)
                 .forGoggles(tooltip, 1);
 
         ////////
-        Lang.text("   Network Resistance: " + TFMGUtils.formatUnits(getNetworkResistance(), "Ω"))
+        CreateLang.text("   Network Resistance: " + TFMGUtils.formatUnits(getNetworkResistance(), "Ω"))
                 .style(ChatFormatting.YELLOW)
                 .forGoggles(tooltip, 1);
-        Lang.text("   Max Current: " + TFMGUtils.formatUnits(getData().highestCurrent, "A"))
+        CreateLang.text("   Max Current: " + TFMGUtils.formatUnits(getData().highestCurrent, "A"))
                 .style(ChatFormatting.AQUA)
                 .forGoggles(tooltip, 1);
-        Lang.text("   Network Power Usage: " + TFMGUtils.formatUnits(getNetworkPowerUsage(), "W"))
+        CreateLang.text("   Network Power Usage: " + TFMGUtils.formatUnits(getNetworkPowerUsage(), "W"))
                 .style(ChatFormatting.YELLOW)
                 .forGoggles(tooltip, 1);
-        Lang.text("   Group: " + getData().group.id)
+        CreateLang.text("   Group: " + getData().group.id)
                 .style(ChatFormatting.DARK_PURPLE)
                 .forGoggles(tooltip, 1);
-        Lang.text("   Group Resistance: " + getData().group.resistance)
+        CreateLang.text("   Group Resistance: " + getData().group.resistance)
                 .style(ChatFormatting.DARK_PURPLE)
                 .forGoggles(tooltip, 1);
-        Lang.text("   Voltage Supply: " + getData().voltageSupply)
+        CreateLang.text("   Voltage Supply: " + getData().voltageSupply)
                 .style(ChatFormatting.DARK_PURPLE)
                 .forGoggles(tooltip, 1);
 
 
         if (voltageGeneration() > 0) {
-            Lang.translate("multimeter.power_generated")
+            CreateLang.translate("multimeter.power_generated")
                     .add(Component.literal(TFMGUtils.formatUnits(powerGeneration(), "W")))
                     .style(ChatFormatting.BLUE)
                     .forGoggles(tooltip, 1);
-            Lang.translate("multimeter.voltage_generated")
+            CreateLang.translate("multimeter.voltage_generated")
                     .add(Component.literal(TFMGUtils.formatUnits(voltageGeneration(), "V")))
                     .style(ChatFormatting.BLUE)
                     .forGoggles(tooltip, 1);

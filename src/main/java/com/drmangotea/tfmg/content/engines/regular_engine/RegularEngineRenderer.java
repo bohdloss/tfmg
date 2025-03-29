@@ -6,7 +6,7 @@ import com.drmangotea.tfmg.content.engines.base.EngineRenderer;
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.simibubi.create.foundation.render.CachedBufferer;
+import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -30,22 +30,22 @@ public class RegularEngineRenderer extends EngineRenderer {
 
         VertexConsumer vb = buffer.getBuffer(RenderType.cutoutMipped());
 
-        for(int i = 0;i<be.type.pistons.size();i++){
+        for (int i = 0; i < be.type.pistons.size(); i++) {
             PistonPosition position = be.type.pistons.get(i);
 
-            if(be.type.pistons.size()==be.pistonInventory.getSlots())
+            if (be.type.pistons.size() == be.pistonInventory.getSlots())
                 ms.pushPose();
-            if(!be.pistonInventory.getStackInSlot(i).isEmpty())
-                CachedBufferer.partial(be.type == RegularEngineBlockEntity.EngineType.I||be.type == RegularEngineBlockEntity.EngineType.U||be.type == RegularEngineBlockEntity.EngineType.BOXER ? TFMGPartialModels.SMALL_CYLINDER : TFMGPartialModels.CYLINDER,blockState)
-                        .centre()
+            if (!be.pistonInventory.getStackInSlot(i).isEmpty())
+                CachedBuffers.partial(be.type == RegularEngineBlockEntity.EngineType.I || be.type == RegularEngineBlockEntity.EngineType.U || be.type == RegularEngineBlockEntity.EngineType.BOXER ? TFMGPartialModels.SMALL_CYLINDER : TFMGPartialModels.CYLINDER, blockState)
+                        .center()
                         .light(light)
-                        .rotateY(blockState.getValue(HORIZONTAL_FACING).getAxis() == Direction.Axis.Z ? 0 : 90)
+                        .rotateYDegrees(blockState.getValue(HORIZONTAL_FACING).getAxis() == Direction.Axis.Z ? 0 : 90)
                         .translateY(position.getYOffset())
                         .translateZ(position.getXOffset())
                         .translateX(position.getZOffset())
-                        .rotateZ(position.getRotation())
-                        .unCentre()
-                        .renderInto(ms,vb);
+                        .rotateZDegrees(position.getRotation())
+                        .uncenter()
+                        .renderInto(ms, vb);
             ms.popPose();
         }
 

@@ -3,7 +3,7 @@ package com.drmangotea.tfmg.content.electricity.utilities.fuse_block;
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import com.simibubi.create.foundation.render.CachedBufferer;
+import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -23,7 +23,7 @@ public class FuseBlockRenderer extends SafeBlockEntityRenderer<FuseBlockEntity> 
         BlockState blockState = be.getBlockState();
 
         if(!be.fuse.isEmpty())
-            CachedBufferer.partialFacing(TFMGPartialModels.FUSE, blockState, blockState.getValue(FACING).getOpposite())
+            CachedBuffers.partialFacing(TFMGPartialModels.FUSE, blockState, blockState.getValue(FACING).getOpposite())
                     .light(light)
                     .renderInto(ms, bufferSource.getBuffer(RenderType.cutoutMipped()));
 

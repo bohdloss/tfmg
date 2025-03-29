@@ -7,7 +7,8 @@ import com.simibubi.create.AllTags;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder.ProcessingRecipeFactory;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -44,7 +45,7 @@ POLARIZING(PolarizingRecipe::new)
     private final Supplier<RecipeType<?>> type;
 
     TFMGRecipeTypes(Supplier<RecipeSerializer<?>> serializerSupplier, Supplier<RecipeType<?>> typeSupplier, boolean registerType) {
-        String name = Lang.asId(name());
+        String name = CreateLang.asId(name());
         id = TFMG.asResource(name);
         serializerObject = Registers.SERIALIZER_REGISTER.register(name, serializerSupplier);
         if (registerType) {
@@ -57,7 +58,7 @@ POLARIZING(PolarizingRecipe::new)
     }
 
     TFMGRecipeTypes(Supplier<RecipeSerializer<?>> serializerSupplier) {
-        String name = Lang.asId(name());
+        String name = CreateLang.asId(name());
         id = TFMG.asResource(name);
         serializerObject = Registers.SERIALIZER_REGISTER.register(name, serializerSupplier);
         typeObject = Registers.TYPE_REGISTER.register(name, () -> simpleType(id));

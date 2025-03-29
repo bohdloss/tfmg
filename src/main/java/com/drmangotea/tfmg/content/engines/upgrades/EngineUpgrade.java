@@ -3,8 +3,6 @@ package com.drmangotea.tfmg.content.engines.upgrades;
 import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGItems;
-import com.jozufozu.flywheel.backend.instancing.Engine;
-import com.jozufozu.flywheel.core.PartialModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.item.Item;
@@ -48,6 +46,7 @@ public abstract class EngineUpgrade {
         map.put(TFMGItems.GOLDEN_TURBO.get(), new GoldenTurboUpgradeData());
         map.put(TFMGBlocks.GENERATOR.asItem(), new GeneratorEngineUpgrade());
         map.put(TFMGBlocks.INDUSTRIAL_PIPE.asItem(), new EnginePipingUpgrade());
+        map.put(TFMGItems.TRANSMISSION.get(), new TransmissionUpgrade());
 
         return map;
     }

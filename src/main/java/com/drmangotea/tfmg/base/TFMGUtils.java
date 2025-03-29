@@ -12,14 +12,15 @@ import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.LangBuilder;
+import com.simibubi.create.foundation.utility.CreateLang;
+import net.createmod.catnip.lang.LangBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -53,7 +54,16 @@ import java.util.stream.Collectors;
 
 public class TFMGUtils {
 
-
+    public static float toYRot(Direction facing) {
+        return switch (facing){
+            case DOWN -> 0.0F;
+            case UP -> 0.0F;
+            case NORTH -> 0.0F;
+            case SOUTH -> 180F;
+            case WEST -> 90;
+            case EAST -> 270F;
+        };
+    }
     public static void createFireExplosion(Level level, Entity entity, BlockPos pos, int sparkAmount, float radius) {
 
         if (level.isClientSide && entity != null) level.broadcastEntityEvent(entity, (byte) 3);
@@ -159,7 +169,7 @@ public class TFMGUtils {
     }
 
     public static boolean createFluidTooltip(BlockEntity be, List<Component> tooltip) {
-        LangBuilder mb = Lang.translate("generic.unit.millibuckets");
+        LangBuilder mb = CreateLang.translate("generic.unit.millibuckets");
 
         /////////
         LazyOptional<IFluidHandler> handler = be.getCapability(ForgeCapabilities.FLUID_HANDLER);
@@ -169,15 +179,15 @@ public class TFMGUtils {
         IFluidHandler tank = resolve.get();
         if (tank.getTanks() == 0) return false;
 
-        Lang.translate("goggles.fluid_storage").style(ChatFormatting.GRAY).forGoggles(tooltip);
+        CreateLang.translate("goggles.fluid_storage").style(ChatFormatting.GRAY).forGoggles(tooltip);
 
 
         boolean isEmpty = true;
         for (int i = 0; i < tank.getTanks(); i++) {
             FluidStack fluidStack = tank.getFluidInTank(i);
             if (fluidStack.isEmpty()) continue;
-            Lang.fluidName(fluidStack).style(ChatFormatting.GRAY).forGoggles(tooltip, 1);
-            Lang.builder().add(Lang.number(fluidStack.getAmount()).add(mb).style(ChatFormatting.DARK_GREEN)).text(ChatFormatting.GRAY, " / ").add(Lang.number(tank.getTankCapacity(i)).add(mb).style(ChatFormatting.DARK_GRAY)).forGoggles(tooltip, 1);
+            CreateLang.fluidName(fluidStack).style(ChatFormatting.GRAY).forGoggles(tooltip, 1);
+            CreateLang.builder().add(CreateLang.number(fluidStack.getAmount()).add(mb).style(ChatFormatting.DARK_GREEN)).text(ChatFormatting.GRAY, " / ").add(CreateLang.number(tank.getTankCapacity(i)).add(mb).style(ChatFormatting.DARK_GRAY)).forGoggles(tooltip, 1);
             isEmpty = false;
         }
         if (tank.getTanks() > 1) {
@@ -186,7 +196,7 @@ public class TFMGUtils {
         }
         if (!isEmpty) return true;
 
-        Lang.translate("gui.goggles.fluid_container.capacity").add(Lang.number(tank.getTankCapacity(0)).add(mb).style(ChatFormatting.DARK_GREEN)).style(ChatFormatting.DARK_GRAY).forGoggles(tooltip, 1);
+        CreateLang.translate("gui.goggles.fluid_container.capacity").add(CreateLang.number(tank.getTankCapacity(0)).add(mb).style(ChatFormatting.DARK_GREEN)).style(ChatFormatting.DARK_GRAY).forGoggles(tooltip, 1);
         return true;
     }
 
@@ -198,13 +208,13 @@ public class TFMGUtils {
         if (!resolve.isPresent()) return false;
         IItemHandlerModifiable inventory = (IItemHandlerModifiable) resolve.get();
         if (inventory.getSlots() == 0) return false;
-        Lang.translate("goggles.item_storage").style(ChatFormatting.GRAY).forGoggles(tooltip);
+        CreateLang.translate("goggles.item_storage").style(ChatFormatting.GRAY).forGoggles(tooltip);
         boolean isEmpty = true;
         for (int i = 0; i < inventory.getSlots(); i++) {
             ItemStack itemStack = inventory.getStackInSlot(i);
 
             if (itemStack.isEmpty()) continue;
-            Lang.itemName(itemStack).style(ChatFormatting.DARK_GREEN).add(Component.literal(" x " + itemStack.getCount())).style(ChatFormatting.DARK_GREEN).forGoggles(tooltip, 1);
+            CreateLang.itemName(itemStack).style(ChatFormatting.DARK_GREEN).add(Component.literal(" x " + itemStack.getCount())).style(ChatFormatting.DARK_GREEN).forGoggles(tooltip, 1);
             isEmpty = false;
         }
         if (inventory.getSlots() > 1) {
@@ -213,7 +223,7 @@ public class TFMGUtils {
         }
         if (!isEmpty) return true;
 
-        Lang.translate("gui.goggles.item_storage_empty").style(ChatFormatting.DARK_GRAY).forGoggles(tooltip, 1);
+        CreateLang.translate("gui.goggles.item_storage_empty").style(ChatFormatting.DARK_GRAY).forGoggles(tooltip, 1);
         return true;
     }
 

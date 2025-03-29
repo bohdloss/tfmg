@@ -3,11 +3,12 @@ package com.drmangotea.tfmg.registry;
 
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.content.decoration.pipes.TFMGPipes;
-import com.jozufozu.flywheel.core.PartialModel;
 import com.simibubi.create.content.fluids.FluidTransportBehaviour;
-import com.simibubi.create.foundation.utility.Couple;
-import com.simibubi.create.foundation.utility.Iterate;
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import net.createmod.catnip.data.Couple;
+import net.createmod.catnip.data.Iterate;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 
@@ -34,6 +35,11 @@ public class TFMGPartialModels {
             COKE_OVEN_DOOR_RIGHT_TOP = block("coke_oven/door_right_top"),
             COAL_COKE_DUST_LAYER = block("coal_coke_dust_layer"),
             POLARIZER_DIAL = block("polarizer/dial"),
+            STEEL_FLYWHEEL = block("steel_flywheel/block"),
+            ALUMINUM_FLYWHEEL = block("aluminum_flywheel/block"),
+            CAST_IRON_FLYWHEEL = block("cast_iron_flywheel/block"),
+            LEAD_FLYWHEEL = block("lead_flywheel/block"),
+            NICKEL_FLYWHEEL = block("nickel_flywheel/block"),
             DISTILLATION_CONTROLLER_DIAL = block("steel_distillation_controller/dial"),
             PUMPJACK_HAMMER = block("pumpjack/hammer_holder"),
             PUMPJACK_FRONT_ROPE = block("pumpjack/pumpjack_front_rope"),
@@ -61,8 +67,8 @@ public class TFMGPartialModels {
             ENGINE_EXTENSION = block("regular_engine/extension"),
             ENGINE_EXTENSION_FRONT = block("regular_engine/extension_front"),
             LARGE_STEEL_COGHWEEL = block("large_steel_cogwheel_shaftless"),
-            ALUMINUM_COGHWEEL = block("aluminum_cogwheel_shaftless"),
-            LARGE_ALUMINUM_COGHWEEL = block("large_aluminum_cogwheel_shaftless"),
+            ALUMINUM_COGHWEEL = block("aluminum_cogwheel"),
+            LARGE_ALUMINUM_COGHWEEL = block("large_aluminum_cogwheel"),
             SPOOL = block("winding_machine/spool"),
             COPPER_SPOOL = block("winding_machine/copper_spool"),
             ALUMINUM_SPOOL = block("winding_machine/aluminum_spool"),
@@ -81,14 +87,17 @@ public class TFMGPartialModels {
             TURBO_PROPELLER = block("engine_upgrades/turbo_propeller"),
             GOLDEN_TURBO = block("engine_upgrades/golden_turbo"),
             GOLDEN_TURBO_PROPELLER = block("engine_upgrades/golden_turbo_propeller"),
-            EXHAUST_MIDDLE = block("engine_upgrades/exhaust_middle"),
-            EXHAUST_FRONT = block("engine_upgrades/exhaust_front"),
-            EXHAUST_BACK = block("engine_upgrades/exhaust_back"),
-            EXHAUST_ALONE = block("engine_upgrades/exhaust_alone"),
-            CENTRIFUGE = block("industrial_mixer/centrifuge"),
-            SMALL_CENTRIFUGE = block("industrial_mixer/centrifuge_small"),
-            CENTRIFUGE_MIDDLE = block("industrial_mixer/centrifuge_middle"),
-            SMALL_CENTRIFUGE_MIDDLE = block("industrial_mixer/centrifuge_small_middle"),
+            STEERING_WHEEL = block("engine_controller/wheel"),
+            PEDAL = block("engine_controller/pedal"),
+            TRANSMISSION_LEVER = block("engine_controller/transmission_lever"),
+            SMALL_CENTRIFUGE_BOTTOM = block("industrial_mixer/small_centrifuge_bottom"),
+            SMALL_CENTRIFUGE_MIDDLE = block("industrial_mixer/small_centrifuge_middle"),
+            SMALL_CENTRIFUGE_TOP = block("industrial_mixer/small_centrifuge_top"),
+            SMALL_CENTRIFUGE_ALONE = block("industrial_mixer/small_centrifuge_alone"),
+            LARGE_CENTRIFUGE_BOTTOM = block("industrial_mixer/large_centrifuge_bottom"),
+            LARGE_CENTRIFUGE_MIDDLE = block("industrial_mixer/large_centrifuge_middle"),
+            LARGE_CENTRIFUGE_TOP = block("industrial_mixer/large_centrifuge_top"),
+            LARGE_CENTRIFUGE_ALONE = block("industrial_mixer/large_centrifuge_alone"),
             COPPER_ELECTRODE = block("electrode_holder/copper_electrode"),
             ZINC_ELECTRODE = block("electrode_holder/zinc_electrode"),
             GRAPHITE_ELECTRODE = block("electrode_holder/graphite_electrode"),
@@ -122,8 +131,8 @@ public class TFMGPartialModels {
             for (FluidTransportBehaviour.AttachmentTypes.ComponentPartials type : FluidTransportBehaviour.AttachmentTypes.ComponentPartials.values()) {
                 Map<Direction, PartialModel> map = new HashMap<>();
                 for (Direction d : Iterate.directions) {
-                    String asId = Lang.asId(type.name());
-                    map.put(d, block(material.name + "_pipe/" + asId + "/" + Lang.asId(d.getSerializedName())));
+                    String asId = CreateLang.asId(type.name());
+                    map.put(d, block(material.name + "_pipe/" + asId + "/" + CreateLang.asId(d.getSerializedName())));
                 }
                 attachments.put(type, map);
             }
@@ -133,11 +142,8 @@ public class TFMGPartialModels {
             PIPE_CASINGS.put(material, block(material.name + "_pipe/casing"));
 
         }
-
-
         ////////////////
         putFoldingDoor("steel_door");
-
 
     }
 
@@ -148,7 +154,7 @@ public class TFMGPartialModels {
     }
 
     private static PartialModel block(String path) {
-        return new PartialModel(TFMG.asResource("block/" + path));
+        return PartialModel.of(TFMG.asResource("block/" + path));
     }
 
     public static void init() {

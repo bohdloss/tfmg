@@ -2,8 +2,7 @@ package com.drmangotea.tfmg.content.decoration.doors;
 
 import com.simibubi.create.content.decoration.slidingDoor.SlidingDoorBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat.Chaser;
+import net.createmod.catnip.animation.LerpedFloat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -36,7 +35,7 @@ public class TFMGSlidingDoorBlockEntity extends SlidingDoorBlockEntity {
 		super.tick();
 		boolean open = isOpen(getBlockState());
 		boolean wasSettled = animation.settled();
-		animation.chase(open ? 1 : 0, .15f, Chaser.LINEAR);
+		animation.chase(open ? 1 : 0, .15f, LerpedFloat.Chaser.LINEAR);
 		animation.tickChaser();
 
 		if (level.isClientSide()) {

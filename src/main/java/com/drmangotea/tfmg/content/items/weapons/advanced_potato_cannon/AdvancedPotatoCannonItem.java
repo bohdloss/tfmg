@@ -9,11 +9,9 @@ import com.drmangotea.tfmg.registry.TFMGItems;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.equipment.armor.BacktankUtil;
-import com.simibubi.create.content.equipment.potatoCannon.PotatoProjectileTypeManager;
 import com.simibubi.create.content.equipment.zapper.ShootableGadgetItemMethods;
 import com.simibubi.create.foundation.item.CustomArmPoseItem;
 import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
-import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel.ArmPose;
@@ -172,33 +170,11 @@ public class AdvancedPotatoCannonItem extends ProjectileWeaponItem implements Cu
 
 		return Optional.empty();
 
-
-
 	}
-
-	@OnlyIn(Dist.CLIENT)
-	public static Optional<ItemStack> getAmmoforPreview(ItemStack cannon) {
-		if (AnimationTickHolder.getTicks() % 3 != 0)
-			return Optional.of(CLIENT_CURRENT_AMMO)
-				.filter(stack -> !stack.isEmpty());
-
-		LocalPlayer player = Minecraft.getInstance().player;
-		CLIENT_CURRENT_AMMO = ItemStack.EMPTY;
-		if (player == null)
-			return Optional.empty();
-		ItemStack findAmmo = player.getProjectile(cannon);
-		Optional<ItemStack> found = PotatoProjectileTypeManager.getTypeForStack(findAmmo)
-			.map($ -> findAmmo);
-		found.ifPresent(stack -> CLIENT_CURRENT_AMMO = stack);
-		return found;
-	}
-
-
 
 	@Override
 	public Predicate<ItemStack> getAllSupportedProjectiles() {
-		return stack -> PotatoProjectileTypeManager.getTypeForStack(stack)
-			.isPresent();
+		return (Predicate<ItemStack>) TFMGItems.NAPALM_POTATO.asItem();
 	}
 
 	@Override

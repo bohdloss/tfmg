@@ -3,11 +3,11 @@ package com.drmangotea.tfmg.content.decoration.encased;
 
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
 import com.simibubi.create.AllBlocks;
+import com.simibubi.create.api.schematic.requirement.SpecialBlockItemRequirement;
 import com.simibubi.create.content.decoration.encasing.EncasedBlock;
 import com.simibubi.create.content.kinetics.base.AbstractEncasedShaftBlock;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.base.RotatedPillarKineticBlock;
-import com.simibubi.create.content.schematics.requirement.ISpecialBlockItemRequirement;
 import com.simibubi.create.content.schematics.requirement.ItemRequirement;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
@@ -28,7 +28,7 @@ import net.minecraft.world.phys.HitResult;
 import java.util.function.Supplier;
 
 public class TFMGEncasedShaftBlock extends AbstractEncasedShaftBlock
-        implements IBE<KineticBlockEntity>, ISpecialBlockItemRequirement, EncasedBlock {
+        implements IBE<KineticBlockEntity>, SpecialBlockItemRequirement, EncasedBlock {
 
     private final Supplier<Block> casing;
 

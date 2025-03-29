@@ -8,18 +8,18 @@ import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.ha
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGFluids;
 import com.drmangotea.tfmg.registry.TFMGTags;
-import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -49,11 +49,9 @@ public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGo
     }
 
 
-
     @Override
     public void tick() {
         super.tick();
-
 
 
         if (controllerHammer != null)
@@ -93,14 +91,12 @@ public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGo
         process();
 
 
-
     }
 
     @Override
     public void lazyTick() {
         super.lazyTick();
-        if(TFMG.DEPOSITS.depositData!=null)
-            TFMG.DEPOSITS.depositData.removeEmptyDeposits();
+        // TFMG.DEPOSITS.removeEmptyDeposits();
     }
 
     public void findDeposit() {
@@ -121,41 +117,43 @@ public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGo
     public void process() {
         if (deposit == null)
             return;
-        if (TFMG.DEPOSITS.depositData == null) {
-            return;
-        }
 
-        if (!TFMG.DEPOSITS.depositData.containsDeposit(deposit.asLong())) {
-            TFMG.DEPOSITS.depositData.addDeposit(level,deposit.asLong());
-        }
+
+        //if (TFMG.DEPOSITS.depositData == null) {
+        //    return;
+        //}
+        if (!level.isClientSide)
+            if (!TFMG.DEPOSITS.containsDeposit(deposit.asLong())) {
+                TFMG.DEPOSITS.addDeposit(level, deposit.asLong());
+                TFMG.DEPOSITS.markDirty();
+                sendData();
+            }
 
 
         if (tank.getFluidAmount() + miningRate > tank.getCapacity())
             return;
         int amountPumped = tank.fill(new FluidStack(TFMGFluids.CRUDE_OIL.getSource(), miningRate), IFluidHandler.FluidAction.EXECUTE);
 
-        if(amountPumped == 0)
+        if (amountPumped == 0)
             return;
 
-        if (TFMGConfigs.common().deposits.infiniteDeposits.get())
+        if (TFMGConfigs.common().worldgen.infiniteDeposits.get())
             return;
-
 
         RandomSource randomSource = level.getRandom();
-
-
-
-        if (randomSource.nextInt(((900000) / amountPumped)+1) == 0) {
-
-            TFMG.DEPOSITS.depositData.getReservoirFor(deposit.asLong()).oilReserves--;
-            TFMG.DEPOSITS.depositData.setDirty();
-            if(TFMG.DEPOSITS.depositData.getReservoirFor(deposit.asLong()).oilReserves <=0){
-                TFMG.DEPOSITS.depositData.removeDeposit(deposit.asLong());
-                level.setBlock(deposit, Blocks.BEDROCK.defaultBlockState(),3);
-                deposit = null;
-                findDeposit();
-            }
-        }
+        //fix
+        //if (randomSource.nextInt(((900000) / amountPumped) + 1) == 0) {
+//
+        //    TFMG.DEPOSITS.getReservoirFor(deposit.asLong()).oilReserves--;
+        //    //  TFMG.DEPOSITS.depositData.setDirty();
+        //    if (TFMG.DEPOSITS.getReservoirFor(deposit.asLong()).oilReserves <= 0) {
+        //        TFMG.LOGGER.debug("EPIC REMOVAL");
+        //        TFMG.DEPOSITS.removeDeposit(deposit.asLong());
+        //        level.setBlock(deposit, Blocks.BEDROCK.defaultBlockState(), 3);
+        //        deposit = null;
+        //        findDeposit();
+        //    }
+        //}
 
 
     }
@@ -185,10 +183,10 @@ public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGo
     @Override
     @SuppressWarnings("removal")
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        Lang.translate("goggles.pumpjack_info")
+        CreateLang.translate("goggles.pumpjack_info")
                 .forGoggles(tooltip);
         if (deposit == null) {
-            Lang.translate("goggles.zero")
+            CreateLang.translate("goggles.zero")
                     .style(ChatFormatting.DARK_RED)
                     .forGoggles(tooltip, 1);
         }
@@ -209,7 +207,6 @@ public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGo
         compound.put("TankContent", tank.writeToNBT(new CompoundTag()));
         super.write(compound, clientPacket);
     }
-
 
 
     @Nonnull

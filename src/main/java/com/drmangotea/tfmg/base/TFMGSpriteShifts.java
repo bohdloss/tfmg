@@ -6,8 +6,8 @@ import com.simibubi.create.foundation.block.connected.AllCTTypes;
 import com.simibubi.create.foundation.block.connected.CTSpriteShiftEntry;
 import com.simibubi.create.foundation.block.connected.CTSpriteShifter;
 import com.simibubi.create.foundation.block.connected.CTType;
-import com.simibubi.create.foundation.block.render.SpriteShiftEntry;
-import com.simibubi.create.foundation.block.render.SpriteShifter;
+import net.createmod.catnip.render.SpriteShiftEntry;
+import net.createmod.catnip.render.SpriteShifter;
 
 public class TFMGSpriteShifts {
 
@@ -25,6 +25,10 @@ public class TFMGSpriteShifts {
     public static final CTSpriteShiftEntry STEEL_FLUID_TANK = getCT(AllCTTypes.RECTANGLE, "steel_fluid_tank"), STEEL_FLUID_TANK_TOP = getCT(AllCTTypes.RECTANGLE, "steel_fluid_tank_top"), STEEL_FLUID_TANK_INNER = getCT(AllCTTypes.RECTANGLE, "steel_fluid_tank_inner");
     public static final CTSpriteShiftEntry ALUMINUM_FLUID_TANK = getCT(AllCTTypes.RECTANGLE, "aluminum_fluid_tank"), ALUMINUM_FLUID_TANK_TOP = getCT(AllCTTypes.RECTANGLE, "aluminum_fluid_tank_top"), ALUMINUM_FLUID_TANK_INNER = getCT(AllCTTypes.RECTANGLE, "aluminum_fluid_tank_inner");
     public static final CTSpriteShiftEntry CAST_IRON_FLUID_TANK = getCT(AllCTTypes.RECTANGLE, "cast_iron_fluid_tank"), CAST_IRON_FLUID_TANK_TOP = getCT(AllCTTypes.RECTANGLE, "cast_iron_fluid_tank_top"), CAST_IRON_FLUID_TANK_INNER = getCT(AllCTTypes.RECTANGLE, "cast_iron_fluid_tank_inner");
+
+    public static final CTSpriteShiftEntry STEEL_VAT = getCT(AllCTTypes.RECTANGLE, "steel_vat"), STEEL_VAT_TOP = getCT(AllCTTypes.RECTANGLE, "steel_vat_top"), STEEL_VAT_INNER = getCT(AllCTTypes.RECTANGLE, "steel_vat_inner");
+    public static final CTSpriteShiftEntry CAST_IRON_VAT = getCT(AllCTTypes.RECTANGLE, "cast_iron_vat"), CAST_IRON_VAT_TOP = getCT(AllCTTypes.RECTANGLE, "cast_iron_vat_top"), CAST_IRON_VAT_INNER = getCT(AllCTTypes.RECTANGLE, "cast_iron_vat_inner");
+    public static final CTSpriteShiftEntry FIREPROOF_VAT = getCT(AllCTTypes.RECTANGLE, "fireproof_vat"), FIREPROOF_VAT_TOP = getCT(AllCTTypes.RECTANGLE, "fireproof_vat_top"), FIREPROOF_VAT_INNER = getCT(AllCTTypes.RECTANGLE, "fireproof_vat_inner");
 
     public static final CTSpriteShiftEntry BLAST_FURNACE_REINFORCEMENT = vertical("blast_furnace_reinforcement");
     public static final CTSpriteShiftEntry RUSTED_BLAST_FURNACE_REINFORCEMENT = vertical("rusted_blast_furnace_reinforcement");

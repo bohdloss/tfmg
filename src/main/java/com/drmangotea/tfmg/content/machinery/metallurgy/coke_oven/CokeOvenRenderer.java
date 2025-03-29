@@ -2,10 +2,10 @@ package com.drmangotea.tfmg.content.machinery.metallurgy.coke_oven;
 
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
-import com.jozufozu.flywheel.core.PartialModel;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import com.simibubi.create.foundation.render.CachedBufferer;
+import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -44,27 +44,27 @@ public class CokeOvenRenderer extends SafeBlockEntityRenderer<CokeOvenBlockEntit
             case CASUAL -> {}
         }
 
-        CachedBufferer.partial(right_door, blockState)
+        CachedBuffers.partial(right_door, blockState)
                .light(lightInFront)
-               .centre()
-               .rotateY(blockState.getValue(FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot()-180) : blockState.getValue(FACING).toYRot())
-               .translateZ(-0.5)
-               .translateX(-0.5)
-               .rotateY(be.doorAngle.getValue())
-               .translateZ(0.5)
-               .translateX(0.5)
-               .unCentre()
+               .center()
+               .rotateYDegrees(blockState.getValue(FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot()-180) : blockState.getValue(FACING).toYRot())
+               .translateZ(-0.5f)
+               .translateX(-0.5f)
+               .rotateYDegrees(be.doorAngle.getValue())
+               .translateZ(0.5f)
+               .translateX(0.5f)
+               .uncenter()
                 .renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
-        CachedBufferer.partial(left_door, blockState)
+        CachedBuffers.partial(left_door, blockState)
              .light(lightInFront)
-                .centre()
-                .rotateY(blockState.getValue(FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot()-180) : blockState.getValue(FACING).toYRot())
-                .translateZ(-0.5)
-                .translateX(0.5)
-                .rotateY(-be.doorAngle.getValue())
-                .translateZ(0.5)
-                .translateX(-0.5)
-                .unCentre()
+                .center()
+                .rotateYDegrees(blockState.getValue(FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot()-180) : blockState.getValue(FACING).toYRot())
+                .translateZ(-0.5f)
+                .translateX(0.5f)
+                .rotateYDegrees(-be.doorAngle.getValue())
+                .translateZ(0.5f)
+                .translateX(-0.5f)
+                .uncenter()
                 .renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
 
       //  ms.popPose();

@@ -31,7 +31,7 @@ public class TFMGCreativeTabs {
     public static final RegistryObject<CreativeModeTab> TFMG_MAIN = CREATIVE_MODE_TABS.register("tfmg_main", () -> CreativeModeTab.builder()
             .withTabsBefore(AllCreativeModeTabs.BASE_CREATIVE_TAB.getId())
             .title(Component.translatable("creative_tab.tfmg_main"))
-            .icon(()-> TFMGItems.STEEL_INGOT.get().asItem().getDefaultInstance())
+            .icon(()-> TFMGItems.STEEL_MECHANISM.get().asItem().getDefaultInstance())
             .build());
 
     public static final RegistryObject<CreativeModeTab> TFMG_DECORATION = CREATIVE_MODE_TABS.register("tfmg_decoration", () -> CreativeModeTab.builder()

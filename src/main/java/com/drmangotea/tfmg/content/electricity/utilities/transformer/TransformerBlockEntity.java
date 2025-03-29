@@ -3,7 +3,8 @@ package com.drmangotea.tfmg.content.electricity.utilities.transformer;
 import com.drmangotea.tfmg.base.TFMGHorizontalDirectionalBlock;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.content.electricity.base.VoltageAlteringBlockEntity;
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -67,17 +68,17 @@ public class TransformerBlockEntity extends VoltageAlteringBlockEntity {
     public boolean makeElectricityTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         super.makeElectricityTooltip(tooltip, isPlayerSneaking);
 
-        Lang.text("   Ráčio: ")
-                .add(Lang.number(coilRatio))
+        CreateLang.text("   Ráčio: ")
+                .add(CreateLang.number(coilRatio))
                 .style(ChatFormatting.LIGHT_PURPLE)
                 .forGoggles(tooltip, 1);
 
-        Lang.text("   Primary: ")
-                .add(Lang.number(primaryCoil.getOrCreateTag().getFloat("Turns")))
+        CreateLang.text("   Primary: ")
+                .add(CreateLang.number(primaryCoil.getOrCreateTag().getFloat("Turns")))
                 .style(ChatFormatting.LIGHT_PURPLE)
                 .forGoggles(tooltip, 1);
-        Lang.text("   Secondary: ")
-                .add(Lang.number(secondaryCoil.getOrCreateTag().getFloat("Turns")))
+        CreateLang.text("   Secondary: ")
+                .add(CreateLang.number(secondaryCoil.getOrCreateTag().getFloat("Turns")))
                 .style(ChatFormatting.LIGHT_PURPLE)
                 .forGoggles(tooltip, 1);
         return true;

@@ -1,8 +1,8 @@
 package com.drmangotea.tfmg.content.electricity.lights.neon_tube;
 
 import com.drmangotea.tfmg.content.electricity.base.ElectricBlockEntity;
-import com.simibubi.create.foundation.utility.NBTHelper;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
+import net.createmod.catnip.animation.LerpedFloat;
+import net.createmod.catnip.nbt.NBTHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

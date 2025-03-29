@@ -1,6 +1,7 @@
 package com.drmangotea.tfmg.content.electricity.utilities.resistor;
 
-import com.simibubi.create.foundation.utility.Lang;
+
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -21,7 +22,7 @@ public class ResistorBlockItem extends BlockItem {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Lang.translateDirect("tooltip.resistor", stack.getOrCreateTag().getInt("Resistance")).append("Ω")
+        tooltip.add(CreateLang.translateDirect("tooltip.resistor", stack.getOrCreateTag().getInt("Resistance")).append("Ω")
                 .withStyle(ChatFormatting.GREEN)
         );
         super.appendHoverText(stack, world, tooltip, flag);

@@ -54,6 +54,8 @@ public class StatorBlock extends DirectionalBlock implements IBE<StatorBlockEnti
         boolean rotated = state.getValue(VALUE);
         Direction direction = state.getValue(FACING);
 
+        if(direction == Direction.UP)
+            direction = Direction.NORTH;
         if(statorState == StatorState.CORNER){
             return rotated ? TFMGShapes.STATOR_ROTATED.get(direction) : TFMGShapes.STATOR.get(direction);
         }

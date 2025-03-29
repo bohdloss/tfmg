@@ -1,8 +1,8 @@
 package com.drmangotea.tfmg.content.decoration.flywheels;
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat.Chaser;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import net.createmod.catnip.animation.LerpedFloat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -13,6 +13,8 @@ public class TFMGFlywheelBlockEntity extends KineticBlockEntity {
 
 	LerpedFloat visualSpeed = LerpedFloat.linear();
 	float angle;
+
+
 
 	public TFMGFlywheelBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -32,7 +34,7 @@ public class TFMGFlywheelBlockEntity extends KineticBlockEntity {
 	protected void read(CompoundTag compound, boolean clientPacket) {
 		super.read(compound, clientPacket);
 		if (clientPacket)
-			visualSpeed.chase(getGeneratedSpeed(), 1 / 64f, Chaser.EXP);
+			visualSpeed.chase(getGeneratedSpeed(), 1 / 64f, LerpedFloat.Chaser.EXP);
 	}
 
 	@Override

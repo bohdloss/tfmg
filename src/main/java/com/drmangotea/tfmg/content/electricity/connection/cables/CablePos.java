@@ -1,8 +1,6 @@
 package com.drmangotea.tfmg.content.electricity.connection.cables;
 
-import com.simibubi.create.content.contraptions.behaviour.dispenser.SimplePos;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Vec3i;
+
 
 public class CablePos extends SimplePos {
     public CablePos(double x, double y, double z) {

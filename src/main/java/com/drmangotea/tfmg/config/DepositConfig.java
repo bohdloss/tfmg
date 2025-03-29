@@ -1,6 +1,7 @@
 package com.drmangotea.tfmg.config;
 
-import com.simibubi.create.foundation.config.ConfigBase;
+
+import net.createmod.catnip.config.ConfigBase;
 
 public class DepositConfig extends ConfigBase {
 

@@ -12,10 +12,10 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.data.recipe.CompatMetals;
 import com.simibubi.create.foundation.data.recipe.Mods;
-import com.simibubi.create.foundation.utility.RegisteredObjects;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
@@ -45,30 +45,29 @@ import static com.drmangotea.tfmg.datagen.recipes.TFMGRecipeProvider.I.*;
 
 
 public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
-
     private Marker MATERIALS = enterFolder("kinetics");
     GeneratedRecipe
-    STEEL_COMPACTING =
-    metalCompacting(ImmutableList.of(TFMGItems.STEEL_NUGGET, TFMGItems.STEEL_INGOT, TFMGBlocks.STEEL_BLOCK),
-            ImmutableList.of(I::steelNugget, I::steelIngot, I::steelBlock)),
-    ALUMINUM_COMPACTING =
-            metalCompacting(ImmutableList.of(TFMGItems.ALUMINUM_NUGGET, TFMGItems.ALUMINUM_INGOT, TFMGBlocks.ALUMINUM_BLOCK),
-                    ImmutableList.of(I::aluminumNugget, I::aluminumIngot, I::aluminumBlock)),
-    CAST_IRON_COMPACTING =
-            metalCompacting(ImmutableList.of(TFMGItems.CAST_IRON_NUGGET, TFMGItems.CAST_IRON_INGOT, TFMGBlocks.CAST_IRON_BLOCK),
-                    ImmutableList.of(I::castIronNugget, I::castIronIngot, I::castIronBlock)),
-    LEAD_COMPACTING =
-            metalCompacting(ImmutableList.of(TFMGItems.LEAD_NUGGET, TFMGItems.LEAD_INGOT, TFMGBlocks.LEAD_BLOCK),
-                    ImmutableList.of(I::leadNugget, I::leadIngot, I::leadBlock)),
-    NICKEL_COMPACTING =
-            metalCompacting(ImmutableList.of(TFMGItems.NICKEL_NUGGET, TFMGItems.NICKEL_INGOT, TFMGBlocks.NICKEL_BLOCK),
-                    ImmutableList.of(I::nickelNugget, I::nickelIngot, I::nickelBlock)),
-    LITHIUM_COMPACTING =
-            metalCompacting(ImmutableList.of(TFMGItems.LITHIUM_NUGGET, TFMGItems.LITHIUM_INGOT, TFMGBlocks.LITHIUM_BLOCK),
-                    ImmutableList.of(I::lithiumNugget, I::lithiumIngot, I::lithiumBlock)),
-    CONSTANTAN_COMPACTING =
-            metalCompacting(ImmutableList.of(TFMGItems.CONSTANTAN_NUGGET, TFMGItems.CONSTANTAN_INGOT, TFMGBlocks.CONSTANTAN_BLOCK),
-                    ImmutableList.of(I::constantanNugget, I::constantanIngot, I::constantanBlock)),
+            STEEL_COMPACTING =
+            metalCompacting(ImmutableList.of(TFMGItems.STEEL_NUGGET, TFMGItems.STEEL_INGOT, TFMGBlocks.STEEL_BLOCK),
+                    ImmutableList.of(I::steelNugget, I::steelIngot, I::steelBlock)),
+            ALUMINUM_COMPACTING =
+                    metalCompacting(ImmutableList.of(TFMGItems.ALUMINUM_NUGGET, TFMGItems.ALUMINUM_INGOT, TFMGBlocks.ALUMINUM_BLOCK),
+                            ImmutableList.of(I::aluminumNugget, I::aluminumIngot, I::aluminumBlock)),
+            CAST_IRON_COMPACTING =
+                    metalCompacting(ImmutableList.of(TFMGItems.CAST_IRON_NUGGET, TFMGItems.CAST_IRON_INGOT, TFMGBlocks.CAST_IRON_BLOCK),
+                            ImmutableList.of(I::castIronNugget, I::castIronIngot, I::castIronBlock)),
+            LEAD_COMPACTING =
+                    metalCompacting(ImmutableList.of(TFMGItems.LEAD_NUGGET, TFMGItems.LEAD_INGOT, TFMGBlocks.LEAD_BLOCK),
+                            ImmutableList.of(I::leadNugget, I::leadIngot, I::leadBlock)),
+            NICKEL_COMPACTING =
+                    metalCompacting(ImmutableList.of(TFMGItems.NICKEL_NUGGET, TFMGItems.NICKEL_INGOT, TFMGBlocks.NICKEL_BLOCK),
+                            ImmutableList.of(I::nickelNugget, I::nickelIngot, I::nickelBlock)),
+            LITHIUM_COMPACTING =
+                    metalCompacting(ImmutableList.of(TFMGItems.LITHIUM_NUGGET, TFMGItems.LITHIUM_INGOT, TFMGBlocks.LITHIUM_BLOCK),
+                            ImmutableList.of(I::lithiumNugget, I::lithiumIngot, I::lithiumBlock)),
+            CONSTANTAN_COMPACTING =
+                    metalCompacting(ImmutableList.of(TFMGItems.CONSTANTAN_NUGGET, TFMGItems.CONSTANTAN_INGOT, TFMGBlocks.CONSTANTAN_BLOCK),
+                            ImmutableList.of(I::constantanNugget, I::constantanIngot, I::constantanBlock)),
 
     //
     LEAD_FLYWHEEL = create(TFMGBlocks.LEAD_FLYWHEEL)
@@ -79,60 +78,60 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("CCC")
                     .pattern("CSC")
                     .pattern("CCC")),
-    STEEL_FLYWHEEL = create(TFMGBlocks.STEEL_FLYWHEEL)
-            .unlockedBy(TFMGItems.STEEL_INGOT::get)
-            .viaShaped(b -> b
-                    .define('C', tfmgSteelIngot())
-                    .define('S', shaft())
-                    .pattern("CCC")
-                    .pattern("CSC")
-                    .pattern("CCC")),
-    CAST_IRON_FLYWHEEL = create(TFMGBlocks.CAST_IRON_FLYWHEEL)
-            .unlockedBy(TFMGItems.CAST_IRON_INGOT::get)
-            .viaShaped(b -> b
-                    .define('C', leadIngot())
-                    .define('S', shaft())
-                    .pattern("CCC")
-                    .pattern("CSC")
-                    .pattern("CCC")),
-    NICKEL_FLYWHEEL = create(TFMGBlocks.NICKEL_FLYWHEEL)
-            .unlockedBy(TFMGItems.NICKEL_INGOT::get)
-            .viaShaped(b -> b
-                    .define('C', nickelIngot())
-                    .define('S', shaft())
-                    .pattern("CCC")
-                    .pattern("CSC")
-                    .pattern("CCC")),
-    ALUMINUM_FLYWHEEL = create(TFMGBlocks.ALUMINUM_FLYWHEEL)
-            .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
-            .viaShaped(b -> b
-                    .define('C', aluminumIngot())
-                    .define('S', shaft())
-                    .pattern("CCC")
-                    .pattern("CSC")
-                    .pattern("CCC")),
-    STEEL_COGWHEEL = create(TFMGBlocks.STEEL_COGWHEEL).returns(4)
-            .unlockedBy(() -> TFMGItems.STEEL_INGOT)
-            .viaShapeless(b -> b
-                    .requires(Ingredient.of(tfmgSteelIngot()))
-                    .requires(Ingredient.of(AllBlocks.SHAFT))),
-    LARGE_STEEL_COGWHEEL = create(TFMGBlocks.LARGE_STEEL_COGWHEEL).returns(2)
-            .unlockedBy(() -> TFMGItems.STEEL_INGOT)
-            .viaShapeless(b -> b
-                    .requires(Ingredient.of(tfmgSteelIngot()))
-                    .requires(Ingredient.of(tfmgSteelIngot()))
-                    .requires(Ingredient.of(AllBlocks.SHAFT))),
-    ALUMINUM_COGWHEEL = create(TFMGBlocks.ALUMINUM_COGWHEEL).returns(4)
-            .unlockedBy(() -> TFMGItems.ALUMINUM_INGOT)
-            .viaShapeless(b -> b
-                    .requires(Ingredient.of(aluminumIngot()))
-                    .requires(Ingredient.of(AllBlocks.SHAFT))),
-    LARGE_ALUMINUM_COGWHEEL = create(TFMGBlocks.LARGE_ALUMINUM_COGWHEEL).returns(2)
-            .unlockedBy(() -> TFMGItems.ALUMINUM_INGOT)
-            .viaShapeless(b -> b
-                    .requires(Ingredient.of(aluminumIngot()))
-                    .requires(Ingredient.of(aluminumIngot()))
-                    .requires(Ingredient.of(AllBlocks.SHAFT))),
+            STEEL_FLYWHEEL = create(TFMGBlocks.STEEL_FLYWHEEL)
+                    .unlockedBy(TFMGItems.STEEL_INGOT::get)
+                    .viaShaped(b -> b
+                            .define('C', tfmgSteelIngot())
+                            .define('S', shaft())
+                            .pattern("CCC")
+                            .pattern("CSC")
+                            .pattern("CCC")),
+            CAST_IRON_FLYWHEEL = create(TFMGBlocks.CAST_IRON_FLYWHEEL)
+                    .unlockedBy(TFMGItems.CAST_IRON_INGOT::get)
+                    .viaShaped(b -> b
+                            .define('C', leadIngot())
+                            .define('S', shaft())
+                            .pattern("CCC")
+                            .pattern("CSC")
+                            .pattern("CCC")),
+            NICKEL_FLYWHEEL = create(TFMGBlocks.NICKEL_FLYWHEEL)
+                    .unlockedBy(TFMGItems.NICKEL_INGOT::get)
+                    .viaShaped(b -> b
+                            .define('C', nickelIngot())
+                            .define('S', shaft())
+                            .pattern("CCC")
+                            .pattern("CSC")
+                            .pattern("CCC")),
+            ALUMINUM_FLYWHEEL = create(TFMGBlocks.ALUMINUM_FLYWHEEL)
+                    .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
+                    .viaShaped(b -> b
+                            .define('C', aluminumIngot())
+                            .define('S', shaft())
+                            .pattern("CCC")
+                            .pattern("CSC")
+                            .pattern("CCC")),
+            STEEL_COGWHEEL = create(TFMGBlocks.STEEL_COGWHEEL).returns(4)
+                    .unlockedBy(() -> TFMGItems.STEEL_INGOT)
+                    .viaShapeless(b -> b
+                            .requires(Ingredient.of(tfmgSteelIngot()))
+                            .requires(Ingredient.of(AllBlocks.SHAFT))),
+            LARGE_STEEL_COGWHEEL = create(TFMGBlocks.LARGE_STEEL_COGWHEEL).returns(2)
+                    .unlockedBy(() -> TFMGItems.STEEL_INGOT)
+                    .viaShapeless(b -> b
+                            .requires(Ingredient.of(tfmgSteelIngot()))
+                            .requires(Ingredient.of(tfmgSteelIngot()))
+                            .requires(Ingredient.of(AllBlocks.SHAFT))),
+            ALUMINUM_COGWHEEL = create(TFMGBlocks.ALUMINUM_COGWHEEL).returns(4)
+                    .unlockedBy(() -> TFMGItems.ALUMINUM_INGOT)
+                    .viaShapeless(b -> b
+                            .requires(Ingredient.of(aluminumIngot()))
+                            .requires(Ingredient.of(AllBlocks.SHAFT))),
+            LARGE_ALUMINUM_COGWHEEL = create(TFMGBlocks.LARGE_ALUMINUM_COGWHEEL).returns(2)
+                    .unlockedBy(() -> TFMGItems.ALUMINUM_INGOT)
+                    .viaShapeless(b -> b
+                            .requires(Ingredient.of(aluminumIngot()))
+                            .requires(Ingredient.of(aluminumIngot()))
+                            .requires(Ingredient.of(AllBlocks.SHAFT))),
 
     FIREPROOF_BRICKS = create(TFMGBlocks.FIREPROOF_BRICKS)
             .unlockedBy(TFMGItems.FIRECLAY_BALL::get)
@@ -141,13 +140,13 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("BB ")
                     .pattern("BB ")
                     .pattern("   ")),
-    FIRECLAY_BLOCK = create(TFMGBlocks.FIRECLAY)
-            .unlockedBy(TFMGItems.FIRECLAY_BALL::get)
-            .viaShaped(b -> b
-                    .define('B', TFMGItems.FIRECLAY_BALL)
-                    .pattern("BB ")
-                    .pattern("BB ")
-                    .pattern("   ")),
+            FIRECLAY_BLOCK = create(TFMGBlocks.FIRECLAY)
+                    .unlockedBy(TFMGItems.FIRECLAY_BALL::get)
+                    .viaShaped(b -> b
+                            .define('B', TFMGItems.FIRECLAY_BALL)
+                            .pattern("BB ")
+                            .pattern("BB ")
+                            .pattern("   ")),
 
     BLAST_FURNACE_OUTPUT = create(TFMGBlocks.BLAST_FURNACE_OUTPUT)
             .unlockedBy(TFMGItems.FIRECLAY_BALL::get)
@@ -157,18 +156,18 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("BCB")
                     .pattern("CCC")
                     .pattern("BCB")),
-    AIR_INTAKE = create(TFMGBlocks.AIR_INTAKE)
-            .unlockedBy(AllItems.PROPELLER::get)
-            .viaShaped(b -> b
-                    .define('B', AllBlocks.ANDESITE_BARS)
-                    .define('T', castIronPipe())
-                    .define('P', AllItems.PROPELLER)
-                    .define('C', AllBlocks.INDUSTRIAL_IRON_BLOCK)
-                    .define('G', AllBlocks.COGWHEEL)
-                    .define('S', shaft())
-                    .pattern("SPT")
-                    .pattern("GCG")
-                    .pattern(" B ")),
+            AIR_INTAKE = create(TFMGBlocks.AIR_INTAKE)
+                    .unlockedBy(AllItems.PROPELLER::get)
+                    .viaShaped(b -> b
+                            .define('B', AllBlocks.ANDESITE_BARS)
+                            .define('T', castIronPipe())
+                            .define('P', AllItems.PROPELLER)
+                            .define('C', AllBlocks.INDUSTRIAL_IRON_BLOCK)
+                            .define('G', AllBlocks.COGWHEEL)
+                            .define('S', shaft())
+                            .pattern("SPT")
+                            .pattern("GCG")
+                            .pattern(" B ")),
 
     LITHIUM_TORCH = create(TFMGBlocks.LITHIUM_TORCH).returns(4)
             .unlockedBy(TFMGItems.LITHIUM_INGOT::get)
@@ -196,15 +195,34 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern(" P ")
                     .pattern(" B ")
                     .pattern(" P ")),
+
+    ALUMINUM_TANK = create(TFMGBlocks.ALUMINUM_FLUID_TANK)
+            .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
+            .viaShaped(b -> b
+                    .define('B', Blocks.BARREL)
+                    .define('P', aluminumIngot())
+                    .pattern(" P ")
+                    .pattern(" B ")
+                    .pattern(" P ")),
+
+    CAST_IRON_TANK = create(TFMGBlocks.CAST_IRON_FLUID_TANK)
+            .unlockedBy(TFMGItems.CAST_IRON_INGOT::get)
+            .viaShaped(b -> b
+                    .define('B', Blocks.BARREL)
+                    .define('P', castIronIngot())
+                    .pattern(" P ")
+                    .pattern(" B ")
+                    .pattern(" P ")),
+
     EXHAUST = create(TFMGBlocks.EXHAUST)
-           .unlockedBy(TFMGItems.CAST_IRON_INGOT::get)
-           .viaShaped(b -> b
-                   .define('B', Blocks.IRON_BARS)
-                   .define('P', castIronPipe())
-                   .define('C', castIronIngot())
-                   .pattern("BPB")
-                   .pattern("BPB")
-                   .pattern("CPC")),
+            .unlockedBy(TFMGItems.CAST_IRON_INGOT::get)
+            .viaShaped(b -> b
+                    .define('B', Blocks.IRON_BARS)
+                    .define('P', castIronPipe())
+                    .define('C', castIronIngot())
+                    .pattern("BPB")
+                    .pattern("BPB")
+                    .pattern("CPC")),
 
     FLARESTACK = create(TFMGBlocks.FLARESTACK)
             .unlockedBy(TFMGItems.STEEL_INGOT::get)
@@ -225,32 +243,32 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("BPB")
                     .pattern("BPB")
                     .pattern("BPB")),
-    CONCRETE_SMOKESTACK = create(TFMGBlocks.CONCRETE_SMOKESTACK).returns(4)
-            .unlockedBy(TFMGBlocks.INDUSTRIAL_PIPE::get)
-            .viaShaped(b -> b
-                    .define('B', TFMGBlocks.CONCRETE.block)
-                    .define('P', industrialPipe())
-                    .pattern("BPB")
-                    .pattern("BPB")
-                    .pattern("BPB")),
-    METAL_SMOKESTACK = create(TFMGBlocks.METAL_SMOKESTACK).returns(4)
-            .unlockedBy(TFMGBlocks.INDUSTRIAL_PIPE::get)
-            .viaShaped(b -> b
-                    .define('B', steelNugget())
-                    .define('P', industrialPipe())
-                    .pattern("BPB")
-                    .pattern("BPB")
-                    .pattern("BPB")),
-    INDUSTRIAL_MIXER = create(TFMGBlocks.INDUSTRIAL_MIXER)
-            .unlockedBy(TFMGBlocks.HEAVY_MACHINERY_CASING::get)
-            .viaShaped(b -> b
-                    .define('S', shaft())
-                    .define('C', heavyMachineryCasing())
-                    .define('K', TFMGBlocks.STEEL_COGWHEEL)
-                    .define('M', steelMechanism())
-                    .pattern(" S ")
-                    .pattern("KCM")
-                    .pattern(" S ")),
+            CONCRETE_SMOKESTACK = create(TFMGBlocks.CONCRETE_SMOKESTACK).returns(4)
+                    .unlockedBy(TFMGBlocks.INDUSTRIAL_PIPE::get)
+                    .viaShaped(b -> b
+                            .define('B', TFMGBlocks.CONCRETE.block)
+                            .define('P', industrialPipe())
+                            .pattern("BPB")
+                            .pattern("BPB")
+                            .pattern("BPB")),
+            METAL_SMOKESTACK = create(TFMGBlocks.METAL_SMOKESTACK).returns(4)
+                    .unlockedBy(TFMGBlocks.INDUSTRIAL_PIPE::get)
+                    .viaShaped(b -> b
+                            .define('B', steelNugget())
+                            .define('P', industrialPipe())
+                            .pattern("BPB")
+                            .pattern("BPB")
+                            .pattern("BPB")),
+            INDUSTRIAL_MIXER = create(TFMGBlocks.INDUSTRIAL_MIXER)
+                    .unlockedBy(TFMGBlocks.HEAVY_MACHINERY_CASING::get)
+                    .viaShaped(b -> b
+                            .define('S', shaft())
+                            .define('C', heavyMachineryCasing())
+                            .define('K', TFMGBlocks.STEEL_COGWHEEL)
+                            .define('M', steelMechanism())
+                            .pattern(" S ")
+                            .pattern("KCM")
+                            .pattern(" S ")),
 
     HEAVY_PLATED_DOOR = create(TFMGBlocks.HEAVY_PLATED_DOOR).returns(3)
             .unlockedBy(TFMGItems.STEEL_INGOT::get)
@@ -259,29 +277,27 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("II ")
                     .pattern("II ")
                     .pattern("II ")),
-    ALUMINUM_DOOR = create(TFMGBlocks.ALUMINUM_DOOR).returns(3)
-            .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
-            .viaShaped(b -> b
-                    .define('I', aluminumIngot())
-                    .pattern("II ")
-                    .pattern("II ")
-                    .pattern("II ")),
+            ALUMINUM_DOOR = create(TFMGBlocks.ALUMINUM_DOOR).returns(3)
+                    .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
+                    .viaShaped(b -> b
+                            .define('I', aluminumIngot())
+                            .pattern("II ")
+                            .pattern("II ")
+                            .pattern("II ")),
 
     STEEL_CASING_DOOR = create(TFMGBlocks.STEEL_CASING_DOOR)
             .unlockedBy(() -> TFMGItems.STEEL_INGOT)
             .viaShapeless(b -> b
                     .requires(steelCasing())
                     .requires(ItemTags.WOODEN_DOORS)),
-    HEAVY_CASING_DOOR = create(TFMGBlocks.HEAVY_CASING_DOOR)
-            .unlockedBy(() -> TFMGItems.STEEL_INGOT)
-            .viaShapeless(b -> b
-                    .requires(heavyMachineryCasing())
-                    .requires(ItemTags.WOODEN_DOORS))
-
-    ;
+            HEAVY_CASING_DOOR = create(TFMGBlocks.HEAVY_CASING_DOOR)
+                    .unlockedBy(() -> TFMGItems.STEEL_INGOT)
+                    .viaShapeless(b -> b
+                            .requires(heavyMachineryCasing())
+                            .requires(ItemTags.WOODEN_DOORS));
 
 
-    ///////////////////////
+    /// ////////////////////
 
 
     String currentFolder = "";
@@ -496,7 +512,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
         }
 
         private ResourceLocation getRegistryName() {
-            return compatDatagenOutput == null ? RegisteredObjects.getKeyOrThrow(result.get()
+            return compatDatagenOutput == null ? CatnipServices.REGISTRIES.getKeyOrThrow(result.get()
                     .asItem()) : compatDatagenOutput;
         }
 
@@ -577,7 +593,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     if (unlockedBy != null)
                         b.unlockedBy("has_item", inventoryTrigger(unlockedBy.get()));
 
-                    b.save(consumer::accept, createSimpleLocation(RegisteredObjects.getKeyOrThrow(serializer)
+                    b.save(consumer::accept, createSimpleLocation(CatnipServices.REGISTRIES.getKeyOrThrow(serializer)
                             .getPath()));
                 });
             }

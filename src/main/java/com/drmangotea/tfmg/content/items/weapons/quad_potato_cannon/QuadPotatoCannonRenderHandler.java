@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.content.equipment.potatoCannon.PotatoProjectileEntity;
 import com.simibubi.create.content.equipment.zapper.ShootableGadgetRenderHandler;
 import com.simibubi.create.foundation.particle.AirParticleData;
-import com.simibubi.create.foundation.utility.VecHelper;
+import net.createmod.catnip.math.VecHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -25,8 +25,7 @@ public class QuadPotatoCannonRenderHandler extends ShootableGadgetRenderHandler 
 
     @Override
     protected boolean appliesTo(ItemStack stack) {
-        return ((QuadPotatoCannonItem) TFMGItems.QUAD_POTATO_CANNON.get())
-                .isCannon(stack);
+        return false;
     }
 
     public void beforeShoot(float nextPitch, Vec3 location, Vec3 motion, ItemStack stack) {
