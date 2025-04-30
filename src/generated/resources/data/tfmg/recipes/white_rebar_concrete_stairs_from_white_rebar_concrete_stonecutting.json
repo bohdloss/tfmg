@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "tfmg:white_rebar_concrete"
+  },
+  "result": "tfmg:white_rebar_concrete_stairs"
+}

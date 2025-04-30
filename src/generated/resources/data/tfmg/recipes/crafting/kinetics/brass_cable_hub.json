@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": {
+      "tag": "forge:ingots/brass"
+    },
+    "W": {
+      "tag": "forge:wires/copper"
+    }
+  },
+  "pattern": [
+    "WWW",
+    "MMM",
+    "WWW"
+  ],
+  "result": {
+    "count": 2,
+    "item": "tfmg:brass_cable_hub"
+  },
+  "show_notification": true
+}

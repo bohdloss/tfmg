@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "tfmg:napalm_bucket"
+    },
+    "P": {
+      "item": "tfmg:plastic_sheet"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "NNN",
+    "PPP"
+  ],
+  "result": {
+    "item": "tfmg:napalm_bomb"
+  },
+  "show_notification": true
+}

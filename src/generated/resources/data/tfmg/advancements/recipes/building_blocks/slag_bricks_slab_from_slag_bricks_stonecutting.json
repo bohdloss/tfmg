@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_slag_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tfmg:slag_bricks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "tfmg:slag_bricks_slab_from_slag_bricks_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_slag_bricks",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "tfmg:slag_bricks_slab_from_slag_bricks_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

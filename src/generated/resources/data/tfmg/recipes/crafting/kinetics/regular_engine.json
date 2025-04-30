@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "tfmg:heavy_machinery_casing"
+    },
+    "I": {
+      "item": "tfmg:heavy_plate"
+    },
+    "O": {
+      "tag": "forge:ingots/steel"
+    }
+  },
+  "pattern": [
+    "   ",
+    "OIO",
+    "ICI"
+  ],
+  "result": {
+    "item": "tfmg:regular_engine"
+  },
+  "show_notification": true
+}

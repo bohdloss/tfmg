@@ -1,0 +1,16 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {
+      "item": "tfmg:steel_casing"
+    },
+    {
+      "tag": "forge:plates/aluminum"
+    }
+  ],
+  "results": [
+    {
+      "item": "tfmg:industrial_aluminum_casing"
+    }
+  ]
+}

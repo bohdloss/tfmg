@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "tfmg:pink_concrete"
+  },
+  "result": "tfmg:pink_concrete_wall"
+}

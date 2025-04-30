@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "tfmg:concrete"
+    },
+    "D": {
+      "item": "minecraft:orange_dye"
+    }
+  },
+  "pattern": [
+    "CCC",
+    "CDC",
+    "CCC"
+  ],
+  "result": {
+    "count": 8,
+    "item": "tfmg:orange_concrete"
+  },
+  "show_notification": true
+}

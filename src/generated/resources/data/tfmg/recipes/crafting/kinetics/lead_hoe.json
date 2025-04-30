@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "forge:ingots/lead"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "CC ",
+    "S  ",
+    "S  "
+  ],
+  "result": {
+    "item": "tfmg:lead_hoe"
+  },
+  "show_notification": true
+}

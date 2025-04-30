@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "tfmg:cyan_concrete"
+  },
+  "result": "tfmg:cyan_concrete_wall"
+}

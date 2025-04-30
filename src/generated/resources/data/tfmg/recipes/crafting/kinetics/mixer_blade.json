@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "tfmg:heavy_plate"
+    },
+    "P": {
+      "item": "create:propeller"
+    },
+    "S": {
+      "item": "create:shaft"
+    }
+  },
+  "pattern": [
+    " S ",
+    " S ",
+    "HPH"
+  ],
+  "result": {
+    "item": "tfmg:mixer_blade"
+  },
+  "show_notification": true
+}

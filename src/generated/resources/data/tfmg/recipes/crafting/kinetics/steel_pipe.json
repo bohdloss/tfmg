@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "forge:ingots/steel"
+    },
+    "P": {
+      "tag": "forge:plates/steel"
+    }
+  },
+  "pattern": [
+    "   ",
+    "PIP",
+    "   "
+  ],
+  "result": {
+    "item": "tfmg:steel_pipe"
+  },
+  "show_notification": true
+}

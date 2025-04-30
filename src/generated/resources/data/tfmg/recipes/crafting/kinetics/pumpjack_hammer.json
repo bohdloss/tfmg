@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "R": {
+      "item": "tfmg:rebar"
+    },
+    "S": {
+      "tag": "forge:ingots/steel"
+    },
+    "T": {
+      "item": "tfmg:steel_truss"
+    }
+  },
+  "pattern": [
+    "RSR",
+    "STS",
+    " T "
+  ],
+  "result": {
+    "item": "tfmg:pumpjack_hammer"
+  },
+  "show_notification": true
+}

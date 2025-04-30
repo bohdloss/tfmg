@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "tfmg:plastic_sheet"
+    }
+  },
+  "pattern": [
+    "I",
+    "I",
+    "I"
+  ],
+  "result": {
+    "item": "tfmg:plastic_pipe"
+  },
+  "show_notification": true
+}

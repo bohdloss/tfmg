@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "O": {
+      "tag": "forge:ingots/steel"
+    }
+  },
+  "pattern": [
+    "   ",
+    "OOO",
+    "   "
+  ],
+  "result": {
+    "item": "tfmg:steel_trapdoor"
+  },
+  "show_notification": true
+}

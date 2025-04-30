@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "O": {
+      "item": "tfmg:rebar"
+    }
+  },
+  "pattern": [
+    "   ",
+    "OOO",
+    "OOO"
+  ],
+  "result": {
+    "count": 6,
+    "item": "tfmg:rebar_wall"
+  },
+  "show_notification": true
+}

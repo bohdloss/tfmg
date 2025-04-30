@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "tfmg:cyan_rebar_concrete"
+  },
+  "result": "tfmg:cyan_rebar_concrete_slab"
+}

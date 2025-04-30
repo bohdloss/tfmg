@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "tfmg:empty_spool"
+    },
+    "W": {
+      "tag": "forge:wires/copper"
+    }
+  },
+  "pattern": [
+    "WWW",
+    "WSW",
+    "WWW"
+  ],
+  "result": {
+    "item": "tfmg:copper_spool"
+  },
+  "show_notification": true
+}

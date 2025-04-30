@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "tag": "forge:plates/lead"
+    },
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
+    "T": {
+      "item": "tfmg:transformer"
+    },
+    "W": {
+      "tag": "forge:wires/copper"
+    }
+  },
+  "pattern": [
+    "WLR",
+    "WTR",
+    "WLR"
+  ],
+  "result": {
+    "item": "tfmg:converter"
+  },
+  "show_notification": true
+}
