@@ -20,7 +20,12 @@ public class TFMGPressingRecipeGen extends TFMGProcessingRecipeGen {
             .output(leadSheetTFMG()).duration(50)),
 
     NICKEL_SHEET = create("nickel_ingot", b -> b.require(nickelIngot())
-            .output(nickelSheetTFMG()).duration(50));
+            .output(nickelSheetTFMG()).duration(50)),
+
+    SYNTHETIC_LEATHER = create("synthetic_leather", b -> b
+            .require(rubber())
+            .output(syntheticLeather())
+            .duration(200));
 
     public TFMGPressingRecipeGen(PackOutput output) {
         super(output);

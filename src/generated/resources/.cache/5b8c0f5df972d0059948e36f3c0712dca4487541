@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-29T12:30:23.6118557	TFMG's Processing Recipes
+// 1.20.1	2025-04-27T10:19:18.1020859	TFMG's Processing Recipes
 ae24d73a2ef5b8059806e660641bcb9dff2a15f4 data/tfmg/recipes/coking/charcoal.json
 9000fbf96dc2c2b822aa4e526b1c8686d5413e5a data/tfmg/recipes/coking/coal.json
 55a40ebeb7612a9ba4a938e18adcfe6da4388fff data/tfmg/recipes/distillation/crude_oil.json
@@ -7,7 +7,12 @@ c53735f5bedbc3e6fd8c03f2dcc18047e9391d6a data/tfmg/recipes/distillation/crude_oi
 34371023823fc0686c5e6e3d074c7b723a7c5cd7 data/tfmg/recipes/distillation/heavy_oil.json
 001bc3e8ddeb2fc3d633faf873553157b5c1878c data/tfmg/recipes/distillation/heavy_oil_light_distillation.json
 cfd0a4e4e86ad9698e251e16aa952c951c6ed1c3 data/tfmg/recipes/distillation/heavy_oil_no_naphtha.json
+c4276f21b4ddc95d7295612cd7846cb23ba4bdbf data/tfmg/recipes/filling/hardened_planks.json
 35a1de08776b5725ae21dd4220549bde14d631a3 data/tfmg/recipes/hot_blast/hot_air.json
+3385f19114ca69a40efaf7124bde2a978fee77a4 data/tfmg/recipes/item_application/aluminum_casing.json
+012e7cdfed6d921cb6a032c2997e8e0c598e6f78 data/tfmg/recipes/item_application/coated_circuit_board.json
+6208a999d88f949b1043f13c492f97d52260fe83 data/tfmg/recipes/item_application/heavy_machinery_casing.json
+c19411c5d0a02e974f617fbe377bcac3bea1fd99 data/tfmg/recipes/item_application/steel_casing.json
 499dddbb8a717629960cbbb1513102dc219800ef data/tfmg/recipes/polarizing/magnet.json
 afc122bccc8ab383b52732fa6fdf18fe2464c7ae data/tfmg/recipes/pressing/aluminum_ingot.json
 4f46d2585fd590dcbdceef73696125cc57f66bdc data/tfmg/recipes/pressing/cast_iron_ingot.json

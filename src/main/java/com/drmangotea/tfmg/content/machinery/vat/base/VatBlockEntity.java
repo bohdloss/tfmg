@@ -16,12 +16,11 @@ import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTank
 import com.simibubi.create.foundation.fluid.CombinedTankWrapper;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
+import com.simibubi.create.foundation.item.SmartInventory;
 import com.simibubi.create.foundation.recipe.RecipeFinder;
-
-
 import com.simibubi.create.foundation.utility.CreateLang;
-import net.createmod.catnip.animation.LerpedFloat;
 import com.simibubi.create.infrastructure.config.AllConfigs;
+import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.lang.LangBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -72,7 +71,7 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
     protected BlockPos lastKnownPos;
     protected boolean updateConnectivity;
     protected boolean updateCapability;
-    protected boolean window;
+    protected boolean window = false;
     protected int luminosity;
     protected int width;
     protected int height;
@@ -97,13 +96,16 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
         for (int i = 0; i < 8; i++) {
             fluidLevel[i] = LerpedFloat.linear();
         }
+        window = false;
+        // if(Objects.equals(((VatBlock) getBlockState().getBlock()).vatType, "tfmg:firebrick_lined_vat"))
+        //     window = false;
         inputInventory = new VatInventory(4, this);
         outputInventory = new VatInventory(4, this);
         itemCapability = LazyOptional.of(() -> new CombinedInvWrapper(inputInventory, outputInventory));
         forceFluidLevelUpdate = true;
         updateConnectivity = false;
         updateCapability = false;
-        window = ((VatBlock)getBlockState().getBlock()).vatType != "tfmg:firebrick_lined_vat";
+        //window = ((VatBlock)getBlockState().getBlock()).vatType != "tfmg:firebrick_lined_vat";
         height = 1;
         width = 1;
         refreshCapability();
@@ -184,7 +186,12 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
                 }
             }
         }
-
+        if (heatLevel >= 2) {
+            heatCondition = HeatCondition.HEATED;
+        }
+        if (heatLevel >= 4) {
+            heatCondition = HeatCondition.SUPERHEATED;
+        }
         if (heatLevel != prevHeat)
             notifyUpdate();
     }
@@ -204,11 +211,13 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
             if (!Objects.equals(testedRecipe.machines, machines)) {
                 continue;
             }
+            if (!testedRecipe.getRollableResultsAsItemStacks().isEmpty())
+                TFMG.LOGGER.debug("AAAAAAAAAAAAA " + testedRecipe.getRollableResultsAsItemStacks().get(0).toString());
 
-            if (!testedRecipe.allowedVatTypes.contains(((VatBlock) getBlockState().getBlock()).vatType.replace("tfmg:", ""))) {
+
+            if (!testedRecipe.allowedVatTypes.contains(((VatBlock) getBlockState().getBlock()).vatType)) {
                 continue;
             }
-
 
             //for(int i =0;i<machines.size();i++){
             //    if(!Objects.equals(machines.get(i),testedRecipe.machines)){
@@ -253,26 +262,53 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
             }
 
             //same but with items
-            Map<Integer, Integer> isFound = new HashMap<>();
-            for (int i = 0; i < testedRecipe.getIngredients().size(); i++) {
-                Integer foundAt = null;
-                if (testedRecipe.getIngredients().get(i).isEmpty())
-                    break;
+            SmartInventory testInventory = new SmartInventory(8, this);
 
-                for (int y = 0; y < itemHandler.getSlots(); y++) {
-                    if (isFound.containsValue(y))
-                        continue;
-                    ItemStack stack = itemHandler.getStackInSlot(y);
-                    if (testedRecipe.getIngredients().get(i).test(stack)) {
-                        foundAt = y;
+            for (int i = 0; i < 4; i++) {
+                testInventory.setStackInSlot(i, inputInventory.getStackInSlot(i).copy());
+            }
+            for (int i = 0; i < 4; i++) {
+                testInventory.setStackInSlot(i + 4, outputInventory.getStackInSlot(i).copy());
+            }
+
+            for (int i = 0; i < testedRecipe.getIngredients().size(); i++) {
+                Ingredient ingredient = testedRecipe.getIngredients().get(i);
+                boolean found = false;
+                for (int y = 0; y < 8; y++) {
+                    ItemStack stack = testInventory.getStackInSlot(y).copy();
+                    if (ingredient.test(stack)) {
+                        found = true;
+                        testInventory.getItem(y).shrink(1);
                         break;
                     }
                 }
-                if (foundAt != null) {
-                    isFound.put(i, foundAt);
-                } else doesntMatch = true;
+                if(!found) {
+                    doesntMatch = true;
+                    break;
+                }
             }
 
+            if (false) {
+                Map<Integer, Integer> isFound = new HashMap<>();
+                for (int i = 0; i < testedRecipe.getIngredients().size(); i++) {
+                    Integer foundAt = null;
+                    if (testedRecipe.getIngredients().get(i).isEmpty())
+                        break;
+
+                    for (int y = 0; y < itemHandler.getSlots(); y++) {
+                        if (isFound.containsValue(y))
+                            continue;
+                        ItemStack stack = itemHandler.getStackInSlot(y);
+                        if (testedRecipe.getIngredients().get(i).test(stack)) {
+                            foundAt = y;
+                            break;
+                        }
+                    }
+                    if (foundAt != null) {
+                        isFound.put(i, foundAt);
+                    } else doesntMatch = true;
+                }
+            }
 
             //////////////////////////////////////////
             if (doesntMatch)
@@ -335,6 +371,8 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
     @Override
     public void tick() {
         super.tick();
+
+
 
         handleRecipe();
 
@@ -682,7 +720,7 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
         if (be == null)
             return;
 
-        if(((VatBlock)getBlockState().getBlock()).vatType == "tfmg:firebrick_lined_vat")
+        if (((VatBlock) getBlockState().getBlock()).vatType == "tfmg:firebrick_lined_vat")
             return;
 
         be.setWindows(!be.window);

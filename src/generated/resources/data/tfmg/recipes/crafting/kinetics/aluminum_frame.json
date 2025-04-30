@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "tag": "forge:nuggets/aluminum"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "N N",
+    "NNN"
+  ],
+  "result": {
+    "count": 4,
+    "item": "tfmg:aluminum_frame"
+  },
+  "show_notification": true
+}

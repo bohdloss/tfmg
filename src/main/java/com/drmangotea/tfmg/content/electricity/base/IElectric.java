@@ -175,6 +175,10 @@ public interface IElectric {
 
     ElectricBlockValues getData();
 
+    default boolean canWork(){
+        return !getData().notEnoughtPower;
+    }
+
     default void blockFail() {
         getLevelAccessor().destroyBlock(BlockPos.of(getPos()), false);
     }
@@ -197,6 +201,13 @@ public interface IElectric {
         for (IElectric member : getOrCreateElectricNetwork().members)
 
             power += member.getPowerUsage();
+        return power;
+    }
+    default int getNetworkPowerGeneration() {
+        int power = 0;
+        for (IElectric member : getOrCreateElectricNetwork().members)
+
+            power += member.powerGeneration();
         return power;
     }
 

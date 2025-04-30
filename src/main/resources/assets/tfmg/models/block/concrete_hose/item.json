@@ -7,8 +7,8 @@
 		"2": "tfmg:block/distillation_tower_output",
 		"3": "tfmg:block/shaft_top",
 		"4": "tfmg:block/shaft",
-		"5": "create:block/hose_pulley_rope",
-		"6": "create:block/hose_pulley_magnet",
+		"5": "create:block/hose_coil_rope",
+		"6": "create:block/pulley_magnet",
 		"particle": "tfmg:block/heavy_machinery_casing"
 	},
 	"elements": [

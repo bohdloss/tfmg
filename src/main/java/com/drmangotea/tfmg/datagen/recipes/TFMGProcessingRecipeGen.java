@@ -2,11 +2,9 @@ package com.drmangotea.tfmg.datagen.recipes;
 
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.datagen.recipes.values.*;
-import com.simibubi.create.Create;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
-import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.data.CachedOutput;
@@ -36,6 +34,8 @@ public abstract class TFMGProcessingRecipeGen extends TFMGRecipeProvider {
 		GENERATORS.add(new WindingRecipeGen(output));
 		GENERATORS.add(new PolarizingRecipeGen(output));
 		GENERATORS.add(new HotBlastRecipeGen(output));
+		GENERATORS.add(new TFMGItemApplicationRecipeGen(output));
+		GENERATORS.add(new TFMGFillingRecipeGen(output));
 
 
 		gen.addProvider(true, new DataProvider() {

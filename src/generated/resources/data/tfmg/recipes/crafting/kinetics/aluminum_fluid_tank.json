@@ -6,7 +6,7 @@
       "item": "minecraft:barrel"
     },
     "P": {
-      "tag": "forge:ingots/aluminum"
+      "tag": "forge:plates/aluminum"
     }
   },
   "pattern": [

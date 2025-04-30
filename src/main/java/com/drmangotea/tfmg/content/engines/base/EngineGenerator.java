@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.ModelFile;
 
 import static com.drmangotea.tfmg.content.engines.base.EngineBlock.ENGINE_STATE;
-import static com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineBlock.EXTENDED;
+import static com.drmangotea.tfmg.content.engines.types.regular_engine.RegularEngineBlock.EXTENDED;
 
 
 public class EngineGenerator extends SpecialBlockStateGen {
@@ -22,7 +22,7 @@ public class EngineGenerator extends SpecialBlockStateGen {
 
     @Override
     protected int getYRotation(BlockState state) {
-        return horizontalAngle(state.getValue(EngineBlock.HORIZONTAL_FACING).getOpposite());
+        return horizontalAngle(state.getValue(EngineBlock.SHAFT_FACING).getOpposite());
     }
 
 

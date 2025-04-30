@@ -15,6 +15,8 @@ public class ElectricBlockValues {
     public int networkPowerGeneration =0;
     public float highestCurrent=0;
 
+    public boolean notEnoughtPower=false;
+
     public boolean setVoltageNextTick = false;
 
     public int failTimer = 0;

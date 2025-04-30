@@ -25,8 +25,10 @@ import com.simibubi.create.foundation.data.*;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
+import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;
 import net.minecraft.client.renderer.RenderType;
@@ -34,6 +36,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -41,6 +45,7 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 
 import java.nio.channels.Pipe;
+import java.util.*;
 import java.util.function.Supplier;
 
 import static com.drmangotea.tfmg.TFMG.REGISTRATE;
@@ -54,29 +59,29 @@ import static com.simibubi.create.foundation.data.TagGen.*;
 @SuppressWarnings("removal")
 public class TFMGBuilderTransformers {
 
-     public static <B extends TFMGSlidingDoorBlock, P> NonNullUnaryOperator<BlockBuilder<B, P>> slidingDoor(String type) {
-         return b -> b.initialProperties(() -> Blocks.IRON_DOOR)
-                 .properties(p -> p.requiresCorrectToolForDrops()
-                         .strength(3.0F, 6.0F))
-                 .blockstate((c, p) -> {
-                     ModelFile bottom = AssetLookup.partialBaseModel(c, p, "bottom");
-                     ModelFile top = AssetLookup.partialBaseModel(c, p, "top");
-                     p.doorBlock(c.get(), bottom, bottom, bottom, bottom, top, top, top, top);
-                 })
-                 .addLayer(() -> RenderType::cutoutMipped)
-                 .transform(pickaxeOnly())
-                 .onRegister(interactionBehaviour(new DoorMovingInteraction()))
-                 .onRegister(movementBehaviour(new SlidingDoorMovementBehaviour()))
-                 .tag(BlockTags.DOORS)
-                 .tag(BlockTags.WOODEN_DOORS) // for villager AI
-                 .tag(AllTags.AllBlockTags.NON_DOUBLE_DOOR.tag)
-                 .loot((lr, block) -> lr.add(block, lr.createDoorTable(block)))
-                 .item()
-                 .tag(ItemTags.DOORS)
-                 .tag(AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag)
-                 .model((c, p) -> p.blockSprite(c, p.modLoc("item/" + type + "_door")))
-                 .build();
-     }
+    public static <B extends TFMGSlidingDoorBlock, P> NonNullUnaryOperator<BlockBuilder<B, P>> slidingDoor(String type) {
+        return b -> b.initialProperties(() -> Blocks.IRON_DOOR)
+                .properties(p -> p.requiresCorrectToolForDrops()
+                        .strength(3.0F, 6.0F))
+                .blockstate((c, p) -> {
+                    ModelFile bottom = AssetLookup.partialBaseModel(c, p, "bottom");
+                    ModelFile top = AssetLookup.partialBaseModel(c, p, "top");
+                    p.doorBlock(c.get(), bottom, bottom, bottom, bottom, top, top, top, top);
+                })
+                .addLayer(() -> RenderType::cutoutMipped)
+                .transform(pickaxeOnly())
+                .onRegister(interactionBehaviour(new DoorMovingInteraction()))
+                .onRegister(movementBehaviour(new SlidingDoorMovementBehaviour()))
+                .tag(BlockTags.DOORS)
+                .tag(BlockTags.WOODEN_DOORS) // for villager AI
+                .tag(AllTags.AllBlockTags.NON_DOUBLE_DOOR.tag)
+                .loot((lr, block) -> lr.add(block, lr.createDoorTable(block)))
+                .item()
+                .tag(ItemTags.DOORS)
+                .tag(AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag)
+                .model((c, p) -> p.blockSprite(c, p.modLoc("item/" + type + "_door")))
+                .build();
+    }
 
     public static void generateNeonTubeBlockState(DataGenContext<Block, NeonTubeBlock> c, RegistrateBlockstateProvider p) {
         MultiPartBlockStateBuilder builder = p.getMultipartBuilder(c.get());
@@ -113,7 +118,6 @@ public class TFMGBuilderTransformers {
                 .end();
 
     }
-
 
 
     public static <B extends TFMGEncasedShaftBlock, P> NonNullUnaryOperator<BlockBuilder<B, P>> encasedShaft(String casing,
@@ -184,6 +188,7 @@ public class TFMGBuilderTransformers {
                 .transform(TFMGStress.setNoImpact())
                 .loot((p, lb) -> p.dropOther(lb, drop.get()));
     }
+
     public static <B extends CopycatCableBlock, P> NonNullUnaryOperator<BlockBuilder<B, P>> copycatCable() {
         return b -> b.initialProperties(SharedProperties::softMetal)
                 .blockstate((c, p) -> p.simpleBlock(c.get(), p.models()
@@ -198,7 +203,7 @@ public class TFMGBuilderTransformers {
                 .transform(TagGen.axeOrPickaxe());
     }
 
-    ///////////////
+    /// ////////////
     public static BlockEntry<TFMGFlywheelBlock> flywheel(String name, NonNullFunction<BlockBehaviour.Properties, TFMGFlywheelBlock> block) {
         return REGISTRATE.block(name + "_flywheel", block)
                 .initialProperties(SharedProperties::softMetal)
@@ -212,7 +217,7 @@ public class TFMGBuilderTransformers {
     }
 
     public static BlockEntry<TrussBlock> truss(String name) {
-        return REGISTRATE.block(name+"_truss", TrussBlock::new)
+        return REGISTRATE.block(name + "_truss", TrussBlock::new)
                 .initialProperties(() -> Blocks.IRON_BLOCK)
                 .properties(p -> p.noOcclusion())
                 .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
@@ -223,8 +228,9 @@ public class TFMGBuilderTransformers {
                 .build()
                 .register();
     }
+
     public static BlockEntry<FrameBlock> frame(String name) {
-        return REGISTRATE.block(name+"_frame", FrameBlock::new)
+        return REGISTRATE.block(name + "_frame", FrameBlock::new)
                 .initialProperties(() -> Blocks.IRON_BLOCK)
                 .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
                 .properties(p -> p.strength(3))
@@ -235,12 +241,17 @@ public class TFMGBuilderTransformers {
                 .simpleItem()
                 .register();
     }
-    public static final String[] COLORS = {"white", "blue", "light_blue", "red", "green", "lime", "pink", "magenta", "yellow", "gray", "light_gray", "brown", "cyan", "purple", "orange"};
+
+    public static final String[] COLORS = {"white", "blue", "light_blue", "red", "green", "lime", "pink", "magenta", "yellow", "gray", "light_gray", "brown", "cyan", "purple", "orange","black"};
+
     public static void generateCautionBlocks() {
 
 
-
         for (String color : COLORS) {
+
+            if(Objects.equals(color, "black"))
+                continue;
+
             String firstLetter = color.substring(0, 1).toUpperCase();
             String colorWithoutC = color.substring(1);
 
@@ -269,24 +280,26 @@ public class TFMGBuilderTransformers {
                             .texture("particle", p.modLoc("block/caution_block/" + color))
                     ))
                     .tag(BlockTags.NEEDS_STONE_TOOL)
+                    .recipe((c, p) -> p.stonecutting(DataIngredient.tag(AllTags.forgeItemTag("ingots/aluminum")), RecipeCategory.BUILDING_BLOCKS, c::get, 2))
                     .item()
                     .build()
                     .lang(upperCaseColor + " Caution Block")
                     .register();
         }
     }
+
     public static MaterialSet generateConcrete(boolean rebar) {
 
         String name = rebar ? "rebar_concrete" : "concrete";
 
         MaterialSet concrete = new MaterialSet();
 
-        generateColoredConcrete(rebar);
 
-        concrete.wall = REGISTRATE.block(name+"_wall", WallBlock::new)
+
+        concrete.wall = REGISTRATE.block(name + "_wall", WallBlock::new)
                 .initialProperties(() -> Blocks.STONE)
                 .properties(p -> p.requiresCorrectToolForDrops())
-                .properties(p ->p.strength(rebar ? 12f : 3.5f,rebar ? 1200f : 3.5f))
+                .properties(p -> p.strength(rebar ? 12f : 3.5f, rebar ? 1200f : 3.5f))
                 .transform(pickaxeOnly())
                 .blockstate((c, p) -> TFMGVanillaBlockStates.generateWallBlockState(c, p, "concrete"))
                 .tag(BlockTags.NEEDS_STONE_TOOL)
@@ -297,24 +310,24 @@ public class TFMGBuilderTransformers {
                 .build()
                 .register();
 
-        concrete.stairs = REGISTRATE.block(name+"_stairs", p -> new StairBlock(() -> concrete.block.get().defaultBlockState(), p))
+        concrete.stairs = REGISTRATE.block(name + "_stairs", p -> new StairBlock(() -> concrete.block.get().defaultBlockState(), p))
                 .initialProperties(() -> Blocks.STONE)
                 .properties(p -> p.requiresCorrectToolForDrops())
-                .properties(p ->p.strength(rebar ? 12f : 3.5f,rebar ? 1200f : 3.5f))
+                .properties(p -> p.strength(rebar ? 12f : 3.5f, rebar ? 1200f : 3.5f))
                 .transform(pickaxeOnly())
                 .blockstate((c, p) -> TFMGVanillaBlockStates.generateStairBlockState(c, p, "concrete"))
                 .tag(BlockTags.NEEDS_STONE_TOOL)
                 .tag(BlockTags.STAIRS)
-                .recipe((c, p) -> p.stonecutting(DataIngredient.items(concrete.block.get()),RecipeCategory.BUILDING_BLOCKS, c::get, 1))
+                .recipe((c, p) -> p.stonecutting(DataIngredient.items(concrete.block.get()), RecipeCategory.BUILDING_BLOCKS, c::get, 1))
                 .item()
                 //.transform(b -> TFMGVanillaBlockStates.transformStairItem(b, "concrete"))
                 .transform(customItemModel("concrete_stairs"))
                 .register();
 
 
-        concrete.block =  REGISTRATE.block(name, Block::new)
+        concrete.block = REGISTRATE.block(name, Block::new)
                 .initialProperties(() -> Blocks.STONE)
-                .properties(p ->p.strength(rebar ? 12f : 3.5f,rebar ? 1200f : 3.5f))
+                .properties(p -> p.strength(rebar ? 12f : 3.5f, rebar ? 1200f : 3.5f))
                 .properties(p -> p.requiresCorrectToolForDrops())
                 .transform(pickaxeOnly())
                 .blockstate(simpleCubeAll("concrete"))
@@ -323,29 +336,35 @@ public class TFMGBuilderTransformers {
                 .build()
                 .register();
 
-        concrete.slab = REGISTRATE.block(name+"_slab", SlabBlock::new)
+        concrete.slab = REGISTRATE.block(name + "_slab", SlabBlock::new)
                 .initialProperties(() -> Blocks.STONE)
-                .properties(p ->p.strength(rebar ? 12f : 3.5f,rebar ? 1200f : 3.5f))
+                .properties(p -> p.strength(rebar ? 12f : 3.5f, rebar ? 1200f : 3.5f))
                 .properties(p -> p.requiresCorrectToolForDrops())
                 .transform(pickaxeOnly())
                 .blockstate((c, p) -> TFMGVanillaBlockStates.generateSlabBlockState(c, p, "concrete"))
                 .tag(BlockTags.NEEDS_STONE_TOOL)
                 .tag(BlockTags.SLABS)
-                .recipe((c, p) -> p.stonecutting(DataIngredient.items(concrete.block.get()),RecipeCategory.BUILDING_BLOCKS, c::get, 2))
+                .recipe((c, p) -> p.stonecutting(DataIngredient.items(concrete.block.get()), RecipeCategory.BUILDING_BLOCKS, c::get, 2))
                 .item()
                 .transform(customItemModel("concrete_bottom"))
                 .register();
 
         return concrete;
     }
-    public static void generateColoredConcrete(boolean rebar) {
+
+    public static Map<String ,MaterialSet> generateColoredConcrete(boolean rebar) {
 
         String name = rebar ? "_rebar_concrete" : "_concrete";
 
+        Map<String ,MaterialSet> list = new HashMap<>();
+
         for (String color : COLORS) {
-            REGISTRATE.block(color +name, Block::new)
+
+            MaterialSet set = new MaterialSet();
+
+            set.block=REGISTRATE.block(color + name, Block::new)
                     .initialProperties(() -> Blocks.STONE)
-                    .properties(p ->p.strength(rebar ? 12f : 3.5f,rebar ? 1200f : 3.5f))
+                    .properties(p -> p.strength(rebar ? 12f : 3.5f, rebar ? 1200f : 3.5f))
                     .properties(p -> p.requiresCorrectToolForDrops())
                     .transform(pickaxeOnly())
                     .blockstate(simpleCubeAll(color + "_concrete"))
@@ -355,86 +374,98 @@ public class TFMGBuilderTransformers {
                     .register();
 
 
-            REGISTRATE.block(color + name+"_wall", WallBlock::new)
+            set.wall=REGISTRATE.block(color + name + "_wall", WallBlock::new)
                     .initialProperties(() -> Blocks.STONE)
-                    .properties(p ->p.strength(rebar ? 12f : 3.5f,rebar ? 1200f : 3.5f))
+                    .properties(p -> p.strength(rebar ? 12f : 3.5f, rebar ? 1200f : 3.5f))
                     .properties(p -> p.requiresCorrectToolForDrops())
                     .transform(pickaxeOnly())
                     .blockstate((c, p) -> TFMGVanillaBlockStates.generateWallBlockState(c, p, color + "_concrete"))
                     .tag(BlockTags.NEEDS_STONE_TOOL)
                     .tag(BlockTags.WALLS)
+                    .recipe((c, p) -> p.stonecutting(DataIngredient.items(set.block.asItem()), RecipeCategory.BUILDING_BLOCKS, c::get, 1))
                     .item()
                     .transform(b -> TFMGVanillaBlockStates.transformWallItem(b, color + "_concrete"))
                     .build()
                     .register();
 
-            REGISTRATE.block(color + name+"_stairs", p -> new StairBlock(() -> TFMGBlocks.CONCRETE.block.get().defaultBlockState(), p))
+            set.stairs=REGISTRATE.block(color + name + "_stairs", p -> new StairBlock(() -> TFMGBlocks.CONCRETE.block.get().defaultBlockState(), p))
                     .initialProperties(() -> Blocks.STONE)
-                    .properties(p ->p.strength(rebar ? 12f : 3.5f,rebar ? 1200f : 3.5f))
+                    .properties(p -> p.strength(rebar ? 12f : 3.5f, rebar ? 1200f : 3.5f))
                     .properties(p -> p.requiresCorrectToolForDrops())
                     .transform(pickaxeOnly())
                     .blockstate((c, p) -> TFMGVanillaBlockStates.generateStairBlockState(c, p, color + "_concrete"))
                     .tag(BlockTags.NEEDS_STONE_TOOL)
                     .tag(BlockTags.STAIRS)
+                    .recipe((c, p) -> p.stonecutting(DataIngredient.items(set.block.asItem()), RecipeCategory.BUILDING_BLOCKS, c::get, 1))
                     .item()
-                   // .transform(b -> TFMGVanillaBlockStates.transformStairItem(b, color + "_concrete"))
-                    .transform(customItemModel(color+"_concrete_stairs"))
+                    // .transform(b -> TFMGVanillaBlockStates.transformStairItem(b, color + "_concrete"))
+                    .transform(customItemModel(color + "_concrete_stairs"))
                     .register();
 
 
-            REGISTRATE.block(color + name+"_slab", SlabBlock::new)
+            set.slab=REGISTRATE.block(color + name + "_slab", SlabBlock::new)
                     .initialProperties(() -> Blocks.STONE)
-                    .properties(p ->p.strength(rebar ? 12f : 3.5f,rebar ? 1200f : 3.5f))
+                    .properties(p -> p.strength(rebar ? 12f : 3.5f, rebar ? 1200f : 3.5f))
                     .properties(p -> p.requiresCorrectToolForDrops())
                     .transform(pickaxeOnly())
                     .blockstate((c, p) -> TFMGVanillaBlockStates.generateSlabBlockState(c, p, color + "_concrete"))
                     .tag(BlockTags.NEEDS_STONE_TOOL)
                     .tag(BlockTags.SLABS)
+                    .recipe((c, p) -> p.stonecutting(DataIngredient.items(set.block.asItem()), RecipeCategory.BUILDING_BLOCKS, c::get, 2))
                     .item()
                     .transform(customItemModel(color + "_concrete_bottom"))
                     .register();
 
-
+            list.put(color,set);
         }
+
+        return list;
     }
-    public static MaterialSet makeVariants(BlockEntry<?> blockEntry){
+
+    public static MaterialSet makeVariants(BlockEntry<?> blockEntry) {
+        return makeVariants(blockEntry, false);
+    }
+
+    public static MaterialSet makeVariants(BlockEntry<?> blockEntry, boolean recipe) {
         MaterialSet materialSet = new MaterialSet();
 
         materialSet.block = blockEntry;
 
-        String name = blockEntry.getId().toString().replace("tfmg:","");
+        String name = blockEntry.getId().toString().replace("tfmg:", "");
 
 
-
-        REGISTRATE.block(name+"_wall", WallBlock::new)
+        REGISTRATE.block(name + "_wall", WallBlock::new)
                 .initialProperties(() -> blockEntry.get())
                 .transform(pickaxeOnly())
                 .blockstate((c, p) -> TFMGVanillaBlockStates.generateWallBlockState(c, p, name))
                 .tag(BlockTags.NEEDS_STONE_TOOL)
                 .tag(BlockTags.WALLS)
+                .recipe((c, p) -> p.stonecutting(DataIngredient.items(blockEntry.asItem()), RecipeCategory.BUILDING_BLOCKS, c::get, 1))
                 .item()
                 .transform(b -> TFMGVanillaBlockStates.transformWallItem(b, name))
                 .build()
                 .register();
 
-        REGISTRATE.block(name+"_slab", SlabBlock::new)
+        REGISTRATE.block(name + "_slab", SlabBlock::new)
                 .initialProperties(() -> blockEntry.get())
                 .properties(p -> p.requiresCorrectToolForDrops())
                 .transform(pickaxeOnly())
                 .blockstate((c, p) -> TFMGVanillaBlockStates.generateSlabBlockState(c, p, name))
                 .tag(BlockTags.NEEDS_STONE_TOOL)
                 .tag(BlockTags.SLABS)
+                .recipe((c, p) -> p.stonecutting(DataIngredient.items(blockEntry.asItem()), RecipeCategory.BUILDING_BLOCKS, c::get, 2))
                 .item()
                 .transform(customItemModel(name + "_bottom"))
                 .register();
-        REGISTRATE.block(name+"_stairs", p -> new StairBlock(() -> TFMGBlocks.CONCRETE.block.get().defaultBlockState(), p))
+        REGISTRATE.block(name + "_stairs", p -> new StairBlock(() -> TFMGBlocks.CONCRETE.block.get().defaultBlockState(), p))
                 .initialProperties(() -> Blocks.STONE)
                 .transform(pickaxeOnly())
                 .blockstate((c, p) -> TFMGVanillaBlockStates.generateStairBlockState(c, p, name))
                 .tag(BlockTags.NEEDS_STONE_TOOL)
                 .tag(BlockTags.STAIRS)
+                .recipe((c, p) -> p.stonecutting(DataIngredient.items(blockEntry.asItem()), RecipeCategory.BUILDING_BLOCKS, c::get, 1))
                 .item()
-                .transform(customItemModel(name+"_stairs"))
+                .transform(customItemModel(name + "_stairs"))
                 .register();
 
         return materialSet;

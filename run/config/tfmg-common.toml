@@ -6,7 +6,7 @@
 	#.
 	#Determines the minimum power an electric motor can run on.
 	#Range: > 1
-	electricMotorMinimumPower = 500
+	electricMotorMinimumPower = 250
 	#.
 	#Determines the minimum voltage an electric motor can run on.
 	#Range: > 1

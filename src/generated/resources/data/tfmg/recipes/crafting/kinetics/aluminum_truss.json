@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "tag": "forge:nuggets/aluminum"
+    }
+  },
+  "pattern": [
+    "N N",
+    "NNN",
+    "N N"
+  ],
+  "result": {
+    "count": 4,
+    "item": "tfmg:aluminum_truss"
+  },
+  "show_notification": true
+}

@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "tfmg:item/transmission"
-  }
+  "parent": "tfmg:item/transmission_model"
 }

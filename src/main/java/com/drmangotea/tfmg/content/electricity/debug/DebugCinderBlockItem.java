@@ -7,15 +7,17 @@ import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnection
 import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnectorBlockEntity;
 import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
 import com.drmangotea.tfmg.content.engines.engine_controller.EngineControllerBlockEntity;
-import com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.large_engine.LargeEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.regular_engine.RegularEngineBlockEntity;
 import com.drmangotea.tfmg.content.machinery.metallurgy.blast_stove.BlastStoveBlockEntity;
 import com.drmangotea.tfmg.content.machinery.metallurgy.casting_basin.CastingBasinBlockEntity;
 import com.drmangotea.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlockEntity;
 import com.drmangotea.tfmg.content.machinery.misc.concrete_hose.ConcreteHoseBlockEntity;
 import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.FluidReservoir;
-import com.drmangotea.tfmg.content.machinery.vat.base.VatBlockEntity;
 import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.PumpjackBaseBlockEntity;
 import com.drmangotea.tfmg.content.machinery.oil_processing.surface_scanner.SurfaceScannerBlockEntity;
+import com.drmangotea.tfmg.content.machinery.vat.base.VatBlockEntity;
+import com.drmangotea.tfmg.registry.TFMGFluids;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.kinetics.mixer.MechanicalMixerBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -24,6 +26,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import java.util.ArrayList;
 
@@ -62,18 +66,12 @@ public class DebugCinderBlockItem extends Item {
             }
             return InteractionResult.SUCCESS;
         }
-        if (level.getBlockEntity(pos) instanceof RegularEngineBlockEntity be) {
-            be.updateRotation();
+        if (level.getBlockEntity(pos) instanceof LargeEngineBlockEntity be) {
+
+            be.airTank.fill(new FluidStack(TFMGFluids.AIR.getSource(),200), IFluidHandler.FluidAction.EXECUTE);
+
             return InteractionResult.SUCCESS;
         }
-        //if(level.getBlockEntity(pos) instanceof GeneratorBlockEntity be){
-        //    be.updateStress();
-        //    return InteractionResult.SUCCESS;
-        //}
-        //if(level.getBlockEntity(pos) instanceof ElectricMotorBlockEntity be){
-        //    be.onPlaced();
-        //    return InteractionResult.SUCCESS;
-        //}
 
         if (level.getBlockEntity(pos) instanceof ConcreteHoseBlockEntity be) {
 
@@ -152,11 +150,12 @@ public class DebugCinderBlockItem extends Item {
                 }
             }
         }
-        if (level.getBlockEntity(pos) instanceof RegularEngineBlockEntity be) {
 
-        }
         if (level.getBlockEntity(pos) instanceof AbstractEngineBlockEntity be) {
-            be.connect();
+            be.highestSignal=0;
+            be.controlled = false;
+            be.updateGeneratedRotation();
+            TFMGUtils.debugMessage(level, "RPM "+be.rpm);
         }
         if (level.getBlockEntity(pos) instanceof CastingBasinBlockEntity be) {
             be.findRecipe();

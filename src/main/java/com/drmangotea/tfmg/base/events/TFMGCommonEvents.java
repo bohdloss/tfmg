@@ -36,7 +36,7 @@ public class TFMGCommonEvents {
     public static void onBlockPlaced(BlockEvent.EntityPlaceEvent event) {
 
         if (event.getEntity() instanceof Player player) {
-            if (player.getItemInHand(InteractionHand.OFF_HAND).is(TFMGItems.ELECTRICIANS_WRENCH.get()) && event.getLevel().getBlockEntity(event.getPos()) instanceof IElectric be && be.canBeInGroups()) {
+            if (player.getItemInHand(InteractionHand.OFF_HAND).is(TFMGItems.CONFIGURATION_WRENCH.get()) && event.getLevel().getBlockEntity(event.getPos()) instanceof IElectric be && be.canBeInGroups()) {
 
                 be.getData().group.id = player.getItemInHand(InteractionHand.OFF_HAND).getOrCreateTag().getInt("Number");
                 be.updateNextTick();

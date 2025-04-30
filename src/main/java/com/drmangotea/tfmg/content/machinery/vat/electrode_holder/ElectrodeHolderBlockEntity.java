@@ -84,7 +84,7 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
     }
 
     boolean isSuperheated(){
-        return electrodeType == ElectrodeHolderBlockEntity.ElectrodeType.GRAPHITE && getCurrent() >= TFMGConfigs.common().machines.graphiteElectrodeCurrent.get();
+        return electrodeType == ElectrodeType.GRAPHITE && getCurrent() >= TFMGConfigs.common().machines.graphiteElectrodeCurrent.get();
     }
     boolean isOperational(){
         return getCurrent() >= TFMGConfigs.common().machines.electrolysisMinimumCurrent.get();

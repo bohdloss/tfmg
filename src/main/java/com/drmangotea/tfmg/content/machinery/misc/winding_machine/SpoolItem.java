@@ -44,6 +44,14 @@ public class SpoolItem extends Item {
         this.type = type;
     }
 
+
+    @Override
+    public void onCraftedBy(ItemStack stack, Level p_41448_, Player p_41449_) {
+        stack.getOrCreateTag().putInt("Amount",1000);
+        super.onCraftedBy(stack, p_41448_, p_41449_);
+
+    }
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);

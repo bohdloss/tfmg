@@ -3,6 +3,7 @@ package com.drmangotea.tfmg.content.engines.engine_controller;
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGUtils;
 import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.AbstractSmallEngineBlockEntity;
 import com.drmangotea.tfmg.content.engines.upgrades.TransmissionUpgrade;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
@@ -53,7 +54,7 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
 
     public TransmissionUpgrade.TransmissionState shift = TransmissionUpgrade.TransmissionState.NEUTRAL;
     public int accelerationRate = 0;
-    public AbstractEngineBlockEntity engine = null;
+    public AbstractSmallEngineBlockEntity engine = null;
     public BlockPos enginePos = null;
     public boolean engineStarted = false;
 
@@ -69,6 +70,8 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
     public LerpedFloat clutchPedalMotion = LerpedFloat.linear();
     public LerpedFloat gasPedalMotion = LerpedFloat.linear();
     public LerpedFloat brakePedalMotion = LerpedFloat.linear();
+    public LerpedFloat fuelDial = LerpedFloat.angular();
+    public LerpedFloat rpmDial = LerpedFloat.angular();
 
     public EngineControllerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -92,6 +95,8 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
             compound.putLong("EnginePos", enginePos.asLong());
         compound.putString("Shift", shift.name());
 
+        compound.putBoolean("EngineStarted",engineStarted);
+
         compound.put("FrequencyItems", frequencyItems.serializeNBT());
 
         if (user != null)
@@ -102,9 +107,14 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
     protected void read(CompoundTag compound, boolean clientPacket) {
         super.read(compound, clientPacket);
         enginePos = BlockPos.of(compound.getLong("EnginePos"));
+
+        engineStarted = compound.getBoolean("EngineStarted");
+        if(engineStarted&&accelerationRate==0)
+            accelerationRate =4;
         frequencyItems.deserializeNBT(compound.getCompound("FrequencyItems"));
         shift = TransmissionUpgrade.TransmissionState.valueOf(compound.getString("Shift"));
         user = compound.hasUUID("User") ? compound.getUUID("User") : null;
+        updateEngine();
     }
 
     public void shiftForward() {
@@ -197,6 +207,12 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
     }
 
     @Override
+    public void remove() {
+        super.remove();
+        disconnectEngine();
+    }
+
+    @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 
         if (engine != null) {
@@ -232,8 +248,11 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
 
 
         if (enginePos != null && (engine == null)) {
-            if (level.getBlockEntity(enginePos) instanceof AbstractEngineBlockEntity be)
+            if (level.getBlockEntity(enginePos) instanceof AbstractSmallEngineBlockEntity be) {
                 engine = be;
+                TFMG.LOGGER.debug("TICK");
+                engine.getControllerBE().highestSignal=4;
+            }
         }
 
         tickBraking();
@@ -260,13 +279,23 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
     public void updateEngine() {
         if (engine == null)
             return;
-        TFMG.LOGGER.debug("Update Engine");
-        engine.highestSignal = accelerationRate;
-        engine.fuelInjectionRate = accelerationRate/15f;
-        engine.updateRotation();
+        TFMG.LOGGER.debug("Update Engine "+accelerationRate);
+        engine.getControllerBE().controlled = true;
+        engine.getControllerBE().highestSignal = accelerationRate;
+        engine.getControllerBE().fuelInjectionRate = engine.getControllerBE().highestSignal / 15f;
+        engine.getControllerBE().updateRotation();
+
 
     }
 
+    public void disconnectEngine() {
+        if (engine == null)
+            return;
+        TFMG.LOGGER.debug("DISCONNECT");
+        engine.getControllerBE().highestSignal = 0;
+        engine.getControllerBE().controlled = false;
+        engine.getControllerBE().updateGeneratedRotation();
+    }
 
     public void tickRendering() {
         if (Minecraft.getInstance()
@@ -284,12 +313,17 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
 
         transmissionLeverAngle.chase(shift == TransmissionUpgrade.TransmissionState.REVERSE ? -20 : (shift.value * 20), 0.25, LerpedFloat.Chaser.EXP);
 
+        fuelDial.chase(engine == null ? 0 : ((double) engine.getControllerBE().fuelTank.getFluidAmount() / (double) engine.fuelTank.getCapacity()) * 180f, 0.25, LerpedFloat.Chaser.EXP);
+
+        rpmDial.chase(engine == null ? 0 : ((double) engine.getControllerBE().rpm / 6000f) * 180f, 0.25, LerpedFloat.Chaser.EXP);
 
         transmissionLeverAngle.tickChaser();
         steeringWheelAngle.tickChaser();
         clutchPedalMotion.tickChaser();
         gasPedalMotion.tickChaser();
         brakePedalMotion.tickChaser();
+        fuelDial.tickChaser();
+        rpmDial.tickChaser();
     }
 
     public boolean isPressed(int id) {
@@ -343,6 +377,7 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
 
     private void stopUsing(Player player) {
         TFMG.LOGGER.debug("STOP USING");
+
         user = null;
         if (player != null)
             player.getPersistentData().remove("IsUsingEngineController");

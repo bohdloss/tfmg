@@ -2,7 +2,8 @@ package com.drmangotea.tfmg.content.engines.upgrades;
 
 
 import com.drmangotea.tfmg.TFMG;
-import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
+
+import com.drmangotea.tfmg.content.engines.types.AbstractSmallEngineBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -19,7 +20,7 @@ public class EnginePipingUpgrade extends EngineUpgrade {
     public Optional<FluidTankBlockEntity> tank = Optional.empty();
 
 
-    public void findTank(AbstractEngineBlockEntity be) {
+    public void findTank(AbstractSmallEngineBlockEntity be) {
         Level level = be.getLevel();
 
         for (Direction direction : Direction.values()) {
@@ -34,16 +35,16 @@ public class EnginePipingUpgrade extends EngineUpgrade {
     }
 
     @Override
-    public void updateUpgrade(AbstractEngineBlockEntity be) {
+    public void updateUpgrade(AbstractSmallEngineBlockEntity be) {
         findTank(be);
     }
 
     @Override
-    public void lazyTickUpgrade(AbstractEngineBlockEntity engine) {
+    public void lazyTickUpgrade(AbstractSmallEngineBlockEntity engine) {
 
         if (tank.isPresent()) {
 
-            AbstractEngineBlockEntity controller = engine.getControllerBE();
+            AbstractSmallEngineBlockEntity controller = engine.getControllerBE();
 
             FluidTankBlockEntity tankBE = tank.get();
             int maxOutput = tankBE.getTankInventory().drain(500, IFluidHandler.FluidAction.SIMULATE).getAmount();

@@ -42,7 +42,7 @@ public class TFMGFluids {
             PROPYLENE = gas("propylene"),
             NEON = gas("neon"),
             CARBON_DIOXIDE = gas("carbon_dioxide"),
-            AIR = gas("air"),
+            AIR = gas("air",TFMGTags.TFMGFluidTags.AIR.tag),
             HOT_AIR = gas("hot_air");
 
 
@@ -60,7 +60,7 @@ public class TFMGFluids {
             MOLTEN_PLASTIC = hotFluid("molten_plastic", 0x010101),
             LIQUID_SILICON = hotFluid("liquid_silicon", 0x010101),
             LUBRICATION_OIL = fluid("lubrication_oil", 0x010101, TFMGTags.TFMGFluidTags.LUBRICATION_OIL.tag, TFMGTags.TFMGFluidTags.FLAMMABLE.tag),
-            COOLING_FLUID = fluid("cooling_fluid", 0x010101),
+            COOLING_FLUID = fluid("cooling_fluid", 0x010101, TFMGTags.TFMGFluidTags.COOLING_FLUID.tag),
             NAPALM = fluid("napalm", 0x010101),
             SULFURIC_ACID = fluid("sulfuric_acid", 0x010101),
 

@@ -1,7 +1,7 @@
 {
   "type": "tfmg:vat_machine_recipe",
   "allowedVatTypes": [
-    "firebrick_lined_vat"
+    "tfmg:firebrick_lined_vat"
   ],
   "ingredients": [
     {
@@ -22,8 +22,12 @@
   "minSize": 9,
   "results": [
     {
-      "count": 2,
-      "item": "tfmg:steel_ingot"
+      "amount": 288,
+      "fluid": "tfmg:molten_steel"
+    },
+    {
+      "amount": 288,
+      "fluid": "tfmg:molten_slag"
     }
   ]
 }

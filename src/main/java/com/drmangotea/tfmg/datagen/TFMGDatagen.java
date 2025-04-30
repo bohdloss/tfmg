@@ -6,6 +6,7 @@ import com.drmangotea.tfmg.datagen.recipes.TFMGRecipeProvider;
 import com.drmangotea.tfmg.datagen.recipes.values.*;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.simibubi.create.foundation.data.recipe.MechanicalCraftingRecipeGen;
 import com.simibubi.create.foundation.utility.FilesHelper;
 import com.tterrag.registrate.providers.ProviderType;
 import net.minecraft.core.HolderLookup;
@@ -38,11 +39,12 @@ public class TFMGDatagen {
 
           //  generator.addProvider(true, new DamageTypeTagGen(output, lookupProvider, existingFileHelper));
 
-            RECIPE_GENERATORS.add(new IndustrialBlastingRecipeGen(output));
+            RECIPE_GENERATORS.add(new TFMGIndustrialBlastingRecipeGen(output));
             RECIPE_GENERATORS.add(new CastingRecipeGen(output));
             RECIPE_GENERATORS.add(new VatRecipeGen(output));
             RECIPE_GENERATORS.add(new TFMGStandardRecipeGen(output));
-
+            RECIPE_GENERATORS.add(new TFMGMechanicalCraftingRecipeGen(output));
+            //generator.addProvider(event.includeServer(), new TFMGMechanicalCraftingRecipeGen(output));
             generator.addProvider(true, new TFMGSequencedAssemblyRecipeGen(output));
 
             generator.addProvider(true, new DataProvider() {

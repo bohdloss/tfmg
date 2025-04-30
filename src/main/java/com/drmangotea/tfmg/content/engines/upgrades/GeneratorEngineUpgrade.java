@@ -1,7 +1,7 @@
 package com.drmangotea.tfmg.content.engines.upgrades;
 
-import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
-import com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.AbstractSmallEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.regular_engine.RegularEngineBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -23,7 +23,7 @@ public class GeneratorEngineUpgrade extends EngineUpgrade {
     }
 
     @Override
-    public void render(AbstractEngineBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light) {
+    public void render(AbstractSmallEngineBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light) {
 
 
 
@@ -56,7 +56,7 @@ public class GeneratorEngineUpgrade extends EngineUpgrade {
     }
 
     @Override
-    public float getTorqueModifier(AbstractEngineBlockEntity engine) {
+    public float getTorqueModifier(AbstractSmallEngineBlockEntity engine) {
         return 0.7f;
     }
 }

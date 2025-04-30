@@ -33,6 +33,11 @@ public class EngineControllerBlock extends TFMGHorizontalDirectionalBlock implem
     }
 
     @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        IBE.onRemove(state, level, pos, newState);
+    }
+
+    @Override
     public InteractionResult onWrenched(BlockState state, UseOnContext context) {
         return onBlockEntityUse(context.getLevel(), context.getClickedPos(), be -> be.use(context.getPlayer()));
     }

@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "tfmg:block/steel_pipes",
-		"particle": "tfmg:block/steel_pipes"
+		"particle": "tfmg:block/steel_block"
 	},
 	"elements": [
 		{

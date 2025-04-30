@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"1": "tfmg:block/steel_vat",
-		"particle": "tfmg:block/steel_vat"
+		"1": "tfmg:block/firebrick_vat",
+		"particle": "tfmg:block/firebrick_vat"
 	},
 	"elements": [
 		{

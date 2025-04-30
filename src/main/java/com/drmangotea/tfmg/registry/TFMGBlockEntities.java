@@ -54,8 +54,13 @@ import com.drmangotea.tfmg.content.engines.engine_controller.EngineControllerBlo
 import com.drmangotea.tfmg.content.engines.engine_controller.EngineControllerRenderer;
 import com.drmangotea.tfmg.content.engines.engine_gearbox.EngineGearboxBlockEntity;
 import com.drmangotea.tfmg.content.engines.engine_gearbox.EngineGearboxRenderer;
-import com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineBlockEntity;
-import com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineRenderer;
+import com.drmangotea.tfmg.content.engines.types.large_engine.LargeEngineBlock;
+import com.drmangotea.tfmg.content.engines.types.large_engine.LargeEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.large_engine.LargeEngineRenderer;
+import com.drmangotea.tfmg.content.engines.types.radial_engine.RadialEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.regular_engine.RegularEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.regular_engine.RegularEngineRenderer;
+import com.drmangotea.tfmg.content.engines.types.turbine_engine.TurbineEngineBlockEntity;
 import com.drmangotea.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceHatchBlockEntity;
 import com.drmangotea.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlockEntity;
 import com.drmangotea.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceRenderer;
@@ -165,7 +170,7 @@ public class TFMGBlockEntities {
 
     public static final BlockEntityEntry<RotorBlockEntity> ROTOR = REGISTRATE
             .blockEntity("rotor", RotorBlockEntity::new)
-            .visual(() -> SingleAxisRotatingVisual::shaft)
+            .visual(() -> RotorVisual::new)
             .validBlocks(TFMGBlocks.ROTOR)
             .renderer(() -> RotorRenderer::new)
             .register();
@@ -262,6 +267,26 @@ public class TFMGBlockEntities {
           //  .visual(() -> OrientedRotatingVisual.of(AllPartialModels.SHAFT_HALF))
             .renderer(() -> RegularEngineRenderer::new)
             .validBlocks(TFMGBlocks.REGULAR_ENGINE)
+            .register();
+
+    public static final BlockEntityEntry<TurbineEngineBlockEntity> TURBINE_ENGINE = REGISTRATE
+            .blockEntity("turbine_engine", TurbineEngineBlockEntity::new)
+
+            .validBlocks(TFMGBlocks.TURBINE_ENGINE)
+            .register();
+
+    public static final BlockEntityEntry<LargeEngineBlockEntity> LARGE_ENGINE = REGISTRATE
+            .blockEntity("large_engine", LargeEngineBlockEntity::new)
+            .renderer(()-> LargeEngineRenderer::new)
+            //  .visual(() -> OrientedRotatingVisual.of(AllPartialModels.SHAFT_HALF))
+            .validBlocks(TFMGBlocks.LARGE_ENGINE,TFMGBlocks.SIMPLE_LARGE_ENGINE)
+            .register();
+
+    public static final BlockEntityEntry<RadialEngineBlockEntity> RADIAL_ENGINE = REGISTRATE
+            .blockEntity("radial_engine", RadialEngineBlockEntity::new)
+            //  .visual(() -> OrientedRotatingVisual.of(AllPartialModels.SHAFT_HALF))
+            .renderer(() -> RegularEngineRenderer::new)
+            .validBlocks(TFMGBlocks.RADIAL_ENGINE)
             .register();
 
     public static final BlockEntityEntry<PotentiometerBlockEntity> POTENTIOMETER = REGISTRATE

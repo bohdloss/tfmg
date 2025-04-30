@@ -68,10 +68,38 @@ public class EngineControllerRenderer extends SafeBlockEntityRenderer<EngineCont
         CachedBuffers.partial(TFMGPartialModels.TRANSMISSION_LEVER,state)
                 .center()
                 .rotateYDegrees(toYRot(facing))
-
                 .translateY(-4/16f)
                 //.translateZ(5/16f)
                 .rotateXDegrees(be.transmissionLeverAngle.getValue(partialTicks))
+                .uncenter()
+                .light(light)
+                .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
+
+
+
+
+        CachedBuffers.partial(TFMGPartialModels.ENGINE_CONTROLLER_DIAL, state)
+                .center()
+
+                .rotateYDegrees(toYRot(facing))
+                .rotateXDegrees(22.5f)
+                .translateX(2.5f/16f)
+                .translateZ(6.7f/16f)
+                .translateY(5.3f/16f)
+                .rotateZDegrees(be.fuelDial.getValue(partialTicks)-90)
+                .uncenter()
+                .light(light)
+                .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
+
+        CachedBuffers.partial(TFMGPartialModels.ENGINE_CONTROLLER_DIAL, state)
+                .center()
+
+                .rotateYDegrees(toYRot(facing))
+                .rotateXDegrees(22.5f)
+                .translateX(-2.5f/16f)
+                .translateZ(6.7f/16f)
+                .translateY(5.3f/16f)
+                .rotateZDegrees(be.rpmDial.getValue(partialTicks)-90)
                 .uncenter()
                 .light(light)
                 .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));

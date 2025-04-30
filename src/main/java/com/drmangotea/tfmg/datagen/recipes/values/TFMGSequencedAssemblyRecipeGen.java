@@ -42,7 +42,7 @@ public class TFMGSequencedAssemblyRecipeGen extends CreateRecipeProvider {
             .addOutput(TFMGBlocks.STEEL_CASING.get(), 8)
             .addOutput(TFMGBlocks.STEEL_COGWHEEL.get(), 8)
             .addOutput(TFMGItems.CAPACITOR.get(), 8)
-            .loops(5)
+            .loops(3)
             .addStep(DeployerApplicationRecipe::new, rb -> rb.require(TFMGItems.CAPACITOR))
             .addStep(DeployerApplicationRecipe::new, rb -> rb.require(steelSheet()))
             .addStep(WindingRecipe::new, rb -> rb.require(TFMGItems.COPPER_SPOOL.get()).duration(75))
@@ -51,12 +51,34 @@ public class TFMGSequencedAssemblyRecipeGen extends CreateRecipeProvider {
             .addStep(DeployerApplicationRecipe::new, rb -> rb.require(TFMGItems.SCREWDRIVER))
     ),
 
+    CIRCUIT_BOARD = create("unfinished_circuit_board", b -> b.require(TFMGItems.ETCHED_CIRCUIT_BOARD)
+            .transitionTo(TFMGItems.UNFINISHED_CIRCUIT_BOARD.get())
+            .addOutput(TFMGItems.CIRCUIT_BOARD.get(), 1)
+            .loops(4)
+            .addStep(DeployerApplicationRecipe::new, rb -> rb.require(TFMGItems.CAPACITOR))
+            .addStep(DeployerApplicationRecipe::new, rb -> rb.require(resistor100Ohms()))
+            .addStep(DeployerApplicationRecipe::new, rb -> rb.require(TFMGItems.TRANSISTOR))
+            .addStep(DeployerApplicationRecipe::new, rb -> rb.require(resistor100Ohms()))
+
+    ),
+
+
+    HEAVY_PLATE = create("heavy_plate", b -> b.require(TFMGItems.HEAVY_PLATE)
+            .transitionTo(TFMGItems.UNPROCESSED_HEAVY_PLATE.get())
+            .addOutput(TFMGItems.HEAVY_PLATE.get(), 1)
+            .loops(1)
+            .addStep(PressingRecipe::new,rb -> rb)
+            .addStep(PressingRecipe::new,rb -> rb)
+            .addStep(PressingRecipe::new,rb -> rb)
+
+    ),
+
     MOTOR = create("motor", b -> b.require(shaft())
             .transitionTo(TFMGItems.UNFINISHED_GENERATOR.get())
             .addOutput(TFMGBlocks.ELECTRIC_MOTOR.get(), 120)
             .addOutput(TFMGBlocks.STEEL_CASING.get(), 8)
             .addOutput(TFMGItems.NICKEL_SHEET.get(), 8)
-            .loops(5)
+            .loops(3)
             .addStep(DeployerApplicationRecipe::new, rb -> rb.require(nickelSheet()))
             .addStep(WindingRecipe::new, rb -> rb.require(TFMGItems.COPPER_SPOOL.get()).duration(75))
             .addStep(DeployerApplicationRecipe::new, rb -> rb.require(magnet()))

@@ -53,9 +53,6 @@ public enum TFMGPackets {
     ;
 
 
-
-    ;
-
     public static final ResourceLocation CHANNEL_NAME = TFMG.asResource("main");
     public static final int NETWORK_VERSION = 3;
     public static final String NETWORK_VERSION_STR = String.valueOf(NETWORK_VERSION);

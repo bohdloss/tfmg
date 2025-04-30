@@ -44,7 +44,7 @@ public class CopycatCableBlockEntity extends CopycatBlockEntity implements IElec
     }
     @Override
     public boolean hasCustomMaterial() {
-        return !TFMGBlocks.COPYCAT_CABLE_BASE.has(getMaterial());
+        return !AllBlocks.COPYCAT_BASE.has(getMaterial());
     }
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
@@ -162,11 +162,6 @@ public class CopycatCableBlockEntity extends CopycatBlockEntity implements IElec
 
     @Override
     public void setVoltage(int newVoltage) {
-
-        //if(this instanceof LightBulbBlockEntity be&&be.color == DyeColor.WHITE){
-        //    TFMG.LOGGER.debug("Rezistancja Grup "+data.group.resistance);
-        //}
-
         if (canBeInGroups()) {
             data.voltage = (int) (((float) resistance() / data.group.resistance) * (float) data.voltageSupply);
             return;
@@ -253,10 +248,10 @@ public class CopycatCableBlockEntity extends CopycatBlockEntity implements IElec
             setVoltage(data.voltageSupply);
             data.setVoltageNextTick = false;
         }
-        if(setNextTick) {
-            setMaterial(TFMGBlocks.COPYCAT_CABLE_BASE.getDefaultState());
-            setNextTick = false;
-        }
+        //if(setNextTick) {
+        //    setMaterial(TFMGBlocks.COPYCAT_CABLE_BASE.getDefaultState());
+        //    setNextTick = false;
+        //}
     }
 
     @Override
@@ -280,7 +275,7 @@ public class CopycatCableBlockEntity extends CopycatBlockEntity implements IElec
             BlockState acceptedBlockState = cb.getAcceptedBlockState(level, worldPosition, ItemStack.EMPTY, null);
             if (acceptedBlockState != null && getMaterial().is(acceptedBlockState.getBlock()))
                 return;
-            setMaterial(TFMGBlocks.COPYCAT_CABLE_BASE.getDefaultState());
+            setMaterial(AllBlocks.COPYCAT_BASE.getDefaultState());
         }
 
         //

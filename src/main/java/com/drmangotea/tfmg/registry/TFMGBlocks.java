@@ -64,7 +64,11 @@ import com.drmangotea.tfmg.content.engines.base.EngineCTBehavior;
 import com.drmangotea.tfmg.content.engines.base.EngineGenerator;
 import com.drmangotea.tfmg.content.engines.engine_controller.EngineControllerBlock;
 import com.drmangotea.tfmg.content.engines.engine_gearbox.EngineGearboxBlock;
-import com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineBlock;
+import com.drmangotea.tfmg.content.engines.types.large_engine.LargeEngineBlock;
+import com.drmangotea.tfmg.content.engines.types.radial_engine.RadialEngineBlock;
+import com.drmangotea.tfmg.content.engines.types.regular_engine.RegularEngineBlock;
+import com.drmangotea.tfmg.content.engines.types.turbine_engine.TurbineEngineBlock;
+import com.drmangotea.tfmg.content.engines.types.turbine_engine.TurbineEngineGenerator;
 import com.drmangotea.tfmg.content.items.CoalCokeBlockItem;
 import com.drmangotea.tfmg.content.items.weapons.explosives.napalm.NapalmBombBlock;
 import com.drmangotea.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceHatchBlock;
@@ -88,10 +92,6 @@ import com.drmangotea.tfmg.content.machinery.misc.flarestack.FlarestackGenerator
 import com.drmangotea.tfmg.content.machinery.misc.machine_input.MachineInputBlock;
 import com.drmangotea.tfmg.content.machinery.misc.smokestack.SmokestackBlock;
 import com.drmangotea.tfmg.content.machinery.misc.smokestack.SmokestackGenerator;
-import com.drmangotea.tfmg.content.machinery.vat.base.VatBlock;
-import com.drmangotea.tfmg.content.machinery.vat.base.VatGenerator;
-import com.drmangotea.tfmg.content.machinery.vat.electrode_holder.ElectrodeHolderBlock;
-import com.drmangotea.tfmg.content.machinery.vat.industrial_mixer.IndustrialMixerBlock;
 import com.drmangotea.tfmg.content.machinery.misc.winding_machine.WindingMachineBlock;
 import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.IndustrialPipeBlock;
 import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.controller.DistillationControllerBlock;
@@ -107,6 +107,11 @@ import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.ha
 import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.large.LargePumpjackHammerHeadBlock;
 import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.large.LargePumpjackHammerPartBlock;
 import com.drmangotea.tfmg.content.machinery.oil_processing.surface_scanner.SurfaceScannerBlock;
+import com.drmangotea.tfmg.content.machinery.vat.base.VatBlock;
+import com.drmangotea.tfmg.content.machinery.vat.base.VatGenerator;
+import com.drmangotea.tfmg.content.machinery.vat.electrode_holder.ElectrodeHolderBlock;
+import com.drmangotea.tfmg.content.machinery.vat.industrial_mixer.IndustrialMixerBlock;
+import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.contraptions.bearing.StabilizedBearingMovementBehaviour;
@@ -126,7 +131,9 @@ import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -137,6 +144,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static com.drmangotea.tfmg.TFMG.REGISTRATE;
 import static com.drmangotea.tfmg.base.TFMGBuilderTransformers.*;
@@ -149,6 +157,7 @@ import static com.simibubi.create.foundation.data.CreateRegistrate.connectedText
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.*;
 import static com.simibubi.create.foundation.data.TagGen.tagBlockAndItem;
+
 @SuppressWarnings("removal")
 public class TFMGBlocks {
 
@@ -165,54 +174,52 @@ public class TFMGBlocks {
             .initialProperties(() -> Blocks.IRON_BLOCK)
             .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
             .properties(BlockBehaviour.Properties::noOcclusion)
-            .onRegister(connectedTextures(()->new EngineCTBehavior(TFMGSpriteShifts.REGULAR_ENGINE_TOP, TFMGSpriteShifts.REGULAR_ENGINE_BOTTOM, TFMGSpriteShifts.REGULAR_ENGINE_SIDE)))
+            .onRegister(connectedTextures(() -> new EngineCTBehavior(TFMGSpriteShifts.REGULAR_ENGINE_TOP, TFMGSpriteShifts.REGULAR_ENGINE_BOTTOM, TFMGSpriteShifts.REGULAR_ENGINE_SIDE)))
             .blockstate(new EngineGenerator()::generate)
+            .transform(TFMGStress.setCapacity(45.0))
             .item()
             .transform(customItemModel())
             .register();
-    public static final BlockEntry<RegularEngineBlock> TURBINE_ENGINE = REGISTRATE.block("turbine_engine", RegularEngineBlock::new)
+    public static final BlockEntry<TurbineEngineBlock> TURBINE_ENGINE = REGISTRATE.block("turbine_engine", TurbineEngineBlock::new)
             .initialProperties(() -> Blocks.IRON_BLOCK)
             .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
             .properties(BlockBehaviour.Properties::noOcclusion)
-            .onRegister(connectedTextures(()->new EngineCTBehavior(TFMGSpriteShifts.REGULAR_ENGINE_TOP, TFMGSpriteShifts.REGULAR_ENGINE_BOTTOM, TFMGSpriteShifts.REGULAR_ENGINE_SIDE)))
-            .blockstate(new EngineGenerator()::generate)
+            .addLayer(() -> RenderType::cutoutMipped)
+            .transform(TFMGStress.setCapacity(45.0))
+            .onRegister(connectedTextures(() -> new EngineCTBehavior(TFMGSpriteShifts.REGULAR_ENGINE_TOP, TFMGSpriteShifts.REGULAR_ENGINE_BOTTOM, TFMGSpriteShifts.REGULAR_ENGINE_SIDE)))
+            .blockstate(new TurbineEngineGenerator()::generate)
             .item()
             .transform(customItemModel())
             .register();
-    public static final BlockEntry<RegularEngineBlock> ROTARY_ENGINE = REGISTRATE.block("rotary_engine", RegularEngineBlock::new)
+    public static final BlockEntry<RadialEngineBlock> RADIAL_ENGINE = REGISTRATE.block("radial_engine", RadialEngineBlock::new)
             .initialProperties(() -> Blocks.IRON_BLOCK)
             .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
             .properties(BlockBehaviour.Properties::noOcclusion)
-            .onRegister(connectedTextures(()->new EngineCTBehavior(TFMGSpriteShifts.REGULAR_ENGINE_TOP, TFMGSpriteShifts.REGULAR_ENGINE_BOTTOM, TFMGSpriteShifts.REGULAR_ENGINE_SIDE)))
-            .blockstate(new EngineGenerator()::generate)
+            .transform(TFMGStress.setCapacity(45.0))
+            .onRegister(connectedTextures(() -> new EngineCTBehavior(TFMGSpriteShifts.REGULAR_ENGINE_TOP, TFMGSpriteShifts.REGULAR_ENGINE_BOTTOM, TFMGSpriteShifts.REGULAR_ENGINE_SIDE)))
+            .blockstate(new TurbineEngineGenerator()::generate)
             .item()
             .transform(customItemModel())
             .register();
-    public static final BlockEntry<RegularEngineBlock> RADIAL_ENGINE = REGISTRATE.block("regular_engine", RegularEngineBlock::new)
+    public static final BlockEntry<LargeEngineBlock> LARGE_ENGINE = REGISTRATE.block("large_engine", LargeEngineBlock::new)
             .initialProperties(() -> Blocks.IRON_BLOCK)
             .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
             .properties(BlockBehaviour.Properties::noOcclusion)
-            .onRegister(connectedTextures(()->new EngineCTBehavior(TFMGSpriteShifts.REGULAR_ENGINE_TOP, TFMGSpriteShifts.REGULAR_ENGINE_BOTTOM, TFMGSpriteShifts.REGULAR_ENGINE_SIDE)))
-            .blockstate(new EngineGenerator()::generate)
+            .transform(TFMGStress.setCapacity(45.0))
+            .blockstate((c, p) -> p.horizontalFaceBlock(c.get(), AssetLookup.partialBaseModel(c, p)))
             .item()
             .transform(customItemModel())
             .register();
-    public static final BlockEntry<RegularEngineBlock> LARGE_ENGINE = REGISTRATE.block("regular_engine", RegularEngineBlock::new)
+    public static final BlockEntry<LargeEngineBlock> SIMPLE_LARGE_ENGINE = REGISTRATE.block("simple_large_engine", LargeEngineBlock::new)
             .initialProperties(() -> Blocks.IRON_BLOCK)
             .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
             .properties(BlockBehaviour.Properties::noOcclusion)
-            .onRegister(connectedTextures(()->new EngineCTBehavior(TFMGSpriteShifts.REGULAR_ENGINE_TOP, TFMGSpriteShifts.REGULAR_ENGINE_BOTTOM, TFMGSpriteShifts.REGULAR_ENGINE_SIDE)))
-            .blockstate(new EngineGenerator()::generate)
+            .transform(TFMGStress.setCapacity(30))
+            .blockstate((c, p) -> p.horizontalFaceBlock(c.get(), AssetLookup.partialBaseModel(c, p)))
             .item()
             .transform(customItemModel())
             .register();
-    public static final BlockEntry<Block> ENGINE_EXPANSION = REGISTRATE.block("engine_expansion", Block::new)
-            .initialProperties(() -> Blocks.IRON_BLOCK)
-            .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
-            .properties(BlockBehaviour.Properties::noOcclusion)
-            .item()
-            .transform(customItemModel())
-            .register();
+
     public static final BlockEntry<EngineGearboxBlock> ENGINE_GEARBOX = REGISTRATE.block("engine_gearbox", EngineGearboxBlock::new)
             .initialProperties(() -> Blocks.IRON_BLOCK)
             .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
@@ -302,6 +309,7 @@ public class TFMGBlocks {
             .properties(p -> p.sound(SoundType.STONE))
             .transform(pickaxeOnly())
             .tag(TFMGTags.TFMGBlockTags.INDUSTRIAL_PIPE.tag)
+            .recipe((c, p) -> p.stonecutting(DataIngredient.tag(AllTags.forgeItemTag("ingots/steel")), RecipeCategory.BUILDING_BLOCKS, c::get, 8))
             .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
             .item()
             .build()
@@ -349,6 +357,8 @@ public class TFMGBlocks {
             .properties(BlockBehaviour.Properties::noOcclusion)
             .blockstate(BlockStateGen.horizontalBlockProvider(false))
             .tag(TFMGTags.TFMGBlockTags.PUMPJACK_SMALL_PART.tag)
+            .recipe((c, p) -> p.stonecutting(DataIngredient.tag(AllTags.forgeItemTag("storage_blocks/steel")),
+                    RecipeCategory.DECORATIONS, c::get, 2))
             .item()
             .build()
             .register();
@@ -358,6 +368,8 @@ public class TFMGBlocks {
             .properties(BlockBehaviour.Properties::noOcclusion)
             .blockstate(BlockStateGen.horizontalBlockProvider(false))
             .tag(TFMGTags.TFMGBlockTags.PUMPJACK_HEAD.tag)
+
+
             .item()
             .build()
             .register();
@@ -376,6 +388,8 @@ public class TFMGBlocks {
             .transform(pickaxeOnly())
             .blockstate(BlockStateGen.horizontalBlockProvider(false))
             .tag(TFMGTags.TFMGBlockTags.PUMPJACK_PART.tag)
+            .recipe((c, p) -> p.stonecutting(DataIngredient.tag(AllTags.forgeItemTag("storage_blocks/steel")),
+                    RecipeCategory.DECORATIONS, c::get, 2))
             .item()
             .build()
             .register();
@@ -479,7 +493,6 @@ public class TFMGBlocks {
             .item()
             .transform(customItemModel())
             .register();
-
 
 
     //------------------ORES------------------//
@@ -658,7 +671,6 @@ public class TFMGBlocks {
             .register();
 
 
-
     //------------------MISC_MACHINERY------------------//
     public static final BlockEntry<AirIntakeBlock> AIR_INTAKE = REGISTRATE.block("air_intake", AirIntakeBlock::new)
             .initialProperties(SharedProperties::copperMetal)
@@ -766,7 +778,7 @@ public class TFMGBlocks {
             .initialProperties(() -> Blocks.IRON_BLOCK)
             .properties(p -> p.requiresCorrectToolForDrops())
             .transform(pickaxeOnly())
-            .onRegister(connectedTextures(()->new HorizontalCTBehaviour(TFMGSpriteShifts.BLAST_FURNACE_REINFORCEMENT)))
+            .onRegister(connectedTextures(() -> new HorizontalCTBehaviour(TFMGSpriteShifts.BLAST_FURNACE_REINFORCEMENT)))
             .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_SUPPORT.tag)
             .tag(BlockTags.NEEDS_STONE_TOOL)
             .item(BlastFurnaceReinforcementBlockItem::new)
@@ -778,29 +790,29 @@ public class TFMGBlocks {
             .properties(p -> p.requiresCorrectToolForDrops())
             .transform(pickaxeOnly())
             .properties(BlockBehaviour.Properties::noOcclusion)
-            .onRegister(connectedTextures(()->new HorizontalCTBehaviour(TFMGSpriteShifts.BLAST_FURNACE_REINFORCEMENT)))
+            .onRegister(connectedTextures(() -> new HorizontalCTBehaviour(TFMGSpriteShifts.BLAST_FURNACE_REINFORCEMENT)))
             .tag(BlockTags.NEEDS_STONE_TOOL)
             .blockstate(BlockStateGen.horizontalBlockProvider(false))
             .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.BLAST_FURNACE_REINFORCEMENT.get().asItem()))
             .register();
-            //
-            public static final BlockEntry<Block> RUSTED_BLAST_FURNACE_REINFORCEMENT = REGISTRATE.block("rusted_blast_furnace_reinforcement", Block::new)
-                    .initialProperties(() -> Blocks.IRON_BLOCK)
-                    .properties(p -> p.requiresCorrectToolForDrops())
-                    .transform(pickaxeOnly())
-                    .onRegister(connectedTextures(()->new HorizontalCTBehaviour(TFMGSpriteShifts.RUSTED_BLAST_FURNACE_REINFORCEMENT)))
-                    .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_SUPPORT.tag)
-                    .tag(BlockTags.NEEDS_STONE_TOOL)
-                    .item(BlastFurnaceReinforcementBlockItem::new)
-                    .build()
-                    .register();
+    //
+    public static final BlockEntry<Block> RUSTED_BLAST_FURNACE_REINFORCEMENT = REGISTRATE.block("rusted_blast_furnace_reinforcement", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .onRegister(connectedTextures(() -> new HorizontalCTBehaviour(TFMGSpriteShifts.RUSTED_BLAST_FURNACE_REINFORCEMENT)))
+            .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_SUPPORT.tag)
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .item(BlastFurnaceReinforcementBlockItem::new)
+            .build()
+            .register();
 
     public static final BlockEntry<BlastFurnaceReinforcementWallBlock> RUSTED_BLAST_FURNACE_REINFORCEMENT_WALL = REGISTRATE.block("rusted_blast_furnace_reinforcement_wall", BlastFurnaceReinforcementWallBlock::new)
             .initialProperties(() -> Blocks.IRON_BLOCK)
             .properties(p -> p.requiresCorrectToolForDrops())
             .transform(pickaxeOnly())
             .properties(BlockBehaviour.Properties::noOcclusion)
-            .onRegister(connectedTextures(()->new HorizontalCTBehaviour(TFMGSpriteShifts.RUSTED_BLAST_FURNACE_REINFORCEMENT)))
+            .onRegister(connectedTextures(() -> new HorizontalCTBehaviour(TFMGSpriteShifts.RUSTED_BLAST_FURNACE_REINFORCEMENT)))
             .tag(BlockTags.NEEDS_STONE_TOOL)
             .blockstate(BlockStateGen.horizontalBlockProvider(false))
             .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.RUSTED_BLAST_FURNACE_REINFORCEMENT.get().asItem()))
@@ -850,10 +862,6 @@ public class TFMGBlocks {
             .item()
             .transform(customItemModel())
             .register();
-
-
-
-
 
 
     //------------------GADGETS------------------//
@@ -974,7 +982,7 @@ public class TFMGBlocks {
                     .register();
 
     public static final BlockEntry<CableTubeBlock> CABLE_TUBE =
-            REGISTRATE.block("cable_tube", p->new CableTubeBlock(p, false))
+            REGISTRATE.block("cable_tube", p -> new CableTubeBlock(p, false))
                     .initialProperties(() -> Blocks.IRON_BLOCK)
                     .transform(pickaxeOnly())
                     .properties(p -> p.noOcclusion())
@@ -984,7 +992,7 @@ public class TFMGBlocks {
                     .register();
 
     public static final BlockEntry<CableTubeBlock> CONCRETE_ENCASED_CABLE_TUBE =
-            REGISTRATE.block("concrete_encased_cable_tube", p->new CableTubeBlock(p, true))
+            REGISTRATE.block("concrete_encased_cable_tube", p -> new CableTubeBlock(p, true))
                     .initialProperties(() -> Blocks.STONE)
                     .blockstate(BlockStateGen.axisBlockProvider(false))
                     .transform(pickaxeOnly())
@@ -992,7 +1000,7 @@ public class TFMGBlocks {
                     .register();
 
     public static final BlockEntry<CableTubeBlock> ELECTRIC_POST =
-            REGISTRATE.block("electric_post", p->new CableTubeBlock(p, false))
+            REGISTRATE.block("electric_post", p -> new CableTubeBlock(p, false))
                     .initialProperties(() -> Blocks.IRON_BLOCK)
                     .blockstate(BlockStateGen.axisBlockProvider(false))
                     .transform(pickaxeOnly())
@@ -1001,7 +1009,7 @@ public class TFMGBlocks {
                     .register();
 
     public static final BlockEntry<CableTubeBlock> CONCRETE_ENCASED_ELECTRIC_POST =
-            REGISTRATE.block("concrete_encased_electric_post", p->new CableTubeBlock(p, true))
+            REGISTRATE.block("concrete_encased_electric_post", p -> new CableTubeBlock(p, true))
                     .initialProperties(() -> Blocks.STONE)
                     .blockstate(BlockStateGen.axisBlockProvider(false))
                     .transform(pickaxeOnly())
@@ -1047,9 +1055,9 @@ public class TFMGBlocks {
                     .item(AccumulatorItem::new)
                     .build()
                     .register();
-;
+    ;
     public static final BlockEntry<LightBulbBlock> LIGHT_BULB =
-            REGISTRATE.block("light_bulb", p->new LightBulbBlock(p, TFMGBlockEntities.LIGHT_BULB,TFMGShapes.LIGHT_BULB))
+            REGISTRATE.block("light_bulb", p -> new LightBulbBlock(p, TFMGBlockEntities.LIGHT_BULB, TFMGShapes.LIGHT_BULB))
                     .initialProperties(() -> Blocks.IRON_BLOCK)
                     .properties(p -> p.lightLevel(s -> s.getValue(LIGHT)))
                     .transform(pickaxeOnly())
@@ -1060,7 +1068,7 @@ public class TFMGBlocks {
                     .transform(customItemModel())
                     .register();
     public static final BlockEntry<LightBulbBlock> CIRCULAR_LIGHT =
-            REGISTRATE.block("circular_light", p->new LightBulbBlock(p, TFMGBlockEntities.CIRCULAR_LIGHT,TFMGShapes.CIRCULAR_LIGHT))
+            REGISTRATE.block("circular_light", p -> new LightBulbBlock(p, TFMGBlockEntities.CIRCULAR_LIGHT, TFMGShapes.CIRCULAR_LIGHT))
                     .initialProperties(() -> Blocks.IRON_BLOCK)
                     .properties(p -> p.lightLevel(s -> s.getValue(LIGHT)))
                     .transform(pickaxeOnly())
@@ -1072,7 +1080,7 @@ public class TFMGBlocks {
                     .transform(customItemModel())
                     .register();
     public static final BlockEntry<LightBulbBlock> MODERN_LIGHT =
-            REGISTRATE.block("modern_light", p->new LightBulbBlock(p, TFMGBlockEntities.MODERN_LIGHT,TFMGShapes.MODERN_LIGHT))
+            REGISTRATE.block("modern_light", p -> new LightBulbBlock(p, TFMGBlockEntities.MODERN_LIGHT, TFMGShapes.MODERN_LIGHT))
                     .initialProperties(() -> Blocks.IRON_BLOCK)
                     .properties(p -> p.lightLevel(s -> s.getValue(LIGHT)))
                     .transform(pickaxeOnly())
@@ -1084,7 +1092,7 @@ public class TFMGBlocks {
                     .transform(customItemModel())
                     .register();
     public static final BlockEntry<LightBulbBlock> ALUMINUM_LAMP =
-            REGISTRATE.block("aluminum_lamp", p->new LightBulbBlock(p, TFMGBlockEntities.ALUMINUM_LAMP,TFMGShapes.ALUMINUM_LAMP))
+            REGISTRATE.block("aluminum_lamp", p -> new LightBulbBlock(p, TFMGBlockEntities.ALUMINUM_LAMP, TFMGShapes.ALUMINUM_LAMP))
                     .initialProperties(() -> Blocks.IRON_BLOCK)
                     .properties(p -> p.lightLevel(s -> s.getValue(LIGHT)))
                     .transform(pickaxeOnly())
@@ -1386,10 +1394,6 @@ public class TFMGBlocks {
             .transform(BuilderTransformers.casing(() -> TFMGSpriteShifts.HEAVY_MACHINERY_CASING))
             .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
             .register();
-    public static final BlockEntry<CasingBlock> ELECTRIC_CASING = REGISTRATE.block("electric_casing", CasingBlock::new)
-            .transform(BuilderTransformers.casing(() -> TFMGSpriteShifts.ELECTRIC_CASING))
-            .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
-            .register();
     public static final BlockEntry<CasingBlock> ALUMINUM_CASING = REGISTRATE.block("industrial_aluminum_casing", CasingBlock::new)
             .transform(BuilderTransformers.casing(() -> TFMGSpriteShifts.INDUSTRIAL_ALUMINUM_CASING))
             .properties(p -> p.sound(SoundType.COPPER))
@@ -1530,9 +1534,11 @@ public class TFMGBlocks {
             .properties(p -> p.requiresCorrectToolForDrops())
             .transform(pickaxeOnly())
             .blockstate(simpleCubeAll("coal_coke_block"))
+            .tag(AllTags.forgeBlockTag("storage_blocks/coal_coke"))
             .tag(BlockTags.NEEDS_STONE_TOOL)
             .tag(Tags.Blocks.STORAGE_BLOCKS)
             .item(CoalCokeBlockItem::new)
+            .tag(AllTags.forgeItemTag("storage_blocks/coal_coke"))
             .tag(Tags.Items.STORAGE_BLOCKS)
             .build()
             .lang("Block of Coal Coke")
@@ -1678,11 +1684,12 @@ public class TFMGBlocks {
                             .strength(3.0F)
                             .requiresCorrectToolForDrops()
                             .sound(SoundType.CALCITE))
+                    .recipe((c, p) -> p.stonecutting(DataIngredient.items(TFMGBlocks.SLAG_BLOCK.asItem()), RecipeCategory.BUILDING_BLOCKS, c::get, 1))
                     .transform(pickaxeOnly())
                     .simpleItem()
                     .register();
 
-    public static final MaterialSet SLAG_BRICKS_SET = makeVariants(SLAG_BRICKS);
+    public static final MaterialSet SLAG_BRICKS_SET = makeVariants(SLAG_BRICKS, true);
     public static final BlockEntry<LithiumTorchBlock> LITHIUM_TORCH =
             REGISTRATE.block("lithium_torch", LithiumTorchBlock::new)
                     .initialProperties(() -> Blocks.TORCH)
@@ -1695,15 +1702,29 @@ public class TFMGBlocks {
 
     public static final BlockEntry<Block> FACTORY_FLOOR =
             REGISTRATE.block("factory_floor", Block::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
                     .properties(p -> p
                             .strength(3.0F)
                             .requiresCorrectToolForDrops()
                             .sound(SoundType.NETHERITE_BLOCK))
+                    .recipe((c, p) -> p.stonecutting(DataIngredient.tag(AllTags.forgeItemTag("ingots/aluminum")), RecipeCategory.BUILDING_BLOCKS, c::get, 1))
                     .transform(pickaxeOnly())
                     .simpleItem()
                     .register();
 
-    public static final MaterialSet FACTORY_FLOOR_SET = makeVariants(FACTORY_FLOOR);
+    public static final MaterialSet FACTORY_FLOOR_SET = makeVariants(FACTORY_FLOOR, true);
+
+    public static final BlockEntry<Block> HARDENED_PLANKS =
+            REGISTRATE.block("hardened_planks", Block::new)
+                    .initialProperties(() -> Blocks.OAK_PLANKS)
+                    .properties(p -> p
+                            .strength(2.0F)
+                            .sound(SoundType.CHERRY_WOOD))
+                    .transform(axeOnly())
+                    .simpleItem()
+                    .register();
+
+    public static final MaterialSet HARDENED_PLANKS_SET = makeVariants(HARDENED_PLANKS, true);
 
     public static final BlockEntry<TrainTrapdoorBlock> STEEL_TRAPDOOR =
             REGISTRATE.block("steel_trapdoor", TrainTrapdoorBlock::new)
@@ -1722,7 +1743,7 @@ public class TFMGBlocks {
             ALUMINUM_FLYWHEEL = flywheel("aluminum", TFMGFlywheelBlock::aluminum),
             NICKEL_FLYWHEEL = flywheel("nickel", TFMGFlywheelBlock::nickel);
 
-    public static String[] DECOR_METALS = {"steel", "aluminum", "cast_iron", "lead", "nickel","constantan" , "copper", "zinc", "brass"};
+    public static String[] DECOR_METALS = {"steel", "aluminum", "cast_iron", "lead", "nickel", "constantan", "copper", "zinc", "brass"};
 
     public static final List<BlockEntry<TrussBlock>> TRUSSES = new ArrayList<>();
     public static final List<BlockEntry<FrameBlock>> FRAMES = new ArrayList<>();
@@ -1780,7 +1801,7 @@ public class TFMGBlocks {
                     .transform(customItemModel())
                     .register();
     public static final BlockEntry<RebarStairsBlock> REBAR_STAIRS =
-            REGISTRATE.block("rebar_stairs", p->new RebarStairsBlock(REBAR_PILE.getDefaultState(), p))
+            REGISTRATE.block("rebar_stairs", p -> new RebarStairsBlock(REBAR_PILE.getDefaultState(), p))
                     .initialProperties(() -> Blocks.IRON_BLOCK)
                     .properties(p -> p.noOcclusion())
                     .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
@@ -1804,6 +1825,11 @@ public class TFMGBlocks {
 
     public static final MaterialSet CONCRETE = generateConcrete(false);
     public static final MaterialSet REBAR_CONCRETE = generateConcrete(true);
+
+
+    public static final Map<String, MaterialSet> COLORED_CONCRETE = generateColoredConcrete(false);
+    public static final Map<String, MaterialSet> COLORED_REBAR_CONCRETE = generateColoredConcrete(true);
+
 
     public static final BlockEntry<Block> ASPHALT = REGISTRATE.block("asphalt", Block::new)
             .initialProperties(() -> Blocks.STONE)

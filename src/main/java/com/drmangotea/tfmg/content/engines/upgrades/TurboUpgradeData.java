@@ -1,8 +1,7 @@
 package com.drmangotea.tfmg.content.engines.upgrades;
 
-import com.drmangotea.tfmg.TFMG;
-import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
-import com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.AbstractSmallEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.regular_engine.RegularEngineBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGItems;
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
@@ -14,7 +13,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Optional;
@@ -42,7 +40,7 @@ public class TurboUpgradeData extends EngineUpgrade {
     }
 
     @Override
-    public void tickUpgrade(AbstractEngineBlockEntity engine) {
+    public void tickUpgrade(AbstractSmallEngineBlockEntity engine) {
         if (!engine.getLevel().isClientSide)
             return;
 
@@ -53,7 +51,7 @@ public class TurboUpgradeData extends EngineUpgrade {
 
 
     @Override
-    public void render(AbstractEngineBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light) {
+    public void render(AbstractSmallEngineBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light) {
 
         if(!Minecraft.getInstance().isPaused()) {
 
@@ -94,7 +92,7 @@ public class TurboUpgradeData extends EngineUpgrade {
     }
 
     @Override
-    public float getTorqueModifier(AbstractEngineBlockEntity engine) {
+    public float getTorqueModifier(AbstractSmallEngineBlockEntity engine) {
         return  1.2f;
     }
 
@@ -104,12 +102,12 @@ public class TurboUpgradeData extends EngineUpgrade {
     }
 
     @Override
-    public float getSpeedModifier(AbstractEngineBlockEntity engine) {
+    public float getSpeedModifier(AbstractSmallEngineBlockEntity engine) {
         return 1.3f;
     }
 
     @Override
-    public float getEfficiencyModifier(AbstractEngineBlockEntity engine) {
+    public float getEfficiencyModifier(AbstractSmallEngineBlockEntity engine) {
         return 0.7f;
     }
 }

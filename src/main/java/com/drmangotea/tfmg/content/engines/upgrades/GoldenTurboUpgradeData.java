@@ -1,8 +1,7 @@
 package com.drmangotea.tfmg.content.engines.upgrades;
 
-import com.drmangotea.tfmg.TFMG;
-import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
-import com.drmangotea.tfmg.content.engines.regular_engine.RegularEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.AbstractSmallEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.regular_engine.RegularEngineBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGItems;
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
@@ -40,7 +39,7 @@ public class GoldenTurboUpgradeData extends EngineUpgrade {
     }
 
     @Override
-    public void tickUpgrade(AbstractEngineBlockEntity engine) {
+    public void tickUpgrade(AbstractSmallEngineBlockEntity engine) {
         if (!engine.getLevel().isClientSide)
             return;
         speed.chase(engine.rpm / 200, 1 / 128f, LerpedFloat.Chaser.EXP);
@@ -49,7 +48,7 @@ public class GoldenTurboUpgradeData extends EngineUpgrade {
 
 
     @Override
-    public void render(AbstractEngineBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light) {
+    public void render(AbstractSmallEngineBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light) {
 
         angle+=be.rpm/500f;
         angle %= 360;
@@ -84,7 +83,7 @@ public class GoldenTurboUpgradeData extends EngineUpgrade {
     }
 
     @Override
-    public float getTorqueModifier(AbstractEngineBlockEntity engine) {
+    public float getTorqueModifier(AbstractSmallEngineBlockEntity engine) {
         return 1.4f;
     }
 
@@ -94,7 +93,7 @@ public class GoldenTurboUpgradeData extends EngineUpgrade {
     }
 
     @Override
-    public float getSpeedModifier(AbstractEngineBlockEntity engine) {
+    public float getSpeedModifier(AbstractSmallEngineBlockEntity engine) {
         return 1.3f;
     }
 

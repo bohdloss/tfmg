@@ -1,14 +1,5 @@
 package com.drmangotea.tfmg.content.electricity.base;
 
-import com.drmangotea.tfmg.TFMG;
-import com.drmangotea.tfmg.base.TFMGUtils;
-import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnectorBlockEntity;
-import com.drmangotea.tfmg.content.electricity.lights.LightBulbBlockEntity;
-import com.drmangotea.tfmg.registry.TFMGBlocks;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,7 +39,7 @@ public class ElectricalNetwork {
         Map<Integer, Float> groups = new HashMap<>();
 
         for (IElectric member : members) {
-
+            member.getData().notEnoughtPower = false;
             int groupId = member.getData().group.id;
 
             maxVoltage = Math.max(member.voltageGeneration(), maxVoltage);
@@ -56,7 +47,7 @@ public class ElectricalNetwork {
             frequency = frequency == 0 ? member.frequencyGeneration() : (frequency + member.frequencyGeneration()) / 2;
             resistance += (int) member.resistance();
             powerGeneration += member.powerGeneration();
-            if(member.canBeInGroups())
+            if (member.canBeInGroups())
                 groups.put(groupId, groups.containsKey(groupId) ? groups.get(groupId) + member.resistance() : member.resistance());
 
         }
@@ -79,28 +70,39 @@ public class ElectricalNetwork {
             member.setPowerPercentage(powerPercentage);
 
 
-            if(groups.containsKey(member.getData().group.id))
+            if (groups.containsKey(member.getData().group.id))
                 member.getData().group.resistance = groups.get(member.getData().group.id);
         }
         for (IElectric member : members) {
-                member.getData().highestCurrent = getCableCurrent(member);
-                member.updateNearbyNetworks(member);
+            member.getData().highestCurrent = getCableCurrent(member);
+            member.updateNearbyNetworks(member);
+            if (member instanceof KineticElectricBlockEntity be)
+                be.updateGeneratedRotation();
         }
 
+        if (!members.isEmpty())
+            if (members.get(0).getNetworkPowerUsage() > members.get(0).getNetworkPowerGeneration()) {
+                for (IElectric member : members) {
+                    member.getData().notEnoughtPower = true;
+                    if (member instanceof KineticElectricBlockEntity be)
+                        be.updateGeneratedRotation();
+                }
+            }
     }
-     public static float getCableCurrent(IElectric be){
 
-        float current =0;
+    public static float getCableCurrent(IElectric be) {
+
+        float current = 0;
         List<Integer> groups = new ArrayList<>();
 
-        for(IElectric member : be.getOrCreateElectricNetwork().members){
+        for (IElectric member : be.getOrCreateElectricNetwork().members) {
 
-            if(member.canBeInGroups())
-                if(!groups.contains(member.getData().group.id)){
+            if (member.canBeInGroups())
+                if (!groups.contains(member.getData().group.id)) {
                     groups.add(member.getData().group.id);
-                    if(member.resistance()!=0)
+                    if (member.resistance() != 0)
 
-                        current += member.getData().voltage/member.resistance();
+                        current += member.getData().voltage / member.resistance();
                 }
         }
 

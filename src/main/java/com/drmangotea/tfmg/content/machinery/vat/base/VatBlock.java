@@ -54,7 +54,7 @@ public class VatBlock extends Block implements IWrenchable, IBE<VatBlockEntity> 
         super(properties);
         registerDefaultState(defaultBlockState().setValue(TOP, true)
                 .setValue(BOTTOM, true)
-                .setValue(SHAPE, Shape.WINDOW));
+                .setValue(SHAPE, Shape.PLAIN));
         this.vatType = vatType;
     }
     public static boolean isVat(BlockState state) {

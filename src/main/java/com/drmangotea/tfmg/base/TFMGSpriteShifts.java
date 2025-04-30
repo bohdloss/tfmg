@@ -28,7 +28,7 @@ public class TFMGSpriteShifts {
 
     public static final CTSpriteShiftEntry STEEL_VAT = getCT(AllCTTypes.RECTANGLE, "steel_vat"), STEEL_VAT_TOP = getCT(AllCTTypes.RECTANGLE, "steel_vat_top"), STEEL_VAT_INNER = getCT(AllCTTypes.RECTANGLE, "steel_vat_inner");
     public static final CTSpriteShiftEntry CAST_IRON_VAT = getCT(AllCTTypes.RECTANGLE, "cast_iron_vat"), CAST_IRON_VAT_TOP = getCT(AllCTTypes.RECTANGLE, "cast_iron_vat_top"), CAST_IRON_VAT_INNER = getCT(AllCTTypes.RECTANGLE, "cast_iron_vat_inner");
-    public static final CTSpriteShiftEntry FIREPROOF_VAT = getCT(AllCTTypes.RECTANGLE, "fireproof_vat"), FIREPROOF_VAT_TOP = getCT(AllCTTypes.RECTANGLE, "fireproof_vat_top"), FIREPROOF_VAT_INNER = getCT(AllCTTypes.RECTANGLE, "fireproof_vat_inner");
+    public static final CTSpriteShiftEntry FIREPROOF_VAT = getCT(AllCTTypes.RECTANGLE, "firebrick_vat");
 
     public static final CTSpriteShiftEntry BLAST_FURNACE_REINFORCEMENT = vertical("blast_furnace_reinforcement");
     public static final CTSpriteShiftEntry RUSTED_BLAST_FURNACE_REINFORCEMENT = vertical("rusted_blast_furnace_reinforcement");

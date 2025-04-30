@@ -10,8 +10,8 @@
       "item": "tfmg:coated_circuit_board"
     },
     {
-      "amount": 100,
-      "fluid": "minecraft:water",
+      "amount": 250,
+      "fluid": "tfmg:sulfuric_acid",
       "nbt": {}
     }
   ],

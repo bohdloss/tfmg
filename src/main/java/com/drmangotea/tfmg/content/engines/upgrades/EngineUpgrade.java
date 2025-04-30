@@ -1,6 +1,6 @@
 package com.drmangotea.tfmg.content.engines.upgrades;
 
-import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.AbstractSmallEngineBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGItems;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -21,21 +21,21 @@ public abstract class EngineUpgrade {
     public abstract Optional<? extends EngineUpgrade> createUpgrade();
 
 
-    public void tickUpgrade(AbstractEngineBlockEntity engine) {}
-    public void lazyTickUpgrade(AbstractEngineBlockEntity engine) {}
-    public void render(AbstractEngineBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light) {}
-    public float getTorqueModifier(AbstractEngineBlockEntity engine) {
+    public void tickUpgrade(AbstractSmallEngineBlockEntity engine) {}
+    public void lazyTickUpgrade(AbstractSmallEngineBlockEntity engine) {}
+    public void render(AbstractSmallEngineBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light) {}
+    public float getTorqueModifier(AbstractSmallEngineBlockEntity engine) {
         return 1;
     }
 
-    public void updateUpgrade(AbstractEngineBlockEntity be ){}
+    public void updateUpgrade(AbstractSmallEngineBlockEntity be ){}
 
     public abstract Item getItem();
-    public float getSpeedModifier(AbstractEngineBlockEntity engine) {
+    public float getSpeedModifier(AbstractSmallEngineBlockEntity engine) {
         return 1;
     }
 
-    public float getEfficiencyModifier(AbstractEngineBlockEntity engine) {
+    public float getEfficiencyModifier(AbstractSmallEngineBlockEntity engine) {
         return 1;
     }
 

@@ -3,15 +3,18 @@
   "category": "misc",
   "key": {
     "B": {
-      "item": "tfmg:fireclay_ball"
+      "item": "tfmg:fireproof_bricks"
     },
     "C": {
       "item": "tfmg:cast_iron_pipe"
+    },
+    "Q": {
+      "tag": "forge:storage_blocks/cast_iron"
     }
   },
   "pattern": [
     "BCB",
-    "CCC",
+    "CQC",
     "BCB"
   ],
   "result": {

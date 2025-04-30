@@ -6,7 +6,7 @@
       "item": "minecraft:barrel"
     },
     "P": {
-      "tag": "forge:ingots/cast_iron"
+      "tag": "forge:plates/cast_iron"
     }
   },
   "pattern": [

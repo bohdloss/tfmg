@@ -28,6 +28,7 @@ public class WindingMachineRenderer extends KineticBlockEntityRenderer<WindingMa
     public WindingMachineRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
+
     @Override
     protected void renderSafe(WindingMachineBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
 
@@ -36,11 +37,11 @@ public class WindingMachineRenderer extends KineticBlockEntityRenderer<WindingMa
                 .getItemRenderer();
 
         VertexConsumer vb = bufferSource.getBuffer(RenderType.solid());
-        if(!Minecraft.getInstance().isPaused()) {
+        if (!Minecraft.getInstance().isPaused()) {
             be.angle += be.spoolSpeed.getValue(partialTicks) * 3 / 10f;
             be.angle %= 360;
         }
-        if(!be.spool.isEmpty()) {
+        if (!be.spool.isEmpty()) {
             CachedBuffers.partial(TFMGPartialModels.SPOOL, blockState)
                     .light(light)
                     .center()
@@ -50,8 +51,8 @@ public class WindingMachineRenderer extends KineticBlockEntityRenderer<WindingMa
                     .rotateXDegrees(be.angle)
                     .uncenter()
                     .renderInto(ms, bufferSource.getBuffer(RenderType.cutoutMipped()));
-            if(((SpoolItem)be.spool.getItem()).model !=null){
-                CachedBuffers.partial(((SpoolItem)be.spool.getItem()).model, blockState)
+            if (((SpoolItem) be.spool.getItem()).model != null) {
+                CachedBuffers.partial(((SpoolItem) be.spool.getItem()).model, blockState)
                         .light(light)
                         .center()
                         .rotateYDegrees(blockState.getValue(HORIZONTAL_FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot() - 180) : blockState.getValue(FACING).toYRot())
@@ -60,9 +61,9 @@ public class WindingMachineRenderer extends KineticBlockEntityRenderer<WindingMa
                         .rotateXDegrees(be.angle)
                         .uncenter()
                         .renderInto(ms, vb);
-                if(!be.inventory.isEmpty()){
+                if (!be.inventory.isEmpty()) {
 
-                    CachedBuffers.partial(be.getSpeed()!=0 ? TFMGPartialModels.CONNNECTING_WIRE_ANIMATED : TFMGPartialModels.CONNNECTING_WIRE, blockState)
+                    CachedBuffers.partial(be.getSpeed() != 0 ? TFMGPartialModels.CONNNECTING_WIRE_ANIMATED : TFMGPartialModels.CONNNECTING_WIRE, blockState)
                             .light(light)
                             .center()
                             .rotateYDegrees(blockState.getValue(HORIZONTAL_FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot() - 180) : blockState.getValue(FACING).toYRot())
@@ -75,7 +76,7 @@ public class WindingMachineRenderer extends KineticBlockEntityRenderer<WindingMa
                 }
             }
         }
-        if(!be.inventory.isEmpty()){
+        if (!be.inventory.isEmpty()) {
             ItemStack item = be.inventory.getItem(0);
             BakedModel bakedModel = itemRenderer.getModel(item, null, null, 0);
             boolean blockItem = bakedModel.isGui3d();
@@ -87,14 +88,14 @@ public class WindingMachineRenderer extends KineticBlockEntityRenderer<WindingMa
                     .translateZ(0.4f)
                     .translateY(0.33f)
                     .rotateXDegrees(be.angle)
-                    .rotateZDegrees(item.is(TFMGTags.TFMGItemTags.RODS.tag) ? 45 : 0   )
+                    .rotateZDegrees(item.is(TFMGTags.TFMGItemTags.RODS.tag) ? 45 : 0)
                     .rotateZDegrees(blockItem ? 90 : 0)
                     .scale(blockItem ? .5f : .375f);
             itemRenderer.render(item, ItemDisplayContext.FIXED, false, ms, bufferSource, light, overlay, bakedModel);
             ms.popPose();
         }
 
-        super.renderSafe(be, partialTicks, ms ,bufferSource,light,overlay);
+        super.renderSafe(be, partialTicks, ms, bufferSource, light, overlay);
     }
 
     @Override

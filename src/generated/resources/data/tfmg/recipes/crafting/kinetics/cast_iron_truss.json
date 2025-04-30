@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "tag": "forge:nuggets/cast_iron"
+    }
+  },
+  "pattern": [
+    "N N",
+    "NNN",
+    "N N"
+  ],
+  "result": {
+    "count": 4,
+    "item": "tfmg:cast_iron_truss"
+  },
+  "show_notification": true
+}

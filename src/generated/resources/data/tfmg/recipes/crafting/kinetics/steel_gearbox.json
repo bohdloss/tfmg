@@ -5,14 +5,14 @@
     "C": {
       "item": "tfmg:heavy_machinery_casing"
     },
-    "S": {
-      "item": "create:shaft"
+    "O": {
+      "item": "tfmg:steel_cogwheel"
     }
   },
   "pattern": [
-    " S ",
-    "SCS",
-    " S "
+    " O ",
+    "OCO",
+    " O "
   ],
   "result": {
     "item": "tfmg:steel_gearbox"

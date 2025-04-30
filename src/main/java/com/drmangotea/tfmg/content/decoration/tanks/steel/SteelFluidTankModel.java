@@ -41,8 +41,8 @@ public class SteelFluidTankModel extends CTModel {
                 TFMGSpriteShifts.CAST_IRON_VAT_INNER);
     }
     public static SteelFluidTankModel fireproofVat(BakedModel originalModel) {
-        return new SteelFluidTankModel(originalModel, TFMGSpriteShifts.FIREPROOF_VAT, TFMGSpriteShifts.FIREPROOF_VAT_TOP,
-                TFMGSpriteShifts.FIREPROOF_VAT_INNER);
+        return new SteelFluidTankModel(originalModel, TFMGSpriteShifts.FIREPROOF_VAT, TFMGSpriteShifts.STEEL_VAT_TOP,
+                TFMGSpriteShifts.STEEL_VAT_INNER);
     }
 
 

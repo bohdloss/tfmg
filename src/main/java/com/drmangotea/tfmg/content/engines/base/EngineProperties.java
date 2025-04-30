@@ -1,9 +1,10 @@
 package com.drmangotea.tfmg.content.engines.base;
 
 import com.drmangotea.tfmg.content.decoration.pipes.TFMGPipes;
-import com.drmangotea.tfmg.content.engines.regular_engine.PistonPosition;
+import com.drmangotea.tfmg.content.engines.types.regular_engine.PistonPosition;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGItems;
+import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -56,6 +57,22 @@ public class EngineProperties {
         pistonPositions.add(new PistonPosition(0.5f,0.05f,0.3f,-90));
         return pistonPositions;
     }
+
+    public static List<PistonPosition> pistonsRadial(){
+
+        float i = 15/16f;
+        float f = 10/16f;
+        List<PistonPosition> pistonPositions = new ArrayList<>();
+        pistonPositions.add(new PistonPosition(0,i,0,0));
+        pistonPositions.add(new PistonPosition(0,f,-f,45));
+        pistonPositions.add(new PistonPosition(0,0,-i,90));
+        pistonPositions.add(new PistonPosition(0,-f,-f,135));
+        pistonPositions.add(new PistonPosition(0,-i,0,180));
+        pistonPositions.add(new PistonPosition(0,-f,f,225));
+        pistonPositions.add(new PistonPosition(0,0,i,270));
+        pistonPositions.add(new PistonPosition(0,f,f,315));
+        return pistonPositions;
+    }
     //
 
     //public static List<ItemStack> componentsW(){
@@ -79,6 +96,19 @@ public class EngineProperties {
         components.add(Ingredient.of(AllItems.BELT_CONNECTOR.asStack()));
         components.add(Ingredient.of(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).get(0).asStack()));
         components.add(Ingredient.of(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).get(0).asStack()));
+        components.add(Ingredient.of(TFMGItems.STEEL_MECHANISM.asStack()));
+
+        return components;
+    }
+
+    public static List<Ingredient> turbineEngineComponents(){
+        List<Ingredient> components = new ArrayList<>();
+
+        components.add(Ingredient.of(AllBlocks.SHAFT.asStack()));
+        components.add(Ingredient.of(TFMGBlocks.STEEL_COGWHEEL.asStack()));
+        components.add(Ingredient.of(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).get(0).asStack()));
+        components.add(Ingredient.of(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).get(0).asStack()));
+        components.add(Ingredient.of(TFMGItems.STEEL_MECHANISM.asStack()));
         components.add(Ingredient.of(TFMGItems.STEEL_MECHANISM.asStack()));
 
         return components;

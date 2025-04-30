@@ -35,6 +35,16 @@ public class TFMGPipes {
 
     public static final Map<PipeMaterial, List<BlockEntry<? extends Block>>> TFMG_PIPES = new HashMap<>();
 
+
+    /*
+     0: pipe
+     1: encased
+     2: glass
+     3: pump
+     4: smart pipe
+     5: valve
+     */
+
     static {
 
 

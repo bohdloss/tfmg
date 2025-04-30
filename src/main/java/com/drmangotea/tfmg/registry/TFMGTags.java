@@ -189,6 +189,9 @@ public class TFMGTags {
         FLAMMABLE(MOD),
         FIREBOX_FUEL(MOD),
         BLAST_STOVE_FUEL(MOD),
+        AIR(NameSpace.FORGE),
+        COOLING_FLUID(NameSpace.FORGE),
+
         GASOLINE(NameSpace.FORGE),
         DIESEL(NameSpace.FORGE),
         KEROSENE(NameSpace.FORGE),

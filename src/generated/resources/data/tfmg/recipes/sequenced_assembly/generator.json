@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "create:shaft"
   },
-  "loops": 5,
+  "loops": 3,
   "results": [
     {
       "chance": 120.0,

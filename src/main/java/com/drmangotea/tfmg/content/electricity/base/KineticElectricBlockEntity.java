@@ -6,6 +6,7 @@ import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.api.equipment.goggles.IHaveHoveringInformation;
 import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -32,6 +33,7 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
 
     @Override
     public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        CreateLang.text("MAX POWER: "+getNetworkPowerGeneration()).forGoggles(tooltip);
         return makeElectricityTooltip(tooltip, isPlayerSneaking);
     }
 

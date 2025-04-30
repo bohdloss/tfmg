@@ -1,6 +1,5 @@
 package com.drmangotea.tfmg.content.electricity.utilities.electric_motor;
 
-import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.config.MachineConfig;
 import com.drmangotea.tfmg.config.TFMGConfigs;
 import com.drmangotea.tfmg.content.electricity.base.KineticElectricBlockEntity;
@@ -49,13 +48,13 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
 
     @Override
     public boolean hasElectricitySlot(Direction direction) {
-        return direction == getBlockState().getValue(FACING).getOpposite()||(direction.getAxis().isHorizontal()&&direction == Direction.DOWN);
+        return direction == getBlockState().getValue(FACING).getOpposite() || (direction.getAxis().isHorizontal() && direction == Direction.DOWN);
     }
 
 
     @Override
     public void onNetworkChanged(int oldVoltage, int oldPower) {
-        if(oldPower!=getPowerUsage()||oldVoltage!=data.voltage) {
+        if (oldPower != getPowerUsage() || oldVoltage != data.voltage) {
             updateGeneratedRotation();
         }
     }
@@ -67,10 +66,11 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
 
         //if(getPowerUsage() <machineConfig.electricMotorMinimumPower.get())
         //    return 0;
-
+        if (!canWork())
+            return 0;
         //if(getPowerUsage() >= machineConfig.electricMotorMinimumPower.get()){
 
-            return Math.min(Math.abs(generatedSpeed.getValue()),data.getVoltage()/2);
+        return Math.min(Math.abs(generatedSpeed.getValue()), data.getVoltage() / 2);
 
         //}
 
@@ -92,13 +92,13 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
     @Override
     public int getPowerUsage() {
 
-        if(Math.min(generatedSpeed.getValue(),data.getVoltage()/2) ==0)
+        if (Math.min(generatedSpeed.getValue(), data.getVoltage() / 2) == 0)
             return super.getPowerUsage();
 
-        float speedModifier = (Math.min(Math.abs(generatedSpeed.getValue()),data.getVoltage())/256f)*5;
+        float speedModifier = (Math.min(Math.abs(generatedSpeed.getValue()), data.getVoltage()) / 256f) * 5;
 
 
-        return (int) ((float)super.getPowerUsage()* speedModifier);
+        return (int) ((float) super.getPowerUsage() * speedModifier);
     }
 
     class MotorValueBox extends ValueBoxTransform.Sided {
@@ -111,13 +111,13 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
         @Override
         public Vec3 getLocalOffset(LevelAccessor level, BlockPos pos, BlockState state) {
             Direction facing = state.getValue(FACING);
-            return super.getLocalOffset(level,pos,state).add(Vec3.atLowerCornerOf(facing.getNormal())
+            return super.getLocalOffset(level, pos, state).add(Vec3.atLowerCornerOf(facing.getNormal())
                     .scale(-1 / 16f));
         }
 
         @Override
         public void rotate(LevelAccessor level, BlockPos pos, BlockState state, PoseStack ms) {
-            super.rotate(level,pos,state, ms);
+            super.rotate(level, pos, state, ms);
             Direction facing = state.getValue(FACING);
             if (facing.getAxis() == Direction.Axis.Y)
                 return;
@@ -130,7 +130,7 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
         @Override
         protected boolean isSideActive(BlockState state, Direction direction) {
             Direction facing = state.getValue(FACING);
-            if (facing.getAxis() != Direction.Axis.Y && direction == Direction.DOWN||direction == Direction.UP)
+            if (facing.getAxis() != Direction.Axis.Y && direction == Direction.DOWN || direction == Direction.UP)
                 return false;
             return direction.getAxis() != facing.getAxis();
         }

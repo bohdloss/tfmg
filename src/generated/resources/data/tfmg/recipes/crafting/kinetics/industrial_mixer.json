@@ -3,10 +3,13 @@
   "category": "misc",
   "key": {
     "C": {
+      "item": "tfmg:large_steel_cogwheel"
+    },
+    "H": {
       "item": "tfmg:heavy_machinery_casing"
     },
     "K": {
-      "item": "tfmg:steel_cogwheel"
+      "item": "tfmg:screw"
     },
     "M": {
       "item": "tfmg:steel_mechanism"
@@ -16,9 +19,9 @@
     }
   },
   "pattern": [
-    " S ",
-    "KCM",
-    " S "
+    "KSK",
+    "MHM",
+    "KCK"
   ],
   "result": {
     "item": "tfmg:industrial_mixer"

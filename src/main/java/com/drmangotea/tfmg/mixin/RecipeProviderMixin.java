@@ -1,10 +1,7 @@
 package com.drmangotea.tfmg.mixin;
 
 import com.drmangotea.tfmg.TFMG;
-import com.drmangotea.tfmg.datagen.recipes.values.TFMGSequencedAssemblyRecipeGen;
-import com.drmangotea.tfmg.datagen.recipes.values.TFMGStandardRecipeGen;
-import com.drmangotea.tfmg.datagen.recipes.values.IndustrialBlastingRecipeGen;
-import com.drmangotea.tfmg.datagen.recipes.values.VatRecipeGen;
+import com.drmangotea.tfmg.datagen.recipes.values.*;
 import net.minecraft.data.recipes.RecipeProvider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,8 +14,9 @@ public class RecipeProviderMixin {
 
     @Inject(at = @At("HEAD"), method = "getName",cancellable = true , remap = false)
     public final void getName(CallbackInfoReturnable<String> cir) {
-        TFMG.LOGGER.debug("ALMOOGUS");
-        if((Object)this instanceof IndustrialBlastingRecipeGen)
+        if((Object)this instanceof TFMGMechanicalCraftingRecipeGen)
+            cir.setReturnValue("TFMG'S Mechanical Crafting Recipes");
+        if((Object)this instanceof TFMGIndustrialBlastingRecipeGen)
             cir.setReturnValue("TFMG'S Industrial Blasting Recipes");
         if((Object)this instanceof VatRecipeGen)
             cir.setReturnValue("TFMG'S Vat Recipes");
@@ -26,6 +24,7 @@ public class RecipeProviderMixin {
             cir.setReturnValue("TFMG'S Standard Recipes");
         if((Object)this instanceof TFMGSequencedAssemblyRecipeGen)
             cir.setReturnValue("TFMG'S Sequenced Assembly Recipes");
+
 
     }
 

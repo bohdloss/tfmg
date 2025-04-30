@@ -3,6 +3,7 @@ package com.drmangotea.tfmg.content.engines.base;
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGShapes;
 import com.drmangotea.tfmg.content.engines.engine_controller.EngineControllerBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.AbstractSmallEngineBlockEntity;
 import com.drmangotea.tfmg.content.engines.upgrades.EnginePipingUpgrade;
 import com.drmangotea.tfmg.content.engines.upgrades.TransmissionUpgrade;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
@@ -21,7 +22,10 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -35,6 +39,8 @@ public class EngineBlock extends HorizontalKineticBlock {
 
     public static final EnumProperty<EngineState> ENGINE_STATE = EnumProperty.create("engine_state", EngineState.class);
 
+    public static final Property<Direction> SHAFT_FACING = DirectionProperty.create("shaft_facing", Direction.Plane.HORIZONTAL);
+
     public EngineBlock(Properties properties) {
         super(properties);
         registerDefaultState(defaultBlockState().setValue(ENGINE_STATE, EngineState.NORMAL));
@@ -44,20 +50,25 @@ public class EngineBlock extends HorizontalKineticBlock {
     public InteractionResult onWrenched(BlockState state, UseOnContext context) {
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
-        if (level.getBlockEntity(pos) instanceof AbstractEngineBlockEntity be) {
+        if (level.getBlockEntity(pos) instanceof AbstractSmallEngineBlockEntity be) {
             if (be.hasUpgrade()) {
 
                 if (be.upgrade.isPresent()) {
                     be.playRemovalSound();
                     be.dropItem(be.upgrade.get().getItem().getDefaultInstance());
                     if (be.upgrade.get() instanceof TransmissionUpgrade) {
-                        if (be.getControllerBE().controllerPosition != null)
-                            if (level.getBlockEntity(be.getControllerBE().controllerPosition) instanceof EngineControllerBlockEntity engineController) {
+                        if (be.getControllerBE().controller != null){
+                            if (level.getBlockEntity(be.getControllerBE().controller) instanceof EngineControllerBlockEntity engineController) {
                                 engineController.enginePos = null;
-                                engineController.engine = null;
-
+                                engineController.disconnectEngine();
                             }
-                        be.getControllerBE().controllerPosition = null;
+                        }
+                        be.getControllerBE().controlled =false;
+                        be.getControllerBE().highestSignal = 0;
+                        be.getControllerBE().updateGeneratedRotation();
+                        be.getControllerBE().updateRotation();
+                        be.getControllerBE().controller = null;
+
                     }
 
                 }
@@ -86,7 +97,7 @@ public class EngineBlock extends HorizontalKineticBlock {
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
 
-        if (level.getBlockEntity(pos) instanceof AbstractEngineBlockEntity be) {
+        if (level.getBlockEntity(pos) instanceof AbstractSmallEngineBlockEntity be) {
             if (be.insertItem(player.getItemInHand(hand), player.isShiftKeyDown(), player, hand))
                 return InteractionResult.SUCCESS;
         }
@@ -100,18 +111,18 @@ public class EngineBlock extends HorizontalKineticBlock {
 
     @Override
     public boolean hasShaftTowards(LevelReader world, BlockPos pos, BlockState state, Direction face) {
-        return state.getValue(ENGINE_STATE) == EngineState.SHAFT && face == state.getValue(HORIZONTAL_FACING);
+        return state.getValue(ENGINE_STATE) == EngineState.SHAFT && face == state.getValue(SHAFT_FACING);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(ENGINE_STATE);
+        builder.add(ENGINE_STATE,SHAFT_FACING);
     }
 
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos neighbor, boolean b) {
-        if (level.getBlockEntity(pos) instanceof AbstractEngineBlockEntity be) {
+        if (level.getBlockEntity(pos) instanceof AbstractSmallEngineBlockEntity be) {
             if (be.hasUpgrade() && be.upgrade.get().getItem() == TFMGBlocks.INDUSTRIAL_PIPE.asItem()) {
                 ((EnginePipingUpgrade) be.upgrade.get()).findTank(be);
             }
@@ -130,7 +141,8 @@ public class EngineBlock extends HorizontalKineticBlock {
 
         NORMAL("normal"),
         SHAFT("front"),
-        BACK("back");
+        BACK("back"),
+        SINGLE("single");
         private final String name;
 
         EngineState(String name) {

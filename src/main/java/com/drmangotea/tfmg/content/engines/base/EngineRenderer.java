@@ -1,5 +1,6 @@
 package com.drmangotea.tfmg.content.engines.base;
 
+import com.drmangotea.tfmg.content.engines.types.AbstractSmallEngineBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
@@ -13,14 +14,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import static com.drmangotea.tfmg.content.engines.base.EngineBlock.ENGINE_STATE;
 import static com.simibubi.create.content.kinetics.base.HorizontalKineticBlock.HORIZONTAL_FACING;
 
-public class EngineRenderer extends KineticBlockEntityRenderer<AbstractEngineBlockEntity> {
+public class EngineRenderer extends KineticBlockEntityRenderer<AbstractSmallEngineBlockEntity> {
     public EngineRenderer(BlockEntityRendererProvider.Context context) {
 
         super(context);
     }
 
     @Override
-    protected void renderSafe(AbstractEngineBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
+    protected void renderSafe(AbstractSmallEngineBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
 
 
         if(be.hasUpgrade()){
@@ -33,7 +34,7 @@ public class EngineRenderer extends KineticBlockEntityRenderer<AbstractEngineBlo
     }
 
     @Override
-    protected SuperByteBuffer getRotatedModel(AbstractEngineBlockEntity be, BlockState state) {
+    protected SuperByteBuffer getRotatedModel(AbstractSmallEngineBlockEntity be, BlockState state) {
         return CachedBuffers.partialFacing(AllPartialModels.SHAFT_HALF, state,state.getValue(HORIZONTAL_FACING));
     }
 }
