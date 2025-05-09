@@ -14,7 +14,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -22,7 +21,7 @@ import net.minecraft.world.phys.AABB;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.drmangotea.tfmg.base.WallMountBlock.FACING;
+import static com.drmangotea.tfmg.base.blocks.WallMountBlock.FACING;
 import static com.drmangotea.tfmg.content.electricity.connection.cables.CableConnectorBlock.EXTENSION;
 
 public class CableConnectorBlockEntity extends ElectricBlockEntity implements IHaveHoveringInformation {
@@ -64,13 +63,6 @@ public class CableConnectorBlockEntity extends ElectricBlockEntity implements IH
             return direction.getAxis() == getBlockState().getValue(FACING).getAxis();
 
         return direction == getBlockState().getValue(FACING).getOpposite();
-    }
-
-    @Override
-    public boolean makeElectricityTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-
-
-        return super.makeElectricityTooltip(tooltip, isPlayerSneaking);
     }
 
     public void notifyRemoval() {

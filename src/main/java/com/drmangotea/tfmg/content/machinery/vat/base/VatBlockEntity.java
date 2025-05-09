@@ -22,6 +22,7 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.lang.LangBuilder;
+import net.createmod.ponder.api.level.PonderLevel;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -154,7 +155,7 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
         }
 
         updateTemperature();
-        if (level.isClientSide) {
+        if (level.isClientSide&&!(level instanceof PonderLevel)) {
             int tankNumber = 0;
             for (int i = 0; i < 8; i++) {
                 IFluidHandler fluidHandler = this.getCapability(ForgeCapabilities.FLUID_HANDLER).orElse(null);
@@ -211,8 +212,6 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
             if (!Objects.equals(testedRecipe.machines, machines)) {
                 continue;
             }
-            if (!testedRecipe.getRollableResultsAsItemStacks().isEmpty())
-                TFMG.LOGGER.debug("AAAAAAAAAAAAA " + testedRecipe.getRollableResultsAsItemStacks().get(0).toString());
 
 
             if (!testedRecipe.allowedVatTypes.contains(((VatBlock) getBlockState().getBlock()).vatType)) {

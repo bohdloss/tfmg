@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import static com.drmangotea.tfmg.registry.TFMGFluids.getGasTexture;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 
 public class TFMGRegistrate extends CreateRegistrate {
@@ -29,10 +30,9 @@ public class TFMGRegistrate extends CreateRegistrate {
         return builder.toString();
     }
 
-    public FluidBuilder<VirtualFluid, CreateRegistrate> gasFluid(String name, ResourceLocation still,
-                                                                 ResourceLocation flow) {
-        return entry(name, c -> new VirtualFluidBuilder<>(self(),self(), name, c, still, flow,
-                GasFluidType.create(),VirtualFluid::createSource,VirtualFluid::createFlowing));
+    public FluidBuilder<VirtualFluid, CreateRegistrate> gasFluid(String name, int color) {
+        return entry(name, c -> new VirtualFluidBuilder<>(self(),self(), name, c, getGasTexture(), getGasTexture(),
+                GasFluidType.create(color),VirtualFluid::createSource,VirtualFluid::createFlowing));
     }
 
     protected TFMGRegistrate() {

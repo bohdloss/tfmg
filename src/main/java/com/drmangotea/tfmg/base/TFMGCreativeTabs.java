@@ -1,7 +1,9 @@
 package com.drmangotea.tfmg.base;
 
+import com.drmangotea.tfmg.content.decoration.encased.TFMGEncasedCogwheelBlock;
 import com.drmangotea.tfmg.content.machinery.misc.winding_machine.SpoolItem;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
+import com.drmangotea.tfmg.registry.TFMGEncasedBlocks;
 import com.drmangotea.tfmg.registry.TFMGItems;
 import com.simibubi.create.AllCreativeModeTabs;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
@@ -10,6 +12,7 @@ import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -66,6 +69,8 @@ public class TFMGCreativeTabs {
                     continue;
                 if(blacklist().contains(item))
                     continue;
+                if(item.get() instanceof BlockItem blockItem && blockItem.getBlock() instanceof TFMGEncasedCogwheelBlock)
+                    continue;
                 if(item.get() instanceof SequencedAssemblyItem)
                     continue;
 
@@ -79,8 +84,12 @@ public class TFMGCreativeTabs {
         CREATIVE_MODE_TABS.register(modEventBus);
     }
 
-    public static List<RegistryEntry<Item>> blacklist(){
-        List<RegistryEntry<Item>> list = new ArrayList<>();
+    public static List<RegistryEntry<? extends Item>> blacklist(){
+        List<RegistryEntry<? extends Item>> list = new ArrayList<>();
+
+        list.add(TFMGItems.LIT_LITHIUM_BLADE);
+
+
         return list;
     }
     public static List<ItemStack> customAdditions(){
@@ -101,7 +110,16 @@ public class TFMGCreativeTabs {
         CompoundTag lpgTagName = new CompoundTag();
         lpgTagName.putString("lpg", "LPG");
         //
-
+        CompoundTag keroseneTag = new CompoundTag();
+        keroseneTag.putString("kerosene", "forge:kerosene");
+        CompoundTag keroseneTagName = new CompoundTag();
+        keroseneTagName.putString("kerosene", "KEROSENE");
+        //
+        CompoundTag naphthaTag = new CompoundTag();
+        naphthaTag.putString("naphtha", "forge:naphtha");
+        CompoundTag naphthaTagName = new CompoundTag();
+        naphthaTagName.putString("naphtha", "NAPHTHA");
+        //
 
         ItemStack gasoline = TFMGItems.ENGINE_CYLINDER.asStack();
         gasoline.getOrCreateTag().put("Fuels", gasolineTag);

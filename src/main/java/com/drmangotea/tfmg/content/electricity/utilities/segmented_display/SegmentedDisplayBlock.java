@@ -1,11 +1,9 @@
 package com.drmangotea.tfmg.content.electricity.utilities.segmented_display;
 
 
-import com.drmangotea.tfmg.base.TFMGHorizontalDirectionalBlock;
-import com.drmangotea.tfmg.content.electricity.base.ConnectNeightborsPacket;
+import com.drmangotea.tfmg.base.blocks.TFMGHorizontalDirectionalBlock;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
-import com.drmangotea.tfmg.registry.TFMGPackets;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
@@ -25,7 +23,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.function.BiConsumer;
 

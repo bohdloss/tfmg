@@ -25,9 +25,18 @@ public class TFMGCommonEvents {
     //    TFMG.LOGGER.debug("PLAYER LOG");
     //}
 
+
+
+    @SubscribeEvent
+    public static void onUnloadWorld(LevelEvent.Unload event) {
+        LevelAccessor world = event.getLevel();
+        TFMG.NETWORK_MANAGER.onUnloadWorld(world);
+    }
+
     @SubscribeEvent
     public static void onLoadWorld(LevelEvent.Load event) {
         LevelAccessor world = event.getLevel();
+        TFMG.NETWORK_MANAGER.onLoadWorld(world);
         TFMG.DEPOSITS.levelLoaded(world);
         TFMG.LOGGER.debug("WORLD LOAD");
     }

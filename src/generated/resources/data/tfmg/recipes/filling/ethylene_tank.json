@@ -1,0 +1,15 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "amount": 1000,
+      "fluid": "tfmg:ethylene",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "item": "tfmg:ethylene_bucket"
+    }
+  ]
+}

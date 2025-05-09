@@ -1,0 +1,24 @@
+{
+  "type": "tfmg:vat_machine_recipe",
+  "allowedVatTypes": [
+    "tfmg:steel_vat",
+    "tfmg:cast_iron_vat",
+    "tfmg:firebrick_lined_vat"
+  ],
+  "heatRequirement": "heated",
+  "ingredients": [
+    {
+      "amount": 500,
+      "fluid": "tfmg:propylene",
+      "nbt": {}
+    }
+  ],
+  "machines": [],
+  "minSize": 1,
+  "results": [
+    {
+      "amount": 500,
+      "fluid": "tfmg:molten_plastic"
+    }
+  ]
+}

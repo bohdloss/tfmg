@@ -35,13 +35,6 @@ public class CopycatCableBlockEntity extends CopycatBlockEntity implements IElec
             data.group = new ElectricalGroup(-1);
         }
     }
-
-
-
-
-    public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        return makeElectricityTooltip(tooltip, isPlayerSneaking);
-    }
     @Override
     public boolean hasCustomMaterial() {
         return !AllBlocks.COPYCAT_BASE.has(getMaterial());

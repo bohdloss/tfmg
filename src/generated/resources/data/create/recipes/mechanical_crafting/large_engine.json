@@ -1,0 +1,38 @@
+{
+  "type": "create:mechanical_crafting",
+  "acceptMirrored": true,
+  "key": {
+    "A": {
+      "tag": "forge:plates/aluminum"
+    },
+    "B": {
+      "tag": "forge:ingots/aluminum"
+    },
+    "C": {
+      "item": "tfmg:heavy_machinery_casing"
+    },
+    "H": {
+      "item": "tfmg:heavy_plate"
+    },
+    "O": {
+      "tag": "forge:ingots/steel"
+    },
+    "S": {
+      "item": "tfmg:steel_mechanism"
+    },
+    "T": {
+      "item": "tfmg:steel_fluid_tank"
+    }
+  },
+  "pattern": [
+    " O ",
+    " B ",
+    "AOA",
+    "SCS",
+    "STS",
+    "HHH"
+  ],
+  "result": {
+    "item": "tfmg:large_engine"
+  }
+}

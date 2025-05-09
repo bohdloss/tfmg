@@ -1,7 +1,10 @@
 package com.drmangotea.tfmg.mixin;
 
-import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.datagen.recipes.values.*;
+import com.drmangotea.tfmg.datagen.recipes.values.create.TFMGMechanicalCraftingRecipeGen;
+import com.drmangotea.tfmg.datagen.recipes.values.create.TFMGSequencedAssemblyRecipeGen;
+import com.drmangotea.tfmg.datagen.recipes.values.tfmg.IndustrialBlastingRecipeGen;
+import com.drmangotea.tfmg.datagen.recipes.values.tfmg.VatRecipeGen;
 import net.minecraft.data.recipes.RecipeProvider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,7 +19,7 @@ public class RecipeProviderMixin {
     public final void getName(CallbackInfoReturnable<String> cir) {
         if((Object)this instanceof TFMGMechanicalCraftingRecipeGen)
             cir.setReturnValue("TFMG'S Mechanical Crafting Recipes");
-        if((Object)this instanceof TFMGIndustrialBlastingRecipeGen)
+        if((Object)this instanceof IndustrialBlastingRecipeGen)
             cir.setReturnValue("TFMG'S Industrial Blasting Recipes");
         if((Object)this instanceof VatRecipeGen)
             cir.setReturnValue("TFMG'S Vat Recipes");

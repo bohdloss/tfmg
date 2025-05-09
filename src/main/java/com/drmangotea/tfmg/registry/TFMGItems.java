@@ -120,6 +120,7 @@ public class TFMGItems {
             STEEL_MECHANISM = REGISTRATE.item("steel_mechanism", Item::new).register(),
             NITRATE_DUST = REGISTRATE.item("nitrate_dust", Item::new).register(),
             CONCRETE_MIXTURE = REGISTRATE.item("concrete_mixture", Item::new).register(),
+            ASPHALT_MIXTURE = REGISTRATE.item("concrete_mixture", Item::new).register(),
             MAGNETIC_ALLOY_INGOT = REGISTRATE.item("magnetic_alloy_ingot", Item::new).register(),
             BAUXITE_POWDER = REGISTRATE.item("bauxite_powder", Item::new).register(),
             MAGNET = REGISTRATE.item("magnet", Item::new).register(),
@@ -127,9 +128,9 @@ public class TFMGItems {
             COATED_CIRCUIT_BOARD = REGISTRATE.item("coated_circuit_board", Item::new).register(),
             ETCHED_CIRCUIT_BOARD = REGISTRATE.item("etched_circuit_board", Item::new).register(),
             CIRCUIT_BOARD = REGISTRATE.item("circuit_board", Item::new).register(),
-            TRANSISTOR = REGISTRATE.item("transistor_item", Item::new).lang("Transistor").register(),
+            TRANSISTOR = REGISTRATE.item("transistor_item", Item::new).lang("Transistor")
+                    .properties(p->p.stacksTo(1)).register(),
             CAPACITOR = REGISTRATE.item("capacitor_item", Item::new).lang("Capacitor").register(),
-            ZINC_SULFATE = REGISTRATE.item("zinc_sulfate", Item::new).register(),
             COPPER_SULFATE = REGISTRATE.item("copper_sulfate", Item::new).register(),
             LITHIUM_CHARGE = REGISTRATE.item("lithium_charge", Item::new).register(),
             TURBO = REGISTRATE.item("turbo", Item::new).register(),
@@ -148,6 +149,7 @@ public class TFMGItems {
                     .lang("P-Semiconductor").register(),
             N_SEMICONDUCTOR = REGISTRATE.item("n_semiconductor", Item::new)
                     .lang("N-Semiconductor").register(),
+            UNFINISHED_ELECTROMAGNETIC_COIL = REGISTRATE.item("unfinished_electromagnetic_coil", Item::new).register(),
             COPPER_ELECTRODE = REGISTRATE.item("copper_electrode", Item::new)
                     .properties(p -> p.stacksTo(1))
                     .recipe((c, p) -> p.stonecutting(DataIngredient.tag(AllTags.forgeItemTag("storage_blocks/copper")), RecipeCategory.BUILDING_BLOCKS, c::get, 1))
@@ -254,6 +256,8 @@ public class TFMGItems {
     static {
         multimeters();
     }
+    public static final ItemEntry<MultimeterItem> MULTIMETER = REGISTRATE.item("multimeter", MultimeterItem::new)
+            .register();
 
     public static final ItemEntry<SequencedAssemblyItem>
             UNFINISHED_POTENTIOMETER = sequencedIngredient("unfinished_potentiometer", "block/potentiometer/unfinished"),
@@ -405,8 +409,7 @@ public class TFMGItems {
     }
 
     public static void multimeters() {
-        REGISTRATE.item("multimeter", MultimeterItem::new)
-                .register();
+
 
         for (String color : COLORS) {
             REGISTRATE.item(color + "_multimeter", MultimeterItem::new)

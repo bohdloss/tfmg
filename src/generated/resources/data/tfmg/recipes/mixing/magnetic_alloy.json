@@ -1,0 +1,24 @@
+{
+  "type": "create:mixing",
+  "heatRequirement": "heated",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/nickel"
+    },
+    {
+      "tag": "forge:ingots/nickel"
+    },
+    {
+      "tag": "forge:ingots/steel"
+    },
+    {
+      "tag": "forge:ingots/steel"
+    }
+  ],
+  "processingTime": 300,
+  "results": [
+    {
+      "item": "tfmg:magnetic_alloy_ingot"
+    }
+  ]
+}

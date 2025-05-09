@@ -1,9 +1,8 @@
 package com.drmangotea.tfmg.content.electricity.utilities.voltage_observer;
 
 
-import com.drmangotea.tfmg.base.WallMountBlock;
+import com.drmangotea.tfmg.base.blocks.WallMountBlock;
 import com.drmangotea.tfmg.content.electricity.base.ElectricBlockEntity;
-import com.simibubi.create.content.equipment.armor.BacktankUtil;
 import com.simibubi.create.foundation.blockEntity.ComparatorUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

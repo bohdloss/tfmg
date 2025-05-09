@@ -1,0 +1,15 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "amount": 1000,
+      "fluid": "tfmg:furnace_gas",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "item": "tfmg:furnace_gas_bucket"
+    }
+  ]
+}

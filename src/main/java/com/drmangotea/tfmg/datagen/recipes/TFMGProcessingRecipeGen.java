@@ -1,7 +1,8 @@
 package com.drmangotea.tfmg.datagen.recipes;
 
 import com.drmangotea.tfmg.TFMG;
-import com.drmangotea.tfmg.datagen.recipes.values.*;
+import com.drmangotea.tfmg.datagen.recipes.values.create.*;
+import com.drmangotea.tfmg.datagen.recipes.values.tfmg.*;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
@@ -36,6 +37,9 @@ public abstract class TFMGProcessingRecipeGen extends TFMGRecipeProvider {
 		GENERATORS.add(new HotBlastRecipeGen(output));
 		GENERATORS.add(new TFMGItemApplicationRecipeGen(output));
 		GENERATORS.add(new TFMGFillingRecipeGen(output));
+		GENERATORS.add(new TFMGMixingRecipeGen(output));
+		GENERATORS.add(new TFMGCompactingRecipeGen(output));
+		GENERATORS.add(new TFMGCrushingRecipeGen(output));
 
 
 		gen.addProvider(true, new DataProvider() {

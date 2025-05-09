@@ -66,9 +66,7 @@ public class IndustrialMixerBlockEntity extends KineticBlockEntity implements IV
 
     }
 
-    public static BlockEntityVisual<? super IndustrialMixerBlockEntity> createVisual(VisualizationContext visualizationContext, IndustrialMixerBlockEntity be, float partialTick) {
-        return new OrientedRotatingVisual<>(visualizationContext, be, partialTick, Direction.UP, Direction.UP, Models.partial(TFMGPartialModels.MIXER_SHAFT));
-    }
+
 
 
 

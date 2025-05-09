@@ -151,7 +151,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .define('P', TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).get(3))
                     .define('W', copperWire())
                     .define('Q', capacitor())
-                    .define('K', coil1000Turns())
+                    .define('K', TFMGItems.ELECTROMAGNETIC_COIL)
                     .define('M', magnet())
                     .pattern("MQK")
                     .pattern("CPW")
@@ -1126,7 +1126,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .define('W', copperWire())
                     .define('V', TFMGBlocks.VOLTMETER)
                     .define('S', steelCasing())
-                    .define('R', resistor100Ohms())
+                    .define('R', TFMGBlocks.RESISTOR)
                     .define('C', capacitor())
                     .pattern("BWB")
                     .pattern("CVC")
@@ -1285,10 +1285,55 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
             .viaCooking(() -> TFMGItems.RAW_LITHIUM)
             .inFurnace(),
 
+    THERMITE_GRENADE = create(TFMGItems.THERMITE_GRENADE)
+            .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
+            .viaShaped(b -> b
+                    .define('A', aluminumIngot())
+                    .define('T', thermitePowder())
+                    .pattern(" T ")
+                    .pattern("TAT")
+                    .pattern(" T ")),
 
+    COPPER_GRENADE = create(TFMGItems.COPPER_GRENADE)
+            .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
+            .viaShaped(b -> b
+                    .define('A', TFMGItems.THERMITE_GRENADE)
+                    .define('T', copperIngot())
+                    .pattern("   ")
+                    .pattern("TAT")
+                    .pattern("   ")),
 
+    ZINC_GRENADE = create(TFMGItems.ZINC_GRENADE)
+            .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
+            .viaShaped(b -> b
+                    .define('A', TFMGItems.THERMITE_GRENADE)
+                    .define('T', zincIngot())
+                    .pattern("   ")
+                    .pattern("TAT")
+                    .pattern("   ")),
 
+    LITHIUM_BLADE = create(TFMGItems.LITHIUM_BLADE)
+            .unlockedBy(TFMGItems.LITHIUM_INGOT::get)
+            .viaShaped(b -> b
+                    .define('P', heavyPlate())
+                    .define('M', TFMGItems.STEEL_TOOLS.get(0))
+                    .define('C', circuitBoard())
+                    .define('W', copperWire())
+                    .define('A', aluminumSheet())
+                    .define('S', TFMGItems.SPARK_PLUG)
+                    .pattern(" P ")
+                    .pattern("AMS")
+                    .pattern("ACW")),
 
+    LITHIUM_CHARGE = create(TFMGItems.LITHIUM_CHARGE)
+            .unlockedBy(TFMGItems.LITHIUM_INGOT::get)
+            .viaShaped(b -> b
+                    .define('P', plasticSheet())
+                    .define('A', aluminumSheet())
+                    .define('L', lithiumIngot())
+                    .pattern(" P ")
+                    .pattern("LLL")
+                    .pattern(" A ")),
 
     STEEL_TRUSS = create(steelTruss()::asItem).returns(4)
             .unlockedBy(TFMGItems.STEEL_INGOT::get)
@@ -1576,7 +1621,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
     FIREPROOF_BRICK_REINFORCEMENT = create(TFMGBlocks.FIREPROOF_BRICK_REINFORCEMENT).returns(6)
             .unlockedBy(TFMGBlocks.FIREPROOF_BRICKS::get)
             .viaShaped(b -> b
-                    .define('F', fireproofBricks())
+                    .define('W', fireproofBricks())
                     .pattern("   ")
                     .pattern("WWW")
                     .pattern("WWW")),

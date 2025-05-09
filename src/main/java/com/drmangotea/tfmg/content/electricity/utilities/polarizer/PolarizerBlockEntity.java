@@ -6,11 +6,13 @@ import com.drmangotea.tfmg.config.TFMGConfigs;
 import com.drmangotea.tfmg.content.electricity.base.ElectricBlockEntity;
 import com.drmangotea.tfmg.recipes.PolarizingRecipe;
 import com.drmangotea.tfmg.registry.TFMGRecipeTypes;
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipe;
 import com.simibubi.create.foundation.item.SmartInventory;
 
 import com.simibubi.create.foundation.utility.CreateLang;
 import net.createmod.catnip.animation.LerpedFloat;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -31,7 +33,7 @@ import java.util.Optional;
 import static net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING;
 
 
-public class PolarizerBlockEntity extends ElectricBlockEntity {
+public class PolarizerBlockEntity extends ElectricBlockEntity implements IHaveGoggleInformation {
 
     public SmartInventory inventory = new SmartInventory(1, this, 1, false)
             .whenContentsChanged(this::onInventoryChanged);
@@ -86,13 +88,16 @@ public class PolarizerBlockEntity extends ElectricBlockEntity {
 
     //
     @Override
-    public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 
-        CreateLang.number((double) capacitorPercentage / 2f).forGoggles(tooltip);
-        if (chargeCapacitors)
-            CreateLang.text("CAPACITOR").forGoggles(tooltip);
+        CreateLang.translate("goggles.polarizer.header")
+                .style(ChatFormatting.GRAY)
+                .forGoggles(tooltip, 1);
 
-        super.addToTooltip(tooltip, isPlayerSneaking);
+        CreateLang.translate("goggles.polarizer.charge")
+                .add(CreateLang.text(capacitorPercentage/2f+"%"))
+                .style(ChatFormatting.DARK_AQUA)
+                .forGoggles(tooltip);
 
         return true;
     }

@@ -1,0 +1,16 @@
+{
+  "type": "create:compacting",
+  "heatRequirement": "heated",
+  "ingredients": [
+    {
+      "amount": 1000,
+      "fluid": "tfmg:heavy_oil",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "item": "tfmg:bitumen"
+    }
+  ]
+}

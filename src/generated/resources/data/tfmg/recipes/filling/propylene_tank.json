@@ -1,0 +1,15 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "amount": 1000,
+      "fluid": "tfmg:propylene",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "item": "tfmg:propylene_bucket"
+    }
+  ]
+}

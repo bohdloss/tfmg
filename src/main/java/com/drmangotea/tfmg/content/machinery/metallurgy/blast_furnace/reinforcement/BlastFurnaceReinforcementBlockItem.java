@@ -1,8 +1,7 @@
 package com.drmangotea.tfmg.content.machinery.metallurgy.blast_furnace.reinforcement;
 
-import com.drmangotea.tfmg.base.TFMGHorizontalDirectionalBlock;
+import com.drmangotea.tfmg.base.blocks.TFMGHorizontalDirectionalBlock;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
-import com.drmangotea.tfmg.registry.TFMGTags;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.BlockPlaceContext;

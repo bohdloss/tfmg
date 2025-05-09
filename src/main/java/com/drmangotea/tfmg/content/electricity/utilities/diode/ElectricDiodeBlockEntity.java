@@ -1,15 +1,13 @@
 package com.drmangotea.tfmg.content.electricity.utilities.diode;
 
 
-import com.drmangotea.tfmg.TFMG;
-import com.drmangotea.tfmg.base.TFMGHorizontalDirectionalBlock;
+import com.drmangotea.tfmg.base.blocks.TFMGHorizontalDirectionalBlock;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.content.electricity.base.UpdateInFrontPacket;
 import com.drmangotea.tfmg.content.electricity.base.VoltageAlteringBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGPackets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;

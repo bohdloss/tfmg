@@ -1,8 +1,7 @@
 package com.drmangotea.tfmg.content.electricity.utilities.resistor;
 
-import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGShapes;
-import com.drmangotea.tfmg.base.WallMountBlock;
+import com.drmangotea.tfmg.base.blocks.WallMountBlock;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
 import com.drmangotea.tfmg.registry.TFMGBlocks;

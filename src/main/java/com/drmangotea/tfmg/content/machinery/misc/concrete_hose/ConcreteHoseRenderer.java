@@ -1,13 +1,11 @@
 package com.drmangotea.tfmg.content.machinery.misc.concrete_hose;
 
-import com.simibubi.create.AllSpriteShifts;
-import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import com.simibubi.create.AllPartialModels;
+import com.simibubi.create.AllSpriteShifts;
 import com.simibubi.create.content.contraptions.pulley.AbstractPulleyRenderer;
-import com.simibubi.create.content.fluids.hosePulley.HosePulleyBlock;
-import com.simibubi.create.content.fluids.hosePulley.HosePulleyBlockEntity;
-import net.createmod.catnip.render.CachedBuffers;
 
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import net.createmod.catnip.render.CachedBuffers;
 import net.createmod.catnip.render.SpriteShiftEntry;
 import net.createmod.catnip.render.SuperByteBuffer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -22,7 +20,7 @@ public class ConcreteHoseRenderer extends AbstractPulleyRenderer<ConcreteHoseBlo
 	@Override
 	protected Axis getShaftAxis(ConcreteHoseBlockEntity be) {
 		return be.getBlockState()
-			.getValue(HosePulleyBlock.HORIZONTAL_FACING)
+			.getValue(ConcreteHoseBlock.HORIZONTAL_FACING)
 			.getClockWise()
 			.getAxis();
 	}
@@ -46,10 +44,12 @@ public class ConcreteHoseRenderer extends AbstractPulleyRenderer<ConcreteHoseBlo
 	protected float getOffset(ConcreteHoseBlockEntity be, float partialTicks) {
 		return be.getInterpolatedOffset(partialTicks);
 	}
+	
 	@Override
 	protected SpriteShiftEntry getCoilShift() {
 		return AllSpriteShifts.HOSE_PULLEY_COIL;
 	}
+
 	@Override
 	protected boolean isRunning(ConcreteHoseBlockEntity be) {
 		return true;

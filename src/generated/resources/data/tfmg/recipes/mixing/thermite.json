@@ -1,0 +1,22 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "create:crimsite"
+    },
+    {
+      "item": "create:crimsite"
+    },
+    {
+      "tag": "forge:ingots/aluminum"
+    },
+    {
+      "tag": "forge:ingots/aluminum"
+    }
+  ],
+  "results": [
+    {
+      "item": "tfmg:thermite_powder"
+    }
+  ]
+}

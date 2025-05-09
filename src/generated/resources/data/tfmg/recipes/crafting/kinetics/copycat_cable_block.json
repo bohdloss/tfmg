@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "tfmg:nickel_truss"
+    },
+    "W": {
+      "tag": "forge:wires/copper"
+    }
+  },
+  "pattern": [
+    "NWN",
+    "WNW",
+    "NWN"
+  ],
+  "result": {
+    "count": 4,
+    "item": "tfmg:copycat_cable_block"
+  },
+  "show_notification": true
+}

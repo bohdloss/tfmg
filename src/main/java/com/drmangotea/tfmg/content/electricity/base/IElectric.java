@@ -102,59 +102,49 @@ public interface IElectric {
     }
 
 
-    default boolean makeElectricityTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        CreateLang.number(getOrCreateElectricNetwork().members.size()).forGoggles(tooltip, 1);
-        if (getData().failTimer > 0)
-            CreateLang.text("Skill issue: " + getData().failTimer).forGoggles(tooltip, 1);
-        CreateLang.text("X " + BlockPos.of(getData().electricalNetworkId).getX() + " Y " + BlockPos.of(getData().electricalNetworkId).getY() + " Z " + BlockPos.of(getData().electricalNetworkId).getZ()).forGoggles(tooltip, 1);
+    default boolean makeMultimeterTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         CreateLang.translate("multimeter.header")
                 .style(ChatFormatting.WHITE)
-                .forGoggles(tooltip, 1);
-        CreateLang.text("   R = " + TFMGUtils.formatUnits(voltageGeneration() > 0 ? getGeneratorResistance() : resistance(), "Ω"))
-                .style(ChatFormatting.GOLD)
-                .forGoggles(tooltip, 1);
-        CreateLang.text("   P = " + TFMGUtils.formatUnits(getPowerUsage(), "W"))
-                .style(ChatFormatting.GOLD)
-                .forGoggles(tooltip, 1);
-        CreateLang.text("   U = " + TFMGUtils.formatUnits(getData().getVoltage(), "V"))
-                .style(ChatFormatting.AQUA)
-                .forGoggles(tooltip, 1);
-        CreateLang.text("   I = " + TFMGUtils.formatUnits(getCurrent(), "A"))
-                .style(ChatFormatting.GREEN)
-                .forGoggles(tooltip, 1);
-
-        ////////
-        CreateLang.text("   Network Resistance: " + TFMGUtils.formatUnits(getNetworkResistance(), "Ω"))
-                .style(ChatFormatting.YELLOW)
-                .forGoggles(tooltip, 1);
-        CreateLang.text("   Max Current: " + TFMGUtils.formatUnits(getData().highestCurrent, "A"))
-                .style(ChatFormatting.AQUA)
-                .forGoggles(tooltip, 1);
-        CreateLang.text("   Network Power Usage: " + TFMGUtils.formatUnits(getNetworkPowerUsage(), "W"))
-                .style(ChatFormatting.YELLOW)
-                .forGoggles(tooltip, 1);
-        CreateLang.text("   Group: " + getData().group.id)
-                .style(ChatFormatting.DARK_PURPLE)
-                .forGoggles(tooltip, 1);
-        CreateLang.text("   Group Resistance: " + getData().group.resistance)
-                .style(ChatFormatting.DARK_PURPLE)
-                .forGoggles(tooltip, 1);
-        CreateLang.text("   Voltage Supply: " + getData().voltageSupply)
-                .style(ChatFormatting.DARK_PURPLE)
-                .forGoggles(tooltip, 1);
-
+                .forGoggles(tooltip);
 
         if (voltageGeneration() > 0) {
             CreateLang.translate("multimeter.power_generated")
                     .add(Component.literal(TFMGUtils.formatUnits(powerGeneration(), "W")))
-                    .style(ChatFormatting.BLUE)
+                    .color(0x852e4a)
                     .forGoggles(tooltip, 1);
             CreateLang.translate("multimeter.voltage_generated")
                     .add(Component.literal(TFMGUtils.formatUnits(voltageGeneration(), "V")))
-                    .style(ChatFormatting.BLUE)
+                    .color(0x127799)
                     .forGoggles(tooltip, 1);
+            CreateLang.text("----------------------------")
+                    .style(ChatFormatting.WHITE)
+                    .forGoggles(tooltip);
         }
 
+
+
+
+        CreateLang.text("   R = " + TFMGUtils.formatUnits(voltageGeneration() > 0 ? getGeneratorResistance() : resistance(), "Ω"))
+                .color(0xc98969)
+                .forGoggles(tooltip, 1);
+        CreateLang.text("   U = " + TFMGUtils.formatUnits(getData().getVoltage(), "V"))
+                .color(0x4bbbcc)
+                .forGoggles(tooltip, 1);
+        CreateLang.text("   I = " + TFMGUtils.formatUnits(getCurrent(), "A"))
+                .color(0x22a146)
+                .forGoggles(tooltip, 1);
+        CreateLang.text("   P = " + TFMGUtils.formatUnits(getPowerUsage(), "W"))
+                .color(0xcc4b74)
+                .forGoggles(tooltip, 1);
+        if(getData().group.id!=-1){
+            CreateLang.text("----------------------------")
+                    .style(ChatFormatting.WHITE)
+                    .forGoggles(tooltip);
+            CreateLang.translate("multimeter.group")
+                    .add(CreateLang.number(getData().group.id))
+                    .color(0xd8db27)
+                    .forGoggles(tooltip, 1);
+        }
 
         return true;
     }

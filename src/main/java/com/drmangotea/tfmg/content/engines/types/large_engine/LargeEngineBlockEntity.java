@@ -232,7 +232,7 @@ public class LargeEngineBlockEntity extends AbstractEngineBlockEntity {
 
         TFMGUtils.createFluidTooltip(this,tooltip);
 
-        return super.addToGoggleTooltip(tooltip, isPlayerSneaking);
+        return true;
     }
 
     @Override

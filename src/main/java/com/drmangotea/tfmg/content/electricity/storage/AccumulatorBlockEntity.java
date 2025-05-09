@@ -67,32 +67,7 @@ public class AccumulatorBlockEntity extends ElectricBlockEntity {
                 be.signalChanged = true;
         }
     }
-    @Override
-    public boolean makeElectricityTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        if (isController())
-            CreateLang.text("Controller").forGoggles(tooltip);
-        CreateLang.text("Energy").add(CreateLang.number(getCapability(ForgeCapabilities.ENERGY).orElseGet(null).getEnergyStored())).forGoggles(tooltip);
-        CreateLang.number(energy.getMaxEnergyStored()).forGoggles(tooltip);
-        super.makeElectricityTooltip(tooltip, isPlayerSneaking);
-        CreateLang.number(length).forGoggles(tooltip);
-        CreateLang.translate("multimeter.energy_stored")
-                .add(Component.literal(TFMGUtils.formatUnits((int) energy.getEnergyStored(), "FE")))
-                .style(ChatFormatting.GOLD)
-                .forGoggles(tooltip, 1);
-        /////
-        CreateLang.text("   Usage: ")
-                .add(Component.literal(TFMGUtils.formatUnits(getData().networkResistance, "W")))
-                .style(ChatFormatting.LIGHT_PURPLE)
-                .forGoggles(tooltip, 1);
-        int energyToExtract = data.networkPowerGeneration == 0 ? getNetworkPowerUsage() : (int) Math.max(0, Math.max(((float) powerGeneration() / (float) data.networkPowerGeneration) * (float) getNetworkPowerUsage(), 0));
-        energyToExtract /= TFMGConfigs.common().machines.FEtoWattTickConversionRate.get();
-        CreateLang.text("   Power Usage: ")
-                .add(CreateLang.number(energyToExtract))
-                .style(ChatFormatting.LIGHT_PURPLE)
-                .forGoggles(tooltip, 1);
 
-        return true;
-    }
 
 
     @Override

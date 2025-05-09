@@ -1,0 +1,15 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "amount": 1000,
+      "fluid": "tfmg:neon",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "item": "tfmg:neon_bucket"
+    }
+  ]
+}

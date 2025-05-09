@@ -199,10 +199,7 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
 
     //////////////////////
 
-    @Override
-    public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        return makeElectricityTooltip(tooltip, isPlayerSneaking);
-    }
+
 
 
     @Override

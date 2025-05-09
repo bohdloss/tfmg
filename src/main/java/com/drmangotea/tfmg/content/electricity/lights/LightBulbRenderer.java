@@ -2,7 +2,7 @@ package com.drmangotea.tfmg.content.electricity.lights;
 
 
 
-import com.drmangotea.tfmg.base.WallMountBlock;
+import com.drmangotea.tfmg.base.blocks.WallMountBlock;
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;

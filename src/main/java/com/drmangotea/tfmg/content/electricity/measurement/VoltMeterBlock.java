@@ -1,7 +1,7 @@
 package com.drmangotea.tfmg.content.electricity.measurement;
 
 
-import com.drmangotea.tfmg.base.TFMGHorizontalDirectionalBlock;
+import com.drmangotea.tfmg.base.blocks.TFMGHorizontalDirectionalBlock;
 import com.drmangotea.tfmg.base.TFMGShapes;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;

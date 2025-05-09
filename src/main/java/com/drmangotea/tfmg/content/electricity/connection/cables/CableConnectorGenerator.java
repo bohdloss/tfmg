@@ -1,7 +1,7 @@
 package com.drmangotea.tfmg.content.electricity.connection.cables;
 
 
-import com.drmangotea.tfmg.base.WallMountBlock;
+import com.drmangotea.tfmg.base.blocks.WallMountBlock;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;

@@ -26,14 +26,20 @@ public class TFMGShapes {
                     .add(13, 5, -1, 16, 7, 1)
                     .add(0, 5, -1, 3, 7, 1)
                     .add(15, 5, 9, 15, 11, 9)
-                    .forDirectional(SOUTH),
+                    .forDirectional(NORTH),
+            ENGINE_CONTROLLER = shape(0, 0, 0, 4, 5, 16)
+                    .add(2, 5, 5, 14, 12, 14)
+                    .add(4, 0, 5, 15, 5, 16)
+                    .forHorizontal(SOUTH),
             ENGINE_FRONT = shape(0, 0, 1, 16, 7, 16).add(3, 7, 1, 13, 12, 16)
                     .forDirectional(SOUTH),
             PUMPJACK_HAMMER_PART = shape(0, 2, 0, 16, 14, 16)
                     .forDirectional(),
-            RADIAL_ENGINE = shape(1, 4, 1, 15, 12, 15)
+            RADIAL_ENGINE_SINGLE = shape(1, 4, 1, 15, 12, 15)
                     .forDirectional(),
-            LARGE_RADIAL_ENGINE = shape(-3, 4, -3, 19, 12, 19)
+            RADIAL_ENGINE_SIDE = shape(1, 4, 1, 15, 16, 15)
+                    .forDirectional(),
+            RADIAL_ENGINE_MIDDLE = shape(1, 0, 1, 15, 16, 15)
                     .forDirectional(),
             PUMPJACK_HEAD = shape(1, 0, -4, 15, 14, 24)
                     .forDirectional(),

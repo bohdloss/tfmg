@@ -1,14 +1,23 @@
 package com.drmangotea.tfmg.datagen;
 
+import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGRegistrateTags;
 import com.drmangotea.tfmg.datagen.recipes.TFMGProcessingRecipeGen;
 import com.drmangotea.tfmg.datagen.recipes.TFMGRecipeProvider;
 import com.drmangotea.tfmg.datagen.recipes.values.*;
+import com.drmangotea.tfmg.datagen.recipes.values.create.TFMGMechanicalCraftingRecipeGen;
+import com.drmangotea.tfmg.datagen.recipes.values.create.TFMGSequencedAssemblyRecipeGen;
+import com.drmangotea.tfmg.datagen.recipes.values.tfmg.CastingRecipeGen;
+import com.drmangotea.tfmg.datagen.recipes.values.tfmg.IndustrialBlastingRecipeGen;
+import com.drmangotea.tfmg.datagen.recipes.values.tfmg.VatRecipeGen;
+import com.drmangotea.tfmg.ponder.TFMGPonderPlugin;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.simibubi.create.foundation.data.recipe.MechanicalCraftingRecipeGen;
+import com.simibubi.create.Create;
+import com.simibubi.create.foundation.ponder.CreatePonderPlugin;
 import com.simibubi.create.foundation.utility.FilesHelper;
 import com.tterrag.registrate.providers.ProviderType;
+import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
@@ -39,7 +48,7 @@ public class TFMGDatagen {
 
           //  generator.addProvider(true, new DamageTypeTagGen(output, lookupProvider, existingFileHelper));
 
-            RECIPE_GENERATORS.add(new TFMGIndustrialBlastingRecipeGen(output));
+            RECIPE_GENERATORS.add(new IndustrialBlastingRecipeGen(output));
             RECIPE_GENERATORS.add(new CastingRecipeGen(output));
             RECIPE_GENERATORS.add(new VatRecipeGen(output));
             RECIPE_GENERATORS.add(new TFMGStandardRecipeGen(output));
@@ -86,11 +95,9 @@ public class TFMGDatagen {
     }
 
     private static void providePonderLang(BiConsumer<String, String> consumer) {
-        //TFMGPonderIndex.registerTags();
-        //TFMGPonderIndex.register();
-        //PonderLocalization.generateSceneLang();
-//
-        //PonderLocalization.provideLang(TFMG.MOD_ID, consumer);
+        PonderIndex.addPlugin(new TFMGPonderPlugin());
+
+        PonderIndex.getLangAccess().provideLang(TFMG.MOD_ID, consumer);
     }
 
     private static void provideDefaultLang(String fileName, BiConsumer<String, String> consumer) {

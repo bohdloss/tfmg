@@ -84,7 +84,7 @@ public class WindingMachineRenderer extends KineticBlockEntityRenderer<WindingMa
             ms.pushPose();
             TransformStack.of(ms)
                     .center()
-                    .rotateY(blockState.getValue(HORIZONTAL_FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot() - 180) : blockState.getValue(FACING).toYRot())
+                    .rotateYDegrees(blockState.getValue(HORIZONTAL_FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot() - 180) : blockState.getValue(FACING).toYRot())
                     .translateZ(0.4f)
                     .translateY(0.33f)
                     .rotateXDegrees(be.angle)

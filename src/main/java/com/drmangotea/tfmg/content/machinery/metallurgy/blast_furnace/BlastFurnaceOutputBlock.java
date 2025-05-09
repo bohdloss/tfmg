@@ -1,6 +1,6 @@
 package com.drmangotea.tfmg.content.machinery.metallurgy.blast_furnace;
 
-import com.drmangotea.tfmg.base.TFMGHorizontalDirectionalBlock;
+import com.drmangotea.tfmg.base.blocks.TFMGHorizontalDirectionalBlock;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;

@@ -1,10 +1,8 @@
 package com.drmangotea.tfmg.content.decoration.concrete;
 
-import com.drmangotea.tfmg.TFMG;
-import com.drmangotea.tfmg.base.TFMGDirectionalBlock;
+import com.drmangotea.tfmg.base.blocks.TFMGDirectionalBlock;
 import com.drmangotea.tfmg.base.TFMGShapes;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -23,8 +21,6 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import java.util.function.Function;
 
 public class RebarPillarBlock extends TFMGDirectionalBlock implements ConcreteloggedBlock {
 

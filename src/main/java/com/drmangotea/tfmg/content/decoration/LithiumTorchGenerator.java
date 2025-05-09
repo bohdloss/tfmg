@@ -1,6 +1,6 @@
 package com.drmangotea.tfmg.content.decoration;
 
-import com.drmangotea.tfmg.base.WallMountBlock;
+import com.drmangotea.tfmg.base.blocks.WallMountBlock;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;

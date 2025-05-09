@@ -1,12 +1,10 @@
 package com.drmangotea.tfmg.content.electricity.utilities.traffic_light;
 
 
-import com.drmangotea.tfmg.base.TFMGHorizontalDirectionalBlock;
+import com.drmangotea.tfmg.base.blocks.TFMGHorizontalDirectionalBlock;
 import com.drmangotea.tfmg.base.TFMGShapes;
-import com.drmangotea.tfmg.content.electricity.base.ConnectNeightborsPacket;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
-import com.drmangotea.tfmg.registry.TFMGPackets;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -15,7 +13,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.PacketDistributor;
 
 public class TrafficLightBlock extends TFMGHorizontalDirectionalBlock implements IBE<TrafficLightBlockEntity> {
     public TrafficLightBlock(Properties p_54120_) {

@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import static com.drmangotea.tfmg.base.WallMountBlock.FACING;
+import static com.drmangotea.tfmg.base.blocks.WallMountBlock.FACING;
 
 public class ResistorBlockEntity extends ElectricBlockEntity {
 

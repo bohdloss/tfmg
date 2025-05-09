@@ -2,6 +2,8 @@ package com.drmangotea.tfmg.registry;
 
 
 import com.drmangotea.tfmg.base.*;
+import com.drmangotea.tfmg.base.blocks.TFMGDirectionalBlock;
+import com.drmangotea.tfmg.base.blocks.TFMGVanillaBlockStates;
 import com.drmangotea.tfmg.config.TFMGStress;
 import com.drmangotea.tfmg.content.decoration.*;
 import com.drmangotea.tfmg.content.decoration.cogs.TFMGCogWheelBlock;
@@ -28,7 +30,6 @@ import com.drmangotea.tfmg.content.electricity.connection.copycat_cable.CopycatC
 import com.drmangotea.tfmg.content.electricity.connection.diagonal.DiagonalCableBlock;
 import com.drmangotea.tfmg.content.electricity.connection.diagonal.DiagonalCableGenerator;
 import com.drmangotea.tfmg.content.electricity.connection.tube.CableTubeBlock;
-import com.drmangotea.tfmg.content.electricity.debug.DebugGeneratorBlock;
 import com.drmangotea.tfmg.content.electricity.generators.GeneratorBlock;
 import com.drmangotea.tfmg.content.electricity.generators.creative_generator.CreativeGeneratorBlock;
 import com.drmangotea.tfmg.content.electricity.generators.large_generator.RotorBlock;
@@ -111,7 +112,6 @@ import com.drmangotea.tfmg.content.machinery.vat.base.VatBlock;
 import com.drmangotea.tfmg.content.machinery.vat.base.VatGenerator;
 import com.drmangotea.tfmg.content.machinery.vat.electrode_holder.ElectrodeHolderBlock;
 import com.drmangotea.tfmg.content.machinery.vat.industrial_mixer.IndustrialMixerBlock;
-import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.contraptions.bearing.StabilizedBearingMovementBehaviour;
@@ -133,7 +133,6 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -1159,12 +1158,6 @@ public class TFMGBlocks {
                     .transform(EncasingRegistry.addVariantTo(POTENTIOMETER))
                     .blockstate(BlockStateGen.directionalBlockProvider(false))
                     .register();
-    public static final BlockEntry<Block> DEBUG_CONDUCTOR =
-            REGISTRATE.block("debug_conductor", Block::new)
-                    .initialProperties(() -> Blocks.IRON_BLOCK)
-                    .transform(pickaxeOnly())
-                    .simpleItem()
-                    .register();
     public static final BlockEntry<ElectricPumpBlock> ELECTRIC_PUMP =
             REGISTRATE.block("electric_pump", ElectricPumpBlock::new)
                     .initialProperties(() -> Blocks.IRON_BLOCK)
@@ -1544,6 +1537,13 @@ public class TFMGBlocks {
             .lang("Block of Coal Coke")
             .register();
 
+    public static final BlockEntry<FallingBlock> CEMENT = REGISTRATE.block("cement", FallingBlock::new)
+            .initialProperties(() -> Blocks.CLAY)
+            .tag(BlockTags.MINEABLE_WITH_SHOVEL)
+            .item()
+            .build()
+            .register();
+
     //------------------DOOR------------------//
     public static final BlockEntry<TFMGSlidingDoorBlock> HEAVY_CASING_DOOR =
             REGISTRATE.block("heavy_casing_door", p -> new TFMGSlidingDoorBlock(p, SlidingDoorBlock.GLASS_SET_TYPE.get(), false))
@@ -1576,16 +1576,7 @@ public class TFMGBlocks {
                     .register();
 
 
-    //------------------DEBUG------------------//
-    public static final BlockEntry<CableHubBlock> DEBUG_ELECTRIC_BLOCK = REGISTRATE.block("debug_electric_block", CableHubBlock::new)
-            .initialProperties(SharedProperties::softMetal)
-            .simpleItem()
-            .register();
 
-    public static final BlockEntry<DebugGeneratorBlock> DEBUG_GENERATOR_BLOCK = REGISTRATE.block("debug_generator_block", DebugGeneratorBlock::new)
-            .initialProperties(SharedProperties::softMetal)
-            .simpleItem()
-            .register();
 
 
     static {
@@ -1687,6 +1678,30 @@ public class TFMGBlocks {
                     .recipe((c, p) -> p.stonecutting(DataIngredient.items(TFMGBlocks.SLAG_BLOCK.asItem()), RecipeCategory.BUILDING_BLOCKS, c::get, 1))
                     .transform(pickaxeOnly())
                     .simpleItem()
+                    .register();
+
+    public static final BlockEntry<Block> CINDER_BLOCK =
+            REGISTRATE.block("cinder_block", Block::new)
+                    .properties(p -> p
+                            .strength(3.0F)
+                            .requiresCorrectToolForDrops()
+                            .sound(SoundType.BASALT))
+                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+                    .transform(pickaxeOnly())
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
+    public static final BlockEntry<Block> CINDERFLOUR_BLOCK =
+            REGISTRATE.block("cinderflour_block", Block::new)
+                    .properties(p -> p
+                            .strength(3.0F)
+                            .requiresCorrectToolForDrops()
+                            .sound(SoundType.NETHERRACK))
+                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+                    .transform(pickaxeOnly())
+                    .item()
+                    .transform(customItemModel())
                     .register();
 
     public static final MaterialSet SLAG_BRICKS_SET = makeVariants(SLAG_BRICKS, true);

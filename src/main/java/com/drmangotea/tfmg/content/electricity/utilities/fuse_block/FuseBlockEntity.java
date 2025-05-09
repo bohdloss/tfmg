@@ -38,18 +38,7 @@ public class FuseBlockEntity extends ElectricDiodeBlockEntity {
         super(type, pos, state);
     }
 
-    @Override
-    public boolean makeElectricityTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 
-        if(!fuse.isEmpty())
-            CreateLang.text("RATING "+TFMGUtils.formatUnits(fuse.getOrCreateTag().getInt("AmpRating"), "A"))
-                    .style(ChatFormatting.RED)
-                    .forGoggles(tooltip, 1);
-
-        super.makeElectricityTooltip(tooltip, isPlayerSneaking);
-
-        return true;
-    }
 
     public void updateInFront() {
 

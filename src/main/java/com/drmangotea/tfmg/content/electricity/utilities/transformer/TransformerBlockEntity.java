@@ -1,6 +1,6 @@
 package com.drmangotea.tfmg.content.electricity.utilities.transformer;
 
-import com.drmangotea.tfmg.base.TFMGHorizontalDirectionalBlock;
+import com.drmangotea.tfmg.base.blocks.TFMGHorizontalDirectionalBlock;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.content.electricity.base.VoltageAlteringBlockEntity;
 
@@ -64,25 +64,7 @@ public class TransformerBlockEntity extends VoltageAlteringBlockEntity {
 
     }
 
-    @Override
-    public boolean makeElectricityTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        super.makeElectricityTooltip(tooltip, isPlayerSneaking);
 
-        CreateLang.text("   Ráčio: ")
-                .add(CreateLang.number(coilRatio))
-                .style(ChatFormatting.LIGHT_PURPLE)
-                .forGoggles(tooltip, 1);
-
-        CreateLang.text("   Primary: ")
-                .add(CreateLang.number(primaryCoil.getOrCreateTag().getFloat("Turns")))
-                .style(ChatFormatting.LIGHT_PURPLE)
-                .forGoggles(tooltip, 1);
-        CreateLang.text("   Secondary: ")
-                .add(CreateLang.number(secondaryCoil.getOrCreateTag().getFloat("Turns")))
-                .style(ChatFormatting.LIGHT_PURPLE)
-                .forGoggles(tooltip, 1);
-        return true;
-    }
 
     public void updateCoils(){
 

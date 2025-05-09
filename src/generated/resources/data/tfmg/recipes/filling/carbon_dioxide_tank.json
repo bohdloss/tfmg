@@ -1,0 +1,15 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "amount": 1000,
+      "fluid": "tfmg:carbon_dioxide",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "item": "tfmg:carbon_dioxide_bucket"
+    }
+  ]
+}

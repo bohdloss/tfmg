@@ -19,7 +19,6 @@ public class EngineControllerStopControllerPacket extends EngineControllerPacket
 
 	@Override
 	protected void handleController(ServerPlayer player, EngineControllerBlockEntity lectern) {
-		TFMG.LOGGER.debug("Packet- Stop Using");
 		lectern.tryStopUsing(player);
 	}
 

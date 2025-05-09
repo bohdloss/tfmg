@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
-	"texture_size": [32, 32],
 	"render_type": "minecraft:cutout",
+	"texture_size": [32, 32],
 	"textures": {
 		"0": "tfmg:block/large_aluminum_coghweel",
 		"1": "create:block/axis_top",

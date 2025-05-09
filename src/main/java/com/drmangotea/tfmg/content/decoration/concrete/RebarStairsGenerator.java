@@ -1,11 +1,8 @@
 package com.drmangotea.tfmg.content.decoration.concrete;
 
-import com.drmangotea.tfmg.base.WallMountBlock;
-import com.drmangotea.tfmg.content.decoration.LithiumTorchBlock;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "tfmg:heavy_machinery_casing"
+    },
+    "O": {
+      "tag": "forge:plates/steel"
+    },
+    "P": {
+      "item": "tfmg:aluminum_pipe"
+    }
+  },
+  "pattern": [
+    "OOO",
+    "PHP",
+    "OOO"
+  ],
+  "result": {
+    "count": 2,
+    "item": "tfmg:turbine_engine"
+  },
+  "show_notification": true
+}

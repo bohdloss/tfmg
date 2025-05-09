@@ -1,6 +1,6 @@
 package com.drmangotea.tfmg.content.electricity.utilities.potentiometer;
 
-import com.drmangotea.tfmg.base.TFMGDirectionalBlock;
+import com.drmangotea.tfmg.base.blocks.TFMGDirectionalBlock;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.content.electricity.base.IVoltageChanger;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
@@ -17,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;

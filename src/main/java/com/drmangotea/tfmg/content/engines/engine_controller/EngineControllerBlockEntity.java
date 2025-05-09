@@ -352,17 +352,7 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
     public void tryStartUsing(Player player) {
 
 
-        TFMG.LOGGER.debug("TRY START USING");
-        if (!playerInRange(player, level, worldPosition))
-            TFMG.LOGGER.debug("Not in Range");
-        if (playerIsUsingEngineController(player))
-            TFMG.LOGGER.debug("Already Using");
-        if (deactivatedThisTick)
-            TFMG.LOGGER.debug("Deactivated");
-        if (hasUser())
-            TFMG.LOGGER.debug("Already has user");
         if (!deactivatedThisTick && !hasUser() && !playerIsUsingEngineController(player) && playerInRange(player, level, worldPosition)) {
-            TFMG.LOGGER.debug("START USING");
             startUsing(player);
         }
     }

@@ -1,6 +1,6 @@
 package com.drmangotea.tfmg.content.electricity.utilities.electric_switch;
 
-import com.drmangotea.tfmg.base.TFMGDirectionalBlock;
+import com.drmangotea.tfmg.base.blocks.TFMGDirectionalBlock;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.content.electricity.base.IVoltageChanger;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;

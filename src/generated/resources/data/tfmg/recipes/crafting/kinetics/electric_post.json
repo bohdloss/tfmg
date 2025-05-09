@@ -13,8 +13,8 @@
     }
   },
   "pattern": [
-    " C ",
-    "CRN",
+    " N ",
+    "CRC",
     " N "
   ],
   "result": {

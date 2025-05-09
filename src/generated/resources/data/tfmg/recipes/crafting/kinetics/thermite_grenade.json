@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "forge:ingots/aluminum"
+    },
+    "T": {
+      "item": "tfmg:thermite_powder"
+    }
+  },
+  "pattern": [
+    " T ",
+    "TAT",
+    " T "
+  ],
+  "result": {
+    "item": "tfmg:thermite_grenade"
+  },
+  "show_notification": true
+}

@@ -2,6 +2,8 @@ package com.drmangotea.tfmg.base;
 
 
 import com.drmangotea.tfmg.TFMG;
+import com.drmangotea.tfmg.base.blocks.TFMGHorizontalDirectionalBlock;
+import com.drmangotea.tfmg.base.blocks.TFMGVanillaBlockStates;
 import com.drmangotea.tfmg.config.TFMGStress;
 import com.drmangotea.tfmg.content.decoration.FrameBlock;
 import com.drmangotea.tfmg.content.decoration.TrussBlock;
@@ -16,7 +18,6 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.contraptions.behaviour.DoorMovingInteraction;
 import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
-import com.simibubi.create.content.decoration.girder.GirderBlock;
 import com.simibubi.create.content.decoration.slidingDoor.SlidingDoorMovementBehaviour;
 import com.simibubi.create.content.kinetics.base.RotatedPillarKineticBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.encased.EncasedCogCTBehaviour;
@@ -25,10 +26,8 @@ import com.simibubi.create.foundation.data.*;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
-import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;
 import net.minecraft.client.renderer.RenderType;
@@ -36,15 +35,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 
-import java.nio.channels.Pipe;
 import java.util.*;
 import java.util.function.Supplier;
 

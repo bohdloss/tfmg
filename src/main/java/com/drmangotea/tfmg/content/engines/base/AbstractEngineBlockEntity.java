@@ -151,7 +151,7 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
 
 
     @Override
-    public boolean makeElectricityTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+    public boolean makeMultimeterTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         return false;
     }
 

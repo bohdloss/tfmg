@@ -2,6 +2,7 @@ package com.drmangotea.tfmg.registry;
 
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGUtils;
+import com.drmangotea.tfmg.base.fluid.AcidFluidType;
 import com.drmangotea.tfmg.base.fluid.AsphaltFluid;
 import com.drmangotea.tfmg.base.fluid.ConcreteFluid;
 import com.drmangotea.tfmg.base.fluid.HotFluidType;
@@ -31,48 +32,61 @@ public class TFMGFluids {
 
 
     public static final FluidEntry<VirtualFluid>
-            LPG = gasFuel("lpg", TFMGTags.TFMGFluidTags.LPG.tag, TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag),
-            BUTANE = gasFuel("butane", TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag),
-            PROPANE = gasFuel("propane", TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag),
-            HYDROGEN = gasFuel("hydrogen"),
-
-    FURNACE_GAS = gasFuel("furnace_gas", TFMGTags.TFMGFluidTags.BLAST_STOVE_FUEL.tag, TFMGTags.TFMGFluidTags.FURNACE_GAS.tag),
-    //  METHANE = gasFuel("methane"),
-    ETHYLENE = gas("ethylene"),
-            PROPYLENE = gas("propylene"),
-            NEON = gas("neon"),
-            CARBON_DIOXIDE = gas("carbon_dioxide"),
-            AIR = gas("air",TFMGTags.TFMGFluidTags.AIR.tag),
-            HOT_AIR = gas("hot_air");
+            LPG = gasFuel("lpg", 0xfff5e687, TFMGTags.TFMGFluidTags.LPG.tag, TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag),
+            BUTANE = gasFuel("butane", 0xffad77d4, TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag),
+            PROPANE = gasFuel("propane", 0xff88bf80, TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag),
+            HYDROGEN = gasFuel("hydrogen", 0xffd0f2f5),
+            FURNACE_GAS = gasFuel("furnace_gas", 0xff5c5555, TFMGTags.TFMGFluidTags.BLAST_STOVE_FUEL.tag, TFMGTags.TFMGFluidTags.FURNACE_GAS.tag),
+            ETHYLENE = gas("ethylene", 0xffbcadcc),
+            PROPYLENE = gas("propylene", 0xffc0d1b4),
+            NEON = gas("neon", 0xff9dede9),
+            CARBON_DIOXIDE = gas("carbon_dioxide", 0xff525252),
+            AIR = gas("air", 0xffdfe6e5, TFMGTags.TFMGFluidTags.AIR.tag),
+            HOT_AIR = gas("hot_air", 0xffe8e1d5);
 
 
     public static final FluidEntry<ForgeFlowingFluid.Flowing>
             CRUDE_OIL = fluid("crude_oil", 0x010101, TFMGTags.TFMGFluidTags.CRUDE_OIL.tag, TFMGTags.TFMGFluidTags.FLAMMABLE.tag),
             HEAVY_OIL = fluid("heavy_oil", 0x010101, TFMGTags.TFMGFluidTags.HEAVY_OIL.tag, TFMGTags.TFMGFluidTags.FLAMMABLE.tag),
-
-    GASOLINE = fuel("gasoline", 0x010101, TFMGTags.TFMGFluidTags.GASOLINE.tag),
-            DIESEL = fuel("diesel", 0x010101, TFMGTags.TFMGFluidTags.DIESEL.tag, TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag),
-            NAPHTHA = fuel("naphtha", 0x010101, TFMGTags.TFMGFluidTags.NAPHTHA.tag, TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag),
-            KEROSENE = fuel("kerosene", 0x010101, TFMGTags.TFMGFluidTags.KEROSENE.tag, TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag),
+            GASOLINE = fuel("gasoline", 0xCCB17D, TFMGTags.TFMGFluidTags.GASOLINE.tag),
+            DIESEL = fuel("diesel", 0xBE9C84, TFMGTags.TFMGFluidTags.DIESEL.tag, TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag),
+            NAPHTHA = fuel("naphtha", 0x683525, TFMGTags.TFMGFluidTags.NAPHTHA.tag, TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag),
+            KEROSENE = fuel("kerosene", 0x7C82D5, TFMGTags.TFMGFluidTags.KEROSENE.tag, TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag),
             CREOSOTE = fuel("creosote", 0x010101, TFMGTags.TFMGFluidTags.CREOSOTE.tag, TFMGTags.TFMGFluidTags.BLAST_STOVE_FUEL.tag),
-            MOLTEN_STEEL = hotFluid("molten_steel", 0x010101, TFMGTags.TFMGFluidTags.MOLTEN_STEEL.tag),
-            MOLTEN_SLAG = hotFluid("molten_slag", 0x010101),
-            MOLTEN_PLASTIC = hotFluid("molten_plastic", 0x010101),
-            LIQUID_SILICON = hotFluid("liquid_silicon", 0x010101),
-            LUBRICATION_OIL = fluid("lubrication_oil", 0x010101, TFMGTags.TFMGFluidTags.LUBRICATION_OIL.tag, TFMGTags.TFMGFluidTags.FLAMMABLE.tag),
-            COOLING_FLUID = fluid("cooling_fluid", 0x010101, TFMGTags.TFMGFluidTags.COOLING_FLUID.tag),
-            NAPALM = fluid("napalm", 0x010101),
-            SULFURIC_ACID = fluid("sulfuric_acid", 0x010101),
-
-    LIQUID_CONCRETE = concreteFluid("liquid_concrete", 0x010101, ConcreteFluid.Source::new),
-
-    LIQUID_ASPHALT = concreteFluid("liquid_asphalt", 0x010101, AsphaltFluid.Source::new);
+            MOLTEN_STEEL = hotFluid("molten_steel", 0xFFF760, TFMGTags.TFMGFluidTags.MOLTEN_STEEL.tag),
+            MOLTEN_SLAG = hotFluid("molten_slag", 0xFFF760),
+            MOLTEN_PLASTIC = hotFluid("molten_plastic", 0xDEE4FF),
+            LIQUID_SILICON = hotFluid("liquid_silicon", 0xFFF760),
+            LUBRICATION_OIL = fluid("lubrication_oil", 0x9D945F, TFMGTags.TFMGFluidTags.LUBRICATION_OIL.tag, TFMGTags.TFMGFluidTags.FLAMMABLE.tag),
+            COOLING_FLUID = fluid("cooling_fluid", 0x7BC1C1, TFMGTags.TFMGFluidTags.COOLING_FLUID.tag),
+            NAPALM = fluid("napalm", 0xC0CA97),
+            SULFURIC_ACID = acidFluid("sulfuric_acid", 0xE9E7CC),
+            LIQUID_CONCRETE = concreteFluid("liquid_concrete", 0x5B5B59, ConcreteFluid.Source::new),
+            LIQUID_ASPHALT = concreteFluid("liquid_asphalt", 0x010101, AsphaltFluid.Source::new);
 
 
     @SafeVarargs
     private static FluidEntry<ForgeFlowingFluid.Flowing> fluid(String name, int fogColor, TagKey<Fluid>... tags) {
         return REGISTRATE.fluid(name, getLocation(name), getLocationFlow(name),
-                        SolidRenderedPlaceableFluidType.create(fogColor, () -> 1f))
+                        SolidRenderedPlaceableFluidType.create(fogColor, () -> 1f / 32f))
+                .lang(toHumanReadable(name))
+                .properties(b -> b.viscosity(1000)
+                        .density(1000))
+                .fluidProperties(p -> p.levelDecreasePerBlock(1)
+                        .tickRate(10)
+                        .slopeFindDistance(5)
+                        .explosionResistance(100f))
+                .tag(tags)
+                .source(ForgeFlowingFluid.Source::new)
+                .bucket()
+                .tag(AllTags.forgeItemTag("buckets/" + name))
+                .build()
+                .register();
+    }
+    @SafeVarargs
+    private static FluidEntry<ForgeFlowingFluid.Flowing> acidFluid(String name, int fogColor, TagKey<Fluid>... tags) {
+        return REGISTRATE.fluid(name, getLocation(name), getLocationFlow(name),
+                        AcidFluidType.create(fogColor, () -> 1f / 32f))
                 .lang(toHumanReadable(name))
                 .properties(b -> b.viscosity(1000)
                         .density(1000))
@@ -91,7 +105,7 @@ public class TFMGFluids {
     @SafeVarargs
     private static FluidEntry<ForgeFlowingFluid.Flowing> fuel(String name, int fogColor, TagKey<Fluid>... tags) {
         return REGISTRATE.fluid(name, getLocation(name), getLocationFlow(name),
-                        SolidRenderedPlaceableFluidType.create(fogColor, () -> 1f))
+                        SolidRenderedPlaceableFluidType.create(fogColor, () -> 1f / 32f))
                 .lang(toHumanReadable(name))
                 .properties(b -> b.viscosity(1000)
                         .density(1000))
@@ -111,7 +125,7 @@ public class TFMGFluids {
     @SafeVarargs
     private static FluidEntry<ForgeFlowingFluid.Flowing> hotFluid(String name, int fogColor, TagKey<Fluid>... tags) {
         return REGISTRATE.fluid(name, getLocation(name), getLocationFlow(name),
-                        HotFluidType.create(fogColor, () -> 1f))
+                        HotFluidType.create(fogColor, () -> 1f / 32f))
                 .lang(toHumanReadable(name))
                 .properties(b -> b.viscosity(1000)
                         .density(1000))
@@ -130,13 +144,13 @@ public class TFMGFluids {
     @SafeVarargs
     private static FluidEntry<ForgeFlowingFluid.Flowing> concreteFluid(String name, int fogColor, NonNullFunction<ForgeFlowingFluid.Properties, ? extends ForgeFlowingFluid> factory, TagKey<Fluid>... tags) {
         return REGISTRATE.fluid(name, getLocation(name), getLocationFlow(name),
-                        SolidRenderedPlaceableFluidType.create(fogColor, () -> 1f))
+                        SolidRenderedPlaceableFluidType.create(fogColor, () -> 1f / 32f))
                 .lang(toHumanReadable(name))
                 .properties(b -> b.viscosity(5000)
                         .density(2500))
                 .fluidProperties(p -> p.levelDecreasePerBlock(1)
-                        .tickRate(10)
-                        .slopeFindDistance(2)
+                        .tickRate(99999)
+                        .slopeFindDistance(1)
                         .explosionResistance(1000f))
                 .tag(tags)
                 .source(factory)
@@ -148,8 +162,8 @@ public class TFMGFluids {
 
 
     @SafeVarargs
-    public static FluidEntry<VirtualFluid> gas(String name, TagKey<Fluid>... tags) {
-        return REGISTRATE.gasFluid(name, getLocation(name), getLocationFlow(name))
+    public static FluidEntry<VirtualFluid> gas(String name, int color, TagKey<Fluid>... tags) {
+        return REGISTRATE.gasFluid(name, color)
                 .lang(TFMGUtils.fromId(name))
                 .tag(tags)
                 .tag(TFMGTags.TFMGFluidTags.GAS.tag)
@@ -161,8 +175,8 @@ public class TFMGFluids {
     }
 
     @SafeVarargs
-    public static FluidEntry<VirtualFluid> gasFuel(String name, TagKey<Fluid>... tags) {
-        return REGISTRATE.gasFluid(name, getGasLocation(name), getGasLocation(name))
+    public static FluidEntry<VirtualFluid> gasFuel(String name, int color, TagKey<Fluid>... tags) {
+        return REGISTRATE.gasFluid(name, color)
                 .lang(TFMGUtils.fromId(name))
                 .tag(tags)
                 .tag(TFMGTags.TFMGFluidTags.GAS.tag)
@@ -177,6 +191,10 @@ public class TFMGFluids {
 
     public static ResourceLocation getGasLocation(String name) {
         return TFMG.asResource("fluid/" + name);
+    }
+
+    public static ResourceLocation getGasTexture() {
+        return TFMG.asResource("fluid/gas_texture");
     }
 
     public static ResourceLocation getLocation(String name) {

@@ -1,6 +1,6 @@
 {
-  "itemGroup.tfmg.base": "Create: The Factory Must Grow",
-  "itemGroup.tfmg.building": "Create: TFMG Building Blocks",
+  "creative_tab.tfmg_main": "Create: The Factory Must Grow",
+  "creative_tab.tfmg_decoration": "Create: TFMG Building Blocks",
 
   "create.goggles.fluid_storage": "Fluid Storage:",
   "create.goggles.item_storage": "Item Storage:",
@@ -50,10 +50,12 @@
   "create.goggles.machine_input.no_rot": "No Rotation Provided!",
   "create.goggles.machine_input.power_level": "Power Level: ",
 
-  "create.goggles.winding_machine.header": "Winding Machine:",
-  "create.goggles.winding_machine.wire_left": "Wire Left:",
-  "create.goggles.winding_machine.wire_needed": "Wire Needed:",
-  "create.goggles.winding_machine.coil_turns": "Coil Turns:",
+  "create.goggles.winding_machine.header": "Winding Machine",
+  "create.goggles.winding_machine.turns": "Turns Left: ",
+  "create.goggles.winding_machine.progress": "Progress: ",
+
+  "create.goggles.polarizer.header": "Polarizer",
+  "create.goggles.polarizer.charge": "Charge: ",
 
   "create.goggles.electric_machine.no_power": "No Power",
   "create.goggles.electricity.insufficient_voltage": "Insufficient Voltage",
@@ -68,12 +70,9 @@
   "create.goggles.motor.usage": "Energy Usage: %1$s fe/t",
   "create.goggles.generator.production": "Energy Production: %1$s fe/t",
 
-
   "create.resistor.allowed_voltage": "Percentage of Voltage Allowed",
-  "create.winding_machine.turn_percentage": "Allowed Turn Percentage (Fromt 1000)",
+  "create.winding_machine.turn_percentage": "Allowed Turn Percentage (From 1000)",
   "create.creative_generator.voltage_generation": "Voltage Generation",
-
-
 
   "death.attack.tfmg.concrete": "%1$s tried to eat Concrete",
   "death.attack.tfmg.concrete.player": "%1$s tried to eat Concrete",
@@ -93,9 +92,15 @@
   "create.recipe.coking": "Coking",
   "create.recipe.polarizing": "Polarizing",
 
+  "tfmg.keyinfo.custom_button": "Engine Controller Custom Button",
+  "tfmg.keyinfo.engine_start": "Start Engine",
+  "tfmg.keyinfo.transmission_shift_up": "Transmission Shift Up",
+  "tfmg.keyinfo.transmission_shift_down": "Transmission Shift Down",
+
   "create.multimeter.header": "Multimeter Data:",
   "create.multimeter.additional_values": "Additional Values:",
   "create.multimeter.power_usage": "   Power Usage: ",
+  "create.multimeter.group": "   Group: ",
   "create.multimeter.voltage_generated": "   Voltage Generated: ",
   "create.multimeter.power_generated": "   Power Generated: ",
   "create.multimeter.power_percentage": "   Grid Strength: ",

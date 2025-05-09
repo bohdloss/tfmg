@@ -1,11 +1,8 @@
 package com.drmangotea.tfmg.content.electricity.utilities.fuse_block;
 
-import com.drmangotea.tfmg.base.TFMGHorizontalDirectionalBlock;
-import com.drmangotea.tfmg.base.TFMGShapes;
+import com.drmangotea.tfmg.base.blocks.TFMGHorizontalDirectionalBlock;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.content.electricity.base.IVoltageChanger;
-import com.drmangotea.tfmg.content.electricity.utilities.diode.ElectricDiodeBlockEntity;
-import com.drmangotea.tfmg.content.electricity.utilities.transformer.TransformerBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
 import com.drmangotea.tfmg.registry.TFMGItems;
 import com.simibubi.create.foundation.block.IBE;
@@ -14,17 +11,11 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class FuseBlock extends TFMGHorizontalDirectionalBlock implements IBE<FuseBlockEntity>, IVoltageChanger {
 

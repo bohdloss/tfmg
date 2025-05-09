@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "forge:ingots/steel"
+    },
+    "O": {
+      "item": "tfmg:heavy_plate"
+    }
+  },
+  "pattern": [
+    " IO",
+    " IO",
+    " IO"
+  ],
+  "result": {
+    "count": 4,
+    "item": "tfmg:blast_furnace_reinforcement"
+  },
+  "show_notification": true
+}

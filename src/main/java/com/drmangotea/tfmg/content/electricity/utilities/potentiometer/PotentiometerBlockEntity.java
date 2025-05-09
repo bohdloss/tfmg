@@ -1,7 +1,6 @@
 package com.drmangotea.tfmg.content.electricity.utilities.potentiometer;
 
-import com.drmangotea.tfmg.base.TFMGHorizontalDirectionalBlock;
-import com.drmangotea.tfmg.content.electricity.base.IElectric;
+import com.drmangotea.tfmg.base.blocks.TFMGHorizontalDirectionalBlock;
 import com.drmangotea.tfmg.content.electricity.utilities.diode.ElectricDiodeBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
@@ -21,8 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
-
-import static net.minecraft.world.level.block.DirectionalBlock.FACING;
 
 public class PotentiometerBlockEntity extends ElectricDiodeBlockEntity {
 

@@ -1,6 +1,8 @@
 package com.drmangotea.tfmg.base.fluid;
 
 
+import com.drmangotea.tfmg.datagen.TFMGDamageSources;
+import com.drmangotea.tfmg.datagen.TFMGDamageTypes;
 import com.simibubi.create.AllFluids;
 import com.simibubi.create.Create;
 import com.tterrag.registrate.builders.FluidBuilder;
@@ -61,8 +63,8 @@ public class AcidFluidType extends AllFluids.TintedFluidType {
 
 
 
-       // if(Create.RANDOM.nextInt(2)==0)
-       //     entity.hurt(damageSourceAcid,2);
+        if(Create.RANDOM.nextInt(2)==0)
+            entity.hurt(TFMGDamageSources.acid(entity.level()),2);
 
         return false;
     }

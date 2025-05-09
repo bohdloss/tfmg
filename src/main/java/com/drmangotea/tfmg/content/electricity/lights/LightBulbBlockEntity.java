@@ -9,14 +9,13 @@ import net.createmod.catnip.nbt.NBTHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import static com.drmangotea.tfmg.base.WallMountBlock.FACING;
+import static com.drmangotea.tfmg.base.blocks.WallMountBlock.FACING;
 import static com.drmangotea.tfmg.content.electricity.lights.LightBulbBlock.LIGHT;
 
 

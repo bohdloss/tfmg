@@ -1,0 +1,24 @@
+{
+  "type": "create:mechanical_crafting",
+  "acceptMirrored": false,
+  "key": {
+    "C": {
+      "tag": "forge:ingots/cast_iron"
+    },
+    "M": {
+      "item": "create:precision_mechanism"
+    },
+    "O": {
+      "tag": "forge:plates/steel"
+    }
+  },
+  "pattern": [
+    "CCC",
+    "OCO",
+    "OMO",
+    "OCO"
+  ],
+  "result": {
+    "item": "tfmg:simple_large_engine"
+  }
+}

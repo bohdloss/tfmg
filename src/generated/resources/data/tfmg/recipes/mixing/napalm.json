@@ -1,0 +1,19 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/aluminum"
+    },
+    {
+      "amount": 1000,
+      "fluid": "tfmg:gasoline",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "amount": 250,
+      "fluid": "tfmg:napalm"
+    }
+  ]
+}

@@ -31,7 +31,7 @@ public class EngineStartPacket extends EngineControllerPacketBase {
 
     @Override
     protected void handleController(ServerPlayer player, EngineControllerBlockEntity controller) {
-        TFMG.LOGGER.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
         controller.toggleEngine();
         //controller.engineStarted = !controller.engineStarted;
         //controller.accelerationRate = controller.engineStarted ? 4 : 0;

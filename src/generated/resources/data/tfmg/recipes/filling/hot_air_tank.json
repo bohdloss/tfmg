@@ -1,0 +1,15 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "amount": 1000,
+      "fluid": "tfmg:hot_air",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "item": "tfmg:hot_air_bucket"
+    }
+  ]
+}

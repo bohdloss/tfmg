@@ -124,33 +124,25 @@ public class WindingMachineBlockEntity extends KineticBlockEntity implements IHa
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         CreateLang.translate("goggles.winding_machine.header")
-                .style(ChatFormatting.WHITE)
+                .style(ChatFormatting.GRAY)
                 .forGoggles(tooltip, 1);
-        if (!spool.isEmpty())
-            CreateLang.text("   ")
-                    .add(Component.translatable("recipe.winding_machine.wire_left"))
-                    .style(ChatFormatting.WHITE)
-                    .add(Component.literal(" " + spool.getOrCreateTag().getInt("Amount")))
+        if (!spool.isEmpty()) {
+            CreateLang.text(spool.getDisplayName().getString().replace("[","").replace("]",""))
                     .color(spool.getBarColor())
-                    .add(Component.literal("/1000"))
-                    .style(ChatFormatting.WHITE)
+                    .forGoggles(tooltip);
+            CreateLang.translate("goggles.winding_machine.turns")
+                    .add(CreateLang.number(spool.getOrCreateTag().getInt("Amount")))
+                    .color(spool.getBarColor())
                     .forGoggles(tooltip);
 
-        if (inventory.getItem(0).is(TFMGItems.ELECTROMAGNETIC_COIL.get())) {
-            CreateLang.text("   ")
-                    .add(Component.translatable("goggles.winding_machine.coil_turns"))
-                    .style(ChatFormatting.WHITE)
-                    .add(Component.literal(" " + inventory.getItem(0).getOrCreateTag().getInt("Turns")))
-                    .forGoggles(tooltip);
-        } else if (recipe != null)
-            CreateLang.text("   ")
-                    .add(Component.translatable("goggles.winding_machine.wire_needed"))
-                    .style(ChatFormatting.WHITE)
-                    .add(Component.literal(" " + amountWinded))
-                    .color(spool.getBarColor())
+        if (recipe != null)
+            CreateLang.text("")
+                    .add(CreateLang.translate("goggles.winding_machine.progress"))
+                    .add(CreateLang.number(amountWinded))
                     .add(Component.literal("/" + recipe.getProcessingDuration()))
-                    .style(ChatFormatting.WHITE)
+                    .color(spool.getBarColor())
                     .forGoggles(tooltip);
+        }
         return true;
     }
 

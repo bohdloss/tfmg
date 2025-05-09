@@ -31,11 +31,11 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
         data.connectNextTick = true;
     }
 
-    @Override
-    public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        CreateLang.text("MAX POWER: "+getNetworkPowerGeneration()).forGoggles(tooltip);
-        return makeElectricityTooltip(tooltip, isPlayerSneaking);
-    }
+    //@Override
+    //public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+    //    CreateLang.text("MAX POWER: "+getNetworkPowerGeneration()).forGoggles(tooltip);
+    //    return makeElectricityTooltip(tooltip, isPlayerSneaking);
+    //}
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}

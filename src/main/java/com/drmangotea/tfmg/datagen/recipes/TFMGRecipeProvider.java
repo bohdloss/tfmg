@@ -301,6 +301,9 @@ public class TFMGRecipeProvider extends RecipeProvider {
         public static ItemLike concreteMixture() {
             return TFMGItems.CONCRETE_MIXTURE.get();
         }
+        public static ItemLike asphaltMixture() {
+            return TFMGItems.ASPHALT_MIXTURE.get();
+        }
         public static ItemLike slag() {
             return TFMGItems.SLAG.get();
         }
@@ -316,11 +319,11 @@ public class TFMGRecipeProvider extends RecipeProvider {
         public static ItemLike circuitBoard() {
             return TFMGItems.CIRCUIT_BOARD;
         }
+        public static ItemLike cement() {
+            return TFMGBlocks.CEMENT;
+        }
         public static ItemLike aluminumTank() {
             return TFMGBlocks.ALUMINUM_FLUID_TANK;
-        }
-        public static ItemLike zincSulfate() {
-            return TFMGItems.ZINC_SULFATE.get();
         }
         public static ItemLike syntheticLeather() {
             return TFMGItems.SYNTHETIC_LEATHER.get();
@@ -514,7 +517,7 @@ public class TFMGRecipeProvider extends RecipeProvider {
             return AllTags.forgeItemTag("dusts/iron");
         }
 
-        public static TagKey<Item> zinc() {
+        public static TagKey<Item> zincIngot() {
             return AllTags.forgeItemTag("ingots/zinc");
         }
 
@@ -595,18 +598,18 @@ public class TFMGRecipeProvider extends RecipeProvider {
         }
 
 
-        public static Ingredient resistor100Ohms(){
+        public static Ingredient resistor10Ohms(){
             ItemStack stack = TFMGBlocks.RESISTOR.asStack();
 
-            stack.getOrCreateTag().putInt("Resistance",100);
+            stack.getOrCreateTag().putInt("Resistance",10);
 
             return Ingredient.of(stack);
         }
 
-        public static Ingredient coil1000Turns(){
+        public static ItemStack coil100Turns(){
             ItemStack stack = TFMGItems.ELECTROMAGNETIC_COIL.asStack();
-            stack.getOrCreateTag().putInt("Turns",1000);
-            return Ingredient.of(stack);
+            stack.getOrCreateTag().putInt("Turns",100);
+            return stack;
         }
 
 
@@ -617,7 +620,7 @@ public class TFMGRecipeProvider extends RecipeProvider {
         public static Fluid air() {
             return TFMGFluids.AIR.get();
         }
-        public static Fluid heatedAir() {
+        public static Fluid hotAir() {
             return TFMGFluids.HOT_AIR.get();
         }
         public static Fluid carbonDioxide() {
@@ -631,6 +634,9 @@ public class TFMGRecipeProvider extends RecipeProvider {
         }
         public static Fluid propane() {
             return TFMGFluids.PROPANE.get();
+        }
+        public static Fluid hydrogen() {
+            return TFMGFluids.HYDROGEN.get();
         }
         public static Fluid butane() {
             return TFMGFluids.BUTANE.get();
@@ -655,9 +661,9 @@ public class TFMGRecipeProvider extends RecipeProvider {
         public static Fluid lubricationOil() {
             return TFMGFluids.LUBRICATION_OIL.get();
         }
-       //public static Fluid napalm() {
-       //    return TFMGFluids.NAPALM.get();
-       //}
+       public static Fluid napalm() {
+           return TFMGFluids.NAPALM.get();
+       }
         public static Fluid naphtha() {
             return TFMGFluids.NAPHTHA.get();
         }
@@ -681,9 +687,9 @@ public class TFMGRecipeProvider extends RecipeProvider {
         public static Fluid coolingFluid() {
             return TFMGFluids.COOLING_FLUID.get();
         }
-       // public static Fluid sulfuricAcid() {
-       //     return TFMGFluids.SULFURIC_ACID.get();
-       // }
+        public static Fluid sulfuricAcid() {
+            return TFMGFluids.SULFURIC_ACID.get();
+        }
         public static Fluid liquidConcrete() {
             return TFMGFluids.LIQUID_CONCRETE.get();
         }
@@ -707,8 +713,8 @@ public class TFMGRecipeProvider extends RecipeProvider {
         public static ItemLike airTank() {
             return TFMGRegistrate.getBucket("air");
         }
-        public static ItemLike heatedAirTank() {
-            return TFMGRegistrate.getBucket("heated_air");
+        public static ItemLike hotAirTank() {
+            return TFMGRegistrate.getBucket("hot_air");
         }
         public static ItemLike carbonDioxideTank() {
             return TFMGRegistrate.getBucket("carbon_dioxide");
@@ -722,6 +728,9 @@ public class TFMGRecipeProvider extends RecipeProvider {
         public static ItemLike propaneTank() {
             return TFMGRegistrate.getBucket("propane");
         }
+        public static ItemLike hydrogenTank() {
+            return TFMGRegistrate.getBucket("hydrogen");
+        }
         public static ItemLike butaneTank() {
             return TFMGRegistrate.getBucket("butane");
         }
@@ -731,8 +740,8 @@ public class TFMGRecipeProvider extends RecipeProvider {
         public static ItemLike neonTank() {
             return TFMGRegistrate.getBucket("neon");
         }
-        public static ItemLike blastFurnaceGasTank() {
-            return TFMGRegistrate.getBucket("blast_furnace_gas");
+        public static ItemLike furnaceGasTank() {
+            return TFMGRegistrate.getBucket("furnace_gas");
         }
         public static ItemLike crudeOilBucket() {
             return TFMGRegistrate.getBucket("crude_oil");

@@ -5,6 +5,7 @@ package com.drmangotea.tfmg.content.electricity.connection.copycat_cable;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.registry.TFMGBlockEntities;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
+import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
@@ -66,7 +67,7 @@ public class CopycatCableBlock extends Block implements IBE<CopycatCableBlockEnt
                         .placeItemBackInInventory(consumedItem);
             context.getLevel()
                     .levelEvent(2001, context.getClickedPos(), Block.getId(ufte.getBlockState()));
-            ufte.setMaterial(TFMGBlocks.COPYCAT_CABLE_BASE.getDefaultState());
+            ufte.setMaterial(AllBlocks.COPYCAT_BASE.getDefaultState());
             ufte.setConsumedItem(ItemStack.EMPTY);
             return InteractionResult.SUCCESS;
         });

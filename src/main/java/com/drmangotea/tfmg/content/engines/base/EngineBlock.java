@@ -54,8 +54,7 @@ public class EngineBlock extends HorizontalKineticBlock {
             if (be.hasUpgrade()) {
 
                 if (be.upgrade.isPresent()) {
-                    be.playRemovalSound();
-                    be.dropItem(be.upgrade.get().getItem().getDefaultInstance());
+
                     if (be.upgrade.get() instanceof TransmissionUpgrade) {
                         if (be.getControllerBE().controller != null){
                             if (level.getBlockEntity(be.getControllerBE().controller) instanceof EngineControllerBlockEntity engineController) {
@@ -70,6 +69,9 @@ public class EngineBlock extends HorizontalKineticBlock {
                         be.getControllerBE().controller = null;
 
                     }
+
+                    be.playRemovalSound();
+                    be.dropItem(be.upgrade.get().getItem().getDefaultInstance());
 
                 }
                 be.upgrade = Optional.empty();

@@ -1,8 +1,6 @@
 package com.drmangotea.tfmg.content.electricity.lights.neon_tube;
 
 
-import com.drmangotea.tfmg.base.WallMountBlock;
-import com.drmangotea.tfmg.content.electricity.lights.LightBulbBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -15,7 +13,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 public class NeonTubeRenderer extends SafeBlockEntityRenderer<NeonTubeBlockEntity> {
 

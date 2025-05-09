@@ -30,10 +30,7 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
         }
     }
 
-    @Override
-    public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        return makeElectricityTooltip(tooltip, isPlayerSneaking);
-    }
+
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
