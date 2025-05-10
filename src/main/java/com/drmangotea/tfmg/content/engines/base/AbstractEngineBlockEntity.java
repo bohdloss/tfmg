@@ -1,5 +1,6 @@
 package com.drmangotea.tfmg.content.engines.base;
 
+import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.config.TFMGConfigs;
 import com.drmangotea.tfmg.content.electricity.base.KineticElectricBlockEntity;
 import com.drmangotea.tfmg.content.engines.fuels.BaseFuelTypes;
@@ -52,7 +53,7 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
     public int highestSignal;
     public int signal;
     //
-    public boolean controlled = false;
+    public BlockPos engineController;
     //
 
     //
@@ -85,16 +86,25 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
 
     public void tankUpdated(FluidStack stack) {
 
-
         sendData();
         setChanged();
     }
 
+    public boolean hasEngineController() {
+        return engineController != null;
+    }
+
+
+    @Override
+    public void updateNetwork() {
+        //TFMG.LOGGER.debug("UPDATE ENGINE NETWORK");
+        super.updateNetwork();
+    }
 
     protected void analogSignalChanged() {
 
 
-        if (controlled) {
+        if (hasEngineController()) {
             fuelInjectionRate = highestSignal / 15f;
             return;
         }
@@ -130,6 +140,8 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
         super.lazyTick();
 
         neighbourChanged();
+
+
 
         manageFuelAndExhaust();
     }
@@ -172,7 +184,7 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
 
     public boolean canWork() {
 
-        if(fuelTank.isEmpty())
+        if (fuelTank.isEmpty())
             return false;
 
         if (exhaustTank.getSpace() == 0)
@@ -265,7 +277,8 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
 
         reverse = compound.getBoolean("Reverse");
         signal = compound.getInt("Signal");
-        controlled = compound.getBoolean("Controlled");
+        if (hasEngineController())
+            engineController = BlockPos.of(compound.getLong("EngineController"));
         rpm = compound.getFloat("RPM");
 
         // if (isController()) {
@@ -277,7 +290,7 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
 
         highestSignal = compound.getInt("HighestSignal");
 
-        signalChanged = true;
+        //signalChanged = true;
         updateRotation();
         updateGeneratedRotation();
 
@@ -291,7 +304,8 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
 
         compound.putBoolean("Reverse", reverse);
         compound.putInt("Signal", signal);
-        compound.putBoolean("Controlled", controlled);
+        if (hasEngineController())
+        compound.putLong("EngineController", engineController.asLong());
         compound.putFloat("RPM", rpm);
 
 
@@ -302,8 +316,6 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
 
 
     }
-
-
 
 
     public abstract int getFuelConsumption();

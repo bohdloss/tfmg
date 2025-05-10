@@ -84,6 +84,7 @@ import com.drmangotea.tfmg.content.machinery.misc.machine_input.MachineInputBloc
 import com.drmangotea.tfmg.content.machinery.misc.smokestack.SmokestackBlockEntity;
 import com.drmangotea.tfmg.content.machinery.misc.winding_machine.WindingMachineBlockEntity;
 import com.drmangotea.tfmg.content.machinery.misc.winding_machine.WindingMachineRenderer;
+import com.drmangotea.tfmg.content.machinery.misc.winding_machine.WindingMachineVisual;
 import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.controller.DistillationControllerBlockEntity;
 import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.controller.DistillationControllerRenderer;
 import com.drmangotea.tfmg.content.machinery.oil_processing.distillation_tower.output.DistillationOutputBlockEntity;
@@ -536,7 +537,7 @@ public class TFMGBlockEntities {
 
     public static final BlockEntityEntry<WindingMachineBlockEntity> WINDING_MACHINE = REGISTRATE
             .blockEntity("winding_machine", WindingMachineBlockEntity::new)
-            .visual(() -> OrientedRotatingVisual.of(AllPartialModels.SHAFT_HALF),true)
+            .visual(() -> WindingMachineVisual::new,true)
             .validBlocks(TFMGBlocks.WINDING_MACHINE)
             .renderer(() -> WindingMachineRenderer::new)
             .register();

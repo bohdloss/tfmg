@@ -7,8 +7,8 @@ import com.drmangotea.tfmg.content.electricity.base.ConnectionPacket;
 import com.drmangotea.tfmg.content.electricity.base.NetworkUpdatePacket;
 import com.drmangotea.tfmg.content.electricity.base.UpdateInFrontPacket;
 import com.drmangotea.tfmg.content.electricity.connection.cables.CablePlacePacket;
-import com.drmangotea.tfmg.content.electricity.connection.cables.CableRemovalPacket;
-import com.drmangotea.tfmg.content.electricity.electrians_wrench.ElectriciansWrenchPacket;
+import com.drmangotea.tfmg.content.electricity.configuration_wrench.ElectriciansWrenchPacket;
+import com.drmangotea.tfmg.content.engines.engine_controller.TransmissionRemovePacket;
 import com.drmangotea.tfmg.content.engines.engine_controller.packets.*;
 import com.drmangotea.tfmg.content.items.weapons.advanced_potato_cannon.AdvancedPotatoCannonPacket;
 import com.drmangotea.tfmg.content.items.weapons.quad_potato_cannon.QuadPotatoCannonPacket;
@@ -42,7 +42,7 @@ public enum TFMGPackets {
     VAT_EVALUATION(VatEvaluationPacket.class, VatEvaluationPacket::new, PLAY_TO_CLIENT),
     COKE_OVEN_PACKET(CokeOvenPacket.class, CokeOvenPacket::new, PLAY_TO_CLIENT),
     UPDATE_IN_FRONT_PACKET(UpdateInFrontPacket.class, UpdateInFrontPacket::new, PLAY_TO_CLIENT),
-    CABLE_PACKET(CableRemovalPacket.class, CableRemovalPacket::new, PLAY_TO_CLIENT),
+    TRANSMISSION_REMOVE(TransmissionRemovePacket.class, TransmissionRemovePacket::new, PLAY_TO_CLIENT),
     CABLE_PLACE_PACKET(CablePlacePacket.class, CablePlacePacket::new, PLAY_TO_CLIENT),
     ELECTRICIANS_WRENCH_PACKET(ElectriciansWrenchPacket.class, ElectriciansWrenchPacket::new, PLAY_TO_SERVER),
     ENGINE_CONTROLLER_INPUT(EngineControllerInputPacket.class, EngineControllerInputPacket::new, PLAY_TO_SERVER),

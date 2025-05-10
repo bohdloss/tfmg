@@ -7,6 +7,7 @@ import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnection
 import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnectorBlockEntity;
 import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
 import com.drmangotea.tfmg.content.engines.engine_controller.EngineControllerBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.AbstractSmallEngineBlockEntity;
 import com.drmangotea.tfmg.content.engines.types.large_engine.LargeEngineBlockEntity;
 import com.drmangotea.tfmg.content.engines.types.regular_engine.RegularEngineBlockEntity;
 import com.drmangotea.tfmg.content.machinery.metallurgy.blast_stove.BlastStoveBlockEntity;
@@ -63,6 +64,7 @@ public class DebugCinderBlockItem extends Item {
 
             } else {
                 TFMG.LOGGER.debug(be.shift.name());
+                TFMGUtils.debugMessage(level, "ENGINE "+(be.engine!=null));
             }
             return InteractionResult.SUCCESS;
         }
@@ -99,7 +101,7 @@ public class DebugCinderBlockItem extends Item {
         }
         if (level.getBlockEntity(pos) instanceof IElectric be) {
 
-            be.onPlaced();
+           // be.onPlaced();
 
 
             if (context.getPlayer().isShiftKeyDown()) {
@@ -111,7 +113,7 @@ public class DebugCinderBlockItem extends Item {
                 TFMG.LOGGER.debug("Group " + be.getData().group.id);
                 TFMG.LOGGER.debug("///////////////////////////////");
             } else {
-
+                be.updateNextTick();
                 TFMGUtils.debugMessage(level, "Power " + be.getNetworkPowerUsage());
                 TFMGUtils.debugMessage(level, "Voltage " + be.getData().getVoltage());
 
@@ -151,11 +153,15 @@ public class DebugCinderBlockItem extends Item {
             }
         }
 
-        if (level.getBlockEntity(pos) instanceof AbstractEngineBlockEntity be) {
-            be.highestSignal=0;
-            be.controlled = false;
-            be.updateGeneratedRotation();
-            TFMGUtils.debugMessage(level, "RPM "+be.rpm);
+        if (level.getBlockEntity(pos) instanceof AbstractSmallEngineBlockEntity be) {
+            //be.getControllerBE().highestSignal=0;
+            //be.getControllerBE().rpm = 0;
+            //be.getControllerBE().engineController = null;
+            //be.getControllerBE().updateGeneratedRotation();
+            TFMGUtils.debugMessage(level, "RPM "+be.getControllerBE().rpm);
+            TFMGUtils.debugMessage(level, "SIGNAL "+be.getControllerBE().signal);
+            TFMGUtils.debugMessage(level, "HSIGNAL "+be.getControllerBE().highestSignal);
+            TFMGUtils.debugMessage(level, "RATE "+be.getControllerBE().fuelInjectionRate);
         }
         if (level.getBlockEntity(pos) instanceof CastingBasinBlockEntity be) {
             be.findRecipe();

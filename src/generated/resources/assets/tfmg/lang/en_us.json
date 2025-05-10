@@ -590,6 +590,8 @@
   "creative_tab.tfmg_main": "Create: The Factory Must Grow",
   "death.attack.tfmg.acid": "%1$s took an acid bath",
   "death.attack.tfmg.acid.player": "%1$s took an acid bath",
+  "death.attack.tfmg.blast_furnace": "%1$s was turned in carbon steel",
+  "death.attack.tfmg.blast_furnace.player": "%1$s was thrown into a blast furnace",
   "death.attack.tfmg.concrete": "%1$s tried to eat Concrete",
   "death.attack.tfmg.concrete.player": "%1$s tried to eat Concrete",
   "effect.tfmg.hellfire": "Hellfire",

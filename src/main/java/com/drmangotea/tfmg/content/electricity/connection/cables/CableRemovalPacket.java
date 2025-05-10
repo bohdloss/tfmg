@@ -9,21 +9,12 @@ import net.minecraft.network.FriendlyByteBuf;
 public class CableRemovalPacket extends BlockEntityDataPacket<SmartBlockEntity> {
 
 
-
-
-
     public CableRemovalPacket(BlockPos pos) {
         super(pos);
-
-
     }
-
     public CableRemovalPacket(FriendlyByteBuf buffer) {
         super(buffer);
-
-
     }
-
 
     @Override
     protected void writeData(FriendlyByteBuf buffer) {}
@@ -34,8 +25,5 @@ public class CableRemovalPacket extends BlockEntityDataPacket<SmartBlockEntity> 
         if(blockEntity instanceof CableConnectorBlockEntity be) {
            // be.removeConnections(true);
         }
-
     }
-
-
 }

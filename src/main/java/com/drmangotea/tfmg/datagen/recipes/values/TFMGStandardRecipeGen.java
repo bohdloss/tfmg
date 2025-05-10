@@ -1211,6 +1211,16 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("WTR")
                     .pattern("WLR")),
 
+    MULTIMETER = create(TFMGItems.MULTIMETER)
+            .unlockedBy(TFMGBlocks.VOLTMETER::get)
+            .viaShaped(b -> b
+                    .define('G', TFMGBlocks.VOLTMETER)
+                    .define('W', copperWire())
+                    .define('B', brassSheet())
+                    .pattern("BGB")
+                    .pattern("BWB")
+                    .pattern("BWB")),
+
     COPPER_CABLE_HUB = create(TFMGBlocks.COPPER_CABLE_HUB).returns(2)
             .unlockedBy(TFMGItems.MAGNET::get)
             .viaShaped(b -> b
@@ -1829,6 +1839,109 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
             .viaShapeless(b -> b
                     .requires(heavyMachineryCasing())
                     .requires(ItemTags.WOODEN_DOORS)),
+
+
+    ////////
+
+    WHITE_MULTIMETER = create(TFMGItems.MULTIMETERS.get("white")::get)
+            .unlockedBy(() -> TFMGItems.MULTIMETER)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.MULTIMETER)
+                    .requires(DYES_FROM_COLOR.get("white"))),
+
+    YELLOW_MULTIMETER = create(TFMGItems.MULTIMETERS.get("yellow")::get)
+            .unlockedBy(() -> TFMGItems.MULTIMETER)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.MULTIMETER)
+                    .requires(DYES_FROM_COLOR.get("yellow"))),
+
+    BROWN_MULTIMETER = create(TFMGItems.MULTIMETERS.get("brown")::get)
+            .unlockedBy(() -> TFMGItems.MULTIMETER)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.MULTIMETER)
+                    .requires(DYES_FROM_COLOR.get("brown"))),
+
+    ORANGE_MULTIMETER = create(TFMGItems.MULTIMETERS.get("orange")::get)
+            .unlockedBy(() -> TFMGItems.MULTIMETER)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.MULTIMETER)
+                    .requires(DYES_FROM_COLOR.get("orange"))),
+
+    BLACK_MULTIMETER = create(TFMGItems.MULTIMETERS.get("black")::get)
+            .unlockedBy(() -> TFMGItems.MULTIMETER)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.MULTIMETER)
+                    .requires(DYES_FROM_COLOR.get("black"))),
+
+    CYAN_MULTIMETER = create(TFMGItems.MULTIMETERS.get("cyan")::get)
+            .unlockedBy(() -> TFMGItems.MULTIMETER)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.MULTIMETER)
+                    .requires(DYES_FROM_COLOR.get("cyan"))),
+
+    BLUE_MULTIMETER = create(TFMGItems.MULTIMETERS.get("blue")::get)
+            .unlockedBy(() -> TFMGItems.MULTIMETER)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.MULTIMETER)
+                    .requires(DYES_FROM_COLOR.get("blue"))),
+
+    LIGHT_BLUE_MULTIMETER = create(TFMGItems.MULTIMETERS.get("light_blue")::get)
+            .unlockedBy(() -> TFMGItems.MULTIMETER)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.MULTIMETER)
+                    .requires(DYES_FROM_COLOR.get("light_blue"))),
+
+    GRAY_MULTIMETER = create(TFMGItems.MULTIMETERS.get("gray")::get)
+            .unlockedBy(() -> TFMGItems.MULTIMETER)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.MULTIMETER)
+                    .requires(DYES_FROM_COLOR.get("gray"))),
+
+    LIGHT_GRAY_MULTIMETER = create(TFMGItems.MULTIMETERS.get("light_gray")::get)
+            .unlockedBy(() -> TFMGItems.MULTIMETER)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.MULTIMETER)
+                    .requires(DYES_FROM_COLOR.get("light_gray"))),
+
+    GREEN_MULTIMETER = create(TFMGItems.MULTIMETERS.get("green")::get)
+            .unlockedBy(() -> TFMGItems.MULTIMETER)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.MULTIMETER)
+                    .requires(DYES_FROM_COLOR.get("green"))),
+
+    LIME_MULTIMETER = create(TFMGItems.MULTIMETERS.get("lime")::get)
+            .unlockedBy(() -> TFMGItems.MULTIMETER)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.MULTIMETER)
+                    .requires(DYES_FROM_COLOR.get("lime"))),
+
+    PINK_MULTIMETER = create(TFMGItems.MULTIMETERS.get("pink")::get)
+            .unlockedBy(() -> TFMGItems.MULTIMETER)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.MULTIMETER)
+                    .requires(DYES_FROM_COLOR.get("pink"))),
+
+    PURPLE_MULTIMETER = create(TFMGItems.MULTIMETERS.get("purple")::get)
+            .unlockedBy(() -> TFMGItems.MULTIMETER)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.MULTIMETER)
+                    .requires(DYES_FROM_COLOR.get("purple"))),
+
+    MAGENTA_MULTIMETER = create(TFMGItems.MULTIMETERS.get("magenta")::get)
+            .unlockedBy(() -> TFMGItems.MULTIMETER)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.MULTIMETER)
+                    .requires(DYES_FROM_COLOR.get("magenta"))),
+
+    RED_MULTIMETER = create(TFMGItems.MULTIMETERS.get("red")::get)
+            .unlockedBy(() -> TFMGItems.MULTIMETER)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.MULTIMETER)
+                    .requires(DYES_FROM_COLOR.get("red"))),
+
+
+
+    ////////
 
 
  WHITE_CONCRETE = create(TFMGBlocks.COLORED_CONCRETE.get("white").block).returns(8)

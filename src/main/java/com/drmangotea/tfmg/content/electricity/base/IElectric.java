@@ -5,6 +5,7 @@ import com.drmangotea.tfmg.base.TFMGUtils;
 import com.drmangotea.tfmg.registry.TFMGPackets;
 
 import com.simibubi.create.foundation.utility.CreateLang;
+import net.createmod.catnip.theme.Color;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -76,7 +77,6 @@ public interface IElectric {
 
     default void onConnected() {
 
-
         BlockPos pos = BlockPos.of(getPos());
         for (Direction d : Direction.values()) {
             if (hasElectricitySlot(d))
@@ -98,7 +98,6 @@ public interface IElectric {
         }
         sendStuff();
 
-
     }
 
 
@@ -107,6 +106,12 @@ public interface IElectric {
                 .style(ChatFormatting.WHITE)
                 .forGoggles(tooltip);
 
+        if(getData().notEnoughtPower) {
+            CreateLang.text("NOT ENOUGHT POWER")
+                    .color(Color.RED)
+                    .forGoggles(tooltip, 1);
+          //  return true;
+        }
         if (voltageGeneration() > 0) {
             CreateLang.translate("multimeter.power_generated")
                     .add(Component.literal(TFMGUtils.formatUnits(powerGeneration(), "W")))
@@ -120,9 +125,6 @@ public interface IElectric {
                     .style(ChatFormatting.WHITE)
                     .forGoggles(tooltip);
         }
-
-
-
 
         CreateLang.text("   R = " + TFMGUtils.formatUnits(voltageGeneration() > 0 ? getGeneratorResistance() : resistance(), "Ω"))
                 .color(0xc98969)
@@ -144,6 +146,20 @@ public interface IElectric {
                     .add(CreateLang.number(getData().group.id))
                     .color(0xd8db27)
                     .forGoggles(tooltip, 1);
+        }
+
+        if(isPlayerSneaking) {
+            CreateLang.text("----------------------------")
+                    .style(ChatFormatting.WHITE)
+                    .forGoggles(tooltip);
+            CreateLang.text("Network Power Generation: " + TFMGUtils.formatUnits(getNetworkPowerGeneration(), "W"))
+                    .color(0xcc4b74)
+                    .forGoggles(tooltip, 1);
+
+            CreateLang.text("Network Power Consumption: " + TFMGUtils.formatUnits(getNetworkPowerUsage(), "W"))
+                    .color(0xcc4b74)
+                    .forGoggles(tooltip, 1);
+
         }
 
         return true;
@@ -170,7 +186,7 @@ public interface IElectric {
     }
 
     default void blockFail() {
-        getLevelAccessor().destroyBlock(BlockPos.of(getPos()), false);
+        //getLevelAccessor().destroyBlock(BlockPos.of(getPos()), false);
     }
 
     default int getPowerUsage() {
@@ -207,6 +223,10 @@ public interface IElectric {
     default float getGeneratorResistance() {
         if (getData().voltageSupply == 0)
             return 0;
+
+        if((float) getData().networkPowerGeneration * (float) getNetworkResistance()==0)
+            return 0;
+
         return (float) powerGeneration() / (float) getData().networkPowerGeneration * (float) getNetworkResistance();
     }
 

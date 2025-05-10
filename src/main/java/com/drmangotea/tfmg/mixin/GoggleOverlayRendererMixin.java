@@ -102,7 +102,6 @@ public class GoggleOverlayRendererMixin {
         if(isElectricBlock&&!hasGoggles) {
             ItemStack item = TFMGItems.MULTIMETER.asStack();
             List<Component> tooltip = new ArrayList<>();
-            tooltip.add(CreateLang.number(1).component());
 
             ((IElectric) be).makeMultimeterTooltip(tooltip, isShifting);
 
@@ -111,8 +110,7 @@ public class GoggleOverlayRendererMixin {
                 tfmg$hoverTicks = 0;
 
             } else {
-//
-//
+
                 if (tooltip.isEmpty()) {
                     tfmg$hoverTicks = 0;
                 } else {

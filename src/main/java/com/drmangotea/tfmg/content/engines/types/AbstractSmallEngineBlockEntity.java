@@ -130,7 +130,6 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
         super.lazyTick();
 
 
-
         upgrade.ifPresent(engineUpgrade -> engineUpgrade.lazyTickUpgrade(this));
     }
 
@@ -192,7 +191,7 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
         if (controller == null)
             return;
 
-        if (controlled) {
+        if (hasEngineController()) {
             fuelInjectionRate = highestSignal / 15f;
             return;
         }
@@ -387,35 +386,35 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
                 return true;
             }
         }
-        if (EngineUpgrade.getUpgrades().containsKey(itemStack.getItem())) {
-            Optional<? extends EngineUpgrade> itemUpgrade = EngineUpgrade.getUpgrades().get(itemStack.getItem()).createUpgrade();
+        if (upgrade.isEmpty())
+            if (EngineUpgrade.getUpgrades().containsKey(itemStack.getItem())) {
+                Optional<? extends EngineUpgrade> itemUpgrade = EngineUpgrade.getUpgrades().get(itemStack.getItem()).createUpgrade();
 
-            if (itemUpgrade.isPresent() && isUpgradeFirst(itemUpgrade.get())) {
-                upgrade = itemUpgrade;
-                playInsertionSound();
-                updateRotation();
-                upgrade.ifPresent(u -> u.updateUpgrade(this));
-                itemStack.shrink(1);
-                if (upgrade.isPresent())
-                    if (upgrade.get() instanceof TransmissionUpgrade transmissionUpgrade) {
-                        if (itemStack.getOrCreateTag().contains("Position") && itemStack.getOrCreateTag().get("Position") != null) {
-                            BlockPos pos = BlockPos.of(itemStack.getOrCreateTag().getLong("Position"));
-                            if (level.getBlockEntity(pos) instanceof EngineControllerBlockEntity engineControllerBE) {
+                if (itemUpgrade.isPresent() && isUpgradeFirst(itemUpgrade.get())) {
+                    upgrade = itemUpgrade;
+                    playInsertionSound();
+                    updateRotation();
+                    upgrade.ifPresent(u -> u.updateUpgrade(this));
+                    itemStack.shrink(1);
+                    if (upgrade.isPresent())
+                        if (upgrade.get() instanceof TransmissionUpgrade transmissionUpgrade) {
+                            if (itemStack.getOrCreateTag().contains("Position") && itemStack.getOrCreateTag().get("Position") != null) {
+                                BlockPos pos = BlockPos.of(itemStack.getOrCreateTag().getLong("Position"));
+                                if (level.getBlockEntity(pos) instanceof EngineControllerBlockEntity engineControllerBE) {
 
-                                this.getControllerBE().updateGeneratedRotation();
+                                    this.getControllerBE().updateGeneratedRotation();
 
-                                getControllerBE().controller = pos;
-                                engineControllerBE.enginePos = this.getBlockPos();
-                                TFMG.LOGGER.debug("INSERT ITEM");
-                                getControllerBE().highestSignal = 0;
+                                    getControllerBE().controller = pos;
+                                    engineControllerBE.enginePos = this.getBlockPos();
+                                    getControllerBE().highestSignal = 0;
+                                }
                             }
                         }
-                    }
-                setChanged();
-                sendData();
-                return true;
+                    setChanged();
+                    sendData();
+                    return true;
+                }
             }
-        }
 
         if (!isController())
             return false;

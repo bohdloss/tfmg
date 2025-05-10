@@ -6,7 +6,7 @@ import com.drmangotea.tfmg.base.TFMGTiers;
 import com.drmangotea.tfmg.content.decoration.gearbox.SteelVerticalGearboxItem;
 import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnection;
 import com.drmangotea.tfmg.content.electricity.debug.DebugCinderBlockItem;
-import com.drmangotea.tfmg.content.electricity.electrians_wrench.ElectriciansWrenchItem;
+import com.drmangotea.tfmg.content.electricity.configuration_wrench.ElectriciansWrenchItem;
 import com.drmangotea.tfmg.content.electricity.measurement.MultimeterItem;
 import com.drmangotea.tfmg.content.electricity.utilities.fuse_block.FuseItem;
 import com.drmangotea.tfmg.content.electricity.utilities.resistor.ResistorItem;
@@ -35,6 +35,7 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.ItemBuilder;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.ItemEntry;
+import com.tterrag.registrate.util.entry.RegistryEntry;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.tags.TagKey;
@@ -43,7 +44,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.drmangotea.tfmg.TFMG.REGISTRATE;
 import static com.drmangotea.tfmg.base.TFMGBuilderTransformers.COLORS;
@@ -253,9 +256,9 @@ public class TFMGItems {
                     .properties(p -> p.stacksTo(1))
                     .register();
 
-    static {
-        multimeters();
-    }
+
+    public static final Map<String, RegistryEntry<MultimeterItem>> MULTIMETERS = multimeters();
+
     public static final ItemEntry<MultimeterItem> MULTIMETER = REGISTRATE.item("multimeter", MultimeterItem::new)
             .register();
 
@@ -408,13 +411,16 @@ public class TFMGItems {
                 .register();
     }
 
-    public static void multimeters() {
-
+    public static Map<String, RegistryEntry<MultimeterItem>> multimeters() {
+        Map<String, RegistryEntry<MultimeterItem>> map = new HashMap<>();
 
         for (String color : COLORS) {
-            REGISTRATE.item(color + "_multimeter", MultimeterItem::new)
-                    .register();
+
+            map.put(color,REGISTRATE.item(color + "_multimeter", MultimeterItem::new)
+                    .register());
         }
+
+        return map;
     }
 
     public static ItemBuilder<SpoolItem, CreateRegistrate> spoolItem(String name, PartialModel model, int barColor, CableConnection.CableType type) {

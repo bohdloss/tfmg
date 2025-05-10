@@ -1,4 +1,4 @@
-// 1.20.1	2025-05-09T22:55:10.3861864	Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-05-10T09:58:50.664261	Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 ff5a5721633b83465ab501cbdfdc579a0f20e938 assets/tfmg/blockstates/accumulator.json
 e982a263b6af75821042107fdeff7bd809436d08 assets/tfmg/blockstates/air_intake.json
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
@@ -437,8 +437,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-40062ab10df958c2eadbe01f76539f209abca35a assets/tfmg/lang/en_ud.json
-be538c0f2b254d523b8910750bf4a78c075fc74f assets/tfmg/lang/en_us.json
+58acad4a6a1552ef82ee74f8127be3780974e05a assets/tfmg/lang/en_ud.json
+838b69ddd96807c63085e1e6bdce2fd3efe4f0a5 assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 1d33a893d6ac05f9adaceb7f84423ebe9b195c01 assets/tfmg/models/block/aluminum_cable_hub.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json

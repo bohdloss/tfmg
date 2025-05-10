@@ -1,4 +1,4 @@
-// 1.20.1	2025-05-01T12:33:45.0027115	TFMG's Recipes
+// 1.20.1	2025-05-10T10:06:28.9423315	TFMG's Recipes
 d779aa2cf2fca905473c494073443d0289484311 data/create/recipes/mechanical_crafting/engine_controller.json
 dd795cb8dd376f621afb3773cadb99c409aaf875 data/create/recipes/mechanical_crafting/flamethrower.json
 e4cd8dd7ad658d3c2d5785fe659aba0e1b9d4f31 data/create/recipes/mechanical_crafting/large_engine.json
@@ -34,12 +34,14 @@ dfd486a1e6ffcaaf328490489baae15999abdd66 data/tfmg/advancements/recipes/misc/cra
 5ecf1e6f00baafb429e84bbbd599d2cba829c270 data/tfmg/advancements/recipes/misc/crafting/kinetics/aluminum_sword.json
 d4550fea43f7cadcee96dfe5ecdf2a3932e10b37 data/tfmg/advancements/recipes/misc/crafting/kinetics/aluminum_truss.json
 1766976fb123199b29e3a0c8d8ad0a3a90f23289 data/tfmg/advancements/recipes/misc/crafting/kinetics/black_concrete.json
+a00b79ad9876d982d669033104e141d7ab4d5632 data/tfmg/advancements/recipes/misc/crafting/kinetics/black_multimeter.json
 2077ab308886e842cd894d9accb6a52dc847658f data/tfmg/advancements/recipes/misc/crafting/kinetics/black_rebar_concrete.json
 085aec07524c91226410b7b8917cf6bf97f3a873 data/tfmg/advancements/recipes/misc/crafting/kinetics/blast_furnace_hatch.json
 94ad06b3222fe599ae2c28055a74403553f2d6e1 data/tfmg/advancements/recipes/misc/crafting/kinetics/blast_furnace_output.json
 b65b1fed310bdcd57d6be9860c7eb7c17c2f922d data/tfmg/advancements/recipes/misc/crafting/kinetics/blast_furnace_reinforcement.json
 9882780522b74f41d9b1facaecf0906ad2ded80b data/tfmg/advancements/recipes/misc/crafting/kinetics/blast_stove.json
 91236298677bead8c8e4a9c2b2042e34a6bfc7fc data/tfmg/advancements/recipes/misc/crafting/kinetics/blue_concrete.json
+9d246142748003851c2ae40cf670dcaaf8610b63 data/tfmg/advancements/recipes/misc/crafting/kinetics/blue_multimeter.json
 5766e5caa1946fc28c978aa4f30f6ccfd0c66a50 data/tfmg/advancements/recipes/misc/crafting/kinetics/blue_rebar_concrete.json
 254b56ab97ae39367fecd8f298db28995b5ca98d data/tfmg/advancements/recipes/misc/crafting/kinetics/brass_cable_hub.json
 11197779ff7c09cabdfecca3bbfdaf721bf9f723 data/tfmg/advancements/recipes/misc/crafting/kinetics/brass_fluid_valve.json
@@ -51,6 +53,7 @@ b0f2d650bd28257081412243f00de7cc4b9c70d1 data/tfmg/advancements/recipes/misc/cra
 0af6494f19a65ffffef34d414f9ddf4a4784d4ba data/tfmg/advancements/recipes/misc/crafting/kinetics/brass_truss.json
 9f2a83c8ae2401947e04f209c224f401113a33ac data/tfmg/advancements/recipes/misc/crafting/kinetics/brick_smokestack.json
 bb5d03143618b31428378da53d39c52f191df7d7 data/tfmg/advancements/recipes/misc/crafting/kinetics/brown_concrete.json
+f178952cc49570239795623b7ea4efce1204a9db data/tfmg/advancements/recipes/misc/crafting/kinetics/brown_multimeter.json
 537be60abef99e669300ca1bbc0c5f9a0f40ada7 data/tfmg/advancements/recipes/misc/crafting/kinetics/brown_rebar_concrete.json
 d1f24b4a5314d6e9e110b5b24783684b1c13d2fc data/tfmg/advancements/recipes/misc/crafting/kinetics/cable_connector.json
 d7d6d51df7d03dd3282a1e72d29fee9796b4121a data/tfmg/advancements/recipes/misc/crafting/kinetics/cable_tube.json
@@ -93,6 +96,7 @@ af50eaf2d7cf7a460786d5db428967b7cc46c488 data/tfmg/advancements/recipes/misc/cra
 26107d07c052211b81fbf3b87b4a742423bcc9a3 data/tfmg/advancements/recipes/misc/crafting/kinetics/copycat_cable_block.json
 3f6530210f33ecead99099b6bf83e759625eb8ec data/tfmg/advancements/recipes/misc/crafting/kinetics/crankshaft.json
 c16a5c7105e55a0205d0ee2af993e72e82b925f5 data/tfmg/advancements/recipes/misc/crafting/kinetics/cyan_concrete.json
+155c4ec8c3e8dcdbc59b0e9fd77aff26eab0d247 data/tfmg/advancements/recipes/misc/crafting/kinetics/cyan_multimeter.json
 251ef6238e7b2017e9fb7d2e1f99fd0d0ad09691 data/tfmg/advancements/recipes/misc/crafting/kinetics/cyan_rebar_concrete.json
 53a922afd729d22c45301c52c113b6f4e56a86e4 data/tfmg/advancements/recipes/misc/crafting/kinetics/diagonal_cable_block.json
 507d48685dd7a07d7e8468d037803fa0b72d1b8f data/tfmg/advancements/recipes/misc/crafting/kinetics/electrical_switch.json
@@ -114,8 +118,10 @@ de4886d243a449d6bc2ea3ae90ebdd572dfadd79 data/tfmg/advancements/recipes/misc/cra
 744227e044d65aac553d20e453819f3f62794aa1 data/tfmg/advancements/recipes/misc/crafting/kinetics/glass_cable_insulator.json
 f0859ba535b3711a210f4c92e51a79df1a9b0726 data/tfmg/advancements/recipes/misc/crafting/kinetics/glass_insulator_segment.json
 d837806286dbf97a2fe52cc7958c567f28d79133 data/tfmg/advancements/recipes/misc/crafting/kinetics/gray_concrete.json
+6e6a5c44e8e8c239681b42438209be8718e1c9e4 data/tfmg/advancements/recipes/misc/crafting/kinetics/gray_multimeter.json
 e52bdd8201ed3052eb98a4846511d32bc67394a1 data/tfmg/advancements/recipes/misc/crafting/kinetics/gray_rebar_concrete.json
 abada3c69da28d530b05b1a80f72cdfb94984142 data/tfmg/advancements/recipes/misc/crafting/kinetics/green_concrete.json
+631b2bc9dff22b783fb53224653d9cbe49676c5e data/tfmg/advancements/recipes/misc/crafting/kinetics/green_multimeter.json
 abb6648bb7541e2a0af33006de472d8586808cc5 data/tfmg/advancements/recipes/misc/crafting/kinetics/green_rebar_concrete.json
 7f74fac36c61629c9e521c091e86e721bb005da7 data/tfmg/advancements/recipes/misc/crafting/kinetics/heavy_cable_hub.json
 bb43b88374948785c6862f5d0515859c59b444ea data/tfmg/advancements/recipes/misc/crafting/kinetics/heavy_casing_door.json
@@ -138,11 +144,14 @@ f879875d3aba7de14d1bd8ac44a5da0b2d536420 data/tfmg/advancements/recipes/misc/cra
 d32ded8889b0f16f96bac0bf4b78b6a120872b7a data/tfmg/advancements/recipes/misc/crafting/kinetics/lead_sword.json
 ae4b9b7214d1e0db9b83b8ce8e17819bde3e2004 data/tfmg/advancements/recipes/misc/crafting/kinetics/lead_truss.json
 ccb4f8b047573a4b07643c14e7d07623337b64ea data/tfmg/advancements/recipes/misc/crafting/kinetics/light_blue_concrete.json
+f3d20a7616db6a9925e704c036aa8f36d978520f data/tfmg/advancements/recipes/misc/crafting/kinetics/light_blue_multimeter.json
 a836a268c214d4530d7845e0928bdcc2903e7160 data/tfmg/advancements/recipes/misc/crafting/kinetics/light_blue_rebar_concrete.json
 182d4609455cc2db6621b47d1b17d861b8e9bac6 data/tfmg/advancements/recipes/misc/crafting/kinetics/light_bulb.json
 ad86c6fb8548a8eea1242c0049f4f57a949a0d71 data/tfmg/advancements/recipes/misc/crafting/kinetics/light_gray_concrete.json
+af2d1b84bb399145a11ae056aa4f7a868451f364 data/tfmg/advancements/recipes/misc/crafting/kinetics/light_gray_multimeter.json
 a4b28a3a3f5313ebde7d60add23388c858a4b611 data/tfmg/advancements/recipes/misc/crafting/kinetics/light_gray_rebar_concrete.json
 bf778154e8cf58fff69e81c98df7e2cdd00cc5ed data/tfmg/advancements/recipes/misc/crafting/kinetics/lime_concrete.json
+199da187865840ae9b745cbe91e7c32c9b316074 data/tfmg/advancements/recipes/misc/crafting/kinetics/lime_multimeter.json
 93ef0e0da2376a6ec8c75857af60474b7b20c146 data/tfmg/advancements/recipes/misc/crafting/kinetics/lime_rebar_concrete.json
 66c2e6a885101f2efe8076907f78342ec42170e4 data/tfmg/advancements/recipes/misc/crafting/kinetics/lithium_blade.json
 2ff25ea31f32edefb251196c93a6c0fb9cbd2f10 data/tfmg/advancements/recipes/misc/crafting/kinetics/lithium_block_from_compacting.json
@@ -153,10 +162,12 @@ bf778154e8cf58fff69e81c98df7e2cdd00cc5ed data/tfmg/advancements/recipes/misc/cra
 25e5ab420b9f62583f4d78e00f6e4e99def65b38 data/tfmg/advancements/recipes/misc/crafting/kinetics/lithium_torch.json
 19e295d0d4807a2aafaf78ddef3d1e82b67823fc data/tfmg/advancements/recipes/misc/crafting/kinetics/machine_input.json
 ed197bae5d59a5c17f0632125f7bcee546bee47d data/tfmg/advancements/recipes/misc/crafting/kinetics/magenta_concrete.json
+683ba23c77e6ca541bd4bf209a73ff77aaad71ad data/tfmg/advancements/recipes/misc/crafting/kinetics/magenta_multimeter.json
 9b04132c22bf3e4e4d1f5c4d47258c43cbec4252 data/tfmg/advancements/recipes/misc/crafting/kinetics/magenta_rebar_concrete.json
 551343fcd35785d39328f16f169e225671cb5d5e data/tfmg/advancements/recipes/misc/crafting/kinetics/metal_smokestack.json
 45fd4bb8a8c60ce588debd9fbfb40419cd18b363 data/tfmg/advancements/recipes/misc/crafting/kinetics/mixer_blade.json
 3b5499b9d59df13f74e982688cac264cc1e468a1 data/tfmg/advancements/recipes/misc/crafting/kinetics/modern_light.json
+a1c6c3c68901b0055a0646c423a9ec585a2ca3cc data/tfmg/advancements/recipes/misc/crafting/kinetics/multimeter.json
 4d05146d18ffefbb14821a19d327f7e2c9f4be1f data/tfmg/advancements/recipes/misc/crafting/kinetics/napalm_bomb.json
 2afc4bda819e3960e678b55385753db759613703 data/tfmg/advancements/recipes/misc/crafting/kinetics/neon_tube.json
 6f6485ea57087a90188ebcc06b58548da5ec22b3 data/tfmg/advancements/recipes/misc/crafting/kinetics/nickel_block_from_compacting.json
@@ -168,8 +179,10 @@ b28e7499cbc4e65a90f4b32acc3cd019c123f85d data/tfmg/advancements/recipes/misc/cra
 b454069f626db5b3fb4d28b3500e08e6f3241b36 data/tfmg/advancements/recipes/misc/crafting/kinetics/nickel_truss.json
 07d1d9e23d958f0db636e63c87980a16508a9b05 data/tfmg/advancements/recipes/misc/crafting/kinetics/oil_can.json
 b11887f3e64d6fd41662d5fe25991dc2f21e2524 data/tfmg/advancements/recipes/misc/crafting/kinetics/orange_concrete.json
+d03389e1cf797ff41496c61865350b84565679b6 data/tfmg/advancements/recipes/misc/crafting/kinetics/orange_multimeter.json
 e3e3e8e7d8731ccd25fd110452107089c1d27c61 data/tfmg/advancements/recipes/misc/crafting/kinetics/orange_rebar_concrete.json
 dd780755922b2ae68df0ff68682071c4fb8acca2 data/tfmg/advancements/recipes/misc/crafting/kinetics/pink_concrete.json
+fce74a73a1022991d9c10a27ad3b9c996159bdf4 data/tfmg/advancements/recipes/misc/crafting/kinetics/pink_multimeter.json
 cf0270dfbef5e8b558dec65cf75a6767e0ad653a data/tfmg/advancements/recipes/misc/crafting/kinetics/pink_rebar_concrete.json
 4da181c7e498986202126abdd1deb78ae4fbcbb6 data/tfmg/advancements/recipes/misc/crafting/kinetics/pipe_bomb.json
 575a896b2c6e2df1dde348e3bf65d92a2445535b data/tfmg/advancements/recipes/misc/crafting/kinetics/plastic_block.json
@@ -186,6 +199,7 @@ ae004d21f8a7f023d29baf5573aa32e54bdea870 data/tfmg/advancements/recipes/misc/cra
 543723c25ae7fc7e393f445fc9b6d4c722c4b045 data/tfmg/advancements/recipes/misc/crafting/kinetics/pumpjack_hammer_connector.json
 c0c36f2df4dcc43db3d637b5abdad08cee48b734 data/tfmg/advancements/recipes/misc/crafting/kinetics/pumpjack_hammer_head.json
 ce949189c6d144a91b06c38ea343aae2ecb91818 data/tfmg/advancements/recipes/misc/crafting/kinetics/purple_concrete.json
+f81c7a443098be45f74c755ba17381cac1b6d02d data/tfmg/advancements/recipes/misc/crafting/kinetics/purple_multimeter.json
 46cc7fb7d6ddf9296379dbc69f61634bf93f83c9 data/tfmg/advancements/recipes/misc/crafting/kinetics/purple_rebar_concrete.json
 6e7e99acc803efafe2fa540c77707f9b9af686ae data/tfmg/advancements/recipes/misc/crafting/kinetics/radial_engine.json
 f0cf416f6e9d2ca025806e4a3ef03223314df6e8 data/tfmg/advancements/recipes/misc/crafting/kinetics/raw_lead.json
@@ -202,6 +216,7 @@ a4f1738a69048fad057b127f9f610a6586ce3156 data/tfmg/advancements/recipes/misc/cra
 9de813bde5c487920ff931b2b2d2704286e0c7dd data/tfmg/advancements/recipes/misc/crafting/kinetics/rebar_stairs.json
 e009fade2852842fe85532419c3cdc6a07b26305 data/tfmg/advancements/recipes/misc/crafting/kinetics/rebar_wall.json
 fb1305d7d76d0f387dddb87747a21eb046464947 data/tfmg/advancements/recipes/misc/crafting/kinetics/red_concrete.json
+a171c644d82b6c7975e2039cd43939fe2fc633c3 data/tfmg/advancements/recipes/misc/crafting/kinetics/red_multimeter.json
 b0b8eef469ef68a444cfbf5af7b761f534044c6e data/tfmg/advancements/recipes/misc/crafting/kinetics/red_rebar_concrete.json
 58d67523a201578460c00c5bcc9a5d257f9169f1 data/tfmg/advancements/recipes/misc/crafting/kinetics/regular_engine.json
 08659dddf04a87500623c4aa57430375c96ba19d data/tfmg/advancements/recipes/misc/crafting/kinetics/rusted_blast_furnace_reinforcement.json
@@ -249,9 +264,11 @@ d7175bb0b6e8a62b9fcf97329c5ee4ecb54be7fb data/tfmg/advancements/recipes/misc/cra
 206cfd8ea696578a3eb3d2530f80687d7eeb6236 data/tfmg/advancements/recipes/misc/crafting/kinetics/voltage_observer.json
 eb2f906386fcfce680ed71b42eb0250ebb897616 data/tfmg/advancements/recipes/misc/crafting/kinetics/voltmeter.json
 ea0daa41506268cb3020939be177ef36220d4f10 data/tfmg/advancements/recipes/misc/crafting/kinetics/white_concrete.json
+530afc19cce3e22ef717e5aba931a6501792a792 data/tfmg/advancements/recipes/misc/crafting/kinetics/white_multimeter.json
 4384204f7198c822a36d391c5db17586c4b55161 data/tfmg/advancements/recipes/misc/crafting/kinetics/white_rebar_concrete.json
 48746b460dd42beec11a226ac7c462454bcd542c data/tfmg/advancements/recipes/misc/crafting/kinetics/winding_machine.json
 e8e715907d8d625725658b07edbb7083918a4d46 data/tfmg/advancements/recipes/misc/crafting/kinetics/yellow_concrete.json
+1967d8243bc576196dcc8e80743d061e6eaabd18 data/tfmg/advancements/recipes/misc/crafting/kinetics/yellow_multimeter.json
 4fa8a5680937c3fb6681a9391482f4f215564a50 data/tfmg/advancements/recipes/misc/crafting/kinetics/yellow_rebar_concrete.json
 b7c8ea540760ca91937bfb56a6c9abd4435a9910 data/tfmg/advancements/recipes/misc/crafting/kinetics/zinc_frame.json
 14b5a77590ec2b2466264128d4ce2dd1158ccab6 data/tfmg/advancements/recipes/misc/crafting/kinetics/zinc_grenade.json
@@ -290,12 +307,14 @@ be183c532de69717b584f2df32c0c34538f80089 data/tfmg/recipes/crafting/kinetics/alu
 955d158e2a1f8a0517717012274698ccad56de0b data/tfmg/recipes/crafting/kinetics/aluminum_sword.json
 5be032a557074e91822ce9e9538db118793a51d5 data/tfmg/recipes/crafting/kinetics/aluminum_truss.json
 4cf7dc18b7316f40973b52162173cfb0082051b5 data/tfmg/recipes/crafting/kinetics/black_concrete.json
+8e5662d854eb69ebff30fbc52fa66431d1f890d9 data/tfmg/recipes/crafting/kinetics/black_multimeter.json
 0a8407c6c691dc2e2dc76d436c4b857660405b7b data/tfmg/recipes/crafting/kinetics/black_rebar_concrete.json
 a3a45c1f82a7b6db35c489b4d0c5dabb62ff7419 data/tfmg/recipes/crafting/kinetics/blast_furnace_hatch.json
 da5696363c9d489573b79ac2261de3eeeabcf28f data/tfmg/recipes/crafting/kinetics/blast_furnace_output.json
 99724811c3a0fcf930e2c3ab9e960fe48f346219 data/tfmg/recipes/crafting/kinetics/blast_furnace_reinforcement.json
 c5f9e9509b88317e4b8ee83c89f363725fd9586c data/tfmg/recipes/crafting/kinetics/blast_stove.json
 a64bdef677eb562a587374ce547a9d75558618f8 data/tfmg/recipes/crafting/kinetics/blue_concrete.json
+80dd6da57061475960ef6068927d3ba528b84596 data/tfmg/recipes/crafting/kinetics/blue_multimeter.json
 697d0e47ad2efaf5622ac5378d213271bed0cf51 data/tfmg/recipes/crafting/kinetics/blue_rebar_concrete.json
 11986c41315a4dd2a3329ab8c9336e7811ed26e9 data/tfmg/recipes/crafting/kinetics/brass_cable_hub.json
 429bdb714c3bfed25ca601e5f21bb40684930162 data/tfmg/recipes/crafting/kinetics/brass_fluid_valve.json
@@ -307,6 +326,7 @@ cea30408cc76d443cfa37f2ef7abfcbd9e73b33f data/tfmg/recipes/crafting/kinetics/bra
 6dc803197514ee8836685c2515ea6854abd2fe6e data/tfmg/recipes/crafting/kinetics/brass_truss.json
 1b12f55387d82cf4ac731d3e8b323bbe4d5c1387 data/tfmg/recipes/crafting/kinetics/brick_smokestack.json
 5c4fae047c5dd1e17931fbe4acf78eaebb90c214 data/tfmg/recipes/crafting/kinetics/brown_concrete.json
+91e3374fc0397a437903d684c96ef9c6a7b25eec data/tfmg/recipes/crafting/kinetics/brown_multimeter.json
 3cf5957af0b2dac567c9ac979dcf7a432eaf5991 data/tfmg/recipes/crafting/kinetics/brown_rebar_concrete.json
 3bbd95eb4beea9a48ee58ef36308352fcb477d8c data/tfmg/recipes/crafting/kinetics/cable_connector.json
 f525ae0ae9b3c7047d8b0ac459294e7215e2417c data/tfmg/recipes/crafting/kinetics/cable_tube.json
@@ -349,6 +369,7 @@ ed9bd7f6378712909c8d41cd5723e37a30d1bbeb data/tfmg/recipes/crafting/kinetics/cop
 c3a9e90d2ef4da0cba626201f9d0b07a38beafdd data/tfmg/recipes/crafting/kinetics/copycat_cable_block.json
 b0fdc3db2173d73e58b7b3108b30f5275fdb355e data/tfmg/recipes/crafting/kinetics/crankshaft.json
 cf525b0bb0af060113368e6520485a998087c0fa data/tfmg/recipes/crafting/kinetics/cyan_concrete.json
+1771fdf13ac4669336ea79b0b8f196ccf4d6cd13 data/tfmg/recipes/crafting/kinetics/cyan_multimeter.json
 a510e53b00e5a1b1f0354a6d8d8bfa9eb2d4cf4e data/tfmg/recipes/crafting/kinetics/cyan_rebar_concrete.json
 d1ebfd182c8b618cfd9305732d916dc9bbfe3039 data/tfmg/recipes/crafting/kinetics/diagonal_cable_block.json
 8396fa84d7a7e6317bef36efbc3e27bb17a17caf data/tfmg/recipes/crafting/kinetics/electrical_switch.json
@@ -370,8 +391,10 @@ a7ab7113fa322747bf249695a0616d8f2e01299a data/tfmg/recipes/crafting/kinetics/fus
 2206abd056a349f73e052109638d31dacbfd064c data/tfmg/recipes/crafting/kinetics/glass_cable_insulator.json
 011bb0040f193bac1fd585f560705a2b1b1fd333 data/tfmg/recipes/crafting/kinetics/glass_insulator_segment.json
 c96069b5c7156bcfcfc77b7beeec762e2d7324f1 data/tfmg/recipes/crafting/kinetics/gray_concrete.json
+898e6946957e703789a20cba59c351622e6efe5d data/tfmg/recipes/crafting/kinetics/gray_multimeter.json
 1a61bde547fdd135c476593b7babecaa7a17b256 data/tfmg/recipes/crafting/kinetics/gray_rebar_concrete.json
 a921ae3753e3ad4f43fe64dd71c0c99c201d4756 data/tfmg/recipes/crafting/kinetics/green_concrete.json
+26e5f6a32c068b22541b54cf792780de576cdfd0 data/tfmg/recipes/crafting/kinetics/green_multimeter.json
 d137a83628de275f56e0a3e4b045668eb50ecc67 data/tfmg/recipes/crafting/kinetics/green_rebar_concrete.json
 045dfd5f31f1a1c53b9d27b144d3e530bcda28dc data/tfmg/recipes/crafting/kinetics/heavy_cable_hub.json
 8f6f541a0a8e59f826540a32a5dc7570a42dcef1 data/tfmg/recipes/crafting/kinetics/heavy_casing_door.json
@@ -394,11 +417,14 @@ f7922b7b22f7d7b3a54ab3d3d0892170f7448db3 data/tfmg/recipes/crafting/kinetics/lea
 22669e8eeeca626e2cc262c65eb60cf73c4294b2 data/tfmg/recipes/crafting/kinetics/lead_sword.json
 99ab779254d79071cc744044b4cf164b8549a9cd data/tfmg/recipes/crafting/kinetics/lead_truss.json
 bc48677f911ae20d3a73b6680c045f1f61e742f5 data/tfmg/recipes/crafting/kinetics/light_blue_concrete.json
+8b6cf168a9b2caa704e4b1dcbbeccb5f12d590ad data/tfmg/recipes/crafting/kinetics/light_blue_multimeter.json
 1c9b7ee59de96caff4cc85e2e2b628624060f43d data/tfmg/recipes/crafting/kinetics/light_blue_rebar_concrete.json
 d08e1659e61d60150143b49a13ce11863fdc9062 data/tfmg/recipes/crafting/kinetics/light_bulb.json
 78eb081ea1181a1a3a570706abfae9ec027b4633 data/tfmg/recipes/crafting/kinetics/light_gray_concrete.json
+4e2b1c2a087a272e13a54f6be16e973a58f9d85c data/tfmg/recipes/crafting/kinetics/light_gray_multimeter.json
 73c91c4db64e477c9c38f063977d951a9b962c87 data/tfmg/recipes/crafting/kinetics/light_gray_rebar_concrete.json
 574d3bf1cd7f42cf4f3203bf360055be291c11e0 data/tfmg/recipes/crafting/kinetics/lime_concrete.json
+d403d77836315aa6d9d8f7ca7632e9d76e754510 data/tfmg/recipes/crafting/kinetics/lime_multimeter.json
 a05bf5656cf7598f473d0fb6c74c0089e53b3e4b data/tfmg/recipes/crafting/kinetics/lime_rebar_concrete.json
 51b9b72251919c5a5dbbc7ad113b3393d3c1322b data/tfmg/recipes/crafting/kinetics/lithium_blade.json
 147304987aff453c5be90128024e8e7e450c7024 data/tfmg/recipes/crafting/kinetics/lithium_block_from_compacting.json
@@ -409,10 +435,12 @@ b823dd658cac8c0125e31f1bea532b4b714b6cc7 data/tfmg/recipes/crafting/kinetics/lit
 c99c66d2f4f9cee928baf57f1d65323b3d54100f data/tfmg/recipes/crafting/kinetics/lithium_torch.json
 8e1da1ad94782fb95dfaecd3409bec4ab785a90c data/tfmg/recipes/crafting/kinetics/machine_input.json
 932aa48a5626050982ff49dc049169d867515af1 data/tfmg/recipes/crafting/kinetics/magenta_concrete.json
+ae1ee9627bea9c329b1189cc430c583da2fe1c00 data/tfmg/recipes/crafting/kinetics/magenta_multimeter.json
 809b219010111e5bc4be69d9d881d63314b03612 data/tfmg/recipes/crafting/kinetics/magenta_rebar_concrete.json
 b78332d528e39fffa878bf90171bd48876ebcd1b data/tfmg/recipes/crafting/kinetics/metal_smokestack.json
 90925b88dbfd9defd4bc3d3aa8a8ca3148ab0912 data/tfmg/recipes/crafting/kinetics/mixer_blade.json
 75d572fecac2127a9bf4dd8a070c43fd77d13380 data/tfmg/recipes/crafting/kinetics/modern_light.json
+514d64001949b548450cf811e94cccc966257139 data/tfmg/recipes/crafting/kinetics/multimeter.json
 fe4c2b992eb08744551e4cf5339cf8e916adacaf data/tfmg/recipes/crafting/kinetics/napalm_bomb.json
 88bbbcd291403c02924fa5d57877789b55d248e2 data/tfmg/recipes/crafting/kinetics/neon_tube.json
 b6a20b2a85231dfa01cac33b283d0dd431fb4819 data/tfmg/recipes/crafting/kinetics/nickel_block_from_compacting.json
@@ -424,8 +452,10 @@ dbb8e863fa16906f98ba729cf3c9af17d44c7274 data/tfmg/recipes/crafting/kinetics/nic
 8b21eac9fdc5e8e8cd71dee820c0ac3b808f0bf3 data/tfmg/recipes/crafting/kinetics/nickel_truss.json
 0ca28c553bf4efc2d35390414c9c7d02026d4300 data/tfmg/recipes/crafting/kinetics/oil_can.json
 4739646509f4f55aacb3d3eb645c537def939fe6 data/tfmg/recipes/crafting/kinetics/orange_concrete.json
+9e6dc59e4f88fb26c79805e6a5f90e71cc07bde2 data/tfmg/recipes/crafting/kinetics/orange_multimeter.json
 db1e461e9a170536708ad573a85de2f4ae425181 data/tfmg/recipes/crafting/kinetics/orange_rebar_concrete.json
 ab31dd7ea28b3bf9f5da82ae0b23e485541a4d06 data/tfmg/recipes/crafting/kinetics/pink_concrete.json
+1408bb05585edbb209048549f5a33a7f2b1d7ca8 data/tfmg/recipes/crafting/kinetics/pink_multimeter.json
 dcb9948b58a0646cc1cf10bbef31a10accf51282 data/tfmg/recipes/crafting/kinetics/pink_rebar_concrete.json
 c8cc1bb1c54789e4c3810b9ca98f7612c04c6768 data/tfmg/recipes/crafting/kinetics/pipe_bomb.json
 14174829741026aec93de7a6be22e2b480942de8 data/tfmg/recipes/crafting/kinetics/plastic_block.json
@@ -442,6 +472,7 @@ d178534b096b74c2c4a74a9d08f9a2bed9ff47a0 data/tfmg/recipes/crafting/kinetics/pum
 107166edb673713e46aef9eb1248652e8a21846b data/tfmg/recipes/crafting/kinetics/pumpjack_hammer_connector.json
 c286faa9ef2b8e7d0c317435e435fcdd16aa9e42 data/tfmg/recipes/crafting/kinetics/pumpjack_hammer_head.json
 c849bd3e7d677438e35381b0b2ab1e3aa3544356 data/tfmg/recipes/crafting/kinetics/purple_concrete.json
+4a5b50b6b61896cd8eb0bdf2d9da6963d0576dbf data/tfmg/recipes/crafting/kinetics/purple_multimeter.json
 7c21d2641d14b2bc6ee6bc09196b48e2e2b6258d data/tfmg/recipes/crafting/kinetics/purple_rebar_concrete.json
 130287b66b9ad3c463a7f2385884fe3f367a7165 data/tfmg/recipes/crafting/kinetics/radial_engine.json
 75a33fc64dc47a0d07731aebbf8a99b762f2a276 data/tfmg/recipes/crafting/kinetics/raw_lead.json
@@ -458,6 +489,7 @@ da57294a42f4aa934e8bd09bfffbcfaad71f4d7e data/tfmg/recipes/crafting/kinetics/reb
 7e0e2d15822b2e55d5634e5857ac4c060c604ba3 data/tfmg/recipes/crafting/kinetics/rebar_stairs.json
 ff5859c287185322feff83cf23b8d2a9ea48f3d2 data/tfmg/recipes/crafting/kinetics/rebar_wall.json
 fc5ce9454a8464e5264d0b4f1696c01e4953aebf data/tfmg/recipes/crafting/kinetics/red_concrete.json
+2575654b599dca830032b50fd13f3e2454533ba1 data/tfmg/recipes/crafting/kinetics/red_multimeter.json
 80cc4aff6d3296cceb394237c8232f5546168ab9 data/tfmg/recipes/crafting/kinetics/red_rebar_concrete.json
 45e0349c5ff50a6d8de93bb0c6826400a03f7a1a data/tfmg/recipes/crafting/kinetics/regular_engine.json
 38559a4f46b8592c258b13b74d751113bb7c7fb8 data/tfmg/recipes/crafting/kinetics/rusted_blast_furnace_reinforcement.json
@@ -505,9 +537,11 @@ f5984b5d3c82f4605f08a88d16aa2fdfec5482fb data/tfmg/recipes/crafting/kinetics/tur
 6ca672214a0639fbc93502774aff5e5a60650018 data/tfmg/recipes/crafting/kinetics/voltage_observer.json
 e2ec2eaf75166a30f3c9749e335c167793b54c14 data/tfmg/recipes/crafting/kinetics/voltmeter.json
 5c740c1158f8cb1a928a1f79cd2eac2d13d80f1a data/tfmg/recipes/crafting/kinetics/white_concrete.json
+eb0daeae165f64bfb8d33de5d48f82ee2c9546a2 data/tfmg/recipes/crafting/kinetics/white_multimeter.json
 95a0c0882053843057d9d80b92d517738f44d4a3 data/tfmg/recipes/crafting/kinetics/white_rebar_concrete.json
 66b87962e18c3dcabd3bdf74ac6d4f91260f4c48 data/tfmg/recipes/crafting/kinetics/winding_machine.json
 c09b785b8b182879ae71ab49e6604f6b1cf53ec1 data/tfmg/recipes/crafting/kinetics/yellow_concrete.json
+5989a7ebc7ec6d734b7fcd1890c1186c52514817 data/tfmg/recipes/crafting/kinetics/yellow_multimeter.json
 461258447e1c8a49fa017ea663511ec0a633ecba data/tfmg/recipes/crafting/kinetics/yellow_rebar_concrete.json
 b673506b5ef4dd9ea08cc070b3f9f3fc01fa4398 data/tfmg/recipes/crafting/kinetics/zinc_frame.json
 56135df98436c7ff10516c4852cdddaef2367b53 data/tfmg/recipes/crafting/kinetics/zinc_grenade.json

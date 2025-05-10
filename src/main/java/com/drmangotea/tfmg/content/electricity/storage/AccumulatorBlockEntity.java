@@ -6,11 +6,7 @@ import com.drmangotea.tfmg.config.TFMGConfigs;
 import com.drmangotea.tfmg.content.electricity.base.ElectricBlockEntity;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.content.electricity.utilities.converter.ConverterBlockEntity;
-import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
-import com.drmangotea.tfmg.registry.TFMGBlocks;
-
 import com.simibubi.create.foundation.utility.CreateLang;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -38,28 +34,31 @@ public class AccumulatorBlockEntity extends ElectricBlockEntity {
     public BlockPos controller = getBlockPos();
     int signal;
     boolean signalChanged;
+
     public AccumulatorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         energyCapability = LazyOptional.of(() -> energy);
 
     }
+
     @Override
     public void lazyTick() {
         super.lazyTick();
         neighbourChanged();
     }
+
     public void neighbourChanged() {
 
         if (!hasLevel())
             return;
-        if(isController()){
+        if (isController()) {
             int power = level.getBestNeighborSignal(worldPosition);
 
 
             if (power != signal)
                 signalChanged = true;
         }
-        if(level.getBlockEntity(controller) instanceof AccumulatorBlockEntity be) {
+        if (level.getBlockEntity(controller) instanceof AccumulatorBlockEntity be) {
             int power = level.getBestNeighborSignal(worldPosition);
 
 
@@ -67,7 +66,6 @@ public class AccumulatorBlockEntity extends ElectricBlockEntity {
                 be.signalChanged = true;
         }
     }
-
 
 
     @Override
@@ -82,6 +80,28 @@ public class AccumulatorBlockEntity extends ElectricBlockEntity {
         refreshController();
     }
 
+    @Override
+    public boolean makeMultimeterTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+
+        super.makeMultimeterTooltip(tooltip, isPlayerSneaking);
+
+
+        CreateLang.text("Capacity ")
+                .add(Component.literal(TFMGUtils.formatUnits(energy.getEnergyStored(), "FE")))
+                .color(0x127799)
+                .forGoggles(tooltip, 1);
+
+        CreateLang.text("Charging Rate ")
+                .add(CreateLang.number(getChargingRate()))
+                .color(0x127799)
+                .forGoggles(tooltip, 1);
+        CreateLang.text("Max Capacity ")
+                .add(CreateLang.number(getMaxCapacity()))
+                .color(0x127799)
+                .forGoggles(tooltip, 1);
+
+        return true;
+    }
 
     public void refreshController() {
         Direction facing = getBlockState().getValue(FACING);
@@ -114,12 +134,12 @@ public class AccumulatorBlockEntity extends ElectricBlockEntity {
             length = newLength;
             int oldEnergy = energy.getEnergyStored();
             energy = createEnergyStorage(length);
-            energy.setEnergy(Math.min(oldEnergy,energy.getMaxEnergyStored()*length));
+            energy.setEnergy(Math.min(oldEnergy, energy.getMaxEnergyStored() * length));
             refreshCapability();
             updateNextTick();
             for (int i = 1; i < length; i++) {
                 BlockPos pos = getBlockPos().relative(getBlockState().getValue(FACING).getOpposite(), i);
-                if(level.getBlockEntity(pos) instanceof AccumulatorBlockEntity be){
+                if (level.getBlockEntity(pos) instanceof AccumulatorBlockEntity be) {
                     be.refreshCapability();
                     be.sendStuff();
                 }
@@ -146,16 +166,17 @@ public class AccumulatorBlockEntity extends ElectricBlockEntity {
         }
         return super.getCapability(cap, side);
     }
+
     public boolean isController() {
         return controller == getBlockPos();
     }
 
     public TFMGForgeEnergyStorage createEnergyStorage(int multiplier) {
-        return new TFMGForgeEnergyStorage(getMaxCapacity()*multiplier, 10000) {
+        return new TFMGForgeEnergyStorage(getMaxCapacity() * multiplier, 10000) {
             @Override
             public void onEnergyChanged(int amount, int oldAmount) {
 
-                if((oldAmount==0&&amount>0)||(this.energy==0)) {
+                if ((oldAmount == 0 && amount > 0) || (this.energy == 0)) {
                     updateNextTick();
                 }
                 sendStuff();
@@ -166,19 +187,20 @@ public class AccumulatorBlockEntity extends ElectricBlockEntity {
     public void setCapacity(ItemStack stack) {
         energy.setEnergy(stack.getOrCreateTag().getInt("Storage"));
     }
+
     protected void analogSignalChanged() {
 
-        if(!isController()) {
+        if (!isController()) {
             signal = level.getBestNeighborSignal(controller);
             return;
         }
 
         int newSignal = 0;
 
-        for(int i = 0;i<length;i++){
-            BlockPos pos = getBlockPos().relative(getBlockState().getValue(FACING).getOpposite(),i);
+        for (int i = 0; i < length; i++) {
+            BlockPos pos = getBlockPos().relative(getBlockState().getValue(FACING).getOpposite(), i);
 
-            newSignal = Math.max(newSignal,level.getBestNeighborSignal(pos));
+            newSignal = Math.max(newSignal, level.getBestNeighborSignal(pos));
 
 
         }
@@ -187,6 +209,7 @@ public class AccumulatorBlockEntity extends ElectricBlockEntity {
 
         signal = newSignal;
     }
+
     @Override
     public void tick() {
         super.tick();
@@ -246,25 +269,30 @@ public class AccumulatorBlockEntity extends ElectricBlockEntity {
 
         int power = 0;
         for (IElectric member : getOrCreateElectricNetwork().members)
-            if (!(member instanceof ConverterBlockEntity)&&!(member instanceof AccumulatorBlockEntity))
+            if (!(member instanceof ConverterBlockEntity) && !(member instanceof AccumulatorBlockEntity))
                 power += member.getPowerUsage();
         if (energy.getEnergyStored() == getMaxCapacity() || getData().getVoltage() <= getOutputVoltage() || canPower())
             return 0;
+        if(Math.min(Math.max((data.networkPowerGeneration - power), 0), getMaxChargingRate())==0){
+            return 0;
+        }
 
-
-        return (float) (data.voltage * data.voltage) /Math.min(Math.max((data.networkPowerGeneration - power), 0), getMaxChargingRate());
+        return (float) Math.min((Math.pow(data.voltage, 2)) / Math.min(Math.max((data.networkPowerGeneration - power), 0), getMaxChargingRate()),750);
     }
 
     public boolean canPower() {
-        return getData().networkResistance > 0 && (getData().getVoltage() <= getOutputVoltage()) && energy.getEnergyStored() > 0&&signal ==0;
+        return getData().networkResistance > 0 && (getData().getVoltage() <= getOutputVoltage()) && energy.getEnergyStored() > 0 && signal == 0;
     }
 
 
     public int getChargingRate() {
-        int chargingRate = Math.max((data.networkPowerGeneration - getNetworkPowerUsage()), 0);
-        if (energy.getEnergyStored() == getMaxCapacity() || getData().getVoltage() < getOutputVoltage() || canPower())
+        //
+        // int chargingRate = Math.max((data.networkPowerGeneration - getNetworkPowerUsage()), 0);
+        if (energy.getEnergyStored() == getMaxCapacity() || getData().getVoltage() < getOutputVoltage() || canPower()|| data.notEnoughtPower)
             return 0;
-        return Math.min(chargingRate, getMaxChargingRate());
+
+        //return Math.min(chargingRate, getMaxChargingRate());
+        return getMaxChargingRate();
     }
 
     @Override
@@ -280,7 +308,7 @@ public class AccumulatorBlockEntity extends ElectricBlockEntity {
     }
 
     public int getMaxCapacity() {
-        return TFMGConfigs.common().machines.accumulatorStorage.get();
+        return TFMGConfigs.common().machines.accumulatorStorage.get()*length;
     }
 
     //in FE per tick

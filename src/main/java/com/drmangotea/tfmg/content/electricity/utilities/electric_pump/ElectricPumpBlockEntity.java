@@ -241,7 +241,7 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
 
     @Override
     public float resistance() {
-        return 50;
+        return 100;
     }
 
 

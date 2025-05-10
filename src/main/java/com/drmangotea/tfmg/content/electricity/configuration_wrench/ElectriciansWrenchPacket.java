@@ -1,8 +1,7 @@
-package com.drmangotea.tfmg.content.electricity.electrians_wrench;
+package com.drmangotea.tfmg.content.electricity.configuration_wrench;
 
 
 import com.drmangotea.tfmg.TFMG;
-import com.simibubi.create.content.equipment.zapper.ZapperItem;
 import com.simibubi.create.foundation.networking.SimplePacketBase;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;

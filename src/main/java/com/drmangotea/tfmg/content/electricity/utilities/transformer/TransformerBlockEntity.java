@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -51,6 +52,20 @@ public class TransformerBlockEntity extends VoltageAlteringBlockEntity {
     }
 
     @Override
+    public void destroy() {
+        super.destroy();
+        BlockPos pos = this.getBlockPos();
+        if(!primaryCoil.isEmpty()){
+            ItemEntity item = new ItemEntity(level, pos.getX()+.5f,pos.getY()+.5f,pos.getZ()+.5f,primaryCoil);
+            level.addFreshEntity(item);
+        }
+        if(!secondaryCoil.isEmpty()){
+            ItemEntity item = new ItemEntity(level, pos.getX()+.5f,pos.getY()+.5f,pos.getZ()+.5f,secondaryCoil);
+            level.addFreshEntity(item);
+        }
+    }
+
+    @Override
     public int getPowerUsage() {
 
 
@@ -85,7 +100,21 @@ public class TransformerBlockEntity extends VoltageAlteringBlockEntity {
 
     }
 
+    @Override
+    public boolean makeMultimeterTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        super.makeMultimeterTooltip(tooltip, isPlayerSneaking);
 
+        if(coilRatio!=0) {
+            CreateLang.text("----------------------------")
+                    .style(ChatFormatting.WHITE)
+                    .forGoggles(tooltip);
+            CreateLang.translate("multimeter.transformer_ration")
+                    .add(CreateLang.number(coilRatio))
+                    .color(0xc6e82c)
+                    .forGoggles(tooltip, 1);
+        }
+        return true;
+    }
 
     @Override
     public float resistance() {

@@ -131,6 +131,14 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
         setChanged();
     }
 
+    @Override
+    public void destroy() {
+        super.destroy();
+        Entity playerEntity = ((ServerLevel) level).getEntity(user);
+        if (playerEntity instanceof Player)
+            stopUsing((Player) playerEntity);
+    }
+
     public void shiftBack() {
         int max = TransmissionUpgrade.TransmissionState.values().length;
         for (int i = 0; i < max; i++) {
@@ -246,11 +254,9 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
             tickRendering();
         }
 
-
         if (enginePos != null && (engine == null)) {
             if (level.getBlockEntity(enginePos) instanceof AbstractSmallEngineBlockEntity be) {
                 engine = be;
-                TFMG.LOGGER.debug("TICK");
                 engine.getControllerBE().highestSignal=4;
             }
         }
@@ -279,8 +285,7 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
     public void updateEngine() {
         if (engine == null)
             return;
-        TFMG.LOGGER.debug("Update Engine "+accelerationRate);
-        engine.getControllerBE().controlled = true;
+        engine.getControllerBE().engineController = this.getBlockPos();
         engine.getControllerBE().highestSignal = accelerationRate;
         engine.getControllerBE().fuelInjectionRate = engine.getControllerBE().highestSignal / 15f;
         engine.getControllerBE().updateRotation();
@@ -291,9 +296,8 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
     public void disconnectEngine() {
         if (engine == null)
             return;
-        TFMG.LOGGER.debug("DISCONNECT");
         engine.getControllerBE().highestSignal = 0;
-        engine.getControllerBE().controlled = false;
+        engine.getControllerBE().engineController = null;
         engine.getControllerBE().updateGeneratedRotation();
     }
 
@@ -304,17 +308,11 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
 
 
         steeringWheelAngle.chase(isPressed(2) ? -40 : isPressed(3) ? 40 : 0, 0.25, LerpedFloat.Chaser.EXP);
-
         clutchPedalMotion.chase(isPressed(4) ? 2 / 16f : 0, 0.25, LerpedFloat.Chaser.EXP);
-
         gasPedalMotion.chase(isPressed(0) ? 2 / 16f : 0, 0.25, LerpedFloat.Chaser.EXP);
-
         brakePedalMotion.chase(isPressed(1) ? 2 / 16f : 0, 0.25, LerpedFloat.Chaser.EXP);
-
         transmissionLeverAngle.chase(shift == TransmissionUpgrade.TransmissionState.REVERSE ? -20 : (shift.value * 20), 0.25, LerpedFloat.Chaser.EXP);
-
         fuelDial.chase(engine == null ? 0 : ((double) engine.getControllerBE().fuelTank.getFluidAmount() / (double) engine.fuelTank.getCapacity()) * 180f, 0.25, LerpedFloat.Chaser.EXP);
-
         rpmDial.chase(engine == null ? 0 : ((double) engine.getControllerBE().rpm / 6000f) * 180f, 0.25, LerpedFloat.Chaser.EXP);
 
         transmissionLeverAngle.tickChaser();
@@ -340,7 +338,6 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
     }
 
     public void tryStopUsing(Player player) {
-        TFMG.LOGGER.debug("Try Stop Using");
         if (isUsedBy(player))
             stopUsing(player);
     }

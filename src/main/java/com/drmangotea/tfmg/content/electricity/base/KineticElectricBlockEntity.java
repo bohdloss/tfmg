@@ -31,6 +31,8 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
         data.connectNextTick = true;
     }
 
+
+
     //@Override
     //public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
     //    CreateLang.text("MAX POWER: "+getNetworkPowerGeneration()).forGoggles(tooltip);
@@ -224,12 +226,12 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
     public void tick() {
         super.tick();
 
-        if(timer == 2){
-            updateNextTick();
-        }
-        if(timer<=2){
-            timer++;
-        }
+        //if(timer == 2){
+        //    updateNextTick();
+        //}
+        //if(timer<=2){
+        //    timer++;
+        //}
 
 
         if(data.connectNextTick) {
@@ -270,11 +272,17 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
 
     }
 
+
+
     @Override
     public void onSpeedChanged(float previousSpeed) {
         super.onSpeedChanged(previousSpeed);
-        updateNextTick();
+        TFMG.LOGGER.debug("SPEEED CHANGED "+getBlockPos().getX()+" "+getBlockPos().getY()+" "+getBlockPos().getZ());
+        notifyNetworkAboutSpeedChange();
         timer = 0;
 
+    }
+    public void notifyNetworkAboutSpeedChange(){
+        updateNextTick();
     }
 }

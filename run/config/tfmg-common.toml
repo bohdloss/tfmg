@@ -62,7 +62,7 @@
 		#.
 		#Sets the maximum charging rate of accumulators.
 		#Range: > 1
-		accumulatorChargingRate = 100
+		accumulatorChargingRate = 1000
 
 	#.
 	#Firebox

@@ -21,7 +21,8 @@ import java.util.Objects;
 public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements IVatMachine {
 
     ElectrodeType electrodeType = ElectrodeType.NONE;
-    boolean isTallEnough=true;
+    boolean isTallEnough = true;
+
     public ElectrodeHolderBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
@@ -41,7 +42,7 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
                 } else return true;
             }
         }
-        if (!simulate&&hasLevel())
+        if (!simulate && hasLevel())
             VatBlock.updateVatState(getBlockState(), getLevel(), getBlockPos().relative(Direction.DOWN));
         sendData();
         return false;
@@ -51,16 +52,16 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
     @Override
     public float resistance() {
 
-        if(electrodeType !=ElectrodeType.NONE){
-            if(electrodeType == ElectrodeType.GRAPHITE){
-                return 5;
-            }else {
-                return 20;
-            }
-
+        if (electrodeType != ElectrodeType.NONE) {
+            return 20;
         }
 
         return 0;
+    }
+
+    @Override
+    public boolean canBeInGroups() {
+        return true;
     }
 
     public boolean setElectrode(String name, boolean simulate) {
@@ -71,7 +72,7 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
                 } else return true;
             }
         }
-        if (!simulate&&hasLevel())
+        if (!simulate && hasLevel())
             VatBlock.updateVatState(getBlockState(), getLevel(), getBlockPos().relative(Direction.DOWN));
         sendData();
         return false;
@@ -83,17 +84,19 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
         VatBlock.updateVatState(getBlockState(), level, getBlockPos().relative(Direction.DOWN));
     }
 
-    boolean isSuperheated(){
+    boolean isSuperheated() {
         return electrodeType == ElectrodeType.GRAPHITE && getCurrent() >= TFMGConfigs.common().machines.graphiteElectrodeCurrent.get();
     }
-    boolean isOperational(){
-        return getCurrent() >= TFMGConfigs.common().machines.electrolysisMinimumCurrent.get();
+
+    boolean isOperational() {
+        return getCurrent() >= TFMGConfigs.common().machines.electrolysisMinimumCurrent.get()&&canWork();
     }
 
     @Override
     public AABB getRenderBoundingBox() {
-        return new AABB(getBlockPos()).setMinY(getBlockPos().getY()-2);
+        return new AABB(getBlockPos()).setMinY(getBlockPos().getY() - 2);
     }
+
     @Override
     public void write(CompoundTag compound, boolean clientPacket) {
         for (ElectrodeType electrode : ElectrodeType.values()) {
@@ -108,12 +111,16 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
     protected void read(CompoundTag compound, boolean clientPacket) {
         super.read(compound, clientPacket);
 
-        setElectrode(compound.getString("Electrode"),false);
+        setElectrode(compound.getString("Electrode"), false);
 
     }
+
     @Override
     public String getOperationId() {
-        return switch (electrodeType){
+
+
+
+        return switch (electrodeType) {
 
             case NONE -> "";
             case COPPER, ZINC -> isOperational() ? "tfmg:electrode" : "";
@@ -123,7 +130,7 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
 
     @Override
     public int getWorkPercentage() {
-        return (getPowerUsage()/5000)*100;
+        return (getPowerUsage() / 5000) * 100;
     }
 
     @Override
@@ -137,9 +144,7 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
         NONE("none", ItemStack.EMPTY, null),
         COPPER("copper", TFMGItems.COPPER_ELECTRODE.asStack(), TFMGPartialModels.COPPER_ELECTRODE),
         ZINC("zinc", TFMGItems.ZINC_ELECTRODE.asStack(), TFMGPartialModels.ZINC_ELECTRODE),
-        GRAPHITE("graphite", TFMGItems.GRAPHITE_ELECTRODE.asStack(), TFMGPartialModels.GRAPHITE_ELECTRODE)
-
-        ;
+        GRAPHITE("graphite", TFMGItems.GRAPHITE_ELECTRODE.asStack(), TFMGPartialModels.GRAPHITE_ELECTRODE);
 
         public final String name;
         public final ItemStack item;

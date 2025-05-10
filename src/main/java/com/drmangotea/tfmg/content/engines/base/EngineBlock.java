@@ -2,11 +2,13 @@ package com.drmangotea.tfmg.content.engines.base;
 
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGShapes;
+import com.drmangotea.tfmg.content.electricity.base.UpdateInFrontPacket;
 import com.drmangotea.tfmg.content.engines.engine_controller.EngineControllerBlockEntity;
 import com.drmangotea.tfmg.content.engines.types.AbstractSmallEngineBlockEntity;
 import com.drmangotea.tfmg.content.engines.upgrades.EnginePipingUpgrade;
 import com.drmangotea.tfmg.content.engines.upgrades.TransmissionUpgrade;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
+import com.drmangotea.tfmg.registry.TFMGPackets;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import net.minecraft.core.BlockPos;
@@ -29,6 +31,7 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.PacketDistributor;
 
 import java.util.Optional;
 
@@ -56,17 +59,26 @@ public class EngineBlock extends HorizontalKineticBlock {
                 if (be.upgrade.isPresent()) {
 
                     if (be.upgrade.get() instanceof TransmissionUpgrade) {
-                        if (be.getControllerBE().controller != null){
-                            if (level.getBlockEntity(be.getControllerBE().controller) instanceof EngineControllerBlockEntity engineController) {
+                        if (be.getControllerBE().engineController != null){
+                            if (level.getBlockEntity(be.getControllerBE().engineController) instanceof EngineControllerBlockEntity engineController) {
+                                engineController.engineStarted = false;
+                                engineController.accelerationRate = 0;
+                                engineController.shift = TransmissionUpgrade.TransmissionState.NEUTRAL;
+                                engineController.engine = null;
                                 engineController.enginePos = null;
                                 engineController.disconnectEngine();
+                                engineController.sendData();
                             }
                         }
-                        be.getControllerBE().controlled =false;
+                        //if(!level.isClientSide)
+                        //    TFMGPackets.getChannel().send(PacketDistributor.ALL.noArg(), new UpdateInFrontPacket(BlockPos.of(be.getPos())));
+                        be.getControllerBE().engineController =null;
                         be.getControllerBE().highestSignal = 0;
+                        be.getControllerBE().connectNextTick=true;
+                        be.getControllerBE().fuelInjectionRate=0;
+                        be.updateGeneratedRotation();
                         be.getControllerBE().updateGeneratedRotation();
-                        be.getControllerBE().updateRotation();
-                        be.getControllerBE().controller = null;
+                        be.getControllerBE().sendData();
 
                     }
 

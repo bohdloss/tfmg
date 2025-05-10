@@ -43,6 +43,8 @@ public class ElectricMotorBlock extends DirectionalKineticBlock implements IBE<E
         return defaultBlockState().setValue(FACING, preferred);
     }
 
+
+
     @Override
     public boolean hasShaftTowards(LevelReader world, BlockPos pos, BlockState state, Direction face) {
         return face == state.getValue(FACING);

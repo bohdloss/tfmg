@@ -49,7 +49,7 @@ public class EngineControllerBlock extends TFMGHorizontalDirectionalBlock implem
 
     @Override
     public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
-        return TFMGShapes.ENGINE_CONTROLLER.get(p_60555_.getValue(FACING));
+        return TFMGShapes.ENGINE_CONTROLLER.get(p_60555_.getValue(FACING).getOpposite());
     }
 
     @Override

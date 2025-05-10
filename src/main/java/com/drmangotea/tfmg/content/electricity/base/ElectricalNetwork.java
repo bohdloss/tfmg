@@ -1,5 +1,9 @@
 package com.drmangotea.tfmg.content.electricity.base;
 
+import com.drmangotea.tfmg.content.electricity.utilities.diode.ElectricDiodeBlockEntity;
+import com.drmangotea.tfmg.content.electricity.utilities.electric_motor.ElectricMotorBlockEntity;
+import com.drmangotea.tfmg.content.electricity.utilities.transformer.TransformerBlockEntity;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +58,9 @@ public class ElectricalNetwork {
 
         int powerPercentage = resistance > 0 ? (int) (Math.min(((float) power / (float) resistance * 100f), 100)) : 100;
 
-        for (IElectric member : members) {
+        List<IElectric> list = new ArrayList<>(members);
+
+        for (IElectric member : list) {
 
             int oldVoltage = member.getData().getVoltage();
             int oldPower = member.getPowerUsage();
@@ -76,16 +82,23 @@ public class ElectricalNetwork {
         for (IElectric member : members) {
             member.getData().highestCurrent = getCableCurrent(member);
             member.updateNearbyNetworks(member);
-            if (member instanceof KineticElectricBlockEntity be)
-                be.updateGeneratedRotation();
+          //  if (member instanceof KineticElectricBlockEntity be) {
+          //      be.updateGeneratedRotation();
+          //  }
         }
 
         if (!members.isEmpty())
             if (members.get(0).getNetworkPowerUsage() > members.get(0).getNetworkPowerGeneration()) {
                 for (IElectric member : members) {
                     member.getData().notEnoughtPower = true;
-                    if (member instanceof KineticElectricBlockEntity be)
+                    if (member instanceof ElectricMotorBlockEntity be) {
                         be.updateGeneratedRotation();
+                        be.preventSpeedUpdate = 20;
+                    }
+                    if (member instanceof ElectricDiodeBlockEntity be)
+                        be.updateInFront=true;
+                    if (member instanceof TransformerBlockEntity be)
+                        be.updateInFront();
                 }
             }
     }

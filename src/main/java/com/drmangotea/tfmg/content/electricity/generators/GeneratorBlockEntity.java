@@ -1,5 +1,6 @@
 package com.drmangotea.tfmg.content.electricity.generators;
 
+import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.config.TFMGConfigs;
 import com.drmangotea.tfmg.content.electricity.base.KineticElectricBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -39,6 +40,7 @@ public class GeneratorBlockEntity extends KineticElectricBlockEntity  {
 
         return (int)(Math.min(super.calculateStressApplied()+(getGeneratorLoad() * 0.01f), 1000));
     }
+
 
 
 

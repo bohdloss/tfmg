@@ -8,7 +8,6 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,7 +28,6 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
             data.group = new ElectricalGroup(-1);
         }
     }
-
 
 
     @Override
@@ -60,14 +58,14 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     @Override
     public void lazyTick() {
         super.lazyTick();
-        if(data.failTimer >=4){
-            this.blockFail();
-            data.failTimer = 0;
-            sendStuff();
-        } else if((data.voltage>getMaxVoltage()&&getMaxVoltage()>0)||(getCurrent()>getMaxCurrent()&&getMaxCurrent()>0)){
-            blockFail();
-            data.failTimer++;
-        }
+        //if (data.failTimer >= 4) {
+        //    this.blockFail();
+        //    data.failTimer = 0;
+        //    sendStuff();
+        //} else if ((data.voltage > getMaxVoltage() && getMaxVoltage() > 0) || (getCurrent() > getMaxCurrent())) {
+        //    blockFail();
+        //    data.failTimer++;
+        //}
     }
 
     @Override
@@ -118,7 +116,9 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
         for (Direction direction : Direction.values()) {
             if (hasElectricitySlot(direction)) {
 
-                if (level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be) {
+                if (level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be&&be.canWork()) {
+
+
                     if (be.getData().getId() != getData().getId())
                         if (be.getData().getVoltage() != 0)
                             if (be.hasElectricitySlot(direction)) {

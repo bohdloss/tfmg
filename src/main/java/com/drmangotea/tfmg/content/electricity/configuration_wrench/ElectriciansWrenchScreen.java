@@ -1,4 +1,4 @@
-package com.drmangotea.tfmg.content.electricity.electrians_wrench;
+package com.drmangotea.tfmg.content.electricity.configuration_wrench;
 
 import com.drmangotea.tfmg.registry.TFMGGuiTextures;
 import com.drmangotea.tfmg.registry.TFMGPackets;

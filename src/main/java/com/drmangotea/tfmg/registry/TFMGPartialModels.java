@@ -89,6 +89,7 @@ public class TFMGPartialModels {
             MIXER = block("industrial_mixer/mixer"),
             MIXER_SHAFT = block("industrial_mixer/mixer_shaft"),
             ENGINE_GENERATOR = block("engine_upgrades/generator"),
+            TRANSMISSION = PartialModel.of(TFMG.asResource("item/transmission_model")),
             TURBO = block("engine_upgrades/turbo"),
             TURBO_PROPELLER = block("engine_upgrades/turbo_propeller"),
             GOLDEN_TURBO = block("engine_upgrades/golden_turbo"),

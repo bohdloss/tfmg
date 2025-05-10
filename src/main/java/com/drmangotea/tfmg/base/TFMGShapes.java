@@ -27,6 +27,16 @@ public class TFMGShapes {
                     .add(0, 5, -1, 3, 7, 1)
                     .add(15, 5, 9, 15, 11, 9)
                     .forDirectional(NORTH),
+            TURBINE_ENGINE_FRONT = shape(2, 2, 0, 14, 14, 16)
+                    .add(3, 0, 8, 13, 2, 16)
+                    .forHorizontal(SOUTH),
+            TURBINE_ENGINE_MIDDLE = shape(11, 0, 2, 16, 5, 14)
+                    .add(1, 1, 0, 15, 15, 16)
+                    .add(0, 0, 2, 5, 5, 14)
+                    .forHorizontal(SOUTH),
+            TURBINE_ENGINE_BACK = shape(5.3, 0, 5, 11.3, 3, 14)
+                    .add(3, 3, 2, 13, 13, 16)
+                    .forHorizontal(SOUTH),
             ENGINE_CONTROLLER = shape(0, 0, 0, 4, 5, 16)
                     .add(2, 5, 5, 14, 12, 14)
                     .add(4, 0, 5, 15, 5, 16)

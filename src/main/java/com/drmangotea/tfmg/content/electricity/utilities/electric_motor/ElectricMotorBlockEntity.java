@@ -51,6 +51,10 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
         return direction == getBlockState().getValue(FACING).getOpposite() || (direction.getAxis().isHorizontal() && direction == Direction.DOWN);
     }
 
+    @Override
+    public void notifyNetworkAboutSpeedChange() {
+        super.notifyNetworkAboutSpeedChange();
+    }
 
     @Override
     public void onNetworkChanged(int oldVoltage, int oldPower) {
@@ -70,7 +74,8 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
             return 0;
         //if(getPowerUsage() >= machineConfig.electricMotorMinimumPower.get()){
 
-        return Math.min(Math.abs(generatedSpeed.getValue()), data.getVoltage() / 2);
+        return generatedSpeed.getValue() <0 ? -Math.min(Math.abs(data.getVoltage()/2),Math.abs(generatedSpeed.getValue())) : Math.min(Math.abs(data.getVoltage()/2),Math.abs(generatedSpeed.getValue()));
+
 
         //}
 
@@ -126,6 +131,8 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
             TransformStack.of(ms)
                     .rotateZ(-AngleHelper.horizontalAngle(facing) + 180);
         }
+
+
 
         @Override
         protected boolean isSideActive(BlockState state, Direction direction) {

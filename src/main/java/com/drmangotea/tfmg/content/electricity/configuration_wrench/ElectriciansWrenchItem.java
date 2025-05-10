@@ -1,15 +1,11 @@
-package com.drmangotea.tfmg.content.electricity.electrians_wrench;
+package com.drmangotea.tfmg.content.electricity.configuration_wrench;
 
-import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGUtils;
-import com.drmangotea.tfmg.content.electricity.base.ConnectNeightborsPacket;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
+import com.drmangotea.tfmg.content.electricity.base.KineticElectricBlockEntity;
 import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
-import com.drmangotea.tfmg.registry.TFMGPackets;
-import com.simibubi.create.content.equipment.symmetryWand.SymmetryWandScreen;
 import net.createmod.catnip.gui.ScreenOpener;
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -23,7 +19,6 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.network.PacketDistributor;
 
 public class ElectriciansWrenchItem extends Item {
     public ElectriciansWrenchItem(Properties p_41383_) {
@@ -58,6 +53,8 @@ public class ElectriciansWrenchItem extends Item {
 
                 be.getData().group.id = context.getItemInHand().getOrCreateTag().getInt("Number");
                 TFMGUtils.playSound(level, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, context.getPlayer());
+                if(be instanceof KineticElectricBlockEntity kineticBE)
+                    kineticBE.updateGeneratedRotation();
 
                 be.updateNextTick();
                 be.sendStuff();

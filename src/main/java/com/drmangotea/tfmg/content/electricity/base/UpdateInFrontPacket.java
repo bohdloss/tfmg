@@ -28,6 +28,7 @@ public class UpdateInFrontPacket extends BlockEntityDataPacket<SmartBlockEntity>
 
         if(blockEntity instanceof ElectricDiodeBlockEntity be) {
             be.updateInFrontNextTick();
+
         }
 
     }

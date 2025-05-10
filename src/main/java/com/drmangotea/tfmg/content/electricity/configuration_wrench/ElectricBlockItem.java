@@ -1,16 +1,12 @@
-package com.drmangotea.tfmg.content.electricity.electrians_wrench;
+package com.drmangotea.tfmg.content.electricity.configuration_wrench;
 
-import com.drmangotea.tfmg.base.TFMGUtils;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 
 public class ElectricBlockItem extends BlockItem {
     public ElectricBlockItem(Block p_40565_, Properties p_40566_) {

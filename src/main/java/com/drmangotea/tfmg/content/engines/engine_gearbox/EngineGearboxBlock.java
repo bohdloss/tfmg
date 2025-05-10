@@ -27,7 +27,7 @@ public class EngineGearboxBlock extends HorizontalKineticBlock implements IBE<En
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos pos, CollisionContext context) {
-        return TFMGShapes.ENGINE_GEARBOX.get(state.getValue(HORIZONTAL_FACING).getOpposite());
+        return TFMGShapes.ENGINE_GEARBOX.get(state.getValue(HORIZONTAL_FACING));
     }
 
     @Override
