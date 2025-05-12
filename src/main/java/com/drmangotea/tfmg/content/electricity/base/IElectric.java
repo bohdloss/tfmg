@@ -2,8 +2,9 @@ package com.drmangotea.tfmg.content.electricity.base;
 
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGUtils;
+import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnection;
+import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnectorBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGPackets;
-
 import com.simibubi.create.foundation.utility.CreateLang;
 import net.createmod.catnip.theme.Color;
 import net.minecraft.ChatFormatting;
@@ -11,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.util.ArrayList;
@@ -40,26 +42,28 @@ public interface IElectric {
         network.add(this);
 
         BlockPos pos = BlockPos.of(getPos());
+        getData().checkForLoopsNextTick = true;
+        getOrCreateElectricNetwork().checkForLoops(BlockPos.of(getPos()));
         /// ////
 
 
-       // for (Direction d : Direction.values()) {
-       //     if (hasElectricitySlot(d))
-       //         if (getLevelAccessor().getBlockEntity(pos.relative(d)) instanceof IElectric be) {
-       //             if (be.hasElectricitySlot(d.getOpposite())) {
-       //                 if (!be.destroyed()) {
+        // for (Direction d : Direction.values()) {
+        //     if (hasElectricitySlot(d))
+        //         if (getLevelAccessor().getBlockEntity(pos.relative(d)) instanceof IElectric be) {
+        //             if (be.hasElectricitySlot(d.getOpposite())) {
+        //                 if (!be.destroyed()) {
 //
 //
-       //                     for(IElectric member : be.getOrCreateElectricNetwork().members){
-       //                         network.add(member);
-       //                         member.setNetwork(this.getData().electricalNetworkId);
+        //                     for(IElectric member : be.getOrCreateElectricNetwork().members){
+        //                         network.add(member);
+        //                         member.setNetwork(this.getData().electricalNetworkId);
 //
-       //                     }
+        //                     }
 //
-       //                 }
-       //             }
-       //         }
-       // }
+        //                 }
+        //             }
+        //         }
+        // }
         updateNextTick();
 
         onConnected();
@@ -100,18 +104,48 @@ public interface IElectric {
 
     }
 
+    default void updateUnpowered(List<BlockPos> alreadyChecked) {
+        alreadyChecked.add(BlockPos.of(getPos()));
+        updateNextTick();
+
+        if(this instanceof CableConnectorBlockEntity connectorBE){
+            for(CableConnection connection : connectorBE.connections){
+
+                if(getLevelAccessor().getBlockEntity(connection.blockPos1) instanceof CableConnectorBlockEntity be2 &&!alreadyChecked.contains(BlockPos.of(be2.getPos()))
+                ){
+                 //   this.getLevelAccessor().setBlock(connection.blockPos1.above(2),Blocks.NETHER_BRICKS.defaultBlockState(),3);
+                    be2.updateUnpowered(alreadyChecked);
+                }
+            }
+        }
+
+        for (Direction direction : Direction.values()) {
+            if(getLevelAccessor().getBlockEntity(BlockPos.of(getPos()).relative(direction)) instanceof IElectric be&&!alreadyChecked.contains(BlockPos.of(be.getPos()))){
+                be.updateUnpowered(alreadyChecked);
+               // be.getLevelAccessor().setBlock(BlockPos.of(getPos()).above(2),Blocks.NETHERRACK.defaultBlockState(),3);
+            }
+        }
+    }
 
     default boolean makeMultimeterTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         CreateLang.translate("multimeter.header")
                 .style(ChatFormatting.WHITE)
                 .forGoggles(tooltip);
 
-        if(getData().notEnoughtPower) {
+        if (getData().notEnoughtPower) {
             CreateLang.text("NOT ENOUGHT POWER")
                     .color(Color.RED)
                     .forGoggles(tooltip, 1);
-          //  return true;
+
+            //  return true;
         }
+
+
+        //CreateLang.text("Network Power ")
+        //        .color(Color.RED)
+        //        .forGoggles(tooltip, 1);
+
+
         if (voltageGeneration() > 0) {
             CreateLang.translate("multimeter.power_generated")
                     .add(Component.literal(TFMGUtils.formatUnits(powerGeneration(), "W")))
@@ -138,7 +172,7 @@ public interface IElectric {
         CreateLang.text("   P = " + TFMGUtils.formatUnits(getPowerUsage(), "W"))
                 .color(0xcc4b74)
                 .forGoggles(tooltip, 1);
-        if(getData().group.id!=-1){
+        if (getData().group.id != -1) {
             CreateLang.text("----------------------------")
                     .style(ChatFormatting.WHITE)
                     .forGoggles(tooltip);
@@ -148,7 +182,7 @@ public interface IElectric {
                     .forGoggles(tooltip, 1);
         }
 
-        if(isPlayerSneaking) {
+        if (isPlayerSneaking) {
             CreateLang.text("----------------------------")
                     .style(ChatFormatting.WHITE)
                     .forGoggles(tooltip);
@@ -166,22 +200,23 @@ public interface IElectric {
     }
 
     default void updateNearbyNetworks(IElectric member) {
-        if (member.getData().getsOutsidePower)
-            for (Direction direction : Direction.values()) {
-                if (member.getLevelAccessor().getBlockEntity(BlockPos.of(member.getPos()).relative(direction)) instanceof IElectric be && be.getData().getId() != be.getData().getId()) {
-                    be.updateNextTick();
-                }
+        if (true)
+            return;
+        //if (member.getData().getsOutsidePower) {
+
+        for (Direction direction : Direction.values()) {
+            if (member.getLevelAccessor().getBlockEntity(BlockPos.of(member.getPos()).relative(direction)) instanceof IElectric be && be.getData().getId() != member.getData().getId()) {
+                TFMG.LOGGER.debug("SIGMA");
+                be.getLevelAccessor().setBlock(BlockPos.of(be.getPos()).above(3), Blocks.GOLD_BLOCK.defaultBlockState(), 3);
+                be.updateNextTick();
             }
-
-    }
-
-    default boolean isCable() {
-        return false;
+        }
+        //  }
     }
 
     ElectricBlockValues getData();
 
-    default boolean canWork(){
+    default boolean canWork() {
         return !getData().notEnoughtPower;
     }
 
@@ -205,10 +240,12 @@ public interface IElectric {
     default int getNetworkPowerUsage() {
         int power = 0;
         for (IElectric member : getOrCreateElectricNetwork().members)
-
             power += member.getPowerUsage();
         return power;
     }
+
+
+
     default int getNetworkPowerGeneration() {
         int power = 0;
         for (IElectric member : getOrCreateElectricNetwork().members)
@@ -224,7 +261,7 @@ public interface IElectric {
         if (getData().voltageSupply == 0)
             return 0;
 
-        if((float) getData().networkPowerGeneration * (float) getNetworkResistance()==0)
+        if ((float) getData().networkPowerGeneration * (float) getNetworkResistance() == 0)
             return 0;
 
         return (float) powerGeneration() / (float) getData().networkPowerGeneration * (float) getNetworkResistance();
@@ -236,7 +273,6 @@ public interface IElectric {
         return (float) powerGeneration() / (float) getData().networkPowerGeneration * getNetworkPowerUsage();
     }
 
-    int getPowerPercentage();
 
     float resistance();
 
@@ -281,9 +317,6 @@ public interface IElectric {
 
     void setNetworkResistance(int newUsage);
 
-    void setWattage(int newWattage);
-
-    void setPowerPercentage(int percentage);
 
     void setNetwork(long network);
 

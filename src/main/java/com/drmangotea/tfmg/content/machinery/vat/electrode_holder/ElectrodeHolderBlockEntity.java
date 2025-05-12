@@ -53,7 +53,9 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
     public float resistance() {
 
         if (electrodeType != ElectrodeType.NONE) {
-            return 20;
+            if(electrodeType == ElectrodeType.GRAPHITE) {
+                return 200;
+            }else return 100;
         }
 
         return 0;

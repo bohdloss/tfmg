@@ -1,5 +1,6 @@
 package com.drmangotea.tfmg.content.electricity.utilities.electric_motor;
 
+import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.config.MachineConfig;
 import com.drmangotea.tfmg.config.TFMGConfigs;
 import com.drmangotea.tfmg.content.electricity.base.KineticElectricBlockEntity;
@@ -14,6 +15,7 @@ import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.math.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,9 +31,22 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
     public static final int MAX_SPEED = 256;
     protected ScrollValueBehaviour generatedSpeed;
 
+    public boolean delayedUpdate = false;
+
+    public float testSpeed = 0;
+
     public ElectricMotorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
 
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if(delayedUpdate){
+            updateNextTick();
+            delayedUpdate = false;
+        }
     }
 
     @Override
@@ -57,6 +72,18 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
     }
 
     @Override
+    protected void write(CompoundTag compound, boolean clientPacket) {
+        super.write(compound, clientPacket);
+        compound.putFloat("MotorSpeed",getSpeed());
+    }
+
+    @Override
+    protected void read(CompoundTag compound, boolean clientPacket) {
+        super.read(compound, clientPacket);
+        testSpeed = compound.getFloat("MotorSpeed");
+    }
+
+    @Override
     public void onNetworkChanged(int oldVoltage, int oldPower) {
         if (oldPower != getPowerUsage() || oldVoltage != data.voltage) {
             updateGeneratedRotation();
@@ -73,8 +100,14 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
         if (!canWork())
             return 0;
         //if(getPowerUsage() >= machineConfig.electricMotorMinimumPower.get()){
+        float speed = generatedSpeed.getValue() <0 ? -Math.min(Math.abs(data.getVoltage()/2),Math.abs(generatedSpeed.getValue())) : Math.min(Math.abs(data.getVoltage()/2),Math.abs(generatedSpeed.getValue()));
 
-        return generatedSpeed.getValue() <0 ? -Math.min(Math.abs(data.getVoltage()/2),Math.abs(generatedSpeed.getValue())) : Math.min(Math.abs(data.getVoltage()/2),Math.abs(generatedSpeed.getValue()));
+        if(speed==0){
+            return testSpeed;
+        }
+        TFMG.LOGGER.debug("SPEED: "+speed+" "+generatedSpeed.getValue()+" "+data.getVoltage()/2);
+        testSpeed = 0;
+        return speed;
 
 
         //}
@@ -87,6 +120,8 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
     public boolean canBeInGroups() {
         return true;
     }
+
+
 
     @Override
     public float resistance() {

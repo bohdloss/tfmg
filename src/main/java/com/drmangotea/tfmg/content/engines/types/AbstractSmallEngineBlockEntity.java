@@ -48,6 +48,9 @@ import static com.simibubi.create.content.kinetics.base.HorizontalKineticBlock.H
 public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlockEntity {
 
     public Optional<? extends EngineUpgrade> upgrade = Optional.empty();
+    public TransmissionUpgrade.TransmissionState shift = TransmissionUpgrade.TransmissionState.NEUTRAL;
+
+
     int oil = 0;
     int coolingFluid = 0;
 
@@ -66,7 +69,7 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
 
     public int getFuelConsumption() {
 
-        if (getGeneratedSpeed() == 0)
+        if (rpm == 0)
             return 0;
 
 
@@ -153,7 +156,7 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
     protected void read(CompoundTag compound, boolean clientPacket) {
         if (EngineUpgrade.getUpgrades().get(ItemStack.of(compound.getCompound("UpgradeItem")).getItem()) != null)
             upgrade = Optional.of(EngineUpgrade.getUpgrades().get(ItemStack.of(compound.getCompound("UpgradeItem")).getItem()));
-
+        shift = TransmissionUpgrade.TransmissionState.valueOf(compound.getString("Shift"));
         oil = compound.getInt("Oil");
         coolingFluid = compound.getInt("CoolingFluid");
         componentsInventory.deserializeNBT(compound.getCompound("Components"));
@@ -232,7 +235,7 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
     @Override
     protected void write(CompoundTag compound, boolean clientPacket) {
         compound.putLong("Controller", controller.asLong());
-
+        compound.putString("Shift", shift.name());
         if (controller != null) {
             compound.putLong("ControllerPos", controller.asLong());
         } else compound.remove("ControllerPos");
@@ -300,7 +303,7 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
 
         if (hasLevel())
 
-            if (level.getBlockEntity(controller) instanceof AbstractEngineBlockEntity controller) {
+            if (level.getBlockEntity(controller) instanceof AbstractSmallEngineBlockEntity controller) {
                 if (controller.fuelTank.isEmpty())
                     return 0;
                 if (!controller.canWork())
@@ -308,6 +311,22 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
                 speed = rpm / 40;
                 if (reverse)
                     speed = speed * -1;
+
+                if (controller.hasEngineController()) {
+
+                    speed = switch (controller.shift) {
+                        case REVERSE -> speed * -0.3f;
+                        case NEUTRAL -> 0;
+                        case SHIFT_1 -> speed * 0.2f;
+                        case SHIFT_2 -> speed * 0.4f;
+                        case SHIFT_3 -> speed * 0.6f;
+                        case SHIFT_4 -> speed * 0.8f;
+                        case SHIFT_5 -> speed;
+                        case SHIFT_6 -> speed * 1.2f;
+                    };
+
+
+                }
 
 
                 return convertToDirection(Math.min((int) speed, 256), getBlockState().getValue(HORIZONTAL_FACING));
@@ -456,13 +475,14 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
         return controller.equals(getBlockPos());
     }
 
+
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 
         if (controller.asLong() == getBlockPos().asLong())
             CreateLang.text("CONTROLLER").forGoggles(tooltip);
 
-
+        CreateLang.text("Shift " + shift.toString()).forGoggles(tooltip);
         CreateLang.text("Speed Efficiency " + getSpeedEfficiency()).forGoggles(tooltip);
         CreateLang.text("Efficiency " + efficiencyModifier()).forGoggles(tooltip);
         CreateLang.text("Fuel Consumption " + getFuelConsumption()).forGoggles(tooltip);

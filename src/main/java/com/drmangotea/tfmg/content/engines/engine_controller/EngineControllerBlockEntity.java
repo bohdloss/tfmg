@@ -1,14 +1,10 @@
 package com.drmangotea.tfmg.content.engines.engine_controller;
 
 import com.drmangotea.tfmg.TFMG;
-import com.drmangotea.tfmg.base.TFMGUtils;
-import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
 import com.drmangotea.tfmg.content.engines.types.AbstractSmallEngineBlockEntity;
 import com.drmangotea.tfmg.content.engines.upgrades.TransmissionUpgrade;
-import com.simibubi.create.AllItems;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.redstone.link.RedstoneLinkNetworkHandler;
-import com.simibubi.create.content.redstone.link.controller.LinkedControllerClientHandler;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.CreateLang;
@@ -28,7 +24,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -95,7 +90,7 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
             compound.putLong("EnginePos", enginePos.asLong());
         compound.putString("Shift", shift.name());
 
-        compound.putBoolean("EngineStarted",engineStarted);
+        compound.putBoolean("EngineStarted", engineStarted);
 
         compound.put("FrequencyItems", frequencyItems.serializeNBT());
 
@@ -109,8 +104,8 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
         enginePos = BlockPos.of(compound.getLong("EnginePos"));
 
         engineStarted = compound.getBoolean("EngineStarted");
-        if(engineStarted&&accelerationRate==0)
-            accelerationRate =4;
+        if (engineStarted && accelerationRate == 0)
+            accelerationRate = 4;
         frequencyItems.deserializeNBT(compound.getCompound("FrequencyItems"));
         shift = TransmissionUpgrade.TransmissionState.valueOf(compound.getString("Shift"));
         user = compound.hasUUID("User") ? compound.getUUID("User") : null;
@@ -123,12 +118,26 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
             TransmissionUpgrade.TransmissionState state = TransmissionUpgrade.TransmissionState.values()[i];
             if (state == shift && i + 1 <= max) {
                 shift = TransmissionUpgrade.TransmissionState.values()[i + 1];
+                updateShift();
                 break;
             }
 
         }
         sendData();
         setChanged();
+    }
+
+    public void updateShift() {
+        if (enginePos != null)
+            if (level.getBlockEntity(enginePos) instanceof AbstractSmallEngineBlockEntity be) {
+                be.getControllerBE().shift = shift;
+                be.getControllerBE().updateGeneratedRotation();
+                if(be.getControllerBE().engineLength()>1){
+                    if(level.getBlockEntity(BlockPos.of(be.getControllerBE().engines.get(be.getControllerBE().engineLength()-1)))instanceof AbstractSmallEngineBlockEntity be2){
+                        be2.updateGeneratedRotation();
+                    }
+                }
+            }
     }
 
     @Override
@@ -145,6 +154,7 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
             TransmissionUpgrade.TransmissionState state = TransmissionUpgrade.TransmissionState.values()[i];
             if (state == shift && i - 1 >= 0) {
                 shift = TransmissionUpgrade.TransmissionState.values()[i - 1];
+                updateShift();
                 break;
             }
         }
@@ -257,7 +267,7 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
         if (enginePos != null && (engine == null)) {
             if (level.getBlockEntity(enginePos) instanceof AbstractSmallEngineBlockEntity be) {
                 engine = be;
-                engine.getControllerBE().highestSignal=4;
+                engine.getControllerBE().highestSignal = 4;
             }
         }
 

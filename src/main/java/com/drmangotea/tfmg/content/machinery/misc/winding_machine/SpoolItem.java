@@ -120,6 +120,12 @@ public class SpoolItem extends Item {
 //
                      CableConnection connection1 = new CableConnection(be.getCablePosition(), otherBE.getCablePosition(), otherBE.getBlockPos(),type,true);
                      CableConnection connection2 = new CableConnection(otherBE.getCablePosition(), be.getCablePosition(), be.getBlockPos(),type,false);
+
+                     float wireCost =  (connection1.getLength()/8);
+
+                     if(stack.getOrCreateTag().getInt("Amount")<wireCost)
+                         return InteractionResult.PASS;
+
                      if(be.connections.contains(connection1)||otherBE.connections.contains(connection1)){
                          if (level.isClientSide)
                              player.displayClientMessage(CreateLang.translateDirect("wires.connection_already_created")
@@ -136,7 +142,7 @@ public class SpoolItem extends Item {
                      }
 
                    //  connectedBe1.wiresUpdated();
-
+                     stack.getOrCreateTag().putInt("Amount", (int) (stack.getOrCreateTag().getInt("Amount")-(wireCost*125)));
                      be.player = null;
                      otherBE.player = null;
                      be.setChanged();

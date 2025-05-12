@@ -13,13 +13,14 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, IHaveHoveringInformation {
 
     public ElectricBlockValues data = new ElectricBlockValues(getPos());
 
-    int powerPercentage = 100;
+
 
     public ElectricBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -58,6 +59,7 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     @Override
     public void lazyTick() {
         super.lazyTick();
+       // updateNetwork();
         //if (data.failTimer >= 4) {
         //    this.blockFail();
         //    data.failTimer = 0;
@@ -74,10 +76,7 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     }
 
 
-    @Override
-    public int getPowerPercentage() {
-        return powerPercentage;
-    }
+
 
     @Override
     public float resistance() {
@@ -108,6 +107,8 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
         return voltageGeneration;
     }
 
+
+
     @Override
     public int powerGeneration() {
 
@@ -118,11 +119,14 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
 
                 if (level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be&&be.canWork()) {
 
-
                     if (be.getData().getId() != getData().getId())
                         if (be.getData().getVoltage() != 0)
                             if (be.hasElectricitySlot(direction)) {
                                 powerGeneration = Math.max(powerGeneration, be.getPowerUsage()) + 1;
+                                if(powerGeneration>be.getNetworkPowerGeneration()) {
+                                    powerGeneration = 0;
+                                    be.data.updatePowerNextTick=true;
+                                }
                             }
                 }
             }
@@ -183,14 +187,6 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
         return data.networkResistance;
     }
 
-    @Override
-    public void setWattage(int newWattage) {
-    }
-
-    @Override
-    public void setPowerPercentage(int percentage) {
-        powerPercentage = percentage;
-    }
 
     @Override
     public void setNetwork(long network) {
@@ -236,6 +232,10 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     @Override
     public void tick() {
         super.tick();
+        if (data.checkForLoopsNextTick) {
+            getOrCreateElectricNetwork().checkForLoops(getBlockPos());
+            data.checkForLoopsNextTick = false;
+        }
         if (data.connectNextTick) {
             onPlaced();
             data.connectNextTick = false;
@@ -243,6 +243,11 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
         if (data.updateNextTick) {
             updateNetwork();
             data.updateNextTick = false;
+        }
+
+        if (data.updatePowerNextTick) {
+            updateUnpowered(new ArrayList<>());
+            data.updatePowerNextTick = false;
         }
         if (data.setVoltageNextTick) {
             setVoltage(data.voltageSupply);

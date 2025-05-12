@@ -3,6 +3,7 @@ package com.drmangotea.tfmg.content.electricity.configuration_wrench;
 import com.drmangotea.tfmg.base.TFMGUtils;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
 import com.drmangotea.tfmg.content.electricity.base.KineticElectricBlockEntity;
+import com.drmangotea.tfmg.content.electricity.utilities.electric_motor.ElectricMotorBlockEntity;
 import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
 import net.createmod.catnip.gui.ScreenOpener;
 import net.minecraft.core.BlockPos;
@@ -11,6 +12,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -43,6 +45,7 @@ public class ElectriciansWrenchItem extends Item {
         return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemStack);
     }
 
+
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
@@ -50,14 +53,14 @@ public class ElectriciansWrenchItem extends Item {
 
         if(!context.getPlayer().isShiftKeyDown()) {
             if (level.getBlockEntity(pos) instanceof IElectric be && be.canBeInGroups()) {
-
-                be.getData().group.id = context.getItemInHand().getOrCreateTag().getInt("Number");
-                TFMGUtils.playSound(level, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, context.getPlayer());
-                if(be instanceof KineticElectricBlockEntity kineticBE)
-                    kineticBE.updateGeneratedRotation();
-
                 be.updateNextTick();
                 be.sendStuff();
+                be.getData().group.id = context.getItemInHand().getOrCreateTag().getInt("Number");
+                TFMGUtils.playSound(level, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, context.getPlayer());
+                if(be instanceof ElectricMotorBlockEntity kineticBE)
+                    kineticBE.delayedUpdate=true;
+
+
                 return InteractionResult.SUCCESS;
             }
             if (level.getBlockEntity(pos) instanceof AbstractEngineBlockEntity be ) {

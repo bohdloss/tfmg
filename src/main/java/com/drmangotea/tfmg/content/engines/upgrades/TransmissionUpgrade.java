@@ -19,7 +19,7 @@ import static net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING;
 
 public class TransmissionUpgrade extends EngineUpgrade{
 
-    TransmissionState shift = TransmissionState.NEUTRAL;
+
 
 
 

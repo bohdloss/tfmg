@@ -27,6 +27,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
@@ -82,23 +83,23 @@ public class DebugCinderBlockItem extends Item {
             return InteractionResult.SUCCESS;
         }
 
-        if (level.getBlockEntity(pos) instanceof CableConnectorBlockEntity be) {
-            if (context.getPlayer().isShiftKeyDown()) {
-                TFMG.LOGGER.debug("///////////////////////////////");
-                for (CableConnection connection : be.connections) {
-                    TFMG.LOGGER.debug("Primary Pos " + connection.blockPos1.getX() + " " + connection.blockPos1.getY() + " " + connection.blockPos1.getZ());
-                }
-                TFMG.LOGGER.debug("///////////////////////////////");
-                return InteractionResult.SUCCESS;
-            }
-            TFMG.LOGGER.debug("///////////////////////////////");
-            TFMG.LOGGER.debug("Connector Count " + be.getConnectedWires().size());
-            TFMG.LOGGER.debug("Wire Count " + be.connections.size());
-            TFMG.LOGGER.debug("Member Count " + be.getOrCreateElectricNetwork().members.size());
-            TFMG.LOGGER.debug("Id " + "X " + BlockPos.of(be.getData().electricalNetworkId).getX() + " Y " + BlockPos.of(be.getData().electricalNetworkId).getY() + " Z " + BlockPos.of(be.getData().electricalNetworkId).getZ());
-            TFMG.LOGGER.debug("///////////////////////////////");
-            return InteractionResult.SUCCESS;
-        }
+       // if (level.getBlockEntity(pos) instanceof CableConnectorBlockEntity be) {
+       //     if (context.getPlayer().isShiftKeyDown()) {
+       //         TFMG.LOGGER.debug("///////////////////////////////");
+       //         for (CableConnection connection : be.connections) {
+       //             TFMG.LOGGER.debug("Primary Pos " + connection.blockPos1.getX() + " " + connection.blockPos1.getY() + " " + connection.blockPos1.getZ());
+       //         }
+       //         TFMG.LOGGER.debug("///////////////////////////////");
+       //         return InteractionResult.SUCCESS;
+       //     }
+       //     TFMG.LOGGER.debug("///////////////////////////////");
+       //     TFMG.LOGGER.debug("Connector Count " + be.getConnectedWires().size());
+       //     TFMG.LOGGER.debug("Wire Count " + be.connections.size());
+       //     TFMG.LOGGER.debug("Member Count " + be.getOrCreateElectricNetwork().members.size());
+       //     TFMG.LOGGER.debug("Id " + "X " + BlockPos.of(be.getData().electricalNetworkId).getX() + " Y " + BlockPos.of(be.getData().electricalNetworkId).getY() + " Z " + BlockPos.of(be.getData().electricalNetworkId).getZ());
+       //     TFMG.LOGGER.debug("///////////////////////////////");
+       //     return InteractionResult.SUCCESS;
+       // }
         if (level.getBlockEntity(pos) instanceof IElectric be) {
 
            // be.onPlaced();
@@ -112,8 +113,14 @@ public class DebugCinderBlockItem extends Item {
                 TFMG.LOGGER.debug("Higherst Current " + be.getData().highestCurrent);
                 TFMG.LOGGER.debug("Group " + be.getData().group.id);
                 TFMG.LOGGER.debug("///////////////////////////////");
+
+                for(IElectric member : be.getOrCreateElectricNetwork().members){
+                    level.setBlock(BlockPos.of(member.getPos()).above(3), Blocks.GOLD_BLOCK.defaultBlockState(),3);
+                }
+
             } else {
-                be.updateNextTick();
+                //be.updateNextTick();
+                be.getOrCreateElectricNetwork().checkForLoops(BlockPos.of(be.getPos()));
                 TFMGUtils.debugMessage(level, "Power " + be.getNetworkPowerUsage());
                 TFMGUtils.debugMessage(level, "Voltage " + be.getData().getVoltage());
 
@@ -158,6 +165,8 @@ public class DebugCinderBlockItem extends Item {
             //be.getControllerBE().rpm = 0;
             //be.getControllerBE().engineController = null;
             //be.getControllerBE().updateGeneratedRotation();
+            be.updateGeneratedRotation();
+            TFMGUtils.debugMessage(level, "RPM "+be.getControllerBE().shift);
             TFMGUtils.debugMessage(level, "RPM "+be.getControllerBE().rpm);
             TFMGUtils.debugMessage(level, "SIGNAL "+be.getControllerBE().signal);
             TFMGUtils.debugMessage(level, "HSIGNAL "+be.getControllerBE().highestSignal);

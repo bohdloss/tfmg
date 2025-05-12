@@ -279,7 +279,7 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
         signal = compound.getInt("Signal");
         if (hasEngineController())
             engineController = BlockPos.of(compound.getLong("EngineController"));
-        rpm = compound.getFloat("RPM");
+        fuelInjectionRate = compound.getFloat("RPM");
 
         // if (isController()) {
         // if (!BlockPos.of(compound.getLong("ControllerPos")).equals(new BlockPos(0, 0, 0)))
@@ -305,8 +305,8 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
         compound.putBoolean("Reverse", reverse);
         compound.putInt("Signal", signal);
         if (hasEngineController())
-        compound.putLong("EngineController", engineController.asLong());
-        compound.putFloat("RPM", rpm);
+            compound.putLong("EngineController", engineController.asLong());
+        compound.putFloat("RPM", fuelInjectionRate);
 
 
         compound.put("FuelTank", fuelTank.writeToNBT(new CompoundTag()));

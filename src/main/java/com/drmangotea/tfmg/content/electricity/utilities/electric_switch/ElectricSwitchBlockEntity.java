@@ -38,8 +38,9 @@ public class ElectricSwitchBlockEntity extends ElectricDiodeBlockEntity {
     protected void analogSignalChanged(int newSignal) {
         signal = newSignal;
 
-        updateNextTick();
+
         updateInFrontNextTick();
+        updateNextTick();
 
     }
 

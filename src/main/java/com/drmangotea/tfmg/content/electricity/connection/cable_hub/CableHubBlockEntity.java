@@ -10,8 +10,5 @@ public class CableHubBlockEntity extends ElectricBlockEntity {
         super(type, pos, state);
     }
 
-    @Override
-    public boolean isCable() {
-        return true;
-    }
+
 }

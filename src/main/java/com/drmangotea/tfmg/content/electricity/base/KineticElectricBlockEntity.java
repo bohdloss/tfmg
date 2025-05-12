@@ -70,10 +70,6 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
 
 
 
-    @Override
-    public int getPowerPercentage() {
-        return powerPercentage;
-    }
 
     @Override
     public float resistance() {
@@ -173,14 +169,7 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
         return data.networkResistance;
     }
 
-    @Override
-    public void setWattage(int newWattage) {
-    }
 
-    @Override
-    public void setPowerPercentage(int percentage) {
-        powerPercentage = percentage;
-    }
 
     @Override
     public void setNetwork(long network) {
@@ -189,11 +178,6 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
             ElectricNetworkManager.networks.get(getLevel())
                     .remove(getPos());
     }
-
-    public boolean networkUndersupplied(){
-        return getNetworkPowerUsage()>data.networkPowerGeneration;
-    }
-
 
     @Override
     public long getPos() {
@@ -226,14 +210,6 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
     public void tick() {
         super.tick();
 
-        //if(timer == 2){
-        //    updateNextTick();
-        //}
-        //if(timer<=2){
-        //    timer++;
-        //}
-
-
         if(data.connectNextTick) {
             onPlaced();
             data.connectNextTick = false;
@@ -260,13 +236,20 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
     }
 
     @Override
-    protected void write(CompoundTag tag, boolean clientPacket) {
-        super.write(tag, clientPacket);
+    protected void write(CompoundTag compound, boolean clientPacket) {
+        super.write(compound, clientPacket);
+        compound.putInt("GroupId", data.group.id);
+        compound.putFloat("GroupResistance", data.group.resistance);
+
+        compound.putFloat("MotorSpeed", getSpeed());
     }
 
     @Override
-    protected void read(CompoundTag tag, boolean clientPacket) {
-        super.read(tag, clientPacket);
+    protected void read(CompoundTag compound, boolean clientPacket) {
+        super.read(compound, clientPacket);
+        data.group = new ElectricalGroup(compound.getInt("GroupId"));
+        data.group.resistance = compound.getFloat("GroupResistance");
+        setSpeed(compound.getFloat("MotorSpeed"));
         if(!clientPacket)
             data.connectNextTick = true;
 

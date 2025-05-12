@@ -1,9 +1,12 @@
 package com.drmangotea.tfmg.content.electricity.utilities.transformer;
 
+import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.blocks.TFMGHorizontalDirectionalBlock;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
+import com.drmangotea.tfmg.content.electricity.base.UpdateInFrontPacket;
 import com.drmangotea.tfmg.content.electricity.base.VoltageAlteringBlockEntity;
 
+import com.drmangotea.tfmg.registry.TFMGPackets;
 import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -13,8 +16,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.network.PacketDistributor;
 
 import java.util.List;
 
@@ -43,6 +48,15 @@ public class TransformerBlockEntity extends VoltageAlteringBlockEntity {
     }
 
     @Override
+    public IElectric getControlledBlock() {
+        Direction facing = getBlockState().hasProperty(DirectionalBlock.FACING) ? getBlockState().getValue(DirectionalBlock.FACING) : getBlockState().getValue(HorizontalDirectionalBlock.FACING).getCounterClockWise();
+        if (level.getBlockEntity(getBlockPos().relative(facing)) instanceof IElectric be && be.getData().getId() != data.getId()) {
+            return be;
+        }
+        return null;
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if(updateInFront) {
@@ -67,12 +81,15 @@ public class TransformerBlockEntity extends VoltageAlteringBlockEntity {
 
     @Override
     public int getPowerUsage() {
-
-
         Direction facing = getDirection();
+
         if (level.getBlockEntity(getBlockPos().relative(facing)) instanceof IElectric be && be.getData().getId() != data.getId()) {
-            if (be.hasElectricitySlot(facing.getOpposite()))
-                return Math.max(be.getNetworkPowerUsage(this), 0);
+            if (be.hasElectricitySlot(facing.getOpposite())) {
+
+                    return Math.max(be.getNetworkPowerUsage(this), 0);
+
+
+            }
         }
 
         return 0;
@@ -140,12 +157,17 @@ public class TransformerBlockEntity extends VoltageAlteringBlockEntity {
     @Override
     public void onNetworkChanged(int oldVoltage, int oldPower) {
         super.onNetworkChanged(oldVoltage, oldPower);
-
         if (oldVoltage != getData().getVoltage() || oldPower != getPowerUsage()) {
             updateInFront = true;
         }
         sendStuff();
         setChanged();
+    }
+
+    @Override
+    public void updateNetwork() {
+        super.updateNetwork();
+        updateInFront();
     }
 
     @Override
@@ -162,10 +184,12 @@ public class TransformerBlockEntity extends VoltageAlteringBlockEntity {
         updateInFront = true;
     }
 
-    public void updateInFront(){
+    public void updateInFront() {
 
-        Direction facing = getBlockState().getValue(FACING).getCounterClockWise();
-        if (level.getBlockEntity(getBlockPos().relative(facing)) instanceof IElectric be) {
+        if(!level.isClientSide)
+            TFMGPackets.getChannel().send(PacketDistributor.ALL.noArg(), new UpdateInFrontPacket(BlockPos.of(getPos())));
+        Direction facing = getBlockState().hasProperty(DirectionalBlock.FACING) ? getBlockState().getValue(DirectionalBlock.FACING) : getBlockState().getValue(HorizontalDirectionalBlock.FACING).getCounterClockWise();
+        if (level.getBlockEntity(getBlockPos().relative(facing)) instanceof IElectric be && be.getData().getId() != data.getId()) {
             if (be.hasElectricitySlot(facing.getOpposite())) {
                 be.updateNextTick();
 

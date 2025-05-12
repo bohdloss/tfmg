@@ -6,6 +6,8 @@ public class ElectricBlockValues {
     public long electricalNetworkId;
     public boolean destroyed = false;
     public boolean connectNextTick = false;
+    public boolean checkForLoopsNextTick = false;
+    public boolean updatePowerNextTick = false;
     public boolean updateNextTick = false;
     public boolean getsOutsidePower = false;
     public int networkResistance = 0;

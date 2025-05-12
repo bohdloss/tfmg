@@ -234,10 +234,7 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
     }
 
 
-    @Override
-    public int getPowerPercentage() {
-        return powerPercentage;
-    }
+
 
     @Override
     public float resistance() {
@@ -340,14 +337,7 @@ public class ElectricPumpBlockEntity extends PumpBlockEntity implements IElectri
         return data.networkResistance;
     }
 
-    @Override
-    public void setWattage(int newWattage) {
-    }
 
-    @Override
-    public void setPowerPercentage(int percentage) {
-        powerPercentage = percentage;
-    }
 
     @Override
     public void setNetwork(long network) {

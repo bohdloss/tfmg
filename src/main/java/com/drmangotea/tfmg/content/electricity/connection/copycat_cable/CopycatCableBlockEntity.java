@@ -76,11 +76,6 @@ public class CopycatCableBlockEntity extends CopycatBlockEntity implements IElec
 
 
     @Override
-    public int getPowerPercentage() {
-        return powerPercentage;
-    }
-
-    @Override
     public float resistance() {
         return 0;
     }
@@ -176,16 +171,7 @@ public class CopycatCableBlockEntity extends CopycatBlockEntity implements IElec
     public int getNetworkResistance() {
         return data.networkResistance;
     }
-
-    @Override
-    public void setWattage(int newWattage) {
-    }
-
-    @Override
-    public void setPowerPercentage(int percentage) {
-        powerPercentage = percentage;
-    }
-
+    
     @Override
     public void setNetwork(long network) {
         this.data.electricalNetworkId = network;

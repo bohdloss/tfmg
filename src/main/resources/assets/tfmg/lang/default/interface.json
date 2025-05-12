@@ -94,6 +94,7 @@
   "create.recipe.casting": "Casting",
   "create.recipe.coking": "Coking",
   "create.recipe.polarizing": "Polarizing",
+  "create.recipe.chemical_vat": "Chemical Vat",
 
   "tfmg.keyinfo.custom_button": "Engine Controller Custom Button",
   "tfmg.keyinfo.engine_start": "Start Engine",

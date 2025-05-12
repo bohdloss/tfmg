@@ -12,4 +12,6 @@ public abstract class VoltageAlteringBlockEntity extends ElectricBlockEntity{
     public abstract int getOutputVoltage();
 
     public abstract int getOutputPower();
+
+    public abstract IElectric getControlledBlock();
 }

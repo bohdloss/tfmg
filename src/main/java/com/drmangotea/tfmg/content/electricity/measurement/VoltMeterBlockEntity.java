@@ -117,7 +117,7 @@ public class VoltMeterBlockEntity extends SmartBlockEntity implements IHaveGoggl
         CURRENT("Current","A",16),
         RESISTANCE("Resistance","A",500),
         HIGH_RESISTANCE("Resistance (High)","Ω",500),
-        POWER("Power","A",5000)
+        POWER("Power","A",5000),
 
 
         ;
