@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "tfmg:item/fuse"
+    "layer0": "tfmg:item/simple_engine_cylinder"
   }
 }

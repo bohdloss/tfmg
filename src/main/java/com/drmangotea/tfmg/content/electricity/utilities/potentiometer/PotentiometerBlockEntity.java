@@ -80,7 +80,7 @@ public class PotentiometerBlockEntity extends ElectricDiodeBlockEntity {
             if (getSide() != Direction.UP)
                 return;
             TransformStack.of(ms)
-                    .rotateZ(-AngleHelper.horizontalAngle(facing) + 180);
+                    .rotateZDegrees(-AngleHelper.horizontalAngle(facing) + 180);
         }
 
         @Override

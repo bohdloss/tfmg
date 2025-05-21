@@ -34,8 +34,9 @@ public class VatRecipeGen extends TFMGRecipeProvider {
                             .require(crushedRawIron())
                             .require(TFMGTags.TFMGItemTags.FLUX.tag)
                             .require(TFMGTags.TFMGItemTags.BLAST_FURNACE_FUEL.tag)
-                            .output(TFMGFluids.MOLTEN_STEEL.get(), 288)
+                            .output(TFMGFluids.MOLTEN_STEEL.get(), 144)
                             .output(TFMGFluids.MOLTEN_SLAG.get(), 288)
+                            .duration(20)
                     , arcBlasting()),
             NEON = createVatRecipe("neon", b -> (VatMachineRecipeBuilder) b
                             .require(TFMGFluids.AIR.get(), 1000)

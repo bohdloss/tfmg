@@ -15,6 +15,7 @@ import com.drmangotea.tfmg.content.decoration.pipes.TFMGPipes;
 import com.drmangotea.tfmg.registry.*;
 import com.drmangotea.tfmg.worldgen.TFMGFeatures;
 import com.mojang.logging.LogUtils;
+import com.simibubi.create.AllSoundEvents;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
@@ -53,7 +54,7 @@ public class TFMG {
 
         REGISTRATE.registerEventListeners(modEventBus);
 
-
+        TFMGSoundEvents.prepare();
 
         TFMGBlocks.init();
         TFMGBlockEntities.init();
@@ -78,6 +79,7 @@ public class TFMG {
         TFMGPackets.registerPackets();
         TFMGConfigs.register(ModLoadingContext.get());
         modEventBus.addListener(EventPriority.LOWEST, TFMGDatagen::gatherData);
+        modEventBus.addListener(TFMGSoundEvents::register);
         modEventBus.addListener(TFMG::commonSetup);
         modEventBus.addListener(this::clientSetup);
         MinecraftForge.EVENT_BUS.register(this);

@@ -71,6 +71,21 @@ public class TFMGSequencedAssemblyRecipeGen extends CreateRecipeProvider {
 
     ),
 
+    STEEL_MECHANISM = create("steel_mechanism", b -> b.require(TFMGItems.HEAVY_PLATE)
+            .transitionTo(TFMGItems.UNFINISHED_STEEL_MECHANISM.get())
+            .addOutput(TFMGItems.STEEL_MECHANISM.get(), 120)
+            .addOutput(Items.COMPASS, 4)
+            .addOutput(TFMGItems.STEEL_INGOT, 4)
+            .loops(2)
+            .addStep(DeployerApplicationRecipe::new, rb -> rb.require(TFMGBlocks.STEEL_COGWHEEL))
+            .addStep(DeployerApplicationRecipe::new, rb -> rb.require(TFMGItems.NICKEL_SHEET))
+            .addStep(DeployerApplicationRecipe::new, rb -> rb.require(TFMGBlocks.LARGE_STEEL_COGWHEEL))
+            .addStep(DeployerApplicationRecipe::new, rb -> rb.require(TFMGItems.LEAD_SHEET))
+            .addStep(DeployerApplicationRecipe::new, rb -> rb.require(TFMGItems.SCREW))
+            .addStep(DeployerApplicationRecipe::new, rb -> rb.require(TFMGItems.SCREWDRIVER))
+
+    ),
+
     MOTOR = create("motor", b -> b.require(shaft())
             .transitionTo(TFMGItems.UNFINISHED_GENERATOR.get())
             .addOutput(TFMGBlocks.ELECTRIC_MOTOR.get(), 120)

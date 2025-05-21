@@ -33,35 +33,35 @@ public class FuseBlock extends TFMGHorizontalDirectionalBlock implements IBE<Fus
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
 
-        ItemStack inHand = player.getItemInHand(hand);
-
-        if(level.getBlockEntity(pos) instanceof FuseBlockEntity be){
-
-            if(inHand.is(TFMGItems.FUSE.get())){
-
-                player.setItemInHand(hand, be.fuse);
-                be.fuse = inHand;
-                be.updateInFrontNextTick();
-                be.updateNextTick();
-                be.updateNetwork();
-                be.updateInFront();
-                be.sendStuff();
-                return InteractionResult.SUCCESS;
-
-            }else
-                if(inHand.isEmpty()){
-                    player.setItemInHand(hand, be.fuse);
-                    be.fuse = ItemStack.EMPTY;
-                    be.updateNextTick();
-                    be.updateNetwork();
-                    be.updateNetwork();
-                    be.updateInFront();
-                    be.sendStuff();
-                    return InteractionResult.SUCCESS;
-                }
-
-        }
-
+        //ItemStack inHand = player.getItemInHand(hand);
+//
+        //if(level.getBlockEntity(pos) instanceof FuseBlockEntity be){
+//
+        //    if(inHand.is(TFMGItems.FUSE.get())){
+//
+        //        player.setItemInHand(hand, be.fuse);
+        //        be.fuse = inHand;
+        //        be.updateInFrontNextTick();
+        //        be.updateNextTick();
+        //        be.updateNetwork();
+        //        be.updateInFront();
+        //        be.sendStuff();
+        //        return InteractionResult.SUCCESS;
+//
+        //    }else
+        //        if(inHand.isEmpty()){
+        //            player.setItemInHand(hand, be.fuse);
+        //            be.fuse = ItemStack.EMPTY;
+        //            be.updateNextTick();
+        //            be.updateNetwork();
+        //            be.updateNetwork();
+        //            be.updateInFront();
+        //            be.sendStuff();
+        //            return InteractionResult.SUCCESS;
+        //        }
+//
+        //}
+//
         return super.use(blockState, level, pos, player, hand, blockHitResult);
     }
 

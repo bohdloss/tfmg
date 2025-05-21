@@ -6,12 +6,14 @@ import com.drmangotea.tfmg.datagen.recipes.TFMGRecipeProvider;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGFluids;
 import com.drmangotea.tfmg.registry.TFMGItems;
+import com.drmangotea.tfmg.registry.TFMGRecipeTypes;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
+import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.content.decoration.palettes.AllPaletteBlocks;
 import com.simibubi.create.foundation.data.recipe.CompatMetals;
 import com.simibubi.create.foundation.data.recipe.Mods;
@@ -673,14 +675,6 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern(" A ")
                     .pattern("   ")),
 
-    TURBINE = create(TFMGItems.TURBINE_BLADE).returns(2)
-            .unlockedBy(AllItems.IRON_SHEET::get)
-            .viaShaped(b -> b
-                    .define('S', shaft())
-                    .define('P', ironSheet())
-                    .pattern("PPP")
-                    .pattern("PSP")
-                    .pattern("PPP")),
 
     CABLE_TUBE = create(TFMGBlocks.CABLE_TUBE)
             .unlockedBy(TFMGItems.RUBBER_SHEET::get)
@@ -733,16 +727,16 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("LCL")
                     .pattern("RPR")),
 
-    FUSE_BLOCK = create(TFMGBlocks.FUSE_BLOCK)
-            .unlockedBy(TFMGItems.COPPER_WIRE::get)
-            .viaShaped(b -> b
-                    .define('C', heavyMachineryCasing())
-                    .define('W', copperWire())
-                    .define('R', aluminumSheet())
-                    .define('L', copperIngot())
-                    .pattern("RWR")
-                    .pattern("LCL")
-                    .pattern("RWR")),
+   // FUSE_BLOCK = create(TFMGBlocks.FUSE_BLOCK)
+   //         .unlockedBy(TFMGItems.COPPER_WIRE::get)
+   //         .viaShaped(b -> b
+   //                 .define('C', heavyMachineryCasing())
+   //                 .define('W', copperWire())
+   //                 .define('R', aluminumSheet())
+   //                 .define('L', copperIngot())
+   //                 .pattern("RWR")
+   //                 .pattern("LCL")
+   //                 .pattern("RWR")),
 
     SEGMENTED_DISPLAY = create(TFMGBlocks.SEGMENTED_DISPLAY).returns(4)
             .unlockedBy(TFMGBlocks.ALUMINUM_CASING::get)
@@ -1153,6 +1147,26 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("BFP")
                     .pattern("PPP")),
 
+    CINDERBLOCK = create(TFMGBlocks.CINDER_BLOCK).returns(8)
+            .unlockedBy(TFMGItems.CINDERBLOCK::get)
+            .viaShaped(b -> b
+                    .define('C', TFMGFluids.LIQUID_CONCRETE.getBucket().get())
+                    .define('B', TFMGItems.CINDERBLOCK)
+                    .define('R', rebar())
+                    .pattern("BBB")
+                    .pattern("RCR")
+                    .pattern("BBB")),
+
+    CINDERFLOURBLOCK = create(TFMGBlocks.CINDERFLOUR_BLOCK).returns(8)
+            .unlockedBy(TFMGItems.CINDERFLOURBLOCK::get)
+            .viaShaped(b -> b
+                    .define('C', Blocks.NETHER_WART_BLOCK)
+                    .define('B', TFMGItems.CINDERFLOURBLOCK)
+                    .define('R', rebar())
+                    .pattern("BBB")
+                    .pattern("RCR")
+                    .pattern("BBB")),
+
     TRANSFORMER = create(TFMGBlocks.TRANSFORMER)
             .unlockedBy(TFMGBlocks.STEEL_CASING::get)
             .viaShaped(b -> b
@@ -1539,6 +1553,24 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("BAB")
                     .pattern("BAB")
                     .pattern("BAB")),
+
+    RESISTOR = create(TFMGItems.UNFINISHED_RESISTOR)
+            .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
+            .viaShaped(b -> b
+                    .define('W', copperWire())
+                    .define('P', plasticSheet())
+                    .pattern(" W ")
+                    .pattern(" P ")
+                    .pattern(" W ")),
+
+    RESISTOR_FROM_SLIME = create(TFMGItems.UNFINISHED_RESISTOR).withSuffix("from_slime")
+            .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
+            .viaShaped(b -> b
+                    .define('W', copperWire())
+                    .define('P', Items.SLIME_BALL)
+                    .pattern(" W ")
+                    .pattern(" P ")
+                    .pattern(" W ")),
 
     MIXER_BLADE = create(TFMGItems.MIXER_BLADE)
             .unlockedBy(TFMGItems.HEAVY_PLATE::get)
@@ -2269,6 +2301,8 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
         currentFolder = folder;
         return new Marker();
     }
+
+
 
     GeneratedRecipeBuilder create(Supplier<ItemLike> result) {
         return new GeneratedRecipeBuilder(currentFolder, result);

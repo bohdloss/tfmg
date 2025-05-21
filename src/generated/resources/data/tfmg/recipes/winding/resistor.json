@@ -5,15 +5,15 @@
       "item": "tfmg:unfinished_resistor"
     },
     {
-      "item": "tfmg:resistor"
+      "item": "tfmg:constantan_spool"
     }
   ],
   "processingTime": 50,
   "results": [
     {
-      "item": "tfmg:electromagnetic_coil",
+      "item": "tfmg:resistor",
       "nbt": {
-        "Turns": 100
+        "Resistance": 10
       }
     }
   ]

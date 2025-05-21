@@ -59,15 +59,13 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     @Override
     public void lazyTick() {
         super.lazyTick();
-       // updateNetwork();
-        //if (data.failTimer >= 4) {
-        //    this.blockFail();
-        //    data.failTimer = 0;
-        //    sendStuff();
-        //} else if ((data.voltage > getMaxVoltage() && getMaxVoltage() > 0) || (getCurrent() > getMaxCurrent())) {
-        //    blockFail();
-        //    data.failTimer++;
-        //}
+        if (data.failTimer >= 4) {
+            this.blockFail();
+            data.failTimer = 0;
+            sendStuff();
+        } else if ((data.voltage > getMaxVoltage() && getMaxVoltage() > 0) || (getCurrent() > getMaxCurrent()&&getMaxCurrent()>0)) {
+            data.failTimer++;
+        }
     }
 
     @Override

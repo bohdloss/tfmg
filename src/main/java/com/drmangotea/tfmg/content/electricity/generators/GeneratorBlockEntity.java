@@ -26,6 +26,15 @@ public class GeneratorBlockEntity extends KineticElectricBlockEntity  {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+        if(data.updateNextTick){
+            updateNetwork();
+            data.updateNextTick = false;
+        }
+    }
+
+    @Override
     public void updateNetwork() {
         super.updateNetwork();
     }
@@ -41,8 +50,11 @@ public class GeneratorBlockEntity extends KineticElectricBlockEntity  {
         return (int)(Math.min(super.calculateStressApplied()+(getGeneratorLoad() * 0.01f), 1000));
     }
 
-
-
+    @Override
+    public void onSpeedChanged(float previousSpeed) {
+        super.onSpeedChanged(previousSpeed);
+        updateNextTick();
+    }
 
     @Override
     public void onNetworkChanged(int oldVoltage, int oldPower) {
@@ -61,7 +73,8 @@ public class GeneratorBlockEntity extends KineticElectricBlockEntity  {
     public int generation() {
         float modifier = TFMGConfigs.common().machines.generatorModifier.getF();
         float maxSpeed = TFMGConfigs.common().machines.generatorMinSpeed.getF();
-
+        if(!level.isClientSide)
+            TFMG.LOGGER.debug("GENERATION: "+(int) Math.max(0,((Math.abs(getSpeed())-maxSpeed)* modifier)));
         return (int) Math.max(0,((Math.abs(getSpeed())-maxSpeed)* modifier));
     }
 

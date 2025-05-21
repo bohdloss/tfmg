@@ -42,6 +42,8 @@ public class ConverterBlockEntity extends ElectricBlockEntity {
     private LazyOptional<IEnergyStorage> energyCapability = LazyOptional.empty();
 
 
+    public int timer = 0;
+
     protected ScrollValueBehaviour voltageGenerated;
 
     public ConverterBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -117,7 +119,8 @@ public class ConverterBlockEntity extends ElectricBlockEntity {
     }
 
     public boolean canPower() {
-
+        if(timer!=0)
+            return false;
 
         if (getBlockState().getValue(INPUT))
             return false;
@@ -148,6 +151,14 @@ public class ConverterBlockEntity extends ElectricBlockEntity {
     public void tick() {
         super.tick();
 
+        if(timer>0){
+
+            if(timer == 1)
+                updateNextTick();
+
+            timer--;
+        }
+
 
         if (getBlockState().getValue(INPUT)) {
             if (getData().getVoltage() > TFMGConfigs.common().machines.accumulatorVoltage.get()) {
@@ -159,12 +170,35 @@ public class ConverterBlockEntity extends ElectricBlockEntity {
             int energyToExtract = data.networkPowerGeneration == 0 ? getNetworkPowerUsage() : (int) Math.max(0, Math.max(((float) powerGeneration() / (float) data.networkPowerGeneration) * (float) getNetworkPowerUsage(), 0));
             energyToExtract /= TFMGConfigs.common().machines.FEtoWattTickConversionRate.get();
             energy.extractEnergy(Math.max(energyToExtract, 1), false);
-            if (energy.getEnergyStored() == 0)
+            if (energy.getEnergyStored() == 0) {
+                timer = 100;
                 updateNextTick();
+            }
         }
 
     }
+    @Override
+    public boolean makeMultimeterTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 
+        super.makeMultimeterTooltip(tooltip, isPlayerSneaking);
+
+
+        CreateLang.text("Capacity ")
+                .add(Component.literal(TFMGUtils.formatUnits(energy.getEnergyStored(), "FE")))
+                .color(0x127799)
+                .forGoggles(tooltip, 1);
+
+        CreateLang.text("Charging Rate ")
+                .add(CreateLang.number(getChargingRate()))
+                .color(0x127799)
+                .forGoggles(tooltip, 1);
+        CreateLang.text("Max Capacity ")
+                .add(CreateLang.number(getMaxCapacity()))
+                .color(0x127799)
+                .forGoggles(tooltip, 1);
+
+        return true;
+    }
 
     public int getMaxCapacity() {
         return TFMGConfigs.common().machines.accumulatorStorage.get();

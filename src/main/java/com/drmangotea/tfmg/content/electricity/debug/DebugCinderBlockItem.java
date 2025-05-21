@@ -119,8 +119,8 @@ public class DebugCinderBlockItem extends Item {
                 }
 
             } else {
-                //be.updateNextTick();
-                be.getOrCreateElectricNetwork().checkForLoops(BlockPos.of(be.getPos()));
+                be.updateNextTick();
+              //  be.getOrCreateElectricNetwork().checkForLoops(BlockPos.of(be.getPos()));
                 TFMGUtils.debugMessage(level, "Power " + be.getNetworkPowerUsage());
                 TFMGUtils.debugMessage(level, "Voltage " + be.getData().getVoltage());
 
@@ -165,12 +165,18 @@ public class DebugCinderBlockItem extends Item {
             //be.getControllerBE().rpm = 0;
             //be.getControllerBE().engineController = null;
             //be.getControllerBE().updateGeneratedRotation();
-            be.updateGeneratedRotation();
-            TFMGUtils.debugMessage(level, "RPM "+be.getControllerBE().shift);
-            TFMGUtils.debugMessage(level, "RPM "+be.getControllerBE().rpm);
-            TFMGUtils.debugMessage(level, "SIGNAL "+be.getControllerBE().signal);
-            TFMGUtils.debugMessage(level, "HSIGNAL "+be.getControllerBE().highestSignal);
-            TFMGUtils.debugMessage(level, "RATE "+be.getControllerBE().fuelInjectionRate);
+
+            be.setSpeed(0);
+
+            TFMGUtils.debugMessage(level, "SPEED "+be.getGeneratedSpeed());
+            TFMGUtils.debugMessage(level, "SPEED "+be.getControllerBE().getGeneratedSpeed());
+
+            //TFMGUtils.debugMessage(level, "RPM "+be.rpm);
+            //TFMGUtils.debugMessage(level, "RPM "+be.getControllerBE().rpm);
+            //TFMGUtils.debugMessage(level, "SIGNAL "+be.getControllerBE().signal);
+            //TFMGUtils.debugMessage(level, "HSIGNAL "+be.getControllerBE().highestSignal);
+            //TFMGUtils.debugMessage(level, "RATE "+be.getControllerBE().fuelInjectionRate);
+            //TFMGUtils.debugMessage(level, "RATE "+be.fuelInjectionRate);
         }
         if (level.getBlockEntity(pos) instanceof CastingBasinBlockEntity be) {
             be.findRecipe();

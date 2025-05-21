@@ -94,7 +94,6 @@
     "tfmg:segmented_display",
     "tfmg:transformer",
     "tfmg:converter",
-    "tfmg:fuse_block",
     "tfmg:brick_smokestack",
     "tfmg:metal_smokestack",
     "tfmg:concrete_smokestack",

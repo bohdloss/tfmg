@@ -375,7 +375,7 @@ public class TFMGBlockEntities {
             .register();
     public static final BlockEntityEntry<FuseBlockEntity> FUSE_BLOCK = REGISTRATE
             .blockEntity("fuse_block", FuseBlockEntity::new)
-            .validBlocks(TFMGBlocks.FUSE_BLOCK)
+          //  .validBlocks(TFMGBlocks.FUSE_BLOCK)
             .renderer(() -> FuseBlockRenderer::new)
             .register();
     public static final BlockEntityEntry<SegmentedDisplayBlockEntity> SEGMENTED_DISPLAY = REGISTRATE

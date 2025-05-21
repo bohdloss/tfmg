@@ -221,7 +221,8 @@ public interface IElectric {
     }
 
     default void blockFail() {
-        //getLevelAccessor().destroyBlock(BlockPos.of(getPos()), false);
+
+        getLevelAccessor().destroyBlock(BlockPos.of(getPos()), false);
     }
 
     default int getPowerUsage() {

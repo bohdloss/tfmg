@@ -62,7 +62,7 @@
 		#.
 		#Sets the maximum charging rate of accumulators.
 		#Range: > 1
-		accumulatorChargingRate = 1000
+		accumulatorChargingRate = 100
 
 	#.
 	#Firebox
@@ -110,6 +110,14 @@
 		#Determines how many ticks does it take to consume one fuel.
 		#Range: > 1
 		blastFurnaceFuelConsumption = 600
+
+	#.
+	#Engines
+	[machines.engines]
+		#.
+		#Changes the volume of engines.
+		#Range: 0.0 ~ 3.4028234663852886E38
+		engineLoudness = 1.0
 
 #.
 #Worldgen Settings

@@ -62,7 +62,33 @@
 
   "create.goggles.voltmeter": "Voltmeter:",
   "create.goggles.gauge.value": "   Measured Voltage:",
-  "create.goggles.voltmeter.range": "   Measuring Range: %1$s",
+  "create.goggles.voltmeter.range": "   Range: %1$s",
+
+  "create.goggles.engine.header": "Engine Info",
+  "create.goggles.engine.type": "   Type: ",
+  "create.goggles.engine.rpm": "   Speed: ",
+  "create.goggles.engine.signal": "   Signal: ",
+  "create.goggles.engine.torque": "   Torque:",
+  "create.goggles.engine.fuel_consumption": "   Fuel Consumption:",
+  "create.goggles.engine.oil": "Oil: ",
+  "create.goggles.engine.cooling_fluid": "Cooling Fluid: ",
+  "create.goggles.engine.unfinished": "Engine Unfinished",
+  "create.goggles.engine.next_component": "   Next Component: ",
+  "create.goggles.engine.pistons_missing": "Pistons Missing",
+  "create.goggles.engine.turbines_missing": "Turbines Missing",
+
+  "create.goggles.vat.header": "Chemical Vat",
+  "create.goggles.vat.attachments": "Attachments:",
+  "create.goggles.vat.contents": "Vat Contents:",
+  "create.goggles.vat.heat_status": "Heat Status: ",
+  "create.goggles.vat.no_heat": "No Heat",
+  "create.goggles.vat.heated": "Heated",
+  "create.goggles.vat.superheated": "Superheated",
+  "create.goggles.vat.tfmg.graphite_electrode": "   Graphite Electrode",
+  "create.goggles.vat.tfmg.electrode": "   Electrode",
+  "create.goggles.vat.tfmg.mixer": "   Mixer",
+  "create.goggles.vat.tfmg.centrifuge": "   Centrifuge",
+
 
   "create.goggles.ammeter": "Ammeter:",
   "create.goggles.ammeter.amps": "   Measured Amps: %1$s V",
@@ -87,6 +113,7 @@
   "create.tooltip.resistor": "Resistance: %1$s",
   "create.tooltip.coils": "Turns: %1$s",
   "create.tooltip.cylinder": "Supported Fuels:",
+  "create.tooltip.fluid_item": "Fluid Amount: %1$s",
 
   "create.recipe.distillation": "Distillation",
   "create.recipe.advanced_distillation": "Advanced Distillation",

@@ -105,7 +105,7 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
         if(speed==0){
             return testSpeed;
         }
-        TFMG.LOGGER.debug("SPEED: "+speed+" "+generatedSpeed.getValue()+" "+data.getVoltage()/2);
+       // TFMG.LOGGER.debug("SPEED: "+speed+" "+generatedSpeed.getValue()+" "+data.getVoltage()/2);
         testSpeed = 0;
         return speed;
 

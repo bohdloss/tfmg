@@ -1,0 +1,16 @@
+{
+  "type": "tfmg:industrial_blasting",
+  "hotAirUsage": 0,
+  "ingredients": [
+    {
+      "item": "minecraft:quartz"
+    }
+  ],
+  "processingTime": 5,
+  "results": [
+    {
+      "amount": 10,
+      "fluid": "tfmg:liquid_silicon"
+    }
+  ]
+}

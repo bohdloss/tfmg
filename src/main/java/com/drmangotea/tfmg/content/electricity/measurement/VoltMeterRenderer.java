@@ -1,6 +1,7 @@
 package com.drmangotea.tfmg.content.electricity.measurement;
 
 
+import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -41,7 +42,7 @@ public class VoltMeterRenderer extends SafeBlockEntityRenderer<VoltMeterBlockEnt
 
         if(direction.getAxis() == Direction.Axis.X)
             direction = direction.getOpposite();
-
+      //  TFMG.LOGGER.debug(String.valueOf(be.angle.getValue(partialTicks)));
         dial
                 .rotateYDegrees(direction.toYRot())
                 .uncenter()

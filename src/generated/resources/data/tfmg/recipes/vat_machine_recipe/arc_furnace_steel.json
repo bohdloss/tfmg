@@ -20,9 +20,10 @@
     "tfmg:graphite_electrode"
   ],
   "minSize": 9,
+  "processingTime": 20,
   "results": [
     {
-      "amount": 288,
+      "amount": 144,
       "fluid": "tfmg:molten_steel"
     },
     {

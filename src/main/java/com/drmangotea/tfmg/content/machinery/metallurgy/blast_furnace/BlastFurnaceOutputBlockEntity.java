@@ -1,6 +1,5 @@
 package com.drmangotea.tfmg.content.machinery.metallurgy.blast_furnace;
 
-import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGUtils;
 import com.drmangotea.tfmg.config.TFMGConfigs;
 import com.drmangotea.tfmg.datagen.TFMGDamageSources;
@@ -10,7 +9,6 @@ import com.drmangotea.tfmg.registry.TFMGFluids;
 import com.drmangotea.tfmg.registry.TFMGRecipeTypes;
 import com.drmangotea.tfmg.registry.TFMGTags;
 import com.simibubi.create.Create;
-
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -18,7 +16,6 @@ import com.simibubi.create.foundation.fluid.CombinedTankWrapper;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
 import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.item.SmartInventory;
-
 import com.simibubi.create.foundation.utility.CreateLang;
 import net.createmod.catnip.animation.LerpedFloat;
 import net.minecraft.ChatFormatting;
@@ -33,7 +30,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -123,7 +119,7 @@ public class BlastFurnaceOutputBlockEntity extends SmartBlockEntity implements I
         CreateLang.translate("goggles.blast_furnace.fuel_amount", fuel)
                 .forGoggles(tooltip, 1);
 
-        if(isReinforced)
+        if (isReinforced)
             CreateLang.translate("goggles.blast_furnace.reinforced")
                     .style(ChatFormatting.GREEN)
                     .forGoggles(tooltip);
@@ -144,9 +140,9 @@ public class BlastFurnaceOutputBlockEntity extends SmartBlockEntity implements I
             return;
 
         IndustrialBlastingRecipe recipe = optional.get();
-
-        if (!(recipe.getIngredients().get(1).test(fluxInventory.getItem(0))))
-            return;
+        if (recipe.getIngredients().size() > 1)
+            if (!(recipe.getIngredients().get(1).test(fluxInventory.getItem(0))))
+                return;
 
         if (fluxInventory.getItem(0).getCount() < recipe.getIngredients().size() - 1)
             return;
@@ -158,8 +154,8 @@ public class BlastFurnaceOutputBlockEntity extends SmartBlockEntity implements I
         double timeModifier = maxHeigth / ((baseDuration / 2) * maxTimeModifier);
 
         timer = (int) (baseDuration - (heigth / timeModifier));
-        if(isReinforced)
-            timer /=2;
+        if (isReinforced)
+            timer /= 2;
     }
 
     @Override
@@ -197,12 +193,18 @@ public class BlastFurnaceOutputBlockEntity extends SmartBlockEntity implements I
                     int itemsUsed = 1;
                     int fluxUsed = 1;
 
-                    if (!(primaryTank.getSpace() >= recipe.getPrimaryResult().getAmount()) || !(secondaryTank.getSpace() >= recipe.getSecondaryResult().getAmount()))
+                    if (!(primaryTank.getSpace() >= recipe.getPrimaryResult().getAmount()))
                         return;
+                    if (recipe.getFluidResults().size() > 1)
+                        if (!(secondaryTank.getSpace() >= recipe.getSecondaryResult().getAmount()))
+                            return;
+
                     inputInventory.getItem(0).shrink(1);
-                    fluxInventory.getItem(0).shrink(recipe.getIngredients().size() - 1);
+                    if (recipe.getIngredients().size() > 1)
+                        fluxInventory.getItem(0).shrink(recipe.getIngredients().size() - 1);
                     primaryTank.fill(recipe.getPrimaryResult(), IFluidHandler.FluidAction.EXECUTE);
-                    secondaryTank.fill(recipe.getSecondaryResult(), IFluidHandler.FluidAction.EXECUTE);
+                    if (recipe.getFluidResults().size() > 1)
+                        secondaryTank.fill(recipe.getSecondaryResult(), IFluidHandler.FluidAction.EXECUTE);
 
                     timer = -1;
 
@@ -255,12 +257,6 @@ public class BlastFurnaceOutputBlockEntity extends SmartBlockEntity implements I
     private boolean canProcess(IndustrialBlastingRecipe recipe) {
         if (fuel == 0)
             return false;
-
-        Fluid fluidNeeded1 = recipe.getFluidResults().get(0).getFluid();
-        Fluid fluidNeeded2 = recipe.getFluidResults().get(1).getFluid();
-
-        Fluid fluidContained1 = primaryTank.getFluid().getFluid();
-        Fluid fluidContained2 = secondaryTank.getFluid().getFluid();
 
         if (!primaryTank.getFluid().isEmpty() && !primaryTank.getFluid().getFluid().isSame(recipe.getPrimaryResult().getFluid()))
             return false;
@@ -391,7 +387,7 @@ public class BlastFurnaceOutputBlockEntity extends SmartBlockEntity implements I
                     if (checkedPos.getX() == middlePos.getX() ^ checkedPos.getZ() == middlePos.getZ()) {
                         if (!(i == 0 && level.getBlockState(checkedPos).is(TFMGBlocks.BLAST_FURNACE_OUTPUT.get()))) {
                             if (wall == FurnaceBlockType.NONE) {
-                                isReinforced = normalAmount ==0&&reinforcedAmount>0;
+                                isReinforced = normalAmount == 0 && reinforcedAmount > 0;
                                 return size;
                             } else {
                                 if (wall == FurnaceBlockType.REGULAR) {
@@ -401,12 +397,12 @@ public class BlastFurnaceOutputBlockEntity extends SmartBlockEntity implements I
                         }
                     } else if (checkedPos.getX() == middlePos.getX() && checkedPos.getZ() == middlePos.getZ()) {
                         if (!level.getBlockState(checkedPos).isAir() && i != 0) {
-                            isReinforced = normalAmount ==0&&reinforcedAmount>0;
+                            isReinforced = normalAmount == 0 && reinforcedAmount > 0;
 
                             return size;
                         }
                     } else if (support == FurnaceBlockType.NONE) {
-                        isReinforced = normalAmount ==0&&reinforcedAmount>0;
+                        isReinforced = normalAmount == 0 && reinforcedAmount > 0;
                         return size;
                     } else {
                         if (support == FurnaceBlockType.REGULAR) {

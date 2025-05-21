@@ -28,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import static net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING;
 
@@ -126,6 +127,8 @@ public class CastingBasinBlockEntity extends SmartBlockEntity implements IHaveGo
         super.destroy();
         ItemHelper.dropContents(level, worldPosition, inventory);
     }
+
+
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {

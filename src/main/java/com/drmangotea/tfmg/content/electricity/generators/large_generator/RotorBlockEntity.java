@@ -27,6 +27,7 @@ public class RotorBlockEntity extends KineticElectricBlockEntity {
 
     LerpedFloat visualSpeed = LerpedFloat.linear();
     float angle;
+    boolean findNextTick = false;
 
 
     List<BlockPos> stators = new ArrayList<>();
@@ -52,6 +53,10 @@ public class RotorBlockEntity extends KineticElectricBlockEntity {
     public void tick() {
         super.tick();
         manageRotation();
+        if(findNextTick){
+            findStators();
+            findNextTick = false;
+        }
     }
 
     @Override

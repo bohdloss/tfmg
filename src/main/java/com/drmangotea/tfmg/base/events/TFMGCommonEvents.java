@@ -31,6 +31,8 @@ public class TFMGCommonEvents {
     public static void onUnloadWorld(LevelEvent.Unload event) {
         LevelAccessor world = event.getLevel();
         TFMG.NETWORK_MANAGER.onUnloadWorld(world);
+
+
     }
 
     @SubscribeEvent

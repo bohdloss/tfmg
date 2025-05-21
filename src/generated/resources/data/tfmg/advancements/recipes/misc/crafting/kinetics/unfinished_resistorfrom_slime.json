@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "tfmg:copper_wire"
+              "tfmg:aluminum_ingot"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "tfmg:crafting/kinetics/fuse_block"
+        "recipe": "tfmg:crafting/kinetics/unfinished_resistorfrom_slime"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "tfmg:crafting/kinetics/fuse_block"
+      "tfmg:crafting/kinetics/unfinished_resistorfrom_slime"
     ]
   },
   "sends_telemetry_event": false

@@ -373,7 +373,7 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
     }
 
     private void stopUsing(Player player) {
-        TFMG.LOGGER.debug("STOP USING");
+
 
         user = null;
         if (player != null)

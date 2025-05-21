@@ -1,14 +1,17 @@
 package com.drmangotea.tfmg.content.engines.types.regular_engine;
 
 import com.drmangotea.tfmg.TFMG;
-import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
+import com.drmangotea.tfmg.base.TFMGUtils;
+import com.drmangotea.tfmg.config.TFMGConfigs;
 import com.drmangotea.tfmg.content.engines.types.AbstractSmallEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.turbine_engine.TurbineEngineBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGItems;
+import com.drmangotea.tfmg.registry.TFMGSoundEvents;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.foundation.item.SmartInventory;
-
 import com.simibubi.create.foundation.utility.CreateLang;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -18,9 +21,12 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
@@ -40,6 +46,8 @@ public class RegularEngineBlockEntity extends AbstractSmallEngineBlockEntity {
 
     List<TagKey<Fluid>> supportedFuels = new ArrayList<>();
 
+    protected int soundTimer=0;
+
     boolean updateFuel = true;
 
     public RegularEngineBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
@@ -48,7 +56,7 @@ public class RegularEngineBlockEntity extends AbstractSmallEngineBlockEntity {
 
     }
 
-    public EngineType getDefaultEngineType(){
+    public EngineType getDefaultEngineType() {
         return EngineType.I;
     }
 
@@ -123,6 +131,20 @@ public class RegularEngineBlockEntity extends AbstractSmallEngineBlockEntity {
         return false;
     }
 
+    public boolean hasAllPistons(){
+        for (Long position : getControllerBE().getAllEngines()) {
+
+            if (level.getBlockEntity(BlockPos.of(position)) instanceof RegularEngineBlockEntity be) {
+                for (int i = 0; i < be.pistonInventory.getSlots(); i++) {
+                    if (be.pistonInventory.getItem(i).isEmpty()) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return  true;
+    }
+
     @Override
     public boolean insertItem(ItemStack itemStack, boolean shifting, Player player, InteractionHand hand) {
 
@@ -177,21 +199,22 @@ public class RegularEngineBlockEntity extends AbstractSmallEngineBlockEntity {
 
         }
         if (hasAllComponents())
-            if (itemStack.is(TFMGItems.ENGINE_CYLINDER.get()) && isCylinderSame(itemStack)) {
-                for (int i = pistonInventory.getSlots() - 1; i >= 0; i--) {
-                    if (pistonInventory.getItem(i).isEmpty()) {
-                        ItemStack toInsert = itemStack.copy();
-                        toInsert.setCount(1);
-                        pistonInventory.setItem(i, toInsert);
-                        itemStack.shrink(1);
-                        playInsertionSound();
-                        updateRotation();
-                        setChanged();
-                        sendData();
-                        return true;
+            if (isCorrectCylinder(itemStack))
+                if (isCylinderSame(itemStack)) {
+                    for (int i = pistonInventory.getSlots() - 1; i >= 0; i--) {
+                        if (pistonInventory.getItem(i).isEmpty()) {
+                            ItemStack toInsert = itemStack.copy();
+                            toInsert.setCount(1);
+                            pistonInventory.setItem(i, toInsert);
+                            itemStack.shrink(1);
+                            playInsertionSound();
+                            updateRotation();
+                            setChanged();
+                            sendData();
+                            return true;
+                        }
                     }
                 }
-            }
         if (nextComponent().test(itemStack) && !isController()) {
 
             if (level.getBlockEntity(controller) instanceof AbstractSmallEngineBlockEntity be) {
@@ -203,7 +226,14 @@ public class RegularEngineBlockEntity extends AbstractSmallEngineBlockEntity {
         return super.insertItem(itemStack, shifting, player, hand);
     }
 
+    public boolean isCorrectCylinder(ItemStack itemStack) {
+        return itemStack.is(TFMGItems.ENGINE_CYLINDER.get())||itemStack.is(TFMGItems.SIMPLE_ENGINE_CYLINDER.get())||itemStack.is(TFMGItems.DIESEL_ENGINE_CYLINDER.get());
+    }
+
     public boolean isCylinderSame(ItemStack stack) {
+
+        if(stack.is(TFMGItems.TURBINE_BLADE.get()))
+            return true;
 
         CompoundTag tag = stack.getOrCreateTag().getCompound("Fuels");
 
@@ -237,9 +267,34 @@ public class RegularEngineBlockEntity extends AbstractSmallEngineBlockEntity {
     public void tick() {
         super.tick();
 
+        if (level.isClientSide)
+            makeSound();
+
+
         if (updateFuel) {
             refreshFuels();
             updateFuel = false;
+        }
+
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private void makeSound(){
+        soundTimer++;
+
+
+        if(soundTimer>1/Math.min(6000,(rpm*0.0002)*pistonInventory.getSlots())) {
+
+
+            soundTimer = 0;
+
+            float randomPitch = (level.getRandom().nextFloat()-.5f)*0.05f;
+
+            if (this instanceof TurbineEngineBlockEntity) {
+                TFMGSoundEvents.ENGINE.playAt(level, worldPosition, 0.06f * TFMGConfigs.common().machines.engineLoudness.getF(), 1.5f, false);
+            } else
+
+                TFMGSoundEvents.ENGINE.playAt(level, worldPosition, 0.1f * TFMGConfigs.common().machines.engineLoudness.getF(), 0.7f+ randomPitch, false);
         }
 
     }
@@ -308,15 +363,69 @@ public class RegularEngineBlockEntity extends AbstractSmallEngineBlockEntity {
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 
-        for (TagKey<Fluid> tag : supportedFuels) {
+        if(!isController())
+            return getControllerBE().addToGoggleTooltip(tooltip,isPlayerSneaking);
 
-            CreateLang.text(tag.toString()).forGoggles(tooltip);
 
+
+        CreateLang.translate("goggles.engine.header")
+                .style(ChatFormatting.GRAY)
+                .forGoggles(tooltip);
+
+        if(nextComponent()!= Ingredient.EMPTY){
+            CreateLang.translate("goggles.engine.unfinished")
+                    .color(0xde5050)
+                    .forGoggles(tooltip);
+            CreateLang.translate("goggles.engine.next_component")
+                    .add(Component.empty().append(nextComponent().getItems()[0].getHoverName()))
+                    .color(0xfff240)
+                    .forGoggles(tooltip);
+            return true;
+        }
+        if(!hasAllPistons()){
+
+            CreateLang.translate(this instanceof TurbineEngineBlockEntity ? "goggles.engine.turbines_missing" : "goggles.engine.pistons_missing")
+                    .color(0xde5050)
+                    .forGoggles(tooltip);
+
+            return true;
         }
 
-        CreateLang.text("Type: " + type.name).forGoggles(tooltip);
 
-        super.addToGoggleTooltip(tooltip, isPlayerSneaking);
+        CreateLang.translate("goggles.engine.type")
+                .add(CreateLang.text(type.name()))
+                .color(0xfcad03)
+                .forGoggles(tooltip);
+        CreateLang.translate("goggles.engine.rpm")
+                .add(CreateLang.text((int)rpm+" rpm"))
+                .color(0xa36f00)
+                .forGoggles(tooltip);
+        CreateLang.translate("goggles.engine.signal")
+                .add(CreateLang.text(String.valueOf(highestSignal)))
+                .color(0xfcad03)
+                .forGoggles(tooltip);
+        CreateLang.translate("goggles.engine.torque")
+                .add(CreateLang.text(String.valueOf((int)torque)))
+                .color(0xa36f00)
+                .forGoggles(tooltip);
+        CreateLang.translate("goggles.engine.fuel_consumption")
+                .add(CreateLang.text(getFuelConsumption()/1.5f+" mb/s"))
+                .color(0xfcad03)
+                .forGoggles(tooltip);
+        if(oil>0){
+            CreateLang.translate("goggles.engine.oil")
+                    .add(CreateLang.number(oil))
+                    .color(0xf5dd42)
+                    .forGoggles(tooltip);
+        }
+        if(coolingFluid>0){
+            CreateLang.translate("goggles.engine.cooling_fluid")
+                    .add(CreateLang.number(coolingFluid))
+                    .color(0x51bdb9)
+                    .forGoggles(tooltip);
+        }
+
+        TFMGUtils.createFluidTooltip(this,tooltip);
 
         return true;
     }
@@ -332,7 +441,8 @@ public class RegularEngineBlockEntity extends AbstractSmallEngineBlockEntity {
         W("engine_w", pistonsW(), 1.3f, 1.1f, 0.5f),
         U("engine_u", pistonsU(), 1, 1.5f, 0.9f, true),
         BOXER("engine_boxer", pistonsBoxer(), 1, 0.8f, 1.2f),
-        RADIAL("radial", pistonsRadial(), 1, 0.8f, 1.2f);
+        RADIAL("radial", pistonsRadial(), 1, 0.8f, 1.2f),
+        TURBINE("turbine", pistonsTurbine(), 1.5f, 1.5f, 0.5f);
         public final float speedModifier;
         public final float torqueModifier;
         public final float effeciencyModifier;

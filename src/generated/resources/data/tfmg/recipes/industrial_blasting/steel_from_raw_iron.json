@@ -7,12 +7,9 @@
     },
     {
       "tag": "tfmg:flux"
-    },
-    {
-      "tag": "tfmg:flux"
     }
   ],
-  "processingTime": 120,
+  "processingTime": 40,
   "results": [
     {
       "amount": 288,

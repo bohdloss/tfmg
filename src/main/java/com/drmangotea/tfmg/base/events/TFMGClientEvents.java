@@ -3,15 +3,8 @@ package com.drmangotea.tfmg.base.events;
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.content.electricity.measurement.MultimeterOverlayRenderer;
 import com.drmangotea.tfmg.content.engines.engine_controller.EngineControllerClientHandler;
-import com.simibubi.create.CreateClient;
-import com.simibubi.create.content.equipment.armor.RemainingAirOverlay;
-import com.simibubi.create.content.equipment.blueprint.BlueprintOverlayRenderer;
-import com.simibubi.create.content.equipment.goggles.GoggleOverlayRenderer;
-import com.simibubi.create.content.equipment.toolbox.ToolboxHandlerClient;
-import com.simibubi.create.content.redstone.link.controller.LinkedControllerClientHandler;
-import com.simibubi.create.content.trains.TrainHUD;
-import com.simibubi.create.content.trains.track.TrackPlacementOverlay;
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.*;
@@ -19,6 +12,7 @@ import net.minecraftforge.client.event.RenderLevelStageEvent.Stage;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.TickEvent.Phase;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
@@ -41,11 +35,17 @@ public class TFMGClientEvents {
 			EngineControllerClientHandler.tick();
 
 		}
-
 	}
 	@SubscribeEvent
+	public static void PlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
+		Player player = event.getEntity();
+
+		if (player != null)
+			player.getPersistentData().remove("IsUsingEngineController");
+	}
+
+	@SubscribeEvent
 	public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-		TFMG.LOGGER.debug("ADOIAJDOAIWDJOIA");
 		event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), "multimeter_info", MultimeterOverlayRenderer.OVERLAY);
 
 	}

@@ -239,7 +239,7 @@ public class CableConnectorBlockEntity extends ElectricBlockEntity implements IH
 
     @Override
     public AABB getRenderBoundingBox() {
-        return new AABB(getBlockPos()).inflate(30);
+        return new AABB(getBlockPos()).inflate(10);
     }
 
 }

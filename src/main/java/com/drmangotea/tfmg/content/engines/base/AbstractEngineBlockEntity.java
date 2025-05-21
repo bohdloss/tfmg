@@ -35,6 +35,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static com.drmangotea.tfmg.content.engines.base.EngineBlock.ENGINE_STATE;
+import static com.drmangotea.tfmg.content.engines.base.EngineBlock.EngineState.SHAFT;
+
 public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEntity {
 
     //
@@ -68,8 +71,8 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
     public AbstractEngineBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
         setLazyTickRate(10);
-        fuelTank = new EngineFluidTank(4000, false, true, this::tankUpdated, TFMGTags.TFMGFluidTags.AIR.tag);
-        exhaustTank = new EngineFluidTank(8000, true, false, this::tankUpdated);
+        fuelTank = new EngineFluidTank(4000, false, true, f->tankUpdated(f,true), TFMGTags.TFMGFluidTags.AIR.tag);
+        exhaustTank = new EngineFluidTank(8000, true, false, f->tankUpdated(f,false));
         fluidCapability = LazyOptional.of(() -> new CombinedTankWrapper(fuelTank, exhaustTank));
 
         refreshCapability();
@@ -84,8 +87,9 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
         super.tick();
     }
 
-    public void tankUpdated(FluidStack stack) {
-
+    public void tankUpdated(FluidStack stack, boolean fuelTank ) {
+        if(fuelTank && stack.isEmpty())
+            updateRotation();
         sendData();
         setChanged();
     }
@@ -130,10 +134,6 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
         return super.addToGoggleTooltip(tooltip, isPlayerSneaking);
     }
 
-    @Override
-    public float calculateAddedStressCapacity() {
-        return super.calculateAddedStressCapacity() + (torque);
-    }
 
     @Override
     public void lazyTick() {
@@ -276,7 +276,7 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
         super.read(compound, clientPacket);
 
         reverse = compound.getBoolean("Reverse");
-        signal = compound.getInt("Signal");
+        signal = compound.getInt("Signal")+1;
         if (hasEngineController())
             engineController = BlockPos.of(compound.getLong("EngineController"));
         fuelInjectionRate = compound.getFloat("RPM");

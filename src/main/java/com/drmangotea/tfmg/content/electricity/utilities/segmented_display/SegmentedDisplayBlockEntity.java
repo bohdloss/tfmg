@@ -52,13 +52,13 @@ public class SegmentedDisplayBlockEntity extends ElectricBlockEntity {
 
     @Override
     public float resistance() {
-        return 5;
+        return 100;
     }
 
     @Override
     public void lazyTick() {
         super.lazyTick();
-        if(getPowerUsage()<5){
+        if(getPowerUsage()<5||!canWork()){
             segmentsToRender = new ArrayList<>();
             segmentsToRender2 = new ArrayList<>();
         }else {

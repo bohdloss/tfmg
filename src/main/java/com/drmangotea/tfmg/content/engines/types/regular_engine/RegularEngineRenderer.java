@@ -3,6 +3,7 @@ package com.drmangotea.tfmg.content.engines.types.regular_engine;
 import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
 import com.drmangotea.tfmg.content.engines.base.EngineRenderer;
 import com.drmangotea.tfmg.content.engines.types.AbstractSmallEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.types.turbine_engine.TurbineEngineBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -24,7 +25,8 @@ public class RegularEngineRenderer extends EngineRenderer {
     @Override
     protected void renderSafe(AbstractSmallEngineBlockEntity be1, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
         RegularEngineBlockEntity be = (RegularEngineBlockEntity) be1;
-
+        if(be instanceof TurbineEngineBlockEntity)
+            return;
         BlockState blockState = be.getBlockState();
 
         VertexConsumer vb = buffer.getBuffer(RenderType.cutoutMipped());
@@ -57,6 +59,7 @@ public class RegularEngineRenderer extends EngineRenderer {
             case I, U, BOXER -> TFMGPartialModels.SMALL_CYLINDER;
             case V, W -> TFMGPartialModels.CYLINDER;
             case RADIAL -> TFMGPartialModels.RADIAL_ENGINE_CYLINDER;
+            case TURBINE -> null;
         };
 
     }

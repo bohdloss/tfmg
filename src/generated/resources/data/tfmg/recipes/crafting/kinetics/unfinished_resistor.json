@@ -3,20 +3,19 @@
   "category": "misc",
   "key": {
     "P": {
-      "tag": "forge:plates/iron"
+      "item": "tfmg:plastic_sheet"
     },
-    "S": {
-      "item": "create:shaft"
+    "W": {
+      "tag": "forge:wires/copper"
     }
   },
   "pattern": [
-    "PPP",
-    "PSP",
-    "PPP"
+    " W ",
+    " P ",
+    " W "
   ],
   "result": {
-    "count": 2,
-    "item": "tfmg:turbine_blade"
+    "item": "tfmg:unfinished_resistor"
   },
   "show_notification": true
 }

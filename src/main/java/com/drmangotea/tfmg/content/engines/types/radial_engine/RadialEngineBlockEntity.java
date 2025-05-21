@@ -21,24 +21,33 @@ public class RadialEngineBlockEntity extends RegularEngineBlockEntity {
 
     }
     @Override
-    public float getGeneratedSpeed() {
+    public boolean canGenerateSpeed() {
+        return true;
+    }
+    //@Override
+    //public float getGeneratedSpeed() {
+//
+    //    float speed;
+//
+    //    if (hasLevel())
+//
+    //        if (level.getBlockEntity(controller) instanceof AbstractEngineBlockEntity controller) {
+    //            if (controller.fuelTank.isEmpty())
+    //                return 0;
+    //            if (!controller.canWork())
+    //                return 0;
+    //            speed = rpm / 40;
+    //            if (reverse)
+    //                speed = speed * -1;
+//
+    //            return convertToDirection(Math.min((int) speed, 256), getBlockState().getValue(HORIZONTAL_FACING));
+    //        }
+    //    return 0;
+    //}
 
-        float speed;
-
-        if (hasLevel())
-
-            if (level.getBlockEntity(controller) instanceof AbstractEngineBlockEntity controller) {
-                if (controller.fuelTank.isEmpty())
-                    return 0;
-                if (!controller.canWork())
-                    return 0;
-                speed = rpm / 40;
-                if (reverse)
-                    speed = speed * -1;
-
-                return convertToDirection(Math.min((int) speed, 256), getBlockState().getValue(HORIZONTAL_FACING));
-            }
-        return 0;
+    @Override
+    public boolean hasTwoShafts() {
+        return engineLength()>1;
     }
 
     @Override

@@ -4,9 +4,9 @@ import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGArmorMaterials;
 import com.drmangotea.tfmg.base.TFMGTiers;
 import com.drmangotea.tfmg.content.decoration.gearbox.SteelVerticalGearboxItem;
+import com.drmangotea.tfmg.content.electricity.configuration_wrench.ElectriciansWrenchItem;
 import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnection;
 import com.drmangotea.tfmg.content.electricity.debug.DebugCinderBlockItem;
-import com.drmangotea.tfmg.content.electricity.configuration_wrench.ElectriciansWrenchItem;
 import com.drmangotea.tfmg.content.electricity.measurement.MultimeterItem;
 import com.drmangotea.tfmg.content.electricity.utilities.fuse_block.FuseItem;
 import com.drmangotea.tfmg.content.electricity.utilities.resistor.ResistorItem;
@@ -93,9 +93,9 @@ public class TFMGItems {
 
     public static final ItemEntry<Item>
             REBAR = REGISTRATE.item("rebar", Item::new)
-                    .tag(AllTags.forgeItemTag("rods/steel"))
-                    .recipe((c, p) -> p.stonecutting(DataIngredient.tag(AllTags.forgeItemTag("ingots/steel")), RecipeCategory.BUILDING_BLOCKS, c::get, 4))
-                    .register(),
+            .tag(AllTags.forgeItemTag("rods/steel"))
+            .recipe((c, p) -> p.stonecutting(DataIngredient.tag(AllTags.forgeItemTag("ingots/steel")), RecipeCategory.BUILDING_BLOCKS, c::get, 4))
+            .register(),
             SYNTHETIC_STRING = REGISTRATE.item("synthetic_string", Item::new)
                     .tag(Tags.Items.STRING, AllTags.forgeItemTag("string"))
                     .recipe((c, p) -> p.stonecutting(DataIngredient.tag(AllTags.forgeItemTag("ingots/rubber")), RecipeCategory.MISC, c::get, 4))
@@ -117,8 +117,8 @@ public class TFMGItems {
             FIRECLAY_BALL = REGISTRATE.item("fireclay_ball", Item::new).register(),
             SCREW = REGISTRATE.item("screw", Item::new)
                     .recipe((c, p) -> p.stonecutting(DataIngredient.tag(AllTags.forgeItemTag("ingots/steel")), RecipeCategory.BUILDING_BLOCKS, c::get, 4))
+                    .lang("Screws")
                     .register(),
-            TURBINE_BLADE = REGISTRATE.item("turbine_blade", Item::new).register(),
             THERMITE_POWDER = REGISTRATE.item("thermite_powder", Item::new).register(),
             STEEL_MECHANISM = REGISTRATE.item("steel_mechanism", Item::new).register(),
             NITRATE_DUST = REGISTRATE.item("nitrate_dust", Item::new).register(),
@@ -132,14 +132,14 @@ public class TFMGItems {
             ETCHED_CIRCUIT_BOARD = REGISTRATE.item("etched_circuit_board", Item::new).register(),
             CIRCUIT_BOARD = REGISTRATE.item("circuit_board", Item::new).register(),
             TRANSISTOR = REGISTRATE.item("transistor_item", Item::new).lang("Transistor")
-                    .properties(p->p.stacksTo(1)).register(),
+                    .properties(p -> p.stacksTo(1)).register(),
             CAPACITOR = REGISTRATE.item("capacitor_item", Item::new).lang("Capacitor").register(),
             COPPER_SULFATE = REGISTRATE.item("copper_sulfate", Item::new).register(),
             LITHIUM_CHARGE = REGISTRATE.item("lithium_charge", Item::new).register(),
             TURBO = REGISTRATE.item("turbo", Item::new).register(),
             GOLDEN_TURBO = REGISTRATE.item("golden_turbo", Item::new).register(),
             CINDERBLOCK = REGISTRATE.item("cinderblock", Item::new)
-                    //  .recipe((c, p) -> p.stonecutting(DataIngredient.items(TFMGBlocks.CONCRETE.get()), RecipeCategory.BUILDING_BLOCKS, c::get, 4))
+                    .recipe((c, p) -> p.stonecutting(DataIngredient.items(TFMGBlocks.CONCRETE.block.asItem()), RecipeCategory.BUILDING_BLOCKS, c::get, 8))
                     .register(),
             CINDERFLOURBLOCK = REGISTRATE.item("cinderflourblock", Item::new).register(),
             NAPALM_POTATO = REGISTRATE.item("napalm_potato", Item::new).register(),
@@ -175,12 +175,16 @@ public class TFMGItems {
                     .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/glass_insulator_segment_model"))).register();
     public static final ItemEntry<TransmissionItem>
             TRANSMISSION = REGISTRATE.item("transmission", TransmissionItem::new)
+            .properties(p -> p.stacksTo(1))
             .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/transmission_model"))).register();
 
     public static final ItemEntry<ResistorItem>
             UNFINISHED_RESISTOR = REGISTRATE.item("unfinished_resistor", ResistorItem::new).register();
     public static final ItemEntry<CylinderItem>
-            ENGINE_CYLINDER = REGISTRATE.item("engine_cylinder", CylinderItem::new).register();
+            DIESEL_ENGINE_CYLINDER = REGISTRATE.item("diesel_engine_cylinder", CylinderItem::new).register(),
+            SIMPLE_ENGINE_CYLINDER = REGISTRATE.item("simple_engine_cylinder", CylinderItem::new).register(),
+            ENGINE_CYLINDER = REGISTRATE.item("engine_cylinder", CylinderItem::new).register(),
+            TURBINE_BLADE = REGISTRATE.item("turbine_blade", CylinderItem::new).register();
     public static final ItemEntry<SpoolItem>
             EMPTY_SPOOL = spoolItem("empty", null, 0x000000, CableConnection.CableType.NONE)
             .recipe((c, p) -> p.stonecutting(DataIngredient.items(TFMGBlocks.HARDENED_PLANKS.asItem()), RecipeCategory.BUILDING_BLOCKS, c::get, 1))
@@ -196,9 +200,9 @@ public class TFMGItems {
             REGISTRATE.item("electromagnetic_coil", ElectromagneticCoilItem::new)
                     .properties(p -> p.stacksTo(1))
                     .register();
-    public static final ItemEntry<FuseItem> FUSE = REGISTRATE.item("fuse", FuseItem::new)
-            .properties(p -> p.stacksTo(1))
-            .register();
+    //public static final ItemEntry<FuseItem> FUSE = REGISTRATE.item("fuse", FuseItem::new)
+    //        .properties(p -> p.stacksTo(1))
+    //        .register();
     public static final ItemEntry<CoalCokeItem> COAL_COKE_DUST = REGISTRATE.item("coal_coke_dust", CoalCokeItem::new)
             .tag(forgeItemTag("dusts/coal_coke"), TFMGTags.TFMGItemTags.BLAST_FURNACE_FUEL.tag)
             .register();
@@ -416,7 +420,7 @@ public class TFMGItems {
 
         for (String color : COLORS) {
 
-            map.put(color,REGISTRATE.item(color + "_multimeter", MultimeterItem::new)
+            map.put(color, REGISTRATE.item(color + "_multimeter", MultimeterItem::new)
                     .register());
         }
 

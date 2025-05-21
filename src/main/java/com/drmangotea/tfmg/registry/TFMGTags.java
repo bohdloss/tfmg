@@ -22,6 +22,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.Collections;
 
+import static com.drmangotea.tfmg.registry.TFMGTags.NameSpace.FORGE;
 import static com.drmangotea.tfmg.registry.TFMGTags.NameSpace.MOD;
 
 
@@ -136,8 +137,9 @@ public class TFMGTags {
         FLUX,
         SPOOLS,
         BLAST_FURNACE_FUEL,
-        RODS
-
+        RODS,
+        IRON_PLATES(FORGE, "plates/iron"),
+        ALUMINUM_PLATES(FORGE, "plates/aluminum")
 
         ;
 

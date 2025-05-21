@@ -35,6 +35,9 @@ public class ElectricalNetwork {
     }
 
     public void updateNetwork() {
+
+
+
         int maxVoltage = 0;
         int power = 0;
         int frequency = 0;

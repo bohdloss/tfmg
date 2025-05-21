@@ -23,8 +23,8 @@ public class WindingRecipeGen extends TFMGProcessingRecipeGen {
 			.duration(100)),
 	RESISTOR = create("resistor", b ->b
 			.require(TFMGItems.UNFINISHED_RESISTOR)
-			.require(resistor10Ohms())
-			.output(coil100Turns())
+			.require(TFMGItems.CONSTANTAN_SPOOL)
+			.output(resistor10Ohms())
 			.duration(50))
 ;
 	public WindingRecipeGen(PackOutput output) {

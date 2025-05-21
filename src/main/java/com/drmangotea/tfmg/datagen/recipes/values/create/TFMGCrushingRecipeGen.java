@@ -35,7 +35,10 @@ public class TFMGCrushingRecipeGen extends TFMGProcessingRecipeGen {
             SALTPETER = create(I::dirt, b -> b
                     .output(.05f, nitrateDust(), 1)
             ),
-
+            GALENA = create(TFMGPaletteStoneTypes.GALENA.getBaseBlock()::get, b -> b
+                    .output(.4f, crushedRawLead(), 1)
+                    .output(.1f, TFMGItems.LEAD_NUGGET, 2)
+            ),
             SULFUR = create(() -> TFMGBlocks.SULFUR, b -> b
                     .output(.2f, sulfurDust(), 1)
                     .output(.1f, sulfurDust(), 1)

@@ -20,6 +20,7 @@ import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -355,9 +356,6 @@ public class TFMGRecipeProvider extends RecipeProvider {
         public static ItemLike plasticPipe() {
             return TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).get(0);
         }
-        public static ItemLike turbineBlade() {
-            return TFMGItems.TURBINE_BLADE.get();
-        }
         public static ItemLike magneticIngot() {
             return TFMGItems.MAGNETIC_ALLOY_INGOT.get();
         }
@@ -598,17 +596,31 @@ public class TFMGRecipeProvider extends RecipeProvider {
         }
 
 
-        public static Ingredient resistor10Ohms(){
+        public static ItemStack resistor10Ohms(){
             ItemStack stack = TFMGBlocks.RESISTOR.asStack();
 
             stack.getOrCreateTag().putInt("Resistance",10);
 
-            return Ingredient.of(stack);
+            return stack;
         }
 
         public static ItemStack coil100Turns(){
             ItemStack stack = TFMGItems.ELECTROMAGNETIC_COIL.asStack();
             stack.getOrCreateTag().putInt("Turns",100);
+            return stack;
+        }
+
+        public static ItemStack turbineBlade(){
+            ItemStack stack = TFMGItems.TURBINE_BLADE.asStack();
+
+            CompoundTag keroseneTag = new CompoundTag();
+            keroseneTag.putString("kerosene", "forge:kerosene");
+            CompoundTag keroseneTagName = new CompoundTag();
+            keroseneTagName.putString("kerosene", "Kerosene");
+
+            stack.getOrCreateTag().put("Fuels", keroseneTag);
+            stack.getOrCreateTag().put("FuelNames", keroseneTagName);
+
             return stack;
         }
 

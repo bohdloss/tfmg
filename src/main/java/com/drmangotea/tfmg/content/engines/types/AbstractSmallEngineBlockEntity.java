@@ -3,6 +3,7 @@ package com.drmangotea.tfmg.content.engines.types;
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGUtils;
 import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
+import com.drmangotea.tfmg.content.engines.base.EngineBlock;
 import com.drmangotea.tfmg.content.engines.base.EngineComponentsInventory;
 import com.drmangotea.tfmg.content.engines.base.EngineProperties;
 import com.drmangotea.tfmg.content.engines.engine_controller.EngineControllerBlockEntity;
@@ -51,8 +52,8 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
     public TransmissionUpgrade.TransmissionState shift = TransmissionUpgrade.TransmissionState.NEUTRAL;
 
 
-    int oil = 0;
-    int coolingFluid = 0;
+    public int oil = 0;
+    public int coolingFluid = 0;
 
     public EngineComponentsInventory componentsInventory;
 
@@ -72,8 +73,12 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
         if (rpm == 0)
             return 0;
 
+        float oilModifier = oil > 0 ? 0.7f : 1f;
 
-        return (int) (12.5f * (1 / efficiencyModifier()) * getSpeedEfficiency() * fuelInjectionRate) * (engineLength() + 1);
+        float coolingFluidModifier = coolingFluid > 0 ? 0.7f : 1f;
+
+
+        return (int) (12.5f * (1 / efficiencyModifier()) * getSpeedEfficiency() * fuelInjectionRate * oilModifier * coolingFluidModifier) * (engineLength() + 1);
     }
 
     public void detashEngines() {
@@ -132,8 +137,36 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
     public void lazyTick() {
         super.lazyTick();
 
+        if (level.random.nextInt(45) == 0) {
+            if (oil > 0)
+                oil--;
+        }
+        if (level.random.nextInt(45) == 0) {
+            if (coolingFluid > 0)
+                coolingFluid--;
+        }
 
         upgrade.ifPresent(engineUpgrade -> engineUpgrade.lazyTickUpgrade(this));
+    }
+
+    @Override
+    public float calculateAddedStressCapacity() {
+        float stress = super.calculateAddedStressCapacity() + (torque);
+        return hasTwoShafts() ? stress / 2 : stress;
+    }
+
+    public boolean hasTwoShafts() {
+
+        if (!isController())
+            return getControllerBE().hasTwoShafts();
+
+        if (this.getBlockState().getValue(ENGINE_STATE) == SHAFT) {
+            BlockState state = level.getBlockState(controller.south(engineLength()));
+            if (state.getBlock() instanceof EngineBlock)
+                if (engineLength() > 1 && state.getValue(ENGINE_STATE) == SHAFT)
+                    return true;
+        }
+        return false;
     }
 
     @Override
@@ -292,53 +325,60 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
         });
     }
 
+    public boolean canGenerateSpeed() {
+        if (getBlockState().getValue(ENGINE_STATE) != SHAFT)
+            return false;
+
+
+        return true;
+    }
+
 
     @Override
     public float getGeneratedSpeed() {
 
-        float speed;
-
-        if (getBlockState().getValue(ENGINE_STATE) != SHAFT)
+        if (!canGenerateSpeed())
             return 0;
 
-        if (hasLevel())
-
-            if (level.getBlockEntity(controller) instanceof AbstractSmallEngineBlockEntity controller) {
-                if (controller.fuelTank.isEmpty())
-                    return 0;
-                if (!controller.canWork())
-                    return 0;
-                speed = rpm / 40;
-                if (reverse)
-                    speed = speed * -1;
-
-                if (controller.hasEngineController()) {
-
-                    speed = switch (controller.shift) {
-                        case REVERSE -> speed * -0.3f;
-                        case NEUTRAL -> 0;
-                        case SHIFT_1 -> speed * 0.2f;
-                        case SHIFT_2 -> speed * 0.4f;
-                        case SHIFT_3 -> speed * 0.6f;
-                        case SHIFT_4 -> speed * 0.8f;
-                        case SHIFT_5 -> speed;
-                        case SHIFT_6 -> speed * 1.2f;
-                    };
+        float speed;
 
 
-                }
+        if (hasLevel()) {
+            if (getControllerBE().fuelTank.isEmpty())
+                return 0;
+            if (!getControllerBE().canWork())
+                return 0;
+            speed = rpm / 40;
+            if (reverse)
+                speed = speed * -1;
+
+            if (getControllerBE().hasEngineController()) {
+
+                speed = switch (getControllerBE().shift) {
+                    case REVERSE -> speed * -0.3f;
+                    case NEUTRAL -> 0;
+                    case SHIFT_1 -> speed * 0.2f;
+                    case SHIFT_2 -> speed * 0.4f;
+                    case SHIFT_3 -> speed * 0.6f;
+                    case SHIFT_4 -> speed * 0.8f;
+                    case SHIFT_5 -> speed;
+                    case SHIFT_6 -> speed * 1.2f;
+                };
 
 
-                return convertToDirection(Math.min((int) speed, 256), getBlockState().getValue(HORIZONTAL_FACING));
             }
+
+
+            return convertToDirection(Math.min((int) speed, 256), getBlockState().getValue(HORIZONTAL_FACING));
+        }
         return 0;
     }
 
     @Override
-    public void tankUpdated(FluidStack stack) {
+    public void tankUpdated(FluidStack stack, boolean fuel) {
         if (stack.getFluid().isSame(TFMGFluids.CARBON_DIOXIDE.get()) && stack.getAmount() >= exhaustTank.getSpace())
             updateRotation();
-        super.tankUpdated(stack);
+        super.tankUpdated(stack, fuel);
     }
 
     public boolean insertItem(ItemStack itemStack, boolean shifting, Player player, InteractionHand hand) {
@@ -526,6 +566,7 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
             return (AbstractSmallEngineBlockEntity) blockEntity;
         return this;
     }
+
 
     @Override
     public void tick() {

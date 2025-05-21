@@ -26,6 +26,13 @@ public class TFMGMixingRecipeGen extends TFMGProcessingRecipeGen {
 			.output(cement(),4)
 	),
 
+	CONSTANTAN = create("constantan", b -> b
+			.require(copperIngot())
+			.require(nickelIngot())
+			.output(TFMGItems.CONSTANTAN_INGOT,2)
+			.requiresHeat(HeatCondition.HEATED)
+	),
+
 	ASPHALT_MIXTURE = create("asphalt_mixture", b -> b
 			.require(sand())
 			.require(bitumen())
@@ -72,6 +79,18 @@ public class TFMGMixingRecipeGen extends TFMGProcessingRecipeGen {
 			.output(liquidAsphalt(),1000)
 	),
 
+	P_SEMICONDUCTOR = create("p_semiconductor", b -> b
+			.require(aluminumIngot())
+			.require(TFMGItems.SILICON_INGOT)
+			.output(TFMGItems.P_SEMICONDUCTOR)
+	),
+
+	N_SEMICONDUCTOR = create("n_semiconductor", b -> b
+			.require(sulfurDust())
+			.require(TFMGItems.SILICON_INGOT)
+			.output(TFMGItems.N_SEMICONDUCTOR)
+	),
+
 	GUNPOWDER = create("gunpowder", b -> b
 			.require(nitrateDust())
 			.require(nitrateDust())
@@ -97,6 +116,7 @@ public class TFMGMixingRecipeGen extends TFMGProcessingRecipeGen {
 	MAGNETIC_ALLOY = create("magnetic_alloy", b -> b
 			.require(nickelIngot())
 			.require(nickelIngot())
+			.require(TFMGItems.SILICON_INGOT)
 			.require(steelIngot())
 			.require(steelIngot())
 			.output(magneticIngot())

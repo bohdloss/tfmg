@@ -74,11 +74,11 @@ public class TFMGEncasedCogVisual extends KineticBlockEntityVisual<KineticBlockE
                     instance.setRotationOffset(BracketedKineticBlockEntityRenderer.getShaftAngleOffset(rotationAxis(), pos));
                 }
 
-                //if (d.getAxisDirection() == Direction.AxisDirection.POSITIVE) {
-                //    rotatingTopShaft = instance;
-                //} else {
-                //    rotatingBottomShaft = instance;
-                //}
+                if (d.getAxisDirection() == Direction.AxisDirection.POSITIVE) {
+                    rotatingTopShaft = instance;
+                } else {
+                    rotatingBottomShaft = instance;
+                }
             }
         }
 
@@ -98,7 +98,10 @@ public class TFMGEncasedCogVisual extends KineticBlockEntityVisual<KineticBlockE
 
     @Override
     public void updateLight(float partialTick) {
-        relight(rotatingModel, rotatingTopShaft, rotatingBottomShaft);
+        relight(rotatingModel);
+
+        if (rotatingTopShaft != null) relight(rotatingTopShaft);
+        if (rotatingBottomShaft != null) relight(rotatingBottomShaft);
     }
 
     @Override

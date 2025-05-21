@@ -1,6 +1,7 @@
 package com.drmangotea.tfmg.content.electricity.base;
 
 import com.drmangotea.tfmg.TFMG;
+import com.drmangotea.tfmg.content.engines.types.regular_engine.RegularEngineBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGPackets;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.api.equipment.goggles.IHaveHoveringInformation;
@@ -99,6 +100,8 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
 
         return voltageGeneration;
     }
+
+
 
     @Override
     public int powerGeneration() {
@@ -206,20 +209,7 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
                     .remove(getData().getId());
     }
 
-    @Override
-    public void tick() {
-        super.tick();
 
-        if(data.connectNextTick) {
-            onPlaced();
-            data.connectNextTick = false;
-        }
-        if(data.updateNextTick) {
-            updateNetwork();
-            data.updateNextTick = false;
-        }
-
-    }
 
     @Override
     public void lazyTick() {
@@ -229,8 +219,8 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
             this.blockFail();
             data.failTimer = 0;
             sendStuff();
-        } else if((data.voltage>getMaxVoltage()&&getMaxVoltage()>0)||(getCurrent()>getMaxCurrent()&&getMaxCurrent()>0)){
-            blockFail();
+        }
+        if((data.voltage>getMaxVoltage()&&getMaxVoltage()>0)||(getCurrent()>getMaxCurrent()&&getMaxCurrent()>0)){
             data.failTimer++;
         }
     }
@@ -260,7 +250,9 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
     @Override
     public void onSpeedChanged(float previousSpeed) {
         super.onSpeedChanged(previousSpeed);
-        TFMG.LOGGER.debug("SPEEED CHANGED "+getBlockPos().getX()+" "+getBlockPos().getY()+" "+getBlockPos().getZ());
+
+        if(this instanceof RegularEngineBlockEntity)
+       // TFMG.LOGGER.debug("SPEEED CHANGED "+getBlockPos().getX()+" "+getBlockPos().getY()+" "+getBlockPos().getZ());
         notifyNetworkAboutSpeedChange();
         timer = 0;
 

@@ -2,9 +2,11 @@ package com.drmangotea.tfmg.content.engines.types.large_engine;
 
 
 import com.drmangotea.tfmg.base.TFMGUtils;
+import com.drmangotea.tfmg.config.TFMGConfigs;
 import com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity;
 import com.drmangotea.tfmg.content.engines.base.EngineFluidTank;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
+import com.drmangotea.tfmg.registry.TFMGSoundEvents;
 import com.drmangotea.tfmg.registry.TFMGTags;
 import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
@@ -13,6 +15,7 @@ import com.simibubi.create.content.kinetics.steamEngine.PoweredShaftBlockEntity;
 import com.simibubi.create.content.kinetics.steamEngine.SteamEngineBlock;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.fluid.CombinedTankWrapper;
+import net.createmod.catnip.math.AngleHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -39,7 +42,6 @@ import java.util.List;
 
 public class LargeEngineBlockEntity extends AbstractEngineBlockEntity {
 
-    //protected ScrollOptionBehaviour<WindmillBearingBlockEntity.RotationDirection> movementDirection;
 
     public WeakReference<PoweredShaftBlockEntity> target;
 
@@ -50,8 +52,8 @@ public class LargeEngineBlockEntity extends AbstractEngineBlockEntity {
     public LargeEngineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         target = new WeakReference<>(null);
-        fuelTank = new EngineFluidTank(2000, false, true, this::tankUpdated, TFMGTags.TFMGFluidTags.AIR.tag);
-        airTank = new EngineFluidTank(1000, false, true, TFMGTags.TFMGFluidTags.AIR.tag, this::tankUpdated);
+        fuelTank = new EngineFluidTank(2000, false, true, f->tankUpdated(f,true), TFMGTags.TFMGFluidTags.AIR.tag);
+        airTank = new EngineFluidTank(1000, false, true, TFMGTags.TFMGFluidTags.AIR.tag, f->tankUpdated(f,true));
         refreshCapability();
     }
 
@@ -93,25 +95,30 @@ public class LargeEngineBlockEntity extends AbstractEngineBlockEntity {
         PoweredShaftBlockEntity shaft = getShaft();
 
         if (shaft == null) {
-            if (level.isClientSide())
+            if (!level.isClientSide()) {
+
+                if (shaft == null)
+                    return;
+                if (!shaft.getBlockPos()
+                        .subtract(worldPosition)
+                        .equals(shaft.enginePos))
+                    return;
+                if (shaft.engineEfficiency == 0)
+                    return;
+                Direction facing = LargeEngineBlock.getFacing(getBlockState());
+                if (level.isLoaded(worldPosition.relative(facing.getOpposite())))
+                    shaft.update(worldPosition, 0, 0);
                 return;
-            if (shaft == null)
-                return;
-            if (!shaft.getBlockPos()
-                    .subtract(worldPosition)
-                    .equals(shaft.enginePos))
-                return;
-            if (shaft.engineEfficiency == 0)
-                return;
-            Direction facing = LargeEngineBlock.getFacing(getBlockState());
-            if (level.isLoaded(worldPosition.relative(facing.getOpposite())))
-                shaft.update(worldPosition, 0, 0);
-            return;
+            }
         }
 
         BlockState blockState = getBlockState();
         if (!TFMGBlocks.LARGE_ENGINE.has(blockState) && !TFMGBlocks.SIMPLE_LARGE_ENGINE.has(blockState))
             return;
+
+        if(level.isClientSide)
+            makeSound();
+
 
         if (!level.isClientSide)
             if (getShaft() != null)
@@ -140,66 +147,46 @@ public class LargeEngineBlockEntity extends AbstractEngineBlockEntity {
     }
 
 
-    /// /@OnlyIn(Dist.CLIENT)
-    //private void makeSound(Axis targetAxis, boolean verticalTarget) {
-    //    Float targetAngle = getTargetAngle();
-    //    PoweredShaftBlockEntity ste = target.get();
-    //    if (ste == null)
-    //        return;
-    //    //if (engineStrength == 0)
-    //    //	return;
-    //    PoweredShaftBlockEntity shaft = getShaft();
-//
-    //    if (tanks.get(true).isEmpty() || tanks.get(true).isEmpty()) {
-    //        engineStrength = 0;
-//
-    //        shaft.update(worldPosition, getConveyedSpeedLevel(engineStrength, targetAxis, verticalTarget), engineStrength);
-    //        return;
-    //    }
-//
-    //    if (expansionBE != null) {
-    //        if (airTank.isEmpty() && expansionBE.airTank.isEmpty()) {
-    //            engineStrength = 0;
-    //            shaft.update(worldPosition, getConveyedSpeedLevel(engineStrength, targetAxis, verticalTarget), engineStrength);
-    //            return;
-    //        }
-    //    } else if (airTank.isEmpty()) {
-    //        engineStrength = 0;
-    //        shaft.update(worldPosition, getConveyedSpeedLevel(engineStrength, targetAxis, verticalTarget), engineStrength);
-    //        return;
-    //    }
-//
-    //    if (tanks.get(false).getFluidAmount() + 5 > 1000) {
-    //        engineStrength = 0;
-    //        shaft.update(worldPosition, getConveyedSpeedLevel(engineStrength, targetAxis, verticalTarget), engineStrength);
-    //        return;
-    //    }
-//
-    //    if (targetAngle == null)
-    //        return;
-//
-    //    float angle = AngleHelper.deg(targetAngle);
-    //    angle += (angle < 0) ? -180 + 75 : 360 - 75;
-    //    angle %= 360;
-//
-//
-    //    if (shaft == null || shaft.getSpeed() == 0)
-    //        return;
-//
-    //    if (angle >= 0 && !(prevAngle > 180 && angle < 180)) {
-    //        prevAngle = angle;
-    //        return;
-    //    }
-//
-    //    if (angle < 0 && !(prevAngle < -180 && angle > -180)) {
-    //        prevAngle = angle;
-    //        return;
-    //    }
-//
-    //    TFMGSoundEvents.DIESEL_ENGINE.playAt(level, worldPosition, 0.4f, 1f, false);
-//
-    //    prevAngle = angle;
-    //}
+    @OnlyIn(Dist.CLIENT)
+    private void makeSound() {
+        Float targetAngle = getTargetAngle();
+        PoweredShaftBlockEntity ste = target.get();
+        if (ste == null)
+            return;
+        if(getShaft().getSpeed()==0)
+            return;
+        if(fuelTank.isEmpty()||airTank.isEmpty()||exhaustTank.getSpace() == 0)
+            return;
+        //if (engineStrength == 0)
+        //	return;
+        PoweredShaftBlockEntity shaft = getShaft();
+
+
+        if (targetAngle == null)
+            return;
+
+        float angle = AngleHelper.deg(targetAngle);
+        angle += (angle < 0) ? -180 + 75 : 360 - 75;
+        angle %= 360;
+
+
+        if (shaft == null || shaft.getSpeed() == 0)
+            return;
+
+        if (angle >= 0 && !(prevAngle > 180 && angle < 180)) {
+            prevAngle = angle;
+            return;
+        }
+
+        if (angle < 0 && !(prevAngle < -180 && angle > -180)) {
+            prevAngle = angle;
+            return;
+        }
+
+        TFMGSoundEvents.DIESEL_ENGINE.playAt(level, worldPosition, 0.4f * TFMGConfigs.common().machines.engineLoudness.getF(), 1f, false);
+
+        prevAngle = angle;
+    }
 
     @Override
     public boolean canWork() {
@@ -229,6 +216,9 @@ public class LargeEngineBlockEntity extends AbstractEngineBlockEntity {
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+
+        if(getShaft() == null)
+            return false;
 
         TFMGUtils.createFluidTooltip(this,tooltip);
 

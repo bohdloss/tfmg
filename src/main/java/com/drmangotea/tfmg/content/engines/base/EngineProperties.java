@@ -73,6 +73,15 @@ public class EngineProperties {
         pistonPositions.add(new PistonPosition(0,f,f,315));
         return pistonPositions;
     }
+    public static List<PistonPosition> pistonsTurbine() {
+
+        List<PistonPosition> pistonPositions = new ArrayList<>();
+        pistonPositions.add(new PistonPosition(0, 0, 0, 0));
+        pistonPositions.add(new PistonPosition(0, 0, 0, 0));
+        pistonPositions.add(new PistonPosition(0, 0, 0, 0));
+        pistonPositions.add(new PistonPosition(0, 0, 0, 0));
+        return pistonPositions;
+    }
     //
 
     //public static List<ItemStack> componentsW(){

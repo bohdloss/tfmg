@@ -54,7 +54,7 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
 
         if (electrodeType != ElectrodeType.NONE) {
             if(electrodeType == ElectrodeType.GRAPHITE) {
-                return 200;
+                return 300;
             }else return 100;
         }
 
@@ -86,9 +86,7 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
         VatBlock.updateVatState(getBlockState(), level, getBlockPos().relative(Direction.DOWN));
     }
 
-    boolean isSuperheated() {
-        return electrodeType == ElectrodeType.GRAPHITE && getCurrent() >= TFMGConfigs.common().machines.graphiteElectrodeCurrent.get();
-    }
+
 
     boolean isOperational() {
         return getCurrent() >= TFMGConfigs.common().machines.electrolysisMinimumCurrent.get()&&canWork();
@@ -126,7 +124,7 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
 
             case NONE -> "";
             case COPPER, ZINC -> isOperational() ? "tfmg:electrode" : "";
-            case GRAPHITE -> isSuperheated() ? "tfmg:graphite_electrode" : isOperational() ? "tfmg:electrode" : "";
+            case GRAPHITE -> isOperational() ? "tfmg:graphite_electrode" : "";
         };
     }
 

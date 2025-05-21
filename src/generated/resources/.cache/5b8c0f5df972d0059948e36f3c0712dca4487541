@@ -1,4 +1,4 @@
-// 1.20.1	2025-05-09T20:53:05.2811349	TFMG's Processing Recipes
+// 1.20.1	2025-05-21T20:34:33.0529958	TFMG's Processing Recipes
 ae24d73a2ef5b8059806e660641bcb9dff2a15f4 data/tfmg/recipes/coking/charcoal.json
 9000fbf96dc2c2b822aa4e526b1c8686d5413e5a data/tfmg/recipes/coking/coal.json
 0615633ddeaab98905fba9020ecb9d0fbac32fcc data/tfmg/recipes/compacting/aluminum_ingot.json
@@ -14,6 +14,7 @@ f8f004cce2acbbf02207433e88df3e1f3d155053 data/tfmg/recipes/crushing/bauxite.json
 6c8b2797938c86e8bf21508db782f19e6fa1c5d2 data/tfmg/recipes/crushing/coal_coke.json
 45266f40ad082ae192242067acdd148fd738bb81 data/tfmg/recipes/crushing/copper_sulfate.json
 c66b8e651bf39232afca35da09b82fc1af29a8d6 data/tfmg/recipes/crushing/dirt.json
+ced4aa7fb9a039d9144959a17381c83d324222a2 data/tfmg/recipes/crushing/galena.json
 46ede7a2a24bb1f7949ad6e98466a47fdb9ee759 data/tfmg/recipes/crushing/lignite.json
 b12cbfd32b1c386b4cc8f28480f36937d756e0cd data/tfmg/recipes/crushing/limestone.json
 f218b0fa35bdb632066225082134f6ba297d49fb data/tfmg/recipes/crushing/sulfur.json
@@ -45,13 +46,16 @@ e025109b51e8c82579970379716072470d578cf8 data/tfmg/recipes/mixing/asphalt_mixtur
 4005a79190133704f6d399dc48cf5a41a8f7ae44 data/tfmg/recipes/mixing/cement.json
 d6c254e0ba2531195eaeffc235628a4b405f96bb data/tfmg/recipes/mixing/concrete_mixture.json
 5c6dfae267284b5e4dc1fc6a386172f1525c394f data/tfmg/recipes/mixing/concrete_mixture_from_slag.json
+2e18e9bc94680dcb6d7f6f84246f739fbec7a214 data/tfmg/recipes/mixing/constantan.json
 e8c5783e5b93e9e66417c8d73aa684ab96f43cd6 data/tfmg/recipes/mixing/cooling_fluid.json
 d0b6208fbe3a36bbab8f93ccd5e11cafcdc348ea data/tfmg/recipes/mixing/copper_sulfate.json
 78d5ad5111a8daa6ba7943f2d49ca479a440347a data/tfmg/recipes/mixing/gunpowder.json
 d005e893f5920c8c410c978b02723587f64f9779 data/tfmg/recipes/mixing/liquid_asphalt.json
 31092ad453356efe10f4ac4e8b7d8c4964d75699 data/tfmg/recipes/mixing/liquid_concrete.json
-1ca93cceb634c19dbe4c576ac409aa035629ef4a data/tfmg/recipes/mixing/magnetic_alloy.json
+5cec7d55327f7340ca037b55d9ce5142ed04d20c data/tfmg/recipes/mixing/magnetic_alloy.json
 91a5223d59ba418922a8d9738dd13f2464ec426a data/tfmg/recipes/mixing/napalm.json
+4d0f6abaac9dcabcd2fe5cdb647c4e301508f3b8 data/tfmg/recipes/mixing/n_semiconductor.json
+693355c65c5a7da122dc8e305241e25063bd99d5 data/tfmg/recipes/mixing/p_semiconductor.json
 8799991718c10d5abcc89bf205756fdb2849a2e0 data/tfmg/recipes/mixing/thermite.json
 499dddbb8a717629960cbbb1513102dc219800ef data/tfmg/recipes/polarizing/magnet.json
 afc122bccc8ab383b52732fa6fdf18fe2464c7ae data/tfmg/recipes/pressing/aluminum_ingot.json
@@ -60,4 +64,4 @@ b527cf71f4ad61fecc6d001f68905848128235a5 data/tfmg/recipes/pressing/lead_ingot.j
 26c57e64b3d9ec56f92f89732adcd7e2fa1a5801 data/tfmg/recipes/pressing/nickel_ingot.json
 3cd7243dc9f9d95ecfb8ec1cc560ac2c047b0bfa data/tfmg/recipes/pressing/synthetic_leather.json
 b9cabd88bc2b0f7cbcc3d02f12d0c78f9f2101d7 data/tfmg/recipes/winding/electromagnetic_coil.json
-ad08a4a78e5ab235386451d67aa01e75bf9b2caf data/tfmg/recipes/winding/resistor.json
+d92d7979e880bfa2675b0d7c9c7f2be4c8c735ee data/tfmg/recipes/winding/resistor.json

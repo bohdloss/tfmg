@@ -223,7 +223,7 @@ public class TFMGUtils {
         }
         if (!isEmpty) return true;
 
-        CreateLang.translate("gui.goggles.item_storage_empty").style(ChatFormatting.DARK_GRAY).forGoggles(tooltip, 1);
+        CreateLang.translate("item_attributes.shulker_level.empty").style(ChatFormatting.DARK_GRAY).forGoggles(tooltip, 1);
         return true;
     }
 

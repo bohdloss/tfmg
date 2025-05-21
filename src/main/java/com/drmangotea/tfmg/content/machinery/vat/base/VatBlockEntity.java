@@ -22,6 +22,7 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.lang.LangBuilder;
+import net.createmod.catnip.theme.Color;
 import net.createmod.ponder.api.level.PonderLevel;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -155,7 +156,7 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
         }
 
         updateTemperature();
-        if (level.isClientSide&&!(level instanceof PonderLevel)) {
+        if (level.isClientSide && !(level instanceof PonderLevel)) {
             int tankNumber = 0;
             for (int i = 0; i < 8; i++) {
                 IFluidHandler fluidHandler = this.getCapability(ForgeCapabilities.FLUID_HANDLER).orElse(null);
@@ -281,7 +282,7 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
                         break;
                     }
                 }
-                if(!found) {
+                if (!found) {
                     doesntMatch = true;
                     break;
                 }
@@ -370,7 +371,6 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
     @Override
     public void tick() {
         super.tick();
-
 
 
         handleRecipe();
@@ -488,7 +488,7 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
                 for (int i = 0; i < outputFluidHandler.getTanks(); i++) {
                     FluidStack fluidInTank = outputFluidHandler.getFluidInTank(i);
                     if (fluidInTank.getFluid().isSame(fluidStack.getFluid())) {
-                        outputFluidHandler.fill(new FluidStack(fluidStack.copy(), fluidStack.getAmount() + fluidInTank.getAmount()), IFluidHandler.FluidAction.EXECUTE);
+                        outputFluidHandler.fill(new FluidStack(fluidStack.copy(), fluidStack.getAmount()), IFluidHandler.FluidAction.EXECUTE);
                         handledFluidResults.add(i);
                         break;
                     }
@@ -496,7 +496,7 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
                 for (int i = 0; i < outputFluidHandler.getTanks(); i++) {
                     FluidStack fluidInTank = outputFluidHandler.getFluidInTank(i);
                     if (!handledFluidResults.contains(i) && fluidInTank.isEmpty()) {
-                        outputFluidHandler.fill(new FluidStack(fluidStack.copy(), fluidStack.getAmount() + fluidInTank.getAmount()), IFluidHandler.FluidAction.EXECUTE);
+                        outputFluidHandler.fill(new FluidStack(fluidStack.copy(), fluidStack.getAmount()), IFluidHandler.FluidAction.EXECUTE);
                         break;
                     }
                 }
@@ -507,6 +507,10 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
             timer++;
         }
     }
+
+
+
+
 
     @Override
     public BlockPos getLastKnownPos() {
@@ -851,14 +855,32 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 
-        CreateLang.text("Speed " + efficiency * 100 + "%").forGoggles(tooltip);
-        CreateLang.text("Heat " + heatLevel).forGoggles(tooltip);
-        for (String operation : machines)
-            CreateLang.text(operation).forGoggles(tooltip);
-
-
-        CreateLang.translate("gui.goggles.basin_contents")
+        if(!isController())
+            return getControllerBE().addToGoggleTooltip(tooltip,isPlayerSneaking);
+        CreateLang.translate("goggles.vat.header")
+                .style(ChatFormatting.GRAY)
                 .forGoggles(tooltip);
+
+        CreateLang.translate("goggles.vat.contents")
+                .forGoggles(tooltip);
+
+        CreateLang.translate("goggles.vat.attachments")
+                .style(ChatFormatting.GRAY)
+                .forGoggles(tooltip);
+        for (String operation : machines)
+            CreateLang.translate("goggles.vat."+operation.replace(":","."))
+                    .forGoggles(tooltip);
+
+
+        CreateLang.translate("goggles.vat.heat_status")
+                .add(CreateLang.translate(heatCondition == HeatCondition.NONE ? "goggles.vat.no_heat" : heatCondition == HeatCondition.HEATED ? "goggles.vat.heated" : "goggles.vat.superheated"))
+                .color(heatCondition == HeatCondition.NONE ? 0x7a7a77 : heatCondition == HeatCondition.HEATED ? 0xdea216 : 0x16c7de)
+                .forGoggles(tooltip);
+
+        CreateLang.translate("goggles.vat.contents")
+                .forGoggles(tooltip);
+
+        ///
 
         IItemHandlerModifiable items = itemCapability.orElse(new ItemStackHandler());
         IFluidHandler fluids = fluidCapability.orElse(new FluidTank(0));

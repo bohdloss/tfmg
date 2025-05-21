@@ -7,6 +7,7 @@ import com.drmangotea.tfmg.registry.TFMGTags;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import net.createmod.catnip.animation.LerpedFloat;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
@@ -27,6 +28,10 @@ public class CableConnectorRenderer extends SafeBlockEntityRenderer<CableConnect
     @Override
     protected void renderSafe(CableConnectorBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
         renderPlayerHeldCable(be, ms, bufferSource, partialTicks);
+
+        Player player = Minecraft.getInstance().player;
+
+
 
         for (CableConnection connection : be.connections) {
             if (connection.visible)

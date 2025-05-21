@@ -29,6 +29,10 @@ public class MachineConfig extends ConfigBase {
     public final ConfigBool fireboxExhaustRequirement = b(true, "fireboxExhaustRequirement", Comments.fireboxExhaustRequirement);
     public final ConfigInt fireboxFuelConsumption = i(100, 1, "fireboxFuelConsumption", Comments.fireboxFuelConsumption);
 
+    public final ConfigGroup engines = group(1, "engines", "Engines");
+    public final ConfigFloat engineLoudness = f(1,0, "engineLoudness", Comments.engineLoudness);
+
+
     public final ConfigGroup generators = group(1, "generators", "Generators");
     public final ConfigFloat largeGeneratorModifier = f(4, 0, "largeGeneratorModifier", Comments.largeGenerator);
     public final ConfigFloat largeGeneratorMinSpeed = f(70, 0, "largeGeneratorMinSpeed", Comments.largeGeneratorMinSpeed);
@@ -71,5 +75,6 @@ public class MachineConfig extends ConfigBase {
         static String surfaceScannerScanDepth = "Y level surface scanner scan at.";
         static String FEtoWattTickConversionRate = "How much Forge Energy is in one watt-tick.";
         static String polarizerItemChargingRate = "How much FE can polarizer charge per tick.";
+        static String engineLoudness = "Changes the volume of engines.";
     }
 }

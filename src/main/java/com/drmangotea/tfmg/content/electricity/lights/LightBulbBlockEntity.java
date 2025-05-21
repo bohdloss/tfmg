@@ -63,6 +63,16 @@ public class LightBulbBlockEntity extends ElectricBlockEntity {
         notifyUpdate();
     }
 
+   // @Override
+   // public int getMaxVoltage() {
+   //     return 500;
+   // }
+//
+   // @Override
+   // public int getMaxAmps() {
+   //     return 5;
+   // }
+
     @Override
     public void blockFail() {
         super.blockFail();

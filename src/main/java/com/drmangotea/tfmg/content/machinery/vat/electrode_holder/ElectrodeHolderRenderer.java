@@ -30,7 +30,7 @@ public class ElectrodeHolderRenderer extends SafeBlockEntityRenderer<ElectrodeHo
             return;
 
 
-        CachedBuffers.partial(be.isSuperheated() ? TFMGPartialModels.GRAPHITE_ELECTRODE_SUPERHEATED : be.electrodeType.model, blockState)
+        CachedBuffers.partial(be.electrodeType.model, blockState)
                 .light(LevelRenderer.getLightColor(be.getLevel(), be.getBlockPos().below()))
                 .translateY(-1)
                 .renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));

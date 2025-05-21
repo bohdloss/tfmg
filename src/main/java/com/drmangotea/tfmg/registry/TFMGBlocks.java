@@ -185,7 +185,6 @@ public class TFMGBlocks {
             .properties(BlockBehaviour.Properties::noOcclusion)
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(TFMGStress.setCapacity(45.0))
-            .onRegister(connectedTextures(() -> new EngineCTBehavior(TFMGSpriteShifts.REGULAR_ENGINE_TOP, TFMGSpriteShifts.REGULAR_ENGINE_BOTTOM, TFMGSpriteShifts.REGULAR_ENGINE_SIDE)))
             .blockstate(new TurbineEngineGenerator()::generate)
             .item()
             .transform(customItemModel())
@@ -1258,16 +1257,16 @@ public class TFMGBlocks {
                     .transform(customItemModel())
                     .register();
 
-    public static final BlockEntry<FuseBlock> FUSE_BLOCK =
-            REGISTRATE.block("fuse_block", FuseBlock::new)
-                    .initialProperties(() -> Blocks.IRON_BLOCK)
-                    .transform(pickaxeOnly())
-                    .properties(BlockBehaviour.Properties::noOcclusion)
-                    .addLayer(() -> RenderType::cutoutMipped)
-                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
-                    .item()
-                    .transform(customItemModel())
-                    .register();
+    //public static final BlockEntry<FuseBlock> FUSE_BLOCK =
+    //        REGISTRATE.block("fuse_block", FuseBlock::new)
+    //                .initialProperties(() -> Blocks.IRON_BLOCK)
+    //                .transform(pickaxeOnly())
+    //                .properties(BlockBehaviour.Properties::noOcclusion)
+    //                .addLayer(() -> RenderType::cutoutMipped)
+    //                .blockstate(BlockStateGen.horizontalBlockProvider(true))
+    //                .item()
+    //                .transform(customItemModel())
+    //                .register();
 
 
     //------------------EXHAUST/WASTE_REMOVAL------------------//
