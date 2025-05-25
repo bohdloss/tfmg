@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class RecipeProviderMixin {
 
 
-    @Inject(at = @At("HEAD"), method = "getName",cancellable = true , remap = false)
+    @Inject(at = @At("HEAD"), method = "getName",cancellable = true , remap = true)
     public final void getName(CallbackInfoReturnable<String> cir) {
         if((Object)this instanceof TFMGMechanicalCraftingRecipeGen)
             cir.setReturnValue("TFMG'S Mechanical Crafting Recipes");

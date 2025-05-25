@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "I": {
-      "tag": "forge:ingots/brass"
+      "tag": "forge:ingots/cast_iron"
     },
     "P": {
-      "tag": "forge:plates/brass"
+      "tag": "forge:plates/cast_iron"
     }
   },
   "pattern": [

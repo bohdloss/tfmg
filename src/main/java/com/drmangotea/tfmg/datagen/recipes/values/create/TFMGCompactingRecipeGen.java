@@ -30,7 +30,7 @@ public class TFMGCompactingRecipeGen extends TFMGPressingRecipeGen {
             CAST_IRON = create("cast_iron", b -> b
                     .require(ironIngot())
                     .require(coal())
-                    .output(TFMGItems.CAST_IRON_INGOT, 2)
+                    .output(TFMGItems.CAST_IRON_INGOT, 1)
                     .requiresHeat(HeatCondition.HEATED)
             );
 

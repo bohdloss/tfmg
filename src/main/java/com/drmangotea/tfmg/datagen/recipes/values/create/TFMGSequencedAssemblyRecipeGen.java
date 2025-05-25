@@ -61,7 +61,7 @@ public class TFMGSequencedAssemblyRecipeGen extends CreateRecipeProvider {
     ),
 
 
-    HEAVY_PLATE = create("heavy_plate", b -> b.require(TFMGItems.HEAVY_PLATE)
+    HEAVY_PLATE = create("heavy_plate", b -> b.require(steelIngot())
             .transitionTo(TFMGItems.UNPROCESSED_HEAVY_PLATE.get())
             .addOutput(TFMGItems.HEAVY_PLATE.get(), 1)
             .loops(1)

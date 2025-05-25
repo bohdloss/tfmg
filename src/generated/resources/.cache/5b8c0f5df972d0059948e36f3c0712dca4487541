@@ -1,9 +1,9 @@
-// 1.20.1	2025-05-21T20:34:33.0529958	TFMG's Processing Recipes
+// 1.20.1	2025-05-25T12:54:48.7554292	TFMG's Processing Recipes
 ae24d73a2ef5b8059806e660641bcb9dff2a15f4 data/tfmg/recipes/coking/charcoal.json
 9000fbf96dc2c2b822aa4e526b1c8686d5413e5a data/tfmg/recipes/coking/coal.json
 0615633ddeaab98905fba9020ecb9d0fbac32fcc data/tfmg/recipes/compacting/aluminum_ingot.json
 2b33a020ed88511979447005053ceea2b3ff3c08 data/tfmg/recipes/compacting/bitumen.json
-c67f3b7e3f8560b4bf16b03cb4fe6bd63ea57201 data/tfmg/recipes/compacting/cast_iron.json
+6fdc2097dc379dd620ffec21797bbf03f38774fa data/tfmg/recipes/compacting/cast_iron.json
 528ca7bc4ba7958bc3295ed53b1ae97f5628f5dd data/tfmg/recipes/compacting/cast_iron_ingot.json
 3e2f2dd950bd134c331a9cbf0a17e82713f11249 data/tfmg/recipes/compacting/cinderflourblock.json
 b0b8677040f2093573fc9ee074d3f29f70b440b3 data/tfmg/recipes/compacting/lead_ingot.json
@@ -24,18 +24,16 @@ c53735f5bedbc3e6fd8c03f2dcc18047e9391d6a data/tfmg/recipes/distillation/crude_oi
 34371023823fc0686c5e6e3d074c7b723a7c5cd7 data/tfmg/recipes/distillation/heavy_oil.json
 001bc3e8ddeb2fc3d633faf873553157b5c1878c data/tfmg/recipes/distillation/heavy_oil_light_distillation.json
 cfd0a4e4e86ad9698e251e16aa952c951c6ed1c3 data/tfmg/recipes/distillation/heavy_oil_no_naphtha.json
-e052823b5acf7fb35f4526f0b5b4b641e9b2881b data/tfmg/recipes/filling/air_tank.json
-df37b08fdb78d6dd8bd514dc4f9118fad19a8e3d data/tfmg/recipes/filling/butane_tank.json
-c44e553c1e6dfb3469b345a22582015f845aa842 data/tfmg/recipes/filling/carbon_dioxide_tank.json
-44318fb2c90ead0678f6593786c892fbdb03cfbf data/tfmg/recipes/filling/ethylene_tank.json
-a97e68d41416d79a9a2ef3ceeb05f1802b448a48 data/tfmg/recipes/filling/furnace_gas_tank.json
-c4276f21b4ddc95d7295612cd7846cb23ba4bdbf data/tfmg/recipes/filling/hardened_planks.json
-0c682acd4142a4282a8790942148b24388abf3fb data/tfmg/recipes/filling/hot_air_tank.json
-c06cee5afb2630382fc2cd3abde09c73aaba55d5 data/tfmg/recipes/filling/hydrogen_tank.json
-bd8c9a47c57cf549abb599eb4123c40d71580faf data/tfmg/recipes/filling/lpg_tank.json
-62b327a16d91049674afa809119a7b48ca526b73 data/tfmg/recipes/filling/neon_tank.json
-0e02a51b30c5ad04ce129e250378f8ec576c3e68 data/tfmg/recipes/filling/propane_tank.json
-50c917d9033023657f0417985b032231a5862397 data/tfmg/recipes/filling/propylene_tank.json
+60b3c615bddea5ac236ffb51dc48bb60b3946e9b data/tfmg/recipes/filling/air_tank.json
+5953fc8c14d681e64aad3cba2bc9d0e41e35bc7c data/tfmg/recipes/filling/carbon_dioxide_tank.json
+0e2bdbcb9b7b30f5643b0b639d9ea26f232079c2 data/tfmg/recipes/filling/ethylene_tank.json
+4772e8177d5c6fcc9771c6d77a0db070ba614106 data/tfmg/recipes/filling/furnace_gas_tank.json
+dcc60da72dd0f818ea6c5d7a29e60aec0c710bab data/tfmg/recipes/filling/hardened_planks.json
+459633e9d11afdbc30f720a6842e61454b4d42dc data/tfmg/recipes/filling/hot_air_tank.json
+5c33148691a2b761787d56052c25420e81e06eb7 data/tfmg/recipes/filling/hydrogen_tank.json
+54efef6523a39d8fcb48796d659a3390007b1421 data/tfmg/recipes/filling/lpg_tank.json
+e9287ed78b8ddba564751a2974306eea83e77ab4 data/tfmg/recipes/filling/neon_tank.json
+83b959dcd319de129fbf76bd967d6d4c3ada9852 data/tfmg/recipes/filling/propylene_tank.json
 35a1de08776b5725ae21dd4220549bde14d631a3 data/tfmg/recipes/hot_blast/hot_air.json
 3385f19114ca69a40efaf7124bde2a978fee77a4 data/tfmg/recipes/item_application/aluminum_casing.json
 012e7cdfed6d921cb6a032c2997e8e0c598e6f78 data/tfmg/recipes/item_application/coated_circuit_board.json

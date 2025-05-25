@@ -131,6 +131,7 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
         if (enginePos != null)
             if (level.getBlockEntity(enginePos) instanceof AbstractSmallEngineBlockEntity be) {
                 be.getControllerBE().shift = shift;
+                be.getControllerBE().clutchPressed = clutch;
                 be.getControllerBE().updateGeneratedRotation();
                 if(be.getControllerBE().engineLength()>1){
                     if(level.getBlockEntity(BlockPos.of(be.getControllerBE().engines.get(be.getControllerBE().engineLength()-1)))instanceof AbstractSmallEngineBlockEntity be2){
@@ -230,28 +231,28 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
         disconnectEngine();
     }
 
-    @Override
-    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-
-        if (engine != null) {
-            CreateLang.text("Linked").forGoggles(tooltip);
-        }
-
-
-        CreateLang.text(shift.name()).forGoggles(tooltip);
-        CreateLang.text(engineStarted ? "Engine Started" : "Engine Stopped").forGoggles(tooltip);
-        CreateLang.text("Acceleration: " + accelerationRate).forGoggles(tooltip);
-
-
-        if (clutch)
-            CreateLang.text("CLUTCH").forGoggles(tooltip);
-        if (brake)
-            CreateLang.text("BRAKE").forGoggles(tooltip);
-        if (gas)
-            CreateLang.text("GAS").forGoggles(tooltip);
-
-        return true;
-    }
+    //@Override
+    //public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+//
+    //    if (engine != null) {
+    //        CreateLang.text("Linked").forGoggles(tooltip);
+    //    }
+//
+//
+    //    CreateLang.text(shift.name()).forGoggles(tooltip);
+    //    CreateLang.text(engineStarted ? "Engine Started" : "Engine Stopped").forGoggles(tooltip);
+    //    CreateLang.text("Acceleration: " + accelerationRate).forGoggles(tooltip);
+//
+//
+    //    if (clutch)
+    //        CreateLang.text("CLUTCH").forGoggles(tooltip);
+    //    if (brake)
+    //        CreateLang.text("BRAKE").forGoggles(tooltip);
+    //    if (gas)
+    //        CreateLang.text("GAS").forGoggles(tooltip);
+//
+    //    return true;
+    //}
 
 
     @Override

@@ -62,6 +62,7 @@ public class EngineBlock extends HorizontalKineticBlock {
                                 engineController.accelerationRate = 0;
                                 engineController.shift = TransmissionUpgrade.TransmissionState.NEUTRAL;
                                 be.shift = TransmissionUpgrade.TransmissionState.NEUTRAL;
+                                be.clutchPressed = false;
                                 engineController.engine = null;
                                 engineController.enginePos = null;
                                 engineController.disconnectEngine();

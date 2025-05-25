@@ -281,7 +281,8 @@ public class RegularEngineBlockEntity extends AbstractSmallEngineBlockEntity {
     @OnlyIn(Dist.CLIENT)
     private void makeSound(){
         soundTimer++;
-
+        if(!isController())
+            return;
 
         if(soundTimer>1/Math.min(6000,(rpm*0.0002)*pistonInventory.getSlots())) {
 

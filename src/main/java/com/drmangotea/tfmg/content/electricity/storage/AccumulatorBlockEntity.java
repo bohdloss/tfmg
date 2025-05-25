@@ -83,6 +83,11 @@ public class AccumulatorBlockEntity extends ElectricBlockEntity {
     @Override
     public boolean makeMultimeterTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 
+        if(!isController())
+            if(level.getBlockEntity(controller) instanceof AccumulatorBlockEntity be)
+                return be.makeMultimeterTooltip(tooltip, isPlayerSneaking);
+
+
         super.makeMultimeterTooltip(tooltip, isPlayerSneaking);
 
 
@@ -288,7 +293,7 @@ public class AccumulatorBlockEntity extends ElectricBlockEntity {
     public int getChargingRate() {
         //
         // int chargingRate = Math.max((data.networkPowerGeneration - getNetworkPowerUsage()), 0);
-        if (energy.getEnergyStored() == getMaxCapacity() || getData().getVoltage() < getOutputVoltage() || canPower()|| data.notEnoughtPower)
+        if (energy.getEnergyStored() >= getMaxCapacity() || getData().getVoltage() < getOutputVoltage() || canPower()|| data.notEnoughtPower)
             return 0;
 
         //return Math.min(chargingRate, getMaxChargingRate());

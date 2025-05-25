@@ -122,7 +122,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
     CAST_IRON_FLYWHEEL = create(TFMGBlocks.CAST_IRON_FLYWHEEL)
             .unlockedBy(TFMGItems.CAST_IRON_INGOT::get)
             .viaShaped(b -> b
-                    .define('C', leadIngot())
+                    .define('C', castIronIngot())
                     .define('S', shaft())
                     .pattern("CCC")
                     .pattern("CSC")
@@ -326,7 +326,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("S  ")
                     .pattern("S  ")),
     /// ////////////
-    STEEL_PIPE = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).get(0))
+    STEEL_PIPE = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).get(0)).returns(4)
             .unlockedBy(TFMGItems.STEEL_INGOT::get)
             .viaShaped(b -> b
                     .define('I', steelIngot())
@@ -366,7 +366,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .requires(ironSheet())
                     .requires(steelPipe())),
     /// ////////////
-    ALUMINUM_PIPE = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).get(0))
+    ALUMINUM_PIPE = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).get(0)).returns(4)
             .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
             .viaShaped(b -> b
                     .define('I', aluminumIngot())
@@ -406,7 +406,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .requires(ironSheet())
                     .requires(aluminumPipe())),
     /// ////////////
-    PLASTIC_PIPE = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).get(0))
+    PLASTIC_PIPE = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).get(0)).returns(4)
             .unlockedBy(TFMGItems.PLASTIC_SHEET::get)
             .viaShaped(b -> b
                     .define('I', plasticSheet())
@@ -444,7 +444,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .requires(ironSheet())
                     .requires(plasticPipe())),
     /// ////////////
-    BRASS_PIPE = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).get(0))
+    BRASS_PIPE = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).get(0)).returns(4)
             .unlockedBy(AllItems.BRASS_INGOT::get)
             .viaShaped(b -> b
                     .define('I', brassIngot())
@@ -484,11 +484,11 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .requires(ironSheet())
                     .requires(brassPipe())),
     /// ////////////
-    CAST_IRON_PIPE = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).get(0))
+    CAST_IRON_PIPE = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).get(0)).returns(4)
             .unlockedBy(TFMGItems.CAST_IRON_INGOT::get)
             .viaShaped(b -> b
-                    .define('I', brassIngot())
-                    .define('P', brassSheet())
+                    .define('I', castIronIngot())
+                    .define('P', castIronSheet())
                     .pattern("   ")
                     .pattern("PIP")
                     .pattern("   ")),
@@ -496,8 +496,8 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
     CAST_IRON_PIPE_VERTICAL = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).get(0)).withSuffix("_vertical")
             .unlockedBy(TFMGItems.CAST_IRON_INGOT::get)
             .viaShaped(b -> b
-                    .define('I', brassIngot())
-                    .define('P', brassSheet())
+                    .define('I', castIronIngot())
+                    .define('P', castIronSheet())
                     .pattern("P")
                     .pattern("I")
                     .pattern("P")),
@@ -506,14 +506,14 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
             .unlockedBy(TFMGItems.CAST_IRON_INGOT::get)
             .viaShapeless(b -> b
                     .requires(cog())
-                    .requires(brassPipe())),
+                    .requires(castIronPipe())),
 
     CAST_IRON_SMART_FLUID_PIPE = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).get(4))
             .unlockedBy(TFMGItems.CAST_IRON_INGOT::get)
             .viaShaped(b -> b
                     .define('P', electronTube())
-                    .define('S', brassPipe())
-                    .define('I', brassSheet())
+                    .define('S', castIronPipe())
+                    .define('I', castIronSheet())
                     .pattern("I")
                     .pattern("S")
                     .pattern("P")),
@@ -522,7 +522,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
             .unlockedBy(TFMGItems.CAST_IRON_INGOT::get)
             .viaShapeless(b -> b
                     .requires(ironSheet())
-                    .requires(brassPipe())),
+                    .requires(castIronPipe())),
     /// ////////////
 
     STEEL_COGWHEEL = create(TFMGBlocks.STEEL_COGWHEEL).returns(4)
@@ -851,6 +851,15 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
             .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
             .viaShaped(b -> b
                     .define('I', aluminumIngot())
+                    .define('R', rebar())
+                    .pattern("  R")
+                    .pattern(" I ")
+                    .pattern("   ")),
+
+    SCREWDRIVER_FROM_BRASS = create(TFMGItems.SCREWDRIVER).withSuffix("from_brass")
+            .unlockedBy(AllItems.BRASS_INGOT::get)
+            .viaShaped(b -> b
+                    .define('I', brassIngot())
                     .define('R', rebar())
                     .pattern("  R")
                     .pattern(" I ")
@@ -1301,13 +1310,35 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
             .viaCooking(() -> TFMGItems.RAW_LEAD)
             .inFurnace(),
 
-    NICKEL_LEAD = create(TFMGItems.NICKEL_INGOT::get)
+    NICKEL = create(TFMGItems.NICKEL_INGOT::get)
             .viaCooking(() -> TFMGItems.RAW_NICKEL)
             .inFurnace(),
 
-    LITHIUM_LEAD = create(TFMGItems.LITHIUM_INGOT::get)
+    LITHIUM = create(TFMGItems.LITHIUM_INGOT::get)
             .viaCooking(() -> TFMGItems.RAW_LITHIUM)
             .inFurnace(),
+
+    RAW_LEAD_BLASTING = create(TFMGItems.LEAD_INGOT::get).withSuffix("_blasting")
+            .viaCooking(() -> TFMGItems.RAW_LEAD)
+            .inBlastFurnace(),
+
+    NICKEL_LEAD_BLASTING = create(TFMGItems.NICKEL_INGOT::get).withSuffix("_blasting")
+            .viaCooking(() -> TFMGItems.RAW_NICKEL)
+            .inBlastFurnace(),
+
+    LITHIUM_BLASTING = create(TFMGItems.LITHIUM_INGOT::get).withSuffix("_blasting")
+            .viaCooking(() -> TFMGItems.RAW_LITHIUM)
+            .inBlastFurnace(),
+    //
+
+    LEAD_FROM_CRUSHED_BLASTING = create(TFMGItems.LEAD_INGOT::get).withSuffix("_from_crushed_blasting")
+            .viaCooking(() -> AllItems.CRUSHED_LEAD)
+            .inBlastFurnace(),
+
+    NICKEL_FROM_CRUSHED_BLASTING = create(TFMGItems.NICKEL_INGOT::get).withSuffix("_from_crushed_blasting")
+            .viaCooking(() -> AllItems.CRUSHED_NICKEL)
+            .inBlastFurnace(),
+    //
 
     THERMITE_GRENADE = create(TFMGItems.THERMITE_GRENADE)
             .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
@@ -1760,7 +1791,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("SPN")
                     .pattern("WIW")),
 
-    BLAST_STOVE = create(TFMGBlocks.BLAST_STOVE)
+    BLAST_STOVE = create(TFMGBlocks.BLAST_STOVE).returns(2)
             .unlockedBy(TFMGItems.FIREPROOF_BRICK::get)
             .viaShaped(b -> b
                     .define('F', fireproofBricks())

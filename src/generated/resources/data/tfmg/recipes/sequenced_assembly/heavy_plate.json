@@ -1,7 +1,7 @@
 {
   "type": "create:sequenced_assembly",
   "ingredient": {
-    "item": "tfmg:heavy_plate"
+    "tag": "forge:ingots/steel"
   },
   "loops": 1,
   "results": [

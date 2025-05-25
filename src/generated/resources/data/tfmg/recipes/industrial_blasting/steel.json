@@ -20,7 +20,7 @@
       "fluid": "tfmg:molten_slag"
     },
     {
-      "amount": 20,
+      "amount": 200,
       "fluid": "tfmg:furnace_gas"
     }
   ]

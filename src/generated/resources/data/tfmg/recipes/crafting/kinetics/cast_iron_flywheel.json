@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "C": {
-      "tag": "forge:ingots/lead"
+      "tag": "forge:ingots/cast_iron"
     },
     "S": {
       "item": "create:shaft"

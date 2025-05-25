@@ -21,6 +21,8 @@
   "create.goggles.blast_furnace.fuel_amount": "  Fuel : %1$s",
   "create.goggles.blast_furnace.height": "  Height: %1$s",
   "create.goggles.blast_furnace.reinforced": "Reinforced",
+  "create.goggles.blast_furnace.timer": "Time Left: %1$s",
+  "create.goggles.blast_furnace.modifier": "Production Time: %1$s",
 
   "create.goggles.blast_stove.header": "Blast Stove: ",
   "create.goggles.blast_stove.tank1": "Input Tank 1: ",
@@ -122,6 +124,7 @@
   "create.recipe.coking": "Coking",
   "create.recipe.polarizing": "Polarizing",
   "create.recipe.chemical_vat": "Chemical Vat",
+  "create.recipe.hot_blast": "Air Blasting",
 
   "tfmg.keyinfo.custom_button": "Engine Controller Custom Button",
   "tfmg.keyinfo.engine_start": "Start Engine",

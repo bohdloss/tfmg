@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "I": {
-      "tag": "forge:plates/brass"
+      "tag": "forge:plates/cast_iron"
     },
     "P": {
       "item": "create:electron_tube"
     },
     "S": {
-      "item": "tfmg:brass_pipe"
+      "item": "tfmg:cast_iron_pipe"
     }
   },
   "pattern": [

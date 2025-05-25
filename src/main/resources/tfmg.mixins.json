@@ -9,7 +9,6 @@
     "FluidPropagatorMixin",
     "GoggleOverlayRendererMixin",
     "PipeAttachmentModelMixin",
-    "RecipeProviderMixin",
     "FluidTankBlockEntityMixin",
     "accessor.FluidTankBlockEntityAccessor",
     "accessor.TankSegmentAccessor"

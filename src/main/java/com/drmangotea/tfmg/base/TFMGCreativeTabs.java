@@ -88,7 +88,8 @@ public class TFMGCreativeTabs {
         List<RegistryEntry<? extends Item>> list = new ArrayList<>();
 
         list.add(TFMGItems.LIT_LITHIUM_BLADE);
-
+        list.add(TFMGItems.GOLDEN_TURBO);
+        list.add(TFMGItems.DEPOSIT_ITEM);
 
         return list;
     }
@@ -97,8 +98,19 @@ public class TFMGCreativeTabs {
 
         CompoundTag gasolineTag = new CompoundTag();
         gasolineTag.putString("gasoline", "forge:gasoline");
+        gasolineTag.putString("kerosene", "forge:kerosene");
+        gasolineTag.putString("naphtha", "forge:naphtha");
         CompoundTag gasolineTagName = new CompoundTag();
         gasolineTagName.putString("gasoline", "Gasoline");
+        gasolineTagName.putString("kerosene", "Kerosene");
+        gasolineTagName.putString("naphtha", "Naphtha");
+        //
+        CompoundTag creosoteTag = new CompoundTag();
+        creosoteTag.putString("creosote", "forge:creosote");
+        creosoteTag.putString("furnace_gas", "forge:furnace_gas");
+        CompoundTag creosoteTagName = new CompoundTag();
+        creosoteTagName.putString("creosote", "Creosote");
+        creosoteTagName.putString("furnace_gas", "Furnace Gas");
         //
         CompoundTag dieselTag = new CompoundTag();
         dieselTag.putString("diesel", "forge:diesel");
@@ -113,19 +125,15 @@ public class TFMGCreativeTabs {
         CompoundTag keroseneTag = new CompoundTag();
         keroseneTag.putString("kerosene", "forge:kerosene");
         CompoundTag keroseneTagName = new CompoundTag();
-        keroseneTagName.putString("kerosene", "KEROSENE");
+        keroseneTagName.putString("kerosene", "Kerosene");
         //
-        CompoundTag naphthaTag = new CompoundTag();
-        naphthaTag.putString("naphtha", "forge:naphtha");
-        CompoundTag naphthaTagName = new CompoundTag();
-        naphthaTagName.putString("naphtha", "NAPHTHA");
-        //
+
 
         ItemStack gasoline = TFMGItems.ENGINE_CYLINDER.asStack();
         gasoline.getOrCreateTag().put("Fuels", gasolineTag);
         gasoline.getOrCreateTag().put("FuelNames", gasolineTagName);
         list.add(gasoline);
-        ItemStack diesel = TFMGItems.ENGINE_CYLINDER.asStack();
+        ItemStack diesel = TFMGItems.DIESEL_ENGINE_CYLINDER.asStack();
         diesel.getOrCreateTag().put("Fuels", dieselTag);
         diesel.getOrCreateTag().put("FuelNames", dieselTagName);
         list.add(diesel);
@@ -133,6 +141,16 @@ public class TFMGCreativeTabs {
         lpg.getOrCreateTag().put("Fuels", lpgTag);
         lpg.getOrCreateTag().put("FuelNames", lpgTagName);
         list.add(lpg);
+        ItemStack creosote = TFMGItems.SIMPLE_ENGINE_CYLINDER.asStack();
+        creosote.getOrCreateTag().put("Fuels", creosoteTag);
+        creosote.getOrCreateTag().put("FuelNames", creosoteTagName);
+        list.add(creosote);
+
+
+        ItemStack kerosene = TFMGItems.TURBINE_BLADE.asStack();
+        kerosene.getOrCreateTag().put("Fuels", keroseneTag);
+        kerosene.getOrCreateTag().put("FuelNames", keroseneTagName);
+        list.add(kerosene);
 
         return list;
     }

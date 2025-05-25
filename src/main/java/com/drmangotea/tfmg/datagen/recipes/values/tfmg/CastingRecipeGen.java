@@ -13,12 +13,12 @@ public class CastingRecipeGen extends TFMGProcessingRecipeGen {
 	STEEL_INGOT = create("steel", b ->b
 			.require(TFMGFluids.MOLTEN_STEEL.get(),144)
 			.output(TFMGItems.STEEL_INGOT)
-			.duration(60)),
+			.duration(200)),
 
 	SILICON = create("silicon", b ->b
 			.require(TFMGFluids.LIQUID_SILICON.get(),144)
 			.output(TFMGItems.SILICON_INGOT)
-			.duration(60));
+			.duration(200));
 ;
 	public CastingRecipeGen(PackOutput output) {
 		super(output);

@@ -88,8 +88,10 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
     }
 
     public void tankUpdated(FluidStack stack, boolean fuelTank ) {
-        if(fuelTank && stack.isEmpty())
+        if(fuelTank && stack.isEmpty()) {
+            fuelInjectionRate = 0;
             updateRotation();
+        }
         sendData();
         setChanged();
     }
@@ -125,14 +127,14 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
 
     }
 
-    @Override
-    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-
-        CreateLang.text("SIGNAL " + highestSignal).forGoggles(tooltip);
-
-
-        return super.addToGoggleTooltip(tooltip, isPlayerSneaking);
-    }
+    //@Override
+    //public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+//
+    //    CreateLang.text("SIGNAL " + highestSignal).forGoggles(tooltip);
+//
+//
+    //    return super.addToGoggleTooltip(tooltip, isPlayerSneaking);
+    //}
 
 
     @Override
@@ -147,7 +149,7 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
     }
 
     public void manageFuelAndExhaust() {
-        exhaustTank.forceFill(new FluidStack(TFMGFluids.CARBON_DIOXIDE.get(), Math.min(300, getFuelConsumption() * 7)), IFluidHandler.FluidAction.EXECUTE);
+        exhaustTank.forceFill(new FluidStack(TFMGFluids.CARBON_DIOXIDE.get(), Math.min(300, getFuelConsumption())), IFluidHandler.FluidAction.EXECUTE);
 
         if (fuelConsumptionTimer <= 2) {
             fuelConsumptionTimer++;

@@ -50,6 +50,7 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
 
     public Optional<? extends EngineUpgrade> upgrade = Optional.empty();
     public TransmissionUpgrade.TransmissionState shift = TransmissionUpgrade.TransmissionState.NEUTRAL;
+    public boolean clutchPressed = false;
 
 
     public int oil = 0;
@@ -353,6 +354,9 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
                 speed = speed * -1;
 
             if (getControllerBE().hasEngineController()) {
+
+                if(getControllerBE().hasTwoShafts())
+
 
                 speed = switch (getControllerBE().shift) {
                     case REVERSE -> speed * -0.3f;

@@ -128,7 +128,7 @@ public class LargeEngineBlockEntity extends AbstractEngineBlockEntity {
 
     @Override
     public float efficiencyModifier() {
-        return 1;
+        return 0.5f;
     }
 
     @Override
@@ -296,8 +296,11 @@ public class LargeEngineBlockEntity extends AbstractEngineBlockEntity {
         if(getShaft()==null)
             return 0;
 
-        if(isSimpleEngine())
+        if(isSimpleEngine()&&getShaft()!=null)
             return (int) getShaft().getGeneratedSpeed()/10;
+
+        if(getShaft()==null)
+            return 0;
         return (int) getShaft().getGeneratedSpeed()/40;
     }
 

@@ -119,6 +119,12 @@ public class BlastFurnaceOutputBlockEntity extends SmartBlockEntity implements I
         CreateLang.translate("goggles.blast_furnace.fuel_amount", fuel)
                 .forGoggles(tooltip, 1);
 
+        if (timer != -1)
+            CreateLang.translate("goggles.blast_furnace.timer", timer)
+                    .style(ChatFormatting.GOLD)
+                    .forGoggles(tooltip, 1);
+
+
         if (isReinforced)
             CreateLang.translate("goggles.blast_furnace.reinforced")
                     .style(ChatFormatting.GREEN)

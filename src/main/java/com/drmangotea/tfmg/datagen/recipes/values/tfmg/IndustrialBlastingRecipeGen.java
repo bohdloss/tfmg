@@ -28,7 +28,7 @@ public class IndustrialBlastingRecipeGen extends TFMGRecipeProvider{
             .require(TFMGTags.TFMGItemTags.FLUX.tag)
             .output(TFMGFluids.MOLTEN_STEEL.get(),144)
             .output(TFMGFluids.MOLTEN_SLAG.get(),144)
-            .output(TFMGFluids.FURNACE_GAS.get(),20)
+            .output(TFMGFluids.FURNACE_GAS.get(),200)
             .duration(20)
             , 20),
     STEEL_DOUBLE = createIndustrialBlastingRecipe("steel_from_raw_iron", b -> (IndustrialBlastingRecipeBuilder) b
@@ -36,7 +36,7 @@ public class IndustrialBlastingRecipeGen extends TFMGRecipeProvider{
             .require(Ingredient.of(TFMGTags.TFMGItemTags.FLUX.tag))
             .output(TFMGFluids.MOLTEN_STEEL.get(),288)
             .output(TFMGFluids.MOLTEN_SLAG.get(),288)
-            .output(TFMGFluids.FURNACE_GAS.get(),20)
+            .output(TFMGFluids.FURNACE_GAS.get(),200)
             .duration(40)
             , 30),
 
