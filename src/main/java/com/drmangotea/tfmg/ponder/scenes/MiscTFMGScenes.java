@@ -250,7 +250,7 @@ public class MiscTFMGScenes {
         scene.idle(80);
         scene.overlay().showText(70)
                 .attachKeyFrame()
-                .text("Every electric device has electrical resistance, light bulbs are 100 Ohm(Ω)");
+                .text("Every an electric device has electrical resistance, light bulbs are 100 Ohm(Ω)");
         scene.idle(80);
         scene.overlay().showText(70)
                 .attachKeyFrame()
@@ -281,7 +281,7 @@ public class MiscTFMGScenes {
                 .colored(PonderPalette.BLUE);
         scene.overlay().showText(80)
                 .attachKeyFrame()
-                .text("Electric can be connected with groups, by default all block are group 0");
+                .text("Electric components can be connected with groups, by default all blocks are group 0");
         scene.idle(90);
         scene.overlay().showText(80)
                 .attachKeyFrame()
@@ -437,7 +437,7 @@ public class MiscTFMGScenes {
 
         scene.overlay().showText(70)
                 .attachKeyFrame()
-                .text("For example industrial pipes makes the engine consume fuel from neighboring tanks");
+                .text("For example industrial pipes make the engine consume fuel from neighboring tanks");
         scene.idle(80);
         scene.world().showIndependentSection(tank, Direction.DOWN);
         scene.idle(30);
@@ -488,7 +488,7 @@ public class MiscTFMGScenes {
 
         scene.overlay().showText(50)
                 .attachKeyFrame()
-                .text("First step of mining oil is building industrial pipes from deposit to surface");
+                .text("First step of mining oil is building industrial pipes from a deposit to the surface");
 
 
         ElementLink<WorldSectionElement> pipeElement = scene.world().showIndependentSection(pipez, Direction.SOUTH);
@@ -526,7 +526,7 @@ public class MiscTFMGScenes {
         ElementLink<WorldSectionElement> partElement = scene.world().showIndependentSection(hammer_part, Direction.UP);
         scene.overlay().showText(50)
                 .attachKeyFrame()
-                .text("Now they need to be connected with Pumpjack Pammer Parts")
+                .text("Now they need to be connected with Pumpjack Hammer Parts")
                 .pointAt(util.vector().blockSurface(util.grid().at(3, 3, 2), Direction.WEST))
                 .placeNearTarget();
 
@@ -539,7 +539,7 @@ public class MiscTFMGScenes {
         scene.world().showIndependentSection(crank, Direction.SOUTH);
         scene.overlay().showText(50)
                 .attachKeyFrame()
-                .text("The last step is placing a machine input (which is a power input for the pumpjack) with a pumpjack crank above it")
+                .text("The last step is placing a machine input (which is the power input for the pumpjack) with a pumpjack crank above it")
                 .pointAt(util.vector().blockSurface(util.grid().at(5, 1, 2), Direction.WEST))
                 .placeNearTarget();
         scene.idle(60);
@@ -564,7 +564,7 @@ public class MiscTFMGScenes {
         ElementLink<WorldSectionElement> engineElement = scene.world().showIndependentSection(engine, Direction.DOWN);
         scene.overlay().showText(50)
                 .attachKeyFrame()
-                .text("Diesel Engine is assembled by placing a shaft in the front of a diesel engine block");
+                .text("Diesel Engines are assembled by placing a shaft in the front of a diesel engine block");
 
 
         scene.idle(70);
@@ -651,7 +651,7 @@ public class MiscTFMGScenes {
 
 
     }
-
+//needs to be updated
     public static void surface_scanner(SceneBuilder builder, SceneBuildingUtil util) {
         CreateSceneBuilder scene = new CreateSceneBuilder(builder);
         scene.title("surface_scanner", "");
@@ -662,7 +662,7 @@ public class MiscTFMGScenes {
         scene.world().showSection(util.select().fromTo(0, 1, 0, 5, 1, 5), Direction.UP);
         scene.overlay().showText(50)
                 .attachKeyFrame()
-                .text("Surface Scanner is used for finding crude oil deposits")
+                .text("The Surface Scanner is used for finding crude oil deposits")
                 .pointAt(util.vector().blockSurface(util.grid().at(2, 1, 2), Direction.WEST))
                 .placeNearTarget();
         scene.idle(70);
@@ -702,7 +702,7 @@ public class MiscTFMGScenes {
 
         scene.overlay().showText(70)
                 .attachKeyFrame()
-                .text("Base of a distillation tower are steel tanks")
+                .text("The base of a distillation tower is comprised of steel tanks")
                 .pointAt(util.vector().blockSurface(util.grid().at(4, 6, 3), Direction.WEST))
                 .placeNearTarget();
         scene.idle(80);
@@ -718,7 +718,7 @@ public class MiscTFMGScenes {
         ElementLink<WorldSectionElement> outputElement = scene.world().showIndependentSection(output, Direction.DOWN);
         scene.overlay().showText(60)
                 .attachKeyFrame()
-                .text("To finish the multiblock, place up to 6 Distillation outputs and  Industrial Pipes between them")
+                .text("To finish the multiblock, place up to 6 Distillation outputs and Industrial Pipes between them")
                 .pointAt(util.vector().blockSurface(util.grid().at(2, 7, 3), Direction.WEST))
                 .placeNearTarget();
         scene.idle(70);
@@ -727,7 +727,7 @@ public class MiscTFMGScenes {
         ElementLink<WorldSectionElement> burnerElement = scene.world().showIndependentSection(burners, Direction.DOWN);
         scene.overlay().showText(60)
                 .attachKeyFrame()
-                .text("Place a heat source under the tanks to power it, dial on the tower shows the power level of the structure ")
+                .text("Place a heat source under the tanks to power it, the dial on the tower shows the power level of the structure ")
                 .pointAt(util.vector().blockSurface(util.grid().at(3, 1, 2), Direction.WEST))
                 .placeNearTarget();
         scene.idle(70);
@@ -776,7 +776,7 @@ public class MiscTFMGScenes {
         ElementLink<WorldSectionElement> engineElement = scene.world().showIndependentSectionImmediately(engine_small);
         scene.overlay().showText(50)
                 .attachKeyFrame()
-                .text("Radial Engines are a special Type of Engine that doesn't require an exhaust block and has a shaft from both sides")
+                .text("Radial Engines are a special Type of Engine that doesn't require an exhaust block")
                 .pointAt(util.vector().blockSurface(util.grid().at(4, 0, 4), Direction.WEST))
                 .placeNearTarget();
         scene.idle(100);
@@ -861,7 +861,7 @@ public class MiscTFMGScenes {
 
         scene.overlay().showText(50)
                 .attachKeyFrame()
-                .text("The main of the Large Generator is the Rotor")
+                .text("The main part of the Large Generator is the Rotor")
                 .pointAt(util.vector().blockSurface(util.grid().at(4, 2, 5), Direction.WEST))
                 .placeNearTarget();
 
@@ -874,7 +874,7 @@ public class MiscTFMGScenes {
 
         scene.overlay().showText(75)
                 .attachKeyFrame()
-                .text("To complete the Large Generator, place Stator block around the Rotor")
+                .text("To complete the Large Generator, place a Stator block around the Rotor")
                 .pointAt(util.vector().blockSurface(util.grid().at(3, 2, 3), Direction.WEST))
                 .placeNearTarget();
 
