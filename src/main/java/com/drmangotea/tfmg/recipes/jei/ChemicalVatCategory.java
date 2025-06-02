@@ -7,6 +7,7 @@ import com.drmangotea.tfmg.registry.TFMGGuiTextures;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.jei.category.sequencedAssembly.SequencedAssemblySubCategory;
+import com.simibubi.create.content.processing.recipe.HeatCondition;
 import com.simibubi.create.content.processing.sequenced.SequencedRecipe;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -108,6 +109,9 @@ public class ChemicalVatCategory extends CreateRecipeCategory<VatMachineRecipe> 
             TFMGGuiTextures.GRAPHITE_ELECTRODE.render(graphics, 55 - 4 - 32, 32);
             TFMGGuiTextures.GRAPHITE_ELECTRODE.render(graphics, 55 - 4 + 32, 32);
             TFMGGuiTextures.GRAPHITE_ELECTRODE.render(graphics, 55 - 4, 32);
+        }
+        if (recipe.getRequiredHeat() == HeatCondition.HEATED){
+            TFMGGuiTextures.VAT_HEATER.render(graphics, 55 - 10, 109);
         }
         int pos = 55;
         int width = ((recipe.getFluidIngredients().size()) * 21) / 2;
