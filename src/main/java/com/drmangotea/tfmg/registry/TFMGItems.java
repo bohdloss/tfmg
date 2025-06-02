@@ -8,7 +8,7 @@ import com.drmangotea.tfmg.content.electricity.configuration_wrench.Electricians
 import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnection;
 import com.drmangotea.tfmg.content.electricity.debug.DebugCinderBlockItem;
 import com.drmangotea.tfmg.content.electricity.measurement.MultimeterItem;
-import com.drmangotea.tfmg.content.electricity.utilities.fuse_block.FuseItem;
+import com.drmangotea.tfmg.content.electricity.utilities.polarizer.MagnetItem;
 import com.drmangotea.tfmg.content.electricity.utilities.resistor.ResistorItem;
 import com.drmangotea.tfmg.content.electricity.utilities.transformer.ElectromagneticCoilItem;
 import com.drmangotea.tfmg.content.engines.CylinderItem;
@@ -123,16 +123,15 @@ public class TFMGItems {
             STEEL_MECHANISM = REGISTRATE.item("steel_mechanism", Item::new).register(),
             NITRATE_DUST = REGISTRATE.item("nitrate_dust", Item::new).register(),
             CONCRETE_MIXTURE = REGISTRATE.item("concrete_mixture", Item::new).register(),
-            ASPHALT_MIXTURE = REGISTRATE.item("concrete_mixture", Item::new).register(),
+            ASPHALT_MIXTURE = REGISTRATE.item("asphalt_mixture", Item::new).register(),
             MAGNETIC_ALLOY_INGOT = REGISTRATE.item("magnetic_alloy_ingot", Item::new).register(),
             BAUXITE_POWDER = REGISTRATE.item("bauxite_powder", Item::new).register(),
-            MAGNET = REGISTRATE.item("magnet", Item::new).register(),
-            EMPTY_CIRCUIT_BOARD = REGISTRATE.item("empty_circuit_board", Item::new).register(),
+
+    EMPTY_CIRCUIT_BOARD = REGISTRATE.item("empty_circuit_board", Item::new).register(),
             COATED_CIRCUIT_BOARD = REGISTRATE.item("coated_circuit_board", Item::new).register(),
             ETCHED_CIRCUIT_BOARD = REGISTRATE.item("etched_circuit_board", Item::new).register(),
             CIRCUIT_BOARD = REGISTRATE.item("circuit_board", Item::new).register(),
-            TRANSISTOR = REGISTRATE.item("transistor_item", Item::new).lang("Transistor")
-                    .properties(p -> p.stacksTo(1)).register(),
+            TRANSISTOR = REGISTRATE.item("transistor_item", Item::new).lang("Transistor").register(),
             CAPACITOR = REGISTRATE.item("capacitor_item", Item::new).lang("Capacitor").register(),
             COPPER_SULFATE = REGISTRATE.item("copper_sulfate", Item::new).register(),
             LITHIUM_CHARGE = REGISTRATE.item("lithium_charge", Item::new).register(),
@@ -177,6 +176,8 @@ public class TFMGItems {
             TRANSMISSION = REGISTRATE.item("transmission", TransmissionItem::new)
             .properties(p -> p.stacksTo(1))
             .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/transmission_model"))).register();
+    public static final ItemEntry<MagnetItem>
+            MAGNET = REGISTRATE.item("magnet", MagnetItem::new).register();
 
     public static final ItemEntry<ResistorItem>
             UNFINISHED_RESISTOR = REGISTRATE.item("unfinished_resistor", ResistorItem::new).register();

@@ -33,7 +33,7 @@ public class TFMGBiomeModifiers {
     public static void bootstrap(BootstapContext<BiomeModifier> ctx) {
         HolderGetter<Biome> biomeLookup = ctx.lookup(Registries.BIOME);
         HolderSet<Biome> isOverworld = biomeLookup.getOrThrow(BiomeTags.IS_OVERWORLD);
-        HolderSet<Biome> isNether = biomeLookup.getOrThrow(Tags.Biomes.IS_DESERT);
+        HolderSet<Biome> isNether = biomeLookup.getOrThrow(BiomeTags.IS_NETHER);
 
 
         HolderSet<Biome> isDesert = biomeLookup.getOrThrow(BiomeTags.HAS_DESERT_PYRAMID);

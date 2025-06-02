@@ -2,26 +2,21 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "tag": "forge:ingots/steel"
-    },
-    "C": {
-      "item": "minecraft:compass"
-    },
     "M": {
-      "item": "tfmg:magnet"
+      "item": "tfmg:magnetic_alloy_ingot"
     },
     "N": {
       "tag": "forge:nuggets/steel"
     }
   },
   "pattern": [
-    "NNN",
-    "NCN",
-    "AMA"
+    " N ",
+    " M ",
+    " N "
   ],
   "result": {
-    "item": "tfmg:voltmeter"
+    "count": 2,
+    "item": "tfmg:unfinished_electromagnetic_coil"
   },
   "show_notification": true
 }

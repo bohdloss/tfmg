@@ -58,6 +58,7 @@
 
   "create.goggles.polarizer.header": "Polarizer",
   "create.goggles.polarizer.charge": "Charge: ",
+  "create.goggles.polarizer.insufficient_power": "Not Enough Power (Needs 2000W)",
 
   "create.goggles.electric_machine.no_power": "No Power",
   "create.goggles.electricity.insufficient_voltage": "Insufficient Voltage",
@@ -79,6 +80,8 @@
   "create.goggles.engine.pistons_missing": "Pistons Missing",
   "create.goggles.engine.turbines_missing": "Turbines Missing",
 
+  "create.goggles.electrode_holder.min_amps": "Not Enough Current (Needs ",
+
   "create.goggles.vat.header": "Chemical Vat",
   "create.goggles.vat.attachments": "Attachments:",
   "create.goggles.vat.contents": "Vat Contents:",
@@ -88,7 +91,7 @@
   "create.goggles.vat.superheated": "Superheated",
   "create.goggles.vat.tfmg.graphite_electrode": "   Graphite Electrode",
   "create.goggles.vat.tfmg.electrode": "   Electrode",
-  "create.goggles.vat.tfmg.mixer": "   Mixer",
+  "create.goggles.vat.tfmg.mixing": "   Mixer",
   "create.goggles.vat.tfmg.centrifuge": "   Centrifuge",
 
 
@@ -117,6 +120,8 @@
   "create.tooltip.cylinder": "Supported Fuels:",
   "create.tooltip.fluid_item": "Fluid Amount: %1$s",
 
+  "create.recipe.assembly.winding": "Wind %1$s",
+
   "create.recipe.distillation": "Distillation",
   "create.recipe.advanced_distillation": "Advanced Distillation",
   "create.recipe.industrial_blasting": "Industrial Blasting",
@@ -140,6 +145,7 @@
   "create.multimeter.power_percentage": "   Grid Strength: ",
   "create.multimeter.energy_usage": "   Energy Usage: ",
   "create.multimeter.energy_stored": "   Energy Stored: ",
+  "create.multimeter.transformer_ratio": "   Turn Ratio: ",
 
   "item.minecraft.potion.effect.hellfire_potion": "Potion of Hellfire",
   "item.minecraft.splash_potion.effect.hellfire_potion": "Splash Potion of Hellfire",

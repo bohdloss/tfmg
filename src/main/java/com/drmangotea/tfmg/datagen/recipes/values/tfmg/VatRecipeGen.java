@@ -51,16 +51,31 @@ public class VatRecipeGen extends TFMGRecipeProvider {
                     .require(nitrateDust())
                     .output(sulfuricAcid(), 500)
             ,mixing()),
+
+            RUBBER = createVatRecipe("rubber", b -> (VatMachineRecipeBuilder) b
+                            .require(heavyOil(), 250)
+                            .require(sulfurDust())
+                            .output(rubber())
+                            .requiresHeat(HeatCondition.HEATED)
+                    ,mixing()),
+
+            NAPHTHA = createVatRecipe("naphtha", b -> (VatMachineRecipeBuilder) b
+                            .require(naphtha(), 500)
+                            .output(ethylene(), 250)
+                            .output(propylene(), 250)
+                            .requiresHeat(HeatCondition.HEATED)
+                    ,mixing()),
+
             PLASTIC_FROM_ETHYLENE = createVatRecipe("plastic_from_ethylene", b -> (VatMachineRecipeBuilder) b
                             .require(ethylene(), 500)
                             .output(liquidPlastic(), 500)
                             .requiresHeat(HeatCondition.HEATED)
-                    ,new VatRecipeParams()),
+                    ,mixing()),
             PLASTIC_FROM_PROPYLENE = createVatRecipe("plastic_from_propylene", b -> (VatMachineRecipeBuilder) b
                             .require(propylene(), 500)
                             .output(liquidPlastic(), 500)
                             .requiresHeat(HeatCondition.HEATED)
-                    ,new VatRecipeParams()),
+                    ,mixing()),
             ETCHED_CIRCUIT_BOARD = createVatRecipe("etched_circuit_board", b -> (VatMachineRecipeBuilder) b
                             .require(TFMGItems.COATED_CIRCUIT_BOARD)
                             .require(TFMGFluids.SULFURIC_ACID.getSource(), 250)
@@ -104,12 +119,18 @@ public class VatRecipeGen extends TFMGRecipeProvider {
         VatRecipeParams params = new VatRecipeParams();
         params.machines.add("tfmg:electrode");
         params.machines.add("tfmg:electrode");
+        params.allowedVatTypes = new ArrayList<>();
+        params.allowedVatTypes.add("tfmg:steel_vat");
+        params.allowedVatTypes.add("tfmg:firebrick_lined_vat");
         return params;
     }
 
     public VatRecipeParams mixing() {
         VatRecipeParams params = new VatRecipeParams();
         params.machines.add("tfmg:mixing");
+        params.allowedVatTypes = new ArrayList<>();
+        params.allowedVatTypes.add("tfmg:steel_vat");
+        params.allowedVatTypes.add("tfmg:firebrick_lined_vat");
         return params;
     }
 

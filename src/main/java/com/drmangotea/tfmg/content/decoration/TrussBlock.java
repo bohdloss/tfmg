@@ -1,5 +1,6 @@
 package com.drmangotea.tfmg.content.decoration;
 
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,7 +18,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
-public class TrussBlock extends RotatedPillarBlock implements ProperWaterloggedBlock {
+public class TrussBlock extends RotatedPillarBlock implements ProperWaterloggedBlock, IWrenchable {
 
 
 

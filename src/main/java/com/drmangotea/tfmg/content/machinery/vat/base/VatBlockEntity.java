@@ -160,9 +160,13 @@ public class VatBlockEntity extends SmartBlockEntity implements IHaveGoggleInfor
             int tankNumber = 0;
             for (int i = 0; i < 8; i++) {
                 IFluidHandler fluidHandler = this.getCapability(ForgeCapabilities.FLUID_HANDLER).orElse(null);
-                fluidLevel[i].chase((double) (fluidHandler.getFluidInTank(tankNumber).getAmount()) / inputTank.getPrimaryHandler().getCapacity(), .5f, LerpedFloat.Chaser.EXP);
-                getFillState();
-                tankNumber++;
+
+                if(fluidHandler != null) {
+
+                    fluidLevel[i].chase((double) (fluidHandler.getFluidInTank(tankNumber).getAmount()) / inputTank.getPrimaryHandler().getCapacity(), .5f, LerpedFloat.Chaser.EXP);
+                    getFillState();
+                    tankNumber++;
+                }
             }
         }
     }

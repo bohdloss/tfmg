@@ -13,10 +13,10 @@ public class HotBlastRecipeGen extends TFMGProcessingRecipeGen {
 
 
 	HOT_AIR = create("hot_air", b ->b
-			.require(air(),5)
+			.require(air(),25)
 			.require(TFMGTags.TFMGFluidTags.BLAST_STOVE_FUEL.tag,5)
-			.output(hotAir(), 5)
-			.output(carbonDioxide(), 5)
+			.output(hotAir(), 25)
+			.output(carbonDioxide(), 25)
 			.duration(200));
 	public HotBlastRecipeGen(PackOutput output) {
 		super(output);

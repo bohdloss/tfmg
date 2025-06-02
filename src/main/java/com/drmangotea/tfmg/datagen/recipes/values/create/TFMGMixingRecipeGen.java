@@ -37,14 +37,14 @@ public class TFMGMixingRecipeGen extends TFMGProcessingRecipeGen {
 			.require(sand())
 			.require(bitumen())
 			.require(gravel())
-			.output(concreteMixture(),16)
+			.output(asphaltMixture(),16)
 	),
 
 	ASPHALT_MIXTURE_FROM_SLAG = create("asphalt_mixture_from_slag", b -> b
 			.require(slag())
 			.require(bitumen())
 			.require(gravel())
-			.output(concreteMixture(),32)
+			.output(asphaltMixture(),32)
 	),
 
 	CONCRETE_MIXTURE = create("concrete_mixture", b -> b

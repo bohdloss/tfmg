@@ -90,7 +90,7 @@ public class RotorBlockEntity extends KineticElectricBlockEntity {
 
     @Override
     public int powerGeneration() {
-        return generation() * 40;
+        return (int) (generation() * 40*1.84563);
     }
 
     public void findStators() {

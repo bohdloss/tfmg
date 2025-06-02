@@ -1,0 +1,16 @@
+{
+  "type": "tfmg:casting",
+  "ingredients": [
+    {
+      "amount": 144,
+      "fluid": "tfmg:liquid_concrete",
+      "nbt": {}
+    }
+  ],
+  "processingTime": 50,
+  "results": [
+    {
+      "item": "tfmg:cinderblock"
+    }
+  ]
+}

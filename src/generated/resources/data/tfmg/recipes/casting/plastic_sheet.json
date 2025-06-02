@@ -1,5 +1,5 @@
 {
-  "type": "create:compacting",
+  "type": "tfmg:casting",
   "ingredients": [
     {
       "amount": 200,
@@ -7,6 +7,7 @@
       "nbt": {}
     }
   ],
+  "processingTime": 100,
   "results": [
     {
       "item": "tfmg:plastic_sheet"

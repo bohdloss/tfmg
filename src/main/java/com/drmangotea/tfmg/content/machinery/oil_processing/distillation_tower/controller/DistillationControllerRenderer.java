@@ -33,7 +33,7 @@ public class DistillationControllerRenderer extends SafeBlockEntityRenderer<Dist
 		ms.pushPose();
 		CachedBuffers.partial(TFMGPartialModels.DISTILLATION_CONTROLLER_DIAL,blockState)
 				.center()
-				.rotateY(blockState.getValue(FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot() - 180) : blockState.getValue(FACING).toYRot())
+				.rotateYDegrees(blockState.getValue(FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot() - 180) : blockState.getValue(FACING).toYRot())
 				.translateY(0.01f)
 				.rotateZDegrees(be.angle.getValue(partialTicks))
 				.translateX(0.09f)

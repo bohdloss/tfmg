@@ -3,6 +3,7 @@ package com.drmangotea.tfmg.recipes.jei;
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.recipes.*;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
+import com.drmangotea.tfmg.registry.TFMGItems;
 import com.drmangotea.tfmg.registry.TFMGRecipeTypes;
 import com.simibubi.create.Create;
 import com.simibubi.create.compat.jei.*;
@@ -96,6 +97,7 @@ public class TFMGJei implements IModPlugin {
                 casting = builder(CastingRecipe.class)
                         .addTypedRecipes(TFMGRecipeTypes.CASTING)
                         .catalyst(TFMGBlocks.CASTING_BASIN::get)
+                        .catalyst(TFMGItems.STEEL_INGOT::get)
                         .itemIcon(TFMGBlocks.CASTING_BASIN.get())
                         .emptyBackground(177, 53)
                         .build("casting", CastingCategory::new),

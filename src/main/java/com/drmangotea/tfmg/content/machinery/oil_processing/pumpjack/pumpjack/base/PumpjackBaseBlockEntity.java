@@ -133,6 +133,7 @@ public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGo
         if (tank.getFluidAmount() + miningRate > tank.getCapacity())
             return;
         int amountPumped = tank.fill(new FluidStack(TFMGFluids.CRUDE_OIL.getSource(), miningRate), IFluidHandler.FluidAction.EXECUTE);
+        sendData();
 
         if (amountPumped == 0)
             return;

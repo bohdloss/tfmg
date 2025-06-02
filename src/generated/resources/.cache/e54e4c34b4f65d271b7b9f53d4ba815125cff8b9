@@ -1,4 +1,4 @@
-// 1.20.1	2025-05-25T13:01:32.2480982	Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-06-02T00:04:37.1876081	Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 ff5a5721633b83465ab501cbdfdc579a0f20e938 assets/tfmg/blockstates/accumulator.json
 e982a263b6af75821042107fdeff7bd809436d08 assets/tfmg/blockstates/air_intake.json
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
@@ -436,8 +436,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-45afc2cb1c4a18a7e6a2376578177aa3b50668c1 assets/tfmg/lang/en_ud.json
-4fa1e7059a6184918773adf099a8e0407d627057 assets/tfmg/lang/en_us.json
+b05484c150b66d277472632f6fef20013a2b22bd assets/tfmg/lang/en_ud.json
+fb87388f7dcb25543963fd2c4fcab6bcf7095185 assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 1d33a893d6ac05f9adaceb7f84423ebe9b195c01 assets/tfmg/models/block/aluminum_cable_hub.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
@@ -1060,6 +1060,7 @@ d3288be7ee67467134c7603b976fb02ac43373d3 assets/tfmg/models/item/aluminum_smart_
 153b6d8b77344afcb5e6b509fbcab4b4d67a4723 assets/tfmg/models/item/aluminum_truss.json
 3678ef091ea84638cde934ba7717be4843b55cc1 assets/tfmg/models/item/aluminum_wire.json
 1e2f0ebb7ad85bdcd2d9578ad95dd0ddecbf3958 assets/tfmg/models/item/asphalt.json
+fc36493d50593b89257b2184436b1397b4baa4c9 assets/tfmg/models/item/asphalt_mixture.json
 8a8fa4346314945eaff5c779d77e258425d0d910 assets/tfmg/models/item/asphalt_slab.json
 0c7dde6b90a3209509dfbc6599d3b920635fd0b5 assets/tfmg/models/item/asphalt_stairs.json
 8fadae731be3ad6d131ba3be2c1a507b7af7d61b assets/tfmg/models/item/asphalt_wall.json
@@ -2591,7 +2592,7 @@ c6874308b457a286b5b01b46baa054247c73fb6b data/tfmg/recipes/red_rebar_concrete_sl
 cefcd20280a2ebcf49b4a730d89794d665136088 data/tfmg/recipes/red_rebar_concrete_stairs_from_red_rebar_concrete_stonecutting.json
 48c6ea40099351f50e7bf7e08c7f07e400599471 data/tfmg/recipes/red_rebar_concrete_wall_from_red_rebar_concrete_stonecutting.json
 030409ba146d3f61aa25e1f61ec2aa7d83095027 data/tfmg/recipes/screw_from_ingots_steel_stonecutting.json
-32d992f3eb502dea22209a643c148afd1ac9370e data/tfmg/recipes/slag_bricks_from_slag_block_stonecutting.json
+a65d53057d31ef53fac7ae3d017a15aeebe48358 data/tfmg/recipes/slag_bricks_from_slag_block_stonecutting.json
 703fab44a257920905370c614a4b55aeb168b65d data/tfmg/recipes/slag_bricks_slab_from_slag_bricks_stonecutting.json
 988c79de50f867ee2320d504c69f28f8d92af104 data/tfmg/recipes/slag_bricks_stairs_from_slag_bricks_stonecutting.json
 282e19f628d70c897ab903a5adb462d7d1e4955b data/tfmg/recipes/slag_bricks_wall_from_slag_bricks_stonecutting.json

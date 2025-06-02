@@ -40,7 +40,6 @@ public class ElectricalNetwork {
 
         int maxVoltage = 0;
         int power = 0;
-        int frequency = 0;
         int resistance = 0;
         int powerGeneration = 0;
 
@@ -53,7 +52,6 @@ public class ElectricalNetwork {
 
             maxVoltage = Math.max(member.voltageGeneration(), maxVoltage);
             power += member.powerGeneration();
-            frequency = frequency == 0 ? member.frequencyGeneration() : (frequency + member.frequencyGeneration()) / 2;
             resistance += (int) member.resistance();
             powerGeneration += member.powerGeneration();
             if (member.canBeInGroups())
@@ -75,7 +73,6 @@ public class ElectricalNetwork {
                 member.getData().setVoltageNextTick = true;
 
                 member.getData().networkPowerGeneration = powerGeneration;
-                member.setFrequency(frequency);
                 member.setNetworkResistance(resistance);
                 member.onNetworkChanged(oldVoltage, oldPower);
 

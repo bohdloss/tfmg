@@ -99,7 +99,7 @@ public class FireboxBlockEntity extends SmartBlockEntity implements IHaveGoggleI
             if (!wasRunning)
                 level.setBlock(getBlockPos(), getBlockState().setValue(FireboxBlock.HEAT_LEVEL, BlazeBurnerBlock.HeatLevel.FADING), 2);
             running = true;
-            TFMGUtils.drainFilteredTank((SmartFluidTank) controller.tankInventory, 100);
+            TFMGUtils.drainFilteredTank((SmartFluidTank) controller.tankInventory, 50);
             if (TFMGConfigs.common().machines.fireboxExhaustRequirement.get()) {
                 TFMGUtils.fillFilteredTank((SmartFluidTank) controller.exhuastTank, new FluidStack(TFMGFluids.CARBON_DIOXIDE.getSource(), 500));
             }

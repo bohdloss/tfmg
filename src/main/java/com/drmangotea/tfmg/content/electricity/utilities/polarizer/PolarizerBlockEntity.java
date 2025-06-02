@@ -66,7 +66,7 @@ public class PolarizerBlockEntity extends ElectricBlockEntity implements IHaveGo
 
         if (getRecipe(itemStack).isPresent()) {
 
-            TFMGUtils.debugMessage(level, "AMOGUS SIGMA");
+
 
             chargeCapacitors = true;
             updateNextTick();
@@ -81,6 +81,8 @@ public class PolarizerBlockEntity extends ElectricBlockEntity implements IHaveGo
     }
 
 
+
+
     @Override
     public float resistance() {
         return chargeCapacitors ? 30 : 0;
@@ -89,6 +91,13 @@ public class PolarizerBlockEntity extends ElectricBlockEntity implements IHaveGo
     //
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+
+        if(getPowerUsage()<2000&&!inventory.isEmpty()){
+            CreateLang.translate("goggles.polarizer.insufficient_power")
+                    .style(ChatFormatting.GRAY)
+                    .forGoggles(tooltip, 1);
+            return true;
+        }
 
         CreateLang.translate("goggles.polarizer.header")
                 .style(ChatFormatting.GRAY)
@@ -104,7 +113,7 @@ public class PolarizerBlockEntity extends ElectricBlockEntity implements IHaveGo
 
     @Override
     public boolean canBeInGroups() {
-        return true;
+        return false;
     }
 
     @Override
@@ -118,7 +127,7 @@ public class PolarizerBlockEntity extends ElectricBlockEntity implements IHaveGo
         }
 
 
-            if (getPowerUsage() > 2000) {
+            if (getPowerUsage() >= 2000) {
                 if (chargeCapacitors) {
                     if (capacitorPercentage < 200) {
                         capacitorPercentage++;

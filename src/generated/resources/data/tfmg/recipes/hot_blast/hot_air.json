@@ -2,7 +2,7 @@
   "type": "tfmg:hot_blast",
   "ingredients": [
     {
-      "amount": 5,
+      "amount": 25,
       "fluid": "tfmg:air",
       "nbt": {}
     },
@@ -14,11 +14,11 @@
   "processingTime": 200,
   "results": [
     {
-      "amount": 5,
+      "amount": 25,
       "fluid": "tfmg:hot_air"
     },
     {
-      "amount": 5,
+      "amount": 25,
       "fluid": "tfmg:carbon_dioxide"
     }
   ]

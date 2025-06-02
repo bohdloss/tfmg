@@ -40,6 +40,7 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -335,7 +336,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("PIP")
                     .pattern("   ")),
 
-    STEEL_PIPE_VERTICAL = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).get(0)).withSuffix("_vertical")
+    STEEL_PIPE_VERTICAL = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).get(0)).withSuffix("_vertical").returns(4)
             .unlockedBy(TFMGItems.STEEL_INGOT::get)
             .viaShaped(b -> b
                     .define('I', steelIngot())
@@ -375,7 +376,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("PIP")
                     .pattern("   ")),
 
-    ALUMINUM_PIPE_VERTICAL = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).get(0)).withSuffix("_vertical")
+    ALUMINUM_PIPE_VERTICAL = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).get(0)).withSuffix("_vertical").returns(4)
             .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
             .viaShaped(b -> b
                     .define('I', aluminumIngot())
@@ -414,7 +415,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("III")
                     .pattern("   ")),
 
-    PLASTIC_PIPE_VERTICAL = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).get(0)).withSuffix("_vertical")
+    PLASTIC_PIPE_VERTICAL = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).get(0)).withSuffix("_vertical").returns(4)
             .unlockedBy(TFMGItems.PLASTIC_SHEET::get)
             .viaShaped(b -> b
                     .define('I', plasticSheet())
@@ -453,7 +454,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("PIP")
                     .pattern("   ")),
 
-    BRASS_PIPE_VERTICAL = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).get(0)).withSuffix("_vertical")
+    BRASS_PIPE_VERTICAL = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).get(0)).withSuffix("_vertical").returns(4)
             .unlockedBy(AllItems.BRASS_INGOT::get)
             .viaShaped(b -> b
                     .define('I', brassIngot())
@@ -493,7 +494,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("PIP")
                     .pattern("   ")),
 
-    CAST_IRON_PIPE_VERTICAL = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).get(0)).withSuffix("_vertical")
+    CAST_IRON_PIPE_VERTICAL = create(TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).get(0)).withSuffix("_vertical").returns(4)
             .unlockedBy(TFMGItems.CAST_IRON_INGOT::get)
             .viaShaped(b -> b
                     .define('I', castIronIngot())
@@ -597,7 +598,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("NNN")
                     .pattern("PPP")),
 
-    STEEL_VAT = create(TFMGBlocks.STEEL_CHEMICAL_VAT)
+    STEEL_VAT = create(TFMGBlocks.STEEL_CHEMICAL_VAT).returns(2)
             .unlockedBy(TFMGItems.STEEL_INGOT::get)
             .viaShaped(b -> b
                     .define('T', steelTank())
@@ -629,6 +630,15 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("NTN")
                     .pattern("PHP")),
 
+    UNFINISHED_ELECTROMAGNETIC_COIL = create(TFMGItems.UNFINISHED_ELECTROMAGNETIC_COIL).returns(2)
+            .unlockedBy(TFMGItems.STEEL_INGOT::get)
+            .viaShaped(b -> b
+                    .define('M', magneticIngot())
+                    .define('N', steelNugget())
+                    .pattern(" N ")
+                    .pattern(" M ")
+                    .pattern(" N ")),
+
     RAW_LEAD_BLOCK = create(TFMGBlocks.RAW_LEAD_BLOCK)
             .unlockedBy(TFMGItems.RAW_LEAD::get)
             .viaShaped(b -> b
@@ -653,7 +663,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("BBB")
                     .pattern("BBB")),
 
-    AIR_INTAKE = create(TFMGBlocks.AIR_INTAKE)
+    AIR_INTAKE = create(TFMGBlocks.AIR_INTAKE).returns(3)
             .unlockedBy(AllItems.PROPELLER::get)
             .viaShaped(b -> b
                     .define('B', AllBlocks.ANDESITE_BARS)
@@ -755,7 +765,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
             .viaShaped(b -> b
                     .define('C', copperNugget())
                     .define('W', framedGlass())
-                    .define('N', TFMGFluids.NEON.getBucket().get())
+                    .define('N', ForgeRegistries.ITEMS.getValue(TFMG.asResource("neon_bucket")))
                     .define('O', steelNugget())
                     .pattern("OCO")
                     .pattern("NWN")
@@ -870,7 +880,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
             .viaShaped(b -> b
                     .define('M', magnet())
                     .define('N', steelNugget())
-                    .define('A', aluminumIngot())
+                    .define('A', steelIngot())
                     .define('C', Items.COMPASS)
                     .pattern("NNN")
                     .pattern("NCN")
@@ -1687,9 +1697,10 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
             .viaShaped(b -> b
                     .define('O', heavyPlate())
                     .define('I', steelIngot())
-                    .pattern(" IO")
-                    .pattern(" IO")
-                    .pattern(" IO")),
+                    .define('B', fireproofBricks())
+                    .pattern("IOB")
+                    .pattern("IOB")
+                    .pattern("IOB")),
 
     FIREPROOF_BRICK_REINFORCEMENT = create(TFMGBlocks.FIREPROOF_BRICK_REINFORCEMENT).returns(6)
             .unlockedBy(TFMGBlocks.FIREPROOF_BRICKS::get)

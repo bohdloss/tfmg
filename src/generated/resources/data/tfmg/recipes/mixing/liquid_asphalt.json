@@ -2,7 +2,7 @@
   "type": "create:mixing",
   "ingredients": [
     {
-      "item": "tfmg:concrete_mixture"
+      "item": "tfmg:asphalt_mixture"
     },
     {
       "amount": 250,

@@ -5,7 +5,9 @@
     "C": {
       "tag": "forge:nuggets/copper"
     },
-    "N": [],
+    "N": {
+      "item": "tfmg:neon_bucket"
+    },
     "O": {
       "tag": "forge:nuggets/steel"
     },

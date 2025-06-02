@@ -16,10 +16,6 @@ public class TFMGCompactingRecipeGen extends TFMGPressingRecipeGen {
             .output(bitumen(), 1)
             .requiresHeat(HeatCondition.HEATED)
             ),
-            PLASTIC_SHEET = create("plastic_sheet", b -> b
-                    .require(liquidPlastic(),200)
-                    .output(plasticSheet(), 1)
-            ),
             CINDERFLOURBLOCK = create("cinderflourblock", b -> b
                     .require(cinderFlour())
                     .require(cinderFlour())

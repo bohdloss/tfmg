@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.PacketDistributor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity implements IElectric, IHaveGoggleInformation, IHaveHoveringInformation {
@@ -30,21 +31,19 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
     public KineticElectricBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         data.connectNextTick = true;
+        if (!canBeInGroups()) {
+            data.group = new ElectricalGroup(-1);
+        }
     }
 
 
 
-    //@Override
-    //public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-    //    CreateLang.text("MAX POWER: "+getNetworkPowerGeneration()).forGoggles(tooltip);
-    //    return makeElectricityTooltip(tooltip, isPlayerSneaking);
-    //}
+    @Override
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+    }
 
     @Override
-    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
-
-    @Override
-    public LevelAccessor getLevelAccessor(){
+    public LevelAccessor getLevelAccessor() {
         return level;
     }
 
@@ -55,12 +54,24 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
 
     @Override
     public ElectricalNetwork getOrCreateElectricNetwork() {
-        if(level.getBlockEntity(BlockPos.of(data.electricalNetworkId)) instanceof IElectric) {
+        if (level.getBlockEntity(BlockPos.of(data.electricalNetworkId)) instanceof IElectric) {
             return TFMG.NETWORK_MANAGER.getOrCreateNetworkFor((IElectric) level.getBlockEntity(BlockPos.of(data.electricalNetworkId)));
         } else {
             ElectricNetworkManager.networks.get(getLevel())
                     .remove(data.electricalNetworkId);
             return TFMG.NETWORK_MANAGER.getOrCreateNetworkFor(this);
+        }
+    }
+
+    @Override
+    public void lazyTick() {
+        super.lazyTick();
+        if (data.failTimer >= 4) {
+            this.blockFail();
+            data.failTimer = 0;
+            sendStuff();
+        } else if ((data.voltage > getMaxVoltage() && getMaxVoltage() > 0) || (getCurrent() > getMaxCurrent()&&getMaxCurrent()>0)) {
+            data.failTimer++;
         }
     }
 
@@ -82,20 +93,20 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
 
         int voltageGeneration = 0;
 
-        for(Direction direction : Direction.values()){
-            if(hasElectricitySlot(direction)){
+        for (Direction direction : Direction.values()) {
+            if (hasElectricitySlot(direction)) {
 
-                if(level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be)
-                    if(be.getData().getId() !=getData().getId())
-                        if(be.getData().getVoltage()!=0)
-                            if(be.hasElectricitySlot(direction)){
-                                voltageGeneration = Math.max(voltageGeneration,be.getOutputVoltage());
+                if (level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be)
+                    if (be.getData().getId() != getData().getId())
+                        if (be.getData().getVoltage() != 0)
+                            if (be.hasElectricitySlot(direction)) {
+                                voltageGeneration = Math.max(voltageGeneration, be.getOutputVoltage());
                                 data.getsOutsidePower = true;
                             }
             }
         }
 
-        if(voltageGeneration == 0)
+        if (voltageGeneration == 0)
             data.getsOutsidePower = false;
 
         return voltageGeneration;
@@ -108,15 +119,21 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
 
         int powerGeneration = 0;
 
-        for(Direction direction : Direction.values()){
-            if(hasElectricitySlot(direction)){
+        for (Direction direction : Direction.values()) {
+            if (hasElectricitySlot(direction)) {
 
-                if(level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be)
-                    if(be.getData().getId() !=getData().getId())
-                        if(be.getData().getVoltage()!=0)
-                            if(be.hasElectricitySlot(direction)){
-                                powerGeneration = Math.max(powerGeneration,be.getOutputPower())+10;
+                if (level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be&&be.canWork()) {
+
+                    if (be.getData().getId() != getData().getId())
+                        if (be.getData().getVoltage() != 0)
+                            if (be.hasElectricitySlot(direction)) {
+                                powerGeneration = Math.max(powerGeneration, be.getPowerUsage()) + 1;
+                                if(powerGeneration>be.getNetworkPowerGeneration()) {
+                                    powerGeneration = 0;
+                                    be.data.updatePowerNextTick=true;
+                                }
                             }
+                }
             }
         }
 
@@ -128,7 +145,6 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
         return 0;
     }
 
-
     @Override
     public void updateNextTick() {
         data.updateNextTick = true;
@@ -137,7 +153,7 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
     @Override
     public void updateNetwork() {
         getOrCreateElectricNetwork().updateNetwork();
-        if(!level.isClientSide)
+        if (!level.isClientSide)
             TFMGPackets.getChannel().send(PacketDistributor.ALL.noArg(), new NetworkUpdatePacket(BlockPos.of(getPos())));
         sendData();
     }
@@ -150,8 +166,12 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
     @Override
     public void setVoltage(int newVoltage) {
 
-        if(canBeInGroups()){
-            data.voltage = (int) (((float)resistance()/data.group.resistance)*(float)data.voltageSupply);
+        //if(this instanceof LightBulbBlockEntity be&&be.color == DyeColor.WHITE){
+        //    TFMG.LOGGER.debug("Rezistancja Grup "+data.group.resistance);
+        //}
+
+        if (canBeInGroups()) {
+            data.voltage = (int) (((float) resistance() / data.group.resistance) * (float) data.voltageSupply);
             return;
         }
         data.voltage = newVoltage;
@@ -173,14 +193,18 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
     }
 
 
-
     @Override
     public void setNetwork(long network) {
         this.data.electricalNetworkId = network;
-        if(network!=getPos())
+        if (network != getPos())
             ElectricNetworkManager.networks.get(getLevel())
                     .remove(getPos());
     }
+
+    public boolean networkUndersupplied() {
+        return getNetworkPowerUsage() > data.networkPowerGeneration;
+    }
+
 
     @Override
     public long getPos() {
@@ -190,6 +214,7 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
     @Override
     public void remove() {
         super.remove();
+
         this.data.destroyed = true;
         for (Direction d : Direction.values()) {
             if (hasElectricitySlot(d))
@@ -197,41 +222,51 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
                     ElectricNetworkManager.networks.get(getLevel())
                             .remove(be.getPos());
                     be.setNetwork(be.getPos());
-                    be.getData().connectNextTick = true;
+                    be.onPlaced();
                     be.updateNextTick();
                 }
         }
         if (data.electricalNetworkId != getPos())
             getOrCreateElectricNetwork().getMembers().remove(this);
-
+//
         if (data.electricalNetworkId == getPos())
             ElectricNetworkManager.networks.get(getLevel())
                     .remove(getData().getId());
     }
 
-
-
     @Override
-    public void lazyTick() {
-        super.lazyTick();
+    public void tick() {
+        super.tick();
+        if (data.checkForLoopsNextTick) {
+            getOrCreateElectricNetwork().checkForLoops(getBlockPos());
+            data.checkForLoopsNextTick = false;
+        }
+        if (data.connectNextTick) {
+            onPlaced();
+            data.connectNextTick = false;
+        }
+        if (data.updateNextTick) {
+            updateNetwork();
+            data.updateNextTick = false;
+        }
 
-        if(data.failTimer >=4){
-            this.blockFail();
-            data.failTimer = 0;
-            sendStuff();
+        if (data.updatePowerNextTick) {
+            updateUnpowered(new ArrayList<>());
+            data.updatePowerNextTick = false;
         }
-        if((data.voltage>getMaxVoltage()&&getMaxVoltage()>0)||(getCurrent()>getMaxCurrent()&&getMaxCurrent()>0)){
-            data.failTimer++;
+        if (data.setVoltageNextTick) {
+            setVoltage(data.voltageSupply);
+            data.setVoltageNextTick = false;
         }
+
     }
 
     @Override
     protected void write(CompoundTag compound, boolean clientPacket) {
         super.write(compound, clientPacket);
+
         compound.putInt("GroupId", data.group.id);
         compound.putFloat("GroupResistance", data.group.resistance);
-
-        compound.putFloat("MotorSpeed", getSpeed());
     }
 
     @Override
@@ -239,12 +274,9 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
         super.read(compound, clientPacket);
         data.group = new ElectricalGroup(compound.getInt("GroupId"));
         data.group.resistance = compound.getFloat("GroupResistance");
-        setSpeed(compound.getFloat("MotorSpeed"));
-        if(!clientPacket)
+        if (!clientPacket)
             data.connectNextTick = true;
-
     }
-
 
 
     @Override

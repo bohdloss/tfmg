@@ -1,5 +1,6 @@
 package com.drmangotea.tfmg.content.decoration;
 
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.FluidState;
 
-public class FrameBlock extends Block implements ProperWaterloggedBlock {
+public class FrameBlock extends Block implements ProperWaterloggedBlock, IWrenchable {
 
 
 

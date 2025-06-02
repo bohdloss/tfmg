@@ -112,6 +112,7 @@ import com.drmangotea.tfmg.content.machinery.vat.base.VatBlock;
 import com.drmangotea.tfmg.content.machinery.vat.base.VatGenerator;
 import com.drmangotea.tfmg.content.machinery.vat.electrode_holder.ElectrodeHolderBlock;
 import com.drmangotea.tfmg.content.machinery.vat.industrial_mixer.IndustrialMixerBlock;
+import com.simibubi.create.AllMountedStorageTypes;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.contraptions.bearing.StabilizedBearingMovementBehaviour;
@@ -122,6 +123,7 @@ import com.simibubi.create.content.decoration.encasing.CasingBlock;
 import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
 import com.simibubi.create.content.decoration.encasing.EncasingRegistry;
 import com.simibubi.create.content.decoration.slidingDoor.SlidingDoorBlock;
+import com.simibubi.create.content.fluids.tank.FluidTankMovementBehavior;
 import com.simibubi.create.content.kinetics.gearbox.GearboxBlock;
 import com.simibubi.create.content.kinetics.motor.CreativeMotorGenerator;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockModel;
@@ -149,6 +151,7 @@ import static com.drmangotea.tfmg.TFMG.REGISTRATE;
 import static com.drmangotea.tfmg.base.TFMGBuilderTransformers.*;
 import static com.drmangotea.tfmg.content.electricity.lights.LightBulbBlock.LIGHT;
 import static com.simibubi.create.api.behaviour.movement.MovementBehaviour.movementBehaviour;
+import static com.simibubi.create.api.contraption.storage.fluid.MountedFluidStorageType.mountedFluidStorage;
 import static com.simibubi.create.foundation.data.BlockStateGen.axisBlock;
 import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
 import static com.simibubi.create.foundation.data.CreateRegistrate.casingConnectivity;
@@ -244,6 +247,8 @@ public class TFMGBlocks {
                     .properties(BlockBehaviour.Properties::noOcclusion)
                     .properties(p -> p.isRedstoneConductor((p1, p2, p3) -> true))
                     .transform(pickaxeOnly())
+                    .transform(mountedFluidStorage(TFMGMountedStorageTypes.TFMG_FLUID_TANK))
+                    .onRegister(movementBehaviour(new FluidTankMovementBehavior()))
                     .blockstate(new TFMGTankGenerator()::generate)
                     .onRegister(CreateRegistrate.blockModel(() -> AluminumFluidTankModel::standard))
                     .addLayer(() -> RenderType::cutoutMipped)
@@ -256,6 +261,8 @@ public class TFMGBlocks {
                     .initialProperties(SharedProperties::copperMetal)
                     .properties(p -> p.sound(SoundType.METAL))
                     .properties(BlockBehaviour.Properties::noOcclusion)
+                    .transform(mountedFluidStorage(TFMGMountedStorageTypes.TFMG_FLUID_TANK))
+                    .onRegister(movementBehaviour(new FluidTankMovementBehavior()))
                     .properties(p -> p.isRedstoneConductor((p1, p2, p3) -> true))
                     .transform(pickaxeOnly())
                     .blockstate(new TFMGTankGenerator()::generate)
@@ -267,7 +274,6 @@ public class TFMGBlocks {
                     .register();
 
     //------------------DISTILLATION_TOWER------------------//
-    @SuppressWarnings("'addLayer(java.util.function.Supplier<java.util.function.Supplier<net.minecraft.client.renderer.RenderType>>)' is deprecated and marked for removal ")
     public static final BlockEntry<SteelTankBlock> STEEL_FLUID_TANK =
             REGISTRATE.block("steel_fluid_tank", SteelTankBlock::regular)
                     .initialProperties(SharedProperties::copperMetal)
@@ -276,6 +282,8 @@ public class TFMGBlocks {
                     .properties(p -> p.isRedstoneConductor((p1, p2, p3) -> true))
                     .transform(pickaxeOnly())
                     .blockstate(new TFMGTankGenerator()::generate)
+                    .transform(mountedFluidStorage(TFMGMountedStorageTypes.TFMG_FLUID_TANK))
+                    .onRegister(movementBehaviour(new FluidTankMovementBehavior()))
                     .onRegister(CreateRegistrate.blockModel(() -> SteelFluidTankModel::standard))
                     .addLayer(() -> RenderType::cutoutMipped)
                     .item(SteelTankItem::new)
@@ -696,6 +704,7 @@ public class TFMGBlocks {
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
             .transform(pickaxeOnly())
+            .transform(TFMGStress.setImpact(4.0))
             .blockstate(BlockStateGen.horizontalBlockProvider(true))
             .item()
             .transform(customItemModel())
@@ -881,7 +890,7 @@ public class TFMGBlocks {
                     .initialProperties(() -> Blocks.IRON_BLOCK)
                     .transform(pickaxeOnly())
                     .properties(BlockBehaviour.Properties::noOcclusion)
-                    .transform(TFMGStress.setImpact(5.0f))
+                    .transform(TFMGStress.setImpact(50.0f))
                     .blockstate(BlockStateGen.directionalBlockProvider(true))
                     .item()
                     .transform(customItemModel())
@@ -1202,7 +1211,7 @@ public class TFMGBlocks {
                     .transform(pickaxeOnly())
                     .properties(BlockBehaviour.Properties::noOcclusion)
                     .blockstate(BlockStateGen.axisBlockProvider(true))
-                    .transform(TFMGStress.setImpact(10))
+                    .transform(TFMGStress.setImpact(240))
                     .item()
                     .transform(customItemModel())
                     .register();
@@ -1675,7 +1684,7 @@ public class TFMGBlocks {
                             .strength(3.0F)
                             .requiresCorrectToolForDrops()
                             .sound(SoundType.CALCITE))
-                    .recipe((c, p) -> p.stonecutting(DataIngredient.items(TFMGBlocks.SLAG_BLOCK.asItem()), RecipeCategory.BUILDING_BLOCKS, c::get, 1))
+                    .recipe((c, p) -> p.stonecutting(DataIngredient.items(TFMGBlocks.SLAG_BLOCK.asItem()), RecipeCategory.BUILDING_BLOCKS, c::get, 4))
                     .transform(pickaxeOnly())
                     .simpleItem()
                     .register();

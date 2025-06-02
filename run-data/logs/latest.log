@@ -1,86 +1,91 @@
-[25May2025 16:45:09.966] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, C:\Users\adamn\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.3.10, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, tfmg, --all, --output, C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\generated\resources, --existing, C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\resources]
-[25May2025 16:45:09.970] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.12 by Oracle Corporation; OS Windows 11 arch amd64 version 10.0
-[25May2025 16:45:10.153] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
-[25May2025 16:45:10.232] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/adamn/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
-[25May2025 16:45:10.688] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\adamn\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.3.10\7a15037366722893d76a3d0b2e9d1fd13a63a22d\javafmllanguage-1.20.1-47.3.10.jar is missing mods.toml file
-[25May2025 16:45:10.695] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\adamn\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.3.10\e67d9b3451d64ccc812cbbd33c066bd3ebbf2167\lowcodelanguage-1.20.1-47.3.10.jar is missing mods.toml file
-[25May2025 16:45:10.702] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\adamn\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.3.10\2023f9726a509c5ba5a925cac934944066093de8\mclanguage-1.20.1-47.3.10.jar is missing mods.toml file
-[25May2025 16:45:10.707] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\adamn\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.3.10\523aa0cd9a773b2b56268d8689b2fb5c1f072941\fmlcore-1.20.1-47.3.10.jar is missing mods.toml file
-[25May2025 16:45:11.061] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
-[25May2025 16:45:16.097] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
-[25May2025 16:45:16.110] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\adamn\.gradle\caches\forge_gradle\assets, --assetIndex, 5, --mod, tfmg, --all, --output, C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\generated\resources, --existing, C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\resources]
-[25May2025 16:45:16.594] [main/INFO] [mixin/]: Remapping refMap backend-flywheel.refmap.json using C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\build\createSrgToMcp\output.srg
-[25May2025 16:45:16.596] [main/INFO] [mixin/]: Remapping refMap flywheel.refmap.json using C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\build\createSrgToMcp\output.srg
-[25May2025 16:45:16.598] [main/INFO] [mixin/]: Remapping refMap ponder.refmap.json using C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\build\createSrgToMcp\output.srg
-[25May2025 16:45:16.600] [main/INFO] [mixin/]: Remapping refMap ponder.refmap.json using C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\build\createSrgToMcp\output.srg
-[25May2025 16:45:16.604] [main/INFO] [mixin/]: Remapping refMap create.refmap.json using C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\build\createSrgToMcp\output.srg
-[25May2025 16:45:17.126] [main/WARN] [mixin/]: Error loading class: journeymap/client/ui/fullscreen/Fullscreen (java.lang.ClassNotFoundException: journeymap.client.ui.fullscreen.Fullscreen)
-[25May2025 16:45:17.126] [main/WARN] [mixin/]: @Mixin target journeymap.client.ui.fullscreen.Fullscreen was not found create.mixins.json:compat.JourneyFullscreenMapMixin
-[25May2025 16:45:17.576] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [tfmg]
-[25May2025 16:45:17.583] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.4.1).
-[25May2025 16:45:24.010] [modloading-worker-0/INFO] [com.simibubi.create.Create/]: Create 6.0.4 initializing! Commit hash: 501917e035dcd3181bb1bd6b4fe0552d3988b32a
-[25May2025 16:45:24.066] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.3.10, for MC 1.20.1 with MCP 20230612.114412
-[25May2025 16:45:24.068] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.3.10 Initialized
-[25May2025 16:45:24.746] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager...
-[25May2025 16:45:24.764] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager took 10.89 ms
-[25May2025 16:45:29.023] [main/WARN] [net.minecraft.network.syncher.SynchedEntityData/]: defineId called for: class net.minecraft.world.entity.item.PrimedTnt from class com.drmangotea.tfmg.content.items.weapons.explosives.napalm.NapalmBombEntity
-[25May2025 16:45:29.405] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/adamn/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.10_mapped_official_1.20.1/forge-1.20.1-47.3.10_mapped_official_1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
-[25May2025 16:45:29.405] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/adamn/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.10_mapped_official_1.20.1/forge-1.20.1-47.3.10_mapped_official_1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
-[25May2025 16:45:30.048] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
-[25May2025 16:45:33.400] [main/INFO] [PonderIndex/]: Registering Ponder Scenes took 14.05 ms
-[25May2025 16:45:33.404] [main/INFO] [PonderIndex/]: Registering Ponder Tags took 3.988 ms
-[25May2025 16:45:33.405] [main/INFO] [PonderIndex/]: Collecting Shared Ponder Text took 549.2 μs
-[25May2025 16:45:33.542] [main/INFO] [net.minecraft.data.DataGenerator/]: Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)] finished after 3493 ms
-[25May2025 16:45:33.543] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: TFMG's Generated Registry Entries
-[25May2025 16:45:33.581] [main/INFO] [net.minecraft.data.DataGenerator/]: TFMG's Generated Registry Entries finished after 37 ms
-[25May2025 16:45:33.581] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
-[25May2025 16:45:33.587] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:winding recipe (minecraft:dummy) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.598] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:winding recipe (minecraft:dummy) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.606] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:winding recipe (minecraft:dummy) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.610] [main/INFO] [com.simibubi.create.Create/]: Recipes registered 8 recipes
-[25May2025 16:45:33.611] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 30 ms
-[25May2025 16:45:33.612] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: TFMG's Recipes
-[25May2025 16:45:33.615] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:industrial_blasting recipe (tfmg:silicon) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.615] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:industrial_blasting recipe (tfmg:steel) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.615] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:industrial_blasting recipe (tfmg:steel_from_raw_iron) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.617] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:industrial_blasting recipe (tfmg:steel_from_dust) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.618] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 4 recipes
-[25May2025 16:45:33.618] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:casting recipe (tfmg:steel) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.618] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:casting recipe (tfmg:silicon) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.619] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 2 recipes
-[25May2025 16:45:33.619] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:vat_machine_recipe recipe (tfmg:arc_furnace_steel) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.619] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:vat_machine_recipe recipe (tfmg:neon) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.620] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:vat_machine_recipe recipe (tfmg:plastic_from_ethylene) specified a heat condition. Heat conditions have no impact on this type of recipe.
-[25May2025 16:45:33.620] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:vat_machine_recipe recipe (tfmg:plastic_from_propylene) specified a heat condition. Heat conditions have no impact on this type of recipe.
-[25May2025 16:45:33.620] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:vat_machine_recipe recipe (tfmg:etched_circuit_board) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.621] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:vat_machine_recipe recipe (tfmg:aluminum) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.621] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:vat_machine_recipe recipe (tfmg:aluminum) specified a heat condition. Heat conditions have no impact on this type of recipe.
-[25May2025 16:45:33.621] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 9 recipes
-[25May2025 16:45:33.676] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 284 recipes
-[25May2025 16:45:33.678] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 8 recipes
-[25May2025 16:45:33.683] [main/INFO] [net.minecraft.data.DataGenerator/]: TFMG's Recipes finished after 70 ms
-[25May2025 16:45:33.683] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: TFMG's Processing Recipes
-[25May2025 16:45:33.684] [main/WARN] [com.simibubi.create.Create/]: Your custom create:pressing recipe (tfmg:cast_iron_ingot) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.684] [main/WARN] [com.simibubi.create.Create/]: Your custom create:pressing recipe (tfmg:aluminum_ingot) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.685] [main/WARN] [com.simibubi.create.Create/]: Your custom create:pressing recipe (tfmg:lead_ingot) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.685] [main/WARN] [com.simibubi.create.Create/]: Your custom create:pressing recipe (tfmg:nickel_ingot) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.686] [main/WARN] [com.simibubi.create.Create/]: Your custom create:pressing recipe (tfmg:synthetic_leather) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.686] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 5 recipes
-[25May2025 16:45:33.686] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:coking recipe (tfmg:coal) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.686] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:coking recipe (tfmg:charcoal) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.686] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 2 recipes
-[25May2025 16:45:33.686] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 6 recipes
-[25May2025 16:45:33.687] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:winding recipe (tfmg:electromagnetic_coil) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.687] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:winding recipe (tfmg:resistor) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.688] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 2 recipes
-[25May2025 16:45:33.688] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 1 recipe
-[25May2025 16:45:33.688] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:hot_blast recipe (tfmg:hot_air) specified a duration. Durations have no impact on this type of recipe.
-[25May2025 16:45:33.688] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 1 recipe
-[25May2025 16:45:33.689] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 4 recipes
-[25May2025 16:45:33.691] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 10 recipes
-[25May2025 16:45:33.693] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 16 recipes
-[25May2025 16:45:33.694] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 9 recipes
-[25May2025 16:45:33.696] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 8 recipes
-[25May2025 16:45:33.697] [main/INFO] [net.minecraft.data.DataGenerator/]: TFMG's Processing Recipes finished after 13 ms
-[25May2025 16:45:33.697] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 3649 ms
-[25May2025 16:45:33.861] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 3343, old count: 3343, new count: 3340, removed stale: 4, written: 2
+[02Jun2025 00:04:15.269] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, C:\Users\adamn\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.3.10, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, tfmg, --all, --output, C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\generated\resources, --existing, C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\resources]
+[02Jun2025 00:04:15.289] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.12 by Oracle Corporation; OS Windows 11 arch amd64 version 10.0
+[02Jun2025 00:04:15.452] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
+[02Jun2025 00:04:15.524] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/adamn/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
+[02Jun2025 00:04:15.883] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\adamn\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.3.10\7a15037366722893d76a3d0b2e9d1fd13a63a22d\javafmllanguage-1.20.1-47.3.10.jar is missing mods.toml file
+[02Jun2025 00:04:15.887] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\adamn\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.3.10\e67d9b3451d64ccc812cbbd33c066bd3ebbf2167\lowcodelanguage-1.20.1-47.3.10.jar is missing mods.toml file
+[02Jun2025 00:04:15.892] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\adamn\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.3.10\2023f9726a509c5ba5a925cac934944066093de8\mclanguage-1.20.1-47.3.10.jar is missing mods.toml file
+[02Jun2025 00:04:15.897] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\adamn\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.3.10\523aa0cd9a773b2b56268d8689b2fb5c1f072941\fmlcore-1.20.1-47.3.10.jar is missing mods.toml file
+[02Jun2025 00:04:16.165] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
+[02Jun2025 00:04:19.673] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[02Jun2025 00:04:19.692] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\adamn\.gradle\caches\forge_gradle\assets, --assetIndex, 5, --mod, tfmg, --all, --output, C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\generated\resources, --existing, C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\src\main\resources]
+[02Jun2025 00:04:20.249] [main/INFO] [mixin/]: Remapping refMap backend-flywheel.refmap.json using C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\build\createSrgToMcp\output.srg
+[02Jun2025 00:04:20.252] [main/INFO] [mixin/]: Remapping refMap flywheel.refmap.json using C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\build\createSrgToMcp\output.srg
+[02Jun2025 00:04:20.253] [main/INFO] [mixin/]: Remapping refMap ponder.refmap.json using C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\build\createSrgToMcp\output.srg
+[02Jun2025 00:04:20.254] [main/INFO] [mixin/]: Remapping refMap ponder.refmap.json using C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\build\createSrgToMcp\output.srg
+[02Jun2025 00:04:20.258] [main/INFO] [mixin/]: Remapping refMap create.refmap.json using C:\Users\adamn\Documents\minecraft\mods\Create-The_Factory_Must_Grow\build\createSrgToMcp\output.srg
+[02Jun2025 00:04:20.805] [main/WARN] [mixin/]: Error loading class: journeymap/client/ui/fullscreen/Fullscreen (java.lang.ClassNotFoundException: journeymap.client.ui.fullscreen.Fullscreen)
+[02Jun2025 00:04:20.805] [main/WARN] [mixin/]: @Mixin target journeymap.client.ui.fullscreen.Fullscreen was not found create.mixins.json:compat.JourneyFullscreenMapMixin
+[02Jun2025 00:04:21.231] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [tfmg]
+[02Jun2025 00:04:21.237] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.4.1).
+[02Jun2025 00:04:26.941] [modloading-worker-0/INFO] [com.simibubi.create.Create/]: Create 6.0.4 initializing! Commit hash: 501917e035dcd3181bb1bd6b4fe0552d3988b32a
+[02Jun2025 00:04:26.998] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.3.10, for MC 1.20.1 with MCP 20230612.114412
+[02Jun2025 00:04:26.999] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.3.10 Initialized
+[02Jun2025 00:04:27.752] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager...
+[02Jun2025 00:04:27.768] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager took 7.941 ms
+[02Jun2025 00:04:32.795] [main/WARN] [net.minecraft.network.syncher.SynchedEntityData/]: defineId called for: class net.minecraft.world.entity.item.PrimedTnt from class com.drmangotea.tfmg.content.items.weapons.explosives.napalm.NapalmBombEntity
+[02Jun2025 00:04:33.267] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/adamn/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.10_mapped_official_1.20.1/forge-1.20.1-47.3.10_mapped_official_1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
+[02Jun2025 00:04:33.268] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/adamn/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.10_mapped_official_1.20.1/forge-1.20.1-47.3.10_mapped_official_1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
+[02Jun2025 00:04:33.823] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+[02Jun2025 00:04:36.916] [main/INFO] [PonderIndex/]: Registering Ponder Scenes took 13.84 ms
+[02Jun2025 00:04:36.920] [main/INFO] [PonderIndex/]: Registering Ponder Tags took 3.583 ms
+[02Jun2025 00:04:36.921] [main/INFO] [PonderIndex/]: Collecting Shared Ponder Text took 512.7 μs
+[02Jun2025 00:04:37.048] [main/INFO] [net.minecraft.data.DataGenerator/]: Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)] finished after 3225 ms
+[02Jun2025 00:04:37.050] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: TFMG's Generated Registry Entries
+[02Jun2025 00:04:37.078] [main/INFO] [net.minecraft.data.DataGenerator/]: TFMG's Generated Registry Entries finished after 27 ms
+[02Jun2025 00:04:37.078] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
+[02Jun2025 00:04:37.088] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:winding recipe (minecraft:dummy) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.101] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:winding recipe (minecraft:dummy) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.107] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:winding recipe (minecraft:dummy) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.113] [main/INFO] [com.simibubi.create.Create/]: Recipes registered 8 recipes
+[02Jun2025 00:04:37.113] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 35 ms
+[02Jun2025 00:04:37.114] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: TFMG's Recipes
+[02Jun2025 00:04:37.117] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:industrial_blasting recipe (tfmg:silicon) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.117] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:industrial_blasting recipe (tfmg:steel) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.118] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:industrial_blasting recipe (tfmg:steel_from_raw_iron) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.118] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:industrial_blasting recipe (tfmg:steel_from_dust) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.119] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 4 recipes
+[02Jun2025 00:04:37.120] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:casting recipe (tfmg:steel) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.120] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:casting recipe (tfmg:plastic_sheet) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.120] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:casting recipe (tfmg:slag_block) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.120] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:casting recipe (tfmg:cinderblock) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.120] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:casting recipe (tfmg:silicon) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.121] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 5 recipes
+[02Jun2025 00:04:37.122] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:vat_machine_recipe recipe (tfmg:arc_furnace_steel) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.122] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:vat_machine_recipe recipe (tfmg:neon) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.122] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:vat_machine_recipe recipe (tfmg:rubber) specified a heat condition. Heat conditions have no impact on this type of recipe.
+[02Jun2025 00:04:37.122] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:vat_machine_recipe recipe (tfmg:naphtha) specified a heat condition. Heat conditions have no impact on this type of recipe.
+[02Jun2025 00:04:37.123] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:vat_machine_recipe recipe (tfmg:plastic_from_ethylene) specified a heat condition. Heat conditions have no impact on this type of recipe.
+[02Jun2025 00:04:37.123] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:vat_machine_recipe recipe (tfmg:plastic_from_propylene) specified a heat condition. Heat conditions have no impact on this type of recipe.
+[02Jun2025 00:04:37.123] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:vat_machine_recipe recipe (tfmg:etched_circuit_board) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.123] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:vat_machine_recipe recipe (tfmg:aluminum) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.123] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:vat_machine_recipe recipe (tfmg:aluminum) specified a heat condition. Heat conditions have no impact on this type of recipe.
+[02Jun2025 00:04:37.123] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 11 recipes
+[02Jun2025 00:04:37.168] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 285 recipes
+[02Jun2025 00:04:37.171] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 8 recipes
+[02Jun2025 00:04:37.173] [main/INFO] [net.minecraft.data.DataGenerator/]: TFMG's Recipes finished after 58 ms
+[02Jun2025 00:04:37.173] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: TFMG's Processing Recipes
+[02Jun2025 00:04:37.174] [main/WARN] [com.simibubi.create.Create/]: Your custom create:pressing recipe (tfmg:cast_iron_ingot) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.174] [main/WARN] [com.simibubi.create.Create/]: Your custom create:pressing recipe (tfmg:aluminum_ingot) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.174] [main/WARN] [com.simibubi.create.Create/]: Your custom create:pressing recipe (tfmg:lead_ingot) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.174] [main/WARN] [com.simibubi.create.Create/]: Your custom create:pressing recipe (tfmg:nickel_ingot) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.174] [main/WARN] [com.simibubi.create.Create/]: Your custom create:pressing recipe (tfmg:synthetic_leather) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.174] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 5 recipes
+[02Jun2025 00:04:37.175] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:coking recipe (tfmg:coal) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.175] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:coking recipe (tfmg:charcoal) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.175] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 2 recipes
+[02Jun2025 00:04:37.175] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 6 recipes
+[02Jun2025 00:04:37.176] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:winding recipe (tfmg:electromagnetic_coil) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.176] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:winding recipe (tfmg:resistor) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.176] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 2 recipes
+[02Jun2025 00:04:37.177] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 1 recipe
+[02Jun2025 00:04:37.177] [main/WARN] [com.simibubi.create.Create/]: Your custom tfmg:hot_blast recipe (tfmg:hot_air) specified a duration. Durations have no impact on this type of recipe.
+[02Jun2025 00:04:37.177] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 1 recipe
+[02Jun2025 00:04:37.178] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 4 recipes
+[02Jun2025 00:04:37.178] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 10 recipes
+[02Jun2025 00:04:37.181] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 16 recipes
+[02Jun2025 00:04:37.182] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 8 recipes
+[02Jun2025 00:04:37.182] [main/INFO] [com.drmangotea.tfmg.TFMG/]: Recipes registered 9 recipes
+[02Jun2025 00:04:37.183] [main/INFO] [net.minecraft.data.DataGenerator/]: TFMG's Processing Recipes finished after 10 ms
+[02Jun2025 00:04:37.183] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 3360 ms
+[02Jun2025 00:04:37.401] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 3347, old count: 3346, new count: 3348, removed stale: 0, written: 2

@@ -13,16 +13,16 @@
       "fluid": "tfmg:heavy_oil"
     },
     {
+      "amount": 30,
+      "fluid": "tfmg:lubrication_oil"
+    },
+    {
       "amount": 50,
       "fluid": "tfmg:diesel"
     },
     {
       "amount": 20,
       "fluid": "tfmg:kerosene"
-    },
-    {
-      "amount": 30,
-      "fluid": "tfmg:lubrication_oil"
     }
   ]
 }

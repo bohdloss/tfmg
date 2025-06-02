@@ -125,7 +125,7 @@ public class TransformerBlockEntity extends VoltageAlteringBlockEntity {
             CreateLang.text("----------------------------")
                     .style(ChatFormatting.WHITE)
                     .forGoggles(tooltip);
-            CreateLang.translate("multimeter.transformer_ration")
+            CreateLang.translate("multimeter.transformer_ratio")
                     .add(CreateLang.number(coilRatio))
                     .color(0xc6e82c)
                     .forGoggles(tooltip, 1);

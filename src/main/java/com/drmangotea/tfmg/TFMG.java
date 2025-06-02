@@ -68,12 +68,14 @@ public class TFMG {
         TFMGPaletteBlocks.init();
 
 
+
         TFMGParticleTypes.register(modEventBus);
         TFMGCreativeTabs.register(modEventBus);
         TFMGMobEffects.register(modEventBus);
         TFMGRecipeTypes.register(modEventBus);
         TFMGColoredFires.register(modEventBus);
         TFMGFeatures.register(modEventBus);
+        TFMGMountedStorageTypes.register();
 
         modEventBus.addListener(TFMG::onRegister);
         TFMGPackets.registerPackets();

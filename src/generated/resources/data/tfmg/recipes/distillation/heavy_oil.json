@@ -13,6 +13,10 @@
       "fluid": "tfmg:heavy_oil"
     },
     {
+      "amount": 25,
+      "fluid": "tfmg:lubrication_oil"
+    },
+    {
       "amount": 50,
       "fluid": "tfmg:diesel"
     },
@@ -23,10 +27,6 @@
     {
       "amount": 5,
       "fluid": "tfmg:naphtha"
-    },
-    {
-      "amount": 25,
-      "fluid": "tfmg:lubrication_oil"
     }
   ]
 }

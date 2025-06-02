@@ -37,7 +37,7 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
 
     public ElectricMotorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-
+        updateGeneratedRotation();
     }
 
     @Override

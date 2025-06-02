@@ -7,15 +7,19 @@ import com.drmangotea.tfmg.content.machinery.vat.base.VatBlock;
 import com.drmangotea.tfmg.content.machinery.vat.base.VatBlockEntity;
 import com.drmangotea.tfmg.registry.TFMGItems;
 import com.drmangotea.tfmg.registry.TFMGPartialModels;
+import com.simibubi.create.foundation.utility.CreateLang;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
+import java.util.List;
 import java.util.Objects;
 
 public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements IVatMachine {
@@ -48,14 +52,26 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
         return false;
     }
 
+    @Override
+    public boolean makeMultimeterTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+
+        super.makeMultimeterTooltip(tooltip, isPlayerSneaking);
+        if (getCurrent() < TFMGConfigs.common().machines.electrolysisMinimumCurrent.get())
+            CreateLang.translate("goggles.electrode_holder.min_amps")
+                    .style(ChatFormatting.RED)
+                    .add(CreateLang.text(TFMGConfigs.common().machines.electrolysisMinimumCurrent.get() + "A)"))
+                    .forGoggles(tooltip);
+
+        return true;
+    }
 
     @Override
     public float resistance() {
 
         if (electrodeType != ElectrodeType.NONE) {
-            if(electrodeType == ElectrodeType.GRAPHITE) {
+            if (electrodeType == ElectrodeType.GRAPHITE) {
                 return 300;
-            }else return 100;
+            } else return 100;
         }
 
         return 0;
@@ -87,9 +103,8 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
     }
 
 
-
     boolean isOperational() {
-        return getCurrent() >= TFMGConfigs.common().machines.electrolysisMinimumCurrent.get()&&canWork();
+        return getCurrent() >= TFMGConfigs.common().machines.electrolysisMinimumCurrent.get() && canWork();
     }
 
     @Override
@@ -117,7 +132,6 @@ public class ElectrodeHolderBlockEntity extends ElectricBlockEntity implements I
 
     @Override
     public String getOperationId() {
-
 
 
         return switch (electrodeType) {

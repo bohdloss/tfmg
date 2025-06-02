@@ -87,7 +87,7 @@ public class TFMGSequencedAssemblyRecipeGen extends CreateRecipeProvider {
     ),
 
     MOTOR = create("motor", b -> b.require(shaft())
-            .transitionTo(TFMGItems.UNFINISHED_GENERATOR.get())
+            .transitionTo(TFMGItems.UNFINISHED_ELECTRIC_MOTOR.get())
             .addOutput(TFMGBlocks.ELECTRIC_MOTOR.get(), 120)
             .addOutput(TFMGBlocks.STEEL_CASING.get(), 8)
             .addOutput(TFMGItems.NICKEL_SHEET.get(), 8)

@@ -35,17 +35,17 @@ public class DistillationRecipeGen extends TFMGProcessingRecipeGen {
 	HEAVY_OIL = create("heavy_oil", b ->b
 			.require(heavyOil(),200)
 			.output(heavyOil(), 100)
+			.output(lubricationOil(), 25)
 			.output(diesel(), 50)
 			.output(kerosene(), 20)
-			.output(naphtha(), 5)
-			.output(lubricationOil(), 25)),
+			.output(naphtha(), 5)),
 
 	HEAVY_OIL_NO_NAPHTHA = create("heavy_oil_no_naphtha", b ->b
 			.require(heavyOil(),200)
 			.output(heavyOil(), 100)
+			.output(lubricationOil(), 30)
 			.output(diesel(), 50)
-			.output(kerosene(), 20)
-			.output(lubricationOil(), 30)),
+			.output(kerosene(), 20)),
 
 	HEAVY_OIL_LIGHT_DISTILLATION = create("heavy_oil_light_distillation", b ->b
 			.require(heavyOil(),200)

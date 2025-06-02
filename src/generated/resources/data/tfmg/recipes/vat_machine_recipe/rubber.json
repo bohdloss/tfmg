@@ -7,8 +7,11 @@
   "heatRequirement": "heated",
   "ingredients": [
     {
-      "amount": 500,
-      "fluid": "tfmg:propylene",
+      "item": "tfmg:sulfur_dust"
+    },
+    {
+      "amount": 250,
+      "fluid": "tfmg:heavy_oil",
       "nbt": {}
     }
   ],
@@ -18,8 +21,7 @@
   "minSize": 1,
   "results": [
     {
-      "amount": 500,
-      "fluid": "tfmg:molten_plastic"
+      "item": "tfmg:rubber_sheet"
     }
   ]
 }

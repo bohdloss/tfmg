@@ -1,5 +1,6 @@
 package com.drmangotea.tfmg.content.machinery.misc.winding_machine;
 
+import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGUtils;
 import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnection;
 import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnectorBlockEntity;
@@ -123,9 +124,10 @@ public class SpoolItem extends Item {
 
                      float wireCost =  (connection1.getLength()/8);
 
-                     if(stack.getOrCreateTag().getInt("Amount")<wireCost)
-                         return InteractionResult.PASS;
 
+                     if(stack.getOrCreateTag().getInt("Amount")<wireCost*125) {
+                         return InteractionResult.PASS;
+                     }
                      if(be.connections.contains(connection1)||otherBE.connections.contains(connection1)){
                          if (level.isClientSide)
                              player.displayClientMessage(CreateLang.translateDirect("wires.connection_already_created")
@@ -135,11 +137,12 @@ public class SpoolItem extends Item {
                          be.setChanged();
                          return InteractionResult.SUCCESS;
                      }
-                     if(!level.isClientSide) {
+                   //  if(!level.isClientSide) {
                          be.connections.add(connection1);
                          otherBE.connections.add(connection2);
                          be.onPlaced();
-                     }
+                      //   otherBE.onPlaced();
+                     //}
 
                    //  connectedBe1.wiresUpdated();
                      stack.getOrCreateTag().putInt("Amount", (int) (stack.getOrCreateTag().getInt("Amount")-(wireCost*125)));

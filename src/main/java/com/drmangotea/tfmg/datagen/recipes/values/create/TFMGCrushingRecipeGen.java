@@ -29,6 +29,10 @@ public class TFMGCrushingRecipeGen extends TFMGProcessingRecipeGen {
             LIMESAND = create(I::limestone, b -> b
                     .output(limesand(), 1)
             ),
+            SLAG = create(TFMGBlocks.SLAG_BLOCK::get, b -> b
+                    .output(slag(), 2)
+                    .output(.3f,slag())
+            ),
             COAL_COKE = create(I::coalCoke, b -> b
                     .output(coalCokeDust(), 1)
             ),

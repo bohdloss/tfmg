@@ -50,7 +50,7 @@
               }
             ]
           ],
-          "weight": 2
+          "weight": 4
         },
         {
           "max_size": 3,
@@ -179,7 +179,7 @@
               }
             ]
           ],
-          "weight": 2
+          "weight": 5
         },
         {
           "max_size": 3,

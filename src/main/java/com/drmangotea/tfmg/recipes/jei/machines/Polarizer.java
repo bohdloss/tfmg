@@ -24,7 +24,7 @@ public class Polarizer extends AnimatedKinetics {
         matrixStack.translate(-2.0, 18.0, 0.0);
         int scale = 22;
 
-        GuiGameElement.of(TFMGBlocks.POLARIZER.getDefaultState().setValue(PolarizerBlock.FACING, Direction.NORTH)).rotateBlock(22.5, 22.5, 0.0).scale(scale).render(graphics);
+        GuiGameElement.of(TFMGBlocks.POLARIZER.getDefaultState().setValue(PolarizerBlock.FACING, Direction.SOUTH)).rotateBlock(22.5, 22.5, 0.0).scale(scale).render(graphics);
         matrixStack.popPose();
     }
 }
