@@ -50,7 +50,6 @@ public class ElectriciansWrenchPacket extends SimplePacketBase {
 
     public void applyGroup(ItemStack stack){
 
-        TFMG.LOGGER.debug("Packet Mogus "+group);
 
         stack.getOrCreateTag().putInt("Number", group);
     }

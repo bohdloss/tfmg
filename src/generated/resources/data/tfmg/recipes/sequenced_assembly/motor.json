@@ -10,31 +10,15 @@
       "item": "tfmg:electric_motor"
     },
     {
-      "chance": 8.0,
+      "chance": 4.0,
       "item": "tfmg:steel_casing"
     },
     {
-      "chance": 8.0,
+      "chance": 4.0,
       "item": "tfmg:nickel_sheet"
     }
   ],
   "sequence": [
-    {
-      "type": "create:deploying",
-      "ingredients": [
-        {
-          "item": "tfmg:unfinished_electric_motor"
-        },
-        {
-          "tag": "forge:plates/nickel"
-        }
-      ],
-      "results": [
-        {
-          "item": "tfmg:unfinished_electric_motor"
-        }
-      ]
-    },
     {
       "type": "tfmg:winding",
       "ingredients": [
@@ -60,22 +44,6 @@
         },
         {
           "item": "tfmg:magnet"
-        }
-      ],
-      "results": [
-        {
-          "item": "tfmg:unfinished_electric_motor"
-        }
-      ]
-    },
-    {
-      "type": "create:deploying",
-      "ingredients": [
-        {
-          "item": "tfmg:unfinished_electric_motor"
-        },
-        {
-          "tag": "forge:plates/steel"
         }
       ],
       "results": [

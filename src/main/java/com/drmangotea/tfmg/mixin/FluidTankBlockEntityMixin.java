@@ -101,8 +101,6 @@ public class FluidTankBlockEntityMixin extends SmartBlockEntity {
                             if (width == 3 && abs(abs(xOffset) - abs(zOffset)) == 1)
                                 shape = FluidTankBlock.Shape.WINDOW;
                         }
-                        TFMG.LOGGER.debug("spawned "+shape.getSerializedName());
-                        TFMG.LOGGER.debug("should spawn window: "+window);
                         level.setBlock(pos, blockState.setValue(FluidTankBlock.SHAPE, shape), 22);
                         level.getChunkSource()
                                 .getLightEngine()

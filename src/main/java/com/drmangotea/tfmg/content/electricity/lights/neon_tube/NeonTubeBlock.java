@@ -64,7 +64,6 @@ public class NeonTubeBlock extends PipeBlock implements IBE<NeonTubeBlockEntity>
         Direction facing = context.getClickedFace();
         Vec3 position = context.getClickLocation();
 
-        TFMG.LOGGER.debug("X "+(position.x()-pos.getX())+" Y "+(position.y()-pos.getY())+" Z "+(position.z()-pos.getZ()));
         SimplePos clickPosition = new SimplePos(position.x()-pos.getX(),position.y()-pos.getY(),position.z()-pos.getZ());
 
         Direction dirToToggle = Direction.NORTH;
@@ -135,10 +134,8 @@ public class NeonTubeBlock extends PipeBlock implements IBE<NeonTubeBlockEntity>
     if(!p_60569_.is(TFMGBlocks.NEON_TUBE.get()))
         for(Direction facing : Direction.values()) {
             BlockState neighbourState = level.getBlockState(pos.relative(facing));
-            TFMG.LOGGER.debug("A");
              if (neighbourState.is(TFMGBlocks.NEON_TUBE.get())) {
                  level.setBlockAndUpdate(pos.relative(facing), neighbourState.setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(facing.getOpposite()), true));
-                 TFMG.LOGGER.debug("B");
              }
         }
         withBlockEntityDo(level,pos, IElectric::onPlaced);

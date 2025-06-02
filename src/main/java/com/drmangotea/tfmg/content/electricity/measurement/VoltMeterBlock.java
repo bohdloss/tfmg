@@ -46,7 +46,7 @@ public class VoltMeterBlock extends TFMGHorizontalDirectionalBlock implements IB
 
             for(VoltMeterBlockEntity.MeasureMode mode : VoltMeterBlockEntity.MeasureMode.values()){
 
-                if(mode == VoltMeterBlockEntity.MeasureMode.POWER){
+                if(mode == VoltMeterBlockEntity.MeasureMode.FALLBACK){
                     be.mode = VoltMeterBlockEntity.MeasureMode.VOLTAGE;
                     break;
                 }

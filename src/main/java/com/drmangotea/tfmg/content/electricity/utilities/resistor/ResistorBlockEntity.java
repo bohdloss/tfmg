@@ -35,7 +35,6 @@ public class ResistorBlockEntity extends ElectricBlockEntity {
     }
 
     public void setResistance(ItemStack stack){
-        TFMG.LOGGER.debug("Resistohr "+stack.getOrCreateTag().getInt("Resistance"));
         this.resistance = stack.getOrCreateTag().getInt("Resistance");
     }
 

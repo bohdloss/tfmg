@@ -150,17 +150,13 @@ public class CableConnectorBlockEntity extends ElectricBlockEntity implements IH
 
 
 
-            if(connection.blockPos1 == getBlockPos())
-                TFMGUtils.debugMessage(level, "PRIMARY IS SUS");
+
 
             if(pos ==getBlockPos()){
-                TFMG.LOGGER.debug("WHAT THE SIGMA");
                 continue;
                 }
           //  TFMGUtils.debugMessage(level, "Eﴤ "+connections.size());
 
-            if(level.getBlockEntity(pos) instanceof CableConnectorBlockEntity bee&&bee.getBlockPos() == getBlockPos())
-                TFMGUtils.debugMessage(level, "SUSSY BEHAVIOUR");
 
             if(level.getBlockEntity(pos) instanceof CableConnectorBlockEntity be&&!foundList.contains(be)){
                // TFMGUtils.debugMessage(level, "Bﴤ "+connections.size());

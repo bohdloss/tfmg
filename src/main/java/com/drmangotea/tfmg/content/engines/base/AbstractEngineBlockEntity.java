@@ -103,7 +103,6 @@ public abstract class AbstractEngineBlockEntity extends KineticElectricBlockEnti
 
     @Override
     public void updateNetwork() {
-        //TFMG.LOGGER.debug("UPDATE ENGINE NETWORK");
         super.updateNetwork();
     }
 

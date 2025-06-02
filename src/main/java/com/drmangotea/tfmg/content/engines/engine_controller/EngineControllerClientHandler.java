@@ -39,7 +39,6 @@ public class EngineControllerClientHandler {
             selectedLocation = location;
         } else {
             MODE = Mode.IDLE;
-            TFMG.LOGGER.debug("TOGGLE BIND MODE");
             onReset();
         }
     }
@@ -50,7 +49,6 @@ public class EngineControllerClientHandler {
             controllerPos = null;
         } else {
             MODE = Mode.IDLE;
-            TFMG.LOGGER.debug("TOGGLE");
             onReset();
         }
     }
@@ -65,7 +63,6 @@ public class EngineControllerClientHandler {
     public static void deactivateInLectern() {
         if (MODE == Mode.ACTIVE && isController()) {
             MODE = Mode.IDLE;
-            TFMG.LOGGER.debug("DEACTIVATE");
             onReset();
         }
     }
@@ -79,7 +76,6 @@ public class EngineControllerClientHandler {
                 .forEach(kb -> kb.setDown(ControlsUtil.isActuallyPressed(kb)));
         packetCooldown = 0;
         selectedLocation = BlockPos.ZERO;
-        TFMG.LOGGER.debug("OnReset");
         if (isController())
             TFMGPackets.getChannel().sendToServer(new EngineControllerStopControllerPacket(controllerPos));
         controllerPos = null;
@@ -105,7 +101,6 @@ public class EngineControllerClientHandler {
 
         if (player.isSpectator()) {
             MODE = Mode.IDLE;
-            TFMG.LOGGER.debug("SPEKTATOR");
             onReset();
             return;
         }
@@ -130,7 +125,6 @@ public class EngineControllerClientHandler {
 
         if (mc.screen != null) {
             MODE = Mode.IDLE;
-            TFMG.LOGGER.debug("NO SCREEN");
             onReset();
             return;
         }
@@ -138,7 +132,6 @@ public class EngineControllerClientHandler {
         if (InputConstants.isKeyDown(mc.getWindow()
                 .getWindow(), GLFW.GLFW_KEY_ESCAPE)) {
             MODE = Mode.IDLE;
-            TFMG.LOGGER.debug("ESCAPE");
             onReset();
             return;
         }
@@ -187,7 +180,6 @@ public class EngineControllerClientHandler {
                     }
                 }
                 if(newKeys.contains(8)){
-                    TFMG.LOGGER.debug("BBBBBBBBBBBBBBBBBBBBBB");
                     TFMGPackets.getChannel().sendToServer(new EngineStartPacket(controllerPos));
                     if(player.level().getBlockEntity(controllerPos) instanceof EngineControllerBlockEntity be){
                         be.toggleEngine();

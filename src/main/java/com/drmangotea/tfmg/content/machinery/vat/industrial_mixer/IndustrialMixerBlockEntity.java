@@ -83,7 +83,6 @@ public class IndustrialMixerBlockEntity extends KineticBlockEntity implements IV
     @Override
     protected void read(CompoundTag compound, boolean clientPacket) {
 
-        TFMG.LOGGER.debug("Loading " + compound.getString("MixerMode"));
         setMixerMode(compound.getString("MixerMode"), false);
 
         if (clientPacket)

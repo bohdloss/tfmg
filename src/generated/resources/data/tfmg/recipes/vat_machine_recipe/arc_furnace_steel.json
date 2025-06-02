@@ -11,7 +11,7 @@
       "tag": "tfmg:flux"
     },
     {
-      "tag": "tfmg:blast_furnace_fuel"
+      "item": "tfmg:coal_coke_dust"
     }
   ],
   "machines": [
@@ -22,6 +22,10 @@
   "minSize": 9,
   "processingTime": 20,
   "results": [
+    {
+      "chance": 0.9,
+      "item": "tfmg:coal_coke_dust"
+    },
     {
       "amount": 144,
       "fluid": "tfmg:molten_steel"

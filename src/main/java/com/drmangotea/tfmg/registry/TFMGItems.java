@@ -27,6 +27,7 @@ import com.drmangotea.tfmg.content.items.weapons.lithium_blade.LitLithiumBladeIt
 import com.drmangotea.tfmg.content.items.weapons.lithium_blade.LithiumBladeItem;
 import com.drmangotea.tfmg.content.items.weapons.quad_potato_cannon.QuadPotatoCannonItem;
 import com.drmangotea.tfmg.content.machinery.misc.winding_machine.SpoolItem;
+import com.drmangotea.tfmg.content.machinery.oil_processing.OilHammerItem;
 import com.drmangotea.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.DepositItem;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
@@ -206,6 +207,9 @@ public class TFMGItems {
     //        .register();
     public static final ItemEntry<CoalCokeItem> COAL_COKE_DUST = REGISTRATE.item("coal_coke_dust", CoalCokeItem::new)
             .tag(forgeItemTag("dusts/coal_coke"), TFMGTags.TFMGItemTags.BLAST_FURNACE_FUEL.tag)
+            .register();
+
+    public static final ItemEntry<OilHammerItem> OIL_HAMMER = REGISTRATE.item("oil_hammer", OilHammerItem::new)
             .register();
 
     public static final ItemEntry<CoalCokeItem> COAL_COKE = REGISTRATE.item("coal_coke", CoalCokeItem::new)

@@ -1,4 +1,4 @@
-// 1.20.1	2025-06-01T20:09:54.4787585	TFMG's Processing Recipes
+// 1.20.1	2025-06-02T18:21:37.9498192	TFMG's Processing Recipes
 ae24d73a2ef5b8059806e660641bcb9dff2a15f4 data/tfmg/recipes/coking/charcoal.json
 9000fbf96dc2c2b822aa4e526b1c8686d5413e5a data/tfmg/recipes/coking/coal.json
 0615633ddeaab98905fba9020ecb9d0fbac32fcc data/tfmg/recipes/compacting/aluminum_ingot.json
@@ -32,6 +32,7 @@ dcc60da72dd0f818ea6c5d7a29e60aec0c710bab data/tfmg/recipes/filling/hardened_plan
 459633e9d11afdbc30f720a6842e61454b4d42dc data/tfmg/recipes/filling/hot_air_tank.json
 5c33148691a2b761787d56052c25420e81e06eb7 data/tfmg/recipes/filling/hydrogen_tank.json
 54efef6523a39d8fcb48796d659a3390007b1421 data/tfmg/recipes/filling/lpg_tank.json
+a1a29b4093de1014fefaa9a89eeb9b016260b0c2 data/tfmg/recipes/filling/napalm_potato.json
 e9287ed78b8ddba564751a2974306eea83e77ab4 data/tfmg/recipes/filling/neon_tank.json
 83b959dcd319de129fbf76bd967d6d4c3ada9852 data/tfmg/recipes/filling/propylene_tank.json
 46cb31b82c65ef9c724b2ed864ee51cd4234fb04 data/tfmg/recipes/hot_blast/hot_air.json
@@ -50,7 +51,7 @@ d0b6208fbe3a36bbab8f93ccd5e11cafcdc348ea data/tfmg/recipes/mixing/copper_sulfate
 78d5ad5111a8daa6ba7943f2d49ca479a440347a data/tfmg/recipes/mixing/gunpowder.json
 0ba7ddd0c210f4ccf6a257e4dbf089435af9e5a6 data/tfmg/recipes/mixing/liquid_asphalt.json
 31092ad453356efe10f4ac4e8b7d8c4964d75699 data/tfmg/recipes/mixing/liquid_concrete.json
-5cec7d55327f7340ca037b55d9ce5142ed04d20c data/tfmg/recipes/mixing/magnetic_alloy.json
+63c288e0793ad8b6eb5027ce016b98526b0e0892 data/tfmg/recipes/mixing/magnetic_alloy.json
 91a5223d59ba418922a8d9738dd13f2464ec426a data/tfmg/recipes/mixing/napalm.json
 4d0f6abaac9dcabcd2fe5cdb647c4e301508f3b8 data/tfmg/recipes/mixing/n_semiconductor.json
 693355c65c5a7da122dc8e305241e25063bd99d5 data/tfmg/recipes/mixing/p_semiconductor.json

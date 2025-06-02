@@ -391,7 +391,6 @@ public class EngineControllerBlockEntity extends SmartBlockEntity implements IHa
         if (level.isClientSide)
             return InteractionResult.SUCCESS;
 
-        TFMG.LOGGER.debug("OPEN SCREEN");
         NetworkHooks.openScreen((ServerPlayer) player, this, worldPosition);
         return InteractionResult.SUCCESS;
     }

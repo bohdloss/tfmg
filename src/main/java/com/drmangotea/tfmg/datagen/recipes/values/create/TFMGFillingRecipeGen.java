@@ -3,6 +3,7 @@ package com.drmangotea.tfmg.datagen.recipes.values.create;
 import com.drmangotea.tfmg.datagen.recipes.TFMGProcessingRecipeGen;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGFluids;
+import com.drmangotea.tfmg.registry.TFMGItems;
 import com.simibubi.create.AllRecipeTypes;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
@@ -19,6 +20,11 @@ public class TFMGFillingRecipeGen extends TFMGProcessingRecipeGen {
             .require(ItemTags.PLANKS)
             .require(TFMGFluids.CREOSOTE.getSource(), 250)
             .output(TFMGBlocks.HARDENED_PLANKS)),
+
+    NAPALM_POTATO = create("napalm_potato", b -> b
+            .require(Items.POTATO)
+            .require(TFMGFluids.NAPALM.getSource(), 500)
+            .output(TFMGItems.NAPALM_POTATO)),
 
 
     //GAS TANKS

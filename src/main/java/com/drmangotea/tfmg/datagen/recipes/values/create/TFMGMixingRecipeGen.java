@@ -119,7 +119,7 @@ public class TFMGMixingRecipeGen extends TFMGProcessingRecipeGen {
 			.require(TFMGItems.SILICON_INGOT)
 			.require(steelIngot())
 			.require(steelIngot())
-			.output(magneticIngot())
+			.output(magneticIngot(),2)
 			.duration(300)
 			.requiresHeat(HeatCondition.HEATED)
 	);

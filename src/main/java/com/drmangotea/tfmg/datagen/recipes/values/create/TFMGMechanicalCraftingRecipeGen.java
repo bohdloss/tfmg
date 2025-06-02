@@ -98,6 +98,17 @@ public class TFMGMechanicalCraftingRecipeGen extends TFMGRecipeProvider {
                     .patternLine("S O ")
                     .disallowMirrored()),
 
+    ADVANCED_POTATO_CANNON = create(TFMGItems.ADVANCED_POTATO_CANNON::get)
+            .recipe(b -> b
+                    .key('O', rebar())
+                    .key('C', circuitBoard())
+                    .key('T', steelTank())
+                    .key('P', steelPipe())
+                    .key('M', steelMechanism())
+                    .patternLine("PPPT")
+                    .patternLine(" MCO")
+                    .disallowMirrored()),
+
     LARGE_ENGINE = create(TFMGBlocks.LARGE_ENGINE::get)
             .recipe((b) -> b
                     .key('A', aluminumSheet())

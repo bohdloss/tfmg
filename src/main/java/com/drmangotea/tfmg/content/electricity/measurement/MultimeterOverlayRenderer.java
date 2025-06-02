@@ -52,18 +52,16 @@ public class MultimeterOverlayRenderer {
 
     public static void renderOverlay(ForgeGui gui, GuiGraphics graphics, float partialTicks, int width,
                                      int height) {
-        TFMG.LOGGER.debug("GGGGGGGGGGGGGGGGGGGGGGGGGGG");
         Minecraft mc = Minecraft.getInstance();
         if (mc.options.hideGui || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
             return;
-        TFMG.LOGGER.debug("CCCCCCCCCCCCCCCCCCCCCC");
         HitResult objectMouseOver = mc.hitResult;
         if (!(objectMouseOver instanceof BlockHitResult result)) {
             lastHovered = null;
             hoverTicks = 0;
             return;
         }
-        TFMG.LOGGER.debug("DDDDDDDDDDDDDDDDDDDDDDDDDDD");
+
         for (OutlineEntry entry : outlines.values()) {
             if (!entry.isAlive())
                 continue;
@@ -71,7 +69,7 @@ public class MultimeterOverlayRenderer {
             if (outline instanceof ValueBox && !((ValueBox) outline).isPassive)
                 return;
         }
-        TFMG.LOGGER.debug("EEEEEEEEEEEEEEEEEEEE");
+
         ClientLevel world = mc.level;
         BlockPos pos = result.getBlockPos();
 
@@ -87,10 +85,8 @@ public class MultimeterOverlayRenderer {
         boolean isShifting = mc.player.isShiftKeyDown();
 
         boolean isElectricBlock = be instanceof IElectric;
-        TFMG.LOGGER.debug("AAAAAAAAAAAAAAAAAAAAAAAAA");
         if(!isElectricBlock)
             return;
-        TFMG.LOGGER.debug("BBBBBBBBBBBBBBBBBBBBBBBBBB");
 
 
 

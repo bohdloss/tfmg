@@ -151,7 +151,6 @@ public class RegularEngineBlockEntity extends AbstractSmallEngineBlockEntity {
 
         if (itemStack.is(AllItems.EMPTY_SCHEMATIC.get())) {
             boolean next = false;
-            TFMG.LOGGER.debug("INSERT");
             if (type == EngineType.BOXER) {
                 if (level.getBlockEntity(controller) instanceof RegularEngineBlockEntity be)
                     be.updateEngineType(EngineType.I);

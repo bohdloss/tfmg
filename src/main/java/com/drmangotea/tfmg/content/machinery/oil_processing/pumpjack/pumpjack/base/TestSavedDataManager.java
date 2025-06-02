@@ -52,7 +52,6 @@ public class TestSavedDataManager {
                 for (int i = 0; i < TFMG.DEPOSITS.list.size(); i++) {
                     FluidReservoir reservoir = TFMG.DEPOSITS.list.get(i);
                     if (reservoir.id == checkedPos.asLong()) {
-                        TFMG.LOGGER.debug("INCREASED RESERVOIR SIZE");
                         TFMG.DEPOSITS.list.get(i).deposits.add(pos.asLong());
                         return true;
                     }
@@ -80,7 +79,6 @@ public class TestSavedDataManager {
                 }
             }
         }
-        TFMG.LOGGER.debug("ADDED NEW RESERVOIR");
 
         RandomSource randomSource = level.random;
         FluidReservoir reservoir = new FluidReservoir(pos);

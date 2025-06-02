@@ -359,12 +359,7 @@ public class TFMGUtils {
         pMatrixStack.popPose();
     }
 
-    public static void debugMessage(Level level,String message){
-        if(level.isClientSide){
-            TFMG.LOGGER.debug("Client "+message);
-        } else
-            TFMG.LOGGER.debug("Server "+message);
-    }
+
 
     private static void addVertexPair(VertexConsumer vertexConsumer, Matrix4f matrix4f, float p_174310_, float p_174311_, float p_174312_, int light_1, int light_2, int p_174315_, int p_174316_, float thickness, float p_174318_, float p_174319_, float p_174320_, int value, boolean p_174322_, float curve, float r, float g, float b) {
         float f = (float) (value / 24.0F);

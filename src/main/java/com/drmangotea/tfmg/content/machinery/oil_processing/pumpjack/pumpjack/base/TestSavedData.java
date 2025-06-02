@@ -20,7 +20,6 @@ public class TestSavedData extends SavedData {
             FluidReservoir reservoir = manager.list.get(i);
             CompoundTag reservoirNBT = new CompoundTag();
             reservoirNBT.putLong("Id", reservoir.id);
-            TFMG.LOGGER.debug("SAVED  "+reservoir.oilReserves);
             reservoirNBT.putInt("Reserves", reservoir.oilReserves);
             //reservoirNBT.putLongArray("Deposits", reservoir.deposits);
             reservoirNBT.putInt("DepositCount", reservoir.deposits.size());
@@ -54,7 +53,7 @@ public class TestSavedData extends SavedData {
             for (int j = 0; j < compound.getInt("DepositCount"); j++) {
                 reservoir.deposits.add(reservoirNBT.getLong("Deposit"+j));
             }
-            TFMG.LOGGER.debug("LOADETH " + reservoirNBT.getInt("Reserves"));
+
             reservoir.oilReserves = reservoirNBT.getInt("Reserves");
             sd.list.add(reservoir);
         }

@@ -18,14 +18,6 @@ import net.minecraftforge.fml.common.Mod;
 public class TFMGCommonEvents {
 
 
-    //@SubscribeEvent
-    //public static void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-    //    Player player = event.getEntity();
-    //    TFMG.DEPOSITS.playerLogin(player);
-    //    TFMG.LOGGER.debug("PLAYER LOG");
-    //}
-
-
 
     @SubscribeEvent
     public static void onUnloadWorld(LevelEvent.Unload event) {
@@ -40,7 +32,6 @@ public class TFMGCommonEvents {
         LevelAccessor world = event.getLevel();
         TFMG.NETWORK_MANAGER.onLoadWorld(world);
         TFMG.DEPOSITS.levelLoaded(world);
-        TFMG.LOGGER.debug("WORLD LOAD");
     }
 
     @SubscribeEvent

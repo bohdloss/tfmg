@@ -121,7 +121,7 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
     public int voltageGeneration() {
 
         if (upgrade.isPresent() && upgrade.get().getItem() == TFMGBlocks.GENERATOR.asItem())
-            return (int) (20 * (rpm / 3000));
+            return (int) (20 * (rpm / 500));
 
         return 0;
     }
@@ -597,7 +597,6 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
             be.connect();
             return;
         }
-        TFMG.LOGGER.debug("CONNECT");
 
         engines = new ArrayList<>();
 
@@ -621,7 +620,6 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
                 // level.setBlock(be.getBlockPos().above(), Blocks.GOLD_BLOCK.defaultBlockState(),3);
 
                 be.engineNumber = i;
-                TFMG.LOGGER.debug("ADD " + be.engineNumber);
                 be.engines = new ArrayList<>();
                 be.controller = getBlockPos();
                 be.refreshCapability();
@@ -641,7 +639,6 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
 
 
             } else {
-                TFMG.LOGGER.debug("END");
                 setBlockStates(this, getBlockPos().relative(updateDirection, i - 1));
                 return;
             }

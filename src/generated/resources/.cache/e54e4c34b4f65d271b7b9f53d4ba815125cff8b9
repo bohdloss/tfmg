@@ -1,4 +1,4 @@
-// 1.20.1	2025-06-02T00:04:37.1876081	Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-06-02T19:12:50.6979345	Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 ff5a5721633b83465ab501cbdfdc579a0f20e938 assets/tfmg/blockstates/accumulator.json
 e982a263b6af75821042107fdeff7bd809436d08 assets/tfmg/blockstates/air_intake.json
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
@@ -436,8 +436,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-b05484c150b66d277472632f6fef20013a2b22bd assets/tfmg/lang/en_ud.json
-fb87388f7dcb25543963fd2c4fcab6bcf7095185 assets/tfmg/lang/en_us.json
+dbe94f89f056a721f3241076c0279987adfd43be assets/tfmg/lang/en_ud.json
+ef530b4e5ae9d78253b1d5812a5c6656cc8bbb5d assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 1d33a893d6ac05f9adaceb7f84423ebe9b195c01 assets/tfmg/models/block/aluminum_cable_hub.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
@@ -1397,6 +1397,7 @@ bff11361b41be887a6a2bbe0b9d663d99f99dde1 assets/tfmg/models/item/nickel_truss.js
 fba52ee3476405c3a2b8d664ea4498d91d3816a8 assets/tfmg/models/item/n_semiconductor.json
 1f4399bb5fd12d755dba4901852c09d90c43debd assets/tfmg/models/item/oil_can.json
 9907695c674afea00d3affefdc2ede9e68aa5667 assets/tfmg/models/item/oil_deposit.json
+bf72512f5085b23f0f1d9d6100e52c75f695b2c7 assets/tfmg/models/item/oil_hammer.json
 f5536a511bd45b6250b97cd31373c7503f38f527 assets/tfmg/models/item/orange_caution_block.json
 3670762634f4e4b1366b6a19253453ad3667655f assets/tfmg/models/item/orange_concrete.json
 c4d486b71f966ee9019ed124e1b84914386386dd assets/tfmg/models/item/orange_concrete_slab.json

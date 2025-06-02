@@ -147,9 +147,7 @@ public class FuseBlockEntity extends ElectricDiodeBlockEntity {
 
 
         Direction facing = getBlockState().getValue(FACING).getCounterClockWise();
-        if (level.getBlockEntity(getBlockPos().relative(facing)) instanceof IElectric be) {
-            TFMG.LOGGER.debug("AMPS " + be.getData().highestCurrent);
-        }
+
 
     }
 

@@ -33,7 +33,8 @@ public class VatRecipeGen extends TFMGRecipeProvider {
             ARC_FURNACE_STEEL = createVatRecipe("arc_furnace_steel", b -> (VatMachineRecipeBuilder) b
                             .require(crushedRawIron())
                             .require(TFMGTags.TFMGItemTags.FLUX.tag)
-                            .require(TFMGTags.TFMGItemTags.BLAST_FURNACE_FUEL.tag)
+                            .require(TFMGItems.COAL_COKE_DUST)
+                            .output(0.9f,TFMGItems.COAL_COKE_DUST)
                             .output(TFMGFluids.MOLTEN_STEEL.get(), 144)
                             .output(TFMGFluids.MOLTEN_SLAG.get(), 288)
                             .duration(20)
@@ -93,26 +94,26 @@ public class VatRecipeGen extends TFMGRecipeProvider {
                             .output(TFMGFluids.CARBON_DIOXIDE.get(), 500)
                             .duration(100)
                             .requiresHeat(HeatCondition.HEATED)
-                    , electrolysis()),
-            DEBUG_5 = createVatRecipe("debug_5", b -> (VatMachineRecipeBuilder) b
-                            .require(Blocks.GOLD_BLOCK.asItem())
-                            .require(Blocks.DIAMOND_BLOCK.asItem())
-                            .require(Blocks.IRON_BLOCK.asItem())
-                            .require(Blocks.COAL_BLOCK.asItem())
-                            .require(TFMGFluids.LIQUID_CONCRETE.getSource(), 1)
-                            .require(TFMGFluids.HEAVY_OIL.getSource(), 1)
-                            .require(TFMGFluids.COOLING_FLUID.getSource(), 1)
-                            .require(TFMGFluids.CRUDE_OIL.getSource(), 1)
-                            .output(TFMGFluids.LIQUID_CONCRETE.get(), 1)
-                            .output(TFMGFluids.HEAVY_OIL.get(), 1)
-                            .output(TFMGFluids.COOLING_FLUID.get(), 1)
-                            .output(TFMGFluids.CRUDE_OIL.get(), 1)
-                            .output(Items.EGG)
-                            .output(Items.ARROW)
-                            .output(Items.DIAMOND)
-                            .output(Items.STRING)
-                    , mixing());
-
+                    , electrolysis())
+            //DEBUG_5 = createVatRecipe("debug_5", b -> (VatMachineRecipeBuilder) b
+            //                .require(Blocks.GOLD_BLOCK.asItem())
+            //                .require(Blocks.DIAMOND_BLOCK.asItem())
+            //                .require(Blocks.IRON_BLOCK.asItem())
+            //                .require(Blocks.COAL_BLOCK.asItem())
+            //                .require(TFMGFluids.LIQUID_CONCRETE.getSource(), 1)
+            //                .require(TFMGFluids.HEAVY_OIL.getSource(), 1)
+            //                .require(TFMGFluids.COOLING_FLUID.getSource(), 1)
+            //                .require(TFMGFluids.CRUDE_OIL.getSource(), 1)
+            //                .output(TFMGFluids.LIQUID_CONCRETE.get(), 1)
+            //                .output(TFMGFluids.HEAVY_OIL.get(), 1)
+            //                .output(TFMGFluids.COOLING_FLUID.get(), 1)
+            //                .output(TFMGFluids.CRUDE_OIL.get(), 1)
+            //                .output(Items.EGG)
+            //                .output(Items.ARROW)
+            //                .output(Items.DIAMOND)
+            //                .output(Items.STRING)
+            //        , mixing());
+;
 
     /// ////
     public VatRecipeParams electrolysis() {

@@ -1,4 +1,5 @@
-// 1.20.1	2025-06-02T00:04:37.217711	TFMG's Recipes
+// 1.20.1	2025-06-02T19:43:23.7526723	TFMG's Recipes
+0ccd64a6f92e02ac35973434259baee47c8294e2 data/create/recipes/mechanical_crafting/advanced_potato_cannon.json
 d779aa2cf2fca905473c494073443d0289484311 data/create/recipes/mechanical_crafting/engine_controller.json
 dd795cb8dd376f621afb3773cadb99c409aaf875 data/create/recipes/mechanical_crafting/flamethrower.json
 e4cd8dd7ad658d3c2d5785fe659aba0e1b9d4f31 data/create/recipes/mechanical_crafting/large_engine.json
@@ -184,6 +185,7 @@ e3ba5880c4ea68c5bb55d4a319b7bba329d62800 data/tfmg/advancements/recipes/misc/cra
 b28e7499cbc4e65a90f4b32acc3cd019c123f85d data/tfmg/advancements/recipes/misc/crafting/kinetics/nickel_nugget_from_decompacting.json
 b454069f626db5b3fb4d28b3500e08e6f3241b36 data/tfmg/advancements/recipes/misc/crafting/kinetics/nickel_truss.json
 07d1d9e23d958f0db636e63c87980a16508a9b05 data/tfmg/advancements/recipes/misc/crafting/kinetics/oil_can.json
+4bb19c00bc3b1b5881c65fbfdc27efa7cfa6a249 data/tfmg/advancements/recipes/misc/crafting/kinetics/oil_hammer.json
 b11887f3e64d6fd41662d5fe25991dc2f21e2524 data/tfmg/advancements/recipes/misc/crafting/kinetics/orange_concrete.json
 d03389e1cf797ff41496c61865350b84565679b6 data/tfmg/advancements/recipes/misc/crafting/kinetics/orange_multimeter.json
 e3e3e8e7d8731ccd25fd110452107089c1d27c61 data/tfmg/advancements/recipes/misc/crafting/kinetics/orange_rebar_concrete.json
@@ -351,7 +353,7 @@ cea30408cc76d443cfa37f2ef7abfcbd9e73b33f data/tfmg/recipes/crafting/kinetics/bra
 91e3374fc0397a437903d684c96ef9c6a7b25eec data/tfmg/recipes/crafting/kinetics/brown_multimeter.json
 3cf5957af0b2dac567c9ac979dcf7a432eaf5991 data/tfmg/recipes/crafting/kinetics/brown_rebar_concrete.json
 3bbd95eb4beea9a48ee58ef36308352fcb477d8c data/tfmg/recipes/crafting/kinetics/cable_connector.json
-f525ae0ae9b3c7047d8b0ac459294e7215e2417c data/tfmg/recipes/crafting/kinetics/cable_tube.json
+46a508fff86299c934624d121ffa640de5d1f9f1 data/tfmg/recipes/crafting/kinetics/cable_tube.json
 9c4f698c0e9ec23a78bfdbe0e873d96d132e5c6e data/tfmg/recipes/crafting/kinetics/casting_basin.json
 7e3e62e029e7ee2ed27436fb9f251ea7fdd120a6 data/tfmg/recipes/crafting/kinetics/cast_iron_block_from_compacting.json
 d37e302532171583f3a1132734e46aebe7f5b127 data/tfmg/recipes/crafting/kinetics/cast_iron_chemical_vat.json
@@ -395,11 +397,11 @@ b0fdc3db2173d73e58b7b3108b30f5275fdb355e data/tfmg/recipes/crafting/kinetics/cra
 cf525b0bb0af060113368e6520485a998087c0fa data/tfmg/recipes/crafting/kinetics/cyan_concrete.json
 1771fdf13ac4669336ea79b0b8f196ccf4d6cd13 data/tfmg/recipes/crafting/kinetics/cyan_multimeter.json
 a510e53b00e5a1b1f0354a6d8d8bfa9eb2d4cf4e data/tfmg/recipes/crafting/kinetics/cyan_rebar_concrete.json
-d1ebfd182c8b618cfd9305732d916dc9bbfe3039 data/tfmg/recipes/crafting/kinetics/diagonal_cable_block.json
+f159c83618a38575c44f90c701d1a9fadacd911f data/tfmg/recipes/crafting/kinetics/diagonal_cable_block.json
 8396fa84d7a7e6317bef36efbc3e27bb17a17caf data/tfmg/recipes/crafting/kinetics/electrical_switch.json
 56353b1f4512b1f71228773211705333ad6f6252 data/tfmg/recipes/crafting/kinetics/electricians_wrench.json
 8cea29f5e4dfa54e66988e30df1d8c06bb4c7287 data/tfmg/recipes/crafting/kinetics/electric_diode.json
-988db255a00eaf1ffc197a68f50afc13225457dd data/tfmg/recipes/crafting/kinetics/electric_post.json
+d7989e59216c2db1430d51f450f8a60cda7fea44 data/tfmg/recipes/crafting/kinetics/electric_post.json
 4ea1681da43b2f072f455de278fcc884df362f4b data/tfmg/recipes/crafting/kinetics/electric_pump.json
 85ff0cd180186c9e267e5aea813763064ef77a9e data/tfmg/recipes/crafting/kinetics/electrode_holder.json
 0d6d42fb45afbf6032071165949ba33ec948319a data/tfmg/recipes/crafting/kinetics/empty_circuit_board.json
@@ -474,6 +476,7 @@ a116692b0ba9dde57a2ad6bb34589d59571fb2c6 data/tfmg/recipes/crafting/kinetics/nic
 dbb8e863fa16906f98ba729cf3c9af17d44c7274 data/tfmg/recipes/crafting/kinetics/nickel_nugget_from_decompacting.json
 8b21eac9fdc5e8e8cd71dee820c0ac3b808f0bf3 data/tfmg/recipes/crafting/kinetics/nickel_truss.json
 0ca28c553bf4efc2d35390414c9c7d02026d4300 data/tfmg/recipes/crafting/kinetics/oil_can.json
+f269d3a74aa57a78d48ec2fa5741b0e0eb773383 data/tfmg/recipes/crafting/kinetics/oil_hammer.json
 4739646509f4f55aacb3d3eb645c537def939fe6 data/tfmg/recipes/crafting/kinetics/orange_concrete.json
 9e6dc59e4f88fb26c79805e6a5f90e71cc07bde2 data/tfmg/recipes/crafting/kinetics/orange_multimeter.json
 db1e461e9a170536708ad573a85de2f4ae425181 data/tfmg/recipes/crafting/kinetics/orange_rebar_concrete.json
@@ -572,7 +575,7 @@ c09b785b8b182879ae71ab49e6604f6b1cf53ec1 data/tfmg/recipes/crafting/kinetics/yel
 b673506b5ef4dd9ea08cc070b3f9f3fc01fa4398 data/tfmg/recipes/crafting/kinetics/zinc_frame.json
 56135df98436c7ff10516c4852cdddaef2367b53 data/tfmg/recipes/crafting/kinetics/zinc_grenade.json
 4871336f9af956193ba3ff11467403b155f15208 data/tfmg/recipes/crafting/kinetics/zinc_truss.json
-f42ff60ced168f9b0905b9f23ad0041c16265165 data/tfmg/recipes/industrial_blasting/silicon.json
+cad99953a957102d764235202cd42e1951c316cf data/tfmg/recipes/industrial_blasting/silicon.json
 0f4f7b1f99d97b40e1abeff52f4233693c54cbaf data/tfmg/recipes/industrial_blasting/steel.json
 4691df4b385cfdd37eee42c5e760e0e503efb42c data/tfmg/recipes/industrial_blasting/steel_from_dust.json
 da11d79db201bb9d1567bda1374e2648cf4c9d67 data/tfmg/recipes/industrial_blasting/steel_from_raw_iron.json
@@ -587,9 +590,8 @@ da11d79db201bb9d1567bda1374e2648cf4c9d67 data/tfmg/recipes/industrial_blasting/s
 5f3d7cd54c775d64eab2341702edc4498bb94b60 data/tfmg/recipes/smelting/nickel_ingot_from_crushed_blasting.json
 85ce7ad0491b53460e0ec02f218d8ffb6d7a7298 data/tfmg/recipes/smelting/unfinished_insulator.json
 90a58e0d9258bdb86cf87dc5a0c9fbe202b98155 data/tfmg/recipes/vat_machine_recipe/aluminum.json
-ed10f72cf5298f2f4558091e8b9e0e6cc489ffa2 data/tfmg/recipes/vat_machine_recipe/arc_furnace_steel.json
+2e7fea696a8b3f38cae48c0f0d1448050f5ff455 data/tfmg/recipes/vat_machine_recipe/arc_furnace_steel.json
 fd950379c54876ace411e616a140cb1d478dd8e1 data/tfmg/recipes/vat_machine_recipe/concrete.json
-9030f8ac9d020c52c90a73370b13851950c61481 data/tfmg/recipes/vat_machine_recipe/debug_5.json
 3c27711ce60595c4b165b4a712d307bd3143c534 data/tfmg/recipes/vat_machine_recipe/etched_circuit_board.json
 afb1fafe00c628a461094a864193a665bf24355d data/tfmg/recipes/vat_machine_recipe/naphtha.json
 3912f2d5f01ed5da6ba98c948b4dd15d9a6b1c20 data/tfmg/recipes/vat_machine_recipe/neon.json

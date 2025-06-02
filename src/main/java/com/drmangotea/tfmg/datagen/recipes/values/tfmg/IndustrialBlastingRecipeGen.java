@@ -19,7 +19,7 @@ public class IndustrialBlastingRecipeGen extends TFMGRecipeProvider{
 
     SILICON = createIndustrialBlastingRecipe("silicon", b -> (IndustrialBlastingRecipeBuilder) b
             .require(Items.QUARTZ)
-            .output(TFMGFluids.LIQUID_SILICON.get(),10)
+            .output(TFMGFluids.LIQUID_SILICON.get(),40)
             .duration(5)
     , 0),
 

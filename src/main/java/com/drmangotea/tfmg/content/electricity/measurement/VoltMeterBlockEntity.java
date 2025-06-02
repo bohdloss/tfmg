@@ -3,6 +3,7 @@ package com.drmangotea.tfmg.content.electricity.measurement;
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.base.TFMGUtils;
 import com.drmangotea.tfmg.content.electricity.base.IElectric;
+import com.drmangotea.tfmg.content.electricity.storage.AccumulatorBlockEntity;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -51,9 +52,6 @@ public class VoltMeterBlockEntity extends SmartBlockEntity implements IHaveGoggl
         BlockEntity beBehind = level.getBlockEntity(getBlockPos().relative(getBlockState().getValue(FACING).getOpposite()));
 
         if (beBehind instanceof IElectric be) {
-            // TFMG.LOGGER.debug("A "+ ElectricalNetwork.getCableCurrent(be));
-            // TFMG.LOGGER.debug("id group "+be.getData().group.id);
-            // TFMG.LOGGER.debug("resistance group "+be.getData().group.resistance);
             value = Math.min(getUnit(be), mode.defaultRange);
 
         } else value = 0;
@@ -66,6 +64,11 @@ public class VoltMeterBlockEntity extends SmartBlockEntity implements IHaveGoggl
             case CURRENT -> be.getCurrent();
             case RESISTANCE -> be.resistance();
             case POWER -> be.powerGeneration() > 0 ? be.powerGeneration() : be.getPowerUsage();
+            case NETWORK_POWER_USAGE -> be.getNetworkPowerUsage();
+            case NETWORK_POWER_GENERATION -> be.getNetworkPowerGeneration();
+            case CAPACITY -> be instanceof AccumulatorBlockEntity accumulator ? level.getBlockEntity(accumulator.controller) instanceof AccumulatorBlockEntity controllerBE ? controllerBE.energy.getEnergyStored() :0 :0;
+
+            case FALLBACK -> 0;
         };
     }
 
@@ -119,7 +122,11 @@ public class VoltMeterBlockEntity extends SmartBlockEntity implements IHaveGoggl
         CURRENT("Current", "A", 16),
         RESISTANCE("Resistance", "Ω", 500),
        // HIGH_RESISTANCE("Resistance (High)", "Ω", 500),
-        POWER("Power", "A", 5000),
+        POWER("Power", "W", 5000),
+        NETWORK_POWER_USAGE("Network Power Usage", "W", 50000),
+        NETWORK_POWER_GENERATION("Network Power Generation", "W", 50000),
+        CAPACITY("Capacity", "Fe", 300000),
+        FALLBACK("fallback", "", 0),
 
 
         ;

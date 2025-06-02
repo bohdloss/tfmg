@@ -73,8 +73,6 @@ public class GeneratorBlockEntity extends KineticElectricBlockEntity  {
     public int generation() {
         float modifier = TFMGConfigs.common().machines.generatorModifier.getF();
         float maxSpeed = TFMGConfigs.common().machines.generatorMinSpeed.getF();
-        if(!level.isClientSide)
-            TFMG.LOGGER.debug("GENERATION: "+(int) Math.max(0,((Math.abs(getSpeed())-maxSpeed)* modifier)));
         return (int) Math.max(0,((Math.abs(getSpeed())-maxSpeed)* modifier));
     }
 

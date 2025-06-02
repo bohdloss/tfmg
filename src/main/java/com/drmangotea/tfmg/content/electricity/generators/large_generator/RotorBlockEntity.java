@@ -70,6 +70,7 @@ public class RotorBlockEntity extends KineticElectricBlockEntity {
     public void onPlaced() {
         super.onPlaced();
         findStators();
+        updateNextTick();
     }
 
     @Override

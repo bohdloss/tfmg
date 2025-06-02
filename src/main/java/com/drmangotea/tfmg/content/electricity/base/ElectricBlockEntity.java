@@ -159,9 +159,7 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     @Override
     public void setVoltage(int newVoltage) {
 
-        //if(this instanceof LightBulbBlockEntity be&&be.color == DyeColor.WHITE){
-        //    TFMG.LOGGER.debug("Rezistancja Grup "+data.group.resistance);
-        //}
+
 
         if (canBeInGroups()) {
             data.voltage = (int) (((float) resistance() / data.group.resistance) * (float) data.voltageSupply);

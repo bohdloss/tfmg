@@ -105,6 +105,10 @@
   "create.winding_machine.turn_percentage": "Allowed Turn Percentage (From 1000)",
   "create.creative_generator.voltage_generation": "Voltage Generation",
 
+  "create.distillation_output.when_tank_is_full": "When Internal Tank is Full",
+  "create.distillation_output.mode.keep_fluid": "Stop Distillation Process",
+  "create.distillation_output.mode.void_when_full": "Void Excess Fluid",
+
   "death.attack.tfmg.concrete": "%1$s tried to eat Concrete",
   "death.attack.tfmg.concrete.player": "%1$s tried to eat Concrete",
 
@@ -155,6 +159,8 @@
   "effect.tfmg.hellfire": "Hellfire",
 
   "create.wires.removed_data": "Data Removed",
+
+  "create.oil_hammer.reserves": "Oil Reserves: %1$s",
 
 
 

@@ -159,8 +159,6 @@ public class ConcreteFillingBehavior extends TFMGFluidManipulationBehaviour {
 
 		boolean success = false;
 
-		TFMG.LOGGER.debug("queueweueue "+queue.size());
-
 		for (int i = 0; !success && !queue.isEmpty() && i < searchedPerTick; i++) {
 			BlockPosEntry entry = queue.first();
 			BlockPos currentPos = entry.pos();

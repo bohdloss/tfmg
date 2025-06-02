@@ -685,8 +685,18 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern(" A ")
                     .pattern("   ")),
 
+    OIL_HAMMER = create(TFMGItems.OIL_HAMMER)
+            .unlockedBy(TFMGItems.ALUMINUM_INGOT::get)
+            .viaShaped(b -> b
+                    .define('O', steelIngot())
+                    .define('R', rebar())
+                    .define('A', aluminumSheet())
+                    .pattern("OOA")
+                    .pattern(" R ")
+                    .pattern(" R ")),
 
-    CABLE_TUBE = create(TFMGBlocks.CABLE_TUBE)
+
+    CABLE_TUBE = create(TFMGBlocks.CABLE_TUBE).returns(8)
             .unlockedBy(TFMGItems.RUBBER_SHEET::get)
             .viaShaped(b -> b
                     .define('C', copperWire())
@@ -696,7 +706,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("CRC")
                     .pattern(" N ")),
 
-    DIAGONAL_CABLE = create(TFMGBlocks.DIAGONAL_CABLE_BLOCK)
+    DIAGONAL_CABLE = create(TFMGBlocks.DIAGONAL_CABLE_BLOCK).returns(8)
             .unlockedBy(TFMGItems.RUBBER_SHEET::get)
             .viaShaped(b -> b
                     .define('C', copperWire())
@@ -706,7 +716,7 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("CRN")
                     .pattern(" N ")),
 
-    ELECTRIC_POST = create(TFMGBlocks.ELECTRIC_POST)
+    ELECTRIC_POST = create(TFMGBlocks.ELECTRIC_POST).returns(4)
             .unlockedBy(TFMGItems.COPPER_WIRE::get)
             .viaShaped(b -> b
                     .define('C', copperWire())

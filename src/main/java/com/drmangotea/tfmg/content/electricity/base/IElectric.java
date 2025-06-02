@@ -206,7 +206,6 @@ public interface IElectric {
 
         for (Direction direction : Direction.values()) {
             if (member.getLevelAccessor().getBlockEntity(BlockPos.of(member.getPos()).relative(direction)) instanceof IElectric be && be.getData().getId() != member.getData().getId()) {
-                TFMG.LOGGER.debug("SIGMA");
                 be.getLevelAccessor().setBlock(BlockPos.of(be.getPos()).above(3), Blocks.GOLD_BLOCK.defaultBlockState(), 3);
                 be.updateNextTick();
             }

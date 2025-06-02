@@ -7,11 +7,9 @@ import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.api.equipment.goggles.IHaveHoveringInformation;
 import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,7 +33,6 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
             data.group = new ElectricalGroup(-1);
         }
     }
-
 
 
     @Override
@@ -70,7 +67,7 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
             this.blockFail();
             data.failTimer = 0;
             sendStuff();
-        } else if ((data.voltage > getMaxVoltage() && getMaxVoltage() > 0) || (getCurrent() > getMaxCurrent()&&getMaxCurrent()>0)) {
+        } else if ((data.voltage > getMaxVoltage() && getMaxVoltage() > 0) || (getCurrent() > getMaxCurrent() && getMaxCurrent() > 0)) {
             data.failTimer++;
         }
     }
@@ -79,8 +76,6 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
     public ElectricBlockValues getData() {
         return data;
     }
-
-
 
 
     @Override
@@ -113,7 +108,6 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
     }
 
 
-
     @Override
     public int powerGeneration() {
 
@@ -122,15 +116,15 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
         for (Direction direction : Direction.values()) {
             if (hasElectricitySlot(direction)) {
 
-                if (level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be&&be.canWork()) {
+                if (level.getBlockEntity(getBlockPos().relative(direction)) instanceof VoltageAlteringBlockEntity be && be.canWork()) {
 
                     if (be.getData().getId() != getData().getId())
                         if (be.getData().getVoltage() != 0)
                             if (be.hasElectricitySlot(direction)) {
                                 powerGeneration = Math.max(powerGeneration, be.getPowerUsage()) + 1;
-                                if(powerGeneration>be.getNetworkPowerGeneration()) {
+                                if (powerGeneration > be.getNetworkPowerGeneration()) {
                                     powerGeneration = 0;
-                                    be.data.updatePowerNextTick=true;
+                                    be.data.updatePowerNextTick = true;
                                 }
                             }
                 }
@@ -166,9 +160,6 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
     @Override
     public void setVoltage(int newVoltage) {
 
-        //if(this instanceof LightBulbBlockEntity be&&be.color == DyeColor.WHITE){
-        //    TFMG.LOGGER.debug("Rezistancja Grup "+data.group.resistance);
-        //}
 
         if (canBeInGroups()) {
             data.voltage = (int) (((float) resistance() / data.group.resistance) * (float) data.voltageSupply);
@@ -283,13 +274,13 @@ public class KineticElectricBlockEntity extends GeneratingKineticBlockEntity imp
     public void onSpeedChanged(float previousSpeed) {
         super.onSpeedChanged(previousSpeed);
 
-        if(this instanceof RegularEngineBlockEntity)
-       // TFMG.LOGGER.debug("SPEEED CHANGED "+getBlockPos().getX()+" "+getBlockPos().getY()+" "+getBlockPos().getZ());
-        notifyNetworkAboutSpeedChange();
+        if (this instanceof RegularEngineBlockEntity)
+            notifyNetworkAboutSpeedChange();
         timer = 0;
 
     }
-    public void notifyNetworkAboutSpeedChange(){
+
+    public void notifyNetworkAboutSpeedChange() {
         updateNextTick();
     }
 }
