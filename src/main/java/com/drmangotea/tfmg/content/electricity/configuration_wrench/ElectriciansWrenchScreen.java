@@ -10,6 +10,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ElectriciansWrenchScreen extends AbstractSimiScreen {
 
@@ -106,7 +108,7 @@ public class ElectriciansWrenchScreen extends AbstractSimiScreen {
         //packet.applyGroup(wrench);
         //TFMGPackets.getChannel().sendToServer(packet);
     }
-
+    @OnlyIn(Dist.CLIENT)
     public TFMGGuiTextures background(){
         return TFMGGuiTextures.ELECTRICIANS_WRENCH;
     }

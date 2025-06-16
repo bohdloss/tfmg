@@ -153,6 +153,8 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
     @Override
     public float calculateAddedStressCapacity() {
         float stress = super.calculateAddedStressCapacity() + (torque);
+
+
         return hasTwoShafts() ? stress / 2 : stress;
     }
 
@@ -655,6 +657,11 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
     public void remove() {
         super.remove();
         updateOthers();
+        for(int i =0;i<componentsInventory.getSlots();i++){
+            ItemStack stack = componentsInventory.getItem(i);
+            dropItem(stack);
+
+        }
     }
 
     public void updateOthers() {

@@ -135,7 +135,7 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
         if (Math.min(generatedSpeed.getValue(), data.getVoltage() / 2) == 0)
             return super.getPowerUsage();
 
-        float speedModifier = (Math.min(Math.abs(generatedSpeed.getValue()), data.getVoltage()) / 256f) * 5;
+        float speedModifier = (Math.min(Math.abs(generatedSpeed.getValue()), data.getVoltage()) / 256f) * 8;
 
 
         return (int) ((float) super.getPowerUsage() * speedModifier);

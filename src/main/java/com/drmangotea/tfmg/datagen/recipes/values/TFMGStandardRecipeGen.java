@@ -1075,6 +1075,17 @@ public class TFMGStandardRecipeGen extends TFMGRecipeProvider {
                     .pattern("OCA")
                     .pattern(" R ")),
 
+    STEEL_VERTICAL_GEARBOX = create(TFMGItems.STEEL_VERTICAL_GEARBOX::get)
+            .unlockedBy(() -> TFMGBlocks.STEEL_GEARBOX)
+            .viaShapeless(b -> b
+                    .requires(TFMGBlocks.STEEL_GEARBOX)),
+
+    STEEL_GEARBOX_FROM_VERTICAL = create(TFMGBlocks.STEEL_GEARBOX::get).withSuffix("_from_vertical")
+            .unlockedBy(() -> TFMGItems.STEEL_VERTICAL_GEARBOX)
+            .viaShapeless(b -> b
+                    .requires(TFMGItems.STEEL_VERTICAL_GEARBOX)),
+
+
     OIL_CAN = create(TFMGItems.OIL_CAN)
             .unlockedBy(TFMGItems.STEEL_NUGGET::get)
             .viaShaped(b -> b

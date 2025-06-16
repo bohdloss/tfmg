@@ -1,4 +1,4 @@
-// 1.20.1	2025-06-02T19:12:50.6979345	Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-06-15T22:13:55.8425293	Registrate Provider for tfmg [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 ff5a5721633b83465ab501cbdfdc579a0f20e938 assets/tfmg/blockstates/accumulator.json
 e982a263b6af75821042107fdeff7bd809436d08 assets/tfmg/blockstates/air_intake.json
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
@@ -436,8 +436,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-dbe94f89f056a721f3241076c0279987adfd43be assets/tfmg/lang/en_ud.json
-ef530b4e5ae9d78253b1d5812a5c6656cc8bbb5d assets/tfmg/lang/en_us.json
+af2f4008e746d0401cbac66fe634254b1a8618db assets/tfmg/lang/en_ud.json
+f92b05559cd13e89b06fc746011e98872b4f2f78 assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 1d33a893d6ac05f9adaceb7f84423ebe9b195c01 assets/tfmg/models/block/aluminum_cable_hub.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
@@ -1738,7 +1738,7 @@ ccae2d221dc320981c331f4b8e07fe159176557a data/forge/tags/items/wires/constantan.
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/blocks/infiniburn_overworld.json
 543dbb3bba839c96d454f6e26e7e97ce5ae9dc4e data/minecraft/tags/blocks/lush_ground_replaceable.json
 ce9859e451c5416d7b62258a3f2f2486739b19cc data/minecraft/tags/blocks/mineable/axe.json
-8b740d9b4d737a4e358df8bfa7d6504499b4f80d data/minecraft/tags/blocks/mineable/pickaxe.json
+14549159fc4967cb7bb8f7e4343c5db89b82d8af data/minecraft/tags/blocks/mineable/pickaxe.json
 9c7d1d075d20521106a7076ae12804d8e2ac6764 data/minecraft/tags/blocks/mineable/shovel.json
 543dbb3bba839c96d454f6e26e7e97ce5ae9dc4e data/minecraft/tags/blocks/moss_replaceable.json
 dfca9f1cc79d30334f344f024c13a7c717bf4027 data/minecraft/tags/blocks/needs_iron_tool.json

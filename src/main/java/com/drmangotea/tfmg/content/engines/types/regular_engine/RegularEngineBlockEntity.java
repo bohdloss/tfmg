@@ -146,6 +146,15 @@ public class RegularEngineBlockEntity extends AbstractSmallEngineBlockEntity {
     }
 
     @Override
+    public float calculateAddedStressCapacity() {
+        float stress = super.calculateAddedStressCapacity() + (torque);
+
+        stress *= pistonInventory.getSlots()/2f;
+
+        return hasTwoShafts() ? stress / 2 : stress;
+    }
+
+    @Override
     public boolean insertItem(ItemStack itemStack, boolean shifting, Player player, InteractionHand hand) {
 
 
@@ -223,6 +232,16 @@ public class RegularEngineBlockEntity extends AbstractSmallEngineBlockEntity {
         }
 
         return super.insertItem(itemStack, shifting, player, hand);
+    }
+
+    @Override
+    public void remove() {
+        super.remove();
+        for(int i =0;i<pistonInventory.getSlots();i++){
+            ItemStack stack = pistonInventory.getItem(i);
+            dropItem(stack);
+
+        }
     }
 
     public boolean isCorrectCylinder(ItemStack itemStack) {
@@ -380,6 +399,10 @@ public class RegularEngineBlockEntity extends AbstractSmallEngineBlockEntity {
                     .add(Component.empty().append(nextComponent().getItems()[0].getHoverName()))
                     .color(0xfff240)
                     .forGoggles(tooltip);
+            CreateLang.translate("goggles.engine.type")
+                    .add(CreateLang.text(type.name()))
+                    .color(0xfcad03)
+                    .forGoggles(tooltip);
             return true;
         }
         if(!hasAllPistons()){
@@ -428,6 +451,11 @@ public class RegularEngineBlockEntity extends AbstractSmallEngineBlockEntity {
         TFMGUtils.createFluidTooltip(this,tooltip);
 
         return true;
+    }
+
+    @Override
+    public int getFuelConsumption() {
+        return super.getFuelConsumption()*(pistonInventory.getSlots()/2);
     }
 
     @Override

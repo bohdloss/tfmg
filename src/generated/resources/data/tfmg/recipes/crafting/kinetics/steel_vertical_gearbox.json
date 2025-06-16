@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "tfmg:steel_gearbox"
+    }
+  ],
+  "result": {
+    "item": "tfmg:steel_vertical_gearbox"
+  }
+}

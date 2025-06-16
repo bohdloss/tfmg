@@ -5,7 +5,11 @@ import com.drmangotea.tfmg.base.fluid.GasFluidType;
 import com.simibubi.create.content.fluids.VirtualFluid;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.VirtualFluidBuilder;
+import com.simibubi.create.foundation.item.ItemDescription;
+import com.simibubi.create.foundation.item.KineticStats;
+import com.simibubi.create.foundation.item.TooltipModifier;
 import com.tterrag.registrate.builders.FluidBuilder;
+import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
@@ -40,7 +44,10 @@ public class TFMGRegistrate extends CreateRegistrate {
     }
 
     public static TFMGRegistrate create() {
-        return new TFMGRegistrate();
+        return (TFMGRegistrate) new TFMGRegistrate().setTooltipModifierFactory(item ->
+                new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)
+                        .andThen(TooltipModifier.mapNull(KineticStats.create(item)))
+        );
     }
 
     public static Block getBlock(String name) {

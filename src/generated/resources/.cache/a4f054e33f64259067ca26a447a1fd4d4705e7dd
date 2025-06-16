@@ -1,4 +1,4 @@
-// 1.20.1	2025-06-02T19:43:23.7526723	TFMG's Recipes
+// 1.20.1	2025-06-07T11:35:38.5913428	TFMG's Recipes
 0ccd64a6f92e02ac35973434259baee47c8294e2 data/create/recipes/mechanical_crafting/advanced_potato_cannon.json
 d779aa2cf2fca905473c494073443d0289484311 data/create/recipes/mechanical_crafting/engine_controller.json
 dd795cb8dd376f621afb3773cadb99c409aaf875 data/create/recipes/mechanical_crafting/flamethrower.json
@@ -247,6 +247,7 @@ db80b79162a837425ca0a46192c8a6bb85b5e496 data/tfmg/advancements/recipes/misc/cra
 d4b688ffa269e25091b4f320d2c5f7a279485fcd data/tfmg/advancements/recipes/misc/crafting/kinetics/steel_flywheel.json
 0ad172298d106ca9576331bee39ad8769c796a1a data/tfmg/advancements/recipes/misc/crafting/kinetics/steel_frame.json
 19426888f8a0e5cbc07f88f0a483ade846670b34 data/tfmg/advancements/recipes/misc/crafting/kinetics/steel_gearbox.json
+acf319407df5375f95ad5e6b0e05ffc259d57bdd data/tfmg/advancements/recipes/misc/crafting/kinetics/steel_gearbox_from_vertical.json
 b257112e16b86ecbf4aa7bbe7470dc365c35bfc1 data/tfmg/advancements/recipes/misc/crafting/kinetics/steel_helmet.json
 85316b484a0fb8e8ee43961b74fe2f6fc254c036 data/tfmg/advancements/recipes/misc/crafting/kinetics/steel_hoe.json
 1824f9dfdd41baeb4f67a8b4d552c98ef0caba6d data/tfmg/advancements/recipes/misc/crafting/kinetics/steel_ingot_from_compacting.json
@@ -262,6 +263,7 @@ fa14ee77919cf82a7929ab35fcc3a17112449f73 data/tfmg/advancements/recipes/misc/cra
 eb4bb87101f088c4678b280112ce7437790a4aed data/tfmg/advancements/recipes/misc/crafting/kinetics/steel_sword.json
 94076440ec4d3c03f0022ad1fff99da9a937440f data/tfmg/advancements/recipes/misc/crafting/kinetics/steel_trapdoor.json
 5bedeae8d74040e986da14567ecd57c743a1963f data/tfmg/advancements/recipes/misc/crafting/kinetics/steel_truss.json
+e5caf51e1748920363428784868db7a55592a426 data/tfmg/advancements/recipes/misc/crafting/kinetics/steel_vertical_gearbox.json
 8ed75de5e8d2f8c3058dc792d3bb12db254becb5 data/tfmg/advancements/recipes/misc/crafting/kinetics/surface_scanner.json
 4bdf74647a71120ff9f5bb1a3fa50a1290b8ccf0 data/tfmg/advancements/recipes/misc/crafting/kinetics/thermite_grenade.json
 d7175bb0b6e8a62b9fcf97329c5ee4ecb54be7fb data/tfmg/advancements/recipes/misc/crafting/kinetics/traffic_light.json
@@ -538,6 +540,7 @@ f6e94323afd75335409a3b4cbd4ae531b7694692 data/tfmg/recipes/crafting/kinetics/ste
 b3d3546d4cca17a1036597d06fddd8bf66ee14a6 data/tfmg/recipes/crafting/kinetics/steel_flywheel.json
 c0b37cf345817c336c4891c194565d2cc935d130 data/tfmg/recipes/crafting/kinetics/steel_frame.json
 90fa531bd0be9688a0297f2cbb501b4d86d6b625 data/tfmg/recipes/crafting/kinetics/steel_gearbox.json
+43e2df99462661e888fbecca096ad5b9fc2eaea4 data/tfmg/recipes/crafting/kinetics/steel_gearbox_from_vertical.json
 ab14805eb7d2fca1bbc9e16967ced3fa3d10298d data/tfmg/recipes/crafting/kinetics/steel_helmet.json
 027d4a98cf72e60ed27a208db41cbbbf610b17c0 data/tfmg/recipes/crafting/kinetics/steel_hoe.json
 7ebc56791f818aac716a0ac79d17b9a28b7d921b data/tfmg/recipes/crafting/kinetics/steel_ingot_from_compacting.json
@@ -553,6 +556,7 @@ f676614f0f6d938475a95d68cd42987e7d2bf546 data/tfmg/recipes/crafting/kinetics/ste
 3e23426519f6a57190eef8a97f95a45161543c65 data/tfmg/recipes/crafting/kinetics/steel_sword.json
 ab396a335570bb51ffd48a3a132f100659876a39 data/tfmg/recipes/crafting/kinetics/steel_trapdoor.json
 ec2b049221a205ef7b924f0f31c260e62c75cabd data/tfmg/recipes/crafting/kinetics/steel_truss.json
+04ac7d3b10730a2efc0278150fe366afa0b1c7bc data/tfmg/recipes/crafting/kinetics/steel_vertical_gearbox.json
 e6a57f9ad1a19c5e810b3cd51c8e57d7a5bf51e9 data/tfmg/recipes/crafting/kinetics/surface_scanner.json
 aa978f85d3bdbbadad2089aaa5779e2217d88eed data/tfmg/recipes/crafting/kinetics/thermite_grenade.json
 b1050ac6cc5e2b4194d935969c9336a71a980851 data/tfmg/recipes/crafting/kinetics/traffic_light.json
