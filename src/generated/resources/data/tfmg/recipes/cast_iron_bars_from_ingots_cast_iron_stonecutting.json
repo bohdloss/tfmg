@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 4,
-  "ingredient": {
-    "tag": "forge:ingots/cast_iron"
-  },
-  "result": "tfmg:cast_iron_bars"
-}

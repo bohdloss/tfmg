@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "tag": "forge:ingots/aluminum"
-  },
-  "result": "tfmg:factory_floor"
-}

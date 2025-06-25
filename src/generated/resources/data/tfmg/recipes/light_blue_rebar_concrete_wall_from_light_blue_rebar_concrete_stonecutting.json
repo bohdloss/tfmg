@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "tfmg:light_blue_rebar_concrete"
-  },
-  "result": "tfmg:light_blue_rebar_concrete_wall"
-}

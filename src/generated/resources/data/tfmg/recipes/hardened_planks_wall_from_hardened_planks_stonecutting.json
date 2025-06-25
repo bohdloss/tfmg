@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "tfmg:hardened_planks"
-  },
-  "result": "tfmg:hardened_planks_wall"
-}
