@@ -3,9 +3,9 @@ package com.drmangotea.tfmg.recipes.jei;
 import com.drmangotea.tfmg.TFMG;
 import com.drmangotea.tfmg.recipes.*;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
+import com.drmangotea.tfmg.registry.TFMGFluids;
 import com.drmangotea.tfmg.registry.TFMGItems;
 import com.drmangotea.tfmg.registry.TFMGRecipeTypes;
-import com.simibubi.create.Create;
 import com.simibubi.create.compat.jei.*;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.content.equipment.blueprint.BlueprintScreen;
@@ -14,7 +14,6 @@ import com.simibubi.create.content.redstone.link.controller.LinkedControllerScre
 import com.simibubi.create.content.trains.schedule.ScheduleScreen;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
-
 import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.config.CRecipes;
@@ -32,6 +31,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -88,30 +88,23 @@ public class TFMGJei implements IModPlugin {
                         .catalyst(TFMGBlocks.FIREPROOF_BRICKS::get)
                         .catalyst(TFMGBlocks.FIREPROOF_BRICK_REINFORCEMENT::get)
                         .catalyst(TFMGBlocks.BLAST_FURNACE_REINFORCEMENT::get)
-                        .catalyst(TFMGBlocks.BLAST_FURNACE_REINFORCEMENT_WALL::get)
                         .catalyst(TFMGBlocks.BLAST_FURNACE_HATCH::get)
                         .itemIcon(TFMGBlocks.BLAST_FURNACE_OUTPUT.get())
                         .emptyBackground(177, 150)
                         .build("industrial_blasting", IndustrialBlastingCategory::new),
 
-                casting = builder(CastingRecipe.class)
-                        .addTypedRecipes(TFMGRecipeTypes.CASTING)
-                        .catalyst(TFMGBlocks.CASTING_BASIN::get)
-                        .catalyst(TFMGItems.STEEL_INGOT::get)
-                        .itemIcon(TFMGBlocks.CASTING_BASIN.get())
-                        .emptyBackground(177, 53)
-                        .build("casting", CastingCategory::new),
 
                 hot_blast = builder(HotBlastRecipe.class)
                         .addTypedRecipes(TFMGRecipeTypes.HOT_BLAST)
                         .catalyst(TFMGBlocks.BLAST_STOVE::get)
+                        .catalyst(TFMGBlocks.BLAST_FURNACE_HATCH::get)
                         .itemIcon(TFMGBlocks.BLAST_STOVE.get())
                         .emptyBackground(177, 110)
                         .build("hot_blast", HotBlastCategory::new),
 
                 polarizing = builder(PolarizingRecipe.class)
                         .addTypedRecipes(TFMGRecipeTypes.POLARIZING)
-
+                        .catalyst(Blocks.LIGHTNING_ROD::asItem)
                         .catalyst(TFMGBlocks.POLARIZER::get)
                         .itemIcon(TFMGBlocks.POLARIZER.get())
                         .emptyBackground(177, 53)
@@ -120,9 +113,18 @@ public class TFMGJei implements IModPlugin {
                 winding = builder(WindingRecipe.class)
                         .addTypedRecipes(TFMGRecipeTypes.WINDING)
                         .catalyst(TFMGBlocks.WINDING_MACHINE::get)
+                        .catalyst(TFMGItems.COPPER_SPOOL::get)
+                        .catalyst(TFMGItems.CONSTANTAN_SPOOL::get)
                         .itemIcon(TFMGBlocks.WINDING_MACHINE.get())
                         .emptyBackground(177, 53)
-                        .build("winding", WindingCategory::new);
+                        .build("winding", WindingCategory::new),
+
+                casting = builder(CastingRecipe.class)
+                        .addTypedRecipes(TFMGRecipeTypes.CASTING)
+                        .catalyst(TFMGBlocks.CASTING_BASIN::get)
+                        .itemIcon(TFMGBlocks.CASTING_BASIN.get())
+                        .emptyBackground(177, 53)
+                        .build("casting", CastingCategory::new);
 
     }
 

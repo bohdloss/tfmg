@@ -2,7 +2,7 @@ package com.drmangotea.tfmg.content.machinery.metallurgy.casting_basin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import com.simibubi.create.foundation.fluid.FluidRenderer;
+import net.createmod.catnip.platform.ForgeCatnipServices;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
@@ -19,25 +19,25 @@ public class CastingBasinRenderer extends SafeBlockEntityRenderer<CastingBasinBl
         if (be.tank.isEmpty())
             return;
         BlockState blockState = be.getBlockState();
-        FluidRenderer.renderFluidBox(be.tank.getFluid().getFluid(), be.tank.getFluid().getAmount(), 0.1f, 0.1f, 0.1f, 0.9f, be.fluidLevel.getValue(partialTicks) / 400, 0.9f, buffer, ms, light, false, false, be.tank.getFluid().getTag());
+        ForgeCatnipServices.FLUID_RENDERER.renderFluidBox(be.tank.getFluid(), 0.1f, 0.1f, 0.1f, 0.9f, be.fluidLevel.getValue(partialTicks) / 400, 0.9f, buffer, ms, light, false, false);
         if (be.flowTimer > 0) {
 
             Direction facing = blockState.getValue(FACING);
             if (facing == Direction.NORTH) {
-                FluidRenderer.renderFluidBox(be.tank.getFluid().getFluid(), be.tank.getFluid().getAmount(), (7 / 16f), (8 / 16f), (8 / 16f), (9 / 16f), (9 / 16f), (14 / 16f), buffer, ms, light, false, false, be.tank.getFluid().getTag());
-                FluidRenderer.renderFluidBox(be.tank.getFluid().getFluid(), be.tank.getFluid().getAmount(), (7 / 16f), (1 / 16f), (8 / 16f), (9 / 16f), (8 / 16f), (10 / 16f), buffer, ms, light, false, false, be.tank.getFluid().getTag());
+                ForgeCatnipServices.FLUID_RENDERER.renderFluidBox(be.tank.getFluid(), (7 / 16f), (8 / 16f), (8 / 16f), (9 / 16f), (9 / 16f), (14 / 16f), buffer, ms, light, false, false);
+                ForgeCatnipServices.FLUID_RENDERER.renderFluidBox(be.tank.getFluid(), (7 / 16f), (1 / 16f), (8 / 16f), (9 / 16f), (8 / 16f), (10 / 16f), buffer, ms, light, false, false);
             }
             if (facing == Direction.SOUTH) {
-                FluidRenderer.renderFluidBox(be.tank.getFluid().getFluid(), be.tank.getFluid().getAmount(), (7 / 16f), (2 / 16f), (6 / 16f), (9 / 16f), (9 / 16f), (8 / 16f), buffer, ms, light, false, false, be.tank.getFluid().getTag());
-                FluidRenderer.renderFluidBox(be.tank.getFluid().getFluid(), be.tank.getFluid().getAmount(), (7 / 16f), (8 / 16f), (2 / 16f), (9 / 16f), (9 / 16f), (6 / 16f), buffer, ms, light, false, false, be.tank.getFluid().getTag());
+                ForgeCatnipServices.FLUID_RENDERER.renderFluidBox(be.tank.getFluid(), (7 / 16f), (2 / 16f), (6 / 16f), (9 / 16f), (9 / 16f), (8 / 16f), buffer, ms, light, false, false);
+                ForgeCatnipServices.FLUID_RENDERER.renderFluidBox(be.tank.getFluid(), (7 / 16f), (8 / 16f), (2 / 16f), (9 / 16f), (9 / 16f), (6 / 16f), buffer, ms, light, false, false);
             }
             if (facing == Direction.WEST) {
-                FluidRenderer.renderFluidBox(be.tank.getFluid().getFluid(), be.tank.getFluid().getAmount(), (8 / 16f), (2 / 16f), (7 / 16f), (10 / 16f), (9 / 16f), (9 / 16f), buffer, ms, light, false, false, be.tank.getFluid().getTag());
-                FluidRenderer.renderFluidBox(be.tank.getFluid().getFluid(), be.tank.getFluid().getAmount(), (10 / 16f), (8 / 16f), (7 / 16f), (14 / 16f), (9 / 16f), (9 / 16f), buffer, ms, light, false, false, be.tank.getFluid().getTag());
+                ForgeCatnipServices.FLUID_RENDERER.renderFluidBox(be.tank.getFluid(), (8 / 16f), (2 / 16f), (7 / 16f), (10 / 16f), (9 / 16f), (9 / 16f), buffer, ms, light, false, false);
+                ForgeCatnipServices.FLUID_RENDERER.renderFluidBox(be.tank.getFluid(), (10 / 16f), (8 / 16f), (7 / 16f), (14 / 16f), (9 / 16f), (9 / 16f), buffer, ms, light, false, false);
             }
             if (facing == Direction.EAST) {
-                FluidRenderer.renderFluidBox(be.tank.getFluid().getFluid(), be.tank.getFluid().getAmount(), (6 / 16f), (2 / 16f), (7 / 16f), (8 / 16f), (9 / 16f), (9 / 16f), buffer, ms, light, false, false, be.tank.getFluid().getTag());
-                FluidRenderer.renderFluidBox(be.tank.getFluid().getFluid(), be.tank.getFluid().getAmount(), (2 / 16f), (8 / 16f), (7 / 16f), (6 / 16f), (9 / 16f), (9 / 16f), buffer, ms, light, false, false, be.tank.getFluid().getTag());
+                ForgeCatnipServices.FLUID_RENDERER.renderFluidBox(be.tank.getFluid(), (6 / 16f), (2 / 16f), (7 / 16f), (8 / 16f), (9 / 16f), (9 / 16f), buffer, ms, light, false, false);
+                ForgeCatnipServices.FLUID_RENDERER.renderFluidBox(be.tank.getFluid(), (2 / 16f), (8 / 16f), (7 / 16f), (6 / 16f), (9 / 16f), (9 / 16f), buffer, ms, light, false, false);
             }
 
         }

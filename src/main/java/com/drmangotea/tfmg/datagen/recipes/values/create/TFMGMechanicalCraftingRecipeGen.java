@@ -8,7 +8,7 @@ import com.drmangotea.tfmg.registry.TFMGItems;
 import com.google.common.base.Supplier;
 import com.simibubi.create.Create;
 
-import com.simibubi.create.foundation.data.recipe.MechanicalCraftingRecipeBuilder;
+import com.simibubi.create.api.data.recipe.MechanicalCraftingRecipeBuilder;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -23,7 +23,7 @@ public class TFMGMechanicalCraftingRecipeGen extends TFMGRecipeProvider {
 
             ENGINE_CONTROLLER = create(TFMGBlocks.ENGINE_CONTROLLER::get)
             .recipe(b -> b
-                    .key('R', rubber())
+                    .key('R',  rubber())
                     .key('S', shaft())
                     .key('V', TFMGBlocks.VOLTMETER)
                     .key('W', copperWire())

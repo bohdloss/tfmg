@@ -106,8 +106,9 @@
   "create.creative_generator.voltage_generation": "Voltage Generation",
 
   "create.distillation_output.when_tank_is_full": "When Internal Tank is Full",
-  "create.distillation_output.mode.keep_fluid": "Stop Distillation Process",
-  "create.distillation_output.mode.void_when_full": "Void Excess Fluid",
+  "distillation_output.mode.keep_fluid": "Stop Distillation Process",
+  "distillation_output.mode.void_when_full": "Void Excess Fluid",
+  "create.traffic_light.timer": "Traffic Light Cycle Timer",
 
   "death.attack.tfmg.concrete": "%1$s tried to eat Concrete",
   "death.attack.tfmg.concrete.player": "%1$s tried to eat Concrete",
@@ -124,13 +125,14 @@
   "create.tooltip.cylinder": "Supported Fuels:",
   "create.tooltip.fluid_item": "Fluid Amount: %1$s",
 
-  "create.recipe.assembly.winding": "Wind %1$s",
+  "create.recipe.assembly.winding": "Wind a Spool",
 
   "create.recipe.distillation": "Distillation",
   "create.recipe.advanced_distillation": "Advanced Distillation",
   "create.recipe.industrial_blasting": "Industrial Blasting",
   "create.recipe.casting": "Casting",
   "create.recipe.coking": "Coking",
+  "create.recipe.winding": "Winding",
   "create.recipe.polarizing": "Polarizing",
   "create.recipe.chemical_vat": "Chemical Vat",
   "create.recipe.hot_blast": "Air Blasting",

@@ -7,12 +7,12 @@ import com.drmangotea.tfmg.content.decoration.doors.TFMGSlidingDoorRenderer;
 import com.drmangotea.tfmg.content.decoration.flywheels.TFMGFlywheelBlockEntity;
 import com.drmangotea.tfmg.content.decoration.flywheels.TFMGFlywheelRenderer;
 import com.drmangotea.tfmg.content.decoration.flywheels.TFMGFlywheelVisual;
+import com.drmangotea.tfmg.content.decoration.pipes.TFMGEncasedPipeBlock;
 import com.drmangotea.tfmg.content.decoration.pipes.TFMGPipeBlockEntity;
 import com.drmangotea.tfmg.content.decoration.pipes.TFMGPipes;
 import com.drmangotea.tfmg.content.decoration.tanks.TFMGFluidTankRenderer;
 import com.drmangotea.tfmg.content.decoration.tanks.steel.SteelFluidTankRenderer;
 import com.drmangotea.tfmg.content.decoration.tanks.steel.SteelTankBlockEntity;
-import com.drmangotea.tfmg.content.electricity.base.ElectricBlockEntity;
 import com.drmangotea.tfmg.content.electricity.connection.cable_hub.CableHubBlockEntity;
 import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnectorBlockEntity;
 import com.drmangotea.tfmg.content.electricity.connection.cables.CableConnectorRenderer;
@@ -76,6 +76,7 @@ import com.drmangotea.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenRender
 import com.drmangotea.tfmg.content.machinery.misc.air_intake.AirIntakeBlockEntity;
 import com.drmangotea.tfmg.content.machinery.misc.air_intake.AirIntakeRenderer;
 import com.drmangotea.tfmg.content.machinery.misc.concrete_hose.ConcreteHoseBlockEntity;
+import com.drmangotea.tfmg.content.machinery.misc.concrete_hose.ConcreteHoseVisual;
 import com.drmangotea.tfmg.content.machinery.misc.concrete_hose.ConcreteHoseRenderer;
 import com.drmangotea.tfmg.content.machinery.misc.exhaust.ExhaustBlockEntity;
 import com.drmangotea.tfmg.content.machinery.misc.firebox.FireboxBlockEntity;
@@ -182,7 +183,7 @@ public class TFMGBlockEntities {
             .register();
     public static final BlockEntityEntry<ConcreteHoseBlockEntity> CONCRETE_HOSE = REGISTRATE
             .blockEntity("concrete_hose", ConcreteHoseBlockEntity::new)
-            //.instance(() -> ConcreteHoseInstance::new)
+            .visual(() -> ConcreteHoseVisual::new)
             .validBlocks(TFMGBlocks.CONCRETE_HOSE)
             .renderer(() -> ConcreteHoseRenderer::new)
             .register();

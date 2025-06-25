@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import static com.drmangotea.tfmg.TFMG.REGISTRATE;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
@@ -57,7 +58,14 @@ public class TFMGPipes {
                             .initialProperties(SharedProperties::copperMetal)
                             .transform(pickaxeOnly())
                             .blockstate(BlockStateGen.pipe())
-                            .onRegister(CreateRegistrate.blockModel(() -> t -> new TFMGPipeAttachmentModel(t, pipeType)))
+                            .onRegister(CreateRegistrate.blockModel(()-> 
+                                    switch (pipeType){
+                                case BRASS -> TFMGPipeAttachmentModel::withAOBrass;
+                                case STEEL -> TFMGPipeAttachmentModel::withAOSteel;
+                                case ALUMINUM -> TFMGPipeAttachmentModel::withAOAluminum;
+                                case CAST_IRON -> TFMGPipeAttachmentModel::withAOCastIron;
+                                case PLASTIC -> TFMGPipeAttachmentModel::withAOPlastic;
+                            }))
                             .item()
                             .transform(customItemModel())
                             .register();
@@ -73,7 +81,15 @@ public class TFMGPipes {
                             .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(AllSpriteShifts.COPPER_CASING)))
                             .onRegister(CreateRegistrate.casingConnectivity((block, cc) -> cc.make(block, AllSpriteShifts.COPPER_CASING,
                                     (s, f) -> !s.getValue(TFMGEncasedPipeBlock.FACING_TO_PROPERTY_MAP.get(f)))))
-                            .onRegister(CreateRegistrate.blockModel(() -> PipeAttachmentModel::withoutAO))
+                                            .onRegister(CreateRegistrate.blockModel(()-> 
+                                    switch (pipeType){
+                                case BRASS -> TFMGPipeAttachmentModel::withAOBrass;
+                                case STEEL -> TFMGPipeAttachmentModel::withAOSteel;
+                                case ALUMINUM -> TFMGPipeAttachmentModel::withAOAluminum;
+                                case CAST_IRON -> TFMGPipeAttachmentModel::withAOCastIron;
+                                case PLASTIC -> TFMGPipeAttachmentModel::withAOPlastic;
+                            }))
+                                                   
                             .loot((p, b) -> p.dropOther(b, pipe.get()))
                             .transform(EncasingRegistry.addVariantTo(pipe))
                             .register();
@@ -99,7 +115,15 @@ public class TFMGPipes {
                                                     .build();
                                         }, BlockStateProperties.WATERLOGGED);
                             })
-                            .onRegister(CreateRegistrate.blockModel(() -> t -> new TFMGPipeAttachmentModel(t, pipeType)))
+                                            .onRegister(CreateRegistrate.blockModel(()-> 
+                                    switch (pipeType){
+                                case BRASS -> TFMGPipeAttachmentModel::withAOBrass;
+                                case STEEL -> TFMGPipeAttachmentModel::withAOSteel;
+                                case ALUMINUM -> TFMGPipeAttachmentModel::withAOAluminum;
+                                case CAST_IRON -> TFMGPipeAttachmentModel::withAOCastIron;
+                                case PLASTIC -> TFMGPipeAttachmentModel::withAOPlastic;
+                            }))
+                                                   
                             .loot((p, b) -> p.dropOther(b, pipe.get()))
                             .register();
 
@@ -110,7 +134,15 @@ public class TFMGPipes {
                             .initialProperties(SharedProperties::copperMetal)
                             .transform(pickaxeOnly())
                             .blockstate(BlockStateGen.directionalBlockProviderIgnoresWaterlogged(true))
-                            .onRegister(CreateRegistrate.blockModel(() -> t -> new TFMGPipeAttachmentModel(t, pipeType)))
+                                            .onRegister(CreateRegistrate.blockModel(()-> 
+                                    switch (pipeType){
+                                case BRASS -> TFMGPipeAttachmentModel::withAOBrass;
+                                case STEEL -> TFMGPipeAttachmentModel::withAOSteel;
+                                case ALUMINUM -> TFMGPipeAttachmentModel::withAOAluminum;
+                                case CAST_IRON -> TFMGPipeAttachmentModel::withAOCastIron;
+                                case PLASTIC -> TFMGPipeAttachmentModel::withAOPlastic;
+                            }))
+                                                   
                             .transform(TFMGStress.setImpact(4.0))
                             .item()
                             .transform(customItemModel())
@@ -123,7 +155,15 @@ public class TFMGPipes {
                             .initialProperties(SharedProperties::copperMetal)
                             .transform(pickaxeOnly())
                             .blockstate(new SmartFluidPipeGenerator()::generate)
-                            .onRegister(CreateRegistrate.blockModel(() -> t -> new TFMGPipeAttachmentModel(t, pipeType)))
+                                            .onRegister(CreateRegistrate.blockModel(()-> 
+                                    switch (pipeType){
+                                case BRASS -> TFMGPipeAttachmentModel::withAOBrass;
+                                case STEEL -> TFMGPipeAttachmentModel::withAOSteel;
+                                case ALUMINUM -> TFMGPipeAttachmentModel::withAOAluminum;
+                                case CAST_IRON -> TFMGPipeAttachmentModel::withAOCastIron;
+                                case PLASTIC -> TFMGPipeAttachmentModel::withAOPlastic;
+                            }))
+                                                   
                             .item()
                             .transform(customItemModel())
                             .register();
@@ -137,7 +177,6 @@ public class TFMGPipes {
                             .blockstate((c, p) -> BlockStateGen.directionalAxisBlock(c, p,
                                     (state, vertical) -> AssetLookup.partialBaseModel(c, p, vertical ? "vertical" : "horizontal",
                                             state.getValue(FluidValveBlock.ENABLED) ? "open" : "closed")))
-                            .onRegister(CreateRegistrate.blockModel(() -> t -> new TFMGPipeAttachmentModel(t, pipeType)))
                             .item()
                             .transform(customItemModel())
                             .register();
@@ -149,6 +188,8 @@ public class TFMGPipes {
 
 
     }
+    
+
 
     public static void init() {}
 

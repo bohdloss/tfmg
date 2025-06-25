@@ -2,9 +2,11 @@ package com.drmangotea.tfmg.datagen.recipes.values.create;
 
 
 import com.drmangotea.tfmg.TFMG;
+import com.drmangotea.tfmg.datagen.recipes.TFMGRecipeProvider;
 import com.drmangotea.tfmg.recipes.WindingRecipe;
 import com.drmangotea.tfmg.registry.TFMGBlocks;
 import com.drmangotea.tfmg.registry.TFMGItems;
+import com.simibubi.create.api.data.recipe.BaseRecipeProvider;
 import com.simibubi.create.content.fluids.transfer.FillingRecipe;
 import com.simibubi.create.content.kinetics.deployer.DeployerApplicationRecipe;
 import com.simibubi.create.content.kinetics.press.PressingRecipe;
@@ -20,7 +22,7 @@ import static com.drmangotea.tfmg.datagen.recipes.TFMGRecipeProvider.I.*;
 import static com.drmangotea.tfmg.datagen.recipes.TFMGRecipeProvider.F.*;
 
 
-public class TFMGSequencedAssemblyRecipeGen extends CreateRecipeProvider {
+public class TFMGSequencedAssemblyRecipeGen extends TFMGRecipeProvider {
 
     GeneratedRecipe POTENTIOMETER = create("potentiometer", b -> b.require(TFMGBlocks.HEAVY_MACHINERY_CASING.get())
             .transitionTo(TFMGItems.UNFINISHED_POTENTIOMETER.get())

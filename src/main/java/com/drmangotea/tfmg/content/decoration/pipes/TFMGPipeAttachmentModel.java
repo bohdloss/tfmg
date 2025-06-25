@@ -17,6 +17,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ChunkRenderTypeSet;
 import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.client.model.data.ModelProperty;
@@ -28,15 +30,32 @@ import java.util.List;
 
 import static net.minecraft.world.level.block.PipeBlock.PROPERTY_BY_DIRECTION;
 
-
+@OnlyIn(Dist.CLIENT)
 public class TFMGPipeAttachmentModel extends BakedModelWrapperWithData {
 
-    public final TFMGPipes.PipeMaterial material;
-
+    public final TFMGPipes.PipeMaterial material ;
     private static final ModelProperty<PipeModelData> PIPE_PROPERTY = new ModelProperty<>();
+    private boolean ao;
 
-    public TFMGPipeAttachmentModel(BakedModel template, TFMGPipes.PipeMaterial material) {
+    public static TFMGPipeAttachmentModel withAOSteel(BakedModel template) {
+        return new TFMGPipeAttachmentModel(template, true, TFMGPipes.PipeMaterial.STEEL);
+    }
+    public static TFMGPipeAttachmentModel withAOAluminum(BakedModel template) {
+        return new TFMGPipeAttachmentModel(template, true, TFMGPipes.PipeMaterial.ALUMINUM);
+    }
+    public static TFMGPipeAttachmentModel withAOBrass(BakedModel template) {
+        return new TFMGPipeAttachmentModel(template, true, TFMGPipes.PipeMaterial.BRASS);
+    }
+    public static TFMGPipeAttachmentModel withAOCastIron(BakedModel template) {
+        return new TFMGPipeAttachmentModel(template, true, TFMGPipes.PipeMaterial.CAST_IRON);
+    }
+    public static TFMGPipeAttachmentModel withAOPlastic(BakedModel template) {
+        return new TFMGPipeAttachmentModel(template, true, TFMGPipes.PipeMaterial.PLASTIC);
+    }
+
+    public TFMGPipeAttachmentModel(BakedModel template, boolean ao, TFMGPipes.PipeMaterial material) {
         super(template);
+        this.ao = ao;
         this.material = material;
     }
 
@@ -48,34 +67,35 @@ public class TFMGPipeAttachmentModel extends BakedModelWrapperWithData {
         BracketedBlockEntityBehaviour bracket = BlockEntityBehaviour.get(world, pos, BracketedBlockEntityBehaviour.TYPE);
 
         if (transport != null)
-            for (Direction d : Iterate.directions) {
-                boolean shouldConnect = true;
-                if (world.getBlockState(pos.relative(d)).getBlock() instanceof FluidPipeBlock) {
-
-                    if (d.getAxis().isHorizontal())
-                        shouldConnect = world.getBlockState(pos.relative(d)).getValue(PROPERTY_BY_DIRECTION.get(d.getOpposite()));
-                }
+            for (Direction d : Iterate.directions)
                 data.putAttachment(d, transport.getRenderedRimAttachment(world, pos, state, d));
-
-                if (!shouldConnect)
-                    if (state.getBlock() instanceof FluidPipeBlock)
-                        if (state.getValue(PROPERTY_BY_DIRECTION.get(d)))
-                            data.putAttachment(d, FluidTransportBehaviour.AttachmentTypes.RIM);
-            }
         if (bracket != null)
             data.putBracket(bracket.getBracket());
 
         data.setEncased(FluidPipeBlock.shouldDrawCasing(world, pos, state));
         return builder.with(PIPE_PROPERTY, data);
     }
-    @SuppressWarnings("removal")
+
     @Override
     public ChunkRenderTypeSet getRenderTypes(@NotNull BlockState state, @NotNull RandomSource rand, @NotNull ModelData data) {
-        ChunkRenderTypeSet set = super.getRenderTypes(state, rand, data);
-        if (set.isEmpty()) {
-            return ItemBlockRenderTypes.getRenderLayers(state);
+        List<ChunkRenderTypeSet> set = new ArrayList<>();
+
+        set.add(super.getRenderTypes(state, rand, data));
+        set.add(TFMGPartialModels.PIPE_CASINGS.get(material).get().getRenderTypes(state, rand, data));
+
+        if (data.has(PIPE_PROPERTY)) {
+            PipeModelData pipeData = data.get(PIPE_PROPERTY);
+            for (Direction d : Iterate.directions) {
+                FluidTransportBehaviour.AttachmentTypes type = pipeData.getAttachment(d);
+                for (FluidTransportBehaviour.AttachmentTypes.ComponentPartials partial : type.partials) {
+                    ChunkRenderTypeSet attachmentRenderTypeSet = TFMGPartialModels.PIPE_ATTACHMENTS.get(material).get(partial).get(d)
+                            .get().getRenderTypes(state, rand, data);
+                    set.add(attachmentRenderTypeSet);
+                }
+            }
         }
-        return set;
+
+        return ChunkRenderTypeSet.union(set);
     }
 
     @Override
@@ -87,6 +107,21 @@ public class TFMGPipeAttachmentModel extends BakedModelWrapperWithData {
             addQuads(quads, state, side, rand, data, pipeData, renderType);
         }
         return quads;
+    }
+
+    @Override
+    public boolean useAmbientOcclusion(BlockState state, RenderType renderType) {
+        return ao;
+    }
+
+    @Override
+    public boolean useAmbientOcclusion(BlockState state) {
+        return ao;
+    }
+
+    @Override
+    public boolean useAmbientOcclusion() {
+        return ao;
     }
 
     private void addQuads(List<BakedQuad> quads, BlockState state, Direction side, RandomSource rand, ModelData data,
@@ -125,6 +160,7 @@ public class TFMGPipeAttachmentModel extends BakedModelWrapperWithData {
                         .getBlockModel(state);
             }
         }
+
         public BakedModel getBracket() {
             return bracket;
         }
@@ -132,6 +168,7 @@ public class TFMGPipeAttachmentModel extends BakedModelWrapperWithData {
         public void putAttachment(Direction face, FluidTransportBehaviour.AttachmentTypes rim) {
             attachments[face.get3DDataValue()] = rim;
         }
+
         public FluidTransportBehaviour.AttachmentTypes getAttachment(Direction face) {
             return attachments[face.get3DDataValue()];
         }
@@ -144,5 +181,6 @@ public class TFMGPipeAttachmentModel extends BakedModelWrapperWithData {
             return encased;
         }
     }
+
 
 }

@@ -43,8 +43,8 @@ public class TrafficLightScrollSlot extends ValueBoxTransform {
 	public void rotate(LevelAccessor level, BlockPos pos, BlockState state, PoseStack ms) {
 		float yRot = AngleHelper.horizontalAngle(state.getValue(BlockStateProperties.HORIZONTAL_FACING)) + 180;
 		TransformStack.of(ms)
-			.rotateY(yRot+180)
-			.rotateX(0);
+			.rotateYDegrees(yRot+180)
+			.rotateXDegrees(0);
 	}
 
 	@Override

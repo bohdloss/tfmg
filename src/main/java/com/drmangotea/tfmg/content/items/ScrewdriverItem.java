@@ -29,7 +29,7 @@ public class ScrewdriverItem extends Item {
 
             return super.useOn(pContext);
         }
-        if(level.getBlockEntity(positionClicked)!=null) {
+        if(level.getBlockEntity(positionClicked) instanceof TFMGPipeBlockEntity) {
             ((TFMGPipeBlockEntity) level.getBlockEntity(positionClicked)).toggleLock(player);
             pContext.getItemInHand().hurtAndBreak(1, pContext.getPlayer(),
                     (playerr) -> playerr.broadcastBreakEvent(playerr.getUsedItemHand()));

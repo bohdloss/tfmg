@@ -55,13 +55,13 @@ public class TFMG {
         REGISTRATE.registerEventListeners(modEventBus);
 
         TFMGSoundEvents.prepare();
-
+        TFMGPipes.init();
         TFMGBlocks.init();
         TFMGBlockEntities.init();
         TFMGItems.init();
         TFMGEntityTypes.init();
         TFMGPartialModels.init();
-        TFMGPipes.init();
+
         TFMGFluids.init();
         TFMGMenuTypes.init();
         TFMGEncasedBlocks.init();

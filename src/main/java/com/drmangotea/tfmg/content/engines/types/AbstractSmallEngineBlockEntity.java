@@ -192,6 +192,7 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
     protected void read(CompoundTag compound, boolean clientPacket) {
         if (EngineUpgrade.getUpgrades().get(ItemStack.of(compound.getCompound("UpgradeItem")).getItem()) != null)
             upgrade = Optional.of(EngineUpgrade.getUpgrades().get(ItemStack.of(compound.getCompound("UpgradeItem")).getItem()));
+        if(!compound.getString("Shift").isEmpty())
         shift = TransmissionUpgrade.TransmissionState.valueOf(compound.getString("Shift"));
         oil = compound.getInt("Oil");
         coolingFluid = compound.getInt("CoolingFluid");
@@ -595,7 +596,8 @@ public abstract class AbstractSmallEngineBlockEntity extends AbstractEngineBlock
         Direction facing = getBlockState().getValue(HORIZONTAL_FACING);
         Direction updateDirection = facing.getOpposite();
 
-        if (level.getBlockEntity(getBlockPos().relative(facing)) instanceof AbstractSmallEngineBlockEntity be && be.getBlockState().getBlock() == this.getBlockState().getBlock()) {
+        if (level.getBlockEntity(getBlockPos().relative(facing)) instanceof AbstractSmallEngineBlockEntity be && be.getBlockState().getBlock() == this.getBlockState().getBlock()
+        &&be.getBlockState().getValue(HORIZONTAL_FACING)==this.getBlockState().getValue(HORIZONTAL_FACING)) {
             be.connect();
             return;
         }

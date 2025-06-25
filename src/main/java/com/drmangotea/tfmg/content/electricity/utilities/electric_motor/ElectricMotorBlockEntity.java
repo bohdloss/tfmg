@@ -50,6 +50,15 @@ public class ElectricMotorBlockEntity extends KineticElectricBlockEntity {
     }
 
     @Override
+    public void lazyTick() {
+        super.lazyTick();
+        if(data.notEnoughtPower)
+            setSpeed(0);
+        if(data.voltage>0)
+            setSpeed(0);
+    }
+
+    @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         super.addBehaviours(behaviours);
         int max = MAX_SPEED;

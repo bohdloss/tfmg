@@ -48,7 +48,8 @@ public class DebugCinderBlockItem extends Item {
 
         BlockPos pos = context.getClickedPos();
         Level level = context.getLevel();
-        if (level.getBlockEntity(pos) instanceof VatBlockEntity be) {
+        if (level.getBlockEntity(pos) instanceof IElectric be) {
+            be.getOrCreateElectricNetwork().handleInsufficientPower();
 
         }
         return InteractionResult.PASS;

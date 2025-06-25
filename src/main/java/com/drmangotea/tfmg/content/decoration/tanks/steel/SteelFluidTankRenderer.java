@@ -20,6 +20,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
+import static net.createmod.catnip.platform.ForgeCatnipServices.FLUID_RENDERER;
+
 public class SteelFluidTankRenderer extends SafeBlockEntityRenderer<SteelTankBlockEntity> {
 
     public SteelFluidTankRenderer(BlockEntityRendererProvider.Context context) {}
@@ -71,7 +73,8 @@ public class SteelFluidTankRenderer extends SafeBlockEntityRenderer<SteelTankBlo
 
         ms.pushPose();
         ms.translate(0, clampedLevel - totalHeight, 0);
-        FluidRenderer.renderFluidBox(fluidStack.getFluid(),fluidStack.getAmount(), xMin, yMin, zMin, xMax, yMax, zMax, buffer, ms, light, false,true,fluidStack.getTag());
+        FLUID_RENDERER.renderFluidBox(fluidStack, xMin, yMin, zMin, xMax, yMax, zMax, buffer, ms, light, false,true);
+
         ms.popPose();
     }
 

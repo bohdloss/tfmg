@@ -6,6 +6,7 @@ import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRender
 import com.simibubi.create.foundation.fluid.FluidRenderer;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
 import net.createmod.catnip.animation.LerpedFloat;
+import net.createmod.catnip.platform.ForgeCatnipServices;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.Mth;
@@ -54,7 +55,7 @@ public class VatRenderer extends SafeBlockEntityRenderer<VatBlockEntity> {
             float yMax = yMin + (level * (be.height - (2 * capHeight))) / 8;
 
 
-            FluidRenderer.renderFluidBox(fluidHandler.getFluidInTank(tankNumber).getFluid(), fluidHandler.getFluidInTank(tankNumber).getAmount(), xMin, yMin, zMin, xMax, yMax, zMax, bufferSource, ms, light, false, false, fluidHandler.getFluidInTank(tankNumber).getTag());
+            ForgeCatnipServices.FLUID_RENDERER.renderFluidBox(fluidHandler.getFluidInTank(tankNumber), xMin, yMin, zMin, xMax, yMax, zMax, bufferSource, ms, light, false, false);
             tankNumber++;
             totalFluidHeight += yMax-yMin;
         }
