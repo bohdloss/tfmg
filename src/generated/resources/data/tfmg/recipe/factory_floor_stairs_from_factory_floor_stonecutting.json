@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "tfmg:factory_floor"
+  },
+  "result": {
+    "count": 1,
+    "id": "tfmg:factory_floor_stairs"
+  }
+}
