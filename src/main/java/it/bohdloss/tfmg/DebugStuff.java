@@ -12,5 +12,6 @@ public class DebugStuff {
     public static void show(Object display) {
         String string = display.toString();
         Minecraft.getInstance().player.displayClientMessage(Component.literal(string), false);
+        TFMG.LOGGER.debug(display.toString());
     }
 }

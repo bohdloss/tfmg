@@ -1,4 +1,4 @@
-// 1.21.1	2025-07-09T21:16:47.469818632	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2025-07-09T23:45:28.059098799	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
 b7f5146505c40c08cdea7ad01fa99048b7ac5451 assets/tfmg/blockstates/aluminum_block.json
 f77a99f3ee1d192001623fd41601f3a1687b67c8 assets/tfmg/blockstates/aluminum_cogwheel.json
@@ -260,8 +260,8 @@ c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_concrete
 98c9aa212e82100d7fc47354760940cc946594d4 assets/tfmg/blockstates/yellow_rebar_concrete_slab.json
 a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_concrete_stairs.json
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
-450bbcf612a92eb64e36df8686e88276e9312ffe assets/tfmg/lang/en_ud.json
-4b72ed149d3537b800a2dd951e0b450639956e6b assets/tfmg/lang/en_us.json
+c850c6be2e76ca9a67decf82e9b47c85edbe1f88 assets/tfmg/lang/en_ud.json
+a1592ec9accbd91e62356a83456342bc849105ac assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
 4344f14c42bb7a9f90120b5f75927015c0edc3bc assets/tfmg/models/block/aluminum_cap_alt.json
@@ -824,6 +824,7 @@ dfc11d8b61afa72b969c79a0c6cc01e8d6fca169 assets/tfmg/models/item/constantan_ingo
 381e0d64eeb5c13f759e3d4fe9842dea759ee073 assets/tfmg/models/item/constantan_nugget.json
 6b458b591be15313380988f3154fa6df067aac46 assets/tfmg/models/item/constantan_spool.json
 fbef525eaae76c32fb3d7ef415a94f39d033a1ae assets/tfmg/models/item/constantan_wire.json
+cbebe27349c77edc77e836d00339571a9d42d1c6 assets/tfmg/models/item/cooling_fluid_bottle.json
 e8c4e68647a6ced815cfca649c679e709fcc7751 assets/tfmg/models/item/cooling_fluid_bucket.json
 9dd1c3541d4e5fbf08d605c83b9bf8633ed675da assets/tfmg/models/item/copper_electrode.json
 df4e7fa8f3f60908f58794528a8db60dce7d0135 assets/tfmg/models/item/copper_grenade.json
@@ -978,6 +979,7 @@ bc39d82c88fc980bded9ea36c52570d83bb51d14 assets/tfmg/models/item/nickel_nugget.j
 a236dd0e40141708cee90eb244750a19102cd997 assets/tfmg/models/item/nickel_ore.json
 3628566986dbe2c0250e6e7e4bbbd7842f07ec80 assets/tfmg/models/item/nickel_sheet.json
 266bb5df7f514458dc90bf32f46efa31475ff7cc assets/tfmg/models/item/nitrate_dust.json
+1f4399bb5fd12d755dba4901852c09d90c43debd assets/tfmg/models/item/oil_can.json
 9907695c674afea00d3affefdc2ede9e68aa5667 assets/tfmg/models/item/oil_deposit.json
 bf72512f5085b23f0f1d9d6100e52c75f695b2c7 assets/tfmg/models/item/oil_hammer.json
 3670762634f4e4b1366b6a19253453ad3667655f assets/tfmg/models/item/orange_concrete.json
@@ -997,6 +999,7 @@ c8dbaddf0deab7fe4e420ab18138b8b8c92f4fd7 assets/tfmg/models/item/pink_concrete_w
 fd91f0efb6b57ffae2ae9062d76e3750234dd02a assets/tfmg/models/item/pink_rebar_concrete_slab.json
 8163b7b6cd9c1e52e86e622b80959b55a737a8a3 assets/tfmg/models/item/pink_rebar_concrete_stairs.json
 c8dbaddf0deab7fe4e420ab18138b8b8c92f4fd7 assets/tfmg/models/item/pink_rebar_concrete_wall.json
+9d77efa451a6cb5d2417057a387048feec220b94 assets/tfmg/models/item/pipe_bomb.json
 da507e2499ee84f6c096c63e3373204d9c6a1498 assets/tfmg/models/item/plastic_block.json
 7e60b6223a9a7a761c46611abaab7a1c525ede1d assets/tfmg/models/item/plastic_fluid_valve.json
 6afea7f62984356ea26656a1f20d3d54405085ad assets/tfmg/models/item/plastic_mechanical_pump.json

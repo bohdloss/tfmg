@@ -4,6 +4,7 @@ import it.bohdloss.tfmg.content.electricity.utilities.fuse_block.AmpRating;
 import it.bohdloss.tfmg.content.electricity.utilities.resistor.Resistance;
 import it.bohdloss.tfmg.content.electricity.connection.Windings;
 import it.bohdloss.tfmg.content.electricity.connection.WireSelection;
+import it.bohdloss.tfmg.content.items.FluidAmount;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.bus.api.IEventBus;
@@ -30,6 +31,10 @@ public class TFMGDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<AmpRating>> AMP_RATING = DATA_COMPONENTS.registerComponentType(
             "amp_rating",
             builder -> builder.persistent(AmpRating.CODEC).networkSynchronized(AmpRating.STREAM_CODEC)
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<FluidAmount>> FLUID_AMOUNT = DATA_COMPONENTS.registerComponentType(
+            "fluid_amount",
+            builder -> builder.persistent(FluidAmount.CODEC).networkSynchronized(FluidAmount.STREAM_CODEC)
     );
 
     public static void register(IEventBus eventBus) {

@@ -17,6 +17,8 @@ import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import it.bohdloss.tfmg.content.items.weapons.explosives.thermite_grenades.ThermiteGrenade;
 import it.bohdloss.tfmg.content.items.weapons.explosives.thermite_grenades.ThermiteGrenadeRenderer;
+import it.bohdloss.tfmg.content.items.weapons.pipe_bomb.PipeBomb;
+import it.bohdloss.tfmg.content.items.weapons.pipe_bomb.PipeBombRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.Entity;
@@ -24,10 +26,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 
 public class TFMGEntityTypes {
-//    public static final EntityEntry<PipeBomb> PIPE_BOMB =
-//            register("pipe_bomb", PipeBomb::new, () -> PipeBombRenderer::new,
-//                    MobCategory.MISC, 4, 20, true, true, PipeBomb::build).register();
-//
+    public static final EntityEntry<PipeBomb> PIPE_BOMB =
+            register("pipe_bomb", PipeBomb::new, () -> PipeBombRenderer::new,
+                    MobCategory.MISC, 4, 20, true, true, PipeBomb::build).register();
+
 //    public static final EntityEntry<NapalmPotato> NAPALM_POTATO =
 //            register("napalm_potato", NapalmPotato::new, () -> NapalmPotatoRenderer::new,
 //                    MobCategory.MISC, 4, 20, true, true, NapalmPotato::build).register();

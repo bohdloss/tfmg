@@ -8,7 +8,6 @@ import com.simibubi.create.AllTags;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.ItemEntry;
-import it.bohdloss.tfmg.base.Spark;
 import it.bohdloss.tfmg.base.SparkBase;
 import it.bohdloss.tfmg.content.decoration.SteelVerticalGearboxItem;
 import it.bohdloss.tfmg.content.electricity.debug.DebugCinderBlockItem;
@@ -17,6 +16,8 @@ import it.bohdloss.tfmg.content.electricity.utilities.resistor.ResistorItem;
 import it.bohdloss.tfmg.content.electricity.connection.SpoolItem;
 import it.bohdloss.tfmg.content.electricity.utilities.transformer.ElectromagneticCoilItem;
 import it.bohdloss.tfmg.content.items.CoalCokeItem;
+import it.bohdloss.tfmg.content.items.CoolingFluidItem;
+import it.bohdloss.tfmg.content.items.OilCanItem;
 import it.bohdloss.tfmg.content.items.ScrewdriverItem;
 import it.bohdloss.tfmg.content.items.weapons.LeadAxeItem;
 import it.bohdloss.tfmg.content.items.weapons.LeadSwordItem;
@@ -24,6 +25,7 @@ import it.bohdloss.tfmg.content.items.weapons.LitLithiumBladeItem;
 import it.bohdloss.tfmg.content.items.weapons.LithiumBladeItem;
 import it.bohdloss.tfmg.content.items.weapons.explosives.thermite_grenades.ThermiteGrenade;
 import it.bohdloss.tfmg.content.items.weapons.explosives.thermite_grenades.ThermiteGrenadeItem;
+import it.bohdloss.tfmg.content.items.weapons.pipe_bomb.PipeBombItem;
 import it.bohdloss.tfmg.content.machinery.oil_processing.OilHammerItem;
 import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -277,19 +279,20 @@ public class TFMGItems {
 //            REGISTRATE.item("quad_potato_cannon", QuadPotatoCannonItem::new)
 //                    .model(AssetLookup.itemModelWithPartials())
 //                    .register();
-//
-//    public static final ItemEntry<PipeBombItem>
-//            PIPE_BOMB = REGISTRATE.item("pipe_bomb", PipeBombItem::new)
-//            .register();
-//
-//    public static final ItemEntry<FluidContainingItem>
-//            OIL_CAN = REGISTRATE.item("oil_can", p -> new FluidContainingItem(p, TFMGFluids.LUBRICATION_OIL))
-//            .properties(p -> p.stacksTo(1))
-//            .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/oil_can_model")))
-//            .register(),
-//            COOLING_FLUID_BOTTLE = REGISTRATE.item("cooling_fluid_bottle", p -> new FluidContainingItem(p, TFMGFluids.COOLING_FLUID))
-//                    .properties(p -> p.stacksTo(1))
-//                    .register();
+
+    public static final ItemEntry<PipeBombItem>
+            PIPE_BOMB = REGISTRATE.item("pipe_bomb", PipeBombItem::new)
+            .register();
+
+    public static final ItemEntry<OilCanItem>
+            OIL_CAN = REGISTRATE.item("oil_can", OilCanItem::new)
+            .properties(p -> p.stacksTo(1))
+            .model((c, p) -> p.withExistingParent(c.getName(), TFMG.asResource("item/oil_can_model")))
+            .register();
+    public static final ItemEntry<CoolingFluidItem>
+            COOLING_FLUID_BOTTLE = REGISTRATE.item("cooling_fluid_bottle", CoolingFluidItem::new)
+                    .properties(p -> p.stacksTo(1))
+                    .register();
 //    public static final ItemEntry<ElectriciansWrenchItem>
 //            CONFIGURATION_WRENCH = REGISTRATE.item("electricians_wrench", ElectriciansWrenchItem::new)
 //            .lang("Configuration Wrench")
