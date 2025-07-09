@@ -8,7 +8,7 @@ import com.simibubi.create.foundation.data.*;
 import it.bohdloss.tfmg.base.MaterialSet;
 import it.bohdloss.tfmg.blocks.CementBlock;
 import it.bohdloss.tfmg.config.TFMGStress;
-import it.bohdloss.tfmg.content.decoration.LithiumBlock;
+import it.bohdloss.tfmg.content.decoration.*;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.decoration.MetalLadderBlock;
 import com.simibubi.create.content.decoration.MetalScaffoldingBlock;
@@ -17,8 +17,10 @@ import com.simibubi.create.content.decoration.encasing.CasingBlock;
 import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import it.bohdloss.tfmg.content.decoration.SteelGearboxBlock;
 import it.bohdloss.tfmg.content.decoration.cogs.TFMGCogwheelBlock;
+import it.bohdloss.tfmg.content.decoration.concrete.*;
+import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelBlock;
+import it.bohdloss.tfmg.content.items.CoalCokeBlockItem;
 import it.bohdloss.tfmg.content.machinery.oil_processing.OilDepositBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.HolderLookup;
@@ -33,6 +35,8 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.neoforged.neoforge.common.Tags;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static com.simibubi.create.foundation.data.BlockStateGen.axisBlock;
@@ -1435,20 +1439,20 @@ public class TFMGBlocks {
             .register();
 
 
-//    public static final BlockEntry<Block> COAL_COKE_BLOCK = REGISTRATE.block("coal_coke_block", Block::new)
-//            .initialProperties(() -> Blocks.IRON_BLOCK)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .transform(pickaxeOnly())
-//            .blockstate(simpleCubeAll("coal_coke_block"))
-//            .tag(AllTags.commonBlockTag("storage_blocks/coal_coke"))
-//            .tag(BlockTags.NEEDS_STONE_TOOL)
-//            .tag(Tags.Blocks.STORAGE_BLOCKS)
-//            .item(CoalCokeBlockItem::new)
-//            .tag(AllTags.commonItemTag("storage_blocks/coal_coke"))
-//            .tag(Tags.Items.STORAGE_BLOCKS)
-//            .build()
-//            .lang("Block of Coal Coke")
-//            .register();
+    public static final BlockEntry<Block> COAL_COKE_BLOCK = REGISTRATE.block("coal_coke_block", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .blockstate(simpleCubeAll("coal_coke_block"))
+            .tag(AllTags.commonBlockTag("storage_blocks/coal_coke"))
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .tag(Tags.Blocks.STORAGE_BLOCKS)
+            .item(CoalCokeBlockItem::new)
+            .tag(AllTags.commonItemTag("storage_blocks/coal_coke"))
+            .tag(Tags.Items.STORAGE_BLOCKS)
+            .build()
+            .lang("Block of Coal Coke")
+            .register();
 
     public static final BlockEntry<CementBlock> CEMENT = REGISTRATE.block("cement", CementBlock::new)
             .initialProperties(() -> Blocks.CLAY)
@@ -1616,15 +1620,15 @@ public class TFMGBlocks {
                     .register();
 
     public static final MaterialSet SLAG_BRICKS_SET = makeVariants(SLAG_BRICKS, true);
-//    public static final BlockEntry<LithiumTorchBlock> LITHIUM_TORCH =
-//            REGISTRATE.block("lithium_torch", LithiumTorchBlock::new)
-//                    .initialProperties(() -> Blocks.TORCH)
-//                    .properties(p -> p.lightLevel(s -> 14).instabreak().noOcclusion())
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .blockstate(new LithiumTorchGenerator()::generate)
-//                    .item()
-//                    .transform(customItemModel())
-//                    .register();
+    public static final BlockEntry<LithiumTorchBlock> LITHIUM_TORCH =
+            REGISTRATE.block("lithium_torch", LithiumTorchBlock::new)
+                    .initialProperties(() -> Blocks.TORCH)
+                    .properties(p -> p.lightLevel(s -> 14).instabreak().noOcclusion())
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate(new LithiumTorchGenerator()::generate)
+                    .item()
+                    .transform(customItemModel())
+                    .register();
 
     public static final BlockEntry<Block> FACTORY_FLOOR =
             REGISTRATE.block("factory_floor", Block::new)
@@ -1659,96 +1663,96 @@ public class TFMGBlocks {
                             .sound(SoundType.NETHERITE_BLOCK))
                     .transform(BuilderTransformers.trapdoor(true))
                     .register();
-//
-//
-//    //------------------FLYWHEELS------------------//
-//    public static final BlockEntry<TFMGFlywheelBlock>
-//            STEEL_FLYWHEEL = flywheel("steel", TFMGFlywheelBlock::steel),
-//            LEAD_FLYWHEEL = flywheel("lead", TFMGFlywheelBlock::lead),
-//            CAST_IRON_FLYWHEEL = flywheel("cast_iron", TFMGFlywheelBlock::cast_iron),
-//            ALUMINUM_FLYWHEEL = flywheel("aluminum", TFMGFlywheelBlock::aluminum),
-//            NICKEL_FLYWHEEL = flywheel("nickel", TFMGFlywheelBlock::nickel);
-//
-//    public static String[] DECOR_METALS = {"steel", "aluminum", "cast_iron", "lead", "nickel", "constantan", "copper", "zinc", "brass"};
-//
-//    public static final List<BlockEntry<TrussBlock>> TRUSSES = new ArrayList<>();
-//    public static final List<BlockEntry<FrameBlock>> FRAMES = new ArrayList<>();
-//
-//    static {
-//        //------------------TRUSSES------------------//
-//        for (String metal : DECOR_METALS) {
-//
-//            TRUSSES.add(truss(metal));
-//            FRAMES.add(frame(metal));
-//        }
-//        //------------------CAUTION_BLOCKS------------------//
-//        generateCautionBlocks();
-//    }
-//
-//
-//    //------------------CONCRETE------------------//
-//    public static final BlockEntry<SimpleConcreteloggedBlock> REBAR_BLOCK =
-//            REGISTRATE.block("rebar_block", SimpleConcreteloggedBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .properties(p -> p.noOcclusion())
-//                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
-//                    .item()
-//                    .transform(customItemModel())
-//                    .register();
-//    public static final BlockEntry<RebarFloorBlock> REBAR_FLOOR =
-//            REGISTRATE.block("rebar_floor", RebarFloorBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .properties(p -> p.noOcclusion())
-//                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
-//                    .item()
-//                    .transform(customItemModel())
-//                    .register();
-//    public static final BlockEntry<RebarWallBlock> REBAR_WALL =
-//            REGISTRATE.block("rebar_wall", RebarWallBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .properties(p -> p.noOcclusion())
-//                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
-//                    .item()
-//                    .transform(customItemModel())
-//                    .register();
-//    public static final BlockEntry<TFMGDirectionalBlock> REBAR_PILE =
-//            REGISTRATE.block("rebar_pile", TFMGDirectionalBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .blockstate(BlockStateGen.directionalBlockProvider(true))
-//                    .item()
-//                    .transform(customItemModel())
-//                    .register();
-//    public static final BlockEntry<RebarStairsBlock> REBAR_STAIRS =
-//            REGISTRATE.block("rebar_stairs", p -> new RebarStairsBlock(REBAR_PILE.getDefaultState(), p))
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .properties(p -> p.noOcclusion())
-//                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .blockstate(new RebarStairsGenerator()::generate)
-//                    .item()
-//                    .transform(customItemModel())
-//                    .register();
-//
-//    public static final BlockEntry<RebarPillarBlock> REBAR_PILLAR =
-//            REGISTRATE.block("rebar_pillar", RebarPillarBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .properties(p -> p.noOcclusion())
-//                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .blockstate(BlockStateGen.directionalBlockProvider(true))
-//                    .item()
-//                    .transform(customItemModel())
-//                    .register();
-//
-//
+
+
+    //------------------FLYWHEELS------------------//
+    public static final BlockEntry<TFMGFlywheelBlock>
+            STEEL_FLYWHEEL = flywheel("steel", TFMGFlywheelBlock::steel),
+            LEAD_FLYWHEEL = flywheel("lead", TFMGFlywheelBlock::lead),
+            CAST_IRON_FLYWHEEL = flywheel("cast_iron", TFMGFlywheelBlock::cast_iron),
+            ALUMINUM_FLYWHEEL = flywheel("aluminum", TFMGFlywheelBlock::aluminum),
+            NICKEL_FLYWHEEL = flywheel("nickel", TFMGFlywheelBlock::nickel);
+
+    public static String[] DECOR_METALS = {"steel", "aluminum", "cast_iron", "lead", "nickel", "constantan", "copper", "zinc", "brass"};
+
+    public static final List<BlockEntry<TrussBlock>> TRUSSES = new ArrayList<>();
+    public static final List<BlockEntry<FrameBlock>> FRAMES = new ArrayList<>();
+
+    static {
+        //------------------TRUSSES------------------//
+        for (String metal : DECOR_METALS) {
+
+            TRUSSES.add(truss(metal));
+            FRAMES.add(frame(metal));
+        }
+        //------------------CAUTION_BLOCKS------------------//
+        generateCautionBlocks();
+    }
+
+
+    //------------------CONCRETE------------------//
+    public static final BlockEntry<SimpleConcreteloggedBlock> REBAR_BLOCK =
+            REGISTRATE.block("rebar_block", SimpleConcreteloggedBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.noOcclusion())
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<RebarFloorBlock> REBAR_FLOOR =
+            REGISTRATE.block("rebar_floor", RebarFloorBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.noOcclusion())
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<RebarWallBlock> REBAR_WALL =
+            REGISTRATE.block("rebar_wall", RebarWallBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.noOcclusion())
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<RebarPileBlock> REBAR_PILE =
+            REGISTRATE.block("rebar_pile", RebarPileBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate(BlockStateGen.directionalBlockProvider(true))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<RebarStairsBlock> REBAR_STAIRS =
+            REGISTRATE.block("rebar_stairs", p -> new RebarStairsBlock(REBAR_PILE.getDefaultState(), p))
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.noOcclusion())
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate(new RebarStairsGenerator()::generate)
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
+    public static final BlockEntry<RebarPillarBlock> REBAR_PILLAR =
+            REGISTRATE.block("rebar_pillar", RebarPillarBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.noOcclusion())
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate(BlockStateGen.directionalBlockProvider(true))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
+
 
     public static final MaterialSet REBAR_CONCRETE = generateConcrete(true);
 

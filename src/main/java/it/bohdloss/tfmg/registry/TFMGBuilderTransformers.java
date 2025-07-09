@@ -24,6 +24,7 @@ import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;
 import it.bohdloss.tfmg.content.decoration.CautionBlock;
 import it.bohdloss.tfmg.content.decoration.FrameBlock;
 import it.bohdloss.tfmg.content.decoration.TrussBlock;
+import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -194,7 +195,7 @@ public class TFMGBuilderTransformers {
 //    }
 
     /// ////////////
-    public static BlockEntry<FlywheelBlock> flywheel(String name, NonNullFunction<BlockBehaviour.Properties, FlywheelBlock> block) {
+    public static BlockEntry<TFMGFlywheelBlock> flywheel(String name, NonNullFunction<BlockBehaviour.Properties, TFMGFlywheelBlock> block) {
         return REGISTRATE.block(name + "_flywheel", block)
                 .initialProperties(SharedProperties::softMetal)
                 .properties(BlockBehaviour.Properties::noOcclusion)

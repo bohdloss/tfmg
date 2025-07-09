@@ -10,6 +10,7 @@
     "tfmg:lead_block",
     "tfmg:constantan_block",
     "tfmg:nickel_block",
-    "tfmg:lithium_block"
+    "tfmg:lithium_block",
+    "tfmg:coal_coke_block"
   ]
 }

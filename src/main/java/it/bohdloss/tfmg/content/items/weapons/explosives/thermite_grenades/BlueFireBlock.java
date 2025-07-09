@@ -27,7 +27,7 @@ public class BlueFireBlock extends FireBlock implements ICustomFire {
     }
 
     @Override
-    public Block provideFireBlock() {
+    public Block tfmg$provideFireBlock() {
         return TFMGColoredFires.BLUE_FIRE.get();
     }
 }

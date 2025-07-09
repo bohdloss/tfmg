@@ -13,6 +13,7 @@ import com.simibubi.create.content.fluids.pump.PumpRenderer;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.base.ShaftRenderer;
 import com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual;
+import com.simibubi.create.content.kinetics.flywheel.FlywheelBlockEntity;
 import com.simibubi.create.content.kinetics.gearbox.GearboxBlockEntity;
 import com.simibubi.create.content.kinetics.gearbox.GearboxRenderer;
 import com.simibubi.create.content.kinetics.gearbox.GearboxVisual;
@@ -24,6 +25,9 @@ import it.bohdloss.tfmg.content.decoration.cogs.TFMGCogwheelRenderer;
 import it.bohdloss.tfmg.content.decoration.cogs.TFMGCogwheelVisual;
 import it.bohdloss.tfmg.content.decoration.encased.TFMGEncasedCogwheelRenderer;
 import it.bohdloss.tfmg.content.decoration.encased.TFMGEncasedCogwheelVisual;
+import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelBlockEntity;
+import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelRenderer;
+import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelVisual;
 import it.bohdloss.tfmg.content.machinery.oil_processing.OilDepositBlockEntity;
 
 import static it.bohdloss.tfmg.TFMG.REGISTRATE;
@@ -348,20 +352,19 @@ public class TFMGBlockEntities {
             .validBlocks(TFMGBlocks.STEEL_GEARBOX)
             .renderer(() -> GearboxRenderer::new)
             .register();
-//
-//    public static final BlockEntityEntry<TFMGFlywheelBlockEntity> TFMG_FLYWHEEL = REGISTRATE
-//            .blockEntity("steel_flywheel", TFMGFlywheelBlockEntity::new)
-//            .visual(() -> TFMGFlywheelVisual::new, false)
-//            .validBlocks(
-//                    TFMGBlocks.STEEL_FLYWHEEL,
-//                    TFMGBlocks.ALUMINUM_FLYWHEEL,
-//                    TFMGBlocks.CAST_IRON_FLYWHEEL,
-//                    TFMGBlocks.LEAD_FLYWHEEL,
-//                    TFMGBlocks.NICKEL_FLYWHEEL
-////
-//            )
-//            .renderer(() -> TFMGFlywheelRenderer::new)
-//            .register();
+
+    public static final BlockEntityEntry<TFMGFlywheelBlockEntity> TFMG_FLYWHEEL = REGISTRATE
+            .blockEntity("steel_flywheel", TFMGFlywheelBlockEntity::new)
+            .visual(() -> TFMGFlywheelVisual::new, false)
+            .validBlocks(
+                    TFMGBlocks.STEEL_FLYWHEEL,
+                    TFMGBlocks.ALUMINUM_FLYWHEEL,
+                    TFMGBlocks.CAST_IRON_FLYWHEEL,
+                    TFMGBlocks.LEAD_FLYWHEEL,
+                    TFMGBlocks.NICKEL_FLYWHEEL
+            )
+            .renderer(() -> TFMGFlywheelRenderer::new)
+            .register();
 //
 //    public static final BlockEntityEntry<BlastFurnaceOutputBlockEntity> BLAST_FURNACE_OUTPUT = REGISTRATE
 //            .blockEntity("blast_furnace_output", BlastFurnaceOutputBlockEntity::new)

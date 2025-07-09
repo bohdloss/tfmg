@@ -27,7 +27,7 @@ public class LithiumFireBlock extends FireBlock implements ICustomFire {
     }
 
     @Override
-    public Block provideFireBlock() {
+    public Block tfmg$provideFireBlock() {
         return TFMGColoredFires.LITHIUM_FIRE.get();
     }
 }
