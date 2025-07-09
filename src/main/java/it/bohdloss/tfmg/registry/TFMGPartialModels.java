@@ -1,8 +1,12 @@
 package it.bohdloss.tfmg.registry;
 
+import com.simibubi.create.content.fluids.FluidTransportBehaviour;
+import com.simibubi.create.foundation.utility.CreateLang;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import it.bohdloss.tfmg.TFMG;
 import net.createmod.catnip.data.Couple;
+import net.createmod.catnip.data.Iterate;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
@@ -110,9 +114,9 @@ public class TFMGPartialModels {
     //Display Segments
 
     public static final List<PartialModel> SEGMENTS = new ArrayList<>();
-//    public static final Map<TFMGPipes.PipeMaterial, PartialModel> PIPE_CASINGS = new HashMap<>();
+    public static final Map<TFMGPipes.PipeMaterial, PartialModel> PIPE_CASINGS = new HashMap<>();
     public static final Map<ResourceLocation, Couple<PartialModel>> FOLDING_DOORS = new HashMap<>();
-//    public static final Map<TFMGPipes.PipeMaterial, Map<FluidTransportBehaviour.AttachmentTypes.ComponentPartials, Map<Direction, PartialModel>>> PIPE_ATTACHMENTS = new HashMap<>();
+    public static final Map<TFMGPipes.PipeMaterial, Map<FluidTransportBehaviour.AttachmentTypes.ComponentPartials, Map<Direction, PartialModel>>> PIPE_ATTACHMENTS = new HashMap<>();
 
     static {
         for (int i = 0; i < 21; i++) {
@@ -122,24 +126,24 @@ public class TFMGPartialModels {
 
     static {
 
-//        for (TFMGPipes.PipeMaterial material : TFMGPipes.PipeMaterial.values()) {
-//
-//            Map<FluidTransportBehaviour.AttachmentTypes.ComponentPartials, Map<Direction, PartialModel>> attachments = new EnumMap<>(FluidTransportBehaviour.AttachmentTypes.ComponentPartials.class);
-//
-//            for (FluidTransportBehaviour.AttachmentTypes.ComponentPartials type : FluidTransportBehaviour.AttachmentTypes.ComponentPartials.values()) {
-//                Map<Direction, PartialModel> map = new HashMap<>();
-//                for (Direction d : Iterate.directions) {
-//                    String asId = CreateLang.asId(type.name());
-//                    map.put(d, block(material.name + "_pipe/" + asId + "/" + CreateLang.asId(d.getSerializedName())));
-//                }
-//                attachments.put(type, map);
-//            }
-//
-//            PIPE_ATTACHMENTS.put(material, attachments);
-//
-//            PIPE_CASINGS.put(material, block(material.name + "_pipe/casing"));
-//
-//        }
+        for (TFMGPipes.PipeMaterial material : TFMGPipes.PipeMaterial.values()) {
+
+            Map<FluidTransportBehaviour.AttachmentTypes.ComponentPartials, Map<Direction, PartialModel>> attachments = new EnumMap<>(FluidTransportBehaviour.AttachmentTypes.ComponentPartials.class);
+
+            for (FluidTransportBehaviour.AttachmentTypes.ComponentPartials type : FluidTransportBehaviour.AttachmentTypes.ComponentPartials.values()) {
+                Map<Direction, PartialModel> map = new HashMap<>();
+                for (Direction d : Iterate.directions) {
+                    String asId = CreateLang.asId(type.name());
+                    map.put(d, block(material.name + "_pipe/" + asId + "/" + CreateLang.asId(d.getSerializedName())));
+                }
+                attachments.put(type, map);
+            }
+
+            PIPE_ATTACHMENTS.put(material, attachments);
+
+            PIPE_CASINGS.put(material, block(material.name + "_pipe/casing"));
+
+        }
         ////////////////
         putFoldingDoor("steel_door");
 

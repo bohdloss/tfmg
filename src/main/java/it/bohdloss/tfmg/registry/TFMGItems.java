@@ -17,6 +17,7 @@ import it.bohdloss.tfmg.content.electricity.utilities.resistor.ResistorItem;
 import it.bohdloss.tfmg.content.electricity.connection.SpoolItem;
 import it.bohdloss.tfmg.content.electricity.utilities.transformer.ElectromagneticCoilItem;
 import it.bohdloss.tfmg.content.items.CoalCokeItem;
+import it.bohdloss.tfmg.content.items.ScrewdriverItem;
 import it.bohdloss.tfmg.content.items.weapons.LeadAxeItem;
 import it.bohdloss.tfmg.content.items.weapons.LeadSwordItem;
 import it.bohdloss.tfmg.content.items.weapons.LitLithiumBladeItem;
@@ -206,11 +207,11 @@ public class TFMGItems {
     public static final ItemEntry<DebugCinderBlockItem> DEBUG_CINDERBLOCK = REGISTRATE.item("debug_cinderblock", DebugCinderBlockItem::new)
             .properties(p -> p.rarity(Rarity.EPIC).stacksTo(1))
             .register();
-//    public static final ItemEntry<ScrewdriverItem> SCREWDRIVER = REGISTRATE.item("screwdriver", ScrewdriverItem::new)
-//            .properties(p -> p.stacksTo(1)
-//                    .durability(256))
-//            .register();
-//
+    public static final ItemEntry<ScrewdriverItem> SCREWDRIVER = REGISTRATE.item("screwdriver", ScrewdriverItem::new)
+            .properties(p -> p.stacksTo(1)
+                    .durability(256))
+            .register();
+
 //    public static final ItemEntry<DepositItem> DEPOSIT_ITEM = REGISTRATE.item("deposit_item", DepositItem::new)
 //            .properties(p -> p.stacksTo(1)
 //                    .durability(1))

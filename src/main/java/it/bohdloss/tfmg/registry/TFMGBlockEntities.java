@@ -1,5 +1,15 @@
 package it.bohdloss.tfmg.registry;
 
+import com.simibubi.create.AllPartialModels;
+import com.simibubi.create.content.fluids.pipes.FluidPipeBlockEntity;
+import com.simibubi.create.content.fluids.pipes.SmartFluidPipeBlockEntity;
+import com.simibubi.create.content.fluids.pipes.StraightPipeBlockEntity;
+import com.simibubi.create.content.fluids.pipes.TransparentStraightPipeRenderer;
+import com.simibubi.create.content.fluids.pipes.valve.FluidValveBlockEntity;
+import com.simibubi.create.content.fluids.pipes.valve.FluidValveRenderer;
+import com.simibubi.create.content.fluids.pipes.valve.FluidValveVisual;
+import com.simibubi.create.content.fluids.pump.PumpBlockEntity;
+import com.simibubi.create.content.fluids.pump.PumpRenderer;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.base.ShaftRenderer;
 import com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual;
@@ -8,6 +18,7 @@ import com.simibubi.create.content.kinetics.gearbox.GearboxRenderer;
 import com.simibubi.create.content.kinetics.gearbox.GearboxVisual;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEntity;
 import com.simibubi.create.content.kinetics.simpleRelays.SimpleKineticBlockEntity;
+import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import it.bohdloss.tfmg.content.decoration.cogs.TFMGCogwheelRenderer;
 import it.bohdloss.tfmg.content.decoration.cogs.TFMGCogwheelVisual;
@@ -417,79 +428,79 @@ public class TFMGBlockEntities {
 //            .validBlocks(TFMGBlocks.WINDING_MACHINE)
 //            .renderer(() -> WindingMachineRenderer::new)
 //            .register();
-//
-//
-//    public static final BlockEntityEntry<TFMGPipeBlockEntity> TFMG_PIPE = REGISTRATE
-//            .blockEntity("tfmg_pipe", TFMGPipeBlockEntity::new)
-//            .validBlocks(
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).get(0),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).get(0),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).get(0),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).get(0),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).get(0)
-//            )
-//            .register();
-//
-//    public static final BlockEntityEntry<StraightPipeBlockEntity> GLASS_TFMG_PIPE = REGISTRATE
-//            .blockEntity("glass_tfmg_pipe", StraightPipeBlockEntity::new)
-//            .validBlocks(
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).get(2),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).get(2),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).get(2),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).get(2),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).get(2))
-//            .renderer(() -> TransparentStraightPipeRenderer::new)
-//            .register();
-//
-//
-//    public static final BlockEntityEntry<FluidPipeBlockEntity> ENCASED_TFMG_PIPE = REGISTRATE
-//            .blockEntity("encased_tfmg_pipe", FluidPipeBlockEntity::new)
-//            .validBlocks(
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).get(1),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).get(1),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).get(1),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).get(1),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).get(1))
-//            .register();
-//
-//
-//    public static final BlockEntityEntry<PumpBlockEntity> TFMG_MECHANICAL_PUMP = REGISTRATE
-//            .blockEntity("mechanical_pump", PumpBlockEntity::new)
-//            .visual(() -> SingleAxisRotatingVisual.ofZ(AllPartialModels.MECHANICAL_PUMP_COG))
-//            .validBlocks(
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).get(3),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).get(3),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).get(3),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).get(3),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).get(3)
-//            )
-//            .renderer(() -> PumpRenderer::new)
-//            .register();
-//
-//    public static final BlockEntityEntry<SmartFluidPipeBlockEntity> TFMG_SMART_FLUID_PIPE = REGISTRATE
-//            .blockEntity("smart_fluid_pipe", SmartFluidPipeBlockEntity::new)
-//            .validBlocks(
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).get(4),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).get(4),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).get(4),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).get(4),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).get(4)
-//            )
-//            .renderer(() -> SmartBlockEntityRenderer::new)
-//            .register();
-//
-//    public static final BlockEntityEntry<FluidValveBlockEntity> TFMG_FLUID_VALVE = REGISTRATE
-//            .blockEntity("fluid_valve", FluidValveBlockEntity::new)
-//            .visual(() -> FluidValveVisual::new)
-//            .validBlocks(
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).get(5),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).get(5),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).get(5),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).get(5),
-//                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).get(5)
-//            )
-//            .renderer(() -> FluidValveRenderer::new)
-//            .register();
+
+
+    public static final BlockEntityEntry<FluidPipeBlockEntity> TFMG_PIPE = REGISTRATE
+            .blockEntity("tfmg_pipe", FluidPipeBlockEntity::new)
+            .validBlocks(
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).pipe(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).pipe(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).pipe(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).pipe(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).pipe()
+            )
+            .register();
+
+    public static final BlockEntityEntry<StraightPipeBlockEntity> GLASS_TFMG_PIPE = REGISTRATE
+            .blockEntity("glass_tfmg_pipe", StraightPipeBlockEntity::new)
+            .validBlocks(
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).glass(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).glass(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).glass(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).glass(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).glass())
+            .renderer(() -> TransparentStraightPipeRenderer::new)
+            .register();
+
+
+    public static final BlockEntityEntry<FluidPipeBlockEntity> ENCASED_TFMG_PIPE = REGISTRATE
+            .blockEntity("encased_tfmg_pipe", FluidPipeBlockEntity::new)
+            .validBlocks(
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).encased(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).encased(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).encased(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).encased(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).encased())
+            .register();
+
+
+    public static final BlockEntityEntry<PumpBlockEntity> TFMG_MECHANICAL_PUMP = REGISTRATE
+            .blockEntity("mechanical_pump", PumpBlockEntity::new)
+            .visual(() -> SingleAxisRotatingVisual.ofZ(AllPartialModels.MECHANICAL_PUMP_COG))
+            .validBlocks(
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).pump(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).pump(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).pump(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).pump(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).pump()
+            )
+            .renderer(() -> PumpRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<SmartFluidPipeBlockEntity> TFMG_SMART_FLUID_PIPE = REGISTRATE
+            .blockEntity("smart_fluid_pipe", SmartFluidPipeBlockEntity::new)
+            .validBlocks(
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).smartPipe(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).smartPipe(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).smartPipe(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).smartPipe(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).smartPipe()
+            )
+            .renderer(() -> SmartBlockEntityRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<FluidValveBlockEntity> TFMG_FLUID_VALVE = REGISTRATE
+            .blockEntity("fluid_valve", FluidValveBlockEntity::new)
+            .visual(() -> FluidValveVisual::new)
+            .validBlocks(
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).valve(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.ALUMINUM).valve(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.BRASS).valve(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.CAST_IRON).valve(),
+                    TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.PLASTIC).valve()
+            )
+            .renderer(() -> FluidValveRenderer::new)
+            .register();
 
 public static final BlockEntityEntry<OilDepositBlockEntity> OIL_DEPOSIT = REGISTRATE
         .blockEntity("oil_deposit", OilDepositBlockEntity::new)

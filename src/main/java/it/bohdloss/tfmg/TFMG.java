@@ -69,6 +69,7 @@ public class TFMG {
         TFMGArmorMaterials.register(modEventBus);
         TFMGFluids.init();
         TFMGColoredFires.register(modEventBus);
+        TFMGPipes.init();
 
         TFMGConfigs.register(modContainer);
     }
