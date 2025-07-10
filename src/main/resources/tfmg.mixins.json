@@ -6,7 +6,8 @@
   "mixins": [
     "FireBlockMixin",
     "FluidPipeBlockEntityMixin",
-    "FluidPipeBlockMixin"
+    "FluidPipeBlockMixin",
+    "FluidPropagatorMixin"
   ],
   "client": [
   ],

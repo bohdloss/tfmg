@@ -7,6 +7,7 @@ import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
 import com.simibubi.create.foundation.utility.CreateLang;
 import it.bohdloss.tfmg.base.Spark;
+import it.bohdloss.tfmg.base.spark.ElectricSparkParticle;
 import it.bohdloss.tfmg.content.electricity.connection.cable_type.CableType;
 import it.bohdloss.tfmg.content.machinery.vat.electrode_holder.electrode.Electrode;
 import it.bohdloss.tfmg.registry.TFMGEntityTypes;
@@ -33,12 +34,15 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.capabilities.BlockCapability;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
 import java.util.Arrays;
@@ -121,21 +125,21 @@ public class TFMGUtils {
         return s;
     }
 
-//    public static void spawnElectricParticles(Level level, BlockPos pos) {
-//        if (level == null) {
-//            return;
-//        }
-//
-//        RandomSource r = level.getRandom();
-//
-//        for (int i = 0; i < r.nextInt(40); i++) {
-//            float x = Create.RANDOM.nextFloat(2) - 1;
-//            float y = Create.RANDOM.nextFloat(2) - 1;
-//            float z = Create.RANDOM.nextFloat(2) - 1;
-//
-//            level.addParticle(new ElectricSparkParticle.Data(), pos.getX() + 0.5f + x, pos.getY() + 0.5f + y, pos.getZ() + 0.5f + z, x, y, z);
-//        }
-//    }
+    public static void spawnElectricParticles(Level level, BlockPos pos) {
+        if (level == null) {
+            return;
+        }
+
+        RandomSource r = level.getRandom();
+
+        for (int i = 0; i < r.nextInt(40); i++) {
+            float x = Create.RANDOM.nextFloat(2) - 1;
+            float y = Create.RANDOM.nextFloat(2) - 1;
+            float z = Create.RANDOM.nextFloat(2) - 1;
+
+            level.addParticle(new ElectricSparkParticle.Data(), pos.getX() + 0.5f + x, pos.getY() + 0.5f + y, pos.getZ() + 0.5f + z, x, y, z);
+        }
+    }
 
     public static float getDistance(BlockPos pos1, BlockPos pos2, boolean _2D) {
 
@@ -153,69 +157,98 @@ public class TFMGUtils {
         return (float) Math.sqrt(distance2D * distance2D + y * y);
     }
 
-//    public static void createStorageTooltip(BlockEntity be, List<Component> tooltip) {
-//        createFluidTooltip(be, tooltip);
-//        createItemTooltip(be, tooltip);
-//    }
+    public static void createStorageTooltip(BlockEntity be, List<Component> tooltip) {
+        createFluidTooltip(be, tooltip);
+        createItemTooltip(be, tooltip);
+    }
 
-//    public static boolean createFluidTooltip(BlockEntity be, List<Component> tooltip) {
-//        LangBuilder mb = CreateLang.translate("generic.unit.millibuckets");
-//
-//        /////////
-//        LazyOptional<IFluidHandler> handler = be.getCapability(ForgeCapabilities.FLUID_HANDLER);
-//        Optional<IFluidHandler> resolve = handler.resolve();
-//        if (!resolve.isPresent()) return false;
-//
-//        IFluidHandler tank = resolve.get();
-//        if (tank.getTanks() == 0) return false;
-//
-//        CreateLang.translate("goggles.fluid_storage").style(ChatFormatting.GRAY).forGoggles(tooltip);
-//
-//
-//        boolean isEmpty = true;
-//        for (int i = 0; i < tank.getTanks(); i++) {
-//            FluidStack fluidStack = tank.getFluidInTank(i);
-//            if (fluidStack.isEmpty()) continue;
-//            CreateLang.fluidName(fluidStack).style(ChatFormatting.GRAY).forGoggles(tooltip, 1);
-//            CreateLang.builder().add(CreateLang.number(fluidStack.getAmount()).add(mb).style(ChatFormatting.DARK_GREEN)).text(ChatFormatting.GRAY, " / ").add(CreateLang.number(tank.getTankCapacity(i)).add(mb).style(ChatFormatting.DARK_GRAY)).forGoggles(tooltip, 1);
-//            isEmpty = false;
-//        }
-//        if (tank.getTanks() > 1) {
-//            if (isEmpty) tooltip.remove(tooltip.size() - 1);
-//            return true;
-//        }
-//        if (!isEmpty) return true;
-//
-//        CreateLang.translate("gui.goggles.fluid_container.capacity").add(CreateLang.number(tank.getTankCapacity(0)).add(mb).style(ChatFormatting.DARK_GREEN)).style(ChatFormatting.DARK_GRAY).forGoggles(tooltip, 1);
-//        return true;
-//    }
-//
-//
-//    public static boolean createItemTooltip(BlockEntity be, List<Component> tooltip) {
-//
-//        @NotNull LazyOptional<IItemHandler> handler = be.getCapability(ForgeCapabilities.ITEM_HANDLER);
-//        Optional<IItemHandler> resolve = handler.resolve();
-//        if (!resolve.isPresent()) return false;
-//        IItemHandlerModifiable inventory = (IItemHandlerModifiable) resolve.get();
-//        if (inventory.getSlots() == 0) return false;
-//        CreateLang.translate("goggles.item_storage").style(ChatFormatting.GRAY).forGoggles(tooltip);
-//        boolean isEmpty = true;
-//        for (int i = 0; i < inventory.getSlots(); i++) {
-//            ItemStack itemStack = inventory.getStackInSlot(i);
-//
-//            if (itemStack.isEmpty()) continue;
-//            CreateLang.itemName(itemStack).style(ChatFormatting.DARK_GREEN).add(Component.literal(" x " + itemStack.getCount())).style(ChatFormatting.DARK_GREEN).forGoggles(tooltip, 1);
-//            isEmpty = false;
-//        }
-//        if (inventory.getSlots() > 1) {
-//            if (isEmpty) tooltip.remove(tooltip.size() - 1);
-//            return true;
-//        }
-//        if (!isEmpty) return true;
-//
-//        CreateLang.translate("item_attributes.shulker_level.empty").style(ChatFormatting.DARK_GRAY).forGoggles(tooltip, 1);
-//        return true;
-//    }
+    public static <T> T scanBlockCapabilities(BlockCapability<T, Direction> cap, Level level, BlockPos pos) {
+        if(level == null) {
+            return null;
+        }
+        for(Direction direction : Direction.values()) {
+            var capability = level.getCapability(cap, pos, direction);
+            if(capability != null) {
+                return capability;
+            }
+        }
+        return null;
+    }
+
+    public static boolean createFluidTooltip(BlockEntity be, List<Component> tooltip) {
+        LangBuilder mb = CreateLang.translate("generic.unit.millibuckets");
+
+        /////////
+        if(be.getLevel() == null) {
+            return false;
+        }
+        IFluidHandler tank = scanBlockCapabilities(Capabilities.FluidHandler.BLOCK, be.getLevel(), be.getBlockPos());
+        if (tank == null) {
+            return false;
+        }
+        if (tank.getTanks() == 0) {
+            return false;
+        }
+
+        CreateLang.translate("goggles.fluid_storage").style(ChatFormatting.GRAY).forGoggles(tooltip);
+
+        boolean isEmpty = true;
+        for (int i = 0; i < tank.getTanks(); i++) {
+            FluidStack fluidStack = tank.getFluidInTank(i);
+            if (fluidStack.isEmpty()) {
+                continue;
+            }
+            CreateLang.fluidName(fluidStack).style(ChatFormatting.GRAY).forGoggles(tooltip, 1);
+            CreateLang.builder().add(CreateLang.number(fluidStack.getAmount()).add(mb).style(ChatFormatting.DARK_GREEN)).text(ChatFormatting.GRAY, " / ").add(CreateLang.number(tank.getTankCapacity(i)).add(mb).style(ChatFormatting.DARK_GRAY)).forGoggles(tooltip, 1);
+            isEmpty = false;
+        }
+        if (tank.getTanks() > 1) {
+            if (isEmpty) {
+                tooltip.remove(tooltip.size() - 1);
+            }
+            return true;
+        }
+        if (!isEmpty) {
+            return true;
+        }
+
+        CreateLang.translate("gui.goggles.fluid_container.capacity").add(CreateLang.number(tank.getTankCapacity(0)).add(mb).style(ChatFormatting.DARK_GREEN)).style(ChatFormatting.DARK_GRAY).forGoggles(tooltip, 1);
+        return true;
+    }
+
+
+    public static boolean createItemTooltip(BlockEntity be, List<Component> tooltip) {
+        IItemHandler inventory = scanBlockCapabilities(Capabilities.ItemHandler.BLOCK, be.getLevel(), be.getBlockPos());
+        if (inventory == null) {
+            return false;
+        }
+        if (inventory.getSlots() == 0) {
+            return false;
+        }
+        CreateLang.translate("goggles.item_storage").style(ChatFormatting.GRAY).forGoggles(tooltip);
+        boolean isEmpty = true;
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            ItemStack itemStack = inventory.getStackInSlot(i);
+
+            if (itemStack.isEmpty()) {
+                continue;
+            }
+            CreateLang.itemName(itemStack).style(ChatFormatting.DARK_GREEN).add(Component.literal(" x " + itemStack.getCount())).style(ChatFormatting.DARK_GREEN).forGoggles(tooltip, 1);
+            isEmpty = false;
+        }
+        if (inventory.getSlots() > 1) {
+            if (isEmpty) {
+                tooltip.remove(tooltip.size() - 1);
+            }
+            return true;
+        }
+        if (!isEmpty) {
+            return true;
+        }
+
+        CreateLang.translate("item_attributes.shulker_level.empty").style(ChatFormatting.DARK_GRAY).forGoggles(tooltip, 1);
+        return true;
+    }
 
     public static String formatUnits(double n, String unit) {
         if (n == 0)

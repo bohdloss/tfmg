@@ -1,4 +1,4 @@
-// 1.21.1	2025-07-10T01:33:26.14394279	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2025-07-10T03:10:35.841361329	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
 b7f5146505c40c08cdea7ad01fa99048b7ac5451 assets/tfmg/blockstates/aluminum_block.json
 f77a99f3ee1d192001623fd41601f3a1687b67c8 assets/tfmg/blockstates/aluminum_cogwheel.json
@@ -98,6 +98,7 @@ da3ce72a164ba44b83d2e0a34aba7a2e0bf1f7e0 assets/tfmg/blockstates/deepslate_lead_
 ef677a324787ed787012439b7d4a08b2cbfe5809 assets/tfmg/blockstates/factory_floor_stairs.json
 0bafb92dc1bee765cef915eb3175c827de51985a assets/tfmg/blockstates/factory_floor_wall.json
 8e8feef9e07345228da05669fcb8449a4276f114 assets/tfmg/blockstates/fireclay.json
+89257ec2fdb2f1d61cb229df606c7ffac47e4582 assets/tfmg/blockstates/flarestack.json
 e74acd9562e4b46295cf017d17f2662e20a7f5ea assets/tfmg/blockstates/fossilstone.json
 b0a3f4da5d9efdd01800c8b9738aee194565c6e7 assets/tfmg/blockstates/gasoline.json
 c58cc6ae649bc1bafe76b85f0ad4a96c78c237a7 assets/tfmg/blockstates/glass_aluminum_pipe.json
@@ -306,8 +307,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-c2e8902f2d8d42d97e1b3114c19b9ecaf0f4b5e0 assets/tfmg/lang/en_ud.json
-6aebec8cf7896581f96fee3bc2ea5ce968ccaba3 assets/tfmg/lang/en_us.json
+91b77511191dd7b81455d97574b78fdd2a971c28 assets/tfmg/lang/en_ud.json
+b036bd6c0f9abef57dd9823a91b1d5b155209d80 assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
 4344f14c42bb7a9f90120b5f75927015c0edc3bc assets/tfmg/models/block/aluminum_cap_alt.json
@@ -937,6 +938,7 @@ ea3792ff90f44546f7a1dbbdb9a984dc1ef03edf assets/tfmg/models/item/factory_floor_w
 84956ff1e797ed4facf000763dc0758d88e26095 assets/tfmg/models/item/fireclay.json
 392d736d912396962c0980623b8fcdbdb1541ad7 assets/tfmg/models/item/fireclay_ball.json
 6adcbf69c17e06e98cc848dc136b8907c9cff7be assets/tfmg/models/item/fireproof_brick.json
+6760e6cfe559d9d21c16a1ac8e444423fa8f6c48 assets/tfmg/models/item/flarestack.json
 7e4a58a6d05b19dc8c5fff73434c2d7cefa75343 assets/tfmg/models/item/fossilstone.json
 733b814e1fa27192eb5620419bc6be64423d89c1 assets/tfmg/models/item/furnace_gas_bucket.json
 74f230487e2e0ded1c5416da82fce20a51cddcda assets/tfmg/models/item/fuse.json
@@ -1347,7 +1349,7 @@ dd1f4f2989edaecd2273411a846f47d0fbc69fbc data/create/tags/item/create_ingots.jso
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/features_cannot_replace.json
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/infiniburn_overworld.json
 403bf0a3b5d786c9950dc66574e1d20a27ed6b24 data/minecraft/tags/block/mineable/axe.json
-5dc52c26ac8b1cf2d5701274212630816606011a data/minecraft/tags/block/mineable/pickaxe.json
+33fd92a4066b33d8220eb97ba15addddf5ac64cc data/minecraft/tags/block/mineable/pickaxe.json
 9c7d1d075d20521106a7076ae12804d8e2ac6764 data/minecraft/tags/block/mineable/shovel.json
 dfca9f1cc79d30334f344f024c13a7c717bf4027 data/minecraft/tags/block/needs_iron_tool.json
 502abbb79b6e3ec25b846845d869ed0eb0aff876 data/minecraft/tags/block/needs_stone_tool.json
@@ -1611,6 +1613,7 @@ a84d11a777ea8334c27703b96830a1e1df7b2d04 data/tfmg/loot_table/blocks/factory_flo
 b65a4d119a0f0c1e71a1092e52070f0a80fa347f data/tfmg/loot_table/blocks/factory_floor_stairs.json
 f1c302b35579f00752fcf910aa57c81fc43ef872 data/tfmg/loot_table/blocks/factory_floor_wall.json
 b413d50a081288a2d2599995dd001edc76f543d0 data/tfmg/loot_table/blocks/fireclay.json
+c80724662af3f9c56f560c1272c6a89e26bc8268 data/tfmg/loot_table/blocks/flarestack.json
 9f2b65dbcf81aa1cb79c57787b944ddba8d8fb68 data/tfmg/loot_table/blocks/fossilstone.json
 2eb72789f8dd117af17aafd0adbddbbbe574ad27 data/tfmg/loot_table/blocks/glass_aluminum_pipe.json
 dc7461e6cd019a5af3f71de7e6f04c0d89607d51 data/tfmg/loot_table/blocks/glass_brass_pipe.json

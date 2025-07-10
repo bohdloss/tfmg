@@ -21,6 +21,8 @@ import it.bohdloss.tfmg.content.decoration.cogs.TFMGCogwheelBlock;
 import it.bohdloss.tfmg.content.decoration.concrete.*;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelBlock;
 import it.bohdloss.tfmg.content.items.CoalCokeBlockItem;
+import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackBlock;
+import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackGenerator;
 import it.bohdloss.tfmg.content.machinery.oil_processing.OilDepositBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.HolderLookup;
@@ -1226,21 +1228,21 @@ public class TFMGBlocks {
 //                    .item()
 //                    .transform(customItemModel())
 //                    .register();
-//
-//
-//    public static final BlockEntry<FlarestackBlock> FLARESTACK =
-//            REGISTRATE.block("flarestack", FlarestackBlock::new)
-//                    .initialProperties(SharedProperties::copperMetal)
-//                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .properties(p -> p
-//                            .lightLevel(s -> s.getValue(FlarestackBlock.LIT) ? 15 : 0)
-//                            .noOcclusion())
-//                    .blockstate(new FlarestackGenerator()::generate)
-//                    .transform(pickaxeOnly())
-//                    .item()
-//                    .transform(customItemModel())
-//                    .register();
+
+
+    public static final BlockEntry<FlarestackBlock> FLARESTACK =
+            REGISTRATE.block("flarestack", FlarestackBlock::new)
+                    .initialProperties(SharedProperties::copperMetal)
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .properties(p -> p
+                            .lightLevel(s -> s.getValue(FlarestackBlock.LIT) ? 15 : 0)
+                            .noOcclusion())
+                    .blockstate(new FlarestackGenerator()::generate)
+                    .transform(pickaxeOnly())
+                    .item()
+                    .transform(customItemModel())
+                    .register();
 
     //------------------COGWHEELS------------------//
 
