@@ -1,4 +1,4 @@
-// 1.21.1	2025-07-10T03:10:35.841361329	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2025-07-10T04:45:12.244601305	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
 b7f5146505c40c08cdea7ad01fa99048b7ac5451 assets/tfmg/blockstates/aluminum_block.json
 f77a99f3ee1d192001623fd41601f3a1687b67c8 assets/tfmg/blockstates/aluminum_cogwheel.json
@@ -39,6 +39,7 @@ a96c72f6a617b4411810438c35c39dcb6ed37f85 assets/tfmg/blockstates/brass_frame.jso
 99739088a4fadc39e9e4dce904d279b0de94ca8e assets/tfmg/blockstates/brass_pipe.json
 9ec8f8112e5907f732c730b5ed7ea4132a3e6c21 assets/tfmg/blockstates/brass_smart_fluid_pipe.json
 9d2026a8d35888c538d7283176fcd43a2f84856b assets/tfmg/blockstates/brass_truss.json
+ce7c427cf4f515dae0b70e073fcab02c4dd5fd92 assets/tfmg/blockstates/brick_smokestack.json
 4158158416ad9a5d4a31f3cd3ea857a2ad3d8bc0 assets/tfmg/blockstates/brown_caution_block.json
 b846b257ecd76322e904bd9c78a8b263a2799ad5 assets/tfmg/blockstates/brown_concrete.json
 8b756fc85daef6d064edf3ea2b2e4c397e67c4a2 assets/tfmg/blockstates/brown_concrete_slab.json
@@ -64,6 +65,7 @@ b01e90f39cda043e50ea9c3d0605f4bfcef077aa assets/tfmg/blockstates/cinder_block.js
 ec94bedd045ade74274ffe009569d65083b9fff5 assets/tfmg/blockstates/coal_coke_block.json
 c67b91a7fd9f16cd2d7eaa92dd9b945042d58130 assets/tfmg/blockstates/concrete.json
 9c9cac30f015e72418736cbec2d721a6dec56fb7 assets/tfmg/blockstates/concrete_slab.json
+1bb17c9ead851661909f9d223aa3947267c0a84e assets/tfmg/blockstates/concrete_smokestack.json
 84fcaec7626f69e9a27ef235121f9a9db9955530 assets/tfmg/blockstates/concrete_stairs.json
 ff85a7b17cfc90735a0d6a868ff05bb77797adc4 assets/tfmg/blockstates/concrete_wall.json
 2cfe5e165f43d1308a657b983507c9f9b9c7c404 assets/tfmg/blockstates/constantan_block.json
@@ -93,6 +95,7 @@ da3ce72a164ba44b83d2e0a34aba7a2e0bf1f7e0 assets/tfmg/blockstates/deepslate_lead_
 29fabca149c689611b3066ffd546b48e305b795b assets/tfmg/blockstates/deepslate_lithium_ore.json
 0c1f4a179de5361677ab6a190f3b3279374dfdf0 assets/tfmg/blockstates/deepslate_nickel_ore.json
 03983ce3de10310cd75b98f17c9161653b7034cd assets/tfmg/blockstates/diesel.json
+08007e8e0e57b4ad322e9125fd05b010aa9a5a0b assets/tfmg/blockstates/exhaust.json
 41ad3bce75918278f4f48ca3ecf23b1980f9963d assets/tfmg/blockstates/factory_floor.json
 10f47e08c249406dd1f2122d1e209998c45d848d assets/tfmg/blockstates/factory_floor_slab.json
 ef677a324787ed787012439b7d4a08b2cbfe5809 assets/tfmg/blockstates/factory_floor_stairs.json
@@ -192,6 +195,7 @@ d02941991bccf3fc193e6bcf5fc51af4ad0be4d3 assets/tfmg/blockstates/lithium_torch.j
 2052d36ce93141a6915bbf4f2e9ba485e241fef3 assets/tfmg/blockstates/magenta_rebar_concrete_slab.json
 96217ee5e14df8d0f08552355e51716c973f7d18 assets/tfmg/blockstates/magenta_rebar_concrete_stairs.json
 717037ad7e8a02c29c2b4411b65bc486778cbcab assets/tfmg/blockstates/magenta_rebar_concrete_wall.json
+1433878f939769f4fb7bf6e538e50dee7abb20ec assets/tfmg/blockstates/metal_smokestack.json
 91aecfd2209254bf818d86f5a378317be3617582 assets/tfmg/blockstates/molten_plastic.json
 655d2a8fc21a9365e3ad82e2b73dc5fd71566ef7 assets/tfmg/blockstates/molten_slag.json
 a4d0f4f955fe3ac39933613a721521849bcae8c6 assets/tfmg/blockstates/molten_steel.json
@@ -307,8 +311,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-91b77511191dd7b81455d97574b78fdd2a971c28 assets/tfmg/lang/en_ud.json
-b036bd6c0f9abef57dd9823a91b1d5b155209d80 assets/tfmg/lang/en_us.json
+2fee9146d45fde2c117d992d09ff5e244dd5fe4c assets/tfmg/lang/en_ud.json
+c5571ea80393cd49305ea1dd779ac14efbe52bf8 assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
 4344f14c42bb7a9f90120b5f75927015c0edc3bc assets/tfmg/models/block/aluminum_cap_alt.json
@@ -851,6 +855,7 @@ c5ad82126c949732854f9be8492d4bfdf756259b assets/tfmg/models/item/blue_concrete.j
 fe12441d1e495cfa9fae4f6c6086be21caec1224 assets/tfmg/models/item/brass_pipe.json
 06c7e8235661bdc2cdb7aedeaaac12277e3d2d19 assets/tfmg/models/item/brass_smart_fluid_pipe.json
 d9b83e727c2e49165304e5b44fbf94da7a6cefd2 assets/tfmg/models/item/brass_truss.json
+bc5b951d79046de8ecbb475ceff68c1e2308c8b5 assets/tfmg/models/item/brick_smokestack.json
 1e08d2fa4a01dfdda40adad5df8d46601e1875b4 assets/tfmg/models/item/brown_caution_block.json
 2af2b0dbdd2e56e6a206a4ff3e20672fdff60a12 assets/tfmg/models/item/brown_concrete.json
 4edd1d1a741a4bcee9dc1c5526ce2a97e878ede2 assets/tfmg/models/item/brown_concrete_slab.json
@@ -890,6 +895,7 @@ cf3c486158a27cbd3a4ef9fdd79dc93f3cc12b45 assets/tfmg/models/item/coal_coke_dust.
 4a843d55647a606fa97bc2daf745a7603406767d assets/tfmg/models/item/concrete.json
 1e4e0385a32fc8756acd46fac0a388a9d694df28 assets/tfmg/models/item/concrete_mixture.json
 685e08733e5195a8714284be2eeba8f47736115e assets/tfmg/models/item/concrete_slab.json
+296dab0d6fec155ca9823cc9e267b98b5173f538 assets/tfmg/models/item/concrete_smokestack.json
 e0e9a8a413dbdfa8e414dffa542306fe5c0f60fb assets/tfmg/models/item/concrete_stairs.json
 c52e4008b27e203473a676aefc66370efe7c0d9b assets/tfmg/models/item/concrete_wall.json
 6ad136893dcbbdd109b80ad96e15eabc9f792034 assets/tfmg/models/item/constantan_block.json
@@ -931,6 +937,7 @@ f3a706999351ee0f88946f8d5e3cdea38ac88ac4 assets/tfmg/models/item/deepslate_lead_
 a20d047772ef89454ead4a2ba0879f4a35fdbfc4 assets/tfmg/models/item/empty_spool.json
 f469a8d7eb37fce928a5fec614dc2473075f98cd assets/tfmg/models/item/etched_circuit_board.json
 af32c2651e6a26f4600f8e5b8ce687348f7e7990 assets/tfmg/models/item/ethylene_bucket.json
+941e9eac84bd6bfce1f801ea6a9c98d79d8a7c9d assets/tfmg/models/item/exhaust.json
 05059dfd2577f195a3c401b3e2a4c247371f5f67 assets/tfmg/models/item/factory_floor.json
 1ad0fcaf5dedf28d9bf9e57b1e4a5e3171128b50 assets/tfmg/models/item/factory_floor_slab.json
 4a370c91360e065c6c6f4ee0020e34930f152106 assets/tfmg/models/item/factory_floor_stairs.json
@@ -1052,6 +1059,7 @@ b30c36117a4728d08ee65a80098ecac77c08def2 assets/tfmg/models/item/magenta_rebar_c
 b380ae21f3274a48806976f58647150028a8df63 assets/tfmg/models/item/magenta_rebar_concrete_wall.json
 c9a77e80deba6a578002cd7a6996238d81ba940a assets/tfmg/models/item/magnet.json
 0804086e3fa0492e698e8818e0c0aa3bda9a0756 assets/tfmg/models/item/magnetic_alloy_ingot.json
+901c0865e16e327e693648dd7618eea303264b1b assets/tfmg/models/item/metal_smokestack.json
 e0bfca2123069d5d66da0d2182f9af309846d060 assets/tfmg/models/item/mixer_blade.json
 2144f625b12598ee3804479a7bc50a5d5ac544b9 assets/tfmg/models/item/molten_plastic_bucket.json
 0d07f5b9f11d294bffc4b2fff1529738b6d44115 assets/tfmg/models/item/molten_slag_bucket.json
@@ -1349,7 +1357,7 @@ dd1f4f2989edaecd2273411a846f47d0fbc69fbc data/create/tags/item/create_ingots.jso
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/features_cannot_replace.json
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/infiniburn_overworld.json
 403bf0a3b5d786c9950dc66574e1d20a27ed6b24 data/minecraft/tags/block/mineable/axe.json
-33fd92a4066b33d8220eb97ba15addddf5ac64cc data/minecraft/tags/block/mineable/pickaxe.json
+531a678375acb46c9bf9e461a1e1794090e85b2d data/minecraft/tags/block/mineable/pickaxe.json
 9c7d1d075d20521106a7076ae12804d8e2ac6764 data/minecraft/tags/block/mineable/shovel.json
 dfca9f1cc79d30334f344f024c13a7c717bf4027 data/minecraft/tags/block/needs_iron_tool.json
 502abbb79b6e3ec25b846845d869ed0eb0aff876 data/minecraft/tags/block/needs_stone_tool.json
@@ -1558,6 +1566,7 @@ ef6c38d8a05fe1b453ff553d9ea70975aee0e8fd data/tfmg/loot_table/blocks/brass_mecha
 67076f34b5a91873333ad34131e05dceff6a9a9c data/tfmg/loot_table/blocks/brass_pipe.json
 58f35f0ff07ae3d16eb87bb9ee256621565d54b3 data/tfmg/loot_table/blocks/brass_smart_fluid_pipe.json
 f8ba5f669545a12338ebc15508c38a4962249be4 data/tfmg/loot_table/blocks/brass_truss.json
+8cdddd531dd3673920084008b78babea8e5de3fc data/tfmg/loot_table/blocks/brick_smokestack.json
 64c0fefc76f833a1651401537b6b2ebcc8c8b451 data/tfmg/loot_table/blocks/brown_caution_block.json
 9732b5f18e66aeaac9bfe166a8774b10c98c496b data/tfmg/loot_table/blocks/brown_concrete.json
 b54c4eb3e743890e14c6a4d43a16d330c9b4f3e0 data/tfmg/loot_table/blocks/brown_concrete_slab.json
@@ -1583,6 +1592,7 @@ d219b1a4f2400204f7eb84ba463c9338c19b0fa5 data/tfmg/loot_table/blocks/cast_iron_t
 474d0da97641e0fd2cb76aec91b1127b1e99fe52 data/tfmg/loot_table/blocks/coal_coke_block.json
 a64156eb2eb8071c54b6726cf3c01c072c3c96d3 data/tfmg/loot_table/blocks/concrete.json
 2a812a55d2f78f2bb00c90e61e5c1e49c527d825 data/tfmg/loot_table/blocks/concrete_slab.json
+3531c7c379d6cf0e989b8c60f8c6f7eae8237af6 data/tfmg/loot_table/blocks/concrete_smokestack.json
 4b5541f3fc406b842adb95186cefc81fb37d527d data/tfmg/loot_table/blocks/concrete_stairs.json
 72e5e0969b2ecb12b7d621fab172c3c6bcfc20f6 data/tfmg/loot_table/blocks/concrete_wall.json
 2608c5d44fe9a75003031b8c690ae571150cebcd data/tfmg/loot_table/blocks/constantan_block.json
@@ -1608,6 +1618,7 @@ bfc26d79526b9d48f1bb8aaf0bfefb1502216bc9 data/tfmg/loot_table/blocks/cyan_rebar_
 22760cfbace948b75d0260969fae5a13ab91f9cb data/tfmg/loot_table/blocks/deepslate_lead_ore.json
 a42089cf1e3d74e056a21a11a8e8ab1ebd63c745 data/tfmg/loot_table/blocks/deepslate_lithium_ore.json
 95144a910f109be96f010b8ce10cd0ea370f86b4 data/tfmg/loot_table/blocks/deepslate_nickel_ore.json
+f110a1f94b2b12bc3301728fdbf0c885c1c5e461 data/tfmg/loot_table/blocks/exhaust.json
 dd2ace3ebd61456b31d0069bfd8abe19111f748c data/tfmg/loot_table/blocks/factory_floor.json
 a84d11a777ea8334c27703b96830a1e1df7b2d04 data/tfmg/loot_table/blocks/factory_floor_slab.json
 b65a4d119a0f0c1e71a1092e52070f0a80fa347f data/tfmg/loot_table/blocks/factory_floor_stairs.json
@@ -1700,6 +1711,7 @@ fa2ab4bc3da24a1870702d7fd65628ed55b6ac41 data/tfmg/loot_table/blocks/magenta_con
 1ee9fb7d4689f998836b59b923ea2b7cf93bd5ff data/tfmg/loot_table/blocks/magenta_rebar_concrete_slab.json
 464a2639caac80d12dee930c64249fe6cb03322e data/tfmg/loot_table/blocks/magenta_rebar_concrete_stairs.json
 9233ba3c6c86a82ddf28654bf9997920250ae9bc data/tfmg/loot_table/blocks/magenta_rebar_concrete_wall.json
+647b27bf2a5ff3376cde7422c44dbeffd8130ecd data/tfmg/loot_table/blocks/metal_smokestack.json
 0ae9b931267bc7e518b9e2a98a401bcbd3e91318 data/tfmg/loot_table/blocks/nickel_bars.json
 303f10e7adba41c5776d77e326b2f1f5a2bcb276 data/tfmg/loot_table/blocks/nickel_block.json
 b897a01f80c17acb0695f99df2d1ae5bcd7c3151 data/tfmg/loot_table/blocks/nickel_flywheel.json

@@ -21,8 +21,11 @@ import it.bohdloss.tfmg.content.decoration.cogs.TFMGCogwheelBlock;
 import it.bohdloss.tfmg.content.decoration.concrete.*;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelBlock;
 import it.bohdloss.tfmg.content.items.CoalCokeBlockItem;
+import it.bohdloss.tfmg.content.machinery.misc.exhaust.ExhaustBlock;
 import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackBlock;
 import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackGenerator;
+import it.bohdloss.tfmg.content.machinery.misc.smokestack.SmokestackBlock;
+import it.bohdloss.tfmg.content.machinery.misc.smokestack.SmokestackGenerator;
 import it.bohdloss.tfmg.content.machinery.oil_processing.OilDepositBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.HolderLookup;
@@ -1190,44 +1193,44 @@ public class TFMGBlocks {
 
 
     //------------------EXHAUST/WASTE_REMOVAL------------------//
-//    public static final BlockEntry<SmokestackBlock> BRICK_SMOKESTACK = REGISTRATE.block("brick_smokestack", SmokestackBlock::new)
-//            .initialProperties(() -> Blocks.BRICKS)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .transform(pickaxeOnly())
-//            .blockstate(new SmokestackGenerator()::generate)
-//            .item()
-//            .transform(customItemModel())
-//            .register();
-//
-//    public static final BlockEntry<SmokestackBlock> METAL_SMOKESTACK = REGISTRATE.block("metal_smokestack", SmokestackBlock::new)
-//            .initialProperties(() -> Blocks.IRON_BLOCK)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .transform(pickaxeOnly())
-//            .blockstate(new SmokestackGenerator()::generate)
-//            .item()
-//            .transform(customItemModel())
-//            .register();
-//
-//    public static final BlockEntry<SmokestackBlock> CONCRETE_SMOKESTACK = REGISTRATE.block("concrete_smokestack", SmokestackBlock::new)
-//            .initialProperties(() -> Blocks.STONE)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .transform(pickaxeOnly())
-//            .blockstate(new SmokestackGenerator()::generate)
-//            .item()
-//            .transform(customItemModel())
-//            .register();
-//
-//    public static final BlockEntry<ExhaustBlock> EXHAUST =
-//            REGISTRATE.block("exhaust", ExhaustBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
-//                    .blockstate(BlockStateGen.directionalBlockProvider(false))
-//                    .properties(p -> p.noOcclusion())
-//                    .transform(pickaxeOnly())
-//                    .item()
-//                    .transform(customItemModel())
-//                    .register();
+    public static final BlockEntry<SmokestackBlock> BRICK_SMOKESTACK = REGISTRATE.block("brick_smokestack", SmokestackBlock::new)
+            .initialProperties(() -> Blocks.BRICKS)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .blockstate(new SmokestackGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<SmokestackBlock> METAL_SMOKESTACK = REGISTRATE.block("metal_smokestack", SmokestackBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .blockstate(new SmokestackGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<SmokestackBlock> CONCRETE_SMOKESTACK = REGISTRATE.block("concrete_smokestack", SmokestackBlock::new)
+            .initialProperties(() -> Blocks.STONE)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .blockstate(new SmokestackGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<ExhaustBlock> EXHAUST =
+            REGISTRATE.block("exhaust", ExhaustBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .blockstate(BlockStateGen.directionalBlockProvider(false))
+                    .properties(p -> p.noOcclusion())
+                    .transform(pickaxeOnly())
+                    .item()
+                    .transform(customItemModel())
+                    .register();
 
 
     public static final BlockEntry<FlarestackBlock> FLARESTACK =

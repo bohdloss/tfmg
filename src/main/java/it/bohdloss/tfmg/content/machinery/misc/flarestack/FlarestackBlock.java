@@ -1,5 +1,6 @@
 package it.bohdloss.tfmg.content.machinery.misc.flarestack;
 
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 import it.bohdloss.tfmg.registry.TFMGBlockEntities;
 import it.bohdloss.tfmg.registry.TFMGShapes;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class FlarestackBlock extends Block implements IBE<FlarestackBlockEntity> {
+public class FlarestackBlock extends Block implements IBE<FlarestackBlockEntity>, IWrenchable {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     public FlarestackBlock(Properties properties) {

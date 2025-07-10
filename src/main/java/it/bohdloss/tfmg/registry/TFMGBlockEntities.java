@@ -28,7 +28,9 @@ import it.bohdloss.tfmg.content.decoration.encased.TFMGEncasedCogwheelVisual;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelBlockEntity;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelRenderer;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelVisual;
+import it.bohdloss.tfmg.content.machinery.misc.exhaust.ExhaustBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackBlockEntity;
+import it.bohdloss.tfmg.content.machinery.misc.smokestack.SmokestackBlockEntity;
 import it.bohdloss.tfmg.content.machinery.oil_processing.OilDepositBlockEntity;
 
 import static it.bohdloss.tfmg.TFMG.REGISTRATE;
@@ -292,17 +294,17 @@ public class TFMGBlockEntities {
 //            //.onRegister(assignDataBehaviourBE(new SegmentedDisplayTarget()))
 //            //.onRegister(assignDataBehaviourBE(new SegmentedDisplaySource()))
 //            .register();
-//
-//    public static final BlockEntityEntry<SmokestackBlockEntity> SMOKESTACK = REGISTRATE
-//            .blockEntity("smokestack", SmokestackBlockEntity::new)
-//            .validBlocks(TFMGBlocks.BRICK_SMOKESTACK, TFMGBlocks.METAL_SMOKESTACK, TFMGBlocks.CONCRETE_SMOKESTACK)
-//            .register();
-//
-//    public static final BlockEntityEntry<ExhaustBlockEntity> EXHAUST = REGISTRATE
-//            .blockEntity("exhaust", ExhaustBlockEntity::new)
-//            .validBlocks(TFMGBlocks.EXHAUST)
-//            .register();
-//
+
+    public static final BlockEntityEntry<SmokestackBlockEntity> SMOKESTACK = REGISTRATE
+            .blockEntity("smokestack", SmokestackBlockEntity::new)
+            .validBlocks(TFMGBlocks.BRICK_SMOKESTACK, TFMGBlocks.METAL_SMOKESTACK, TFMGBlocks.CONCRETE_SMOKESTACK)
+            .register();
+
+    public static final BlockEntityEntry<ExhaustBlockEntity> EXHAUST = REGISTRATE
+            .blockEntity("exhaust", ExhaustBlockEntity::new)
+            .validBlocks(TFMGBlocks.EXHAUST)
+            .register();
+
     public static final BlockEntityEntry<FlarestackBlockEntity> FLARESTACK = REGISTRATE
             .blockEntity("flarestack", FlarestackBlockEntity::new)
             .validBlocks(TFMGBlocks.FLARESTACK)
