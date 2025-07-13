@@ -1,4 +1,5 @@
-// 1.21.1	2025-07-10T04:45:12.244601305	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2025-07-10T22:47:08.190741101	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+e982a263b6af75821042107fdeff7bd809436d08 assets/tfmg/blockstates/air_intake.json
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
 b7f5146505c40c08cdea7ad01fa99048b7ac5451 assets/tfmg/blockstates/aluminum_block.json
 f77a99f3ee1d192001623fd41601f3a1687b67c8 assets/tfmg/blockstates/aluminum_cogwheel.json
@@ -311,8 +312,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-2fee9146d45fde2c117d992d09ff5e244dd5fe4c assets/tfmg/lang/en_ud.json
-c5571ea80393cd49305ea1dd779ac14efbe52bf8 assets/tfmg/lang/en_us.json
+f65299d8f3c65bea45567f7d3b9d5b2e92f6f8ce assets/tfmg/lang/en_ud.json
+21b1d3dbaedcadf3f776b14f9fd910f8037c02f7 assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
 4344f14c42bb7a9f90120b5f75927015c0edc3bc assets/tfmg/models/block/aluminum_cap_alt.json
@@ -802,6 +803,7 @@ fea28ae2dbee700a4219f227bf6a87502b31cb05 assets/tfmg/models/block/yellow_concret
 099f4b7adf652892d7ec572c6f9e38053089c097 assets/tfmg/models/block/yellow_concrete_wall_side_tall.json
 3bc79405c46c5411e65d70265769cd86f16ff040 assets/tfmg/models/block/yellow_rebar_concrete.json
 c2be2c2933da698fd2888fcb04b71cb372725b6f assets/tfmg/models/item/air_bucket.json
+500ce6e858f96a48d1871fe4c02404faa2ccac29 assets/tfmg/models/item/air_intake.json
 8a99a27814a3e0dedf83fbcc20f253caebf1f55e assets/tfmg/models/item/aluminum_axe.json
 f5f0b056cb26ccb089e8f6fea940e268c059aa72 assets/tfmg/models/item/aluminum_bars.json
 714173e054b787915b8cebfb50deb61b28dba5a3 assets/tfmg/models/item/aluminum_block.json
@@ -1357,7 +1359,7 @@ dd1f4f2989edaecd2273411a846f47d0fbc69fbc data/create/tags/item/create_ingots.jso
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/features_cannot_replace.json
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/infiniburn_overworld.json
 403bf0a3b5d786c9950dc66574e1d20a27ed6b24 data/minecraft/tags/block/mineable/axe.json
-531a678375acb46c9bf9e461a1e1794090e85b2d data/minecraft/tags/block/mineable/pickaxe.json
+c9bf77036295f02503577933c1387d4c62cc2340 data/minecraft/tags/block/mineable/pickaxe.json
 9c7d1d075d20521106a7076ae12804d8e2ac6764 data/minecraft/tags/block/mineable/shovel.json
 dfca9f1cc79d30334f344f024c13a7c717bf4027 data/minecraft/tags/block/needs_iron_tool.json
 502abbb79b6e3ec25b846845d869ed0eb0aff876 data/minecraft/tags/block/needs_stone_tool.json
@@ -1526,6 +1528,7 @@ aa735a88ca65d32d98015cc6045accf69c9a1329 data/tfmg/advancement/recipes/decoratio
 fc9cd41201db5e669da0ddd31f5586f471627639 data/tfmg/advancement/recipes/decorations/steel_ladder_from_ingots_steel_stonecutting.json
 52db19cf02d29afb75c627d79427b47269f5a5a2 data/tfmg/advancement/recipes/decorations/steel_scaffolding_from_ingots_steel_stonecutting.json
 3747b1b781a0c9545461612fc0a894a0550f1bfb data/tfmg/advancement/recipes/misc/synthetic_string_from_ingots_rubber_stonecutting.json
+f68fbabec2678d5dc6dbf3d3e9966dff35e89355 data/tfmg/loot_table/blocks/air_intake.json
 e200ffe6c6405746fce4a263faae7d4dff66f51d data/tfmg/loot_table/blocks/aluminum_bars.json
 31903ff0a773f10a1a1ac1e92ad970cee5835334 data/tfmg/loot_table/blocks/aluminum_block.json
 b13ae9d700d1a6edb951aa551e3535f9f1d1ea62 data/tfmg/loot_table/blocks/aluminum_cogwheel.json

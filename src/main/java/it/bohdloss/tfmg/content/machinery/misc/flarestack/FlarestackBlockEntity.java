@@ -6,6 +6,7 @@ import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import it.bohdloss.tfmg.TFMGUtils;
+import it.bohdloss.tfmg.base.TFMGFluidBehavior;
 import it.bohdloss.tfmg.registry.TFMGBlockEntities;
 import it.bohdloss.tfmg.registry.TFMGTags;
 import net.minecraft.core.BlockPos;
@@ -24,7 +25,7 @@ import java.util.List;
 
 @EventBusSubscriber
 public class FlarestackBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
-    protected SmartFluidTankBehaviour tank;
+    protected TFMGFluidBehavior tank;
     public boolean spawnsSmoke;
     public int smokeTimer;
 
@@ -34,11 +35,13 @@ public class FlarestackBlockEntity extends SmartBlockEntity implements IHaveGogg
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
-        tank = SmartFluidTankBehaviour.single(this, 2500).allowInsertion().forbidExtraction();
-        tank.getPrimaryHandler().setValidator(fluidStack -> {
-            return fluidStack.getFluid().is(TFMGTags.TFMGFluidTags.FLAMMABLE.tag) ||
-                    fluidStack.getFluid().is(TFMGTags.TFMGFluidTags.FUEL.tag);
-        });
+        tank = new TFMGFluidBehavior(this, 2500)
+                .withValidator(fluidStack ->
+                        fluidStack.getFluid().is(TFMGTags.TFMGFluidTags.FLAMMABLE.tag) ||
+                        fluidStack.getFluid().is(TFMGTags.TFMGFluidTags.FUEL.tag))
+                .allowExtraction(false)
+                .allowInsertion(true)
+                .withCallback(this::notifyUpdate);
         behaviours.add(tank);
     }
 
@@ -78,14 +81,14 @@ public class FlarestackBlockEntity extends SmartBlockEntity implements IHaveGogg
             }
         }
 
-        if(!tank.getPrimaryHandler().isEmpty()) {
+        if(!tank.getHandler().isEmpty()) {
             smokeTimer = 100;
             spawnsSmoke = true;
 
-            if(tank.getPrimaryHandler().getFluidAmount() > 1000) {
-                tank.getPrimaryHandler().drain(100, IFluidHandler.FluidAction.EXECUTE);
+            if(tank.getHandler().getFluidAmount() > 1000) {
+                tank.getHandler().drain(100, IFluidHandler.FluidAction.EXECUTE);
             } else {
-                tank.getPrimaryHandler().drain(30, IFluidHandler.FluidAction.EXECUTE);
+                tank.getHandler().drain(30, IFluidHandler.FluidAction.EXECUTE);
             }
         }
     }

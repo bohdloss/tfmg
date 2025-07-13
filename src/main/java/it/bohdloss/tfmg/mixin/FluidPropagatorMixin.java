@@ -15,8 +15,8 @@ public class FluidPropagatorMixin {
     private static BlockState propagateChangedPipe(BlockState originalState) {
         if(originalState.getBlock() instanceof PumpBlock) {
             Direction facing = originalState.getValue(PumpBlock.FACING);
-            BlockState newState = AllBlocks.MECHANICAL_PUMP.getDefaultState();
-            newState.setValue(PumpBlock.FACING, facing);
+            BlockState pumpDefaultState = AllBlocks.MECHANICAL_PUMP.getDefaultState();
+            BlockState newState = pumpDefaultState.setValue(PumpBlock.FACING, facing);
             return newState;
         } else {
             return originalState;

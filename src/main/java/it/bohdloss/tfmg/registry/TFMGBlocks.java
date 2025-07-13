@@ -1,5 +1,6 @@
 package it.bohdloss.tfmg.registry;
 
+import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.decoration.slidingDoor.SlidingDoorBlock;
 import com.simibubi.create.content.kinetics.gearbox.GearboxBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockModel;
@@ -21,6 +22,8 @@ import it.bohdloss.tfmg.content.decoration.cogs.TFMGCogwheelBlock;
 import it.bohdloss.tfmg.content.decoration.concrete.*;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelBlock;
 import it.bohdloss.tfmg.content.items.CoalCokeBlockItem;
+import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlock;
+import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeGenerator;
 import it.bohdloss.tfmg.content.machinery.misc.exhaust.ExhaustBlock;
 import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackBlock;
 import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackGenerator;
@@ -35,6 +38,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
@@ -592,15 +596,16 @@ public class TFMGBlocks {
 
 
     //------------------MISC_MACHINERY------------------//
-//    public static final BlockEntry<AirIntakeBlock> AIR_INTAKE = REGISTRATE.block("air_intake", AirIntakeBlock::new)
-//            .initialProperties(SharedProperties::copperMetal)
-//            .properties(BlockBehaviour.Properties::noOcclusion)
-//            .transform(pickaxeOnly())
-//            .addLayer(() -> RenderType::cutoutMipped)
-//            .blockstate(new AirIntakeGenerator()::generate)
-//            .item()
-//            .transform(customItemModel())
-//            .register();
+    public static final BlockEntry<AirIntakeBlock> AIR_INTAKE = REGISTRATE.block("air_intake", AirIntakeBlock::new)
+            .initialProperties(SharedProperties::copperMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(pickaxeOnly())
+            .addLayer(() -> RenderType::cutoutMipped)
+            .blockstate(new AirIntakeGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .onRegister(b -> BlockStressValues.IMPACTS.register(b, () -> 2.0f))
+            .register();
 //    @SuppressWarnings("'addLayer(java.util.function.Supplier<java.util.function.Supplier<net.minecraft.client.renderer.RenderType>>)' is deprecated and marked for removal ")
 //    public static final BlockEntry<FireboxBlock> FIREBOX =
 //            REGISTRATE.block("firebox", FireboxBlock::new)

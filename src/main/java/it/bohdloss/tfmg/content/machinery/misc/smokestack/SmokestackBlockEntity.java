@@ -5,6 +5,7 @@ import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import it.bohdloss.tfmg.TFMGUtils;
+import it.bohdloss.tfmg.base.TFMGFluidBehavior;
 import it.bohdloss.tfmg.registry.TFMGBlockEntities;
 import it.bohdloss.tfmg.registry.TFMGFluids;
 import net.minecraft.core.BlockPos;
@@ -26,7 +27,7 @@ import static it.bohdloss.tfmg.content.machinery.misc.smokestack.SmokestackBlock
 
 @EventBusSubscriber
 public class SmokestackBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
-    protected SmartFluidTankBehaviour tank;
+    protected TFMGFluidBehavior tank;
     protected int smokeTimer;
 
     public SmokestackBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -35,10 +36,11 @@ public class SmokestackBlockEntity extends SmartBlockEntity implements IHaveGogg
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
-        tank = SmartFluidTankBehaviour.single(this, 8000).allowInsertion().forbidExtraction();
-        tank.getPrimaryHandler().setValidator(fluidStack -> {
-            return fluidStack.getFluid().isSame(TFMGFluids.CARBON_DIOXIDE.getSource());
-        });
+        tank = new TFMGFluidBehavior(this, 8000)
+                .withValidator(fluidStack -> fluidStack.getFluid().isSame(TFMGFluids.CARBON_DIOXIDE.getSource()))
+                .allowExtraction(false)
+                .allowInsertion(true)
+                .withCallback(this::notifyUpdate);
         behaviours.add(tank);
     }
 
@@ -70,24 +72,24 @@ public class SmokestackBlockEntity extends SmartBlockEntity implements IHaveGogg
 
         if (level.getBlockEntity(getBlockPos().above()) instanceof SmokestackBlockEntity be) {
             int transferAmount = Math.min(
-                    tank.getPrimaryHandler().getFluidAmount(),
-                    be.tank.getPrimaryHandler().getSpace()
+                    tank.getHandler().getFluidAmount(),
+                    be.tank.getHandler().getSpace()
             );
 
-            tank.getPrimaryHandler().drain(transferAmount, IFluidHandler.FluidAction.EXECUTE);
-            be.tank.getPrimaryHandler().fill(new FluidStack(TFMGFluids.CARBON_DIOXIDE.get(), transferAmount), IFluidHandler.FluidAction.EXECUTE);
+            tank.getHandler().drain(transferAmount, IFluidHandler.FluidAction.EXECUTE);
+            be.tank.getHandler().fill(new FluidStack(TFMGFluids.CARBON_DIOXIDE.get(), transferAmount), IFluidHandler.FluidAction.EXECUTE);
         } else {
             if (smokeTimer > 0) {
                 makeParticles(level, getBlockPos());
                 smokeTimer--;
             }
 
-            if (tank.isEmpty()) {
+            if (tank.getHandler().isEmpty()) {
                 return;
             }
 
             if (getBlockState().getValue(TOP)) {
-                tank.getPrimaryHandler().drain(tank.getPrimaryHandler().getSpace() < 1000 ? 50 : 10, IFluidHandler.FluidAction.EXECUTE);
+                tank.getHandler().drain(tank.getHandler().getSpace() < 1000 ? 50 : 10, IFluidHandler.FluidAction.EXECUTE);
                 smokeTimer = 40;
             }
         }

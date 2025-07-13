@@ -28,6 +28,8 @@ import it.bohdloss.tfmg.content.decoration.encased.TFMGEncasedCogwheelVisual;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelBlockEntity;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelRenderer;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelVisual;
+import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlockEntity;
+import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeRenderer;
 import it.bohdloss.tfmg.content.machinery.misc.exhaust.ExhaustBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.smokestack.SmokestackBlockEntity;
@@ -414,14 +416,14 @@ public class TFMGBlockEntities {
 //            .validBlocks(TFMGBlocks.ELECTRIC_MOTOR)
 //            .renderer(() -> HalfShaftRenderer::new)
 //            .register();
-//
-//    public static final BlockEntityEntry<AirIntakeBlockEntity> AIR_INTAKE = REGISTRATE
-//            .blockEntity("air_intake", AirIntakeBlockEntity::new)
-//            .renderer(() -> AirIntakeRenderer::new)
-//            .validBlocks(TFMGBlocks.AIR_INTAKE)
-//            .register();
-//
-//
+
+    public static final BlockEntityEntry<AirIntakeBlockEntity> AIR_INTAKE = REGISTRATE
+            .blockEntity("air_intake", AirIntakeBlockEntity::new)
+            .renderer(() -> AirIntakeRenderer::new)
+            .validBlocks(TFMGBlocks.AIR_INTAKE)
+            .register();
+
+
 //    public static final BlockEntityEntry<CableConnectorBlockEntity> CABLE_CONNECTOR = REGISTRATE
 //            .blockEntity("cable_connector", CableConnectorBlockEntity::new)
 //            .renderer(() -> CableConnectorRenderer::new)

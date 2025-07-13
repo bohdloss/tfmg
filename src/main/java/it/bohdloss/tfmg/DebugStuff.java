@@ -11,7 +11,19 @@ public class DebugStuff {
     @OnlyIn(Dist.CLIENT)
     public static void show(Object display) {
         String string = display.toString();
-        Minecraft.getInstance().player.displayClientMessage(Component.literal(string), false);
+        if(Minecraft.getInstance().player != null) {
+            Minecraft.getInstance().player.displayClientMessage(Component.literal(string), false);
+        }
         TFMG.LOGGER.debug(display.toString());
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void stackTrace() {
+        String string = "";
+        var elems = Thread.currentThread().getStackTrace();
+        for(var elem : elems) {
+            string += elem + "\n";
+        }
+        show(string);
     }
 }

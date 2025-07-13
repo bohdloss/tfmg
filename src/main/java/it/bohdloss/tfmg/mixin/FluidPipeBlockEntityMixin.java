@@ -88,10 +88,9 @@ public class FluidPipeBlockEntityMixin implements ILockablePipe {
     @Inject(at = @At("HEAD"), method = "addBehaviours")
     void addBehaviors(List<BlockEntityBehaviour> behaviours, CallbackInfo ci) {
         FluidPipeBlockEntity self = (FluidPipeBlockEntity) (Object) this;
-        if(self.getBlockState().getBlock() instanceof EncasedPipeBlock) {
-            return;
+        if(!(self.getBlockState().getBlock() instanceof EncasedPipeBlock)) {
+            tfmg$locked = new LockedPipeBehavior(self);
+            behaviours.add(tfmg$locked);
         }
-        tfmg$locked = new LockedPipeBehavior(self);
-        behaviours.add(tfmg$locked);
     }
 }

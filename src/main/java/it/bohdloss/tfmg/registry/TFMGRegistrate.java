@@ -3,16 +3,23 @@ package it.bohdloss.tfmg.registry;
 import com.simibubi.create.content.fluids.VirtualFluid;
 import com.simibubi.create.foundation.data.VirtualFluidBuilder;
 import com.tterrag.registrate.builders.FluidBuilder;
+import com.tterrag.registrate.util.nullness.NonNullFunction;
 import it.bohdloss.tfmg.TFMG;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipModifier;
+import it.bohdloss.tfmg.content.electricity.connection.cable_type.CableType;
+import it.bohdloss.tfmg.content.electricity.connection.cable_type.CableTypeBuilder;
+import it.bohdloss.tfmg.content.machinery.vat.electrode_holder.electrode.Electrode;
+import it.bohdloss.tfmg.content.machinery.vat.electrode_holder.electrode.ElectrodeBuilder;
 import net.createmod.catnip.lang.FontHelper;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 import static it.bohdloss.tfmg.registry.TFMGFluids.getGasTexture;
 
-// TODO
 public class TFMGRegistrate extends CreateRegistrate {
     public static String autoLang(String id) {
         StringBuilder builder = new StringBuilder();
@@ -45,45 +52,45 @@ public class TFMGRegistrate extends CreateRegistrate {
         );
     }
 
-//    public static Block getBlock(String name) {
-//        return TFMG.REGISTRATE.get(name, BuiltInRegistries.BLOCK.getRegistryKey()).get();
-//    }
-//    public static Item getItem(String name) {
-//        return TFMG.REGISTRATE.get(name, BuiltInRegistries.ITEM.getRegistryKey()).get();
-//    }
-//    public static Item getBucket(String name) {
-//        return TFMG.REGISTRATE.get(name+"_bucket", BuiltInRegistries.ITEM.getRegistryKey()).get();
-//    }
+    public static Block getBlock(String name) {
+        return TFMG.REGISTRATE.get(name, BuiltInRegistries.BLOCK.key()).get();
+    }
+    public static Item getItem(String name) {
+        return TFMG.REGISTRATE.get(name, BuiltInRegistries.ITEM.key()).get();
+    }
+    public static Item getBucket(String name) {
+        return TFMG.REGISTRATE.get(name+"_bucket", BuiltInRegistries.ITEM.key()).get();
+    }
 
-//    public <T extends CableType> CableTypeBuilder<T, TFMGRegistrate> cableType(NonNullFunction<CableType.Properties, T> factory) {
-//        return cableType((TFMGRegistrate) self(), factory);
-//    }
-//
-//    public <T extends CableType> CableTypeBuilder<T, TFMGRegistrate> cableType(String name, NonNullFunction<CableType.Properties, T> factory) {
-//        return cableType((TFMGRegistrate) self(), name, factory);
-//    }
-//
-//    public <T extends CableType, P> CableTypeBuilder<T, P> cableType(P parent, NonNullFunction<CableType.Properties, T> factory) {
-//        return cableType(parent, currentName(), factory);
-//    }
-//
-//    public <T extends CableType, P> CableTypeBuilder<T, P> cableType(P parent, String name, NonNullFunction<CableType.Properties, T> factory) {
-//        return entry(name, callback -> CableTypeBuilder.create(this, parent, name, callback, factory));
-//    }
-//
-//    public <T extends Electrode> ElectrodeBuilder<T, TFMGRegistrate> electrode(NonNullFunction<Electrode.Properties, T> factory) {
-//        return electrode((TFMGRegistrate) self(), factory);
-//    }
-//
-//    public <T extends Electrode> ElectrodeBuilder<T, TFMGRegistrate> electrode(String name, NonNullFunction<Electrode.Properties, T> factory) {
-//        return electrode((TFMGRegistrate) self(), name, factory);
-//    }
-//
-//    public <T extends Electrode, P> ElectrodeBuilder<T, P> electrode(P parent, NonNullFunction<Electrode.Properties, T> factory) {
-//        return electrode(parent, currentName(), factory);
-//    }
-//
-//    public <T extends Electrode, P> ElectrodeBuilder<T, P> electrode(P parent, String name, NonNullFunction<Electrode.Properties, T> factory) {
-//        return entry(name, callback -> ElectrodeBuilder.create(this, parent, name, callback, factory));
-//    }
+    public <T extends CableType> CableTypeBuilder<T, TFMGRegistrate> cableType(NonNullFunction<CableType.Properties, T> factory) {
+        return cableType((TFMGRegistrate) self(), factory);
+    }
+
+    public <T extends CableType> CableTypeBuilder<T, TFMGRegistrate> cableType(String name, NonNullFunction<CableType.Properties, T> factory) {
+        return cableType((TFMGRegistrate) self(), name, factory);
+    }
+
+    public <T extends CableType, P> CableTypeBuilder<T, P> cableType(P parent, NonNullFunction<CableType.Properties, T> factory) {
+        return cableType(parent, currentName(), factory);
+    }
+
+    public <T extends CableType, P> CableTypeBuilder<T, P> cableType(P parent, String name, NonNullFunction<CableType.Properties, T> factory) {
+        return entry(name, callback -> CableTypeBuilder.create(this, parent, name, callback, factory));
+    }
+
+    public <T extends Electrode> ElectrodeBuilder<T, TFMGRegistrate> electrode(NonNullFunction<Electrode.Properties, T> factory) {
+        return electrode((TFMGRegistrate) self(), factory);
+    }
+
+    public <T extends Electrode> ElectrodeBuilder<T, TFMGRegistrate> electrode(String name, NonNullFunction<Electrode.Properties, T> factory) {
+        return electrode((TFMGRegistrate) self(), name, factory);
+    }
+
+    public <T extends Electrode, P> ElectrodeBuilder<T, P> electrode(P parent, NonNullFunction<Electrode.Properties, T> factory) {
+        return electrode(parent, currentName(), factory);
+    }
+
+    public <T extends Electrode, P> ElectrodeBuilder<T, P> electrode(P parent, String name, NonNullFunction<Electrode.Properties, T> factory) {
+        return entry(name, callback -> ElectrodeBuilder.create(this, parent, name, callback, factory));
+    }
 }

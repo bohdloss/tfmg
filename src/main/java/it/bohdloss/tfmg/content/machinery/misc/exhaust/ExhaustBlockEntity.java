@@ -3,14 +3,16 @@ package it.bohdloss.tfmg.content.machinery.misc.exhaust;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import it.bohdloss.tfmg.DebugStuff;
 import it.bohdloss.tfmg.TFMGUtils;
+import it.bohdloss.tfmg.base.TFMGFluidBehavior;
 import it.bohdloss.tfmg.registry.TFMGBlockEntities;
 import it.bohdloss.tfmg.registry.TFMGFluids;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -25,9 +27,9 @@ import java.util.List;
 
 @EventBusSubscriber
 public class ExhaustBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
-    protected SmartFluidTankBehaviour tank;
-    public boolean spawnsSmoke;
+    protected TFMGFluidBehavior tank;
     public int smokeTimer;
+    public boolean produceSmoke;
 
     public ExhaustBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -35,10 +37,11 @@ public class ExhaustBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
-        tank = SmartFluidTankBehaviour.single(this, 1000).allowInsertion().forbidExtraction();
-        tank.getPrimaryHandler().setValidator(fluidStack -> {
-            return fluidStack.getFluid().isSame(TFMGFluids.CARBON_DIOXIDE.getSource());
-        });
+        tank = new TFMGFluidBehavior(this, 1000)
+                .withValidator(fluidStack -> fluidStack.getFluid().isSame(TFMGFluids.CARBON_DIOXIDE.getSource()))
+                .allowExtraction(false)
+                .allowInsertion(true)
+                .withCallback(this::notifyUpdate);
         behaviours.add(tank);
     }
 
@@ -75,25 +78,44 @@ public class ExhaustBlockEntity extends SmartBlockEntity implements IHaveGoggleI
     public void tick() {
         super.tick();
 
-        if(smokeTimer != 0) {
-            spawnsSmoke = true;
-            smokeTimer--;
-        } else {
-            spawnsSmoke = false;
-        }
-
-        if(spawnsSmoke) {
+        // Client code
+        if(produceSmoke) {
             Direction direction = this.getBlockState().getValue(ExhaustBlock.FACING);
             makeParticles(level, this.getBlockPos(), direction);
         }
-        if(!tank.isEmpty()) {
+        if(getLevel().isClientSide()) {
+            return;
+        }
+
+        // Server code
+        if(smokeTimer != 0) {
+            smokeTimer--;
+        }
+        if(!tank.getHandler().isEmpty()) {
             smokeTimer = 100;
-            spawnsSmoke = true;
         }
-        if(tank.getPrimaryHandler().getSpace() > 700) {
-            tank.getPrimaryHandler().drain(100, IFluidHandler.FluidAction.EXECUTE);
-        } else {
-            tank.getPrimaryHandler().drain(10, IFluidHandler.FluidAction.EXECUTE);
+        setSmoke(smokeTimer != 0);
+        tank.getHandler().drain(100, IFluidHandler.FluidAction.EXECUTE);
+    }
+
+    protected void setSmoke(boolean produceSmoke) {
+        if(this.produceSmoke != produceSmoke) {
+            this.produceSmoke = produceSmoke;
+            notifyUpdate();
         }
+    }
+
+    @Override
+    protected void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        super.write(tag, registries, clientPacket);
+
+        tag.putBoolean("produceSmoke", produceSmoke);
+    }
+
+    @Override
+    protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        super.read(tag, registries, clientPacket);
+
+        produceSmoke = tag.getBoolean("produceSmoke");
     }
 }
