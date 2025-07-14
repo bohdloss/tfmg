@@ -37,7 +37,7 @@ public class ExhaustBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
-        tank = new TFMGFluidBehavior(this, 1000)
+        tank = new TFMGFluidBehavior(TFMGFluidBehavior.TYPE, "Fluid", this, 1000)
                 .withValidator(fluidStack -> fluidStack.getFluid().isSame(TFMGFluids.CARBON_DIOXIDE.getSource()))
                 .allowExtraction(false)
                 .allowInsertion(true)
@@ -47,7 +47,7 @@ public class ExhaustBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        return TFMGUtils.createFluidTooltip(this, tooltip);
+        return TFMGUtils.createFluidTooltip(this, tooltip, Direction.DOWN);
     }
 
     @SubscribeEvent

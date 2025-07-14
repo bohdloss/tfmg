@@ -5,6 +5,7 @@ import com.simibubi.create.content.decoration.slidingDoor.SlidingDoorBlock;
 import com.simibubi.create.content.kinetics.gearbox.GearboxBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockModel;
 import com.simibubi.create.content.kinetics.simpleRelays.CogwheelBlockItem;
+import com.simibubi.create.foundation.block.connected.HorizontalCTBehaviour;
 import com.simibubi.create.foundation.data.*;
 import it.bohdloss.tfmg.base.MaterialSet;
 import it.bohdloss.tfmg.blocks.CementBlock;
@@ -22,6 +23,11 @@ import it.bohdloss.tfmg.content.decoration.cogs.TFMGCogwheelBlock;
 import it.bohdloss.tfmg.content.decoration.concrete.*;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelBlock;
 import it.bohdloss.tfmg.content.items.CoalCokeBlockItem;
+import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.reinforcement.BlastFurnaceReinforcementBlockItem;
+import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.reinforcement.BlastFurnaceReinforcementWallBlock;
+import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlock;
+import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenCTBehaviour;
+import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenGenerator;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlock;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeGenerator;
 import it.bohdloss.tfmg.content.machinery.misc.exhaust.ExhaustBlock;
@@ -680,93 +686,93 @@ public class TFMGBlocks {
 //            .tag(BlockTags.NEEDS_STONE_TOOL)
 //            .simpleItem()
 //            .register();
-//    public static final BlockEntry<Block> FIREPROOF_BRICKS = REGISTRATE.block("fireproof_bricks", Block::new)
-//            .initialProperties(() -> Blocks.NETHER_BRICKS)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .transform(pickaxeOnly())
-//            .tag(TFMGTags.TFMGBlockTags.BLAST_FURNACE_WALL.tag)
-//            .tag(BlockTags.NEEDS_STONE_TOOL)
-//            .item()
-//            .build()
-//            .register();
-//
-//    public static final BlockEntry<Block> REINFORCED_FIREPROOF_BRICKS = REGISTRATE.block("reinforced_fireproof_bricks", Block::new)
-//            .initialProperties(() -> Blocks.NETHER_BRICKS)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .transform(pickaxeOnly())
-//            .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_WALL.tag)
-//            .tag(BlockTags.NEEDS_STONE_TOOL)
-//            .blockstate(simpleCubeAll("fireproof_bricks"))
-//            .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.FIREPROOF_BRICKS.get().asItem()))
-//            .register();
-//
-//    public static final BlockEntry<Block> BLAST_FURNACE_REINFORCEMENT = REGISTRATE.block("blast_furnace_reinforcement", Block::new)
-//            .initialProperties(() -> Blocks.IRON_BLOCK)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .transform(pickaxeOnly())
-//            .onRegister(connectedTextures(() -> new HorizontalCTBehaviour(TFMGSpriteShifts.BLAST_FURNACE_REINFORCEMENT)))
-//            .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_SUPPORT.tag)
-//            .tag(BlockTags.NEEDS_STONE_TOOL)
-//            .item(BlastFurnaceReinforcementBlockItem::new)
-//            .build()
-//            .register();
-//
-//    public static final BlockEntry<BlastFurnaceReinforcementWallBlock> BLAST_FURNACE_REINFORCEMENT_WALL = REGISTRATE.block("blast_furnace_reinforcement_wall", BlastFurnaceReinforcementWallBlock::new)
-//            .initialProperties(() -> Blocks.IRON_BLOCK)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .transform(pickaxeOnly())
-//            .properties(BlockBehaviour.Properties::noOcclusion)
-//            .onRegister(connectedTextures(() -> new HorizontalCTBehaviour(TFMGSpriteShifts.BLAST_FURNACE_REINFORCEMENT)))
-//            .tag(BlockTags.NEEDS_STONE_TOOL)
-//            .blockstate(BlockStateGen.horizontalBlockProvider(false))
-//            .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.BLAST_FURNACE_REINFORCEMENT.get().asItem()))
-//            .register();
-//    //
-//    public static final BlockEntry<Block> RUSTED_BLAST_FURNACE_REINFORCEMENT = REGISTRATE.block("rusted_blast_furnace_reinforcement", Block::new)
-//            .initialProperties(() -> Blocks.IRON_BLOCK)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .transform(pickaxeOnly())
-//            .onRegister(connectedTextures(() -> new HorizontalCTBehaviour(TFMGSpriteShifts.RUSTED_BLAST_FURNACE_REINFORCEMENT)))
-//            .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_SUPPORT.tag)
-//            .tag(BlockTags.NEEDS_STONE_TOOL)
-//            .item(BlastFurnaceReinforcementBlockItem::new)
-//            .build()
-//            .register();
-//
-//    public static final BlockEntry<BlastFurnaceReinforcementWallBlock> RUSTED_BLAST_FURNACE_REINFORCEMENT_WALL = REGISTRATE.block("rusted_blast_furnace_reinforcement_wall", BlastFurnaceReinforcementWallBlock::new)
-//            .initialProperties(() -> Blocks.IRON_BLOCK)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .transform(pickaxeOnly())
-//            .properties(BlockBehaviour.Properties::noOcclusion)
-//            .onRegister(connectedTextures(() -> new HorizontalCTBehaviour(TFMGSpriteShifts.RUSTED_BLAST_FURNACE_REINFORCEMENT)))
-//            .tag(BlockTags.NEEDS_STONE_TOOL)
-//            .blockstate(BlockStateGen.horizontalBlockProvider(false))
-//            .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.RUSTED_BLAST_FURNACE_REINFORCEMENT.get().asItem()))
-//            .register();
-//
-//
-//    public static final BlockEntry<WallBlock> FIREPROOF_BRICK_REINFORCEMENT = REGISTRATE.block("fireproof_brick_reinforcement", WallBlock::new)
-//            .initialProperties(() -> Blocks.NETHER_BRICKS)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .transform(pickaxeOnly())
-//            .tag(BlockTags.WALLS)
-//            .tag(TFMGTags.TFMGBlockTags.BLAST_FURNACE_SUPPORT.tag)
-//            .blockstate((c, p) -> TFMGVanillaBlockStates.generateWallBlockState(c, p, "fireproof_brick_reinforcement"))
-//            .item()
-//            .transform(b -> TFMGVanillaBlockStates.transformWallItem(b, "fireproof_brick_reinforcement"))
-//            .build()
-//            .register();
-//
-//
-//    public static final BlockEntry<CokeOvenBlock> COKE_OVEN = REGISTRATE.block("coke_oven", CokeOvenBlock::new)
-//            .initialProperties(() -> Blocks.BRICKS)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .blockstate(new CokeOvenGenerator()::generate)
-//            .transform(pickaxeOnly())
-//            .onRegister(connectedTextures(CokeOvenCTBehavior::new))
-//            .item()
-//            .transform(customItemModel())
-//            .register();
+    public static final BlockEntry<Block> FIREPROOF_BRICKS = REGISTRATE.block("fireproof_bricks", Block::new)
+            .initialProperties(() -> Blocks.NETHER_BRICKS)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .tag(TFMGTags.TFMGBlockTags.BLAST_FURNACE_WALL.tag)
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .item()
+            .build()
+            .register();
+
+    public static final BlockEntry<Block> REINFORCED_FIREPROOF_BRICKS = REGISTRATE.block("reinforced_fireproof_bricks", Block::new)
+            .initialProperties(() -> Blocks.NETHER_BRICKS)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_WALL.tag)
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .blockstate(simpleCubeAll("fireproof_bricks"))
+            .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.FIREPROOF_BRICKS.get().asItem()))
+            .register();
+
+    public static final BlockEntry<Block> BLAST_FURNACE_REINFORCEMENT = REGISTRATE.block("blast_furnace_reinforcement", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .onRegister(connectedTextures(() -> new HorizontalCTBehaviour(TFMGSpriteShifts.BLAST_FURNACE_REINFORCEMENT)))
+            .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_SUPPORT.tag)
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .item(BlastFurnaceReinforcementBlockItem::new)
+            .build()
+            .register();
+
+    public static final BlockEntry<BlastFurnaceReinforcementWallBlock> BLAST_FURNACE_REINFORCEMENT_WALL = REGISTRATE.block("blast_furnace_reinforcement_wall", BlastFurnaceReinforcementWallBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .onRegister(connectedTextures(() -> new HorizontalCTBehaviour(TFMGSpriteShifts.BLAST_FURNACE_REINFORCEMENT)))
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.BLAST_FURNACE_REINFORCEMENT.get().asItem()))
+            .register();
+    //
+    public static final BlockEntry<Block> RUSTED_BLAST_FURNACE_REINFORCEMENT = REGISTRATE.block("rusted_blast_furnace_reinforcement", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .onRegister(connectedTextures(() -> new HorizontalCTBehaviour(TFMGSpriteShifts.RUSTED_BLAST_FURNACE_REINFORCEMENT)))
+            .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_SUPPORT.tag)
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .item(BlastFurnaceReinforcementBlockItem::new)
+            .build()
+            .register();
+
+    public static final BlockEntry<BlastFurnaceReinforcementWallBlock> RUSTED_BLAST_FURNACE_REINFORCEMENT_WALL = REGISTRATE.block("rusted_blast_furnace_reinforcement_wall", BlastFurnaceReinforcementWallBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .onRegister(connectedTextures(() -> new HorizontalCTBehaviour(TFMGSpriteShifts.RUSTED_BLAST_FURNACE_REINFORCEMENT)))
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.RUSTED_BLAST_FURNACE_REINFORCEMENT.get().asItem()))
+            .register();
+
+
+    public static final BlockEntry<WallBlock> FIREPROOF_BRICK_REINFORCEMENT = REGISTRATE.block("fireproof_brick_reinforcement", WallBlock::new)
+            .initialProperties(() -> Blocks.NETHER_BRICKS)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .tag(BlockTags.WALLS)
+            .tag(TFMGTags.TFMGBlockTags.BLAST_FURNACE_SUPPORT.tag)
+            .blockstate((c, p) -> TFMGVanillaBlockStates.generateWallBlockState(c, p, "fireproof_brick_reinforcement"))
+            .item()
+            .transform(b -> TFMGVanillaBlockStates.transformWallItem(b, "fireproof_brick_reinforcement"))
+            .build()
+            .register();
+
+
+    public static final BlockEntry<CokeOvenBlock> COKE_OVEN = REGISTRATE.block("coke_oven", CokeOvenBlock::new)
+            .initialProperties(() -> Blocks.BRICKS)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .blockstate(new CokeOvenGenerator()::generate)
+            .transform(pickaxeOnly())
+            .onRegister(connectedTextures(CokeOvenCTBehaviour::new))
+            .item()
+            .transform(customItemModel())
+            .register();
 //    @SuppressWarnings("'addLayer(java.util.function.Supplier<java.util.function.Supplier<net.minecraft.client.renderer.RenderType>>)' is deprecated and marked for removal ")
 //    public static final BlockEntry<BlastStoveBlock> BLAST_STOVE =
 //            REGISTRATE.block("blast_stove", BlastStoveBlock::new)

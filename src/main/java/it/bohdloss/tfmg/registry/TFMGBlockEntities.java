@@ -28,6 +28,8 @@ import it.bohdloss.tfmg.content.decoration.encased.TFMGEncasedCogwheelVisual;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelBlockEntity;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelRenderer;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelVisual;
+import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlockEntity;
+import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenRenderer;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeRenderer;
 import it.bohdloss.tfmg.content.machinery.misc.exhaust.ExhaustBlockEntity;
@@ -395,14 +397,14 @@ public class TFMGBlockEntities {
 ////
 //            )
 //            .register();
-//
-//
-//    public static final BlockEntityEntry<CokeOvenBlockEntity> COKE_OVEN = REGISTRATE
-//            .blockEntity("coke_oven", CokeOvenBlockEntity::new)
-//            .renderer(() -> CokeOvenRenderer::new)
-//            .validBlocks(TFMGBlocks.COKE_OVEN)
-//            .register();
-//
+
+
+    public static final BlockEntityEntry<CokeOvenBlockEntity> COKE_OVEN = REGISTRATE
+            .blockEntity("coke_oven", CokeOvenBlockEntity::new)
+            .renderer(() -> CokeOvenRenderer::new)
+            .validBlocks(TFMGBlocks.COKE_OVEN)
+            .register();
+
 //    public static final BlockEntityEntry<GeneratorBlockEntity> GENERATOR = REGISTRATE
 //            .blockEntity("generator", GeneratorBlockEntity::new)
 //            .visual(() -> OrientedRotatingVisual.of(AllPartialModels.SHAFT_HALF))

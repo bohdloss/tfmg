@@ -1,7 +1,11 @@
 package it.bohdloss.tfmg.content.electricity.debug;
 
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
+import com.simibubi.create.foundation.blockEntity.IMultiBlockEntityContainer;
 import it.bohdloss.tfmg.DebugStuff;
+import it.bohdloss.tfmg.base.AbstractKineticMultiblock;
+import it.bohdloss.tfmg.base.AbstractMultiblock;
+import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
@@ -33,11 +37,12 @@ public class DebugCinderBlockItem extends Item {
 //            }
 //        }
 
-        if(!level.isClientSide && level.getBlockEntity(pos) instanceof AirIntakeBlockEntity be) {
-            DebugStuff.show((level.isClientSide ? "client" : "server") + "; is controller: " + be.isController() + "; width: " + be.getWidth() + " height: " + be.getHeight());
-        }
-        if(!level.isClientSide && level.getBlockEntity(pos) instanceof FluidTankBlockEntity be) {
-            DebugStuff.show((level.isClientSide ? "client" : "server") + "; is controller: " + be.isController() + "; width: " + be.getWidth() + " height: " + be.getHeight());
+        if(!level.isClientSide && level.getBlockEntity(pos) instanceof AbstractKineticMultiblock be) {
+            DebugStuff.show("is controller: " + be.isController() + "; width: " + be.getWidth() + " height: " + be.getHeight());
+        } else if(!level.isClientSide && level.getBlockEntity(pos) instanceof AbstractMultiblock be) {
+            DebugStuff.show("is controller: " + be.isController() + "; width: " + be.getWidth() + " height: " + be.getHeight());
+        } else if(!level.isClientSide && level.getBlockEntity(pos) instanceof IMultiBlockEntityContainer be) {
+            DebugStuff.show("is controller: " + be.isController() + "; width: " + be.getWidth() + " height: " + be.getHeight());
         }
 
         return InteractionResult.SUCCESS;

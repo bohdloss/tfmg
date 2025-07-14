@@ -21,6 +21,8 @@ public abstract class AbstractKineticMultiblock extends KineticBlockEntity imple
     protected BlockPos controller;
     protected BlockPos lastKnownPos;
     protected boolean updateConnectivity;
+    protected boolean updateCapability;
+    protected boolean multiUpdated;
     protected int width;
     protected int height;
 
@@ -30,7 +32,9 @@ public abstract class AbstractKineticMultiblock extends KineticBlockEntity imple
         width = 1;
         height = 1;
     }
+
     protected abstract BlockState rotateBlockToMatch(BlockState current, BlockState controller);
+    protected void onMultiblockChange() {}
 
     @Override
     public void tick() {
@@ -42,6 +46,12 @@ public abstract class AbstractKineticMultiblock extends KineticBlockEntity imple
             notifyUpdate();
         }
 
+        if(multiUpdated) {
+            multiUpdated = false;
+            onMultiblockChange();
+            notifyUpdate();
+        }
+
         if (lastKnownPos == null)
             lastKnownPos = getBlockPos();
         else if (!lastKnownPos.equals(worldPosition) && worldPosition != null) {
@@ -50,9 +60,17 @@ public abstract class AbstractKineticMultiblock extends KineticBlockEntity imple
             return;
         }
 
+        if(updateCapability) {
+            updateCapability = false;
+            refreshCapability();
+        }
         if (updateConnectivity) {
             updateConnectivity();
         }
+    }
+
+    public void refreshCapability() {
+        invalidateCapabilities();
     }
 
     public void updateConnectivity() {
@@ -67,20 +85,21 @@ public abstract class AbstractKineticMultiblock extends KineticBlockEntity imple
     }
 
     public void withAllBlocksDo(Consumer<BlockPos> consumer) {
+        BlockPos pos = worldPosition == null ? lastKnownPos : worldPosition;
         if(height == 0) {
-            consumer.accept(lastKnownPos);
+            consumer.accept(pos);
             return;
         }
         AbstractKineticMultiblock controller = getControllerBE();
         if(controller == null) {
-            consumer.accept(lastKnownPos);
+            consumer.accept(pos);
             return;
         }
+        BlockPos controllerPos = controller.worldPosition == null ? controller.lastKnownPos : controller.worldPosition;
         if(controller.height == 0) {
-            consumer.accept(controller.lastKnownPos);
+            consumer.accept(controllerPos);
             return;
         }
-        BlockPos controllerPos = controller.lastKnownPos;
         int minX = controllerPos.getX();
         int minY = controllerPos.getY();
         int minZ = controllerPos.getZ();
@@ -136,6 +155,7 @@ public abstract class AbstractKineticMultiblock extends KineticBlockEntity imple
         if (pos.equals(this.controller)) {
             return;
         }
+        multiUpdated = true;
         this.controller = pos;
 
         BlockState current = getBlockState();
@@ -145,6 +165,7 @@ public abstract class AbstractKineticMultiblock extends KineticBlockEntity imple
             level.setBlock(worldPosition, target, 2);
         }
 
+        refreshCapability();
         notifyUpdate();
     }
 
@@ -153,11 +174,13 @@ public abstract class AbstractKineticMultiblock extends KineticBlockEntity imple
         if (level.isClientSide) {
             return;
         }
+        multiUpdated = true;
         updateConnectivity = true;
         controller = null;
         width = 1;
         height = 1;
 
+        refreshCapability();
         notifyUpdate();
     }
 
@@ -173,6 +196,7 @@ public abstract class AbstractKineticMultiblock extends KineticBlockEntity imple
 
     @Override
     public void notifyMultiUpdated() {
+        multiUpdated = true;
         notifyUpdate();
     }
 
@@ -192,6 +216,9 @@ public abstract class AbstractKineticMultiblock extends KineticBlockEntity imple
 
     @Override
     public void setHeight(int height) {
+        if(this.height != height) {
+            multiUpdated = true;
+        }
         this.height = height;
     }
 
@@ -202,6 +229,9 @@ public abstract class AbstractKineticMultiblock extends KineticBlockEntity imple
 
     @Override
     public void setWidth(int width) {
+        if(this.width != width) {
+            multiUpdated = true;
+        }
         this.width = width;
     }
 
@@ -236,6 +266,9 @@ public abstract class AbstractKineticMultiblock extends KineticBlockEntity imple
             compound.putInt("Width", width);
             compound.putInt("Height", height);
         }
+        if(multiUpdated) {
+            compound.putBoolean("MultiUpdated", true);
+        }
         super.write(compound, registries, clientPacket);
     }
 
@@ -258,6 +291,10 @@ public abstract class AbstractKineticMultiblock extends KineticBlockEntity imple
         if (isController()) {
             width = compound.getInt("Width");
             height = compound.getInt("Height");
+        }
+        updateCapability = true;
+        if(compound.contains("MultiUpdated")) {
+            multiUpdated = compound.getBoolean("MultiUpdated");
         }
     }
 }

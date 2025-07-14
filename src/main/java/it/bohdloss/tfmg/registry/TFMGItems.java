@@ -75,7 +75,8 @@ public class TFMGItems {
             LIMESAND = taggedIngredient("limesand", TFMGTags.TFMGItemTags.FLUX.tag),
             SULFUR_DUST = taggedIngredient("sulfur_dust", commonItemTag("dusts/sulfur")),
             RUBBER_SHEET = taggedIngredient("rubber_sheet", commonItemTag("ingots/rubber")),
-            SILICON_INGOT = taggedIngredient("silicon_ingot", commonItemTag("ingots/silicon"));
+            SILICON_INGOT = taggedIngredient("silicon_ingot", commonItemTag("ingots/silicon")),
+            CRUSHED_LITHIUM = taggedIngredient("crushed_raw_lithium", AllTags.AllItemTags.CRUSHED_RAW_MATERIALS.tag);
 
     public static final ItemEntry<Item>
             REBAR = REGISTRATE.item("rebar", Item::new)

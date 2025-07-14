@@ -1,4 +1,4 @@
-// 1.21.1	2025-07-10T22:47:08.190741101	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2025-07-14T15:57:58.064952073	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 e982a263b6af75821042107fdeff7bd809436d08 assets/tfmg/blockstates/air_intake.json
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
 b7f5146505c40c08cdea7ad01fa99048b7ac5451 assets/tfmg/blockstates/aluminum_block.json
@@ -25,6 +25,8 @@ bd3ce9b5d0e4098be3c7e7f5125f09a4698ebdd9 assets/tfmg/blockstates/black_concrete_
 8ba92d5ab6c3b455398347da622a9c4102856235 assets/tfmg/blockstates/black_rebar_concrete_slab.json
 ce1d5c17404468a5f52510b5a2d5868ad488b8c6 assets/tfmg/blockstates/black_rebar_concrete_stairs.json
 bd3ce9b5d0e4098be3c7e7f5125f09a4698ebdd9 assets/tfmg/blockstates/black_rebar_concrete_wall.json
+0ee84a4ff85c8a8bbfb488433050001c157b5495 assets/tfmg/blockstates/blast_furnace_reinforcement.json
+2034512a90d1855fac35fca8a78ad25f4a847bfe assets/tfmg/blockstates/blast_furnace_reinforcement_wall.json
 fb83c1076743328a2aa1ce2bd89cf7890293f971 assets/tfmg/blockstates/blue_caution_block.json
 225657c0b886b2cd04ca81d7d7f4120b9fe73116 assets/tfmg/blockstates/blue_concrete.json
 2f24eb61881af9d78f4d5bafe7096e6af7d10081 assets/tfmg/blockstates/blue_concrete_slab.json
@@ -64,6 +66,7 @@ e6191cb401599b3c33f0354bfe874bd197cb84e9 assets/tfmg/blockstates/cast_iron_fluid
 b01e90f39cda043e50ea9c3d0605f4bfcef077aa assets/tfmg/blockstates/cinder_block.json
 2d34032100c750162bc216ecb5dcd415671b4ef8 assets/tfmg/blockstates/cinderflour_block.json
 ec94bedd045ade74274ffe009569d65083b9fff5 assets/tfmg/blockstates/coal_coke_block.json
+f39a853c61f70a3fe79952c962b2f26d309115a4 assets/tfmg/blockstates/coke_oven.json
 c67b91a7fd9f16cd2d7eaa92dd9b945042d58130 assets/tfmg/blockstates/concrete.json
 9c9cac30f015e72418736cbec2d721a6dec56fb7 assets/tfmg/blockstates/concrete_slab.json
 1bb17c9ead851661909f9d223aa3947267c0a84e assets/tfmg/blockstates/concrete_smokestack.json
@@ -102,6 +105,8 @@ da3ce72a164ba44b83d2e0a34aba7a2e0bf1f7e0 assets/tfmg/blockstates/deepslate_lead_
 ef677a324787ed787012439b7d4a08b2cbfe5809 assets/tfmg/blockstates/factory_floor_stairs.json
 0bafb92dc1bee765cef915eb3175c827de51985a assets/tfmg/blockstates/factory_floor_wall.json
 8e8feef9e07345228da05669fcb8449a4276f114 assets/tfmg/blockstates/fireclay.json
+fe071d9f7c86c74e47390c35709f6c59b71bfa59 assets/tfmg/blockstates/fireproof_brick_reinforcement.json
+13c8eae3dd74b79d0e43c31ff101111e0af058f1 assets/tfmg/blockstates/fireproof_bricks.json
 89257ec2fdb2f1d61cb229df606c7ffac47e4582 assets/tfmg/blockstates/flarestack.json
 e74acd9562e4b46295cf017d17f2662e20a7f5ea assets/tfmg/blockstates/fossilstone.json
 b0a3f4da5d9efdd01800c8b9738aee194565c6e7 assets/tfmg/blockstates/gasoline.json
@@ -264,6 +269,9 @@ c56002be5068f20200930306f8bd8d70df304ea0 assets/tfmg/blockstates/red_concrete_sl
 c56002be5068f20200930306f8bd8d70df304ea0 assets/tfmg/blockstates/red_rebar_concrete_slab.json
 84428de5f191b0d5ec7101ab1e6bda689f3a0fad assets/tfmg/blockstates/red_rebar_concrete_stairs.json
 3b2c2ec57ef6ba5c13874541111b3c39b5e1bccd assets/tfmg/blockstates/red_rebar_concrete_wall.json
+81712e33553c646e3529f91b3dbc2224bc618728 assets/tfmg/blockstates/reinforced_fireproof_bricks.json
+516823724a718040e4a9aa746483424c2b9dbc92 assets/tfmg/blockstates/rusted_blast_furnace_reinforcement.json
+3001739bfa95b98d11a6b74ef223032c52cbec38 assets/tfmg/blockstates/rusted_blast_furnace_reinforcement_wall.json
 1d17b3c32eb68af8d4ecb4af814e6b5b53286a18 assets/tfmg/blockstates/slag_block.json
 12b6aac2233f13dfc650335a528390e5d72196c4 assets/tfmg/blockstates/slag_bricks.json
 0d64c8fcf9245a1dcded327bd6970bce49c69c13 assets/tfmg/blockstates/slag_bricks_slab.json
@@ -312,8 +320,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-f65299d8f3c65bea45567f7d3b9d5b2e92f6f8ce assets/tfmg/lang/en_ud.json
-21b1d3dbaedcadf3f776b14f9fd910f8037c02f7 assets/tfmg/lang/en_us.json
+8dd04c98437bf3ebcc0939b7a03a1cfee2a16de6 assets/tfmg/lang/en_ud.json
+f3d4f90cf6208eeb906d83a867ba2979b8ffd684 assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
 4344f14c42bb7a9f90120b5f75927015c0edc3bc assets/tfmg/models/block/aluminum_cap_alt.json
@@ -373,6 +381,7 @@ be4c782a3f82325a84f0feaa56d3f114aa2a93a5 assets/tfmg/models/block/black_concrete
 f945d7434df89a458022fdff31c05410a6baa418 assets/tfmg/models/block/black_concrete_wall_side.json
 19d8228d961b16543957f8a5f570ab5c33a84b7a assets/tfmg/models/block/black_concrete_wall_side_tall.json
 a49e844b9d3426719506ab72c82be94106dd9729 assets/tfmg/models/block/black_rebar_concrete.json
+9258d6764c8fc66796928a5257d52c84fa395a53 assets/tfmg/models/block/blast_furnace_reinforcement.json
 30291623882bc5186a933acc0fce077612855c69 assets/tfmg/models/block/blue_caution_block.json
 ec8df0e04ef046e61a6879b5aac0b57e5c00fbdb assets/tfmg/models/block/blue_concrete.json
 08e743405ca4dc3d64179c1a016dca80d0eb0e59 assets/tfmg/models/block/blue_concrete_bottom.json
@@ -504,6 +513,10 @@ ed13041a1b6767feec9d371b20205648bb16f968 assets/tfmg/models/block/factory_floor_
 93082a5205505d8b93a89f2bba95a4c680ce876c assets/tfmg/models/block/factory_floor_wall_side.json
 16f13f8beefdb25611cca99461be205eed2dbac5 assets/tfmg/models/block/factory_floor_wall_side_tall.json
 5e65f45a32fda57f2090c4c486ccc9602426a0cb assets/tfmg/models/block/fireclay.json
+88d17739f2b8a2d77397f20bdbba486f95f88d18 assets/tfmg/models/block/fireproof_brick_reinforcement_wall_post.json
+157a113acb124b65874defe8379d70552838339f assets/tfmg/models/block/fireproof_brick_reinforcement_wall_side.json
+a657ae729b3afadf239d0a48b55f54ab756f4ec9 assets/tfmg/models/block/fireproof_brick_reinforcement_wall_side_tall.json
+9202745e6093098507d6b800f5e52a99b74eaa20 assets/tfmg/models/block/fireproof_bricks.json
 b0cb044b77cb3ffaf0628e0a06a8fe12c7462da0 assets/tfmg/models/block/fossilstone.json
 e0cf42adbfeaa5c781b8239352335985658ae2d3 assets/tfmg/models/block/gasoline.json
 46c7915fcb12abc974b94c9a083e1239e1fd5edd assets/tfmg/models/block/gray_caution_block.json
@@ -711,6 +724,8 @@ dc6e4ccb14d0e1e9609a2288b36e795193ce9c90 assets/tfmg/models/block/red_concrete_w
 51eb342e89183a45f82b07cb5bd7dcc0af3cb92d assets/tfmg/models/block/red_concrete_wall_side.json
 cceea88c9ee12c5a6ffb6d1e722aa1d39618d59b assets/tfmg/models/block/red_concrete_wall_side_tall.json
 1a7e3178749d61380189e5d2e82a449a7af955e9 assets/tfmg/models/block/red_rebar_concrete.json
+9202745e6093098507d6b800f5e52a99b74eaa20 assets/tfmg/models/block/reinforced_fireproof_bricks.json
+72ba386940887b208dec2b5491a4bb1f3f18e2fd assets/tfmg/models/block/rusted_blast_furnace_reinforcement.json
 3578cf1c68b95ad2bd204c0a2569a1b9e1038f5c assets/tfmg/models/block/slag_block.json
 6add4df4683269f7e5dff6e001ebdaa084ddc50c assets/tfmg/models/block/slag_bricks.json
 1fa3ca10bff300345cade4423acda5c01e9b492b assets/tfmg/models/block/slag_bricks_bottom.json
@@ -842,6 +857,7 @@ a41523da5b971a98e101f03f058f50c944fc4960 assets/tfmg/models/item/black_concrete_
 059e1cf0e5a1b37e2ae807cea32f62f28817787c assets/tfmg/models/item/black_rebar_concrete_slab.json
 d5251229881d3c03f887dd11a34a200ec71ca03b assets/tfmg/models/item/black_rebar_concrete_stairs.json
 a41523da5b971a98e101f03f058f50c944fc4960 assets/tfmg/models/item/black_rebar_concrete_wall.json
+21c635e725c6b566e1b321e5c56520addc3f9dbc assets/tfmg/models/item/blast_furnace_reinforcement.json
 eee31c3653f6d8db57cbd31051a8c2c4aedff9d8 assets/tfmg/models/item/blue_caution_block.json
 c5ad82126c949732854f9be8492d4bfdf756259b assets/tfmg/models/item/blue_concrete.json
 96648e327c65736445def6d44948cc9a883fb860 assets/tfmg/models/item/blue_concrete_slab.json
@@ -894,6 +910,7 @@ d45fc5511b4c4027889afd3088cd91ba1d8b0501 assets/tfmg/models/item/coal_coke.json
 3789a9d72a7ba5daf8c39cccaa665057e63302c6 assets/tfmg/models/item/coal_coke_block.json
 cf3c486158a27cbd3a4ef9fdd79dc93f3cc12b45 assets/tfmg/models/item/coal_coke_dust.json
 54ac6b75ce8917de10c49ab224b8fc3e9a833f16 assets/tfmg/models/item/coated_circuit_board.json
+36998ab88f5e75bcb9105baeb1a77030abd9a8bd assets/tfmg/models/item/coke_oven.json
 4a843d55647a606fa97bc2daf745a7603406767d assets/tfmg/models/item/concrete.json
 1e4e0385a32fc8756acd46fac0a388a9d694df28 assets/tfmg/models/item/concrete_mixture.json
 685e08733e5195a8714284be2eeba8f47736115e assets/tfmg/models/item/concrete_slab.json
@@ -920,6 +937,7 @@ d34ea5d4a5fbae394f3773155c901da7e8a9f99e assets/tfmg/models/item/copper_wire.jso
 573155f3826c41275c060cebb217a4ef2fcb658b assets/tfmg/models/item/crankshaft.json
 0abf2b2d61995c4fd3e3c88656e740ffe0a2f083 assets/tfmg/models/item/creosote_bucket.json
 a79994155c228372c913d281a53b5c7303d5a8ee assets/tfmg/models/item/crude_oil_bucket.json
+a2484a203f80efcc0bc630469ded2d8b408e8850 assets/tfmg/models/item/crushed_raw_lithium.json
 e1265c22293246261ac4b88d01a0819a8d96b1fa assets/tfmg/models/item/cyan_caution_block.json
 606a911fc34096d2213eb7262a02a3ca239b7df1 assets/tfmg/models/item/cyan_concrete.json
 7c8c3a20c9e2487017c0a0a32a21a7194b01cb0c assets/tfmg/models/item/cyan_concrete_slab.json
@@ -947,6 +965,8 @@ ea3792ff90f44546f7a1dbbdb9a984dc1ef03edf assets/tfmg/models/item/factory_floor_w
 84956ff1e797ed4facf000763dc0758d88e26095 assets/tfmg/models/item/fireclay.json
 392d736d912396962c0980623b8fcdbdb1541ad7 assets/tfmg/models/item/fireclay_ball.json
 6adcbf69c17e06e98cc848dc136b8907c9cff7be assets/tfmg/models/item/fireproof_brick.json
+96171ac619fe06339e4888ebf16f744745d5d667 assets/tfmg/models/item/fireproof_brick_reinforcement.json
+080629b77cc20daacb129c7fe3c3a97d5df677f2 assets/tfmg/models/item/fireproof_bricks.json
 6760e6cfe559d9d21c16a1ac8e444423fa8f6c48 assets/tfmg/models/item/flarestack.json
 7e4a58a6d05b19dc8c5fff73434c2d7cefa75343 assets/tfmg/models/item/fossilstone.json
 733b814e1fa27192eb5620419bc6be64423d89c1 assets/tfmg/models/item/furnace_gas_bucket.json
@@ -1149,6 +1169,7 @@ c6dc84119d26bd41d755fe884ef9b4c59863f43a assets/tfmg/models/item/red_caution_blo
 9e71f4d1095e7568885c310d0710ef330eb1ac59 assets/tfmg/models/item/red_rebar_concrete_stairs.json
 9d00ee9bd5bcd5464676311cabd925b175ba9686 assets/tfmg/models/item/red_rebar_concrete_wall.json
 553e842af77a493bd40e3bd58e461d24fab8aa9d assets/tfmg/models/item/rubber_sheet.json
+bf0ec1b90ae34ffe4d74f3fd863046954557bda9 assets/tfmg/models/item/rusted_blast_furnace_reinforcement.json
 ba5f4f0ea0ca8123afe2e84f3cfaff3a1b6483e9 assets/tfmg/models/item/screw.json
 d6cafabe2c6380ac0d2f2339a3861009de3ec989 assets/tfmg/models/item/screwdriver.json
 0396d8c86ebae9110e56135527cfae238e77a97c assets/tfmg/models/item/silicon_ingot.json
@@ -1352,6 +1373,7 @@ ccae2d221dc320981c331f4b8e07fe159176557a data/c/tags/item/wires/constantan.json
 12ccc31f8e00edef9ceb5c3f23af8a4a2897b853 data/create/tags/item/casing.json
 733eedc50a1e81b450633c52efdedf016d0af5fa data/create/tags/item/contraption_controlled.json
 dd1f4f2989edaecd2273411a846f47d0fbc69fbc data/create/tags/item/create_ingots.json
+ded1913401f4b56ac3175be37bf30ffadab245c8 data/create/tags/item/crushed_raw_materials.json
 0b452fe131e1fd26fe896792aa41e5cd8fe16acf data/minecraft/tags/block/beacon_base_blocks.json
 09572a447cc241e5ffb07bf81ce31d38685a64b6 data/minecraft/tags/block/climbable.json
 733eedc50a1e81b450633c52efdedf016d0af5fa data/minecraft/tags/block/doors.json
@@ -1359,14 +1381,14 @@ dd1f4f2989edaecd2273411a846f47d0fbc69fbc data/create/tags/item/create_ingots.jso
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/features_cannot_replace.json
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/infiniburn_overworld.json
 403bf0a3b5d786c9950dc66574e1d20a27ed6b24 data/minecraft/tags/block/mineable/axe.json
-c9bf77036295f02503577933c1387d4c62cc2340 data/minecraft/tags/block/mineable/pickaxe.json
+d8cf505769982f47e5f7cc56c45886c0636bf63c data/minecraft/tags/block/mineable/pickaxe.json
 9c7d1d075d20521106a7076ae12804d8e2ac6764 data/minecraft/tags/block/mineable/shovel.json
 dfca9f1cc79d30334f344f024c13a7c717bf4027 data/minecraft/tags/block/needs_iron_tool.json
-502abbb79b6e3ec25b846845d869ed0eb0aff876 data/minecraft/tags/block/needs_stone_tool.json
+debd36e970dde2f2ec3b47e4e4a397da997636d7 data/minecraft/tags/block/needs_stone_tool.json
 d7c6d19959e08b06d0064055b2d1621beaf7e155 data/minecraft/tags/block/slabs.json
 dce6971a90bfd797f681ce60c99bf99e15f723f3 data/minecraft/tags/block/stairs.json
 d75ac2fd181405edb6efaffcf2f659e1a64ae69a data/minecraft/tags/block/trapdoors.json
-9f0b0dea3623d02cb8504bafc58b152682b596ee data/minecraft/tags/block/walls.json
+6c69d79e3d9aeb2bfd06e8fea025d7bc5cdbb4d7 data/minecraft/tags/block/walls.json
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/wither_immune.json
 733eedc50a1e81b450633c52efdedf016d0af5fa data/minecraft/tags/block/wooden_doors.json
 733eedc50a1e81b450633c52efdedf016d0af5fa data/minecraft/tags/item/doors.json
@@ -1554,6 +1576,8 @@ f81c1ded8a6ae7b826f3e956e4dba81dfa10dc1a data/tfmg/loot_table/blocks/black_concr
 995ce7ffc38854028b077fa1a6806628fa8310e7 data/tfmg/loot_table/blocks/black_rebar_concrete_slab.json
 27e989d2692cd42f39b5bc1b57da6dedd223b51f data/tfmg/loot_table/blocks/black_rebar_concrete_stairs.json
 510c1cbe471d8af5567ac9f1a00d2eb0a04cc95b data/tfmg/loot_table/blocks/black_rebar_concrete_wall.json
+82d10441aeaf4933fea0272b714fe33cd0c87cf7 data/tfmg/loot_table/blocks/blast_furnace_reinforcement.json
+d0bc3f13112f629bf86921cd6e2dac61c31c1de4 data/tfmg/loot_table/blocks/blast_furnace_reinforcement_wall.json
 4f202ceb86653526a0c0593e2f0b65fb3b38f2e0 data/tfmg/loot_table/blocks/blue_caution_block.json
 3ddfa4a556aff5fab353d51bdb52f728d7751044 data/tfmg/loot_table/blocks/blue_concrete.json
 7a047fab84687cb3245f077265475e197b65d1cf data/tfmg/loot_table/blocks/blue_concrete_slab.json
@@ -1593,6 +1617,7 @@ d219b1a4f2400204f7eb84ba463c9338c19b0fa5 data/tfmg/loot_table/blocks/cast_iron_t
 8a764606334d85d229124bf84aa7d4a16f8611ad data/tfmg/loot_table/blocks/cinder_block.json
 177ed46d0f732499315b63cd9d311d25b2750ae7 data/tfmg/loot_table/blocks/cinderflour_block.json
 474d0da97641e0fd2cb76aec91b1127b1e99fe52 data/tfmg/loot_table/blocks/coal_coke_block.json
+7144ef8ca8dd4795684ff86e6cd0cb7acc160dbb data/tfmg/loot_table/blocks/coke_oven.json
 a64156eb2eb8071c54b6726cf3c01c072c3c96d3 data/tfmg/loot_table/blocks/concrete.json
 2a812a55d2f78f2bb00c90e61e5c1e49c527d825 data/tfmg/loot_table/blocks/concrete_slab.json
 3531c7c379d6cf0e989b8c60f8c6f7eae8237af6 data/tfmg/loot_table/blocks/concrete_smokestack.json
@@ -1627,6 +1652,8 @@ a84d11a777ea8334c27703b96830a1e1df7b2d04 data/tfmg/loot_table/blocks/factory_flo
 b65a4d119a0f0c1e71a1092e52070f0a80fa347f data/tfmg/loot_table/blocks/factory_floor_stairs.json
 f1c302b35579f00752fcf910aa57c81fc43ef872 data/tfmg/loot_table/blocks/factory_floor_wall.json
 b413d50a081288a2d2599995dd001edc76f543d0 data/tfmg/loot_table/blocks/fireclay.json
+484c04b2a260e205cfcb9c1597a0b1f39a3f4690 data/tfmg/loot_table/blocks/fireproof_brick_reinforcement.json
+da3f506656a11eae1e9dd6dfa504f001446d54e7 data/tfmg/loot_table/blocks/fireproof_bricks.json
 c80724662af3f9c56f560c1272c6a89e26bc8268 data/tfmg/loot_table/blocks/flarestack.json
 9f2b65dbcf81aa1cb79c57787b944ddba8d8fb68 data/tfmg/loot_table/blocks/fossilstone.json
 2eb72789f8dd117af17aafd0adbddbbbe574ad27 data/tfmg/loot_table/blocks/glass_aluminum_pipe.json
@@ -1777,6 +1804,9 @@ bc49decb49d2607d14d3780698eb26912fdb3cca data/tfmg/loot_table/blocks/red_concret
 3deb12e91e4858545c2a61682bbe2bf04b3060c3 data/tfmg/loot_table/blocks/red_rebar_concrete_slab.json
 f63074e38a6744cbc32057af22f41af4007d93ba data/tfmg/loot_table/blocks/red_rebar_concrete_stairs.json
 6dee967a5b4fadcd7dcbd2ee129e2b258a5e08a7 data/tfmg/loot_table/blocks/red_rebar_concrete_wall.json
+0a3ac7d03abd946b9cfd9911123c36b1f88868cc data/tfmg/loot_table/blocks/reinforced_fireproof_bricks.json
+4318592a9e3d008736a5d523e4c86a1410376aee data/tfmg/loot_table/blocks/rusted_blast_furnace_reinforcement.json
+1c74eb77c0be823e02bbf6746688a1762d931060 data/tfmg/loot_table/blocks/rusted_blast_furnace_reinforcement_wall.json
 8243feb84772c561d556050afb7be5da682b97e1 data/tfmg/loot_table/blocks/slag_block.json
 b51a8c49e316fb073ba28bdb93a2b0869e063e4d data/tfmg/loot_table/blocks/slag_bricks.json
 db3ff2c8c9326cc4b3ead5d09957e344e04e6d94 data/tfmg/loot_table/blocks/slag_bricks_slab.json
@@ -1980,8 +2010,15 @@ c1452ea66a020da5e5e1d77dbd1eee2f62a820ad data/tfmg/recipe/yellow_caution_block_f
 8368f8d7bc9f728984ca0f0145fb93a2841035fd data/tfmg/recipe/yellow_rebar_concrete_stairs_from_yellow_rebar_concrete_stonecutting.json
 f284b54eed2bdf08f2333c77e9321b0efdd932b7 data/tfmg/recipe/yellow_rebar_concrete_wall_from_yellow_rebar_concrete_stonecutting.json
 98b5f33631ead70fedd300b7c9f2cc740d76fceb data/tfmg/recipe/zinc_electrode_from_storage_blocks_zinc_stonecutting.json
-37b1c9c3ae722d8110db48015993ede3e194c0a0 data/tfmg/tags/block/reinforced_blast_furnace_support.json
-37b1c9c3ae722d8110db48015993ede3e194c0a0 data/tfmg/tags/block/reinforced_blast_furnace_wall.json
+f14e6c5dbe88027a11af2da9e84c00c2d6433aaf data/tfmg/tags/block/blast_furnace_support.json
+1f343d111bb09b3cc64793e7647d746ef010db7b data/tfmg/tags/block/blast_furnace_wall.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/tfmg/tags/block/industrial_pipe.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/tfmg/tags/block/pumpjack_connector.json
+b5a289b8b3995051da520bf7ce877ab6e03753d8 data/tfmg/tags/block/pumpjack_head.json
+53012042ef0c1e5d664c2e8dd2c45d0a22c09fb7 data/tfmg/tags/block/pumpjack_part.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/tfmg/tags/block/pumpjack_small_part.json
+c37f2e140a6aaecaccc655cbb9684500dd3d19ed data/tfmg/tags/block/reinforced_blast_furnace_support.json
+0bd74c8630584f0fbebcf2b4d1895a93ad76bd8c data/tfmg/tags/block/reinforced_blast_furnace_wall.json
 0f71eaf3e17ca08b75de5d85e660cbd958528ae4 data/tfmg/tags/block/surface_scanner_findable.json
 038838a2733f8cbcaf59013d75b6da974ff2ba11 data/tfmg/tags/fluid/blast_stove_fuel.json
 7d081933f30d771b92bcb6fde6e0b3407a0dc539 data/tfmg/tags/fluid/firebox_fuel.json
@@ -1989,4 +2026,5 @@ e47077392b67db8a4a4502d4740011aa917db584 data/tfmg/tags/fluid/flammable.json
 ec60cf5465a061d532877d3bb10f9cd4d8bb6f18 data/tfmg/tags/fluid/gas.json
 f1cc6d710a5e49ab33dbaceea796f0c0b589c82b data/tfmg/tags/item/blast_furnace_fuel.json
 aaf2d6fe33212a0b0164df550ba6e39d61775d71 data/tfmg/tags/item/flux.json
+1ad920aa65e2706dabb6265f3b12546ab33e8936 data/tfmg/tags/item/rods.json
 ba7b700bc10c169f73e9dc2cf0be37554378f009 data/tfmg/tags/item/spools.json

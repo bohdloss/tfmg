@@ -3,6 +3,7 @@ package it.bohdloss.tfmg.base;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import it.bohdloss.tfmg.DebugStuff;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -15,15 +16,20 @@ import java.util.function.Predicate;
 
 public class TFMGFluidBehavior extends BlockEntityBehaviour {
     public static final BehaviourType<TFMGFluidBehavior> TYPE = new BehaviourType<>();
+    public static final BehaviourType<TFMGFluidBehavior> SECONDARY_TYPE = new BehaviourType<>();
 
+    private final BehaviourType<TFMGFluidBehavior> type;
+    private final String name;
     private final TFMGFluidTank handler;
     private final OutwardHandler capability;
     public boolean allowExtraction = true;
     public boolean allowInsertion = true;
     public Runnable updateCallback;
 
-    public TFMGFluidBehavior(SmartBlockEntity be, int capacity) {
+    public TFMGFluidBehavior(BehaviourType<TFMGFluidBehavior> type, String name, SmartBlockEntity be, int capacity) {
         super(be);
+        this.type = type;
+        this.name = name;
         handler = new TFMGFluidTank(this, capacity, x -> true);
         capability = new OutwardHandler(this);
     }
@@ -58,21 +64,21 @@ public class TFMGFluidBehavior extends BlockEntityBehaviour {
 
     @Override
     public BehaviourType<?> getType() {
-        return TYPE;
+        return type;
     }
 
     @Override
     public void write(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
         super.write(nbt, registries, clientPacket);
 
-        nbt.put("Tank", handler.writeToNBT(registries, new CompoundTag()));
+        nbt.put(name, handler.writeToNBT(registries, new CompoundTag()));
     }
 
     @Override
     public void read(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
         super.read(nbt, registries, clientPacket);
 
-        handler.readFromNBT(registries, nbt.getCompound("Tank"));
+        handler.readFromNBT(registries, nbt.getCompound(name));
     }
 
     private record OutwardHandler(TFMGFluidBehavior owner) implements IFluidHandler, IFluidTank {

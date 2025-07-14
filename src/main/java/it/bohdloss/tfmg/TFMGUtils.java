@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
+import com.simibubi.create.foundation.fluid.CombinedTankWrapper;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
 import com.simibubi.create.foundation.utility.CreateLang;
 import it.bohdloss.tfmg.base.Spark;
@@ -31,6 +32,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -45,6 +47,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -157,32 +160,14 @@ public class TFMGUtils {
         return (float) Math.sqrt(distance2D * distance2D + y * y);
     }
 
-    public static void createStorageTooltip(BlockEntity be, List<Component> tooltip) {
-        createFluidTooltip(be, tooltip);
-        createItemTooltip(be, tooltip);
-    }
-
-    public static <T> T scanBlockCapabilities(BlockCapability<T, Direction> cap, Level level, BlockPos pos) {
-        if(level == null) {
-            return null;
-        }
-        for(Direction direction : Direction.values()) {
-            var capability = level.getCapability(cap, pos, direction);
-            if(capability != null) {
-                return capability;
-            }
-        }
-        return null;
-    }
-
-    public static boolean createFluidTooltip(BlockEntity be, List<Component> tooltip) {
+    public static boolean createFluidTooltip(BlockEntity be, List<Component> tooltip, Direction direction) {
         LangBuilder mb = CreateLang.translate("generic.unit.millibuckets");
 
         /////////
         if(be.getLevel() == null) {
             return false;
         }
-        IFluidHandler tank = scanBlockCapabilities(Capabilities.FluidHandler.BLOCK, be.getLevel(), be.getBlockPos());
+        IFluidHandler tank = be.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), direction);
         if (tank == null) {
             return false;
         }
@@ -217,8 +202,11 @@ public class TFMGUtils {
     }
 
 
-    public static boolean createItemTooltip(BlockEntity be, List<Component> tooltip) {
-        IItemHandler inventory = scanBlockCapabilities(Capabilities.ItemHandler.BLOCK, be.getLevel(), be.getBlockPos());
+    public static boolean createItemTooltip(BlockEntity be, List<Component> tooltip, Direction direction) {
+        if(be.getLevel() == null) {
+            return false;
+        }
+        IItemHandler inventory = be.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, be.getBlockPos(), direction);
         if (inventory == null) {
             return false;
         }
@@ -410,5 +398,24 @@ public class TFMGUtils {
 
     public static CableType getCableType(ResourceLocation name) {
         return TFMGRegistries.registeredCableTypes.get(name);
+    }
+
+    public static Direction.Axis rotateHorizontalAxis(Direction.Axis axis) {
+        switch(axis) {
+            case X -> {
+                return Direction.Axis.Z;
+            }
+            case Y -> {
+                return Direction.Axis.Y;
+            }
+            case Z -> {
+                return Direction.Axis.X;
+            }
+        }
+        return null;
+    }
+
+    public static <T extends Comparable<T>, V extends T> void changeProperty(Level level, BlockPos pos, Property<T> property, V value) {
+        level.setBlock(pos, level.getBlockState(pos).setValue(property, value), 2);
     }
 }

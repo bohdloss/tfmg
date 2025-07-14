@@ -38,7 +38,7 @@ public class OilDepositBlockEntity extends SmartBlockEntity implements IHaveGogg
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
-        tank = new TFMGFluidBehavior(this, 1000000)
+        tank = new TFMGFluidBehavior(TFMGFluidBehavior.TYPE, "Fluid", this, 1000000)
                 .withValidator(fluidStack -> fluidStack.getFluid().isSame(TFMGFluids.CRUDE_OIL.getSource()))
                 .allowInsertion(false)
                 .allowExtraction(false)

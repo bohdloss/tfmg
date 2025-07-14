@@ -47,7 +47,7 @@ public class AirIntakeBlockEntity extends AbstractKineticMultiblock {
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         super.addBehaviours(behaviours);
-        tank = new TFMGFluidBehavior(this, CAPACITY_MULTIPLIER)
+        tank = new TFMGFluidBehavior(TFMGFluidBehavior.TYPE, "Fluid", this, CAPACITY_MULTIPLIER)
                 .withValidator(fluidStack -> fluidStack.getFluid().isSame(TFMGFluids.AIR.getSource()))
                 .allowInsertion(false)
                 .allowExtraction(true)
@@ -121,7 +121,7 @@ public class AirIntakeBlockEntity extends AbstractKineticMultiblock {
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         addStressImpactStats(tooltip, calculateStressApplied());
-        return TFMGUtils.createFluidTooltip(this, tooltip);
+        return TFMGUtils.createFluidTooltip(this, tooltip, Direction.DOWN);
     }
 
     @Override
@@ -170,7 +170,7 @@ public class AirIntakeBlockEntity extends AbstractKineticMultiblock {
 
     @Override
     public int getTankSize(int tank) {
-        return this.tank.getHandler().getCapacity();
+        return width * width;
     }
 
     @Override

@@ -71,6 +71,7 @@ public class TFMG {
         TFMGColoredFires.register(modEventBus);
         TFMGPipes.init();
         TFMGParticleTypes.register(modEventBus);
+        TFMGRecipeTypes.register(modEventBus);
 
         TFMGConfigs.register(modContainer);
     }
