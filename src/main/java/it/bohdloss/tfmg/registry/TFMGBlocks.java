@@ -1,7 +1,10 @@
 package it.bohdloss.tfmg.registry;
 
+import com.simibubi.create.AllMountedStorageTypes;
 import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.decoration.slidingDoor.SlidingDoorBlock;
+import com.simibubi.create.content.fluids.tank.FluidTankGenerator;
+import com.simibubi.create.content.fluids.tank.FluidTankMovementBehavior;
 import com.simibubi.create.content.kinetics.gearbox.GearboxBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockModel;
 import com.simibubi.create.content.kinetics.simpleRelays.CogwheelBlockItem;
@@ -22,6 +25,13 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import it.bohdloss.tfmg.content.decoration.cogs.TFMGCogwheelBlock;
 import it.bohdloss.tfmg.content.decoration.concrete.*;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelBlock;
+import it.bohdloss.tfmg.content.decoration.tanks.aluminum.AluminumTankBlock;
+import it.bohdloss.tfmg.content.decoration.tanks.TFMGTankModel;
+import it.bohdloss.tfmg.content.decoration.tanks.aluminum.AluminumTankItem;
+import it.bohdloss.tfmg.content.decoration.tanks.cast_iron.aluminum.CastIronTankBlock;
+import it.bohdloss.tfmg.content.decoration.tanks.cast_iron.aluminum.CastIronTankItem;
+import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankBlock;
+import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankItem;
 import it.bohdloss.tfmg.content.items.CoalCokeBlockItem;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.reinforcement.BlastFurnaceReinforcementBlockItem;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.reinforcement.BlastFurnaceReinforcementWallBlock;
@@ -54,6 +64,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.simibubi.create.api.behaviour.movement.MovementBehaviour.movementBehaviour;
+import static com.simibubi.create.api.contraption.storage.fluid.MountedFluidStorageType.mountedFluidStorage;
 import static com.simibubi.create.foundation.data.BlockStateGen.axisBlock;
 import static it.bohdloss.tfmg.TFMG.REGISTRATE;
 import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
@@ -146,57 +158,57 @@ public class TFMGBlocks {
 //            .transform(customItemModel())
 //            .register();
 //    //------------------TANKS------------------//
-//    public static final BlockEntry<AluminumTankBlock> ALUMINUM_FLUID_TANK =
-//            REGISTRATE.block("aluminum_fluid_tank", AluminumTankBlock::regular)
-//                    .initialProperties(SharedProperties::copperMetal)
-//                    .properties(p -> p.sound(SoundType.COPPER))
-//                    .properties(BlockBehaviour.Properties::noOcclusion)
-//                    .properties(p -> p.isRedstoneConductor((p1, p2, p3) -> true))
-//                    .transform(pickaxeOnly())
-//                    .transform(mountedFluidStorage(TFMGMountedStorageTypes.TFMG_FLUID_TANK))
-//                    .onRegister(movementBehaviour(new FluidTankMovementBehavior()))
-//                    .blockstate(new TFMGTankGenerator()::generate)
-//                    .onRegister(CreateRegistrate.blockModel(() -> AluminumFluidTankModel::standard))
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .item(AluminumTankItem::new)
-//                    .model(AssetLookup.customBlockItemModel("_", "block_single_window"))
-//                    .build()
-//                    .register();
-//    public static final BlockEntry<CastIronTankBlock> CAST_IRON_FLUID_TANK =
-//            REGISTRATE.block("cast_iron_fluid_tank", CastIronTankBlock::regular)
-//                    .initialProperties(SharedProperties::copperMetal)
-//                    .properties(p -> p.sound(SoundType.METAL))
-//                    .properties(BlockBehaviour.Properties::noOcclusion)
-//                    .transform(mountedFluidStorage(TFMGMountedStorageTypes.TFMG_FLUID_TANK))
-//                    .onRegister(movementBehaviour(new FluidTankMovementBehavior()))
-//                    .properties(p -> p.isRedstoneConductor((p1, p2, p3) -> true))
-//                    .transform(pickaxeOnly())
-//                    .blockstate(new TFMGTankGenerator()::generate)
-//                    .onRegister(CreateRegistrate.blockModel(() -> CastIronFluidTankModel::standard))
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .item(CastIronTankItem::new)
-//                    .model(AssetLookup.customBlockItemModel("_", "block_single_window"))
-//                    .build()
-//                    .register();
-//
+    public static final BlockEntry<AluminumTankBlock> ALUMINUM_FLUID_TANK =
+            REGISTRATE.block("aluminum_fluid_tank", AluminumTankBlock::regular)
+                    .initialProperties(SharedProperties::copperMetal)
+                    .properties(p -> p.sound(SoundType.COPPER))
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .properties(p -> p.isRedstoneConductor((p1, p2, p3) -> true))
+                    .transform(pickaxeOnly())
+                    .transform(mountedFluidStorage(AllMountedStorageTypes.FLUID_TANK))
+                    .onRegister(movementBehaviour(new FluidTankMovementBehavior()))
+                    .blockstate(new FluidTankGenerator()::generate)
+                    .onRegister(CreateRegistrate.blockModel(() -> TFMGTankModel::aluminum))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .item(AluminumTankItem::new)
+                    .model(AssetLookup.customBlockItemModel("_", "block_single_window"))
+                    .build()
+                    .register();
+    public static final BlockEntry<CastIronTankBlock> CAST_IRON_FLUID_TANK =
+            REGISTRATE.block("cast_iron_fluid_tank", CastIronTankBlock::regular)
+                    .initialProperties(SharedProperties::copperMetal)
+                    .properties(p -> p.sound(SoundType.METAL))
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .transform(mountedFluidStorage(AllMountedStorageTypes.FLUID_TANK))
+                    .onRegister(movementBehaviour(new FluidTankMovementBehavior()))
+                    .properties(p -> p.isRedstoneConductor((p1, p2, p3) -> true))
+                    .transform(pickaxeOnly())
+                    .blockstate(new FluidTankGenerator()::generate)
+                    .onRegister(CreateRegistrate.blockModel(() -> TFMGTankModel::castIron))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .item(CastIronTankItem::new)
+                    .model(AssetLookup.customBlockItemModel("_", "block_single_window"))
+                    .build()
+                    .register();
+
 //    //------------------DISTILLATION_TOWER------------------//
-//    public static final BlockEntry<SteelTankBlock> STEEL_FLUID_TANK =
-//            REGISTRATE.block("steel_fluid_tank", SteelTankBlock::regular)
-//                    .initialProperties(SharedProperties::copperMetal)
-//                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
-//                    .properties(BlockBehaviour.Properties::noOcclusion)
-//                    .properties(p -> p.isRedstoneConductor((p1, p2, p3) -> true))
-//                    .transform(pickaxeOnly())
-//                    .blockstate(new TFMGTankGenerator()::generate)
-//                    .transform(mountedFluidStorage(TFMGMountedStorageTypes.TFMG_FLUID_TANK))
-//                    .onRegister(movementBehaviour(new FluidTankMovementBehavior()))
-//                    .onRegister(CreateRegistrate.blockModel(() -> SteelFluidTankModel::standard))
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .item(SteelTankItem::new)
-//                    .model(AssetLookup.customBlockItemModel("_", "block_single_window"))
-//                    .build()
-//                    .register();
-//
+    public static final BlockEntry<SteelTankBlock> STEEL_FLUID_TANK =
+            REGISTRATE.block("steel_fluid_tank", SteelTankBlock::regular)
+                    .initialProperties(SharedProperties::copperMetal)
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .properties(p -> p.isRedstoneConductor((p1, p2, p3) -> true))
+                    .transform(pickaxeOnly())
+                    .blockstate(new FluidTankGenerator()::generate)
+                    .transform(mountedFluidStorage(AllMountedStorageTypes.FLUID_TANK))
+                    .onRegister(movementBehaviour(new FluidTankMovementBehavior()))
+                    .onRegister(CreateRegistrate.blockModel(() -> TFMGTankModel::steel))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .item(SteelTankItem::new)
+                    .model(AssetLookup.customBlockItemModel("_", "block_single_window"))
+                    .build()
+                    .register();
+
 //    public static final BlockEntry<DistillationOutputBlock> STEEL_DISTILLATION_OUTPUT =
 //            REGISTRATE.block("steel_distillation_output", DistillationOutputBlock::new)
 //                    .initialProperties(SharedProperties::copperMetal)

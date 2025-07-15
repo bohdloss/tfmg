@@ -1,5 +1,8 @@
 {
   "values": [
+    "tfmg:aluminum_fluid_tank",
+    "tfmg:cast_iron_fluid_tank",
+    "tfmg:steel_fluid_tank",
     "tfmg:oil_deposit",
     "tfmg:lead_ore",
     "tfmg:deepslate_lead_ore",

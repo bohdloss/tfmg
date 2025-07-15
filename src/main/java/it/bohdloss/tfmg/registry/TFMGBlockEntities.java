@@ -10,6 +10,8 @@ import com.simibubi.create.content.fluids.pipes.valve.FluidValveRenderer;
 import com.simibubi.create.content.fluids.pipes.valve.FluidValveVisual;
 import com.simibubi.create.content.fluids.pump.PumpBlockEntity;
 import com.simibubi.create.content.fluids.pump.PumpRenderer;
+import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
+import com.simibubi.create.content.fluids.tank.FluidTankRenderer;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.base.ShaftRenderer;
 import com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual;
@@ -28,6 +30,9 @@ import it.bohdloss.tfmg.content.decoration.encased.TFMGEncasedCogwheelVisual;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelBlockEntity;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelRenderer;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelVisual;
+import it.bohdloss.tfmg.content.decoration.tanks.aluminum.AluminumTankBlockEntity;
+import it.bohdloss.tfmg.content.decoration.tanks.cast_iron.aluminum.CastIronTankBlockEntity;
+import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenRenderer;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlockEntity;
@@ -246,14 +251,26 @@ public class TFMGBlockEntities {
 //            .validBlocks(TFMGBlocks.STEEL_FLUID_TANK)
 //            .renderer(() -> SteelFluidTankRenderer::new)
 //            .register();
-//
-//    public static final BlockEntityEntry<FluidTankBlockEntity> TFMG_FLUID_TANK = REGISTRATE
-//            .blockEntity("tfmg_fluid_tank", FluidTankBlockEntity::new)
-//            .validBlocks(TFMGBlocks.ALUMINUM_FLUID_TANK, TFMGBlocks.CAST_IRON_FLUID_TANK)
-//            .renderer(() -> TFMGFluidTankRenderer::new)
-//            .register();
-//
-//
+
+    public static final BlockEntityEntry<AluminumTankBlockEntity> ALUMINUM_FLUID_TANK = REGISTRATE
+            .blockEntity("aluminum_fluid_tank", AluminumTankBlockEntity::new)
+            .validBlocks(TFMGBlocks.ALUMINUM_FLUID_TANK)
+            .renderer(() -> FluidTankRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<CastIronTankBlockEntity> CAST_IRON_FLUID_TANK = REGISTRATE
+            .blockEntity("cast_iron_fluid_tank", CastIronTankBlockEntity::new)
+            .validBlocks(TFMGBlocks.CAST_IRON_FLUID_TANK)
+            .renderer(() -> FluidTankRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<SteelTankBlockEntity> STEEL_FLUID_TANK = REGISTRATE
+            .blockEntity("steel_fluid_tank", SteelTankBlockEntity::new)
+            .validBlocks(TFMGBlocks.STEEL_FLUID_TANK)
+            .renderer(() -> FluidTankRenderer::new)
+            .register();
+
+
 //    public static final BlockEntityEntry<VatBlockEntity> CHEMICAL_VAT = REGISTRATE
 //            .blockEntity("chemical_vat", VatBlockEntity::new)
 //            .validBlocks(TFMGBlocks.STEEL_CHEMICAL_VAT, TFMGBlocks.FIREPROOF_CHEMICAL_VAT, TFMGBlocks.CAST_IRON_CHEMICAL_VAT)

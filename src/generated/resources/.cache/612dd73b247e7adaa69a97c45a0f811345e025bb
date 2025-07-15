@@ -1,9 +1,10 @@
-// 1.21.1	2025-07-14T15:57:58.064952073	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2025-07-15T16:17:37.87404516	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 e982a263b6af75821042107fdeff7bd809436d08 assets/tfmg/blockstates/air_intake.json
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
 b7f5146505c40c08cdea7ad01fa99048b7ac5451 assets/tfmg/blockstates/aluminum_block.json
 f77a99f3ee1d192001623fd41601f3a1687b67c8 assets/tfmg/blockstates/aluminum_cogwheel.json
 03b160816f926440ffaac13f3740c5f480dfc55e assets/tfmg/blockstates/aluminum_door.json
+c0714b876360b41c4db8d9a5c0c4e9ee41d0b017 assets/tfmg/blockstates/aluminum_fluid_tank.json
 98d61dd3ba8781c570e7e823354201039eca602b assets/tfmg/blockstates/aluminum_fluid_valve.json
 a17662e331f24c3a81cbdd64f67b631645efb9f6 assets/tfmg/blockstates/aluminum_flywheel.json
 664b2d2a842cc6021ab944dae24a639723ca3da9 assets/tfmg/blockstates/aluminum_frame.json
@@ -54,6 +55,7 @@ b846b257ecd76322e904bd9c78a8b263a2799ad5 assets/tfmg/blockstates/brown_concrete.
 0ee9e3a46eaad9b1aa6eeaf1046044a7bf410af8 assets/tfmg/blockstates/brown_rebar_concrete_wall.json
 2ccbf31047ec5a9b3dd285fda5a402281869f721 assets/tfmg/blockstates/cast_iron_bars.json
 9ca537517fb8baeff3d4e4137c93aebd6b874c81 assets/tfmg/blockstates/cast_iron_block.json
+075a32d5c33ae2dd3fe6630afe1da72f9235bf9d assets/tfmg/blockstates/cast_iron_fluid_tank.json
 e6191cb401599b3c33f0354bfe874bd197cb84e9 assets/tfmg/blockstates/cast_iron_fluid_valve.json
 7c9159010b4d65305d359272680cf9f665be0a51 assets/tfmg/blockstates/cast_iron_flywheel.json
 6a6c7c8bb091a531a67ab6a6a299c7ca414af7e8 assets/tfmg/blockstates/cast_iron_frame.json
@@ -287,6 +289,7 @@ df44115876045e6f863de2f8be6a9166b336a2f1 assets/tfmg/blockstates/steel_casing.js
 ac10db0420560858642b09ce88b6cd51a9a0078a assets/tfmg/blockstates/steel_encased_large_steel_cogwheel.json
 48b9ff4311eedd9cfb930af4b07f52901e8b2f8e assets/tfmg/blockstates/steel_encased_shaft.json
 b74bd3758b29f3cbc31df910ad8034a0dda83818 assets/tfmg/blockstates/steel_encased_steel_cogwheel.json
+72bfce2a2795dfe461beed7c3a074e328de14d96 assets/tfmg/blockstates/steel_fluid_tank.json
 e29906d296994a13fefc2beb22f7693e1027dd1b assets/tfmg/blockstates/steel_fluid_valve.json
 894e5f144506049efe96bcfb07302c569c31a631 assets/tfmg/blockstates/steel_flywheel.json
 d220631b1df82cddae2e3d504a263db17e25efe7 assets/tfmg/blockstates/steel_frame.json
@@ -320,8 +323,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-8dd04c98437bf3ebcc0939b7a03a1cfee2a16de6 assets/tfmg/lang/en_ud.json
-f3d4f90cf6208eeb906d83a867ba2979b8ffd684 assets/tfmg/lang/en_us.json
+7ae72f2dff3b1c094e710a19b51bd453e8e4162b assets/tfmg/lang/en_ud.json
+7182cb454ffbfd868753165aa9348506074a149d assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
 4344f14c42bb7a9f90120b5f75927015c0edc3bc assets/tfmg/models/block/aluminum_cap_alt.json
@@ -824,6 +827,7 @@ f5f0b056cb26ccb089e8f6fea940e268c059aa72 assets/tfmg/models/item/aluminum_bars.j
 714173e054b787915b8cebfb50deb61b28dba5a3 assets/tfmg/models/item/aluminum_block.json
 90d2eca9d593dfbb30d90c7b779c9679ae946664 assets/tfmg/models/item/aluminum_cogwheel.json
 86837359dc83cb97ead638dbd6907e009871d7c5 assets/tfmg/models/item/aluminum_door.json
+c7ece2b608bd26c81a4bdb8a480841d12e8ffbec assets/tfmg/models/item/aluminum_fluid_tank.json
 20b601339c356f8103e98437e762bf48f96e02b5 assets/tfmg/models/item/aluminum_fluid_valve.json
 5c1c14519742d92c3a6f00e4d70516222868be79 assets/tfmg/models/item/aluminum_flywheel.json
 17edac544d3f9f6ae8435f155c42c5e926432e2d assets/tfmg/models/item/aluminum_frame.json
@@ -888,6 +892,7 @@ e701cdc206b4c6eb47ed8b94d24b304000d634b8 assets/tfmg/models/item/brown_rebar_con
 4ed6badf38b1a376f628704027a79834d790d853 assets/tfmg/models/item/carbon_dioxide_bucket.json
 d09e58c76283f0d07b5afb5876c95d6bf78bb4e3 assets/tfmg/models/item/cast_iron_bars.json
 ec38882fb9010884823d6d6afa604f8a6512d279 assets/tfmg/models/item/cast_iron_block.json
+ec2eeb8a37c1f3c01b453902c9f1ad93ce9ed814 assets/tfmg/models/item/cast_iron_fluid_tank.json
 ba080b65df7555a98ab68c4156572a33d10a7c0e assets/tfmg/models/item/cast_iron_fluid_valve.json
 9eae58d64bb790fef0b359c7aed7c52effb6f5e1 assets/tfmg/models/item/cast_iron_flywheel.json
 084044b5d0a97f0e2aa279736dda3c0722d5dea9 assets/tfmg/models/item/cast_iron_frame.json
@@ -1193,6 +1198,7 @@ e1d585b0f200c4431348ee035f7af440aecd3050 assets/tfmg/models/item/steel_encased_l
 e1d585b0f200c4431348ee035f7af440aecd3050 assets/tfmg/models/item/steel_encased_large_steel_cogwheel.json
 b30fda78354dd47fa930bbebb108bb8b00e88caf assets/tfmg/models/item/steel_encased_shaft.json
 993b5dd9de7805beb4accb560946e91abe58005f assets/tfmg/models/item/steel_encased_steel_cogwheel.json
+19dcd68a6658fd8fa8466180e26cb3f6a2b2c4f1 assets/tfmg/models/item/steel_fluid_tank.json
 57bc28274df7d54eaa3fa1991481c6339f9e2247 assets/tfmg/models/item/steel_fluid_valve.json
 fa25fce00275dd2abdfe47ccf041c590bf558b8c assets/tfmg/models/item/steel_flywheel.json
 6a117a09e0bc3e06524357ef26793ef0bb00ba29 assets/tfmg/models/item/steel_frame.json
@@ -1381,7 +1387,7 @@ ded1913401f4b56ac3175be37bf30ffadab245c8 data/create/tags/item/crushed_raw_mater
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/features_cannot_replace.json
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/infiniburn_overworld.json
 403bf0a3b5d786c9950dc66574e1d20a27ed6b24 data/minecraft/tags/block/mineable/axe.json
-d8cf505769982f47e5f7cc56c45886c0636bf63c data/minecraft/tags/block/mineable/pickaxe.json
+1ed204699165f0493063fa8d0079f8d384f09f68 data/minecraft/tags/block/mineable/pickaxe.json
 9c7d1d075d20521106a7076ae12804d8e2ac6764 data/minecraft/tags/block/mineable/shovel.json
 dfca9f1cc79d30334f344f024c13a7c717bf4027 data/minecraft/tags/block/needs_iron_tool.json
 debd36e970dde2f2ec3b47e4e4a397da997636d7 data/minecraft/tags/block/needs_stone_tool.json
@@ -1555,6 +1561,7 @@ e200ffe6c6405746fce4a263faae7d4dff66f51d data/tfmg/loot_table/blocks/aluminum_ba
 31903ff0a773f10a1a1ac1e92ad970cee5835334 data/tfmg/loot_table/blocks/aluminum_block.json
 b13ae9d700d1a6edb951aa551e3535f9f1d1ea62 data/tfmg/loot_table/blocks/aluminum_cogwheel.json
 788ef0ecaf89e6e062d55bc06465d9e99a468c32 data/tfmg/loot_table/blocks/aluminum_door.json
+e716b63d8f72bc1eb16a0d1da83d91dc6fbf626d data/tfmg/loot_table/blocks/aluminum_fluid_tank.json
 1c551b93eff7188acf7d49ddc2874446113e12b6 data/tfmg/loot_table/blocks/aluminum_fluid_valve.json
 e5f09483be013600ef78ba4c4f71664133237395 data/tfmg/loot_table/blocks/aluminum_flywheel.json
 5eca5c3890ff1d47ad4aeaacf0d74d11db6c62ec data/tfmg/loot_table/blocks/aluminum_frame.json
@@ -1605,6 +1612,7 @@ cb4724e5731c064fc2c1ddd98694a5b2966fa7a7 data/tfmg/loot_table/blocks/brown_rebar
 254306bf453467a500c4778c48c017520348214f data/tfmg/loot_table/blocks/brown_rebar_concrete_wall.json
 0ab666cb925caa8691e5790dfd2f61fc01d2a613 data/tfmg/loot_table/blocks/cast_iron_bars.json
 0e2f9f04eef5f490a4665f449b2e7eb2aaa22dfa data/tfmg/loot_table/blocks/cast_iron_block.json
+35aba26e31c48f207029b48f68732ecc4e94c98a data/tfmg/loot_table/blocks/cast_iron_fluid_tank.json
 14c6b728fb061f8b10a8ff808b75587873f668bd data/tfmg/loot_table/blocks/cast_iron_fluid_valve.json
 e259c86af2aa84b6df3cb61a6df792ce34636bae data/tfmg/loot_table/blocks/cast_iron_flywheel.json
 779b7df2fcf1d879b19526ad5947a42a298a9724 data/tfmg/loot_table/blocks/cast_iron_frame.json
@@ -1822,6 +1830,7 @@ ab8f1f5b36e45f4f04000722523e6ab51c16cd1e data/tfmg/loot_table/blocks/steel_encas
 e7eb9c82ecd0cd37cdc5479f1dcde1f1834728d1 data/tfmg/loot_table/blocks/steel_encased_large_steel_cogwheel.json
 95d7c20cb7fa33ba0db4152e384cac0f5318d9c6 data/tfmg/loot_table/blocks/steel_encased_shaft.json
 ac74e4ea69db5d6334b0ff7fac7193ea31fd055f data/tfmg/loot_table/blocks/steel_encased_steel_cogwheel.json
+8e69c03f9611854b620ff6e211c8d30dfd510725 data/tfmg/loot_table/blocks/steel_fluid_tank.json
 8f26b56a93c7e930e3c9d776567f9766b469660f data/tfmg/loot_table/blocks/steel_fluid_valve.json
 fe85febd25b30c6f2c4105b4c1831e7089a429cc data/tfmg/loot_table/blocks/steel_flywheel.json
 2edee1ffab4ef46c18dbed3760318d4733a755f1 data/tfmg/loot_table/blocks/steel_frame.json
