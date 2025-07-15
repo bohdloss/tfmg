@@ -1,7 +1,7 @@
 package it.bohdloss.tfmg.content.decoration.tanks.steel;
 
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
-import it.bohdloss.tfmg.content.decoration.tanks.IRefreshCapability;
+import it.bohdloss.tfmg.mixin_interfaces.IRefreshCapability;
 import it.bohdloss.tfmg.registry.TFMGBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;

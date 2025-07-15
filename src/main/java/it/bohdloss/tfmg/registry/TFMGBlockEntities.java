@@ -37,6 +37,9 @@ import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlockEnti
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenRenderer;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeRenderer;
+import it.bohdloss.tfmg.content.machinery.misc.concrete_hose.ConcreteHoseBlockEntity;
+import it.bohdloss.tfmg.content.machinery.misc.concrete_hose.ConcreteHoseRenderer;
+import it.bohdloss.tfmg.content.machinery.misc.concrete_hose.ConcreteHoseVisual;
 import it.bohdloss.tfmg.content.machinery.misc.exhaust.ExhaustBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.smokestack.SmokestackBlockEntity;
@@ -98,12 +101,12 @@ public class TFMGBlockEntities {
 //            .validBlocks(TFMGBlocks.ROTOR)
 //            .renderer(() -> RotorRenderer::new)
 //            .register();
-//    public static final BlockEntityEntry<ConcreteHoseBlockEntity> CONCRETE_HOSE = REGISTRATE
-//            .blockEntity("concrete_hose", ConcreteHoseBlockEntity::new)
-//            .visual(() -> ConcreteHoseVisual::new)
-//            .validBlocks(TFMGBlocks.CONCRETE_HOSE)
-//            .renderer(() -> ConcreteHoseRenderer::new)
-//            .register();
+    public static final BlockEntityEntry<ConcreteHoseBlockEntity> CONCRETE_HOSE = REGISTRATE
+            .blockEntity("concrete_hose", ConcreteHoseBlockEntity::new)
+            .visual(() -> ConcreteHoseVisual::new)
+            .validBlocks(TFMGBlocks.CONCRETE_HOSE)
+            .renderer(() -> ConcreteHoseRenderer::new)
+            .register();
 //    public static final BlockEntityEntry<PumpjackBlockEntity> PUMPJACK_HAMMER = REGISTRATE
 //            .blockEntity("pumpjack_hammer", PumpjackBlockEntity::new)
 //            .validBlocks(TFMGBlocks.PUMPJACK_HAMMER)

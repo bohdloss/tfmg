@@ -1,4 +1,4 @@
-package it.bohdloss.tfmg.content.decoration.pipes;
+package it.bohdloss.tfmg.mixin_interfaces;
 
 import net.minecraft.world.entity.player.Player;
 

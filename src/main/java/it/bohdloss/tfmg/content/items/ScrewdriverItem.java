@@ -1,6 +1,6 @@
 package it.bohdloss.tfmg.content.items;
 
-import it.bohdloss.tfmg.content.decoration.pipes.ILockablePipe;
+import it.bohdloss.tfmg.mixin_interfaces.ILockablePipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;

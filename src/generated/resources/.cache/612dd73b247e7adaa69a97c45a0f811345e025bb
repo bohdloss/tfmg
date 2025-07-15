@@ -1,4 +1,4 @@
-// 1.21.1	2025-07-15T16:17:37.87404516	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2025-07-15T21:43:29.274015299	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 e982a263b6af75821042107fdeff7bd809436d08 assets/tfmg/blockstates/air_intake.json
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
 b7f5146505c40c08cdea7ad01fa99048b7ac5451 assets/tfmg/blockstates/aluminum_block.json
@@ -70,6 +70,7 @@ b01e90f39cda043e50ea9c3d0605f4bfcef077aa assets/tfmg/blockstates/cinder_block.js
 ec94bedd045ade74274ffe009569d65083b9fff5 assets/tfmg/blockstates/coal_coke_block.json
 f39a853c61f70a3fe79952c962b2f26d309115a4 assets/tfmg/blockstates/coke_oven.json
 c67b91a7fd9f16cd2d7eaa92dd9b945042d58130 assets/tfmg/blockstates/concrete.json
+69c8b627d7b93cddf1a777ec77fe8ebdd0e88a77 assets/tfmg/blockstates/concrete_hose.json
 9c9cac30f015e72418736cbec2d721a6dec56fb7 assets/tfmg/blockstates/concrete_slab.json
 1bb17c9ead851661909f9d223aa3947267c0a84e assets/tfmg/blockstates/concrete_smokestack.json
 84fcaec7626f69e9a27ef235121f9a9db9955530 assets/tfmg/blockstates/concrete_stairs.json
@@ -323,8 +324,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-7ae72f2dff3b1c094e710a19b51bd453e8e4162b assets/tfmg/lang/en_ud.json
-7182cb454ffbfd868753165aa9348506074a149d assets/tfmg/lang/en_us.json
+62af3102bb2d215cc6441d8e9caee9d1158f8374 assets/tfmg/lang/en_ud.json
+0bda69b913fc4eff846c7814ddf8c753a7b40e63 assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
 4344f14c42bb7a9f90120b5f75927015c0edc3bc assets/tfmg/models/block/aluminum_cap_alt.json
@@ -917,6 +918,7 @@ cf3c486158a27cbd3a4ef9fdd79dc93f3cc12b45 assets/tfmg/models/item/coal_coke_dust.
 54ac6b75ce8917de10c49ab224b8fc3e9a833f16 assets/tfmg/models/item/coated_circuit_board.json
 36998ab88f5e75bcb9105baeb1a77030abd9a8bd assets/tfmg/models/item/coke_oven.json
 4a843d55647a606fa97bc2daf745a7603406767d assets/tfmg/models/item/concrete.json
+6570409e8a5402f717ce2d9989813162e17f4dd3 assets/tfmg/models/item/concrete_hose.json
 1e4e0385a32fc8756acd46fac0a388a9d694df28 assets/tfmg/models/item/concrete_mixture.json
 685e08733e5195a8714284be2eeba8f47736115e assets/tfmg/models/item/concrete_slab.json
 296dab0d6fec155ca9823cc9e267b98b5173f538 assets/tfmg/models/item/concrete_smokestack.json
@@ -1387,7 +1389,7 @@ ded1913401f4b56ac3175be37bf30ffadab245c8 data/create/tags/item/crushed_raw_mater
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/features_cannot_replace.json
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/infiniburn_overworld.json
 403bf0a3b5d786c9950dc66574e1d20a27ed6b24 data/minecraft/tags/block/mineable/axe.json
-1ed204699165f0493063fa8d0079f8d384f09f68 data/minecraft/tags/block/mineable/pickaxe.json
+01b1323f77b0397853c5c699efdd3585e964551b data/minecraft/tags/block/mineable/pickaxe.json
 9c7d1d075d20521106a7076ae12804d8e2ac6764 data/minecraft/tags/block/mineable/shovel.json
 dfca9f1cc79d30334f344f024c13a7c717bf4027 data/minecraft/tags/block/needs_iron_tool.json
 debd36e970dde2f2ec3b47e4e4a397da997636d7 data/minecraft/tags/block/needs_stone_tool.json
@@ -1627,6 +1629,7 @@ d219b1a4f2400204f7eb84ba463c9338c19b0fa5 data/tfmg/loot_table/blocks/cast_iron_t
 474d0da97641e0fd2cb76aec91b1127b1e99fe52 data/tfmg/loot_table/blocks/coal_coke_block.json
 7144ef8ca8dd4795684ff86e6cd0cb7acc160dbb data/tfmg/loot_table/blocks/coke_oven.json
 a64156eb2eb8071c54b6726cf3c01c072c3c96d3 data/tfmg/loot_table/blocks/concrete.json
+a26bbb17cb091dc44faa0211c3c1481fb0d4e017 data/tfmg/loot_table/blocks/concrete_hose.json
 2a812a55d2f78f2bb00c90e61e5c1e49c527d825 data/tfmg/loot_table/blocks/concrete_slab.json
 3531c7c379d6cf0e989b8c60f8c6f7eae8237af6 data/tfmg/loot_table/blocks/concrete_smokestack.json
 4b5541f3fc406b842adb95186cefc81fb37d527d data/tfmg/loot_table/blocks/concrete_stairs.json

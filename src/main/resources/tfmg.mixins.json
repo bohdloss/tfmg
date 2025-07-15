@@ -4,11 +4,12 @@
   "package": "it.bohdloss.tfmg.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "FireBlockMixin",
-    "FluidPipeBlockEntityMixin",
-    "FluidPipeBlockMixin",
-    "FluidPropagatorMixin",
-    "FluidTankBlockEntityMixin"
+    "fluid_handling.FluidManipulationBehaviourAccessor",
+    "fluid_handling.FluidPipeBlockEntityMixin",
+    "fluid_handling.FluidPipeBlockMixin",
+    "fluid_handling.FluidPropagatorMixin",
+    "fluid_handling.FluidTankBlockEntityMixin",
+    "misc.FireBlockMixin"
   ],
   "client": [
   ],

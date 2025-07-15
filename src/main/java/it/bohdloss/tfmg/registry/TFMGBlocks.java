@@ -40,6 +40,7 @@ import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenCTBehavio
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenGenerator;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlock;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeGenerator;
+import it.bohdloss.tfmg.content.machinery.misc.concrete_hose.ConcreteHoseBlock;
 import it.bohdloss.tfmg.content.machinery.misc.exhaust.ExhaustBlock;
 import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackBlock;
 import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackGenerator;
@@ -666,18 +667,18 @@ public class TFMGBlocks {
 //                    .item()
 //                    .build()
 //                    .register();
-//
-//    public static final BlockEntry<ConcreteHoseBlock> CONCRETE_HOSE = REGISTRATE.block("concrete_hose", ConcreteHoseBlock::new)
-//            .initialProperties(SharedProperties::softMetal)
-//            .properties(BlockBehaviour.Properties::noOcclusion)
-//            .transform(pickaxeOnly())
-//            .blockstate(BlockStateGen.horizontalBlockProvider(true))
-//            .transform(TFMGStress.setImpact(4.0))
-//            .item()
-//            .transform(customItemModel())
-//            .register();
-//
-//
+
+    public static final BlockEntry<ConcreteHoseBlock> CONCRETE_HOSE = REGISTRATE.block("concrete_hose", ConcreteHoseBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(pickaxeOnly())
+            .blockstate(BlockStateGen.horizontalBlockProvider(true))
+            .transform(TFMGStress.setImpact(4.0))
+            .item()
+            .transform(customItemModel())
+            .register();
+
+
 //    //------------------METALLURGY------------------//
 //    public static final BlockEntry<BlastFurnaceOutputBlock> BLAST_FURNACE_OUTPUT = REGISTRATE.block("blast_furnace_output", BlastFurnaceOutputBlock::new)
 //            .initialProperties(() -> Blocks.NETHER_BRICKS)

@@ -1,4 +1,4 @@
-package it.bohdloss.tfmg.mixin;
+package it.bohdloss.tfmg.mixin.fluid_handling;
 
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.fluids.FluidPropagator;

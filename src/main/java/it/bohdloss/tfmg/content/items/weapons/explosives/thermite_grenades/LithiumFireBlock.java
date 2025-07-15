@@ -1,6 +1,7 @@
 package it.bohdloss.tfmg.content.items.weapons.explosives.thermite_grenades;
 
 import com.mojang.serialization.MapCodec;
+import it.bohdloss.tfmg.mixin_interfaces.ICustomFire;
 import it.bohdloss.tfmg.registry.TFMGColoredFires;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;

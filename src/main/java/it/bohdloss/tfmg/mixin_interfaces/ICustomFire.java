@@ -1,4 +1,4 @@
-package it.bohdloss.tfmg.content.items.weapons.explosives.thermite_grenades;
+package it.bohdloss.tfmg.mixin_interfaces;
 
 import net.minecraft.world.level.block.Block;
 

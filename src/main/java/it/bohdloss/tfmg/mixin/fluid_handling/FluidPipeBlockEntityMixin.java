@@ -1,4 +1,4 @@
-package it.bohdloss.tfmg.mixin;
+package it.bohdloss.tfmg.mixin.fluid_handling;
 
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.fluids.FluidTransportBehaviour;
@@ -6,9 +6,8 @@ import com.simibubi.create.content.fluids.pipes.EncasedPipeBlock;
 import com.simibubi.create.content.fluids.pipes.FluidPipeBlock;
 import com.simibubi.create.content.fluids.pipes.FluidPipeBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import it.bohdloss.tfmg.DebugStuff;
-import it.bohdloss.tfmg.content.decoration.pipes.ILockablePipe;
 import it.bohdloss.tfmg.content.decoration.pipes.LockedPipeBehavior;
+import it.bohdloss.tfmg.mixin_interfaces.ILockablePipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;

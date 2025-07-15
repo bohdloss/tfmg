@@ -1,7 +1,7 @@
-package it.bohdloss.tfmg.mixin;
+package it.bohdloss.tfmg.mixin.fluid_handling;
 
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
-import it.bohdloss.tfmg.content.decoration.tanks.IRefreshCapability;
+import it.bohdloss.tfmg.mixin_interfaces.IRefreshCapability;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 

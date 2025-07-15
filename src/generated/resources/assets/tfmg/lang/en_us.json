@@ -91,6 +91,7 @@
   "block.tfmg.cocrete_hose.tooltip.summary": "Pumps concrete like a hose pulley into rebar blocks. Set concrete dries as rebar concrete",
   "block.tfmg.coke_oven": "Coke Oven",
   "block.tfmg.concrete": "Concrete",
+  "block.tfmg.concrete_hose": "Concrete Hose",
   "block.tfmg.concrete_slab": "Concrete Slab",
   "block.tfmg.concrete_smokestack": "Concrete Smokestack",
   "block.tfmg.concrete_stairs": "Concrete Stairs",
