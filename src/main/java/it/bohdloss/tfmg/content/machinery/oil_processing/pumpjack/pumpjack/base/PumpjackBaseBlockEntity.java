@@ -6,7 +6,6 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import com.simibubi.create.foundation.utility.CreateLang;
 import it.bohdloss.tfmg.TFMGUtils;
 import it.bohdloss.tfmg.base.TFMGFluidBehavior;
-import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.PumpjackBlockEntity;
 import it.bohdloss.tfmg.registry.TFMGBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,8 +21,8 @@ import java.util.List;
 
 @EventBusSubscriber
 public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
+    public BlockPos pumpjackPosition;
     public TFMGFluidBehavior tank;
-    public PumpjackBlockEntity controllerHammer;
     public boolean isRunning = false;
     int depositCheckTimer = 0;
     public int miningRate = 0;
@@ -63,9 +62,5 @@ public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGo
                 TFMGBlockEntities.PUMPJACK_BASE.get(),
                 (be, ctx) -> be.tank.getCapability()
         );
-    }
-
-    public void setControllerHammer(PumpjackBlockEntity controllerHammer) {
-        this.controllerHammer = controllerHammer;
     }
 }

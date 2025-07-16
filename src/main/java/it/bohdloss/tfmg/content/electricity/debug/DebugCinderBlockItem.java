@@ -7,6 +7,7 @@ import it.bohdloss.tfmg.base.AbstractKineticMultiblock;
 import it.bohdloss.tfmg.base.AbstractMultiblock;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlockEntity;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.PumpjackBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
@@ -37,7 +38,23 @@ public class DebugCinderBlockItem extends Item {
 //            }
 //        }
 
-        if(!level.isClientSide && level.getBlockEntity(pos) instanceof AbstractKineticMultiblock be) {
+
+        if(!level.isClientSide && level.getBlockEntity(pos) instanceof PumpjackBlockEntity be) {
+            BlockPos anchorPos = be.getBlockPos().above();
+            BlockPos connector = be.findConnector(anchorPos);
+            DebugStuff.show("Connector found: " + connector);
+            if(connector != null) {
+                BlockPos crank = be.findCrank(connector);
+                DebugStuff.show("From connector found crank: " + crank);
+            }
+            BlockPos head = be.findHead(anchorPos);
+            DebugStuff.show("Head found: " + head);
+            if(head != null) {
+                BlockPos base = be.findBase(head);
+                DebugStuff.show("From head found base: " + base);
+            }
+            DebugStuff.show("CURRENT DATA: connector: " + be.connectorPosition + " head: " + be.headPosition + " base: " + be.basePosition + " crank: " + be.crankPosition);
+        } else if(!level.isClientSide && level.getBlockEntity(pos) instanceof AbstractKineticMultiblock be) {
             DebugStuff.show("is controller: " + be.isController() + "; width: " + be.getWidth() + " height: " + be.getHeight());
         } else if(!level.isClientSide && level.getBlockEntity(pos) instanceof AbstractMultiblock be) {
             DebugStuff.show("is controller: " + be.isController() + "; width: " + be.getWidth() + " height: " + be.getHeight());

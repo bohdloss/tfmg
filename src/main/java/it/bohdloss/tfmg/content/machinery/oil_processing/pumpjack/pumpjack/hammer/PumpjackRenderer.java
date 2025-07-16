@@ -3,6 +3,8 @@ package it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hamm
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.PumpjackBaseBlockEntity;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.crank.PumpjackCrankBlockEntity;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -25,18 +27,27 @@ public class PumpjackRenderer extends KineticBlockEntityRenderer<PumpjackBlockEn
     protected void renderSafe(PumpjackBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
                               int light, int overlay) {
 
-        if(be.crank == null)
+        if(be.crankPosition == null)
             return;
-        if(be.base == null)
+        if(be.basePosition == null)
             return;
         if(!be.isRunning())
             return;
+
+        PumpjackCrankBlockEntity crank = (PumpjackCrankBlockEntity) be.getLevel().getBlockEntity(be.crankPosition);
+        PumpjackBaseBlockEntity base = (PumpjackBaseBlockEntity) be.getLevel().getBlockEntity(be.basePosition);
+
+        if(crank == null || base == null) {
+            return;
+        }
 
         renderPumpjackLink(
                 false,
                 ms,
                 buffer,
                 be,
+                crank,
+                base,
                 partialTicks
         );
         renderPumpjackLink(
@@ -44,17 +55,21 @@ public class PumpjackRenderer extends KineticBlockEntityRenderer<PumpjackBlockEn
                 ms,
                 buffer,
                 be,
+                crank,
+                base,
                 partialTicks
         );
         renderFrontPumpjackLink(
                 ms,
                 buffer,
                 be,
+                crank,
+                base,
                 partialTicks
         );
         /////////////
     }
-    private void renderPumpjackLink(boolean second, PoseStack pMatrixStack, MultiBufferSource pBuffer, PumpjackBlockEntity be, float partialTicks) {
+    private void renderPumpjackLink(boolean second, PoseStack pMatrixStack, MultiBufferSource pBuffer, PumpjackBlockEntity be, PumpjackCrankBlockEntity crank, PumpjackBaseBlockEntity base, float partialTicks) {
         pMatrixStack.pushPose();
         Direction direction = be.getBlockState().getValue(FACING);
         Vec3 vec3 = new Vec3(0,0,0);
@@ -65,38 +80,38 @@ public class PumpjackRenderer extends KineticBlockEntityRenderer<PumpjackBlockEn
         float hModifier = 0;
         float x=0;
         float y=0;
-        float angle = be.crank.angle + (be.crank.calcNextAngle() - be.crank.angle) * partialTicks * 1f;
-        if(be.crank!=null) {
-            hModifier = be.crank.heightModifier - be.crankConnectorDistance;
+        float angle = crank.angle + (crank.calcNextAngle() - crank.angle) * partialTicks * 1f;
+        if(crank!=null) {
+            hModifier = be.heightModifier - be.crankConnectorDistance;
             float linkLenght =    be.crankConnectorDistance;
             if(direction == Direction.WEST) {
                 if ((angle>0&&angle < 90||angle > 270)||(angle<0&&angle > -90||angle < -270)) {
-                    x = (float) Math.sqrt(Math.pow(be.crank.crankRadius, 2) - Math.pow(be.crank.heightModifier, 2));
+                    x = (float) Math.sqrt(Math.pow(be.crankRadius, 2) - Math.pow(be.heightModifier, 2));
                } else
-                   x = (float) -Math.sqrt(Math.pow(be.crank.crankRadius, 2) - Math.pow(be.crank.heightModifier, 2));
-                y = (float) (be.connectorDistance - Math.sqrt(Math.pow(be.connectorDistance, 2) - Math.pow(be.crank.heightModifier, 2)));
+                   x = (float) -Math.sqrt(Math.pow(be.crankRadius, 2) - Math.pow(be.heightModifier, 2));
+                y = (float) (be.connectorDistance - Math.sqrt(Math.pow(be.connectorDistance, 2) - Math.pow(be.heightModifier, 2)));
             }
             if(direction == Direction.EAST) {
 
                 if ((angle>0&&angle < 90||angle > 270)||(angle<0&&angle > -90||angle < -270)) {
-                    x = (float) Math.sqrt(Math.pow(be.crank.crankRadius, 2) - Math.pow(be.crank.heightModifier, 2));
+                    x = (float) Math.sqrt(Math.pow(be.crankRadius, 2) - Math.pow(be.heightModifier, 2));
                 } else
-                    x = (float) -Math.sqrt(Math.pow(be.crank.crankRadius, 2) - Math.pow(be.crank.heightModifier, 2));
-                y = (float) (be.connectorDistance - Math.sqrt(Math.pow(be.connectorDistance, 2) - Math.pow(be.crank.heightModifier, 2)));
+                    x = (float) -Math.sqrt(Math.pow(be.crankRadius, 2) - Math.pow(be.heightModifier, 2));
+                y = (float) (be.connectorDistance - Math.sqrt(Math.pow(be.connectorDistance, 2) - Math.pow(be.heightModifier, 2)));
             }
             if(direction == Direction.NORTH) {
                 if ((angle > 90&&angle < 270)||(angle < -90&&angle > -270)) {
-                    x = (float) Math.sqrt(Math.pow(be.crank.crankRadius, 2) - Math.pow(be.crank.heightModifier, 2));
+                    x = (float) Math.sqrt(Math.pow(be.crankRadius, 2) - Math.pow(be.heightModifier, 2));
                   } else
-                      x = (float) -Math.sqrt(Math.pow(be.crank.crankRadius, 2) - Math.pow(be.crank.heightModifier, 2));
-                y = (float) (be.connectorDistance - Math.sqrt(Math.pow(be.connectorDistance, 2) - Math.pow(be.crank.heightModifier, 2)));
+                      x = (float) -Math.sqrt(Math.pow(be.crankRadius, 2) - Math.pow(be.heightModifier, 2));
+                y = (float) (be.connectorDistance - Math.sqrt(Math.pow(be.connectorDistance, 2) - Math.pow(be.heightModifier, 2)));
             }
             if(direction == Direction.SOUTH) {
                 if ((angle > 90&&angle < 270)||(angle < -90&&angle > -270)) {
-                    x = (float) Math.sqrt(Math.pow(be.crank.crankRadius, 2) - Math.pow(be.crank.heightModifier, 2));
+                    x = (float) Math.sqrt(Math.pow(be.crankRadius, 2) - Math.pow(be.heightModifier, 2));
                } else
-                   x = (float) -Math.sqrt(Math.pow(be.crank.crankRadius, 2) - Math.pow(be.crank.heightModifier, 2));
-                y = (float) (be.connectorDistance - Math.sqrt(Math.pow(be.connectorDistance, 2) - Math.pow(be.crank.heightModifier, 2)));
+                   x = (float) -Math.sqrt(Math.pow(be.crankRadius, 2) - Math.pow(be.heightModifier, 2));
+                y = (float) (be.connectorDistance - Math.sqrt(Math.pow(be.connectorDistance, 2) - Math.pow(be.heightModifier, 2)));
             }
                 vec3 = vec3.add(0,linkLenght,0);
         }
@@ -159,7 +174,7 @@ public class PumpjackRenderer extends KineticBlockEntityRenderer<PumpjackBlockEn
         }
         pMatrixStack.popPose();
     }
-    private void renderFrontPumpjackLink(PoseStack pMatrixStack, MultiBufferSource pBuffer, PumpjackBlockEntity be, float partialTicks) {
+    private void renderFrontPumpjackLink(PoseStack pMatrixStack, MultiBufferSource pBuffer, PumpjackBlockEntity be, PumpjackCrankBlockEntity crank, PumpjackBaseBlockEntity base, float partialTicks) {
         pMatrixStack.pushPose();
         Direction direction = be.getBlockState().getValue(FACING);
         Vec3 vec3 = new Vec3(0,0,0);
@@ -170,7 +185,7 @@ public class PumpjackRenderer extends KineticBlockEntityRenderer<PumpjackBlockEn
             q = 1;
         }else g = 1;
         float y=0;
-        if(be.crank!=null) {
+        if(crank!=null) {
             float linkLenght =    be.headBaseDistance;
             hModifier = (float) (be.headDistance*Math.sin(Math.toRadians(be.getInterpolatedAngle(partialTicks))));
             y = -0.01f;
