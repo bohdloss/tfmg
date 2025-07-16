@@ -31,11 +31,11 @@ public class PumpjackCrankRenderer implements BlockEntityRenderer<PumpjackCrankB
         var msr = TransformStack.of(poseStack);
         msr.translate(1 / 2f, 0.5, 1 / 2f);
 
-        float angle = blockEntity.angle + (blockEntity.calcNextAngle() - blockEntity.angle) * partialTick * 1.1f;
+
         CachedBuffers.partialFacing(TFMGPartialModels.PUMPJACK_CRANK, blockState,blockState.getValue(FACING))
                 .translate(-0.5, -0.5, -0.5)
                 .center()
-                .rotateDegrees(angle-90,blockEntity.getBlockState().getValue(FACING).getCounterClockWise().getAxis())
+                .rotateDegrees(blockEntity.getInterpolated(partialTick)-90,blockEntity.getBlockState().getValue(FACING).getCounterClockWise().getAxis())
                 .uncenter()
                 .light(packedLight)
                 .renderInto(poseStack,vb);

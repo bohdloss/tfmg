@@ -34,10 +34,11 @@ public class PumpjackBlockEntity extends MechanicalBearingBlockEntity {
     public BlockPos crankPosition = null;
     public BlockPos basePosition = null;
 
-    public int connectorDistance = 0;
-    public int headDistance = 0;
     public boolean connectorAtFront = false;
     public boolean headAtFront = false;
+
+    public int connectorDistance = 0;
+    public int headDistance = 0;
     public int crankConnectorDistance = 0;
     public int headBaseDistance = 0;
     public float heightModifier = 0;
@@ -80,6 +81,16 @@ public class PumpjackBlockEntity extends MechanicalBearingBlockEntity {
         }
         compound.putBoolean("connectorAtFront", connectorAtFront);
         compound.putBoolean("headAtFront", headAtFront);
+
+        if(!clientPacket) {
+            compound.putInt("ConnectorDistance", connectorDistance);
+            compound.putInt("HeadDistance", headDistance);
+            compound.putInt("CrankConnectorDistance", crankConnectorDistance);
+            compound.putInt("HeadBaseDistance", headBaseDistance);
+            compound.putFloat("HeightModifier", heightModifier);
+            compound.putFloat("CrankRadius", crankRadius);
+        }
+
         super.write(compound, registries, clientPacket);
     }
 
@@ -107,6 +118,16 @@ public class PumpjackBlockEntity extends MechanicalBearingBlockEntity {
         }
         connectorAtFront = compound.getBoolean("connectorAtFront");
         headAtFront = compound.getBoolean("headAtFront");
+
+        if(!clientPacket) {
+            connectorDistance = compound.getInt("ConnectorDistance");
+            headDistance = compound.getInt("HeadDistance");
+            crankConnectorDistance = compound.getInt("CrankConnectorDistance");
+            headBaseDistance = compound.getInt("HeadBaseDistance");
+            heightModifier = compound.getFloat("HeightModifier");
+            crankRadius = compound.getFloat("CrankRadius");
+        }
+
         super.read(compound, registries, clientPacket);
     }
 
@@ -235,18 +256,13 @@ public class PumpjackBlockEntity extends MechanicalBearingBlockEntity {
                     disassemble();
                 }
             }
+            // Fix block shape
+            setHolderSize();
         }
-        // Fix block shape
-        setHolderSize();
 
         Direction direction = getBlockState().getValue(BearingBlock.FACING);
         if (connectorPosition != null) {
-            if (direction.getAxis() == Direction.Axis.Z) {
-                connectorDistance = Math.abs(getBlockPos().getZ() - connectorPosition.getZ());
-            }
-            if (direction.getAxis() == Direction.Axis.X) {
-                connectorDistance = Math.abs(getBlockPos().getX() - connectorPosition.getX());
-            }
+            connectorDistance = Math.abs(getBlockPos().get(direction.getAxis()) - connectorPosition.get(direction.getAxis()));
             if (crankPosition != null && level.getBlockEntity(crankPosition) instanceof PumpjackCrankBlockEntity be) {
                 heightModifier = (float) (crankRadius * Math.sin(Math.toRadians(be.angle)));
                 crankConnectorDistance = Math.abs(crankPosition.getY() - connectorPosition.getY());
@@ -254,12 +270,7 @@ public class PumpjackBlockEntity extends MechanicalBearingBlockEntity {
             }
         }
         if (headPosition != null) {
-            if (direction.getAxis() == Direction.Axis.Z) {
-                headDistance = Math.abs(getBlockPos().getZ() - headPosition.getZ());
-            }
-            if (direction.getAxis() == Direction.Axis.X) {
-                headDistance = Math.abs(getBlockPos().getX() - headPosition.getX());
-            }
+            headDistance = Math.abs(getBlockPos().get(direction.getAxis()) - headPosition.get(direction.getAxis()));
             if (basePosition != null) {
                 headBaseDistance = Math.abs(basePosition.getY() - headPosition.getY());
             }

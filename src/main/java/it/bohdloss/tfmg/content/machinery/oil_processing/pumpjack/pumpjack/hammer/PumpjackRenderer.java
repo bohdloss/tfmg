@@ -80,7 +80,7 @@ public class PumpjackRenderer extends KineticBlockEntityRenderer<PumpjackBlockEn
         float hModifier = 0;
         float x=0;
         float y=0;
-        float angle = crank.angle + (crank.calcNextAngle() - crank.angle) * partialTicks * 1f;
+        float angle = crank.getInterpolated(partialTicks);
         if(crank!=null) {
             hModifier = be.heightModifier - be.crankConnectorDistance;
             float linkLenght =    be.crankConnectorDistance;
