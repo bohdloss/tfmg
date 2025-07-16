@@ -9,7 +9,7 @@ public class LithiumBladeItem extends SwordItem {
     public LithiumBladeItem(Tier tier, Properties properties) {
         super(tier, properties);
     }
-
+// TODO
 //    @Override
 //    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, Player player, @NotNull InteractionHand hand) {
 ////        ItemStack stack = player.getItemInHand(hand);

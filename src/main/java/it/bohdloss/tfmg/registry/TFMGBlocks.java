@@ -2,6 +2,7 @@ package it.bohdloss.tfmg.registry;
 
 import com.simibubi.create.AllMountedStorageTypes;
 import com.simibubi.create.api.stress.BlockStressValues;
+import com.simibubi.create.content.contraptions.bearing.StabilizedBearingMovementBehaviour;
 import com.simibubi.create.content.decoration.slidingDoor.SlidingDoorBlock;
 import com.simibubi.create.content.fluids.tank.FluidTankGenerator;
 import com.simibubi.create.content.fluids.tank.FluidTankMovementBehavior;
@@ -24,6 +25,7 @@ import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import it.bohdloss.tfmg.content.decoration.cogs.TFMGCogwheelBlock;
 import it.bohdloss.tfmg.content.decoration.concrete.*;
+import it.bohdloss.tfmg.content.decoration.doors.TFMGSlidingDoorBlock;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelBlock;
 import it.bohdloss.tfmg.content.decoration.tanks.aluminum.AluminumTankBlock;
 import it.bohdloss.tfmg.content.decoration.tanks.TFMGTankModel;
@@ -44,9 +46,21 @@ import it.bohdloss.tfmg.content.machinery.misc.concrete_hose.ConcreteHoseBlock;
 import it.bohdloss.tfmg.content.machinery.misc.exhaust.ExhaustBlock;
 import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackBlock;
 import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackGenerator;
+import it.bohdloss.tfmg.content.machinery.misc.machine_input.MachineInputBlock;
 import it.bohdloss.tfmg.content.machinery.misc.smokestack.SmokestackBlock;
 import it.bohdloss.tfmg.content.machinery.misc.smokestack.SmokestackGenerator;
 import it.bohdloss.tfmg.content.machinery.oil_processing.OilDepositBlock;
+import it.bohdloss.tfmg.content.machinery.oil_processing.distillation_tower.IndustrialPipeBlock;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.PumpjackBaseBlock;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.crank.PumpjackCrankBlock;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.PumpjackBlock;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.PumpjackGenerator;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.PumpjackHammerConnectorBlock;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.PumpjackHammerHeadBlock;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.PumpjackHammerPartBlock;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.large.LargePumpjackHammerConnectorBlock;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.large.LargePumpjackHammerHeadBlock;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.large.LargePumpjackHammerPartBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -229,121 +243,121 @@ public class TFMGBlocks {
 //                    .item()
 //                    .build()
 //                    .register();
-//    public static final BlockEntry<IndustrialPipeBlock> INDUSTRIAL_PIPE = REGISTRATE.block("industrial_pipe", IndustrialPipeBlock::new)
-//            .initialProperties(() -> Blocks.STONE)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .properties(p -> p.sound(SoundType.STONE))
-//            .transform(pickaxeOnly())
-//            .tag(TFMGTags.TFMGBlockTags.INDUSTRIAL_PIPE.tag)
-//            .recipe((c, p) -> p.stonecutting(DataIngredient.tag(AllTags.forgeItemTag("ingots/steel")), RecipeCategory.BUILDING_BLOCKS, c::get, 8))
-//            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
-//            .item()
-//            .build()
-//            .register();
-//    public static final BlockEntry<Block> CONCRETE_ENCASED_INDUSTRIAL_PIPE = REGISTRATE.block("concrete_encased_industrial_pipe", Block::new)
-//            .initialProperties(() -> Blocks.IRON_BLOCK)
-//            .properties(p -> p.requiresCorrectToolForDrops().noOcclusion())
-//            .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
-//            .transform(pickaxeOnly())
-//            .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.INDUSTRIAL_PIPE.get().asItem()))
-//            .tag(TFMGTags.TFMGBlockTags.INDUSTRIAL_PIPE.tag)
-//            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
-//            .register();
-//
+    public static final BlockEntry<IndustrialPipeBlock> INDUSTRIAL_PIPE = REGISTRATE.block("industrial_pipe", IndustrialPipeBlock::new)
+            .initialProperties(() -> Blocks.STONE)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .properties(p -> p.sound(SoundType.STONE))
+            .transform(pickaxeOnly())
+            .tag(TFMGTags.TFMGBlockTags.INDUSTRIAL_PIPE.tag)
+            .recipe((c, p) -> p.stonecutting(DataIngredient.tag(AllTags.commonItemTag("ingots/steel")), RecipeCategory.BUILDING_BLOCKS, c::get, 8))
+            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+            .item()
+            .build()
+            .register();
+    public static final BlockEntry<Block> CONCRETE_ENCASED_INDUSTRIAL_PIPE = REGISTRATE.block("concrete_encased_industrial_pipe", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops().noOcclusion())
+            .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+            .transform(pickaxeOnly())
+            .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.INDUSTRIAL_PIPE.get().asItem()))
+            .tag(TFMGTags.TFMGBlockTags.INDUSTRIAL_PIPE.tag)
+            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+            .register();
+
 //    //------------------PUMPJACK------------------//
-//    public static final BlockEntry<PumpjackBlock> PUMPJACK_HAMMER =
-//            REGISTRATE.block("pumpjack_hammer", PumpjackBlock::new)
-//                    .transform(pickaxeOnly())
-//                    .properties(BlockBehaviour.Properties::noOcclusion)
-//                    .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .blockstate(new PumpjackGenerator()::generate)
-//                    .onRegister(movementBehaviour(new StabilizedBearingMovementBehaviour()))
-//                    .item()
-//                    .transform(customItemModel())
-//                    .lang("Pumpjack Hammer Holder")
-//                    .register();
-//
-//
-//    public static final BlockEntry<PumpjackCrankBlock> PUMPJACK_CRANK =
-//            REGISTRATE.block("pumpjack_crank", PumpjackCrankBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .transform(pickaxeOnly())
-//                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
-//                    .properties(BlockBehaviour.Properties::noOcclusion)
-//                    .item()
-//                    .build()
-//                    .lang("Pumpjack Crank")
-//                    .register();
-//
-//    public static final BlockEntry<PumpjackHammerPartBlock> PUMPJACK_HAMMER_PART = REGISTRATE.block("pumpjack_hammer_part", PumpjackHammerPartBlock::new)
-//            .initialProperties(() -> Blocks.IRON_BLOCK)
-//
-//            .transform(pickaxeOnly())
-//            .properties(BlockBehaviour.Properties::noOcclusion)
-//            .blockstate(BlockStateGen.horizontalBlockProvider(false))
-//            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_SMALL_PART.tag)
-//            .recipe((c, p) -> p.stonecutting(DataIngredient.tag(AllTags.forgeItemTag("storage_blocks/steel")),
-//                    RecipeCategory.DECORATIONS, c::get, 2))
-//            .item()
-//            .build()
-//            .register();
-//    public static final BlockEntry<PumpjackHammerHeadBlock> PUMPJACK_HAMMER_HEAD = REGISTRATE.block("pumpjack_hammer_head", PumpjackHammerHeadBlock::new)
-//            .initialProperties(() -> Blocks.IRON_BLOCK)
-//            .transform(pickaxeOnly())
-//            .properties(BlockBehaviour.Properties::noOcclusion)
-//            .blockstate(BlockStateGen.horizontalBlockProvider(false))
-//            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_HEAD.tag)
-//
-//
-//            .item()
-//            .build()
-//            .register();
-//
-//    public static final BlockEntry<PumpjackHammerConnectorBlock> PUMPJACK_HAMMER_CONNECTOR = REGISTRATE.block("pumpjack_hammer_connector", PumpjackHammerConnectorBlock::new)
-//            .initialProperties(() -> Blocks.IRON_BLOCK)
-//            .transform(pickaxeOnly())
-//            .properties(BlockBehaviour.Properties::noOcclusion)
-//            .blockstate(BlockStateGen.horizontalBlockProvider(false))
-//            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_CONNECTOR.tag)
-//            .item()
-//            .build()
-//            .register();
-//    public static final BlockEntry<LargePumpjackHammerPartBlock> LARGE_PUMPJACK_HAMMER_PART = REGISTRATE.block("large_pumpjack_hammer_part", LargePumpjackHammerPartBlock::new)
-//            .initialProperties(() -> Blocks.IRON_BLOCK)
-//            .transform(pickaxeOnly())
-//            .blockstate(BlockStateGen.horizontalBlockProvider(false))
-//            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_PART.tag)
-//            .recipe((c, p) -> p.stonecutting(DataIngredient.tag(AllTags.forgeItemTag("storage_blocks/steel")),
-//                    RecipeCategory.DECORATIONS, c::get, 2))
-//            .item()
-//            .build()
-//            .register();
-//
-//    public static final BlockEntry<LargePumpjackHammerHeadBlock> LARGE_PUMPJACK_HAMMER_HEAD = REGISTRATE.block("large_pumpjack_hammer_head", LargePumpjackHammerHeadBlock::new)
-//            .initialProperties(() -> Blocks.IRON_BLOCK)
-//            .transform(pickaxeOnly())
-//            .blockstate(BlockStateGen.horizontalBlockProvider(false))
-//            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_HEAD.tag)
-//            .item()
-//            .build()
-//            .register();
-//    public static final BlockEntry<LargePumpjackHammerConnectorBlock> LARGE_PUMPJACK_HAMMER_CONNECTOR = REGISTRATE.block("large_pumpjack_hammer_connector", LargePumpjackHammerConnectorBlock::new)
-//            .initialProperties(() -> Blocks.IRON_BLOCK)
-//            .transform(pickaxeOnly())
-//            .blockstate(BlockStateGen.horizontalBlockProvider(false))
-//            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_CONNECTOR.tag)
-//            .item()
-//            .build()
-//            .register();
-//    public static final BlockEntry<PumpjackBaseBlock> PUMPJACK_BASE = REGISTRATE.block("pumpjack_base", PumpjackBaseBlock::new)
-//            .initialProperties(() -> Blocks.IRON_BLOCK)
-//            .transform(pickaxeOnly())
-//            .properties(BlockBehaviour.Properties::noOcclusion)
-//            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
-//            .item()
-//            .build()
-//            .register();
+    public static final BlockEntry<PumpjackBlock> PUMPJACK_HAMMER =
+            REGISTRATE.block("pumpjack_hammer", PumpjackBlock::new)
+                    .transform(pickaxeOnly())
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate(new PumpjackGenerator()::generate)
+                    .onRegister(movementBehaviour(new StabilizedBearingMovementBehaviour()))
+                    .item()
+                    .transform(customItemModel())
+                    .lang("Pumpjack Hammer Holder")
+                    .register();
+
+
+    public static final BlockEntry<PumpjackCrankBlock> PUMPJACK_CRANK =
+            REGISTRATE.block("pumpjack_crank", PumpjackCrankBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .item()
+                    .build()
+                    .lang("Pumpjack Crank")
+                    .register();
+
+    public static final BlockEntry<PumpjackHammerPartBlock> PUMPJACK_HAMMER_PART = REGISTRATE.block("pumpjack_hammer_part", PumpjackHammerPartBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+
+            .transform(pickaxeOnly())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_SMALL_PART.tag)
+            .recipe((c, p) -> p.stonecutting(DataIngredient.tag(AllTags.commonItemTag("storage_blocks/steel")),
+                    RecipeCategory.DECORATIONS, c::get, 2))
+            .item()
+            .build()
+            .register();
+    public static final BlockEntry<PumpjackHammerHeadBlock> PUMPJACK_HAMMER_HEAD = REGISTRATE.block("pumpjack_hammer_head", PumpjackHammerHeadBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .transform(pickaxeOnly())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_HEAD.tag)
+
+
+            .item()
+            .build()
+            .register();
+
+    public static final BlockEntry<PumpjackHammerConnectorBlock> PUMPJACK_HAMMER_CONNECTOR = REGISTRATE.block("pumpjack_hammer_connector", PumpjackHammerConnectorBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .transform(pickaxeOnly())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_CONNECTOR.tag)
+            .item()
+            .build()
+            .register();
+    public static final BlockEntry<LargePumpjackHammerPartBlock> LARGE_PUMPJACK_HAMMER_PART = REGISTRATE.block("large_pumpjack_hammer_part", LargePumpjackHammerPartBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .transform(pickaxeOnly())
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_PART.tag)
+            .recipe((c, p) -> p.stonecutting(DataIngredient.tag(AllTags.commonItemTag("storage_blocks/steel")),
+                    RecipeCategory.DECORATIONS, c::get, 2))
+            .item()
+            .build()
+            .register();
+
+    public static final BlockEntry<LargePumpjackHammerHeadBlock> LARGE_PUMPJACK_HAMMER_HEAD = REGISTRATE.block("large_pumpjack_hammer_head", LargePumpjackHammerHeadBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .transform(pickaxeOnly())
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_HEAD.tag)
+            .item()
+            .build()
+            .register();
+    public static final BlockEntry<LargePumpjackHammerConnectorBlock> LARGE_PUMPJACK_HAMMER_CONNECTOR = REGISTRATE.block("large_pumpjack_hammer_connector", LargePumpjackHammerConnectorBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .transform(pickaxeOnly())
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            .tag(TFMGTags.TFMGBlockTags.PUMPJACK_CONNECTOR.tag)
+            .item()
+            .build()
+            .register();
+    public static final BlockEntry<PumpjackBaseBlock> PUMPJACK_BASE = REGISTRATE.block("pumpjack_base", PumpjackBaseBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .transform(pickaxeOnly())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+            .item()
+            .build()
+            .register();
     public static final BlockEntry<OilDepositBlock> OIL_DEPOSIT = REGISTRATE.block("oil_deposit", OilDepositBlock::new)
             .initialProperties(() -> Blocks.BEDROCK)
             .properties(p -> p.strength(-1, 3600000.0F))
@@ -656,17 +670,17 @@ public class TFMGBlocks {
 //            .item()
 //            .transform(customItemModel())
 //            .register();
-//    public static final BlockEntry<MachineInputBlock> MACHINE_INPUT =
-//            REGISTRATE.block("machine_input", MachineInputBlock::new)
-//                    .properties(BlockBehaviour.Properties::noOcclusion)
-//                    .properties(p -> p
-//                            .strength(4.5F))
-//                    .transform(axeOrPickaxe())
-//                    .transform(TFMGStress.setImpact(4.0))
-//                    .blockstate(BlockStateGen.directionalBlockProvider(true))
-//                    .item()
-//                    .build()
-//                    .register();
+    public static final BlockEntry<MachineInputBlock> MACHINE_INPUT =
+            REGISTRATE.block("machine_input", MachineInputBlock::new)
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .properties(p -> p
+                            .strength(4.5F))
+                    .transform(axeOrPickaxe())
+                    .transform(TFMGStress.setImpact(4.0))
+                    .blockstate(BlockStateGen.directionalBlockProvider(true))
+                    .item()
+                    .build()
+                    .register();
 
     public static final BlockEntry<ConcreteHoseBlock> CONCRETE_HOSE = REGISTRATE.block("concrete_hose", ConcreteHoseBlock::new)
             .initialProperties(SharedProperties::softMetal)
@@ -1491,30 +1505,30 @@ public class TFMGBlocks {
             .register();
 
     //------------------DOOR------------------//
-    public static final BlockEntry<SlidingDoorBlock> HEAVY_CASING_DOOR =
-            REGISTRATE.block("heavy_casing_door", p -> new SlidingDoorBlock(p, SlidingDoorBlock.GLASS_SET_TYPE.get(), false))
+    public static final BlockEntry<TFMGSlidingDoorBlock> HEAVY_CASING_DOOR =
+            REGISTRATE.block("heavy_casing_door", p -> new TFMGSlidingDoorBlock(p, SlidingDoorBlock.GLASS_SET_TYPE.get(), false))
                     .transform(TFMGBuilderTransformers.slidingDoor("heavy_casing"))
                     .properties(p -> p
                             .sound(SoundType.COPPER)
                             .noOcclusion())
                     .register();
-    public static final BlockEntry<SlidingDoorBlock> STEEL_CASING_DOOR =
-            REGISTRATE.block("steel_door", p -> new SlidingDoorBlock(p, SlidingDoorBlock.GLASS_SET_TYPE.get(), true))
+    public static final BlockEntry<TFMGSlidingDoorBlock> STEEL_CASING_DOOR =
+            REGISTRATE.block("steel_door", p -> new TFMGSlidingDoorBlock(p, SlidingDoorBlock.GLASS_SET_TYPE.get(), true))
                     .transform(TFMGBuilderTransformers.slidingDoor("steel"))
                     .properties(p -> p
                             .sound(SoundType.COPPER)
                             .noOcclusion())
                     .register();
 
-    public static final BlockEntry<SlidingDoorBlock> ALUMINUM_DOOR =
-            REGISTRATE.block("aluminum_door", p -> new SlidingDoorBlock(p, SlidingDoorBlock.GLASS_SET_TYPE.get(), false))
+    public static final BlockEntry<TFMGSlidingDoorBlock> ALUMINUM_DOOR =
+            REGISTRATE.block("aluminum_door", p -> new TFMGSlidingDoorBlock(p, SlidingDoorBlock.GLASS_SET_TYPE.get(), false))
                     .transform(TFMGBuilderTransformers.slidingDoor("aluminum"))
                     .properties(p -> p
                             .sound(SoundType.COPPER)
                             .noOcclusion())
                     .register();
-    public static final BlockEntry<SlidingDoorBlock> HEAVY_PLATED_DOOR =
-            REGISTRATE.block("heavy_plated_door", p -> new SlidingDoorBlock(p, SlidingDoorBlock.GLASS_SET_TYPE.get(), false))
+    public static final BlockEntry<TFMGSlidingDoorBlock> HEAVY_PLATED_DOOR =
+            REGISTRATE.block("heavy_plated_door", p -> new TFMGSlidingDoorBlock(p, SlidingDoorBlock.GLASS_SET_TYPE.get(), false))
                     .transform(TFMGBuilderTransformers.slidingDoor("heavy_plated"))
                     .properties(p -> p
                             .sound(SoundType.COPPER)

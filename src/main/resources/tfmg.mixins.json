@@ -4,6 +4,7 @@
   "package": "it.bohdloss.tfmg.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "contraptions.MechanicalBearingBlockEntityAccessor",
     "fluid_handling.FluidManipulationBehaviourAccessor",
     "fluid_handling.FluidPipeBlockEntityMixin",
     "fluid_handling.FluidPipeBlockMixin",

@@ -56,9 +56,10 @@ public class TFMG {
         REGISTRATE.registerEventListeners(modEventBus);
 
         TFMGCreativeTabs.register(modEventBus);
-        TFMGItems.init();
-        TFMGTags.init();
         TFMGBlocks.init();
+        TFMGItems.init();
+        TFMGFluids.init();
+        TFMGTags.init();
         TFMGEntityTypes.init();
         TFMGMobEffects.register(modEventBus);
         TFMGBlockEntities.init();
@@ -67,11 +68,11 @@ public class TFMG {
         TFMGDataComponents.register(modEventBus);
         TFMGRegistries.init();
         TFMGArmorMaterials.register(modEventBus);
-        TFMGFluids.init();
         TFMGColoredFires.register(modEventBus);
         TFMGPipes.init();
         TFMGParticleTypes.register(modEventBus);
         TFMGRecipeTypes.register(modEventBus);
+        TFMGContraptions.register(modEventBus);
 
         TFMGConfigs.register(modContainer);
     }

@@ -17,7 +17,7 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
 import java.util.List;
 
-public class OilDepositBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
+public class OilDepositBlockEntity extends SmartBlockEntity implements IReservoir, IHaveGoggleInformation {
     private TFMGFluidBehavior tank;
 
     public OilDepositBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {

@@ -1,3 +1,6 @@
 {
-  "values": []
+  "values": [
+    "tfmg:pumpjack_hammer_connector",
+    "tfmg:large_pumpjack_hammer_connector"
+  ]
 }

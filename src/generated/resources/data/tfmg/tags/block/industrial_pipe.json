@@ -1,3 +1,6 @@
 {
-  "values": []
+  "values": [
+    "tfmg:industrial_pipe",
+    "tfmg:concrete_encased_industrial_pipe"
+  ]
 }

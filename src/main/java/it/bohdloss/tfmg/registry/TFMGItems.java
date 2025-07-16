@@ -45,6 +45,11 @@ import static it.bohdloss.tfmg.content.items.weapons.explosives.thermite_grenade
 import static it.bohdloss.tfmg.registry.TFMGTags.commonItemTag;
 
 public class TFMGItems {
+
+    static {
+        REGISTRATE.setCreativeTab(TFMGCreativeTabs.TFMG_MAIN);
+    }
+
     public static void init() {}
 
     public static final ItemEntry<Item>

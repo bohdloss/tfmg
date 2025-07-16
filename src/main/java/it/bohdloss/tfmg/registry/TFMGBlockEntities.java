@@ -1,6 +1,8 @@
 package it.bohdloss.tfmg.registry;
 
 import com.simibubi.create.AllPartialModels;
+import com.simibubi.create.content.decoration.slidingDoor.SlidingDoorBlockEntity;
+import com.simibubi.create.content.decoration.slidingDoor.SlidingDoorRenderer;
 import com.simibubi.create.content.fluids.pipes.FluidPipeBlockEntity;
 import com.simibubi.create.content.fluids.pipes.SmartFluidPipeBlockEntity;
 import com.simibubi.create.content.fluids.pipes.StraightPipeBlockEntity;
@@ -13,6 +15,7 @@ import com.simibubi.create.content.fluids.pump.PumpRenderer;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.fluids.tank.FluidTankRenderer;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
+import com.simibubi.create.content.kinetics.base.OrientedRotatingVisual;
 import com.simibubi.create.content.kinetics.base.ShaftRenderer;
 import com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual;
 import com.simibubi.create.content.kinetics.flywheel.FlywheelBlockEntity;
@@ -23,6 +26,7 @@ import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEn
 import com.simibubi.create.content.kinetics.simpleRelays.SimpleKineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
+import it.bohdloss.tfmg.base.HalfShaftRenderer;
 import it.bohdloss.tfmg.content.decoration.cogs.TFMGCogwheelRenderer;
 import it.bohdloss.tfmg.content.decoration.cogs.TFMGCogwheelVisual;
 import it.bohdloss.tfmg.content.decoration.encased.TFMGEncasedCogwheelRenderer;
@@ -42,8 +46,14 @@ import it.bohdloss.tfmg.content.machinery.misc.concrete_hose.ConcreteHoseRendere
 import it.bohdloss.tfmg.content.machinery.misc.concrete_hose.ConcreteHoseVisual;
 import it.bohdloss.tfmg.content.machinery.misc.exhaust.ExhaustBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackBlockEntity;
+import it.bohdloss.tfmg.content.machinery.misc.machine_input.MachineInputBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.smokestack.SmokestackBlockEntity;
 import it.bohdloss.tfmg.content.machinery.oil_processing.OilDepositBlockEntity;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.PumpjackBaseBlockEntity;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.crank.PumpjackCrankBlockEntity;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.crank.PumpjackCrankRenderer;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.PumpjackBlockEntity;
+import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.PumpjackRenderer;
 
 import static it.bohdloss.tfmg.TFMG.REGISTRATE;
 
@@ -107,22 +117,22 @@ public class TFMGBlockEntities {
             .validBlocks(TFMGBlocks.CONCRETE_HOSE)
             .renderer(() -> ConcreteHoseRenderer::new)
             .register();
-//    public static final BlockEntityEntry<PumpjackBlockEntity> PUMPJACK_HAMMER = REGISTRATE
-//            .blockEntity("pumpjack_hammer", PumpjackBlockEntity::new)
-//            .validBlocks(TFMGBlocks.PUMPJACK_HAMMER)
-//            .renderer(() -> PumpjackRenderer::new)
-//            .register();
-//
-//    public static final BlockEntityEntry<PumpjackCrankBlockEntity> PUMPJACK_CRANK = REGISTRATE
-//            .blockEntity("pumpjack_crank", PumpjackCrankBlockEntity::new)
-//            .validBlocks(TFMGBlocks.PUMPJACK_CRANK)
-//            .renderer(() -> PumpjackCrankRenderer::new)
-//            .register();
-//
-//    public static final BlockEntityEntry<PumpjackBaseBlockEntity> PUMPJACK_BASE = REGISTRATE
-//            .blockEntity("pumpjack_base", PumpjackBaseBlockEntity::new)
-//            .validBlocks(TFMGBlocks.PUMPJACK_BASE)
-//            .register();
+    public static final BlockEntityEntry<PumpjackBlockEntity> PUMPJACK_HAMMER = REGISTRATE
+            .blockEntity("pumpjack_hammer", PumpjackBlockEntity::new)
+            .validBlocks(TFMGBlocks.PUMPJACK_HAMMER)
+            .renderer(() -> PumpjackRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<PumpjackCrankBlockEntity> PUMPJACK_CRANK = REGISTRATE
+            .blockEntity("pumpjack_crank", PumpjackCrankBlockEntity::new)
+            .validBlocks(TFMGBlocks.PUMPJACK_CRANK)
+            .renderer(() -> PumpjackCrankRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<PumpjackBaseBlockEntity> PUMPJACK_BASE = REGISTRATE
+            .blockEntity("pumpjack_base", PumpjackBaseBlockEntity::new)
+            .validBlocks(TFMGBlocks.PUMPJACK_BASE)
+            .register();
 //    public static final BlockEntityEntry<ConverterBlockEntity> CONVERTER = REGISTRATE
 //            .blockEntity("converter", ConverterBlockEntity::new)
 //            .validBlocks(TFMGBlocks.CONVERTER)
@@ -151,12 +161,12 @@ public class TFMGBlockEntities {
 //            .validBlocks(TFMGBlocks.STEEL_DISTILLATION_CONTROLLER)
 //            .renderer(() -> DistillationControllerRenderer::new)
 //            .register();
-//    public static final BlockEntityEntry<MachineInputBlockEntity> MACHINE_INPUT = REGISTRATE
-//            .blockEntity("machine_input", MachineInputBlockEntity::new)
-//            .visual(() -> OrientedRotatingVisual.of(AllPartialModels.SHAFT_HALF))
-//            .validBlocks(TFMGBlocks.MACHINE_INPUT)
-//            .renderer(() -> HalfShaftRenderer::new)
-//            .register();
+    public static final BlockEntityEntry<MachineInputBlockEntity> MACHINE_INPUT = REGISTRATE
+            .blockEntity("machine_input", MachineInputBlockEntity::new)
+            .visual(() -> OrientedRotatingVisual.of(AllPartialModels.SHAFT_HALF))
+            .validBlocks(TFMGBlocks.MACHINE_INPUT)
+            .renderer(() -> HalfShaftRenderer::new)
+            .register();
 //    public static final BlockEntityEntry<LightBulbBlockEntity> LIGHT_BULB = REGISTRATE
 //            .blockEntity("light_bulb", LightBulbBlockEntity::new)
 //            .validBlocks(TFMGBlocks.LIGHT_BULB)
@@ -220,12 +230,12 @@ public class TFMGBlockEntities {
 //            .blockEntity("potentiometer", PotentiometerBlockEntity::new)
 //            .validBlocks(TFMGBlocks.POTENTIOMETER, TFMGBlocks.ENCASED_POTENTIOMETER)
 //            .register();
-//
-//    public static final BlockEntityEntry<TFMGSlidingDoorBlockEntity> TFMG_SLIDING_DOOR =
-//            REGISTRATE.blockEntity("tfmg_sliding_door", TFMGSlidingDoorBlockEntity::new)
-//                    .renderer(() -> TFMGSlidingDoorRenderer::new)
-//                    .validBlocks(TFMGBlocks.HEAVY_CASING_DOOR, TFMGBlocks.STEEL_CASING_DOOR, TFMGBlocks.HEAVY_PLATED_DOOR, TFMGBlocks.ALUMINUM_DOOR)
-//                    .register();
+
+    public static final BlockEntityEntry<SlidingDoorBlockEntity> TFMG_SLIDING_DOOR =
+            REGISTRATE.blockEntity("tfmg_sliding_door", SlidingDoorBlockEntity::new)
+                    .renderer(() -> SlidingDoorRenderer::new)
+                    .validBlocks(TFMGBlocks.HEAVY_CASING_DOOR, TFMGBlocks.STEEL_CASING_DOOR, TFMGBlocks.HEAVY_PLATED_DOOR, TFMGBlocks.ALUMINUM_DOOR)
+                    .register();
 //    public static final BlockEntityEntry<EngineGearboxBlockEntity> ENGINE_GEARBOX = REGISTRATE
 //            .blockEntity("engine_gearbox", EngineGearboxBlockEntity::new)
 //            .visual(() -> SingleAxisRotatingVisual::shaft)
