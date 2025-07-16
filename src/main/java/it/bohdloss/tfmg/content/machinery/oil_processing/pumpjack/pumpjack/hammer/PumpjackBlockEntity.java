@@ -378,6 +378,8 @@ public class PumpjackBlockEntity extends MechanicalBearingBlockEntity {
             basePosition = base;
             crankBE.pumpjackPosition = getBlockPos();
             baseBE.pumpjackPosition = getBlockPos();
+            crankBE.notifyUpdate();
+            baseBE.notifyUpdate();
             notifyUpdate();
         }
 

@@ -9,6 +9,9 @@ import it.bohdloss.tfmg.base.TFMGFluidBehavior;
 import it.bohdloss.tfmg.registry.TFMGBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -62,5 +65,24 @@ public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGo
                 TFMGBlockEntities.PUMPJACK_BASE.get(),
                 (be, ctx) -> be.tank.getCapability()
         );
+    }
+
+    @Override
+    protected void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        super.write(tag, registries, clientPacket);
+
+        if(pumpjackPosition != null) {
+            tag.put("Pumpjack", NbtUtils.writeBlockPos(pumpjackPosition));
+        }
+    }
+
+    @Override
+    protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        super.read(tag, registries, clientPacket);
+
+        pumpjackPosition = null;
+        if(tag.contains("Pumpjack")) {
+            pumpjackPosition = NbtUtils.readBlockPos(tag, "Pumpjack").get();
+        }
     }
 }

@@ -5,6 +5,7 @@ import net.createmod.catnip.animation.AnimationTickHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -58,6 +59,10 @@ public class PumpjackCrankBlockEntity extends MachineInputPowered {
     protected void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
         super.write(tag, registries, clientPacket);
 
+        if(pumpjackPosition != null) {
+            tag.put("Pumpjack", NbtUtils.writeBlockPos(pumpjackPosition));
+        }
+
         if(!clientPacket) {
             tag.putFloat("Angle", angle);
         }
@@ -66,6 +71,11 @@ public class PumpjackCrankBlockEntity extends MachineInputPowered {
     @Override
     protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
         super.read(tag, registries, clientPacket);
+
+        pumpjackPosition = null;
+        if(tag.contains("Pumpjack")) {
+            pumpjackPosition = NbtUtils.readBlockPos(tag, "Pumpjack").get();
+        }
 
         if(!clientPacket) {
             angle = tag.getFloat("Angle");
