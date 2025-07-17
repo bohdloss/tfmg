@@ -42,6 +42,11 @@ public class MachineConfig extends ConfigBase {
     public final ConfigFloat blastFurnaceHeightSpeedModifier = f(1f, 0.1f, "blastFurnaceHeightSpeedModifier", Comments.blastFurnaceHeightSpeedModifier);
     public final ConfigInt blastFurnaceFuelConsumption = i(600, 1, "blastFurnaceFuelConsumption", Comments.blastFurnaceFuelConsumption);
 
+    public final ConfigGroup pumpjack = group(1, "pumpjack", "Pumpjack");
+    public final ConfigInt pumpjackMaxHeight = i(8, 3, "blastFurnaceMaxHeight", Comments.pumpjackMaxHeight);
+    public final ConfigInt pumpjackMaxLength = i(7, 3, "blastFurnaceHeightSpeedModifier", Comments.pumpjackMaxLength);
+    public final ConfigInt pumpjackMaxSearchDepth = i(512, 1, "blastFurnaceFuelConsumption", Comments.pumpjackMaxSearchDepth);
+
     @Override
     public String getName() {
         return "machines";
@@ -56,6 +61,9 @@ public class MachineConfig extends ConfigBase {
         static String blastFurnaceHeight = "Changes the maximum height of the blast furnace.";
         static String blastFurnaceHeightSpeedModifier = "Sets the maximum time that can be saved by increasing blast furnace height.";
         static String blastFurnaceFuelConsumption = "Determines how many ticks does it take to consume one fuel.";
+        static String pumpjackMaxHeight = "Changes the maximum distance between the pumpjack head / connector to the pumpjack base / crank.";
+        static String pumpjackMaxLength = "Changes the maximum distance between the pumpjack hammer holder and the head / connector";
+        static String pumpjackMaxSearchDepth = "Determines how many blocks below the pumpjack base will be searched for a deposit";
         static String electricMotorMinimumPower = "Determines the minimum power an electric motor can run on.";
         static String electricMotorMinimumVoltage = "Determines the minimum voltage an electric motor can run on.";
         static String electricMotorInternalResistance = "Sets the internal resistance of the electric motor.";

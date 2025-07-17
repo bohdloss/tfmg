@@ -41,6 +41,7 @@ public class ExhaustBlockEntity extends SmartBlockEntity implements IHaveGoggleI
                 .withValidator(fluidStack -> fluidStack.getFluid().isSame(TFMGFluids.CARBON_DIOXIDE.getSource()))
                 .allowExtraction(false)
                 .allowInsertion(true)
+                .syncCapacity(false)
                 .withCallback(this::notifyUpdate);
         behaviours.add(tank);
     }

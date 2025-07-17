@@ -51,6 +51,7 @@ public class AirIntakeBlockEntity extends AbstractKineticMultiblock {
                 .withValidator(fluidStack -> fluidStack.getFluid().isSame(TFMGFluids.AIR.getSource()))
                 .allowInsertion(false)
                 .allowExtraction(true)
+                .syncCapacity(true)
                 .withCallback(this::notifyUpdate);
         behaviours.add(tank);
     }

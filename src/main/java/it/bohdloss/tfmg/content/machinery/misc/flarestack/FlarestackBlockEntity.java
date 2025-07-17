@@ -43,6 +43,7 @@ public class FlarestackBlockEntity extends SmartBlockEntity implements IHaveGogg
                         fluidStack.getFluid().is(TFMGTags.TFMGFluidTags.FUEL.tag))
                 .allowExtraction(false)
                 .allowInsertion(true)
+                .syncCapacity(false)
                 .withCallback(this::notifyUpdate);
         behaviours.add(tank);
     }

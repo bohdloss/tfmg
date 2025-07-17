@@ -89,6 +89,7 @@ public class CokeOvenBlockEntity extends AbstractMultiblock implements IHaveGogg
         waste = new TFMGFluidBehavior(TFMGFluidBehavior.SECONDARY_TYPE, "SecondaryFluid", this, CAPACITY_MULTIPLIER)
                 .allowExtraction(true)
                 .allowInsertion(false)
+                .syncCapacity(true)
                 .withCallback(() -> {
                     notifyUpdate();
                     onFluidChange();
@@ -96,6 +97,7 @@ public class CokeOvenBlockEntity extends AbstractMultiblock implements IHaveGogg
         creosote = new TFMGFluidBehavior(TFMGFluidBehavior.TYPE, "PrimaryFluid", this, CAPACITY_MULTIPLIER)
                 .allowExtraction(true)
                 .allowInsertion(false)
+                .syncCapacity(true)
                 .withCallback(() -> {
                     notifyUpdate();
                     onFluidChange();

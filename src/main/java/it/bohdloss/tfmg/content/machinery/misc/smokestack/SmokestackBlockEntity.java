@@ -45,6 +45,7 @@ public class SmokestackBlockEntity extends SmartBlockEntity implements IHaveGogg
                 .withValidator(fluidStack -> fluidStack.getFluid().isSame(TFMGFluids.CARBON_DIOXIDE.getSource()))
                 .allowExtraction(false)
                 .allowInsertion(true)
+                .syncCapacity(false)
                 .withCallback(this::notifyUpdate);
         behaviours.add(tank);
     }

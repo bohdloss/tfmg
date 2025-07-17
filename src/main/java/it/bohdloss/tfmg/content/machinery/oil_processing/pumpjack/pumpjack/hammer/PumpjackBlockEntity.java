@@ -8,6 +8,7 @@ import com.simibubi.create.content.contraptions.bearing.MechanicalBearingBlockEn
 import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import it.bohdloss.tfmg.TFMGUtils;
+import it.bohdloss.tfmg.config.TFMGConfigs;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.PumpjackBaseBlockEntity;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.crank.PumpjackCrankBlockEntity;
 import it.bohdloss.tfmg.mixin.contraptions.MechanicalBearingBlockEntityAccessor;
@@ -420,7 +421,7 @@ public class PumpjackBlockEntity extends MechanicalBearingBlockEntity {
 
     public BlockPos findConnector(BlockPos anchorPos) {
         Direction direction = getBlockState().getValue(FACING);
-        int max = maxHeadDistance();
+        int max = maxLength();
         if(!isPart(anchorPos)) {
             return null;
         }
@@ -448,7 +449,7 @@ public class PumpjackBlockEntity extends MechanicalBearingBlockEntity {
     }
 
     public BlockPos findCrank(BlockPos connectorPosition) {
-        int max = maxCrankDistanceFromConnector();
+        int max = maxHeight();
         BlockPos currentPos = connectorPosition.below();
         for (int i = 0; i < max; i++) {
             if (level.getBlockEntity(currentPos) instanceof PumpjackCrankBlockEntity) {
@@ -463,7 +464,7 @@ public class PumpjackBlockEntity extends MechanicalBearingBlockEntity {
 
     public BlockPos findHead(BlockPos anchorPos) {
         Direction direction = getBlockState().getValue(FACING);
-        int max = maxHeadDistance();
+        int max = maxLength();
         if(!isPart(anchorPos)) {
             return null;
         }
@@ -491,7 +492,7 @@ public class PumpjackBlockEntity extends MechanicalBearingBlockEntity {
     }
 
     public BlockPos findBase(BlockPos headPosition) {
-        int max = maxBaseDistanceFromHead();
+        int max = maxHeight();
         BlockPos currentPos = headPosition.below();
         for (int i = 0; i < max; i++) {
             if (level.getBlockEntity(currentPos) instanceof PumpjackBaseBlockEntity) {
@@ -520,15 +521,11 @@ public class PumpjackBlockEntity extends MechanicalBearingBlockEntity {
         }
     }
 
-    protected int maxCrankDistanceFromConnector() {
-        return 7; // TODO Config
+    protected int maxHeight() {
+        return TFMGConfigs.common().machines.pumpjackMaxHeight.get();
     }
 
-    protected int maxBaseDistanceFromHead() {
-        return 8;
-    }
-
-    protected int maxHeadDistance() {
-        return 7;
+    protected int maxLength() {
+        return TFMGConfigs.common().machines.pumpjackMaxLength.get();
     }
 }

@@ -3,7 +3,6 @@ package it.bohdloss.tfmg.base;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import it.bohdloss.tfmg.DebugStuff;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -24,6 +23,7 @@ public class TFMGFluidBehavior extends BlockEntityBehaviour {
     private final OutwardHandler capability;
     public boolean allowExtraction = true;
     public boolean allowInsertion = true;
+    public boolean syncCapacity = true;
     public Runnable updateCallback;
 
     public TFMGFluidBehavior(BehaviourType<TFMGFluidBehavior> type, String name, SmartBlockEntity be, int capacity) {
@@ -46,6 +46,11 @@ public class TFMGFluidBehavior extends BlockEntityBehaviour {
 
     public TFMGFluidBehavior allowInsertion(boolean allowInsertion) {
         this.allowInsertion = allowInsertion;
+        return this;
+    }
+
+    public TFMGFluidBehavior syncCapacity(boolean syncCapacity) {
+        this.syncCapacity = syncCapacity;
         return this;
     }
 
@@ -160,13 +165,17 @@ public class TFMGFluidBehavior extends BlockEntityBehaviour {
 
         @Override
         public @NotNull CompoundTag writeToNBT(HolderLookup.@NotNull Provider lookupProvider, @NotNull CompoundTag nbt) {
-            nbt.putInt("Capacity", capacity);
+            if(owner.syncCapacity) {
+                nbt.putInt("Capacity", capacity);
+            }
             return super.writeToNBT(lookupProvider, nbt);
         }
 
         @Override
         public @NotNull FluidTank readFromNBT(HolderLookup.@NotNull Provider lookupProvider, @NotNull CompoundTag nbt) {
-            this.capacity = nbt.getInt("Capacity");
+            if(owner.syncCapacity) {
+                this.capacity = nbt.getInt("Capacity");
+            }
             super.readFromNBT(lookupProvider, nbt);
             return this;
         }
@@ -180,7 +189,9 @@ public class TFMGFluidBehavior extends BlockEntityBehaviour {
         @Override
         public @NotNull FluidTank setCapacity(int capacity) {
             super.setCapacity(capacity);
-            owner.updateCallback.run();
+            if(owner.syncCapacity) {
+                owner.updateCallback.run();
+            }
             return this;
         }
 
