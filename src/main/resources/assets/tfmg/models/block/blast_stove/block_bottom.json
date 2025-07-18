@@ -1,0 +1,6 @@
+{
+  "parent": "tfmg:block/blast_stove/controller",
+  "textures": {
+    "front": "tfmg:block/blast_stove_side"
+  }
+}

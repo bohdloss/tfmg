@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "tfmg:block/fireproof_bricks",
+    "down": "tfmg:block/fireproof_bricks",
+    "up": "tfmg:block/blast_stove_top",
+    "north": "#front",
+    "east": "#front",
+    "south": "#front",
+    "west": "#front"
+  }
+}

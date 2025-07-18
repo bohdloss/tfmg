@@ -725,16 +725,6 @@ public class TFMGBlocks {
             .build()
             .register();
 
-    public static final BlockEntry<Block> REINFORCED_FIREPROOF_BRICKS = REGISTRATE.block("reinforced_fireproof_bricks", Block::new)
-            .initialProperties(() -> Blocks.NETHER_BRICKS)
-            .properties(p -> p.requiresCorrectToolForDrops())
-            .transform(pickaxeOnly())
-            .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_WALL.tag)
-            .tag(BlockTags.NEEDS_STONE_TOOL)
-            .blockstate(simpleCubeAll("fireproof_bricks"))
-            .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.FIREPROOF_BRICKS.get().asItem()))
-            .register();
-
     public static final BlockEntry<Block> BLAST_FURNACE_REINFORCEMENT = REGISTRATE.block("blast_furnace_reinforcement", Block::new)
             .initialProperties(() -> Blocks.IRON_BLOCK)
             .properties(p -> p.requiresCorrectToolForDrops())

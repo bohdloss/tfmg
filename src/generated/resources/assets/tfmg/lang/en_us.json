@@ -351,7 +351,6 @@
   "block.tfmg.red_rebar_concrete_slab": "Red Rebar Concrete Slab",
   "block.tfmg.red_rebar_concrete_stairs": "Red Rebar Concrete Stairs",
   "block.tfmg.red_rebar_concrete_wall": "Red Rebar Concrete Wall",
-  "block.tfmg.reinforced_fireproof_bricks": "Reinforced Fireproof Bricks",
   "block.tfmg.resistor.tooltip.behaviour1": "Adds the resistors respective resistance (to see how to change its resistance look at the winding machines tooltip) to whatever electric group its target block is in",
   "block.tfmg.resistor.tooltip.condition1": "When placed on a block within a group",
   "block.tfmg.resistor.tooltip.summary": "Adds resistance to a network",
