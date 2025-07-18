@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "shape=bottom": {
+      "model": "tfmg:block/blast_stove/block"
+    },
+    "shape=bottom_connected": {
+      "model": "tfmg:block/blast_stove/block"
+    },
+    "shape=top": {
+      "model": "tfmg:block/blast_stove/block"
+    },
+    "shape=top_connected": {
+      "model": "tfmg:block/blast_stove/block"
+    }
+  }
+}

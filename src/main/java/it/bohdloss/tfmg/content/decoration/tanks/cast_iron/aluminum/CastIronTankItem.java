@@ -6,6 +6,7 @@ import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.fluids.tank.FluidTankItem;
 import com.simibubi.create.foundation.block.IBE;
+import it.bohdloss.tfmg.TFMGUtils;
 import it.bohdloss.tfmg.registry.TFMGBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,7 +35,7 @@ public class CastIronTankItem extends FluidTankItem {
         InteractionResult initialResult = super.place(ctx);
         if (!initialResult.consumesAction())
             return initialResult;
-        tryMultiPlace(ctx);
+        TFMGUtils.tryMultiPlace(ctx, TFMGBlockEntities.CAST_IRON_FLUID_TANK.get(), super::place, FluidTankBlock::isTank);
         return initialResult;
     }
 
@@ -63,77 +64,5 @@ public class CastIronTankItem extends FluidTankItem {
             itemStack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(nbt));
         }
         return super.updateCustomBlockEntityTag(blockPos, level, player, itemStack, blockState);
-    }
-
-    private void tryMultiPlace(BlockPlaceContext ctx) {
-        Player player = ctx.getPlayer();
-        if (player == null)
-            return;
-        if (player.isShiftKeyDown())
-            return;
-        Direction face = ctx.getClickedFace();
-        if (!face.getAxis()
-                .isVertical())
-            return;
-        ItemStack stack = ctx.getItemInHand();
-        Level world = ctx.getLevel();
-        BlockPos pos = ctx.getClickedPos();
-        BlockPos placedOnPos = pos.relative(face.getOpposite());
-        BlockState placedOnState = world.getBlockState(placedOnPos);
-
-        if (!FluidTankBlock.isTank(placedOnState))
-            return;
-        if (SymmetryWandItem.presentInHotbar(player))
-            return;
-        FluidTankBlockEntity tankAt = ConnectivityHandler.partAt(TFMGBlockEntities.CAST_IRON_FLUID_TANK.get(), world, placedOnPos
-        );
-        if (tankAt == null)
-            return;
-        FluidTankBlockEntity controllerBE = tankAt.getControllerBE();
-        if (controllerBE == null)
-            return;
-
-        int width = controllerBE.getWidth();
-        if (width == 1)
-            return;
-
-        int tanksToPlace = 0;
-        BlockPos startPos = face == Direction.DOWN ? controllerBE.getBlockPos()
-                .below()
-                : controllerBE.getBlockPos()
-                .above(controllerBE.getHeight());
-
-        if (startPos.getY() != pos.getY())
-            return;
-
-        for (int xOffset = 0; xOffset < width; xOffset++) {
-            for (int zOffset = 0; zOffset < width; zOffset++) {
-                BlockPos offsetPos = startPos.offset(xOffset, 0, zOffset);
-                BlockState blockState = world.getBlockState(offsetPos);
-                if (FluidTankBlock.isTank(blockState))
-                    continue;
-                if (!blockState.canBeReplaced())
-                    return;
-                tanksToPlace++;
-            }
-        }
-
-        if (!player.isCreative() && stack.getCount() < tanksToPlace)
-            return;
-
-        for (int xOffset = 0; xOffset < width; xOffset++) {
-            for (int zOffset = 0; zOffset < width; zOffset++) {
-                BlockPos offsetPos = startPos.offset(xOffset, 0, zOffset);
-                BlockState blockState = world.getBlockState(offsetPos);
-                if (FluidTankBlock.isTank(blockState))
-                    continue;
-                BlockPlaceContext context = BlockPlaceContext.at(ctx, offsetPos, face);
-                player.getPersistentData()
-                        .putBoolean("SilenceTankSound", true);
-                super.place(context);
-                player.getPersistentData()
-                        .remove("SilenceTankSound");
-            }
-        }
     }
 }

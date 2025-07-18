@@ -6,6 +6,7 @@ import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.simibubi.create.foundation.utility.CreateLang;
 import it.bohdloss.tfmg.TFMG;
 import it.bohdloss.tfmg.recipes.CokingRecipe;
+import it.bohdloss.tfmg.recipes.HotBlastRecipe;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.*;
@@ -24,7 +25,7 @@ public enum TFMGRecipeTypes implements IRecipeTypeInfo {
     COKING(CokingRecipe::new),
 //    DISTILLATION(DistillationRecipe::new),
 //    WINDING(WindingRecipe::new),
-//    HOT_BLAST(HotBlastRecipe::new),
+    HOT_BLAST(HotBlastRecipe::new),
 //    VAT_MACHINE_RECIPE(VatMachineRecipe::new),
 //    POLARIZING(PolarizingRecipe::new),
 

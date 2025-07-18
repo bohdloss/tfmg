@@ -4,6 +4,7 @@ import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import it.bohdloss.tfmg.TFMG;
 import it.bohdloss.tfmg.datagen.recipes.values.tfmg.CokingRecipeGen;
+import it.bohdloss.tfmg.datagen.recipes.values.tfmg.HotBlastRecipeGen;
 import net.createmod.catnip.registry.RegisteredObjectsHelper;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
@@ -30,7 +31,7 @@ public abstract class TFMGProcessingRecipeGen extends TFMGRecipeProvider {
 //        GENERATORS.add(new DistillationRecipeGen(output));
 //        GENERATORS.add(new WindingRecipeGen(output)); TODO
 //        GENERATORS.add(new PolarizingRecipeGen(output));
-//        GENERATORS.add(new HotBlastRecipeGen(output));
+        GENERATORS.add(new HotBlastRecipeGen(output, registries));
 //        GENERATORS.add(new TFMGItemApplicationRecipeGen(output));
 //        GENERATORS.add(new TFMGFillingRecipeGen(output));
 //        GENERATORS.add(new TFMGMixingRecipeGen(output));

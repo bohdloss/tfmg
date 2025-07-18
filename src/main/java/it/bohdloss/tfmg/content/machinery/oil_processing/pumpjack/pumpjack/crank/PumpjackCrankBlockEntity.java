@@ -28,7 +28,7 @@ public class PumpjackCrankBlockEntity extends MachineInputPowered {
 
     public float calcNextAngle() {
         float time = level.getGameTime() % 1_728_000;
-        float speed_amogus = Math.min(getMachineInputSpeed() / 6, (float) 10);
+        float speed_amogus = Math.min(Math.abs(getMachineInputSpeed() / 6), (float) 10);
         if (speed_amogus != 0) {
             return (time * speed_amogus * 3 / 10f) % 360;
         } else {

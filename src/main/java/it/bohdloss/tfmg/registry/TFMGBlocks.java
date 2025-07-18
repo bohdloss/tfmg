@@ -5,6 +5,7 @@ import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.contraptions.bearing.StabilizedBearingMovementBehaviour;
 import com.simibubi.create.content.decoration.slidingDoor.SlidingDoorBlock;
 import com.simibubi.create.content.fluids.tank.FluidTankGenerator;
+import com.simibubi.create.content.fluids.tank.FluidTankModel;
 import com.simibubi.create.content.fluids.tank.FluidTankMovementBehavior;
 import com.simibubi.create.content.kinetics.gearbox.GearboxBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockModel;
@@ -37,6 +38,7 @@ import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankItem;
 import it.bohdloss.tfmg.content.items.CoalCokeBlockItem;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.reinforcement.BlastFurnaceReinforcementBlockItem;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.reinforcement.BlastFurnaceReinforcementWallBlock;
+import it.bohdloss.tfmg.content.machinery.metallurgy.blast_stove.*;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlock;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenCTBehaviour;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenGenerator;
@@ -800,18 +802,18 @@ public class TFMGBlocks {
             .item()
             .transform(customItemModel())
             .register();
-//    @SuppressWarnings("'addLayer(java.util.function.Supplier<java.util.function.Supplier<net.minecraft.client.renderer.RenderType>>)' is deprecated and marked for removal ")
-//    public static final BlockEntry<BlastStoveBlock> BLAST_STOVE =
-//            REGISTRATE.block("blast_stove", BlastStoveBlock::new)
-//                    .initialProperties(SharedProperties::copperMetal)
-//                    .transform(pickaxeOnly())
-//                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
-//                    .onRegister(CreateRegistrate.connectedTextures(() -> new MultiblockCTBehavior(TFMGSpriteShifts.BLAST_STOVE_SIDE, TFMGSpriteShifts.BLAST_STOVE_TOP)))
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .item(BlastStoveItem::new)
-//                    .build()
-//                    .register();
-//
+    @SuppressWarnings("'addLayer(java.util.function.Supplier<java.util.function.Supplier<net.minecraft.client.renderer.RenderType>>)' is deprecated and marked for removal ")
+    public static final BlockEntry<BlastStoveBlock> BLAST_STOVE =
+            REGISTRATE.block("blast_stove", BlastStoveBlock::new)
+                    .initialProperties(SharedProperties::copperMetal)
+                    .blockstate(new BlastStoveGenerator()::generate)
+                    .transform(pickaxeOnly())
+                    .onRegister(connectedTextures(() -> new BlastStoveCTBehavior(TFMGSpriteShifts.BLAST_STOVE_TOP, TFMGSpriteShifts.BLAST_STOVE_SIDE)))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .item(BlastStoveItem::new)
+                    .transform(customItemModel())
+                    .register();
+
 //    public static final BlockEntry<CastingBasinBlock> CASTING_BASIN = REGISTRATE.block("casting_basin", CastingBasinBlock::new)
 //            .initialProperties(() -> Blocks.IRON_BLOCK)
 //            .properties(p -> p.requiresCorrectToolForDrops())

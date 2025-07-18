@@ -16,6 +16,8 @@ import java.util.function.Predicate;
 public class TFMGFluidBehavior extends BlockEntityBehaviour {
     public static final BehaviourType<TFMGFluidBehavior> TYPE = new BehaviourType<>();
     public static final BehaviourType<TFMGFluidBehavior> SECONDARY_TYPE = new BehaviourType<>();
+    public static final BehaviourType<TFMGFluidBehavior> TERTIARY_TYPE = new BehaviourType<>();
+    public static final BehaviourType<TFMGFluidBehavior> QUATERNARY_TYPE = new BehaviourType<>();
 
     private final BehaviourType<TFMGFluidBehavior> type;
     private final String name;

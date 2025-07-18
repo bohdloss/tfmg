@@ -3,7 +3,10 @@ package it.bohdloss.tfmg;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.Create;
+import com.simibubi.create.api.connectivity.ConnectivityHandler;
+import com.simibubi.create.content.equipment.symmetryWand.SymmetryWandItem;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
+import com.simibubi.create.foundation.blockEntity.IMultiBlockEntityContainer;
 import com.simibubi.create.foundation.fluid.CombinedTankWrapper;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
 import com.simibubi.create.foundation.utility.CreateLang;
@@ -29,9 +32,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
@@ -52,6 +58,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class TFMGUtils {
@@ -417,5 +424,93 @@ public class TFMGUtils {
 
     public static <T extends Comparable<T>, V extends T> void changeProperty(Level level, BlockPos pos, Property<T> property, V value) {
         level.setBlock(pos, level.getBlockState(pos).setValue(property, value), 2);
+    }
+
+    public static <T extends BlockEntity & IMultiBlockEntityContainer> void tryMultiPlace(
+            BlockPlaceContext ctx,
+            BlockEntityType<T> blockEntityType,
+            Consumer<BlockPlaceContext> placer,
+            Predicate<BlockState> validator
+    ) {
+        Player player = ctx.getPlayer();
+        if (player == null) {
+            return;
+        }
+        if (player.isShiftKeyDown()) {
+            return;
+        }
+        Direction face = ctx.getClickedFace();
+        if (!face.getAxis().isVertical()) {
+            return;
+        }
+        ItemStack stack = ctx.getItemInHand();
+        Level world = ctx.getLevel();
+        BlockPos pos = ctx.getClickedPos();
+        BlockPos placedOnPos = pos.relative(face.getOpposite());
+        BlockState placedOnState = world.getBlockState(placedOnPos);
+
+        if (!validator.test(placedOnState)) {
+            return;
+        }
+        if (SymmetryWandItem.presentInHotbar(player)) {
+            return;
+        }
+
+        T entityAt = ConnectivityHandler.partAt(blockEntityType, world, placedOnPos);
+        if (entityAt == null) {
+            return;
+        }
+        T controllerBE = entityAt.getControllerBE();
+        if (controllerBE == null) {
+            return;
+        }
+        int width = controllerBE.getWidth();
+        if (width == 1) {
+            return;
+        }
+
+        int blocksToPlace = 0;
+        BlockPos startPos = face == Direction.DOWN ? controllerBE.getBlockPos()
+                .below()
+                : controllerBE.getBlockPos()
+                .above(controllerBE.getHeight());
+
+        if (startPos.getY() != pos.getY()) {
+            return;
+        }
+
+        for (int xOffset = 0; xOffset < width; xOffset++) {
+            for (int zOffset = 0; zOffset < width; zOffset++) {
+                BlockPos offsetPos = startPos.offset(xOffset, 0, zOffset);
+                BlockState blockState = world.getBlockState(offsetPos);
+                if (validator.test(blockState)) {
+                    continue;
+                }
+                if (!blockState.canBeReplaced()) {
+                    return;
+                }
+                blocksToPlace++;
+            }
+        }
+
+        if (!player.isCreative() && stack.getCount() < blocksToPlace) {
+            return;
+        }
+
+        for (int xOffset = 0; xOffset < width; xOffset++) {
+            for (int zOffset = 0; zOffset < width; zOffset++) {
+                BlockPos offsetPos = startPos.offset(xOffset, 0, zOffset);
+                BlockState blockState = world.getBlockState(offsetPos);
+
+                if (validator.test(blockState)) {
+                    continue;
+                }
+                BlockPlaceContext context = BlockPlaceContext.at(ctx, offsetPos, face);
+
+                player.getPersistentData().putBoolean("SilenceTankSound", true);
+                placer.accept(context);
+                player.getPersistentData().remove("SilenceTankSound");
+            }
+        }
     }
 }

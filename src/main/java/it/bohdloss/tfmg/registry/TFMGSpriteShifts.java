@@ -32,7 +32,8 @@ public class TFMGSpriteShifts {
     public static final CTSpriteShiftEntry RUSTED_BLAST_FURNACE_REINFORCEMENT = vertical("rusted_blast_furnace_reinforcement");
     public static final CTSpriteShiftEntry SEGMENTED_DISPLAY_SCREEN = horizontal("segmented_display_screen");
 
-    public static final CTSpriteShiftEntry BLAST_STOVE_SIDE = getCT(AllCTTypes.RECTANGLE, "blast_stove_side"), BLAST_STOVE_TOP = getCT(AllCTTypes.RECTANGLE, "blast_stove_top");
+    public static final CTSpriteShiftEntry BLAST_STOVE_SIDE = getCT(AllCTTypes.RECTANGLE, "blast_stove_side"),
+            BLAST_STOVE_TOP = getCT(AllCTTypes.RECTANGLE, "blast_stove_top");
     public static final CTSpriteShiftEntry
             REGULAR_ENGINE_TOP = vertical("engines/engine_top"),
             REGULAR_ENGINE_BOTTOM = vertical("engines/engine_bottom"),

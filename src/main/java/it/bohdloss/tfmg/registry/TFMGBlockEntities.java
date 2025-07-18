@@ -37,6 +37,7 @@ import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelVisual;
 import it.bohdloss.tfmg.content.decoration.tanks.aluminum.AluminumTankBlockEntity;
 import it.bohdloss.tfmg.content.decoration.tanks.cast_iron.aluminum.CastIronTankBlockEntity;
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankBlockEntity;
+import it.bohdloss.tfmg.content.machinery.metallurgy.blast_stove.BlastStoveBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenRenderer;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlockEntity;
@@ -289,12 +290,12 @@ public class TFMGBlockEntities {
 //            .validBlocks(TFMGBlocks.STEEL_CHEMICAL_VAT, TFMGBlocks.FIREPROOF_CHEMICAL_VAT, TFMGBlocks.CAST_IRON_CHEMICAL_VAT)
 //            .renderer(() -> VatRenderer::new)
 //            .register();
-//    public static final BlockEntityEntry<BlastStoveBlockEntity> BLAST_STOVE = REGISTRATE
-//            .blockEntity("blast_stove", BlastStoveBlockEntity::new)
-//            .validBlocks(TFMGBlocks.BLAST_STOVE)
-//            .register();
-//
-//
+    public static final BlockEntityEntry<BlastStoveBlockEntity> BLAST_STOVE = REGISTRATE
+            .blockEntity("blast_stove", BlastStoveBlockEntity::new)
+            .validBlocks(TFMGBlocks.BLAST_STOVE)
+            .register();
+
+
 //    public static final BlockEntityEntry<CreativeGeneratorBlockEntity> CREATIVE_GENERATOR = REGISTRATE
 //            .blockEntity("creative_generator", CreativeGeneratorBlockEntity::new)
 //            .validBlocks(TFMGBlocks.CREATIVE_GENERATOR)

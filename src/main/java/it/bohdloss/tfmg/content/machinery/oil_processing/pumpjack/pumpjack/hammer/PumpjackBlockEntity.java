@@ -343,7 +343,7 @@ public class PumpjackBlockEntity extends MechanicalBearingBlockEntity {
         BlockState above = level.getBlockState(pos.above());
         BlockState state = getBlockState();
 
-        boolean shouldBeWide = above.is(TFMGTags.TFMGBlockTags.PUMPJACK_SMALL_PART.tag);
+        boolean shouldBeWide = !above.is(TFMGTags.TFMGBlockTags.PUMPJACK_SMALL_PART.tag) && !above.isAir();
         if(state.getValue(PumpjackBlock.WIDE) != shouldBeWide) {
             TFMGUtils.changeProperty(level, pos, PumpjackBlock.WIDE, shouldBeWide);
         }
@@ -397,8 +397,9 @@ public class PumpjackBlockEntity extends MechanicalBearingBlockEntity {
         if(connector == null || head == null) {
             return false;
         }
-        boolean connectorAtFront = connector.get(direction.getAxis()) < anchorPos.get(direction.getAxis());
-        boolean headAtFront = head.get(direction.getAxis()) < anchorPos.get(direction.getAxis());
+        boolean multiplier = !direction.getAxisDirection().equals(Direction.AxisDirection.NEGATIVE);
+        boolean connectorAtFront = connector.get(direction.getAxis()) < anchorPos.get(direction.getAxis()) ^ multiplier;
+        boolean headAtFront = head.get(direction.getAxis()) < anchorPos.get(direction.getAxis()) ^ multiplier;
 
         if(connectorAtFront == headAtFront) {
             return false;

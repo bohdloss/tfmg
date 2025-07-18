@@ -238,9 +238,7 @@ public class TFMGTags {
         }
 
         private static void init() {}
-
     }
-
 
     public static void init() {
         TFMGBlockTags.init();

@@ -2,36 +2,36 @@ package it.bohdloss.tfmg.recipes;
 
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeParams;
 import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe;
+import com.simibubi.create.foundation.fluid.FluidIngredient;
 import it.bohdloss.tfmg.base.TFMGRecipeWrapper;
 import it.bohdloss.tfmg.registry.TFMGRecipeTypes;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
-public class CokingRecipe extends StandardProcessingRecipe<TFMGRecipeWrapper> {
-    public CokingRecipe(ProcessingRecipeParams params) {
-        super(TFMGRecipeTypes.COKING, params);
+public class HotBlastRecipe extends StandardProcessingRecipe<TFMGRecipeWrapper> {
+
+    public HotBlastRecipe(ProcessingRecipeParams params) {
+        super(TFMGRecipeTypes.HOT_BLAST, params);
     }
 
     @Override
     protected int getMaxInputCount() {
-        return 1;
+        return 0;
     }
 
     @Override
     protected int getMaxOutputCount() {
-        return 1;
+        return 0;
     }
-    
     @Override
     protected int getMaxFluidOutputCount() {
         return 2;
     }
 
     @Override
-    protected boolean canRequireHeat() {
-        return false;
+    protected int getMaxFluidInputCount() {
+        return 2;
     }
 
     @Override
@@ -39,19 +39,29 @@ public class CokingRecipe extends StandardProcessingRecipe<TFMGRecipeWrapper> {
         return true;
     }
 
-    public FluidStack getPrimaryResult() {
+    public FluidStack getPrimaryResult(){
         return getFluidResults().get(0);
     }
-    
-    public FluidStack getSecondaryResult() {
+    public FluidStack getSecondaryResult(){
         return getFluidResults().get(1);
     }
-    
+
+    public FluidIngredient getPrimaryIngredient(){
+        return getFluidIngredients().get(0);
+    }
+    public FluidIngredient getSecondaryIngredient(){
+        return getFluidIngredients().get(1);
+    }
+
+
     @Override
     public boolean matches(TFMGRecipeWrapper inv, @NotNull Level worldIn) {
         if (inv.isEmpty()) {
             return false;
         }
-        return ingredients.get(0).test(inv.getItem(0));
+        return getPrimaryIngredient().test(inv.getFluid(0)) && getSecondaryIngredient().test(inv.getFluid(1));
     }
+
+
+
 }

@@ -5,10 +5,8 @@ import com.simibubi.create.api.connectivity.ConnectivityHandler;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.ItemHelper;
-import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlockEntity;
 import it.bohdloss.tfmg.registry.TFMGBlockEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -46,30 +44,10 @@ public class CokeOvenBlock extends HorizontalDirectionalBlock implements IBE<Cok
 
     @Override
     public InteractionResult onWrenched(BlockState state, UseOnContext context) {
-        Direction direction = context.getClickedFace();
         Level level = context.getLevel();
-        AirIntakeBlockEntity be = (AirIntakeBlockEntity) level.getBlockEntity(context.getClickedPos());
+        CokeOvenBlockEntity be = (CokeOvenBlockEntity) level.getBlockEntity(context.getClickedPos());
         if(be == null) {
             return InteractionResult.PASS;
-        }
-
-        if(direction == state.getValue(FACING).getOpposite()) {
-            be.hasShaft = !be.hasShaft;
-            IWrenchable.playRotateSound(level, context.getClickedPos());
-            if(!be.hasShaft) {
-                if (be.hasNetwork()) {
-                    be.getOrCreateNetwork().remove(be);
-                }
-                be.detachKinetics();
-                be.removeSource();
-                be.setSpeed(0);
-                be.remove();
-                be.notifyUpdate();
-            } else {
-                be.attachKinetics();
-                be.notifyUpdate();
-            }
-            return InteractionResult.SUCCESS;
         }
 
         if(be.isController() && be.getWidth() == 1) {

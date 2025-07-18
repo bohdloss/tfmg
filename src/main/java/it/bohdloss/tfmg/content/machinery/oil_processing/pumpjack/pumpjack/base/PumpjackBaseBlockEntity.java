@@ -92,7 +92,12 @@ public class PumpjackBaseBlockEntity extends SmartBlockEntity implements IHaveGo
                 findDeposit();
             }
 
-            int miningRate = (int) Math.max(0, -Math.abs(crank.getMachineInputSpeed()) * (pumpjack.heightModifier));
+            // We don't want the height modifier we want the derivative aka "upwards" angular speed
+            float heightModifier = (float) (pumpjack.crankRadius * Math.cos(Math.toRadians(crank.angle)));
+            // Same max speed calculation as PumpjackCrankBlockEntity but without the division by 6
+            // TODO Maybe remove upwards limit (60) if unbalanced
+            float speed_amogus = Math.min(Math.abs(crank.getMachineInputSpeed()), (float) 60);
+            int miningRate = (int) Math.max(0, -speed_amogus * (heightModifier));
             process(miningRate);
         }
     }

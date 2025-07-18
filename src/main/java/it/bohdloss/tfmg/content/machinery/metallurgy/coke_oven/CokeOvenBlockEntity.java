@@ -3,17 +3,18 @@ package it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven;
 import com.mojang.serialization.DataResult;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.fluid.CombinedTankWrapper;
 import com.simibubi.create.foundation.utility.CreateLang;
 import it.bohdloss.tfmg.DebugStuff;
 import it.bohdloss.tfmg.TFMG;
 import it.bohdloss.tfmg.TFMGUtils;
-import it.bohdloss.tfmg.base.AbstractMultiblock;
-import it.bohdloss.tfmg.base.TFMGFluidBehavior;
-import it.bohdloss.tfmg.base.TFMGItemBehavior;
+import it.bohdloss.tfmg.base.*;
+import it.bohdloss.tfmg.config.TFMGConfigs;
 import it.bohdloss.tfmg.recipes.CokingRecipe;
 import it.bohdloss.tfmg.registry.TFMGBlockEntities;
 import it.bohdloss.tfmg.registry.TFMGRecipeTypes;
 import net.createmod.catnip.animation.LerpedFloat;
+import net.createmod.catnip.data.Pair;
 import net.createmod.catnip.math.VecHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -24,6 +25,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
@@ -51,13 +53,14 @@ public class CokeOvenBlockEntity extends AbstractMultiblock implements IHaveGogg
 
     public TFMGFluidBehavior creosote; // These names refer to the default coking recipe. There may be different contents.
     public TFMGFluidBehavior waste;
+    public CombinedTankWrapper allCaps;
     public TFMGItemBehavior inventory;
-    public int timer = -1;
+    public TFMGRecipeBehavior<TFMGRecipeWrapper, CokingRecipe> recipeExecutor;
+
     public LerpedFloat doorAngle = LerpedFloat.angular();
-    @Nullable
-    public ResourceLocation currentRecipe;
-    public RecipeHolder<CokingRecipe> recipeCache;
     public boolean forceOpen;
+
+    public TFMGRecipeWrapper input;
 
     public CokeOvenBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
@@ -70,6 +73,9 @@ public class CokeOvenBlockEntity extends AbstractMultiblock implements IHaveGogg
                 TFMGBlockEntities.COKE_OVEN.get(),
                 (be, ctx) -> {
                     CokeOvenBlockEntity cokeOven = (CokeOvenBlockEntity) be.getControllerBE();
+                    if(ctx == null) {
+                        return cokeOven.allCaps;
+                    }
                     if(ctx == Direction.UP) {
                         return cokeOven.waste.getCapability();
                     } else {
@@ -92,7 +98,7 @@ public class CokeOvenBlockEntity extends AbstractMultiblock implements IHaveGogg
                 .syncCapacity(true)
                 .withCallback(() -> {
                     notifyUpdate();
-                    onFluidChange();
+                    recipeExecutor.updateRecipe();
                 });
         creosote = new TFMGFluidBehavior(TFMGFluidBehavior.TYPE, "PrimaryFluid", this, CAPACITY_MULTIPLIER)
                 .allowExtraction(true)
@@ -100,19 +106,28 @@ public class CokeOvenBlockEntity extends AbstractMultiblock implements IHaveGogg
                 .syncCapacity(true)
                 .withCallback(() -> {
                     notifyUpdate();
-                    onFluidChange();
+                    recipeExecutor.updateRecipe();
                 });
+        allCaps = new CombinedTankWrapper(waste.getCapability(), creosote.getCapability());
         inventory = new TFMGItemBehavior(TFMGItemBehavior.TYPE, "Inventory", this, 1)
                 .allowExtraction(true)
                 .allowInsertion(true)
                 .withCallback(() -> {
                     notifyUpdate();
-                    onItemChange();
+                    recipeExecutor.updateRecipe();
                 });
+        input = new TFMGRecipeWrapper(inventory.getHandler(), null);
+        recipeExecutor = new TFMGRecipeBehavior<TFMGRecipeWrapper, CokingRecipe>(this, TFMGRecipeTypes.COKING.getType())
+                .withInput(() -> input)
+                .withDurationModifier(ticks -> ticks / Math.max(width / 2, 1))
+                .withCheckFreeSpace(this::checkFreeSpace)
+                .withResultsDo(this::acceptResults)
+                .withCallback(this::notifyUpdate);
 
         behaviours.add(waste);
         behaviours.add(creosote);
         behaviours.add(inventory);
+        behaviours.add(recipeExecutor);
     }
 
     @Override
@@ -123,10 +138,9 @@ public class CokeOvenBlockEntity extends AbstractMultiblock implements IHaveGogg
 
         CokeOvenBlockEntity controller = (CokeOvenBlockEntity) getControllerBE();
         if(controller != null) {
-            RecipeHolder<CokingRecipe> recipe = controller.getRecipe();
-            if(controller.timer != -1 && recipe != null) {
-                int processingTicks = recipe.value().getProcessingDuration();
-                CreateLang.translate("goggles.coke_oven.progress", (processingTicks - controller.timer) / 20 + " / " + processingTicks / 20)
+            int recipeDuration = controller.recipeExecutor.getRecipeDuration();
+            if(controller.recipeExecutor.timer != -1 && recipeDuration != -1) {
+                CreateLang.translate("goggles.coke_oven.progress", (recipeDuration - controller.recipeExecutor.timer) / 20 + " / " + recipeDuration / 20)
                         .style(ChatFormatting.GOLD)
                         .forGoggles(tooltip);
             }
@@ -144,6 +158,7 @@ public class CokeOvenBlockEntity extends AbstractMultiblock implements IHaveGogg
         super.tick();
 
         if (level.isClientSide && isController()) {
+            int timer = recipeExecutor.timer;
             doorAngle.chase((timer > 0 && timer < 50) || forceOpen ? 90 : 0, 0.1f, LerpedFloat.Chaser.EXP);
             doorAngle.tickChaser();
             if (!forceOpen) {
@@ -158,110 +173,46 @@ public class CokeOvenBlockEntity extends AbstractMultiblock implements IHaveGogg
         }
 
         if(!level.isClientSide && isController()) {
-            if(!recipeTick()) {
-                timer = -1;
-                updateRecipe();
-            }
+            recipeExecutor.update();
         }
     }
 
-    protected void onFluidChange() {
-        updateRecipe();
+    protected boolean checkFreeSpace(Pair<List<ItemStack>, List<FluidStack>> results) {
+        // We know coking recipes have 2 outputs
+        FluidStack primary = results.getSecond().getFirst();
+        FluidStack secondary = results.getSecond().get(1);
+
+        return creosote.getHandler().getSpace() >= primary.getAmount() &&
+                (creosote.getHandler().isEmpty() || creosote.getHandler().getFluid().getFluid().isSame(primary.getFluid())) &&
+                waste.getHandler().getSpace() >= secondary.getAmount() &&
+                (waste.getHandler().isEmpty() || waste.getHandler().getFluid().getFluid().isSame(secondary.getFluid()));
     }
 
-    protected void onItemChange() {
-        updateRecipe();
-    }
+    protected void acceptResults(Pair<List<ItemStack>, List<FluidStack>> results) {
+        ItemStack onlyItem = results.getFirst().getFirst();
+        FluidStack primaryFluid = results.getSecond().getFirst();
+        FluidStack secondaryFluid = results.getSecond().get(1);
 
-    // False means something went wrong
-    protected boolean recipeTick() {
-        RecipeHolder<CokingRecipe> holder = getRecipe();
-        if(holder == null) {
-            return false;
-        }
-        CokingRecipe cokingRecipe = holder.value();
-        Ingredient main = cokingRecipe.getIngredients().getFirst();
-        int inputAmount = main.getItems()[0].getCount();
+        creosote.getHandler().fill(primaryFluid, IFluidHandler.FluidAction.EXECUTE);
+        waste.getHandler().fill(secondaryFluid, IFluidHandler.FluidAction.EXECUTE);
 
+        Direction direction = getBlockState().getValue(FACING);
 
-        if(!main.test(inventory.getHandler().getStackInSlot(0)) ||
-                inventory.getHandler().getStackInSlot(0).getCount() < inputAmount)
-        {
-            return true; // Doesn't reset recipe, but keeps ticking until the input amount is enough
-        }
-
-        if(timer == 0) {
-            FluidStack primary = cokingRecipe.getPrimaryResult();
-            FluidStack secondary = cokingRecipe.getSecondaryResult();
-
-            if(creosote.getHandler().getSpace() < primary.getAmount() ||
-                    !(creosote.getHandler().isEmpty() || creosote.getHandler().getFluid().getFluid().isSame(primary.getFluid())) ||
-                    waste.getHandler().getSpace() < secondary.getAmount() ||
-                    !(waste.getHandler().isEmpty() || waste.getHandler().getFluid().getFluid().isSame(secondary.getFluid()))
-            ) {
-                return true; // Doesn't reset recipe, but keeps ticking until enough space is available
-            }
-            timer = cokingRecipe.getProcessingDuration();
-
-            inventory.getHandler().extractItem(0, inputAmount, false);
-            creosote.getHandler().fill(primary, IFluidHandler.FluidAction.EXECUTE);
-            waste.getHandler().fill(secondary, IFluidHandler.FluidAction.EXECUTE);
-
-            Direction direction = getBlockState().getValue(FACING);
-
-            Vec3 dropVec = VecHelper.getCenterOf(getLowestDoorPos().relative(direction)).add(0, 0.4, 0);
-            ItemEntity dropped = new ItemEntity(level, dropVec.x, dropVec.y, dropVec.z, cokingRecipe.getResultItem(level.registryAccess()).copy());
-            dropped.setDefaultPickUpDelay();
-            dropped.setDeltaMovement(direction.getAxis() == Direction.Axis.X ? direction == Direction.WEST ? -.01f : .01f : 0, 0.05f, direction.getAxis() == Direction.Axis.Z ? direction == Direction.NORTH ? -.01f : .01f : 0);
-            level.addFreshEntity(dropped);
-
-            updateRecipe();
-        } else if(timer != -1) {
-            timer = Math.max(0, timer - width);
-
-            notifyUpdate();
-        }
-        return true;
-    }
-
-    protected void updateRecipe() {
-        Optional<RecipeHolder<CokingRecipe>> recipe = TFMGRecipeTypes.COKING.find(new SingleRecipeInput(inventory.getHandler().getStackInSlot(0)), level);
-        if(recipe.isPresent()) {
-            // Recipe went from none to some || or it changed -> reset timer to processing time
-            if(currentRecipe == null || !currentRecipe.equals(recipe.get().id())) {
-                timer = recipe.get().value().getProcessingDuration();
-            }
-            currentRecipe = recipe.get().id();
-            recipeCache = recipe.get();
-        } else {
-            // Recipe went from some to none -> we aren't processing anything so set timer to -1
-            if(currentRecipe != null) {
-                timer = -1;
-            }
-            currentRecipe = null;
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    protected RecipeHolder<CokingRecipe> getRecipe() {
-        if(currentRecipe == null) {
-            return null;
-        }
-        if(recipeCache != null && recipeCache.id().equals(currentRecipe)) {
-            return recipeCache;
-        }
-        Optional<RecipeHolder<?>> recipe = level.getRecipeManager().byKey(currentRecipe);
-        if(recipe.isPresent()) {
-            recipeCache = (RecipeHolder<CokingRecipe>) recipe.get();
-            return recipeCache;
-        }
-
-        return null;
+        Vec3 dropVec = VecHelper.getCenterOf(getLowestDoorPos().relative(direction)).add(0, 0.4, 0);
+        ItemEntity dropped = new ItemEntity(level, dropVec.x, dropVec.y, dropVec.z, onlyItem);
+        dropped.setDefaultPickUpDelay();
+        dropped.setDeltaMovement(direction.getAxis() == Direction.Axis.X ? direction == Direction.WEST ? -.01f : .01f : 0, 0.05f, direction.getAxis() == Direction.Axis.Z ? direction == Direction.NORTH ? -.01f : .01f : 0);
+        level.addFreshEntity(dropped);
     }
 
     @Override
     protected void onMultiblockChange() {
         updateBlockstates();
+        if(!level.isClientSide && isController()) {
+            recipeExecutor.reset();
+            recipeExecutor.updateRecipe();
+            notifyUpdate();
+        }
     }
 
     protected BlockPos getLowestDoorPos() {
@@ -285,56 +236,20 @@ public class CokeOvenBlockEntity extends AbstractMultiblock implements IHaveGogg
             }
         });
         switch (width) {
+            case 0 -> {}
             case 1 -> {
                 TFMGUtils.changeProperty(level, column, CokeOvenBlock.CONTROLLER_TYPE, CokeOvenBlock.ControllerType.CASUAL);
             }
-            case 2 -> {
+            default -> {
                 TFMGUtils.changeProperty(level, column, CokeOvenBlock.CONTROLLER_TYPE, CokeOvenBlock.ControllerType.BOTTOM_ON);
-                TFMGUtils.changeProperty(level, column.above(), CokeOvenBlock.CONTROLLER_TYPE, CokeOvenBlock.ControllerType.TOP_ON);
-            }
-            case 3 -> {
-                TFMGUtils.changeProperty(level, column, CokeOvenBlock.CONTROLLER_TYPE, CokeOvenBlock.ControllerType.BOTTOM_ON);
-                TFMGUtils.changeProperty(level, column.above(), CokeOvenBlock.CONTROLLER_TYPE, CokeOvenBlock.ControllerType.MIDDLE_ON);
-                TFMGUtils.changeProperty(level, column.above().above(), CokeOvenBlock.CONTROLLER_TYPE, CokeOvenBlock.ControllerType.TOP_ON);
-            }
-            default -> {}
-        }
-    }
+                TFMGUtils.changeProperty(level, column.above(width - 1), CokeOvenBlock.CONTROLLER_TYPE, CokeOvenBlock.ControllerType.TOP_ON);
 
-    @Override
-    protected void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-        try {
-            super.write(compound, registries, clientPacket);
-
-            if (isController()) {
-                compound.putInt("Timer", timer);
-                if (currentRecipe != null) {
-                    ResourceLocation.CODEC.encodeStart(NbtOps.INSTANCE, currentRecipe).ifSuccess(tag -> {
-                        compound.put("CurrentRecipe", tag);
-                    });
+                BlockPos.MutableBlockPos columnMut = column.mutable();
+                for(int i = column.getY() + 1; i < column.getY() + width - 1; i++) {
+                    columnMut.setY(i);
+                    TFMGUtils.changeProperty(level, columnMut, CokeOvenBlock.CONTROLLER_TYPE, CokeOvenBlock.ControllerType.MIDDLE_ON);
                 }
             }
-        } catch (Exception ex) {
-            TFMG.LOGGER.debug(ex.toString());
-        }
-    }
-
-    @Override
-    protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-        try {
-            super.read(compound, registries, clientPacket);
-
-            if (isController()) {
-                timer = compound.getInt("Timer");
-                currentRecipe = null;
-                if (compound.contains("CurrentRecipe")) {
-                    ResourceLocation.CODEC.decode(NbtOps.INSTANCE, compound.get("CurrentRecipe")).ifSuccess(res -> {
-                        currentRecipe = res.getFirst();
-                    });
-                }
-            }
-        } catch (Exception ex) {
-            TFMG.LOGGER.debug(ex.toString());
         }
     }
 
@@ -359,7 +274,7 @@ public class CokeOvenBlockEntity extends AbstractMultiblock implements IHaveGogg
 
     @Override
     public int getMaxWidth() {
-        return 3;
+        return TFMGConfigs.common().machines.cokeOvenMaxSize.get();
     }
 
     @Override
