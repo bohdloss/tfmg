@@ -6,6 +6,7 @@ import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import it.bohdloss.tfmg.registry.*;
+import it.bohdloss.tfmg.worldgen.TFMGFeatures;
 import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -18,13 +19,13 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import org.slf4j.Logger;
 
 import static net.createmod.catnip.lang.FontHelper.styleFromColor;
 
 @Mod(TFMG.MOD_ID)
-@EventBusSubscriber
 public class TFMG {
     public static final String MOD_ID = "tfmg";
     public static final Logger LOGGER = LogUtils.getLogger();
@@ -44,17 +45,10 @@ public class TFMG {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void register(RegisterEvent event) {
-        if(event.getRegistryKey() == Registries.BLOCK.registryKey()) {
-            System.out.println(event.getRegistry().key().location());
-        }
-
-    }
-
     public TFMG(IEventBus modEventBus, ModContainer modContainer) {
         REGISTRATE.registerEventListeners(modEventBus);
 
+//        TFMGSoundEvents.prepare();
         TFMGCreativeTabs.register(modEventBus);
         TFMGBlocks.init();
         TFMGItems.init();
@@ -73,7 +67,30 @@ public class TFMG {
         TFMGParticleTypes.register(modEventBus);
         TFMGRecipeTypes.register(modEventBus);
         TFMGContraptions.register(modEventBus);
+//        TFMGMenuTypes.init();
+//        TFMGPaletteBlocks.init();
+        TFMGPaletteStoneTypes.register(REGISTRATE);
+        TFMGFeatures.register(modEventBus);
 
         TFMGConfigs.register(modContainer);
+
+//        TFMGMountedStorageTypes.register();
+
+//        TFMGPackets.register();
+//        modEventBus.addListener(TFMGSoundEvents::register);
+//        modEventBus.addListener(TFMG::commonSetup);
     }
+
+    /**
+     * fluid interaction & firebox heating
+     */
+//    public static void commonSetup(final FMLCommonSetupEvent event) {
+//        TFMGFluidInteractions.registerFluidInteractions();
+//
+//        event.enqueueWork(() -> {
+//            BaseFuelTypes.register();
+//            TFMGBoilerHeaters.registerDefaults();
+//
+//        });
+//    }
 }

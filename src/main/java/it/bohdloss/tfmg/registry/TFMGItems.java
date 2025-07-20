@@ -76,7 +76,7 @@ public class TFMGItems {
             RAW_LEAD = taggedIngredient("raw_lead", commonItemTag("raw_materials/lead"), commonItemTag("raw_materials")),
             RAW_NICKEL = taggedIngredient("raw_nickel", commonItemTag("raw_materials/nickel"), commonItemTag("raw_materials")),
             RAW_LITHIUM = taggedIngredient("raw_lithium", commonItemTag("raw_materials/lithium"), commonItemTag("raw_materials")),
-            SYNTHETIC_LEATHER = taggedIngredient("synthetic_leather", Tags.Items.LEATHERS, AllTags.commonItemTag("leather")),
+            SYNTHETIC_LEATHER = taggedIngredient("synthetic_leather", Tags.Items.LEATHERS, AllTags.commonItemTag("leathers")),
             LIMESAND = taggedIngredient("limesand", TFMGTags.TFMGItemTags.FLUX.tag),
             SULFUR_DUST = taggedIngredient("sulfur_dust", commonItemTag("dusts/sulfur")),
             RUBBER_SHEET = taggedIngredient("rubber_sheet", commonItemTag("ingots/rubber")),
@@ -269,18 +269,18 @@ public class TFMGItems {
 //
 //    public static final ItemEntry<MultimeterItem> MULTIMETER = REGISTRATE.item("multimeter", MultimeterItem::new)
 //            .register();
-//
-//    public static final ItemEntry<SequencedAssemblyItem>
-//            UNFINISHED_POTENTIOMETER = sequencedIngredient("unfinished_potentiometer", "block/potentiometer/unfinished"),
-//            UNFINISHED_ELECTRIC_MOTOR = sequencedIngredient("unfinished_electric_motor", "block/electric_motor/unfinished"),
-//            UNFINISHED_GENERATOR = sequencedIngredient("unfinished_generator", "item/unfinished_generator_model"),
-//            UNFINISHED_STEEL_MECHANISM = sequencedIngredient("unfinished_steel_mechanism"),
-//            UNFINISHED_TRANSISTOR = sequencedIngredient("unfinished_transistor"),
-//            UNFINISHED_CAPACITOR = sequencedIngredient("unfinished_capacitor"),
-//            UNFINISHED_CIRCUIT_BOARD = sequencedIngredient("unfinished_circuit_board"),
-//            UNPROCESSED_HEAVY_PLATE = sequencedIngredient("unprocessed_heavy_plate");
-//
-//
+
+    public static final ItemEntry<SequencedAssemblyItem>
+            UNFINISHED_POTENTIOMETER = sequencedIngredient("unfinished_potentiometer", "block/potentiometer/unfinished"),
+            UNFINISHED_ELECTRIC_MOTOR = sequencedIngredient("unfinished_electric_motor", "block/electric_motor/unfinished"),
+            UNFINISHED_GENERATOR = sequencedIngredient("unfinished_generator", "item/unfinished_generator_model"),
+            UNFINISHED_STEEL_MECHANISM = sequencedIngredient("unfinished_steel_mechanism"),
+            UNFINISHED_TRANSISTOR = sequencedIngredient("unfinished_transistor"),
+            UNFINISHED_CAPACITOR = sequencedIngredient("unfinished_capacitor"),
+            UNFINISHED_CIRCUIT_BOARD = sequencedIngredient("unfinished_circuit_board"),
+            UNPROCESSED_HEAVY_PLATE = sequencedIngredient("unprocessed_heavy_plate");
+
+
 //    public static final ItemEntry<QuadPotatoCannonItem> QUAD_POTATO_CANNON =
 //            REGISTRATE.item("quad_potato_cannon", QuadPotatoCannonItem::new)
 //                    .model(AssetLookup.itemModelWithPartials())

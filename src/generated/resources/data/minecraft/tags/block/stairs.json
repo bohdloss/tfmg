@@ -37,6 +37,14 @@
     "tfmg:purple_rebar_concrete_stairs",
     "tfmg:orange_rebar_concrete_stairs",
     "tfmg:black_rebar_concrete_stairs",
-    "tfmg:asphalt_stairs"
+    "tfmg:asphalt_stairs",
+    "tfmg:cut_bauxite_stairs",
+    "tfmg:polished_cut_bauxite_stairs",
+    "tfmg:cut_bauxite_brick_stairs",
+    "tfmg:small_bauxite_brick_stairs",
+    "tfmg:cut_galena_stairs",
+    "tfmg:polished_cut_galena_stairs",
+    "tfmg:cut_galena_brick_stairs",
+    "tfmg:small_galena_brick_stairs"
   ]
 }

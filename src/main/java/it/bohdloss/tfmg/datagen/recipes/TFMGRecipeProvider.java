@@ -9,6 +9,7 @@ import com.simibubi.create.content.decoration.palettes.AllPaletteBlocks;
 import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
 import it.bohdloss.tfmg.TFMG;
 import it.bohdloss.tfmg.content.electricity.connection.Windings;
+import it.bohdloss.tfmg.datagen.recipes.values.create.*;
 import it.bohdloss.tfmg.datagen.recipes.values.tfmg.TFMGCastingRecipeGen;
 import it.bohdloss.tfmg.datagen.recipes.values.tfmg.TFMGCokingRecipeGen;
 import it.bohdloss.tfmg.datagen.recipes.values.tfmg.TFMGHotBlastRecipeGen;
@@ -61,13 +62,13 @@ public class TFMGRecipeProvider extends RecipeProvider {
         GENERATORS.add(new TFMGIndustrialBlastingRecipeGen(output,registries));
 //        GENERATORS.add(new TFMGVatRecipeGen(output,registries));
 
-//        GENERATORS.add(new TFMGPressingRecipeGen(output,registries));
-//        GENERATORS.add(new TFMGItemApplicationRecipeGen(output,registries));
-//        GENERATORS.add(new TFMGFillingRecipeGen(output,registries));
-//        GENERATORS.add(new TFMGMixingRecipeGen(output,registries));
-//        GENERATORS.add(new TFMGCompactingRecipeGen(output,registries));
-//        GENERATORS.add(new TFMGCrushingRecipeGen(output,registries));
-//        GENERATORS.add(new TFMGDeployingRecipeGen(output,registries));
+        GENERATORS.add(new TFMGPressingRecipeGen(output,registries));
+        GENERATORS.add(new TFMGItemApplicationRecipeGen(output,registries));
+        GENERATORS.add(new TFMGFillingRecipeGen(output,registries));
+        GENERATORS.add(new TFMGMixingRecipeGen(output,registries));
+        GENERATORS.add(new TFMGCompactingRecipeGen(output,registries));
+        GENERATORS.add(new TFMGCrushingRecipeGen(output,registries));
+        GENERATORS.add(new TFMGDeployingRecipeGen(output,registries));
 
         gen.addProvider(true, new DataProvider() {
 
@@ -341,21 +342,21 @@ public class TFMGRecipeProvider extends RecipeProvider {
         public static ItemLike gunpowder() {
             return Items.GUNPOWDER;
         }
-//        public static ItemLike steelTank() {
-//            return TFMGBlocks.STEEL_FLUID_TANK;
-//        }
-//        public static ItemLike castIronTank() {
-//            return TFMGBlocks.CAST_IRON_FLUID_TANK;
-//        }
+        public static ItemLike steelTank() {
+            return TFMGBlocks.STEEL_FLUID_TANK;
+        }
+        public static ItemLike castIronTank() {
+            return TFMGBlocks.CAST_IRON_FLUID_TANK;
+        }
         public static ItemLike circuitBoard() {
             return TFMGItems.CIRCUIT_BOARD;
         }
         public static ItemLike cement() {
             return TFMGBlocks.CEMENT;
         }
-//        public static ItemLike aluminumTank() {
-//            return TFMGBlocks.ALUMINUM_FLUID_TANK;
-//        }
+        public static ItemLike aluminumTank() {
+            return TFMGBlocks.ALUMINUM_FLUID_TANK;
+        }
         public static ItemLike syntheticLeather() {
             return TFMGItems.SYNTHETIC_LEATHER.get();
         }
@@ -368,9 +369,9 @@ public class TFMGRecipeProvider extends RecipeProvider {
         public static ItemLike steelMechanism() {
             return TFMGItems.STEEL_MECHANISM.get();
         }
-//        public static ItemLike industrialPipe() {
-//            return TFMGBlocks.INDUSTRIAL_PIPE.get();
-//        }
+        public static ItemLike industrialPipe() {
+            return TFMGBlocks.INDUSTRIAL_PIPE.get();
+        }
         public static ItemLike steelPipe() {
             return TFMGPipes.TFMG_PIPES.get(TFMGPipes.PipeMaterial.STEEL).pipe();
         }
@@ -840,49 +841,6 @@ public class TFMGRecipeProvider extends RecipeProvider {
         }
     }
     //////////////////////////////////////////
-//    public   GeneratedRecipe createIndustrialBlastingRecipe(String namespace, Supplier<ItemLike> singleIngredient, UnaryOperator<IndustrialBlastingRecipeBuilder> transform, int hotAirUsage) {
-//        ProcessingRecipeSerializer<IndustrialBlastingRecipe> serializer = TFMGRecipeTypes.INDUSTRIAL_BLASTING.getSerializer();
-//        GeneratedRecipe generatedRecipe = c -> {
-//            ItemLike itemLike = singleIngredient.get();
-//            transform
-//                    .apply((IndustrialBlastingRecipeBuilder) new IndustrialBlastingRecipeBuilder(serializer.getFactory(),hotAirUsage,
-//                            new ResourceLocation(namespace, CatnipServices.REGISTRIES.getKeyOrThrow(itemLike.asItem())
-//                                    .getPath())).withItemIngredients(Ingredient.of(itemLike)))
-//                    .build(c);
-//        };
-//        all.add(generatedRecipe);
-//        return generatedRecipe;
-//    }
-//
-//
-//
-//    public  GeneratedRecipe createIndustrialBlastingRecipe(Supplier<ItemLike> singleIngredient, UnaryOperator<IndustrialBlastingRecipeBuilder> transform, int hotAirUsage) {
-//        return createIndustrialBlastingRecipe(TFMG.MOD_ID, singleIngredient, transform, hotAirUsage);
-//    }
-//
-//    protected <T extends ProcessingRecipe<?>> GeneratedRecipe createIndustrialBlastingRecipeWithDeferredId(Supplier<ResourceLocation> name,
-//                                                                                                           UnaryOperator<IndustrialBlastingRecipeBuilder> transform, int hotAirUsage) {
-//        ProcessingRecipeSerializer<IndustrialBlastingRecipe> serializer = TFMGRecipeTypes.INDUSTRIAL_BLASTING.getSerializer();
-//        GeneratedRecipe generatedRecipe =
-//                c -> transform.apply(new IndustrialBlastingRecipeBuilder(serializer.getFactory(), hotAirUsage, name.get()))
-//                        .build(c);
-//        all.add(generatedRecipe);
-//        return generatedRecipe;
-//    }
-//
-//    public  GeneratedRecipe createIndustrialBlastingRecipe(ResourceLocation name, UnaryOperator<IndustrialBlastingRecipeBuilder> transform, int hotAirUsage) {
-//        return createIndustrialBlastingRecipeWithDeferredId(() -> name, transform, hotAirUsage);
-//    }
-//
-//    public GeneratedRecipe createIndustrialBlastingRecipe(String name, UnaryOperator<IndustrialBlastingRecipeBuilder> transform, int hotAirUsage) {
-//        return createIndustrialBlastingRecipe(TFMG.asResource(name), transform, hotAirUsage);
-//    }
-
-
-
-
-
-
 
 //    ///////////////
 //    public   GeneratedRecipe createVatRecipe(String namespace, Supplier<ItemLike> singleIngredient, UnaryOperator<VatMachineRecipeBuilder> transform, VatMachineRecipeBuilder.VatRecipeParams params) {

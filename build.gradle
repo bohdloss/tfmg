@@ -14,16 +14,7 @@ repositories {
     maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
     maven { url = "https://mvn.devos.one/snapshots" } // Registrate
     maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } // ForgeConfigAPIPort
-    maven {
-        // location of the maven that hosts JEI files since January 2023
-        name = "Jared's maven"
-        url = "https://maven.blamejared.com/"
-    }
-    maven {
-        // location of a maven mirror for JEI files, as a fallback
-        name = "ModMaven"
-        url = "https://modmaven.dev"
-    }
+    maven { url = "https://maven.blamejared.com" } // JEI, Vazkii's Mods
     maven { url = "https://api.modrinth.com/maven" }
 }
 
@@ -118,9 +109,9 @@ dependencies {
     implementation("com.tterrag.registrate:Registrate:${registrate_version}")
 
     // compile against the JEI API but do not include it at runtime
-    compileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
+    compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
     // at runtime, use the full JEI jar for NeoForge
-    runtimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
+    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
     implementation "maven.modrinth:jade:${jade_version}"
 }
 

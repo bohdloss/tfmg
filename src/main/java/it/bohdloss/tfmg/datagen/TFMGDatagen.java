@@ -7,6 +7,8 @@ import com.tterrag.registrate.providers.ProviderType;
 import it.bohdloss.tfmg.TFMG;
 import it.bohdloss.tfmg.datagen.recipes.TFMGRecipeProvider;
 import it.bohdloss.tfmg.datagen.recipes.values.TFMGStandardRecipeGen;
+import it.bohdloss.tfmg.datagen.recipes.values.create.TFMGMechanicalCraftingRecipeGen;
+import it.bohdloss.tfmg.datagen.recipes.values.create.TFMGSequencedAssemblyRecipeGen;
 import it.bohdloss.tfmg.registry.TFMGGeneratedEntriesProvider;
 import it.bohdloss.tfmg.registry.TFMGRegistrateTags;
 import net.createmod.ponder.foundation.PonderIndex;
@@ -40,13 +42,10 @@ public class TFMGDatagen {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void gatherDataLowestPriority(GatherDataEvent event) {
-        if(!event.getMods().contains(TFMG.MOD_ID)) {
-            return;
-        }
-
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+
         TFMGGeneratedEntriesProvider generatedEntriesProvider = new TFMGGeneratedEntriesProvider(output, lookupProvider);
         lookupProvider = generatedEntriesProvider.getRegistryProvider();
 
@@ -54,38 +53,13 @@ public class TFMGDatagen {
 
         //  generator.addProvider(true, new DamageTypeTagGen(output, lookupProvider, existingFileHelper));
 
-//            RECIPE_GENERATORS.add(new TFMGIndustrialBlastingRecipeGen(output, lookupProvider));
-//            RECIPE_GENERATORS.add(new CastingRecipeGen(output));
-//            RECIPE_GENERATORS.add(new VatRecipeGen(output));
         generator.addProvider(event.includeServer(), new TFMGStandardRecipeGen(output, lookupProvider));
-//            RECIPE_GENERATORS.add(new TFMGMechanicalCraftingRecipeGen(output));
-        //generator.addProvider(event.includeServer(), new TFMGMechanicalCraftingRecipeGen(output));
-//            generator.addProvider(true, new TFMGSequencedAssemblyRecipeGen(output));
+        generator.addProvider(event.includeServer(), new TFMGMechanicalCraftingRecipeGen(output, lookupProvider));
+        generator.addProvider(event.includeServer(), new TFMGSequencedAssemblyRecipeGen(output, lookupProvider));
 
-//            generator.addProvider(true, new DataProvider() {
-//
-//                @Override
-//                public @NotNull String getName() {
-//                    return "TFMG's Recipes";
-//                }
-//
-//                @Override
-//                public @NotNull CompletableFuture<?> run(@NotNull CachedOutput dc) {
-//                    return CompletableFuture.allOf(RECIPE_GENERATORS.stream()
-//                            .map(gen -> gen.run(dc))
-//                            .toArray(CompletableFuture[]::new));
-//                }
-//            });
-
-        //generator.addProvider(true, new IndustrialBlastingRecipeGen(output));
-        //generator.addProvider(true, new CastingRecipeGen(output));
-        //generator.addProvider(true, new VatRecipeGen(output));
-        //generator.addProvider(true, new TFMGStandardRecipeGen(output));
-        //generator.addProvider(true, new TFMGSequencedAssemblyRecipeGen(output));
         if (event.includeServer()) {
             TFMGRecipeProvider.registerAllProcessing(generator, output, lookupProvider);
         }
-
     }
 
     private static void addExtraRegistrateData() {
