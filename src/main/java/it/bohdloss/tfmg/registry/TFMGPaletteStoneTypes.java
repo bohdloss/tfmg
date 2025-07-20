@@ -8,7 +8,6 @@ import it.bohdloss.tfmg.TFMG;
 import it.bohdloss.tfmg.base.palettes.TFMGPaletteBlockPattern;
 import it.bohdloss.tfmg.base.palettes.TFMGPalettesVariantEntry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;

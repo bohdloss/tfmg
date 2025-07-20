@@ -66,7 +66,9 @@ public class DebugCinderBlockItem extends Item {
 //                DebugStuff.show("Item in slot " + i + ": " + cap.getStackInSlot(i));
 //            }
 //        }
-        if(!level.isClientSide && level.getBlockEntity(pos) instanceof PumpjackBlockEntity be) {
+        if(level.getBlockEntity(pos) instanceof BlastFurnaceOutputBlockEntity be) {
+            DebugStuff.show((level.isClientSide ? "Client" : "Server") + " -> " + be.fuelConsumeTimer);
+        }else if(!level.isClientSide && level.getBlockEntity(pos) instanceof PumpjackBlockEntity be) {
             BlockPos anchorPos = be.getBlockPos().above();
             BlockPos connector = be.findConnector(anchorPos);
             DebugStuff.show("Connector found: " + connector);

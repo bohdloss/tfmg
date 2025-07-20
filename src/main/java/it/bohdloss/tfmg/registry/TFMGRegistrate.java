@@ -59,7 +59,7 @@ public class TFMGRegistrate extends CreateRegistrate {
         return TFMG.REGISTRATE.get(name, BuiltInRegistries.ITEM.key()).get();
     }
     public static Item getBucket(String name) {
-        return TFMG.REGISTRATE.get(name+"_bucket", BuiltInRegistries.ITEM.key()).get();
+        return TFMG.REGISTRATE.get(name + "_bucket", BuiltInRegistries.ITEM.key()).get();
     }
 
     public <T extends CableType> CableTypeBuilder<T, TFMGRegistrate> cableType(NonNullFunction<CableType.Properties, T> factory) {

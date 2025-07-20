@@ -409,10 +409,10 @@ public class TFMGRecipeProvider extends RecipeProvider {
             return ItemTags.LOGS_THAT_BURN;
         }
         public static TagKey<Item> gold() {
-            return AllTags.commonItemTag("ingots/gold");
+            return Tags.Items.INGOTS_GOLD;
         }
         public static TagKey<Item> string() {
-            return AllTags.commonItemTag("string");
+            return Tags.Items.STRINGS;
         }
 
         public static ItemLike propeller() {
@@ -539,7 +539,7 @@ public class TFMGRecipeProvider extends RecipeProvider {
         }
 
         public static TagKey<Item> ironNugget() {
-            return AllTags.commonItemTag("nuggets/iron");
+            return Tags.Items.NUGGETS_IRON;
         }
 
         public static TagKey<Item> ironDust() {
@@ -587,7 +587,7 @@ public class TFMGRecipeProvider extends RecipeProvider {
         }
 
         public static TagKey<Item> wheatFlour() {
-            return AllTags.commonItemTag("flour/wheat");
+            return AllTags.commonItemTag("flours/wheat");
         }
 
         public static ItemLike copperIngot() {
@@ -623,7 +623,7 @@ public class TFMGRecipeProvider extends RecipeProvider {
         }
 
         public static Ingredient netherite() {
-            return Ingredient.of(AllTags.commonItemTag("ingots/netherite"));
+            return Ingredient.of(Tags.Items.INGOTS_NETHERITE);
         }
 
 

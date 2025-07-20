@@ -248,17 +248,17 @@ public class BlastFurnaceOutputBlockEntity extends SmartBlockEntity implements I
         }
 
         // In order not to waste fuel, don't try to consume any if there's no active recipe
-        if(fuelConsumeTimer == 0 && recipeExecutor.getRecipe() != null) {
+        if(fuelConsumeTimer == 0 && recipeExecutor.timer != -1) {
             // Try to pull more fuel from the fuel inventory
             ItemStack fuelStack = fuel.getManagedHandler().extractItem(0, 1, false);
             if(!fuelStack.isEmpty()) {
                 fuelConsumeTimer = TFMGConfigs.common().machines.blastFurnaceFuelConsumption.get();
             }
-
             // If we don't reset the fuel timer, the recipe executor will detect it because of hasIngredients and cancel
             // the recipe
         } else {
             fuelConsumeTimer = Math.max(0, fuelConsumeTimer - 1);
+            notifyUpdate();
         }
 
         if(fuelConsumeTimer > 0 && recipeExecutor.timer > 0) {
@@ -297,7 +297,7 @@ public class BlastFurnaceOutputBlockEntity extends SmartBlockEntity implements I
             }
         }
 
-        return fuelConsumeTimer != 0;
+        return fuelConsumeTimer != 0 || !fuel.getManagedHandler().extractItem(0, 1, true).isEmpty();
     }
 
     protected boolean checkFreeSpace(List<ItemStack> items, List<FluidStack> fluids) {
