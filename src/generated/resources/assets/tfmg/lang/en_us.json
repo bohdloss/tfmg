@@ -79,6 +79,7 @@
   "block.tfmg.cast_iron_pipe": "Cast Iron Pipe",
   "block.tfmg.cast_iron_smart_fluid_pipe": "Cast Iron Smart Fluid Pipe",
   "block.tfmg.cast_iron_truss": "Cast Iron Truss",
+  "block.tfmg.casting_basin": "Casting Basin",
   "block.tfmg.casting_basin.tooltip.behaviour1": "Creates steel ingots which must have a sufficent output as the internal storage of the basin is limited",
   "block.tfmg.casting_basin.tooltip.condition1": "When supplied with molten steel",
   "block.tfmg.casting_basin.tooltip.summary": "Casts ingots",

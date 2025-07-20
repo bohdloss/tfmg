@@ -12,13 +12,11 @@ import com.simibubi.create.content.fluids.pipes.valve.FluidValveRenderer;
 import com.simibubi.create.content.fluids.pipes.valve.FluidValveVisual;
 import com.simibubi.create.content.fluids.pump.PumpBlockEntity;
 import com.simibubi.create.content.fluids.pump.PumpRenderer;
-import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.fluids.tank.FluidTankRenderer;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.base.OrientedRotatingVisual;
 import com.simibubi.create.content.kinetics.base.ShaftRenderer;
 import com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual;
-import com.simibubi.create.content.kinetics.flywheel.FlywheelBlockEntity;
 import com.simibubi.create.content.kinetics.gearbox.GearboxBlockEntity;
 import com.simibubi.create.content.kinetics.gearbox.GearboxRenderer;
 import com.simibubi.create.content.kinetics.gearbox.GearboxVisual;
@@ -41,6 +39,8 @@ import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceH
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceRenderer;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_stove.BlastStoveBlockEntity;
+import it.bohdloss.tfmg.content.machinery.metallurgy.casting_basin.CastingBasinBlockEntity;
+import it.bohdloss.tfmg.content.machinery.metallurgy.casting_basin.CastingBasinRenderer;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenRenderer;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlockEntity;
@@ -141,11 +141,11 @@ public class TFMGBlockEntities {
 //            .blockEntity("converter", ConverterBlockEntity::new)
 //            .validBlocks(TFMGBlocks.CONVERTER)
 //            .register();
-//    public static final BlockEntityEntry<CastingBasinBlockEntity> CASTING_BASIN = REGISTRATE
-//            .blockEntity("casting_basin", CastingBasinBlockEntity::new)
-//            .validBlocks(TFMGBlocks.CASTING_BASIN)
-//            .renderer(() -> CastingBasinRenderer::new)
-//            .register();
+    public static final BlockEntityEntry<CastingBasinBlockEntity> CASTING_BASIN = REGISTRATE
+            .blockEntity("casting_basin", CastingBasinBlockEntity::new)
+            .validBlocks(TFMGBlocks.CASTING_BASIN)
+            .renderer(() -> CastingBasinRenderer::new)
+            .register();
 //
 //    public static final BlockEntityEntry<SurfaceScannerBlockEntity> SURFACE_SCANNER = REGISTRATE
 //            .blockEntity("surface_scanner", SurfaceScannerBlockEntity::new)
@@ -262,11 +262,6 @@ public class TFMGBlockEntities {
 //            .blockEntity("electrode_holder", ElectrodeHolderBlockEntity::new)
 //            .validBlocks(TFMGBlocks.ELECTRODE_HOLDER)
 //            .renderer(() -> ElectrodeHolderRenderer::new)
-//            .register();
-//    public static final BlockEntityEntry<SteelTankBlockEntity> STEEL_FLUID_TANK = REGISTRATE
-//            .blockEntity("steel_fluid_tank", SteelTankBlockEntity::new)
-//            .validBlocks(TFMGBlocks.STEEL_FLUID_TANK)
-//            .renderer(() -> SteelFluidTankRenderer::new)
 //            .register();
 
     public static final BlockEntityEntry<AluminumTankBlockEntity> ALUMINUM_FLUID_TANK = REGISTRATE

@@ -8,10 +8,7 @@ import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.simibubi.create.foundation.utility.CreateLang;
 import it.bohdloss.tfmg.TFMG;
-import it.bohdloss.tfmg.recipes.CokingRecipe;
-import it.bohdloss.tfmg.recipes.HotBlastRecipe;
-import it.bohdloss.tfmg.recipes.IndustrialBlastingRecipe;
-import it.bohdloss.tfmg.recipes.IndustrialBlastingRecipeParams;
+import it.bohdloss.tfmg.recipes.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.*;
@@ -25,7 +22,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public enum TFMGRecipeTypes implements IRecipeTypeInfo {
-//    CASTING(CastingRecipe::new),
+    CASTING(CastingRecipe::new),
     INDUSTRIAL_BLASTING(IndustrialBlastingRecipe::new),
     COKING(CokingRecipe::new),
 //    DISTILLATION(DistillationRecipe::new),

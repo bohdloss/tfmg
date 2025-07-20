@@ -1,4 +1,4 @@
-// 1.21.1	2025-07-19T00:48:11.756789807	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2025-07-20T04:15:26.158549321	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 e982a263b6af75821042107fdeff7bd809436d08 assets/tfmg/blockstates/air_intake.json
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
 b7f5146505c40c08cdea7ad01fa99048b7ac5451 assets/tfmg/blockstates/aluminum_block.json
@@ -67,6 +67,7 @@ e6191cb401599b3c33f0354bfe874bd197cb84e9 assets/tfmg/blockstates/cast_iron_fluid
 901e36e24f615852a72c2bbc7540780aa06c8992 assets/tfmg/blockstates/cast_iron_pipe.json
 51c50801611a969480ff203a549b3f12122b1d94 assets/tfmg/blockstates/cast_iron_smart_fluid_pipe.json
 4d15a7e50cc1c0ffe7578eb50d022b4941c503ea assets/tfmg/blockstates/cast_iron_truss.json
+86df9d2a2840b9ca6d2ef8f2a2f62bf285bed3a1 assets/tfmg/blockstates/casting_basin.json
 457932bf25382db211b7461d450af54a53db7b1c assets/tfmg/blockstates/cement.json
 b01e90f39cda043e50ea9c3d0605f4bfcef077aa assets/tfmg/blockstates/cinder_block.json
 2d34032100c750162bc216ecb5dcd415671b4ef8 assets/tfmg/blockstates/cinderflour_block.json
@@ -338,8 +339,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-886c10a74b5b622e3119981b12dbb3f19183c7ee assets/tfmg/lang/en_ud.json
-ae2a7106c4898918fc29303c4434006af2838683 assets/tfmg/lang/en_us.json
+2528ca656abe2df24fbdd9b225855bea70717532 assets/tfmg/lang/en_ud.json
+e76890e04220c34de31c6f7de659174826f81f51 assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
 4344f14c42bb7a9f90120b5f75927015c0edc3bc assets/tfmg/models/block/aluminum_cap_alt.json
@@ -922,6 +923,7 @@ da2c28e98d0ddf7166bdf7214c06e81ad8581b90 assets/tfmg/models/item/cast_iron_ingot
 93e27441af7522e3c8f3a7068f3e95122427c499 assets/tfmg/models/item/cast_iron_sheet.json
 84da535b10e09a52d2bb7cdc29a4b4ccb0b484d7 assets/tfmg/models/item/cast_iron_smart_fluid_pipe.json
 b4165238a4d466f3d07a2e1a8aba3bc084e9de77 assets/tfmg/models/item/cast_iron_truss.json
+4c68758acc40bc10a34fc566920c4b0c22894772 assets/tfmg/models/item/casting_basin.json
 e4c27a32808423c000921fcd9a25c869bd5974b0 assets/tfmg/models/item/cement.json
 bc946668199281b834a5195536239932e8d1eae9 assets/tfmg/models/item/centrifuge.json
 64c8372b0af7c08ed4e1db9fd255b6a15c8df00b assets/tfmg/models/item/cinder_block.json
@@ -1418,7 +1420,7 @@ ded1913401f4b56ac3175be37bf30ffadab245c8 data/create/tags/item/crushed_raw_mater
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/features_cannot_replace.json
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/infiniburn_overworld.json
 7f32a5d63a155caa8d1588cb982d9a963a12fd95 data/minecraft/tags/block/mineable/axe.json
-d984744b9aac09ec9b024586662abd302ff3a84b data/minecraft/tags/block/mineable/pickaxe.json
+a88e1877d017a309643dc42f235537dac77820c8 data/minecraft/tags/block/mineable/pickaxe.json
 9c7d1d075d20521106a7076ae12804d8e2ac6764 data/minecraft/tags/block/mineable/shovel.json
 dfca9f1cc79d30334f344f024c13a7c717bf4027 data/minecraft/tags/block/needs_iron_tool.json
 0d5fc686f72620f777464611c9a2058837d2ef92 data/minecraft/tags/block/needs_stone_tool.json
@@ -1658,6 +1660,7 @@ b3114368d48ec3588fbeb34853590ad82e50866d data/tfmg/loot_table/blocks/cast_iron_l
 7560e5accb6bf5c482937bdd9ba6b3762cd4c872 data/tfmg/loot_table/blocks/cast_iron_pipe.json
 8d75101d024a2fedf77a57cad2bb35824cb27950 data/tfmg/loot_table/blocks/cast_iron_smart_fluid_pipe.json
 d219b1a4f2400204f7eb84ba463c9338c19b0fa5 data/tfmg/loot_table/blocks/cast_iron_truss.json
+e0f12443e509c9fb46c5f77c686c4d03e9778f02 data/tfmg/loot_table/blocks/casting_basin.json
 945a8e1f868f72dcb5f951290744f5e23b4ada4d data/tfmg/loot_table/blocks/cement.json
 8a764606334d85d229124bf84aa7d4a16f8611ad data/tfmg/loot_table/blocks/cinder_block.json
 177ed46d0f732499315b63cd9d311d25b2750ae7 data/tfmg/loot_table/blocks/cinderflour_block.json

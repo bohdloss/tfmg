@@ -9,6 +9,7 @@ import com.simibubi.create.content.decoration.palettes.AllPaletteBlocks;
 import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
 import it.bohdloss.tfmg.TFMG;
 import it.bohdloss.tfmg.content.electricity.connection.Windings;
+import it.bohdloss.tfmg.datagen.recipes.values.tfmg.TFMGCastingRecipeGen;
 import it.bohdloss.tfmg.datagen.recipes.values.tfmg.TFMGCokingRecipeGen;
 import it.bohdloss.tfmg.datagen.recipes.values.tfmg.TFMGHotBlastRecipeGen;
 import it.bohdloss.tfmg.datagen.recipes.values.tfmg.TFMGIndustrialBlastingRecipeGen;
@@ -56,7 +57,7 @@ public class TFMGRecipeProvider extends RecipeProvider {
 //        GENERATORS.add(new TFMGWindingRecipeGen(output,registries));
 //        GENERATORS.add(new TFMGPolarizingRecipeGen(output,registries));
         GENERATORS.add(new TFMGHotBlastRecipeGen(output,registries));
-//        GENERATORS.add(new TFMGCastingRecipeGen(output,registries));
+        GENERATORS.add(new TFMGCastingRecipeGen(output, registries));
         GENERATORS.add(new TFMGIndustrialBlastingRecipeGen(output,registries));
 //        GENERATORS.add(new TFMGVatRecipeGen(output,registries));
 

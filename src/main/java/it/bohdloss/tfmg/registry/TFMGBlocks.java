@@ -41,6 +41,7 @@ import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceO
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.reinforcement.BlastFurnaceReinforcementBlockItem;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.reinforcement.BlastFurnaceReinforcementWallBlock;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_stove.*;
+import it.bohdloss.tfmg.content.machinery.metallurgy.casting_basin.CastingBasinBlock;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlock;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenCTBehaviour;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenGenerator;
@@ -806,17 +807,17 @@ public class TFMGBlocks {
                     .transform(customItemModel())
                     .register();
 
-//    public static final BlockEntry<CastingBasinBlock> CASTING_BASIN = REGISTRATE.block("casting_basin", CastingBasinBlock::new)
-//            .initialProperties(() -> Blocks.IRON_BLOCK)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .transform(pickaxeOnly())
-//            .properties(BlockBehaviour.Properties::noOcclusion)
-//            .blockstate(BlockStateGen.horizontalBlockProvider(true))
-//            .item()
-//            .transform(customItemModel())
-//            .register();
-//
-//
+    public static final BlockEntry<CastingBasinBlock> CASTING_BASIN = REGISTRATE.block("casting_basin", CastingBasinBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate(BlockStateGen.horizontalBlockProvider(true))
+            .item()
+            .transform(customItemModel())
+            .register();
+
+
 //    //------------------GADGETS------------------//
 //
 //    public static final BlockEntry<NapalmBombBlock> NAPALM_BOMB = REGISTRATE.block("napalm_bomb", NapalmBombBlock::new)
