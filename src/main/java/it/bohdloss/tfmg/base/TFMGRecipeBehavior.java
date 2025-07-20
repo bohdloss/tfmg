@@ -1,5 +1,7 @@
 package it.bohdloss.tfmg.base;
 
+import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
+import com.simibubi.create.content.processing.recipe.ProcessingRecipeParams;
 import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
@@ -19,20 +21,19 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
 
-public class TFMGRecipeBehavior<I extends TFMGRecipeInput, T extends StandardProcessingRecipe<I>> extends BlockEntityBehaviour {
+public class TFMGRecipeBehavior<I extends TFMGRecipeInput, T extends ProcessingRecipe<I, ? extends ProcessingRecipeParams>> extends BlockEntityBehaviour {
     public static final BehaviourType<TFMGRecipeBehavior<?, ?>> TYPE = new BehaviourType<>();
 
     protected final RecipeType<T> recipeType;
     protected Runnable updateCallback;
     protected Supplier<I> inputSupplier;
 
-    protected Predicate<Pair<List<ItemStack>, List<FluidStack>>> canFitResults;
-    protected Consumer<Pair<List<ItemStack>, List<FluidStack>>> acceptResults;
+    protected BiPredicate<I, T> hasIngredientsCheck;
+    protected BiPredicate<List<ItemStack>, List<FluidStack>> canFitResults;
+    protected BiConsumer<I, T> consumeInputs;
+    protected BiConsumer<List<ItemStack>, List<FluidStack>> acceptResults;
     protected Function<Integer, Integer> durationModifier;
 
     @Nullable
@@ -49,8 +50,10 @@ public class TFMGRecipeBehavior<I extends TFMGRecipeInput, T extends StandardPro
         this.recipeType = recipeType;
         this.updateCallback = () -> {};
         this.inputSupplier = () -> null;
-        this.canFitResults = x -> false;
-        this.acceptResults = x -> {};
+        this.hasIngredientsCheck = (x, y) -> true;
+        this.canFitResults = (x, y) -> false;
+        this.consumeInputs = (x, y) -> {};
+        this.acceptResults = (x, y) -> {};
         this.durationModifier = x -> x;
     }
 
@@ -64,13 +67,23 @@ public class TFMGRecipeBehavior<I extends TFMGRecipeInput, T extends StandardPro
         return this;
     }
 
-    public TFMGRecipeBehavior<I, T> withCheckFreeSpace(Predicate<Pair<List<ItemStack>, List<FluidStack>>> canFitResults) {
-        this.canFitResults = canFitResults == null ? x -> false : canFitResults;
+    public TFMGRecipeBehavior<I, T> withAdditionalIngredientCheck(BiPredicate<I, T> hasIngredientsCheck) {
+        this.hasIngredientsCheck = hasIngredientsCheck == null ? (x, y) -> true : hasIngredientsCheck;
         return this;
     }
 
-    public TFMGRecipeBehavior<I, T> withResultsDo(Consumer<Pair<List<ItemStack>, List<FluidStack>>> acceptResults) {
-        this.acceptResults = acceptResults == null ? x -> {} : acceptResults;
+    public TFMGRecipeBehavior<I, T> withCheckFreeSpace(BiPredicate<List<ItemStack>, List<FluidStack>> canFitResults) {
+        this.canFitResults = canFitResults == null ? (x, y) -> false : canFitResults;
+        return this;
+    }
+
+    public TFMGRecipeBehavior<I, T> withAdditionalInputConsumption(BiConsumer<I, T> consumeInputs) {
+        this.consumeInputs = consumeInputs == null ? (x, y) -> {} : consumeInputs;
+        return this;
+    }
+
+    public TFMGRecipeBehavior<I, T> withResultsDo(BiConsumer<List<ItemStack>, List<FluidStack>> acceptResults) {
+        this.acceptResults = acceptResults == null ? (x, y) -> {} : acceptResults;
         return this;
     }
 
@@ -154,7 +167,7 @@ public class TFMGRecipeBehavior<I extends TFMGRecipeInput, T extends StandardPro
         T theRecipe = holder.value();
         I theInput = inputSupplier.get();
 
-        if(!theInput.hasIngredients(theRecipe, shrinkItems, drainFluids)) {
+        if(!theInput.hasIngredients(theRecipe, shrinkItems, drainFluids) || !hasIngredientsCheck.test(theInput, theRecipe)) {
             laziness = 5; // Get lazy with it
             timer = -1;
             return;
@@ -172,10 +185,8 @@ public class TFMGRecipeBehavior<I extends TFMGRecipeInput, T extends StandardPro
 
             NonNullList<FluidStack> fluidResults = theRecipe.getFluidResults();
 
-            Pair<List<ItemStack>, List<FluidStack>> theResultsInQuestion = Pair.of(itemResults, fluidResults);
-
             // Will these results fit?
-            if(!canFitResults.test(theResultsInQuestion)) {
+            if(!canFitResults.test(itemResults, fluidResults)) {
                 laziness = 5; // Get lazy with it
                 return;
             }
@@ -186,8 +197,9 @@ public class TFMGRecipeBehavior<I extends TFMGRecipeInput, T extends StandardPro
             recipeDuration = timer;
 
             // Finally execute the recipe
+            consumeInputs.accept(theInput, theRecipe);
             theInput.useInputs(shrinkItems, drainFluids);
-            acceptResults.accept(theResultsInQuestion);
+            acceptResults.accept(itemResults, fluidResults);
 
             updateRecipe();
         } else if(timer != -1) {

@@ -5,22 +5,18 @@ import com.google.gson.JsonObject;
 import com.simibubi.create.foundation.utility.FilesHelper;
 import com.tterrag.registrate.providers.ProviderType;
 import it.bohdloss.tfmg.TFMG;
-import it.bohdloss.tfmg.datagen.recipes.TFMGProcessingRecipeGen;
 import it.bohdloss.tfmg.datagen.recipes.TFMGRecipeProvider;
 import it.bohdloss.tfmg.datagen.recipes.values.TFMGStandardRecipeGen;
 import it.bohdloss.tfmg.registry.TFMGGeneratedEntriesProvider;
 import it.bohdloss.tfmg.registry.TFMGRegistrateTags;
 import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +54,7 @@ public class TFMGDatagen {
 
         //  generator.addProvider(true, new DamageTypeTagGen(output, lookupProvider, existingFileHelper));
 
-//            RECIPE_GENERATORS.add(new IndustrialBlastingRecipeGen(output));
+//            RECIPE_GENERATORS.add(new TFMGIndustrialBlastingRecipeGen(output, lookupProvider));
 //            RECIPE_GENERATORS.add(new CastingRecipeGen(output));
 //            RECIPE_GENERATORS.add(new VatRecipeGen(output));
         generator.addProvider(event.includeServer(), new TFMGStandardRecipeGen(output, lookupProvider));
@@ -87,7 +83,7 @@ public class TFMGDatagen {
         //generator.addProvider(true, new TFMGStandardRecipeGen(output));
         //generator.addProvider(true, new TFMGSequencedAssemblyRecipeGen(output));
         if (event.includeServer()) {
-            TFMGProcessingRecipeGen.registerAll(generator, output, lookupProvider);
+            TFMGRecipeProvider.registerAllProcessing(generator, output, lookupProvider);
         }
 
     }

@@ -32,9 +32,9 @@ public class ScrewdriverItem extends Item {
                 boolean wasLocked = pipe.tfmg$isPipeLocked();
                 pipe.tfmg$setPipeLocked(player, !wasLocked);
                 if (wasLocked) {
-                    player.displayClientMessage(Component.translatable("item.tfmg.screwdriver.pipeUnlocked"), true);
+                    player.displayClientMessage(Component.translatable("item.tfmg.screwdriver.pipe_unlocked"), true);
                 } else {
-                    player.displayClientMessage(Component.translatable("item.tfmg.screwdriver.pipeLocked"), true);
+                    player.displayClientMessage(Component.translatable("item.tfmg.screwdriver.pipe_locked"), true);
                 }
 
                 pContext.getItemInHand().hurtAndBreak(1, player, Player.getSlotForHand(player.getUsedItemHand()));

@@ -36,6 +36,8 @@ import it.bohdloss.tfmg.content.decoration.tanks.cast_iron.aluminum.CastIronTank
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankBlock;
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankItem;
 import it.bohdloss.tfmg.content.items.CoalCokeBlockItem;
+import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceHatchBlock;
+import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlock;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.reinforcement.BlastFurnaceReinforcementBlockItem;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.reinforcement.BlastFurnaceReinforcementWallBlock;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_stove.*;
@@ -696,25 +698,25 @@ public class TFMGBlocks {
 
 
 //    //------------------METALLURGY------------------//
-//    public static final BlockEntry<BlastFurnaceOutputBlock> BLAST_FURNACE_OUTPUT = REGISTRATE.block("blast_furnace_output", BlastFurnaceOutputBlock::new)
-//            .initialProperties(() -> Blocks.NETHER_BRICKS)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .transform(pickaxeOnly())
-//            .blockstate(BlockStateGen.horizontalBlockProvider(true))
-//            .tag(BlockTags.NEEDS_STONE_TOOL)
-//            .item()
-//            .transform(customItemModel())
-//            .register();
-//
-//    public static final BlockEntry<BlastFurnaceHatchBlock> BLAST_FURNACE_HATCH = REGISTRATE.block("blast_furnace_hatch", BlastFurnaceHatchBlock::new)
-//            .initialProperties(() -> Blocks.NETHER_BRICKS)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .transform(pickaxeOnly())
-//            .tag(TFMGTags.TFMGBlockTags.BLAST_FURNACE_WALL.tag)
-//            .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_WALL.tag)
-//            .tag(BlockTags.NEEDS_STONE_TOOL)
-//            .simpleItem()
-//            .register();
+    public static final BlockEntry<BlastFurnaceOutputBlock> BLAST_FURNACE_OUTPUT = REGISTRATE.block("blast_furnace_output", BlastFurnaceOutputBlock::new)
+            .initialProperties(() -> Blocks.NETHER_BRICKS)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .blockstate(BlockStateGen.horizontalBlockProvider(true))
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<BlastFurnaceHatchBlock> BLAST_FURNACE_HATCH = REGISTRATE.block("blast_furnace_hatch", BlastFurnaceHatchBlock::new)
+            .initialProperties(() -> Blocks.NETHER_BRICKS)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .tag(TFMGTags.TFMGBlockTags.BLAST_FURNACE_WALL.tag)
+            .tag(TFMGTags.TFMGBlockTags.REINFORCED_BLAST_FURNACE_WALL.tag)
+            .tag(BlockTags.NEEDS_STONE_TOOL)
+            .simpleItem()
+            .register();
     public static final BlockEntry<Block> FIREPROOF_BRICKS = REGISTRATE.block("fireproof_bricks", Block::new)
             .initialProperties(() -> Blocks.NETHER_BRICKS)
             .properties(p -> p.requiresCorrectToolForDrops())

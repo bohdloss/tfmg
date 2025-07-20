@@ -241,23 +241,29 @@ public class BlastStoveBlockEntity extends AbstractMultiblock implements IHaveGo
         }
     }
 
-    protected boolean checkFreeSpace(Pair<List<ItemStack>, List<FluidStack>> results) {
-        // We know hot blast recipes have 2 outputs
-        FluidStack primary = results.getSecond().getFirst();
-        FluidStack secondary = results.getSecond().get(1);
+    protected boolean checkFreeSpace(List<ItemStack> items, List<FluidStack> fluids) {
+        FluidStack primary = fluids.getFirst();
+        FluidStack secondary = fluids.size() < 2 ? null : fluids.get(1);
 
-        return hotAir.getHandler().getSpace() >= primary.getAmount() &&
-                (hotAir.getHandler().isEmpty() || hotAir.getHandler().getFluid().getFluid().isSame(primary.getFluid())) &&
-                waste.getHandler().getSpace() >= secondary.getAmount() &&
-                (waste.getHandler().isEmpty() || waste.getHandler().getFluid().getFluid().isSame(secondary.getFluid()));
+        boolean fits = hotAir.getHandler().getSpace() >= primary.getAmount() &&
+                (hotAir.getHandler().isEmpty() || hotAir.getHandler().getFluid().getFluid().isSame(primary.getFluid()));
+
+        if(secondary != null) {
+            fits &= waste.getHandler().getSpace() >= secondary.getAmount() &&
+                    (waste.getHandler().isEmpty() || waste.getHandler().getFluid().getFluid().isSame(secondary.getFluid()));
+        }
+
+        return fits;
     }
 
-    protected void acceptResults(Pair<List<ItemStack>, List<FluidStack>> results) {
-        FluidStack primaryFluid = results.getSecond().getFirst();
-        FluidStack secondaryFluid = results.getSecond().get(1);
+    protected void acceptResults(List<ItemStack> items, List<FluidStack> fluids) {
+        FluidStack primaryFluid = fluids.getFirst();
+        FluidStack secondaryFluid = fluids.size() < 2 ? null : fluids.get(1);
 
         hotAir.getHandler().fill(primaryFluid, IFluidHandler.FluidAction.EXECUTE);
-        waste.getHandler().fill(secondaryFluid, IFluidHandler.FluidAction.EXECUTE);
+        if(secondaryFluid != null) {
+            waste.getHandler().fill(secondaryFluid, IFluidHandler.FluidAction.EXECUTE);
+        }
     }
 
     @Override

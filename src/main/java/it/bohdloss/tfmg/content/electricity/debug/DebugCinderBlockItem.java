@@ -5,6 +5,7 @@ import com.simibubi.create.foundation.blockEntity.IMultiBlockEntityContainer;
 import it.bohdloss.tfmg.DebugStuff;
 import it.bohdloss.tfmg.base.AbstractKineticMultiblock;
 import it.bohdloss.tfmg.base.AbstractMultiblock;
+import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlockEntity;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.PumpjackBlockEntity;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.NotNull;
 
 public class DebugCinderBlockItem extends Item {
@@ -39,6 +41,31 @@ public class DebugCinderBlockItem extends Item {
 //        }
 
 
+//        if(!level.isClientSide && level.getBlockEntity(pos) instanceof BlastFurnaceOutputBlockEntity be) {
+//            IItemHandlerModifiable handler = be.flux.getHandler();
+//            DebugStuff.show("HANDLER:");
+//            int slots = handler.getSlots();
+//            DebugStuff.show("Slots: " + slots);
+//            for(int i = 0; i < slots; i++) {
+//                DebugStuff.show("Item in slot " + i + ": " + handler.getStackInSlot(i));
+//            }
+//
+//            IItemHandlerModifiable managed = be.flux.getManagedHandler();
+//            DebugStuff.show("MANAGED:");
+//            int slotsmanaged = managed.getSlots();
+//            DebugStuff.show("Slots: " + slotsmanaged);
+//            for(int i = 0; i < slotsmanaged; i++) {
+//                DebugStuff.show("Item in slot " + i + ": " + managed.getStackInSlot(i));
+//            }
+//
+//            IItemHandlerModifiable cap = be.flux.getCapability();
+//            DebugStuff.show("CAPABILITY:");
+//            int capslots = cap.getSlots();
+//            DebugStuff.show("Slots: " + capslots);
+//            for(int i = 0; i < capslots; i++) {
+//                DebugStuff.show("Item in slot " + i + ": " + cap.getStackInSlot(i));
+//            }
+//        }
         if(!level.isClientSide && level.getBlockEntity(pos) instanceof PumpjackBlockEntity be) {
             BlockPos anchorPos = be.getBlockPos().above();
             BlockPos connector = be.findConnector(anchorPos);

@@ -1,4 +1,8 @@
-// 1.21.1	2025-07-18T03:07:17.7722626	TFMG's Processing Recipes
+// 1.21.1	2025-07-20T00:01:16.5354992	TFMG's Processing Recipes
 9e5cb196c2545687030a15e846c790c7892f8ace data/tfmg/recipe/coking/charcoal.json
 43fc3430c1381159a65059d3fa39d0c5397ecafd data/tfmg/recipe/coking/coal.json
 df1d8de13bae90d94c8c5af8a2a35d8fd1e7ba94 data/tfmg/recipe/hot_blast/hot_air.json
+05bee94affb3af5edf0bf5deef8760f724f9fdf1 data/tfmg/recipe/industrial_blasting/silicon.json
+a6e9b136050510f1e28e7854bc5b9677660b443b data/tfmg/recipe/industrial_blasting/steel.json
+4586298863d91e8a12ae02431a1135b9afa2db8a data/tfmg/recipe/industrial_blasting/steel_from_dust.json
+ce05423f3e82d608aeff1a5a33dae3fded03c4bd data/tfmg/recipe/industrial_blasting/steel_from_raw_iron.json

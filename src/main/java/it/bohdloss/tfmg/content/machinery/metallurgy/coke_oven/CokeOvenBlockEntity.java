@@ -1,12 +1,9 @@
 package it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven;
 
-import com.mojang.serialization.DataResult;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.fluid.CombinedTankWrapper;
 import com.simibubi.create.foundation.utility.CreateLang;
-import it.bohdloss.tfmg.DebugStuff;
-import it.bohdloss.tfmg.TFMG;
 import it.bohdloss.tfmg.TFMGUtils;
 import it.bohdloss.tfmg.base.*;
 import it.bohdloss.tfmg.config.TFMGConfigs;
@@ -19,16 +16,9 @@ import net.createmod.catnip.math.VecHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -40,10 +30,8 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.IFluidTank;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Optional;
 
 import static net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING;
 
@@ -177,24 +165,30 @@ public class CokeOvenBlockEntity extends AbstractMultiblock implements IHaveGogg
         }
     }
 
-    protected boolean checkFreeSpace(Pair<List<ItemStack>, List<FluidStack>> results) {
+    protected boolean checkFreeSpace(List<ItemStack> items, List<FluidStack> fluids) {
         // We know coking recipes have 2 outputs
-        FluidStack primary = results.getSecond().getFirst();
-        FluidStack secondary = results.getSecond().get(1);
+        FluidStack primary = fluids.getFirst();
+        FluidStack secondary = fluids.size() < 2 ? null : fluids.get(1);
 
-        return creosote.getHandler().getSpace() >= primary.getAmount() &&
-                (creosote.getHandler().isEmpty() || creosote.getHandler().getFluid().getFluid().isSame(primary.getFluid())) &&
-                waste.getHandler().getSpace() >= secondary.getAmount() &&
-                (waste.getHandler().isEmpty() || waste.getHandler().getFluid().getFluid().isSame(secondary.getFluid()));
+        boolean fits = creosote.getHandler().getSpace() >= primary.getAmount() &&
+                (creosote.getHandler().isEmpty() || creosote.getHandler().getFluid().getFluid().isSame(primary.getFluid()));
+
+        if(secondary != null) {
+            fits &= waste.getHandler().getSpace() >= secondary.getAmount() &&
+                    (waste.getHandler().isEmpty() || waste.getHandler().getFluid().getFluid().isSame(secondary.getFluid()));
+        }
+        return fits;
     }
 
-    protected void acceptResults(Pair<List<ItemStack>, List<FluidStack>> results) {
-        ItemStack onlyItem = results.getFirst().getFirst();
-        FluidStack primaryFluid = results.getSecond().getFirst();
-        FluidStack secondaryFluid = results.getSecond().get(1);
+    protected void acceptResults(List<ItemStack> items, List<FluidStack> fluids) {
+        ItemStack onlyItem = items.getFirst();
+        FluidStack primaryFluid = fluids.getFirst();
+        FluidStack secondaryFluid = fluids.size() < 2 ? null: fluids.get(1);
 
         creosote.getHandler().fill(primaryFluid, IFluidHandler.FluidAction.EXECUTE);
-        waste.getHandler().fill(secondaryFluid, IFluidHandler.FluidAction.EXECUTE);
+        if(secondaryFluid != null) {
+            waste.getHandler().fill(secondaryFluid, IFluidHandler.FluidAction.EXECUTE);
+        }
 
         Direction direction = getBlockState().getValue(FACING);
 

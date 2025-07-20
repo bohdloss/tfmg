@@ -204,6 +204,8 @@
 	"item.tfmg.screwdriver.tooltip.summary": "Can lock pipes in place",
 	"item.tfmg.screwdriver.tooltip.condition1": "When R-Clicking pipe",
 	"item.tfmg.screwdriver.tooltip.behaviour1": "Locks _Pipe_ in its current rotation allowing for _Pipes_ to be placed next to eachother _Without Connecting_",
+	"item.tfmg.screwdriver.pipe_locked": "Pipe Locked",
+	"item.tfmg.screwdriver.pipe_unlocked": "Pipe Unlocked",
 
 	"block.tfmg.polarizer.tooltip.summary": "Makes Magnetis out of Magnetic Ingots",
 	"block.tfmg.polarizer.tooltip.condition1": "When powered",

@@ -1,12 +1,17 @@
 package it.bohdloss.tfmg.registry;
 
 import com.simibubi.create.AllTags;
+import com.simibubi.create.content.kinetics.deployer.ItemApplicationRecipe;
+import com.simibubi.create.content.kinetics.deployer.ItemApplicationRecipeParams;
+import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.simibubi.create.foundation.utility.CreateLang;
 import it.bohdloss.tfmg.TFMG;
 import it.bohdloss.tfmg.recipes.CokingRecipe;
 import it.bohdloss.tfmg.recipes.HotBlastRecipe;
+import it.bohdloss.tfmg.recipes.IndustrialBlastingRecipe;
+import it.bohdloss.tfmg.recipes.IndustrialBlastingRecipeParams;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.*;
@@ -21,7 +26,7 @@ import java.util.function.Supplier;
 
 public enum TFMGRecipeTypes implements IRecipeTypeInfo {
 //    CASTING(CastingRecipe::new),
-//    INDUSTRIAL_BLASTING(IndustrialBlastingRecipe::new),
+    INDUSTRIAL_BLASTING(IndustrialBlastingRecipe::new),
     COKING(CokingRecipe::new),
 //    DISTILLATION(DistillationRecipe::new),
 //    WINDING(WindingRecipe::new),
@@ -60,6 +65,10 @@ public enum TFMGRecipeTypes implements IRecipeTypeInfo {
 
     TFMGRecipeTypes(StandardProcessingRecipe.Factory<?> processingFactory) {
         this(() -> new StandardProcessingRecipe.Serializer<>(processingFactory));
+    }
+
+    TFMGRecipeTypes(ProcessingRecipe.Factory<IndustrialBlastingRecipeParams, ? extends IndustrialBlastingRecipe> industrialBlastingRecipeFactory) {
+        this(() -> new IndustrialBlastingRecipe.Serializer<>(industrialBlastingRecipeFactory));
     }
 
     public static boolean shouldIgnoreInAutomation(RecipeHolder<?> recipe) {

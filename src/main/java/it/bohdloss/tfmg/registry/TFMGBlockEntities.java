@@ -37,6 +37,9 @@ import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelVisual;
 import it.bohdloss.tfmg.content.decoration.tanks.aluminum.AluminumTankBlockEntity;
 import it.bohdloss.tfmg.content.decoration.tanks.cast_iron.aluminum.CastIronTankBlockEntity;
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankBlockEntity;
+import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceHatchBlockEntity;
+import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlockEntity;
+import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceRenderer;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_stove.BlastStoveBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenRenderer;
@@ -403,20 +406,20 @@ public class TFMGBlockEntities {
             )
             .renderer(() -> TFMGFlywheelRenderer::new)
             .register();
-//
-//    public static final BlockEntityEntry<BlastFurnaceOutputBlockEntity> BLAST_FURNACE_OUTPUT = REGISTRATE
-//            .blockEntity("blast_furnace_output", BlastFurnaceOutputBlockEntity::new)
-//            .renderer(() -> BlastFurnaceRenderer::new)
-//            .validBlocks(TFMGBlocks.BLAST_FURNACE_OUTPUT)
-//            .register();
-//
-//    public static final BlockEntityEntry<BlastFurnaceHatchBlockEntity> BLAST_FURNACE_HATCH = REGISTRATE
-//            .blockEntity("blast_furnace_hatch", BlastFurnaceHatchBlockEntity::new)
-//            .validBlocks(TFMGBlocks.BLAST_FURNACE_HATCH)
-//            .register();
-//
-//
-//
+
+    public static final BlockEntityEntry<BlastFurnaceOutputBlockEntity> BLAST_FURNACE_OUTPUT = REGISTRATE
+            .blockEntity("blast_furnace_output", BlastFurnaceOutputBlockEntity::new)
+            .renderer(() -> BlastFurnaceRenderer::new)
+            .validBlocks(TFMGBlocks.BLAST_FURNACE_OUTPUT)
+            .register();
+
+    public static final BlockEntityEntry<BlastFurnaceHatchBlockEntity> BLAST_FURNACE_HATCH = REGISTRATE
+            .blockEntity("blast_furnace_hatch", BlastFurnaceHatchBlockEntity::new)
+            .validBlocks(TFMGBlocks.BLAST_FURNACE_HATCH)
+            .register();
+
+
+
 //    public static final BlockEntityEntry<CableHubBlockEntity> CABLE_HUB = REGISTRATE
 //            .blockEntity("cable_hub", CableHubBlockEntity::new)
 //            .validBlocks(TFMGBlocks.BRASS_CABLE_HUB,

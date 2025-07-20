@@ -3,6 +3,7 @@ package it.bohdloss.tfmg.base;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import it.bohdloss.tfmg.DebugStuff;
 import it.bohdloss.tfmg.registry.TFMGItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -24,16 +25,16 @@ public class TFMGItemBehavior extends BlockEntityBehaviour {
     public static final BehaviourType<TFMGItemBehavior> TYPE = new BehaviourType<>();
     public static final BehaviourType<TFMGItemBehavior> SECONDARY_TYPE = new BehaviourType<>();
 
-    private final BehaviourType<TFMGItemBehavior> type;
-    private final String name;
-    private final TFMGInventory handler;
-    private final OutwardHandler capability;
+    protected final BehaviourType<TFMGItemBehavior> type;
+    protected final String name;
+    protected TFMGInventory handler;
+    protected OutwardHandler capability;
     public boolean allowExtraction = true;
     public boolean allowInsertion = true;
     public boolean stackNonStackables;
     public int stackSize = 64;
-    private Runnable updateCallback;
-    private BiPredicate<Integer, ItemStack> validator;
+    protected Runnable updateCallback;
+    protected BiPredicate<Integer, ItemStack> validator;
 
     public TFMGItemBehavior(BehaviourType<TFMGItemBehavior> type, String name, SmartBlockEntity be, int slots) {
         super(be);
@@ -75,7 +76,7 @@ public class TFMGItemBehavior extends BlockEntityBehaviour {
         return this;
     }
 
-    public IItemHandler getCapability() {
+    public IItemHandlerModifiable getCapability() {
         return capability;
     }
 
@@ -102,7 +103,13 @@ public class TFMGItemBehavior extends BlockEntityBehaviour {
         handler.deserializeNBT(registries, nbt.getCompound(name));
     }
 
-    private record OutwardHandler(TFMGItemBehavior owner) implements IItemHandler {
+    protected static class OutwardHandler implements IItemHandlerModifiable {
+        protected final TFMGItemBehavior owner;
+
+        protected OutwardHandler(TFMGItemBehavior owner) {
+            this.owner = owner;
+        }
+
         @Override
         public int getSlots() {
             return owner.handler.getSlots();
@@ -116,7 +123,7 @@ public class TFMGItemBehavior extends BlockEntityBehaviour {
         @Override
         public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
             if(!owner.allowInsertion) {
-                return ItemStack.EMPTY;
+                return stack.copy();
             }
             return owner.handler.insertItem(slot, stack, simulate);
         }
@@ -138,11 +145,16 @@ public class TFMGItemBehavior extends BlockEntityBehaviour {
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             return owner.handler.isItemValid(slot, stack);
         }
+
+        @Override
+        public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            owner.handler.setStackInSlot(0, stack);
+        }
     }
 
-    private static class TFMGInventory extends ItemStackHandler {
-        private final TFMGItemBehavior owner;
-        private boolean tempDisableCallback;
+    protected static class TFMGInventory extends ItemStackHandler {
+        protected final TFMGItemBehavior owner;
+        protected boolean tempDisableCallback;
 
         public TFMGInventory(TFMGItemBehavior owner, int slots) {
             super(slots);
@@ -155,8 +167,13 @@ public class TFMGItemBehavior extends BlockEntityBehaviour {
         }
 
         @Override
+        protected int getStackLimit(int slot, @NotNull ItemStack stack) {
+            return Math.min(getSlotLimit(slot), owner.stackNonStackables ? owner.stackSize : stack.getMaxStackSize());
+        }
+
+        @Override
         public int getSlotLimit(int slot) {
-            return Math.min(owner.stackNonStackables ? 64 : super.getSlotLimit(slot), owner.stackSize);
+            return Math.min(owner.stackNonStackables ? owner.stackSize : super.getSlotLimit(slot), owner.stackSize);
         }
 
         @Override

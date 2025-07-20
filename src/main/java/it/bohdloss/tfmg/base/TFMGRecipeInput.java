@@ -1,5 +1,7 @@
 package it.bohdloss.tfmg.base;
 
+import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
+import com.simibubi.create.content.processing.recipe.ProcessingRecipeParams;
 import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
 import it.bohdloss.tfmg.DebugStuff;
@@ -20,7 +22,7 @@ public abstract class TFMGRecipeInput implements RecipeInput {
             NonNullList<Pair<Fluid, Integer>> drainFluids
     );
 
-    public <T extends StandardProcessingRecipe<I>, I extends TFMGRecipeInput> boolean hasIngredients(
+    public <T extends ProcessingRecipe<I, ? extends ProcessingRecipeParams>, I extends TFMGRecipeInput> boolean hasIngredients(
             T theRecipe,
             NonNullList<Pair<Integer, Integer>> shrinkItems,
             NonNullList<Pair<Fluid, Integer>> drainFluids

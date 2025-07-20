@@ -4,12 +4,19 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllFluids;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTags;
+import com.simibubi.create.api.data.recipe.ProcessingRecipeGen;
 import com.simibubi.create.content.decoration.palettes.AllPaletteBlocks;
 import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
 import it.bohdloss.tfmg.TFMG;
 import it.bohdloss.tfmg.content.electricity.connection.Windings;
+import it.bohdloss.tfmg.datagen.recipes.values.tfmg.TFMGCokingRecipeGen;
+import it.bohdloss.tfmg.datagen.recipes.values.tfmg.TFMGHotBlastRecipeGen;
+import it.bohdloss.tfmg.datagen.recipes.values.tfmg.TFMGIndustrialBlastingRecipeGen;
 import it.bohdloss.tfmg.registry.*;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.CachedOutput;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -30,6 +37,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class TFMGRecipeProvider extends RecipeProvider {
+    static final List<ProcessingRecipeGen<?, ?, ?>> GENERATORS = new ArrayList<>();
     protected final List<GeneratedRecipe> all = new ArrayList<>();
 
     public TFMGRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
@@ -40,6 +48,40 @@ public class TFMGRecipeProvider extends RecipeProvider {
     protected void buildRecipes(@NotNull RecipeOutput recipeOutput) {
         all.forEach(c -> c.register(recipeOutput));
         TFMG.LOGGER.info("{} registered {} recipe{}", getName(), all.size(), all.size() == 1 ? "" : "s");
+    }
+
+    public static void registerAllProcessing(DataGenerator gen, PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+        GENERATORS.add(new TFMGCokingRecipeGen(output,registries));
+//        GENERATORS.add(new TFMGDistillationRecipeGen(output,registries));
+//        GENERATORS.add(new TFMGWindingRecipeGen(output,registries));
+//        GENERATORS.add(new TFMGPolarizingRecipeGen(output,registries));
+        GENERATORS.add(new TFMGHotBlastRecipeGen(output,registries));
+//        GENERATORS.add(new TFMGCastingRecipeGen(output,registries));
+        GENERATORS.add(new TFMGIndustrialBlastingRecipeGen(output,registries));
+//        GENERATORS.add(new TFMGVatRecipeGen(output,registries));
+
+//        GENERATORS.add(new TFMGPressingRecipeGen(output,registries));
+//        GENERATORS.add(new TFMGItemApplicationRecipeGen(output,registries));
+//        GENERATORS.add(new TFMGFillingRecipeGen(output,registries));
+//        GENERATORS.add(new TFMGMixingRecipeGen(output,registries));
+//        GENERATORS.add(new TFMGCompactingRecipeGen(output,registries));
+//        GENERATORS.add(new TFMGCrushingRecipeGen(output,registries));
+//        GENERATORS.add(new TFMGDeployingRecipeGen(output,registries));
+
+        gen.addProvider(true, new DataProvider() {
+
+            @Override
+            public @NotNull String getName() {
+                return "TFMG's Processing Recipes";
+            }
+
+            @Override
+            public @NotNull CompletableFuture<?> run(@NotNull CachedOutput dc) {
+                return CompletableFuture.allOf(GENERATORS.stream()
+                        .map(gen -> gen.run(dc))
+                        .toArray(CompletableFuture[]::new));
+            }
+        });
     }
 
     protected GeneratedRecipe register(GeneratedRecipe recipe) {
@@ -810,9 +852,9 @@ public class TFMGRecipeProvider extends RecipeProvider {
 //        all.add(generatedRecipe);
 //        return generatedRecipe;
 //    }
-
-
-
+//
+//
+//
 //    public  GeneratedRecipe createIndustrialBlastingRecipe(Supplier<ItemLike> singleIngredient, UnaryOperator<IndustrialBlastingRecipeBuilder> transform, int hotAirUsage) {
 //        return createIndustrialBlastingRecipe(TFMG.MOD_ID, singleIngredient, transform, hotAirUsage);
 //    }
