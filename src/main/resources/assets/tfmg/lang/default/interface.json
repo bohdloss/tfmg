@@ -8,7 +8,7 @@
 
   "create.goggles.surface_scanner.header": "Surface Scanner",
   "create.goggles.surface_scanner.no_deposit": "No Deposits Found",
-  "create.goggles.surface_scanner.no_rotation": "Not Enough Rotation (Needs 64rpm)",
+  "create.goggles.surface_scanner.no_rotation": "Not Enough Rotation (Needs 64 RPM)",
   "create.goggles.surface_scanner.deposits_found": " Chunks With Oil Deposits Found",
 
   "create.goggles.distillation_tower.status": "Distillation Tower Info:",

@@ -209,7 +209,7 @@ public class SpoolItem extends Item implements IWind {
 
     @Override
     public boolean isBarVisible(@NotNull ItemStack stack) {
-        return this != TFMGItems.EMPTY_SPOOL.get() && getWindings(stack) != SpoolAmount.MAX.amount();
+        return this != TFMGItems.EMPTY_SPOOL.get() && getWindings(stack) != getMaxWindings(stack);
     }
 
     @Override
@@ -220,7 +220,7 @@ public class SpoolItem extends Item implements IWind {
     @Override
     public int getBarWidth(@NotNull ItemStack stack) {
         float value = (float) getWindings(stack);
-        float max = (float) SpoolAmount.MAX.amount();
+        float max = (float) getMaxWindings(stack);
         return (int) (13f * (value / max));
     }
 

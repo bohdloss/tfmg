@@ -116,7 +116,7 @@ public class WindingMachineBlock extends HorizontalKineticBlock implements IBE<W
     // Workaround for sneak-clicking the block with an item
     @SubscribeEvent
     public static void rightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-        if(!event.getHand().equals(InteractionHand.MAIN_HAND)) {
+        if(!event.getHand().equals(InteractionHand.MAIN_HAND) || event.getItemStack().isEmpty()) {
             return;
         }
 

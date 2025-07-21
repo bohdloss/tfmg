@@ -62,6 +62,8 @@ import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.crank
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.crank.PumpjackCrankRenderer;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.PumpjackBlockEntity;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.PumpjackRenderer;
+import it.bohdloss.tfmg.content.machinery.oil_processing.surface_scanner.SurfaceScannerBlockEntity;
+import it.bohdloss.tfmg.content.machinery.oil_processing.surface_scanner.SurfaceScannerRenderer;
 
 import static it.bohdloss.tfmg.TFMG.REGISTRATE;
 
@@ -150,12 +152,12 @@ public class TFMGBlockEntities {
             .validBlocks(TFMGBlocks.CASTING_BASIN)
             .renderer(() -> CastingBasinRenderer::new)
             .register();
-//
-//    public static final BlockEntityEntry<SurfaceScannerBlockEntity> SURFACE_SCANNER = REGISTRATE
-//            .blockEntity("surface_scanner", SurfaceScannerBlockEntity::new)
-//            .validBlocks(TFMGBlocks.SURFACE_SCANNER)
-//            .renderer(() -> SurfaceScannerRenderer::new)
-//            .register();
+
+    public static final BlockEntityEntry<SurfaceScannerBlockEntity> SURFACE_SCANNER = REGISTRATE
+            .blockEntity("surface_scanner", SurfaceScannerBlockEntity::new)
+            .validBlocks(TFMGBlocks.SURFACE_SCANNER)
+            .renderer(() -> SurfaceScannerRenderer::new)
+            .register();
     public static final BlockEntityEntry<FireboxBlockEntity> FIREBOX = REGISTRATE
             .blockEntity("firebox", FireboxBlockEntity::new)
             .validBlocks(TFMGBlocks.FIREBOX)

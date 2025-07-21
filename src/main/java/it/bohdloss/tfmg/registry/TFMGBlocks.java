@@ -70,6 +70,7 @@ import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hamme
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.large.LargePumpjackHammerConnectorBlock;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.large.LargePumpjackHammerHeadBlock;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.parts.large.LargePumpjackHammerPartBlock;
+import it.bohdloss.tfmg.content.machinery.oil_processing.surface_scanner.SurfaceScannerBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -671,15 +672,15 @@ public class TFMGBlocks {
             .transform(customItemModel())
             .register();
 
-//    public static final BlockEntry<SurfaceScannerBlock> SURFACE_SCANNER = REGISTRATE.block("surface_scanner", SurfaceScannerBlock::new)
-//            .initialProperties(SharedProperties::softMetal)
-//            .properties(BlockBehaviour.Properties::noOcclusion)
-//            .transform(pickaxeOnly())
-//            .addLayer(() -> RenderType::translucent)
-//            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
-//            .item()
-//            .transform(customItemModel())
-//            .register();
+    public static final BlockEntry<SurfaceScannerBlock> SURFACE_SCANNER = REGISTRATE.block("surface_scanner", SurfaceScannerBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(pickaxeOnly())
+            .addLayer(() -> RenderType::translucent)
+            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+            .item()
+            .transform(customItemModel())
+            .register();
     public static final BlockEntry<MachineInputBlock> MACHINE_INPUT =
             REGISTRATE.block("machine_input", MachineInputBlock::new)
                     .properties(BlockBehaviour.Properties::noOcclusion)
