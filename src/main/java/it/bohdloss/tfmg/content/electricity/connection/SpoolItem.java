@@ -1,6 +1,7 @@
 package it.bohdloss.tfmg.content.electricity.connection;
 
 import com.simibubi.create.foundation.utility.CreateLang;
+import it.bohdloss.tfmg.base.IWind;
 import it.bohdloss.tfmg.registry.TFMGDataComponents;
 import it.bohdloss.tfmg.registry.TFMGItems;
 import net.minecraft.ChatFormatting;
@@ -22,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class SpoolItem extends Item {
+public class SpoolItem extends Item implements IWind {
     public final int barColor;
 
     public SpoolItem(Properties properties, int barColor) {
@@ -34,14 +35,14 @@ public class SpoolItem extends Item {
     public @NotNull ItemStack getDefaultInstance() {
         ItemStack stack = new ItemStack(this);
         if(this != TFMGItems.EMPTY_SPOOL.get()) {
-            stack.set(TFMGDataComponents.WINDINGS, Windings.MAX);
+            setWindings(stack, SpoolAmount.MAX.amount());
         }
         return stack;
     }
 
     @Override
-    public void onCraftedBy(ItemStack stack, @NotNull Level level, @NotNull Player player) {
-        stack.set(TFMGDataComponents.WINDINGS, new Windings(1000));
+    public void onCraftedBy(@NotNull ItemStack stack, @NotNull Level level, @NotNull Player player) {
+        setWindings(stack, SpoolAmount.MAX.amount());
         super.onCraftedBy(stack, level, player);
 
     }
@@ -69,7 +70,7 @@ public class SpoolItem extends Item {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag) {
-        tooltipComponents.add(CreateLang.translateDirect("tooltip.coils", stack.getOrDefault(TFMGDataComponents.WINDINGS, Windings.DEFAULT).amount())
+        tooltipComponents.add(CreateLang.translateDirect("tooltip.coils", stack.getOrDefault(TFMGDataComponents.SPOOL_AMOUNT, SpoolAmount.DEFAULT).amount())
                 .withStyle(ChatFormatting.GREEN)
         );
         WireSelection selection = stack.get(TFMGDataComponents.WIRE_SELECTION);
@@ -196,7 +197,7 @@ public class SpoolItem extends Item {
     public void inventoryTick(@NotNull ItemStack stack, @NotNull Level level, @NotNull Entity entity, int slot, boolean isSelected) {
         super.inventoryTick(stack, level, entity, slot, isSelected);
 
-        if (stack.getOrDefault(TFMGDataComponents.WINDINGS, Windings.DEFAULT).amount() == 0 &&
+        if (getWindings(stack) == 0 &&
                 entity instanceof Player player &&
                 !stack.is(TFMGItems.EMPTY_SPOOL.get()))
         {
@@ -208,7 +209,7 @@ public class SpoolItem extends Item {
 
     @Override
     public boolean isBarVisible(@NotNull ItemStack stack) {
-        return this != TFMGItems.EMPTY_SPOOL.get() && !stack.getOrDefault(TFMGDataComponents.WINDINGS, Windings.DEFAULT).equals(Windings.MAX);
+        return this != TFMGItems.EMPTY_SPOOL.get() && getWindings(stack) != SpoolAmount.MAX.amount();
     }
 
     @Override
@@ -217,9 +218,29 @@ public class SpoolItem extends Item {
     }
 
     @Override
-    public int getBarWidth(ItemStack stack) {
-        float value = (float) stack.getOrDefault(TFMGDataComponents.WINDINGS, Windings.DEFAULT).amount();
-        float max = (float) Windings.MAX.amount();
+    public int getBarWidth(@NotNull ItemStack stack) {
+        float value = (float) getWindings(stack);
+        float max = (float) SpoolAmount.MAX.amount();
         return (int) (13f * (value / max));
+    }
+
+    @Override
+    public int getWindings(ItemStack itemStack) {
+        return itemStack.getOrDefault(TFMGDataComponents.SPOOL_AMOUNT, SpoolAmount.DEFAULT).amount();
+    }
+
+    @Override
+    public void setWindings(ItemStack itemStack, int windings) {
+        itemStack.set(TFMGDataComponents.SPOOL_AMOUNT, new SpoolAmount(windings));
+    }
+
+    @Override
+    public int getMaxWindings(ItemStack itemStack) {
+        return SpoolAmount.MAX.amount();
+    }
+
+    @Override
+    public int getRenderedColor(ItemStack itemStack) {
+        return getWindings(itemStack) == 0 ? 0x61472F : barColor;
     }
 }

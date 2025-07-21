@@ -184,7 +184,7 @@ public class TFMGItems {
 //            ENGINE_CYLINDER = REGISTRATE.item("engine_cylinder", CylinderItem::new).register(),
 //            TURBINE_BLADE = REGISTRATE.item("turbine_blade", CylinderItem::new).register();
     public static final ItemEntry<SpoolItem>
-            EMPTY_SPOOL = spoolItem("empty", 0x000000)
+            EMPTY_SPOOL = spoolItem("empty", 0x61472F)
             .recipe((c, p) -> p.stonecutting(DataIngredient.items(TFMGBlocks.HARDENED_PLANKS.asItem()), RecipeCategory.BUILDING_BLOCKS, c, 1))
             .register(),
             COPPER_SPOOL = spoolItem("copper", 0xD8735A)

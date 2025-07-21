@@ -6,7 +6,7 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import it.bohdloss.tfmg.content.decoration.encased.TFMGEncasedCogwheelBlock;
 import it.bohdloss.tfmg.content.electricity.connection.SpoolItem;
-import it.bohdloss.tfmg.content.electricity.connection.Windings;
+import it.bohdloss.tfmg.content.electricity.connection.SpoolAmount;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -56,7 +56,7 @@ public class TFMGCreativeTabs {
                     continue;
                 if(item.get() instanceof SpoolItem && !item.is(TFMGItems.EMPTY_SPOOL.get())){
                     ItemStack spool = item.get().getDefaultInstance();
-                    spool.set(TFMGDataComponents.WINDINGS, Windings.MAX);
+                    spool.set(TFMGDataComponents.SPOOL_AMOUNT, SpoolAmount.MAX);
                     event.accept(spool);
                     continue;
                 }

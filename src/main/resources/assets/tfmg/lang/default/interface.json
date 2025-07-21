@@ -105,7 +105,7 @@
   "create.goggles.generator.production": "Energy Production: %1$s fe/t",
 
   "create.resistor.allowed_voltage": "Percentage of Voltage Allowed",
-  "create.winding_machine.turn_percentage": "Allowed Turn Percentage (From 1000)",
+  "create.winding_machine.turn_percentage": "Allowed Turn Percentage",
   "create.creative_generator.voltage_generation": "Voltage Generation",
 
   "create.distillation_output.when_tank_is_full": "When Internal Tank is Full",

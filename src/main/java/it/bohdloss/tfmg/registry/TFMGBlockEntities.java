@@ -53,6 +53,9 @@ import it.bohdloss.tfmg.content.machinery.misc.firebox.FireboxBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.machine_input.MachineInputBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.smokestack.SmokestackBlockEntity;
+import it.bohdloss.tfmg.content.machinery.misc.winding_machine.WindingMachineBlockEntity;
+import it.bohdloss.tfmg.content.machinery.misc.winding_machine.WindingMachineRenderer;
+import it.bohdloss.tfmg.content.machinery.misc.winding_machine.WindingMachineVisual;
 import it.bohdloss.tfmg.content.machinery.oil_processing.OilDepositBlockEntity;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.PumpjackBaseBlockEntity;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.crank.PumpjackCrankBlockEntity;
@@ -461,13 +464,13 @@ public class TFMGBlockEntities {
 //            .renderer(() -> CableConnectorRenderer::new)
 //            .validBlocks(TFMGBlocks.CABLE_CONNECTOR, TFMGBlocks.GLASS_CABLE_CONNECTOR)
 //            .register();
-//
-//    public static final BlockEntityEntry<WindingMachineBlockEntity> WINDING_MACHINE = REGISTRATE
-//            .blockEntity("winding_machine", WindingMachineBlockEntity::new)
-//            .visual(() -> WindingMachineVisual::new,true)
-//            .validBlocks(TFMGBlocks.WINDING_MACHINE)
-//            .renderer(() -> WindingMachineRenderer::new)
-//            .register();
+
+    public static final BlockEntityEntry<WindingMachineBlockEntity> WINDING_MACHINE = REGISTRATE
+            .blockEntity("winding_machine", WindingMachineBlockEntity::new)
+            .visual(() -> WindingMachineVisual::new,true)
+            .validBlocks(TFMGBlocks.WINDING_MACHINE)
+            .renderer(() -> WindingMachineRenderer::new)
+            .register();
 
 
     public static final BlockEntityEntry<FluidPipeBlockEntity> TFMG_PIPE = REGISTRATE

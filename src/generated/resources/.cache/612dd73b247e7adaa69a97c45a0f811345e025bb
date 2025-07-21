@@ -1,4 +1,4 @@
-// 1.21.1	2025-07-21T15:51:50.379490866	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2025-07-21T20:23:24.868471129	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 e982a263b6af75821042107fdeff7bd809436d08 assets/tfmg/blockstates/air_intake.json
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
 b7f5146505c40c08cdea7ad01fa99048b7ac5451 assets/tfmg/blockstates/aluminum_block.json
@@ -367,6 +367,7 @@ aebb8e9da72f54469f230298ee2f195e889966cb assets/tfmg/blockstates/white_rebar_con
 624366f1e6f02b5cc0819f7d2f56920e5b8d0557 assets/tfmg/blockstates/white_rebar_concrete_slab.json
 03716a2a69f857225836a910a861e0d3b41f177f assets/tfmg/blockstates/white_rebar_concrete_stairs.json
 a91a739eb2fe9a2d24c409d2be93501503f87090 assets/tfmg/blockstates/white_rebar_concrete_wall.json
+8aa460493dd5f6cb3e23da5850cfae5ac64d0604 assets/tfmg/blockstates/winding_machine.json
 db068de81280e53b87af885271caea65a37187de assets/tfmg/blockstates/yellow_caution_block.json
 054af0b94f124941d9cf96c58f68a6114bd75977 assets/tfmg/blockstates/yellow_concrete.json
 98c9aa212e82100d7fc47354760940cc946594d4 assets/tfmg/blockstates/yellow_concrete_slab.json
@@ -378,8 +379,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-ac2ff867aacd8d4b0afdbc9a85838aeab1c21b47 assets/tfmg/lang/en_ud.json
-3e4b727e0487351cf13087fe68863c25d3d02ed6 assets/tfmg/lang/en_us.json
+b714dba1e3a47e71bd56af288beee113fd55ce77 assets/tfmg/lang/en_ud.json
+08880e55758fab2f091a98c63f8a3b7f60341689 assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
 4344f14c42bb7a9f90120b5f75927015c0edc3bc assets/tfmg/models/block/aluminum_cap_alt.json
@@ -1448,6 +1449,7 @@ eed7ac8dbb27b6af5ca4037db1e2b4949ea7c16a assets/tfmg/models/item/white_concrete_
 eed7ac8dbb27b6af5ca4037db1e2b4949ea7c16a assets/tfmg/models/item/white_rebar_concrete_slab.json
 4e02717d5f18da45095a831b81e55335f686ab31 assets/tfmg/models/item/white_rebar_concrete_stairs.json
 2d071678053e2c64df26025232ee54634fbbb16c assets/tfmg/models/item/white_rebar_concrete_wall.json
+5e988c155dcd8836bacf6e9d683ac6418c66482b assets/tfmg/models/item/winding_machine.json
 8996962c58bcedeb25fdb2de8eddc6e4aee502b6 assets/tfmg/models/item/yellow_caution_block.json
 b109faa224eec911c1ee74044ae3a4f2eb357124 assets/tfmg/models/item/yellow_concrete.json
 ece959a56af46e02f993c12fe921dc1660019686 assets/tfmg/models/item/yellow_concrete_slab.json
@@ -1596,7 +1598,7 @@ ded1913401f4b56ac3175be37bf30ffadab245c8 data/create/tags/item/crushed_raw_mater
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/infiniburn_overworld.json
 543dbb3bba839c96d454f6e26e7e97ce5ae9dc4e data/minecraft/tags/block/lush_ground_replaceable.json
 7f32a5d63a155caa8d1588cb982d9a963a12fd95 data/minecraft/tags/block/mineable/axe.json
-3ba1efe378cbce2edaf9a81eb317ee9ea83394cc data/minecraft/tags/block/mineable/pickaxe.json
+0b10e9cddebad04fb1113b9127eccb315f533e56 data/minecraft/tags/block/mineable/pickaxe.json
 9c7d1d075d20521106a7076ae12804d8e2ac6764 data/minecraft/tags/block/mineable/shovel.json
 543dbb3bba839c96d454f6e26e7e97ce5ae9dc4e data/minecraft/tags/block/moss_replaceable.json
 dfca9f1cc79d30334f344f024c13a7c717bf4027 data/minecraft/tags/block/needs_iron_tool.json
@@ -2193,6 +2195,7 @@ ae0c6ca42991ba0998b04fa6e11c31887ba48826 data/tfmg/loot_table/blocks/white_rebar
 99ab877ae74c842bbb3e444d4d81f71cd4285c97 data/tfmg/loot_table/blocks/white_rebar_concrete_slab.json
 29b9d841617ea11e102abfe575da03f9163de129 data/tfmg/loot_table/blocks/white_rebar_concrete_stairs.json
 25529a9ee3330ae7d47f044d9874cc5e0fa9125b data/tfmg/loot_table/blocks/white_rebar_concrete_wall.json
+c2fa303292b5e0d7cc845b2359e993a93ac17143 data/tfmg/loot_table/blocks/winding_machine.json
 e80882ac608f24c23133fc944c2c0d43638364f3 data/tfmg/loot_table/blocks/yellow_caution_block.json
 01922dce8b528d752fbd63e85b7e9337f1a72f15 data/tfmg/loot_table/blocks/yellow_concrete.json
 f4b6769aee0354874e25c134e38ea0decdd56c2e data/tfmg/loot_table/blocks/yellow_concrete_slab.json

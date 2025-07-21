@@ -1,8 +1,6 @@
 package it.bohdloss.tfmg.registry;
 
 import com.simibubi.create.AllTags;
-import com.simibubi.create.content.kinetics.deployer.ItemApplicationRecipe;
-import com.simibubi.create.content.kinetics.deployer.ItemApplicationRecipeParams;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
@@ -26,7 +24,7 @@ public enum TFMGRecipeTypes implements IRecipeTypeInfo {
     INDUSTRIAL_BLASTING(IndustrialBlastingRecipe::new),
     COKING(CokingRecipe::new),
 //    DISTILLATION(DistillationRecipe::new),
-//    WINDING(WindingRecipe::new),
+    WINDING(WindingRecipe::new),
     HOT_BLAST(HotBlastRecipe::new),
 //    VAT_MACHINE_RECIPE(VatMachineRecipe::new),
 //    POLARIZING(PolarizingRecipe::new),

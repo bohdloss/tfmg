@@ -36,6 +36,8 @@ public class TFMGRecipeBehavior<I extends TFMGRecipeInput, T extends ProcessingR
     protected BiConsumer<List<ItemStack>, List<FluidStack>> acceptResults;
     protected Function<Integer, Integer> durationModifier;
 
+    public boolean overrideItemConsumption;
+
     @Nullable
     protected ResourceLocation currentRecipe;
     protected RecipeHolder<T> recipeCache;
@@ -196,9 +198,15 @@ public class TFMGRecipeBehavior<I extends TFMGRecipeInput, T extends ProcessingR
             timer = durationModifier.apply(processingDuration);
             recipeDuration = timer;
 
+            // Clone everything
+            itemResults.replaceAll(ItemStack::copy);
+            fluidResults.replaceAll(FluidStack::copy);
+
             // Finally execute the recipe
             consumeInputs.accept(theInput, theRecipe);
-            theInput.useInputs(shrinkItems, drainFluids);
+            if(!overrideItemConsumption) {
+                theInput.useInputs(shrinkItems, drainFluids);
+            }
             acceptResults.accept(itemResults, fluidResults);
 
             updateRecipe();

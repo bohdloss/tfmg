@@ -12,12 +12,17 @@ import it.bohdloss.tfmg.recipes.CastingRecipe;
 import it.bohdloss.tfmg.registry.TFMGBlockEntities;
 import it.bohdloss.tfmg.registry.TFMGRecipeTypes;
 import net.createmod.catnip.animation.LerpedFloat;
+import net.createmod.catnip.math.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -34,6 +39,7 @@ public class CastingBasinBlockEntity extends SmartBlockEntity implements IHaveGo
     protected TFMGItemBehavior item;
     protected TFMGRecipeBehavior<TFMGRecipeWrapper, CastingRecipe> recipeExecutor;
     protected TFMGRecipeWrapper input;
+    protected int dropTimer;
 
     // Rendering stuff
     protected int lastFluidAmount = -1;
@@ -46,12 +52,13 @@ public class CastingBasinBlockEntity extends SmartBlockEntity implements IHaveGo
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
-        fluid = new TFMGFluidBehavior(TFMGFluidBehavior.TYPE, "Fluid", this, 400)
+        fluid = new TFMGFluidBehavior(TFMGFluidBehavior.TYPE, "Fluid", this, 200)
                 .allowExtraction(true)
                 .allowInsertion(true)
                 .syncCapacity(false)
                 .withCallback(this::onIOChange);
         item = new TFMGItemBehavior(TFMGItemBehavior.TYPE, "Output", this, 1)
+                .withStackSize(1)
                 .allowExtraction(true)
                 .allowInsertion(false)
                 .withStackSize(64)
@@ -102,6 +109,8 @@ public class CastingBasinBlockEntity extends SmartBlockEntity implements IHaveGo
     }
 
     protected void acceptResults(List<ItemStack> items, List<FluidStack> fluids) {
+        dropTimer = 20;
+
         ItemStack primary = items.getFirst();
         item.getHandler().insertItem(0, primary, false);
     }
@@ -131,7 +140,29 @@ public class CastingBasinBlockEntity extends SmartBlockEntity implements IHaveGo
         }
 
         if(!level.isClientSide) {
+            dropTimer = Math.max(0, dropTimer - 1);
+            if(dropTimer == 0 && !item.getHandler().getStackInSlot(0).isEmpty()) {
+                Vec3 dropVec = VecHelper.getCenterOf(worldPosition).add(0, 4f / 16f, 0);
+                ItemEntity dropped = new ItemEntity(level, dropVec.x, dropVec.y, dropVec.z, item.getHandler().extractItem(0, 1, false).copy());
+                dropped.setDefaultPickUpDelay();
+                dropped.setDeltaMovement(0, .2f, 0);
+                level.addFreshEntity(dropped);
+            }
             recipeExecutor.update();
         }
+    }
+
+    @Override
+    protected void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        super.write(tag, registries, clientPacket);
+
+        tag.putInt("DropTimer", dropTimer);
+    }
+
+    @Override
+    protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        super.read(tag, registries, clientPacket);
+
+        dropTimer = tag.getInt("DropTimer");
     }
 }

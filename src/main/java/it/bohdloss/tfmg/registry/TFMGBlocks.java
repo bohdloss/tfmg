@@ -57,6 +57,7 @@ import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackGenerator;
 import it.bohdloss.tfmg.content.machinery.misc.machine_input.MachineInputBlock;
 import it.bohdloss.tfmg.content.machinery.misc.smokestack.SmokestackBlock;
 import it.bohdloss.tfmg.content.machinery.misc.smokestack.SmokestackGenerator;
+import it.bohdloss.tfmg.content.machinery.misc.winding_machine.WindingMachineBlock;
 import it.bohdloss.tfmg.content.machinery.oil_processing.OilDepositBlock;
 import it.bohdloss.tfmg.content.machinery.oil_processing.distillation_tower.IndustrialPipeBlock;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.PumpjackBaseBlock;
@@ -660,16 +661,16 @@ public class TFMGBlocks {
                     .transform(customItemModel())
                     .register();
 
-//    public static final BlockEntry<WindingMachineBlock> WINDING_MACHINE = REGISTRATE.block("winding_machine", WindingMachineBlock::new)
-//            .initialProperties(SharedProperties::softMetal)
-//            .properties(BlockBehaviour.Properties::noOcclusion)
-//            .transform(pickaxeOnly())
-//            .transform(TFMGStress.setImpact(4.0))
-//            .blockstate(BlockStateGen.horizontalBlockProvider(true))
-//            .item()
-//            .transform(customItemModel())
-//            .register();
-//
+    public static final BlockEntry<WindingMachineBlock> WINDING_MACHINE = REGISTRATE.block("winding_machine", WindingMachineBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(pickaxeOnly())
+            .transform(TFMGStress.setImpact(4.0))
+            .blockstate(BlockStateGen.horizontalBlockProvider(true))
+            .item()
+            .transform(customItemModel())
+            .register();
+
 //    public static final BlockEntry<SurfaceScannerBlock> SURFACE_SCANNER = REGISTRATE.block("surface_scanner", SurfaceScannerBlock::new)
 //            .initialProperties(SharedProperties::softMetal)
 //            .properties(BlockBehaviour.Properties::noOcclusion)

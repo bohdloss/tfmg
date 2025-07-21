@@ -8,20 +8,20 @@ import com.simibubi.create.api.data.recipe.ProcessingRecipeGen;
 import com.simibubi.create.content.decoration.palettes.AllPaletteBlocks;
 import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
 import it.bohdloss.tfmg.TFMG;
-import it.bohdloss.tfmg.content.electricity.connection.Windings;
+import it.bohdloss.tfmg.content.electricity.connection.SpoolAmount;
 import it.bohdloss.tfmg.datagen.recipes.values.create.*;
-import it.bohdloss.tfmg.datagen.recipes.values.tfmg.TFMGCastingRecipeGen;
-import it.bohdloss.tfmg.datagen.recipes.values.tfmg.TFMGCokingRecipeGen;
-import it.bohdloss.tfmg.datagen.recipes.values.tfmg.TFMGHotBlastRecipeGen;
-import it.bohdloss.tfmg.datagen.recipes.values.tfmg.TFMGIndustrialBlastingRecipeGen;
+import it.bohdloss.tfmg.datagen.recipes.values.tfmg.*;
 import it.bohdloss.tfmg.registry.*;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -55,7 +55,7 @@ public class TFMGRecipeProvider extends RecipeProvider {
     public static void registerAllProcessing(DataGenerator gen, PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         GENERATORS.add(new TFMGCokingRecipeGen(output,registries));
 //        GENERATORS.add(new TFMGDistillationRecipeGen(output,registries));
-//        GENERATORS.add(new TFMGWindingRecipeGen(output,registries));
+        GENERATORS.add(new TFMGWindingRecipeGen(output,registries));
 //        GENERATORS.add(new TFMGPolarizingRecipeGen(output,registries));
         GENERATORS.add(new TFMGHotBlastRecipeGen(output,registries));
         GENERATORS.add(new TFMGCastingRecipeGen(output, registries));
@@ -639,7 +639,7 @@ public class TFMGRecipeProvider extends RecipeProvider {
 
         public static ItemStack coil100Turns(){
             ItemStack stack = TFMGItems.ELECTROMAGNETIC_COIL.asStack();
-            stack.set(TFMGDataComponents.WINDINGS, new Windings(100));
+            stack.set(TFMGDataComponents.SPOOL_AMOUNT, new SpoolAmount(100));
             return stack;
         }
 

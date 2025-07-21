@@ -8,11 +8,9 @@ import com.simibubi.create.content.redstone.link.controller.LinkedControllerScre
 import com.simibubi.create.content.trains.schedule.ScheduleScreen;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import it.bohdloss.tfmg.TFMG;
-import it.bohdloss.tfmg.recipes.CastingRecipe;
-import it.bohdloss.tfmg.recipes.CokingRecipe;
-import it.bohdloss.tfmg.recipes.HotBlastRecipe;
-import it.bohdloss.tfmg.recipes.IndustrialBlastingRecipe;
+import it.bohdloss.tfmg.recipes.*;
 import it.bohdloss.tfmg.registry.TFMGBlocks;
+import it.bohdloss.tfmg.registry.TFMGItems;
 import it.bohdloss.tfmg.registry.TFMGRecipeTypes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -100,15 +98,15 @@ public class TFMGJei implements IModPlugin {
 //                        .itemIcon(TFMGBlocks.POLARIZER.get())
 //                        .emptyBackground(177, 53)
 //                        .build("polarizing", PolarizingCategory::new),
-//
-//                winding = builder(WindingRecipe.class)
-//                        .addTypedRecipes(TFMGRecipeTypes.WINDING)
-//                        .catalyst(TFMGBlocks.WINDING_MACHINE::get)
-//                        .catalyst(TFMGItems.COPPER_SPOOL::get)
-//                        .catalyst(TFMGItems.CONSTANTAN_SPOOL::get)
-//                        .itemIcon(TFMGBlocks.WINDING_MACHINE.get())
-//                        .emptyBackground(177, 53)
-//                        .build("winding", WindingCategory::new),
+
+                winding = builder(WindingRecipe.class)
+                        .addTypedRecipes(TFMGRecipeTypes.WINDING)
+                        .catalyst(TFMGBlocks.WINDING_MACHINE::get)
+                        .catalyst(TFMGItems.COPPER_SPOOL::get)
+                        .catalyst(TFMGItems.CONSTANTAN_SPOOL::get)
+                        .itemIcon(TFMGBlocks.WINDING_MACHINE.get())
+                        .emptyBackground(177, 53)
+                        .build("winding", WindingCategory::new),
 
                 casting = builder(CastingRecipe.class)
                         .addTypedRecipes(TFMGRecipeTypes.CASTING)
