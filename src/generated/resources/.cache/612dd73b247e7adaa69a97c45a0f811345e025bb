@@ -1,4 +1,4 @@
-// 1.21.1	2025-07-20T16:21:22.666593251	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2025-07-21T15:51:50.379490866	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 e982a263b6af75821042107fdeff7bd809436d08 assets/tfmg/blockstates/air_intake.json
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
 b7f5146505c40c08cdea7ad01fa99048b7ac5451 assets/tfmg/blockstates/aluminum_block.json
@@ -130,6 +130,7 @@ da3ce72a164ba44b83d2e0a34aba7a2e0bf1f7e0 assets/tfmg/blockstates/deepslate_lead_
 10f47e08c249406dd1f2122d1e209998c45d848d assets/tfmg/blockstates/factory_floor_slab.json
 ef677a324787ed787012439b7d4a08b2cbfe5809 assets/tfmg/blockstates/factory_floor_stairs.json
 0bafb92dc1bee765cef915eb3175c827de51985a assets/tfmg/blockstates/factory_floor_wall.json
+f9219bb4cc781667e99e1a3011704d73568a9ff8 assets/tfmg/blockstates/firebox.json
 8e8feef9e07345228da05669fcb8449a4276f114 assets/tfmg/blockstates/fireclay.json
 fe071d9f7c86c74e47390c35709f6c59b71bfa59 assets/tfmg/blockstates/fireproof_brick_reinforcement.json
 13c8eae3dd74b79d0e43c31ff101111e0af058f1 assets/tfmg/blockstates/fireproof_bricks.json
@@ -377,8 +378,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-e5ddfbfe76dc1c1305add1ddb4dd7e8fbf014edf assets/tfmg/lang/en_ud.json
-635d9ed17bdc8a2667e15d1f97168990ff962490 assets/tfmg/lang/en_us.json
+ac2ff867aacd8d4b0afdbc9a85838aeab1c21b47 assets/tfmg/lang/en_ud.json
+3e4b727e0487351cf13087fe68863c25d3d02ed6 assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
 4344f14c42bb7a9f90120b5f75927015c0edc3bc assets/tfmg/models/block/aluminum_cap_alt.json
@@ -1132,6 +1133,7 @@ af32c2651e6a26f4600f8e5b8ce687348f7e7990 assets/tfmg/models/item/ethylene_bucket
 1ad0fcaf5dedf28d9bf9e57b1e4a5e3171128b50 assets/tfmg/models/item/factory_floor_slab.json
 4a370c91360e065c6c6f4ee0020e34930f152106 assets/tfmg/models/item/factory_floor_stairs.json
 ea3792ff90f44546f7a1dbbdb9a984dc1ef03edf assets/tfmg/models/item/factory_floor_wall.json
+a6c87f184fb61256b71c08c27f83c97120a64d2c assets/tfmg/models/item/firebox.json
 84956ff1e797ed4facf000763dc0758d88e26095 assets/tfmg/models/item/fireclay.json
 392d736d912396962c0980623b8fcdbdb1541ad7 assets/tfmg/models/item/fireclay_ball.json
 6adcbf69c17e06e98cc848dc136b8907c9cff7be assets/tfmg/models/item/fireproof_brick.json
@@ -1594,7 +1596,7 @@ ded1913401f4b56ac3175be37bf30ffadab245c8 data/create/tags/item/crushed_raw_mater
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/infiniburn_overworld.json
 543dbb3bba839c96d454f6e26e7e97ce5ae9dc4e data/minecraft/tags/block/lush_ground_replaceable.json
 7f32a5d63a155caa8d1588cb982d9a963a12fd95 data/minecraft/tags/block/mineable/axe.json
-8a368734d1c6869c8fdabc5fd99a157fa8f8a345 data/minecraft/tags/block/mineable/pickaxe.json
+3ba1efe378cbce2edaf9a81eb317ee9ea83394cc data/minecraft/tags/block/mineable/pickaxe.json
 9c7d1d075d20521106a7076ae12804d8e2ac6764 data/minecraft/tags/block/mineable/shovel.json
 543dbb3bba839c96d454f6e26e7e97ce5ae9dc4e data/minecraft/tags/block/moss_replaceable.json
 dfca9f1cc79d30334f344f024c13a7c717bf4027 data/minecraft/tags/block/needs_iron_tool.json
@@ -1967,6 +1969,7 @@ dd2ace3ebd61456b31d0069bfd8abe19111f748c data/tfmg/loot_table/blocks/factory_flo
 a84d11a777ea8334c27703b96830a1e1df7b2d04 data/tfmg/loot_table/blocks/factory_floor_slab.json
 b65a4d119a0f0c1e71a1092e52070f0a80fa347f data/tfmg/loot_table/blocks/factory_floor_stairs.json
 f1c302b35579f00752fcf910aa57c81fc43ef872 data/tfmg/loot_table/blocks/factory_floor_wall.json
+f13e712d2d0cf08d5c685f7366677f6dadc248ea data/tfmg/loot_table/blocks/firebox.json
 b413d50a081288a2d2599995dd001edc76f543d0 data/tfmg/loot_table/blocks/fireclay.json
 484c04b2a260e205cfcb9c1597a0b1f39a3f4690 data/tfmg/loot_table/blocks/fireproof_brick_reinforcement.json
 da3f506656a11eae1e9dd6dfa504f001446d54e7 data/tfmg/loot_table/blocks/fireproof_bricks.json

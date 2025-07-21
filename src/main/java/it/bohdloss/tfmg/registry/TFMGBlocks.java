@@ -49,6 +49,9 @@ import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlock;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeGenerator;
 import it.bohdloss.tfmg.content.machinery.misc.concrete_hose.ConcreteHoseBlock;
 import it.bohdloss.tfmg.content.machinery.misc.exhaust.ExhaustBlock;
+import it.bohdloss.tfmg.content.machinery.misc.firebox.FireboxBlock;
+import it.bohdloss.tfmg.content.machinery.misc.firebox.FireboxCTBehavior;
+import it.bohdloss.tfmg.content.machinery.misc.firebox.FireboxGenerator;
 import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackBlock;
 import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackGenerator;
 import it.bohdloss.tfmg.content.machinery.misc.machine_input.MachineInputBlock;
@@ -644,18 +647,19 @@ public class TFMGBlocks {
             .transform(customItemModel())
             .onRegister(b -> BlockStressValues.IMPACTS.register(b, () -> 2.0f))
             .register();
-//    @SuppressWarnings("'addLayer(java.util.function.Supplier<java.util.function.Supplier<net.minecraft.client.renderer.RenderType>>)' is deprecated and marked for removal ")
-//    public static final BlockEntry<FireboxBlock> FIREBOX =
-//            REGISTRATE.block("firebox", FireboxBlock::new)
-//                    .initialProperties(SharedProperties::stone)
-//                    .properties(p -> p.sound(SoundType.NETHER_BRICKS))
-//                    .transform(pickaxeOnly())
-//                    .onRegister(CreateRegistrate.connectedTextures(() -> new MultiblockCTBehavior(null, TFMGSpriteShifts.FIREBOX_TOP)))
+    @SuppressWarnings("'addLayer(java.util.function.Supplier<java.util.function.Supplier<net.minecraft.client.renderer.RenderType>>)' is deprecated and marked for removal ")
+    public static final BlockEntry<FireboxBlock> FIREBOX =
+            REGISTRATE.block("firebox", FireboxBlock::new)
+                    .initialProperties(SharedProperties::stone)
+                    .blockstate(new FireboxGenerator()::generate)
+                    .properties(p -> p.sound(SoundType.NETHER_BRICKS))
+                    .transform(pickaxeOnly())
+                    .onRegister(CreateRegistrate.connectedTextures(() -> new FireboxCTBehavior(null, TFMGSpriteShifts.FIREBOX_TOP)))
 //                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
-//                    .item(SteelTankItem::new)
-//                    .build()
-//                    .register();
-//
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
 //    public static final BlockEntry<WindingMachineBlock> WINDING_MACHINE = REGISTRATE.block("winding_machine", WindingMachineBlock::new)
 //            .initialProperties(SharedProperties::softMetal)
 //            .properties(BlockBehaviour.Properties::noOcclusion)

@@ -49,6 +49,7 @@ import it.bohdloss.tfmg.content.machinery.misc.concrete_hose.ConcreteHoseBlockEn
 import it.bohdloss.tfmg.content.machinery.misc.concrete_hose.ConcreteHoseRenderer;
 import it.bohdloss.tfmg.content.machinery.misc.concrete_hose.ConcreteHoseVisual;
 import it.bohdloss.tfmg.content.machinery.misc.exhaust.ExhaustBlockEntity;
+import it.bohdloss.tfmg.content.machinery.misc.firebox.FireboxBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.flarestack.FlarestackBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.machine_input.MachineInputBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.smokestack.SmokestackBlockEntity;
@@ -152,10 +153,10 @@ public class TFMGBlockEntities {
 //            .validBlocks(TFMGBlocks.SURFACE_SCANNER)
 //            .renderer(() -> SurfaceScannerRenderer::new)
 //            .register();
-//    public static final BlockEntityEntry<FireboxBlockEntity> FIREBOX = REGISTRATE
-//            .blockEntity("firebox", FireboxBlockEntity::new)
-//            .validBlocks(TFMGBlocks.FIREBOX)
-//            .register();
+    public static final BlockEntityEntry<FireboxBlockEntity> FIREBOX = REGISTRATE
+            .blockEntity("firebox", FireboxBlockEntity::new)
+            .validBlocks(TFMGBlocks.FIREBOX)
+            .register();
 //    public static final BlockEntityEntry<VoltageObserverBlockEntity> VOLTAGE_OBSERVER = REGISTRATE
 //            .blockEntity("voltage_observer", VoltageObserverBlockEntity::new)
 //            .validBlocks(TFMGBlocks.VOLTAGE_OBSERVER)

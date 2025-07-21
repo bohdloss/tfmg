@@ -8,24 +8,21 @@ import com.simibubi.create.foundation.item.TooltipModifier;
 import it.bohdloss.tfmg.registry.*;
 import it.bohdloss.tfmg.worldgen.TFMGFeatures;
 import net.createmod.catnip.lang.FontHelper;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.level.block.Block;
-import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.registries.RegisterEvent;
 import org.slf4j.Logger;
 
 import static net.createmod.catnip.lang.FontHelper.styleFromColor;
 
 @Mod(TFMG.MOD_ID)
+@EventBusSubscriber
 public class TFMG {
     public static final String MOD_ID = "tfmg";
     public static final Logger LOGGER = LogUtils.getLogger();
@@ -78,19 +75,18 @@ public class TFMG {
 
 //        TFMGPackets.register();
 //        modEventBus.addListener(TFMGSoundEvents::register);
-//        modEventBus.addListener(TFMG::commonSetup);
     }
 
     /**
      * fluid interaction & firebox heating
      */
-//    public static void commonSetup(final FMLCommonSetupEvent event) {
-//        TFMGFluidInteractions.registerFluidInteractions();
-//
-//        event.enqueueWork(() -> {
+    @SubscribeEvent
+    public static void commonSetup(FMLCommonSetupEvent event) {
+        TFMGFluids.registerFluidInteractions();
+
+        event.enqueueWork(() -> {
 //            BaseFuelTypes.register();
-//            TFMGBoilerHeaters.registerDefaults();
-//
-//        });
-//    }
+            TFMGBoilerHeaters.registerDefaults();
+        });
+    }
 }

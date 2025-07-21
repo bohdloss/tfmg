@@ -22,10 +22,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.fluids.BaseFlowingFluid;
+import net.neoforged.neoforge.fluids.FluidInteractionRegistry;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
@@ -318,6 +321,90 @@ public class TFMGFluids {
         public int getDensity() {
             return -1;
         }
+    }
+
+    public static void registerFluidInteractions() {
+        FluidInteractionRegistry.addInteraction(NeoForgeMod.LAVA_TYPE.value(), new FluidInteractionRegistry.InteractionInformation(
+                TFMGFluids.CRUDE_OIL.get().getFluidType(),
+                fluidState -> {
+                    if (fluidState.isSource()) {
+                        return TFMGBlocks.FOSSILSTONE.get().defaultBlockState();
+                    } else {
+                        return Blocks.SMOOTH_BASALT.defaultBlockState();
+                    }
+                }
+        ));
+        FluidInteractionRegistry.addInteraction(NeoForgeMod.LAVA_TYPE.value(), new FluidInteractionRegistry.InteractionInformation(
+                TFMGFluids.HEAVY_OIL.get().getFluidType(),
+                fluidState -> {
+                    if (fluidState.isSource()) {
+                        return TFMGBlocks.FOSSILSTONE.get().defaultBlockState();
+                    } else {
+                        return Blocks.SMOOTH_BASALT.defaultBlockState();
+                    }
+                }
+        ));
+        //
+        FluidInteractionRegistry.addInteraction(NeoForgeMod.LAVA_TYPE.value(), new FluidInteractionRegistry.InteractionInformation(
+                TFMGFluids.GASOLINE.get().getFluidType(),
+                fluidState -> {
+                    if (fluidState.isSource()) {
+                        return TFMGBlocks.FOSSILSTONE.get().defaultBlockState();
+                    } else {
+                        return Blocks.SMOOTH_BASALT.defaultBlockState();
+                    }
+                }
+        ));
+        FluidInteractionRegistry.addInteraction(NeoForgeMod.LAVA_TYPE.value(), new FluidInteractionRegistry.InteractionInformation(
+                TFMGFluids.DIESEL.get().getFluidType(),
+                fluidState -> {
+                    if (fluidState.isSource()) {
+                        return TFMGBlocks.FOSSILSTONE.get().defaultBlockState();
+                    } else {
+                        return Blocks.SMOOTH_BASALT.defaultBlockState();
+                    }
+                }
+        ));
+        FluidInteractionRegistry.addInteraction(NeoForgeMod.LAVA_TYPE.value(), new FluidInteractionRegistry.InteractionInformation(
+                TFMGFluids.NAPHTHA.get().getFluidType(),
+                fluidState -> {
+                    if (fluidState.isSource()) {
+                        return TFMGBlocks.FOSSILSTONE.get().defaultBlockState();
+                    } else {
+                        return Blocks.SMOOTH_BASALT.defaultBlockState();
+                    }
+                }
+        ));
+        FluidInteractionRegistry.addInteraction(NeoForgeMod.LAVA_TYPE.value(), new FluidInteractionRegistry.InteractionInformation(
+                TFMGFluids.KEROSENE.get().getFluidType(),
+                fluidState -> {
+                    if (fluidState.isSource()) {
+                        return TFMGBlocks.FOSSILSTONE.get().defaultBlockState();
+                    } else {
+                        return Blocks.SMOOTH_BASALT.defaultBlockState();
+                    }
+                }
+        ));
+        FluidInteractionRegistry.addInteraction(NeoForgeMod.LAVA_TYPE.value(), new FluidInteractionRegistry.InteractionInformation(
+                TFMGFluids.LUBRICATION_OIL.get().getFluidType(),
+                fluidState -> {
+                    if (fluidState.isSource()) {
+                        return TFMGBlocks.FOSSILSTONE.get().defaultBlockState();
+                    } else {
+                        return Blocks.SMOOTH_BASALT.defaultBlockState();
+                    }
+                }
+        ));
+        FluidInteractionRegistry.addInteraction(NeoForgeMod.LAVA_TYPE.value(), new FluidInteractionRegistry.InteractionInformation(
+                TFMGFluids.COOLING_FLUID.get().getFluidType(),
+                fluidState -> {
+                    if (fluidState.isSource()) {
+                        return Blocks.BASALT.defaultBlockState();
+                    } else {
+                        return Blocks.SMOOTH_BASALT.defaultBlockState();
+                    }
+                }
+        ));
     }
 
     public static void init() {

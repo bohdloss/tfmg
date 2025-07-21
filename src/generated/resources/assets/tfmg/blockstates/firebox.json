@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "blaze=fading,shape=center": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=fading,shape=corner": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=fading,shape=side": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=fading,shape=single": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=kindled,shape=center": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=kindled,shape=corner": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=kindled,shape=side": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=kindled,shape=single": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=none,shape=center": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=none,shape=corner": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=none,shape=side": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=none,shape=single": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=seething,shape=center": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=seething,shape=corner": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=seething,shape=side": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=seething,shape=single": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=smouldering,shape=center": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=smouldering,shape=corner": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=smouldering,shape=side": {
+      "model": "tfmg:block/firebox/block"
+    },
+    "blaze=smouldering,shape=single": {
+      "model": "tfmg:block/firebox/block"
+    }
+  }
+}
