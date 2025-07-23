@@ -54,7 +54,7 @@ public class TFMGRecipeProvider extends RecipeProvider {
 
     public static void registerAllProcessing(DataGenerator gen, PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         GENERATORS.add(new TFMGCokingRecipeGen(output,registries));
-//        GENERATORS.add(new TFMGDistillationRecipeGen(output,registries));
+        GENERATORS.add(new TFMGDistillationRecipeGen(output,registries));
         GENERATORS.add(new TFMGWindingRecipeGen(output,registries));
 //        GENERATORS.add(new TFMGPolarizingRecipeGen(output,registries));
         GENERATORS.add(new TFMGHotBlastRecipeGen(output,registries));

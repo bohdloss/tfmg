@@ -2,6 +2,7 @@ package it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.cran
 
 import it.bohdloss.tfmg.content.machinery.misc.machine_input.MachineInputPowered;
 import net.createmod.catnip.animation.AnimationTickHolder;
+import net.createmod.catnip.animation.LerpedFloat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class PumpjackCrankBlockEntity extends MachineInputPowered {
     public BlockPos pumpjackPosition;
     public float angle;
+    public LerpedFloat lerpedAngle = LerpedFloat.angular();
 
     public PumpjackCrankBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -19,40 +21,20 @@ public class PumpjackCrankBlockEntity extends MachineInputPowered {
 
     public void tick() {
         super.tick();
-        setAngle();
-    }
 
-    public float getAngle() {
-        return angle;
-    }
-
-    public float calcNextAngle() {
-        float time = level.getGameTime() % 1_728_000;
-        float speed_amogus = Math.min(Math.abs(getMachineInputSpeed() / 6), (float) 10);
-        if (speed_amogus != 0) {
-            return (time * speed_amogus * 3 / 10f) % 360;
-        } else {
-            return 180;
-        }
-    }
-
-    private void setAngle() {
         if(hasMachineInput()) {
-            angle = calcNextAngle();
+            float time = level.getGameTime() % 1_728_000;
+            float speed_amogus = Math.min(Math.abs(getMachineInputSpeed() / 6), (float) 10);
+            if (speed_amogus != 0) {
+                angle = (time * speed_amogus * 3 / 10f) % 360;
+            } else {
+                angle = 180;
+            }
         } else {
             angle = 180;
         }
-    }
-
-    public float getInterpolated(float partialTick) {
-        float next = calcNextAngle();
-        float beangle = angle;
-        if(next < beangle) {
-            next += 360;
-        }
-        float angle = beangle + (next - beangle) * partialTick * 1.1f;
-        angle = angle % 360;
-        return angle;
+        lerpedAngle.chase(angle, 1, LerpedFloat.Chaser.EXP);
+        lerpedAngle.tickChaser();
     }
 
     @Override

@@ -42,8 +42,8 @@ public class PumpjackBlockEntity extends MechanicalBearingBlockEntity {
     public int headDistance = 0;
     public int crankConnectorDistance = 0;
     public int headBaseDistance = 0;
-    public float heightModifier = 0;
-    public float crankRadius = 0.7f;
+    protected float heightModifier = 0;
+    protected float crankRadius = 0.7f;
 
     public PumpjackBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -243,6 +243,14 @@ public class PumpjackBlockEntity extends MechanicalBearingBlockEntity {
         sendData();
     }
 
+    public float getCrankRadius() {
+        return connectorDistance / 5f;
+    }
+
+    public float getHeightModifier(float crankRadius, float angle) {
+        return (float) (crankRadius * Math.sin(Math.toRadians(angle)));
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -265,9 +273,9 @@ public class PumpjackBlockEntity extends MechanicalBearingBlockEntity {
         if (connectorPosition != null) {
             connectorDistance = Math.abs(getBlockPos().get(direction.getAxis()) - connectorPosition.get(direction.getAxis()));
             if (crankPosition != null && level.getBlockEntity(crankPosition) instanceof PumpjackCrankBlockEntity be) {
-                heightModifier = (float) (crankRadius * Math.sin(Math.toRadians(be.angle)));
+                crankRadius = getCrankRadius();
+                heightModifier = getHeightModifier(crankRadius, be.angle);
                 crankConnectorDistance = Math.abs(crankPosition.getY() - connectorPosition.getY());
-                crankRadius = (float) connectorDistance / 5;
             }
         }
         if (headPosition != null) {

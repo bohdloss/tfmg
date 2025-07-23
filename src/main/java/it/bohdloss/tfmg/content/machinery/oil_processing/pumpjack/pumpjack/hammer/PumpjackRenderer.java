@@ -74,46 +74,23 @@ public class PumpjackRenderer extends KineticBlockEntityRenderer<PumpjackBlockEn
         Direction direction = be.getBlockState().getValue(FACING);
         Vec3 vec3 = new Vec3(0,0,0);
         int q = 1;
-        if(be.connectorAtFront)
+        if(be.connectorAtFront) {
             q = -1;
+        }
 
         float hModifier = 0;
         float x=0;
         float y=0;
-        float angle = crank.getInterpolated(partialTicks);
+        float angle = crank.lerpedAngle.getValue(partialTicks);
+        float crankRadius = be.getCrankRadius();
+        float heightModifier = be.getHeightModifier(crankRadius, angle);
         if(crank!=null) {
-            hModifier = be.heightModifier - be.crankConnectorDistance;
+            hModifier = heightModifier - be.crankConnectorDistance;
             float linkLenght =    be.crankConnectorDistance;
-            if(direction == Direction.WEST) {
-                if ((angle>0&&angle < 90||angle > 270)||(angle<0&&angle > -90||angle < -270)) {
-                    x = (float) Math.sqrt(Math.pow(be.crankRadius, 2) - Math.pow(be.heightModifier, 2));
-               } else
-                   x = (float) -Math.sqrt(Math.pow(be.crankRadius, 2) - Math.pow(be.heightModifier, 2));
-                y = (float) (be.connectorDistance - Math.sqrt(Math.pow(be.connectorDistance, 2) - Math.pow(be.heightModifier, 2)));
-            }
-            if(direction == Direction.EAST) {
+            vec3 = vec3.add(0,linkLenght,0);
 
-                if ((angle>0&&angle < 90||angle > 270)||(angle<0&&angle > -90||angle < -270)) {
-                    x = (float) Math.sqrt(Math.pow(be.crankRadius, 2) - Math.pow(be.heightModifier, 2));
-                } else
-                    x = (float) -Math.sqrt(Math.pow(be.crankRadius, 2) - Math.pow(be.heightModifier, 2));
-                y = (float) (be.connectorDistance - Math.sqrt(Math.pow(be.connectorDistance, 2) - Math.pow(be.heightModifier, 2)));
-            }
-            if(direction == Direction.NORTH) {
-                if ((angle > 90&&angle < 270)||(angle < -90&&angle > -270)) {
-                    x = (float) Math.sqrt(Math.pow(be.crankRadius, 2) - Math.pow(be.heightModifier, 2));
-                  } else
-                      x = (float) -Math.sqrt(Math.pow(be.crankRadius, 2) - Math.pow(be.heightModifier, 2));
-                y = (float) (be.connectorDistance - Math.sqrt(Math.pow(be.connectorDistance, 2) - Math.pow(be.heightModifier, 2)));
-            }
-            if(direction == Direction.SOUTH) {
-                if ((angle > 90&&angle < 270)||(angle < -90&&angle > -270)) {
-                    x = (float) Math.sqrt(Math.pow(be.crankRadius, 2) - Math.pow(be.heightModifier, 2));
-               } else
-                   x = (float) -Math.sqrt(Math.pow(be.crankRadius, 2) - Math.pow(be.heightModifier, 2));
-                y = (float) (be.connectorDistance - Math.sqrt(Math.pow(be.connectorDistance, 2) - Math.pow(be.heightModifier, 2)));
-            }
-                vec3 = vec3.add(0,linkLenght,0);
+            x = (float) (Math.cos(Math.toRadians(angle)) * -be.getCrankRadius());
+            y = (float) (be.connectorDistance - Math.sqrt(Math.pow(be.connectorDistance, 2) - Math.pow(heightModifier, 2)));
         }
             x = x * q;
             y = y * q;

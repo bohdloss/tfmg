@@ -1,4 +1,4 @@
-package it.bohdloss.tfmg.content.decoration.tanks.cast_iron.aluminum;
+package it.bohdloss.tfmg.content.decoration.tanks.cast_iron;
 
 import com.simibubi.create.api.connectivity.ConnectivityHandler;
 import com.simibubi.create.content.equipment.symmetryWand.SymmetryWandItem;

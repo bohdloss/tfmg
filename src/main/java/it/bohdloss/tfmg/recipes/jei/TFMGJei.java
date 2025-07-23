@@ -45,13 +45,13 @@ public class TFMGJei implements IModPlugin {
 
         CreateRecipeCategory<?>
 
-//                advancedDistillation = builder(DistillationRecipe.class)
-//                .addTypedRecipes(TFMGRecipeTypes.DISTILLATION)
-//                .catalyst(TFMGBlocks.STEEL_DISTILLATION_CONTROLLER::get)
-//                .catalyst(TFMGBlocks.STEEL_DISTILLATION_OUTPUT::get)
-//                .itemIcon(TFMGBlocks.STEEL_DISTILLATION_CONTROLLER.get())
-//                .emptyBackground(177, 150)
-//                .build("advanced_distillation", DistillationCategory::new),
+                advancedDistillation = builder(DistillationRecipe.class)
+                .addTypedRecipes(TFMGRecipeTypes.DISTILLATION)
+                .catalyst(TFMGBlocks.STEEL_DISTILLATION_CONTROLLER::get)
+                .catalyst(TFMGBlocks.STEEL_DISTILLATION_OUTPUT::get)
+                .itemIcon(TFMGBlocks.STEEL_DISTILLATION_CONTROLLER.get())
+                .emptyBackground(177, 150)
+                .build("advanced_distillation", DistillationCategory::new),
 
                 coking = builder(CokingRecipe.class)
                         .addTypedRecipes(TFMGRecipeTypes.COKING)

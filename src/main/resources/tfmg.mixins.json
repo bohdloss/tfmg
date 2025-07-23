@@ -9,7 +9,9 @@
     "fluid_handling.FluidPipeBlockEntityMixin",
     "fluid_handling.FluidPipeBlockMixin",
     "fluid_handling.FluidPropagatorMixin",
+    "fluid_handling.FluidTankBlockEntityAccessor",
     "fluid_handling.FluidTankBlockEntityMixin",
+    "fluid_handling.SteamEngineBlockEntityMixin",
     "misc.FireBlockMixin"
   ],
   "client": [

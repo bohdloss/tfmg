@@ -11,9 +11,6 @@
   "processing_time": 100,
   "results": [
     {
-      "components": {
-        "tfmg:spool_amount": 100
-      },
       "id": "tfmg:electromagnetic_coil"
     }
   ]

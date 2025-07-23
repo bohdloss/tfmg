@@ -3,6 +3,8 @@
     "tfmg:aluminum_fluid_tank",
     "tfmg:cast_iron_fluid_tank",
     "tfmg:steel_fluid_tank",
+    "tfmg:steel_distillation_output",
+    "tfmg:steel_distillation_controller",
     "tfmg:industrial_pipe",
     "tfmg:concrete_encased_industrial_pipe",
     "tfmg:pumpjack_hammer",

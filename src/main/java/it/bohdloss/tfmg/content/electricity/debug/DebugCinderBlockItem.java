@@ -5,6 +5,7 @@ import com.simibubi.create.foundation.blockEntity.IMultiBlockEntityContainer;
 import it.bohdloss.tfmg.DebugStuff;
 import it.bohdloss.tfmg.base.AbstractKineticMultiblock;
 import it.bohdloss.tfmg.base.AbstractMultiblock;
+import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlockEntity;
@@ -66,6 +67,12 @@ public class DebugCinderBlockItem extends Item {
 //                DebugStuff.show("Item in slot " + i + ": " + cap.getStackInSlot(i));
 //            }
 //        }
+        if(!level.isClientSide && level.getBlockEntity(pos) instanceof SteelTankBlockEntity be) {
+            DebugStuff.show("Is boiler active? " + (be.boiler.isActive() ? "Yes" : "No"));
+            DebugStuff.show(" -actually active: " + (be.boiler.activeHeat != 0 ? "Yes" : "No"));
+            DebugStuff.show("Is distillation tower active? " + (be.distillationData.isActive() ? "Yes" : "No"));
+            DebugStuff.show(" -actually active: " + (be.distillationData.isActuallyActive() ? "Yes" : "No"));
+        }
         if(level.getBlockEntity(pos) instanceof BlastFurnaceOutputBlockEntity be) {
             DebugStuff.show((level.isClientSide ? "Client" : "Server") + " -> " + be.fuelConsumeTimer);
         }else if(!level.isClientSide && level.getBlockEntity(pos) instanceof PumpjackBlockEntity be) {

@@ -1,4 +1,4 @@
-package it.bohdloss.tfmg.content.decoration.tanks.cast_iron.aluminum;
+package it.bohdloss.tfmg.content.decoration.tanks.cast_iron;
 
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;

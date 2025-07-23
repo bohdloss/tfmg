@@ -1,8 +1,7 @@
 package it.bohdloss.tfmg.content.electricity.utilities.transformer;
 
 import com.simibubi.create.foundation.utility.CreateLang;
-import it.bohdloss.tfmg.base.IWind;
-import it.bohdloss.tfmg.content.electricity.connection.SpoolAmount;
+import it.bohdloss.tfmg.base.IWindable;
 import it.bohdloss.tfmg.registry.TFMGDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -15,14 +14,21 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ElectromagneticCoilItem extends Item implements IWind {
+public class ElectromagneticCoilItem extends Item implements IWindable {
     public ElectromagneticCoilItem(Properties properties) {
         super(properties);
     }
 
     @Override
+    public @NotNull ItemStack getDefaultInstance() {
+        ItemStack def = super.getDefaultInstance();
+        setWindings(def, CoilTurns.MAX.amount());
+        return def;
+    }
+
+    @Override
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag) {
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag) {
         tooltipComponents.add(CreateLang.translateDirect("tooltip.coils", getWindings(stack))
                 .withStyle(ChatFormatting.GREEN)
         );

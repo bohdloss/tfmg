@@ -5,7 +5,6 @@ import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.contraptions.bearing.StabilizedBearingMovementBehaviour;
 import com.simibubi.create.content.decoration.slidingDoor.SlidingDoorBlock;
 import com.simibubi.create.content.fluids.tank.FluidTankGenerator;
-import com.simibubi.create.content.fluids.tank.FluidTankModel;
 import com.simibubi.create.content.fluids.tank.FluidTankMovementBehavior;
 import com.simibubi.create.content.kinetics.gearbox.GearboxBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockModel;
@@ -31,8 +30,8 @@ import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelBlock;
 import it.bohdloss.tfmg.content.decoration.tanks.aluminum.AluminumTankBlock;
 import it.bohdloss.tfmg.content.decoration.tanks.TFMGTankModel;
 import it.bohdloss.tfmg.content.decoration.tanks.aluminum.AluminumTankItem;
-import it.bohdloss.tfmg.content.decoration.tanks.cast_iron.aluminum.CastIronTankBlock;
-import it.bohdloss.tfmg.content.decoration.tanks.cast_iron.aluminum.CastIronTankItem;
+import it.bohdloss.tfmg.content.decoration.tanks.cast_iron.CastIronTankBlock;
+import it.bohdloss.tfmg.content.decoration.tanks.cast_iron.CastIronTankItem;
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankBlock;
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankItem;
 import it.bohdloss.tfmg.content.items.CoalCokeBlockItem;
@@ -60,6 +59,8 @@ import it.bohdloss.tfmg.content.machinery.misc.smokestack.SmokestackGenerator;
 import it.bohdloss.tfmg.content.machinery.misc.winding_machine.WindingMachineBlock;
 import it.bohdloss.tfmg.content.machinery.oil_processing.OilDepositBlock;
 import it.bohdloss.tfmg.content.machinery.oil_processing.distillation_tower.IndustrialPipeBlock;
+import it.bohdloss.tfmg.content.machinery.oil_processing.distillation_tower.controller.DistillationControllerBlock;
+import it.bohdloss.tfmg.content.machinery.oil_processing.distillation_tower.output.DistillationOutputBlock;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.PumpjackBaseBlock;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.crank.PumpjackCrankBlock;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.PumpjackBlock;
@@ -234,25 +235,25 @@ public class TFMGBlocks {
                     .build()
                     .register();
 
-//    public static final BlockEntry<DistillationOutputBlock> STEEL_DISTILLATION_OUTPUT =
-//            REGISTRATE.block("steel_distillation_output", DistillationOutputBlock::new)
-//                    .initialProperties(SharedProperties::copperMetal)
-//                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
-//                    .properties(BlockBehaviour.Properties::noOcclusion)
-//                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
-//                    .transform(pickaxeOnly())
-//                    .item()
-//                    .build()
-//                    .register();
-//    public static final BlockEntry<DistillationControllerBlock> STEEL_DISTILLATION_CONTROLLER =
-//            REGISTRATE.block("steel_distillation_controller", DistillationControllerBlock::new)
-//                    .initialProperties(SharedProperties::copperMetal)
-//                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
-//                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
-//                    .transform(pickaxeOnly())
-//                    .item()
-//                    .build()
-//                    .register();
+    public static final BlockEntry<DistillationOutputBlock> STEEL_DISTILLATION_OUTPUT =
+            REGISTRATE.block("steel_distillation_output", DistillationOutputBlock::new)
+                    .initialProperties(SharedProperties::copperMetal)
+                    .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .transform(pickaxeOnly())
+                    .item()
+                    .build()
+                    .register();
+    public static final BlockEntry<DistillationControllerBlock> STEEL_DISTILLATION_CONTROLLER =
+            REGISTRATE.block("steel_distillation_controller", DistillationControllerBlock::new)
+                    .initialProperties(SharedProperties::copperMetal)
+                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
+                    .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+                    .transform(pickaxeOnly())
+                    .item()
+                    .build()
+                    .register();
     public static final BlockEntry<IndustrialPipeBlock> INDUSTRIAL_PIPE = REGISTRATE.block("industrial_pipe", IndustrialPipeBlock::new)
             .initialProperties(() -> Blocks.STONE)
             .properties(p -> p.requiresCorrectToolForDrops())

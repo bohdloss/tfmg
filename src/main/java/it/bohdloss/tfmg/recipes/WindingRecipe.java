@@ -4,7 +4,7 @@ import com.simibubi.create.compat.jei.category.sequencedAssembly.SequencedAssemb
 import com.simibubi.create.content.processing.recipe.*;
 import com.simibubi.create.content.processing.sequenced.IAssemblyRecipe;
 import com.simibubi.create.foundation.utility.CreateLang;
-import it.bohdloss.tfmg.base.IWind;
+import it.bohdloss.tfmg.base.IWindable;
 import it.bohdloss.tfmg.base.TFMGRecipeWrapper;
 import it.bohdloss.tfmg.recipes.jei.WindingCategory;
 import it.bohdloss.tfmg.registry.TFMGBlocks;
@@ -34,15 +34,15 @@ public class WindingRecipe extends StandardProcessingRecipe<TFMGRecipeWrapper> i
         }
 
         for(ItemStack itemStack : ingredients.get(1).getItems()) {
-            if(!(itemStack.getItem() instanceof IWind)) {
-                errors.add("The input spool item must implement IWind (got " + itemStack.getItem() + ", which does not)");
+            if(!(itemStack.getItem() instanceof IWindable)) {
+                errors.add("The input spool item must implement IWindable (got " + itemStack.getItem() + ", which does not)");
             }
         }
 
         for(ProcessingOutput result : results) {
             ItemStack output = result.getStack();
-            if(!(output.getItem() instanceof IWind)) {
-                errors.add("The output item of a winding recipe must implement IWind (got " + output.getItem() + ", which does not)");
+            if(!(output.getItem() instanceof IWindable)) {
+                errors.add("The output item of a winding recipe must implement IWindable (got " + output.getItem() + ", which does not)");
             }
         }
 

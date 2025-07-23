@@ -1,4 +1,4 @@
-// 1.21.1	2025-07-21T19:12:36.50116555	TFMG's Processing Recipes
+// 1.21.1	2025-07-23T15:39:43.934274346	TFMG's Processing Recipes
 7dafb6d3c41a514617340719d0435858368b19ea data/create/recipe/crushing/bauxite.json
 73fbf4b3b9297df4fbe521e7a47f2a4991e8a0df data/create/recipe/crushing/coal_coke.json
 86cc35082842dcad8d73c2bee3e73b8b63471202 data/create/recipe/crushing/copper_sulfate.json
@@ -23,6 +23,12 @@ c055ced7431317795334433ad1a64452fdb7f34b data/tfmg/recipe/casting/slag_block.jso
 b5f8432d78ef6b9295bea7280a0d30a7ccb39a87 data/tfmg/recipe/compacting/cast_iron.json
 43582db195b3b4662296187bbcaf4825004ef1b5 data/tfmg/recipe/compacting/cinderflourblock.json
 45a07049b9f6357ec5e7fd96a4a2a4153fb135b6 data/tfmg/recipe/deploying/coated_circuit_board.json
+4e212ecc972e149849c1cbd73b8f0716d4aab64e data/tfmg/recipe/distillation/crude_oil.json
+74c099d86e3e377b39a9f58c1d4dedc987535d2b data/tfmg/recipe/distillation/crude_oil_light_distillation.json
+475c6812055454e70f4be38d174b61f0a8a06e3b data/tfmg/recipe/distillation/crude_oil_no_naphtha.json
+5844a8675629f6efdbe63ea8c93f0d42c0db66ee data/tfmg/recipe/distillation/heavy_oil.json
+694892fe08ae2f993c6dd0f00f40276a18ae7208 data/tfmg/recipe/distillation/heavy_oil_light_distillation.json
+98671f28c34f262c4e0d23405f7c3c5e8b13d9c7 data/tfmg/recipe/distillation/heavy_oil_no_naphtha.json
 0788a71e093b78fd58d59fe62635e70eb13b1827 data/tfmg/recipe/filling/air_tank.json
 1bc927e07a38c9994a3ccce05c8b97680b816711 data/tfmg/recipe/filling/carbon_dioxide_tank.json
 759bfbc78a30c6e6e151892834c689077308b497 data/tfmg/recipe/filling/ethylene_tank.json
@@ -63,4 +69,4 @@ ecdce3056f908929bc7c57ae2e562f765e4b0a10 data/tfmg/recipe/pressing/aluminum_ingo
 d354a3f5387e310a115bff740fba3a8a1e19a735 data/tfmg/recipe/pressing/lead_ingot.json
 188e2735cf8fa3c3ec662b5a12e58fd029b01c2f data/tfmg/recipe/pressing/nickel_ingot.json
 fc6a8e97c50e6964b78b6cb3f2ccc1b022225987 data/tfmg/recipe/pressing/synthetic_leather.json
-1251a1d24f65fed6108a72059e5c406a458eb856 data/tfmg/recipe/winding/electromagnetic_coil.json
+81423599c4e249363c0f9a8bdbaf6d5a51ac1728 data/tfmg/recipe/winding/electromagnetic_coil.json

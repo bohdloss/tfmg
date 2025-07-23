@@ -33,8 +33,9 @@ import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelBlockEntity;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelRenderer;
 import it.bohdloss.tfmg.content.decoration.flywheels.TFMGFlywheelVisual;
 import it.bohdloss.tfmg.content.decoration.tanks.aluminum.AluminumTankBlockEntity;
-import it.bohdloss.tfmg.content.decoration.tanks.cast_iron.aluminum.CastIronTankBlockEntity;
+import it.bohdloss.tfmg.content.decoration.tanks.cast_iron.CastIronTankBlockEntity;
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankBlockEntity;
+import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankRenderer;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceHatchBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceRenderer;
@@ -57,6 +58,9 @@ import it.bohdloss.tfmg.content.machinery.misc.winding_machine.WindingMachineBlo
 import it.bohdloss.tfmg.content.machinery.misc.winding_machine.WindingMachineRenderer;
 import it.bohdloss.tfmg.content.machinery.misc.winding_machine.WindingMachineVisual;
 import it.bohdloss.tfmg.content.machinery.oil_processing.OilDepositBlockEntity;
+import it.bohdloss.tfmg.content.machinery.oil_processing.distillation_tower.controller.DistillationControllerBlockEntity;
+import it.bohdloss.tfmg.content.machinery.oil_processing.distillation_tower.controller.DistillationControllerRenderer;
+import it.bohdloss.tfmg.content.machinery.oil_processing.distillation_tower.output.DistillationOutputBlockEntity;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.base.PumpjackBaseBlockEntity;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.crank.PumpjackCrankBlockEntity;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.crank.PumpjackCrankRenderer;
@@ -68,10 +72,10 @@ import it.bohdloss.tfmg.content.machinery.oil_processing.surface_scanner.Surface
 import static it.bohdloss.tfmg.TFMG.REGISTRATE;
 
 public class TFMGBlockEntities {
-//    public static final BlockEntityEntry<DistillationOutputBlockEntity> STEEL_DISTILLATION_OUTPUT = REGISTRATE
-//            .blockEntity("distillation_tower_output", DistillationOutputBlockEntity::new)
-//            .validBlocks(TFMGBlocks.STEEL_DISTILLATION_OUTPUT)
-//            .register();
+    public static final BlockEntityEntry<DistillationOutputBlockEntity> STEEL_DISTILLATION_OUTPUT = REGISTRATE
+            .blockEntity("distillation_tower_output", DistillationOutputBlockEntity::new)
+            .validBlocks(TFMGBlocks.STEEL_DISTILLATION_OUTPUT)
+            .register();
 //    public static final BlockEntityEntry<ElectricPumpBlockEntity> ELECTRIC_PUMP = REGISTRATE
 //            .blockEntity("electric_pump", ElectricPumpBlockEntity::new)
 //            .validBlocks(TFMGBlocks.ELECTRIC_PUMP)
@@ -166,11 +170,11 @@ public class TFMGBlockEntities {
 //            .blockEntity("voltage_observer", VoltageObserverBlockEntity::new)
 //            .validBlocks(TFMGBlocks.VOLTAGE_OBSERVER)
 //            .register();
-//    public static final BlockEntityEntry<DistillationControllerBlockEntity> STEEL_DISTILLATION_CONTROLLER = REGISTRATE
-//            .blockEntity("distillation_tower_controller", DistillationControllerBlockEntity::new)
-//            .validBlocks(TFMGBlocks.STEEL_DISTILLATION_CONTROLLER)
-//            .renderer(() -> DistillationControllerRenderer::new)
-//            .register();
+    public static final BlockEntityEntry<DistillationControllerBlockEntity> STEEL_DISTILLATION_CONTROLLER = REGISTRATE
+            .blockEntity("distillation_tower_controller", DistillationControllerBlockEntity::new)
+            .validBlocks(TFMGBlocks.STEEL_DISTILLATION_CONTROLLER)
+            .renderer(() -> DistillationControllerRenderer::new)
+            .register();
     public static final BlockEntityEntry<MachineInputBlockEntity> MACHINE_INPUT = REGISTRATE
             .blockEntity("machine_input", MachineInputBlockEntity::new)
             .visual(() -> OrientedRotatingVisual.of(AllPartialModels.SHAFT_HALF))
@@ -285,7 +289,7 @@ public class TFMGBlockEntities {
     public static final BlockEntityEntry<SteelTankBlockEntity> STEEL_FLUID_TANK = REGISTRATE
             .blockEntity("steel_fluid_tank", SteelTankBlockEntity::new)
             .validBlocks(TFMGBlocks.STEEL_FLUID_TANK)
-            .renderer(() -> FluidTankRenderer::new)
+            .renderer(() -> SteelTankRenderer::new)
             .register();
 
 

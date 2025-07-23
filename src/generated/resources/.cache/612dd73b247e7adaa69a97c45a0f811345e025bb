@@ -1,4 +1,4 @@
-// 1.21.1	2025-07-22T01:25:10.251165822	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2025-07-22T02:18:12.764686735	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 e982a263b6af75821042107fdeff7bd809436d08 assets/tfmg/blockstates/air_intake.json
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
 b7f5146505c40c08cdea7ad01fa99048b7ac5451 assets/tfmg/blockstates/aluminum_block.json
@@ -338,6 +338,8 @@ a5224c8449280855a4682772711ba8824d96416e assets/tfmg/blockstates/small_galena_br
 e6983072149d1a9a2f4d39e4e1feac599ff7413e assets/tfmg/blockstates/steel_block.json
 df44115876045e6f863de2f8be6a9166b336a2f1 assets/tfmg/blockstates/steel_casing.json
 40e8475d00006ee1c7b4ea09e04e125e355e4250 assets/tfmg/blockstates/steel_cogwheel.json
+da130e39c11834ebc6d05bcee6c1ed6bb93b0e52 assets/tfmg/blockstates/steel_distillation_controller.json
+7e92dd6fe0663fe497a4cc2e4f8fc52e557ba527 assets/tfmg/blockstates/steel_distillation_output.json
 7334c94b5fe23df91f43048b19c2b22121405603 assets/tfmg/blockstates/steel_door.json
 6636cc250595128cccf3789a611ccbcd6b645def assets/tfmg/blockstates/steel_encased_aluminum_cogwheel.json
 4a71c53b5b55ef0707da5ea84d0e664b4ab94cb5 assets/tfmg/blockstates/steel_encased_large_aluminum_cogwheel.json
@@ -380,8 +382,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-6b64555a1bb9d8765f6a98b2a660491078d63767 assets/tfmg/lang/en_ud.json
-744d57acdb4db788329421814ab527ed341fa23f assets/tfmg/lang/en_us.json
+593cd9a4592efd56041d61aa2e75d74818f67ea6 assets/tfmg/lang/en_ud.json
+58d3885f3c83cee7eeefad8858e0ec499e321bac assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
 4344f14c42bb7a9f90120b5f75927015c0edc3bc assets/tfmg/models/block/aluminum_cap_alt.json
@@ -1392,6 +1394,8 @@ d279ed47a7d26313106b59b00e3398069dc7b589 assets/tfmg/models/item/spark_plug.json
 d34ca92f5288cbb5cecee06f046a072763b2926c assets/tfmg/models/item/steel_casing.json
 89bf2cbaa1f4e6cb3b215637f3448600bdc6af0e assets/tfmg/models/item/steel_chestplate.json
 b838d5c7034882e35405936e04a60654e255fad1 assets/tfmg/models/item/steel_cogwheel.json
+ec731aefdbbbaca3a4dac8ac2d6bd2d0aa6ebef5 assets/tfmg/models/item/steel_distillation_controller.json
+408b612691bf842fda6eb639e9e5a1d254709d9a assets/tfmg/models/item/steel_distillation_output.json
 7f012e3d947b08beb69d28a6d47730878f2b85cf assets/tfmg/models/item/steel_door.json
 993b5dd9de7805beb4accb560946e91abe58005f assets/tfmg/models/item/steel_encased_aluminum_cogwheel.json
 e1d585b0f200c4431348ee035f7af440aecd3050 assets/tfmg/models/item/steel_encased_large_aluminum_cogwheel.json
@@ -1600,7 +1604,7 @@ ded1913401f4b56ac3175be37bf30ffadab245c8 data/create/tags/item/crushed_raw_mater
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/infiniburn_overworld.json
 543dbb3bba839c96d454f6e26e7e97ce5ae9dc4e data/minecraft/tags/block/lush_ground_replaceable.json
 7f32a5d63a155caa8d1588cb982d9a963a12fd95 data/minecraft/tags/block/mineable/axe.json
-c34c719b0cea4251770717570ab7e86236db4585 data/minecraft/tags/block/mineable/pickaxe.json
+37fe20040d361d897c595717aad083e530119ef1 data/minecraft/tags/block/mineable/pickaxe.json
 9c7d1d075d20521106a7076ae12804d8e2ac6764 data/minecraft/tags/block/mineable/shovel.json
 543dbb3bba839c96d454f6e26e7e97ce5ae9dc4e data/minecraft/tags/block/moss_replaceable.json
 dfca9f1cc79d30334f344f024c13a7c717bf4027 data/minecraft/tags/block/needs_iron_tool.json
@@ -2169,6 +2173,8 @@ aab46978aac05b478a7c0743db17380b920f568b data/tfmg/loot_table/blocks/small_galen
 907a9c0285da8025ea7dd05f8cdb739ee1765527 data/tfmg/loot_table/blocks/steel_block.json
 311abdcb0a50fc3a4b39c86ea274dc92d89e88ce data/tfmg/loot_table/blocks/steel_casing.json
 77bad2068691e0eb7f9c0f3887fcda4293a2702f data/tfmg/loot_table/blocks/steel_cogwheel.json
+01a59e91100a5bce2d3e39a17e18a734e7b9ca50 data/tfmg/loot_table/blocks/steel_distillation_controller.json
+a68825e075a9b8610e1a90bd5ae6561851e861ff data/tfmg/loot_table/blocks/steel_distillation_output.json
 aec8d1f9638ae76cd8dde07db6676ebda4cdb576 data/tfmg/loot_table/blocks/steel_door.json
 ab8f1f5b36e45f4f04000722523e6ab51c16cd1e data/tfmg/loot_table/blocks/steel_encased_aluminum_cogwheel.json
 4b0f2e2b967fb1e58bfebf7b6edb6ca5a55f4bf2 data/tfmg/loot_table/blocks/steel_encased_large_aluminum_cogwheel.json

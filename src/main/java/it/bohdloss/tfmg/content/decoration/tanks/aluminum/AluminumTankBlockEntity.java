@@ -1,7 +1,7 @@
 package it.bohdloss.tfmg.content.decoration.tanks.aluminum;
 
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
-import it.bohdloss.tfmg.mixin_interfaces.IRefreshCapability;
+import it.bohdloss.tfmg.mixin.fluid_handling.FluidTankBlockEntityAccessor;
 import it.bohdloss.tfmg.registry.TFMGBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -24,7 +24,7 @@ public class AluminumTankBlockEntity extends FluidTankBlockEntity {
                 TFMGBlockEntities.ALUMINUM_FLUID_TANK.get(),
                 (be, context) -> {
                     if (be.fluidCapability == null)
-                        ((IRefreshCapability) be).tfmg$refreshCapability();
+                        ((FluidTankBlockEntityAccessor) be).tfmg$refreshCapability();
                     return be.fluidCapability;
                 }
         );

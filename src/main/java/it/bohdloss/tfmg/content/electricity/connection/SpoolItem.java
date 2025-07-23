@@ -1,7 +1,7 @@
 package it.bohdloss.tfmg.content.electricity.connection;
 
 import com.simibubi.create.foundation.utility.CreateLang;
-import it.bohdloss.tfmg.base.IWind;
+import it.bohdloss.tfmg.base.IWindable;
 import it.bohdloss.tfmg.registry.TFMGDataComponents;
 import it.bohdloss.tfmg.registry.TFMGItems;
 import net.minecraft.ChatFormatting;
@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class SpoolItem extends Item implements IWind {
+public class SpoolItem extends Item implements IWindable {
     public final int barColor;
 
     public SpoolItem(Properties properties, int barColor) {

@@ -5,13 +5,14 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
 import com.simibubi.create.foundation.utility.CreateLang;
-import it.bohdloss.tfmg.DebugStuff;
-import it.bohdloss.tfmg.base.IWind;
+import it.bohdloss.tfmg.TFMGUtils;
+import it.bohdloss.tfmg.base.IWindable;
 import it.bohdloss.tfmg.base.TFMGItemBehavior;
 import it.bohdloss.tfmg.base.TFMGRecipeBehavior;
 import it.bohdloss.tfmg.base.TFMGRecipeWrapper;
 import it.bohdloss.tfmg.recipes.WindingRecipe;
 import it.bohdloss.tfmg.registry.TFMGBlockEntities;
+import it.bohdloss.tfmg.registry.TFMGItems;
 import it.bohdloss.tfmg.registry.TFMGRecipeTypes;
 import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.math.VecHelper;
@@ -33,6 +34,7 @@ import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 import java.util.List;
 
 import static com.simibubi.create.content.kinetics.base.HorizontalKineticBlock.HORIZONTAL_FACING;
+import static it.bohdloss.tfmg.content.machinery.misc.winding_machine.WindingMachineBlock.POWERED;
 
 @EventBusSubscriber
 public class WindingMachineBlockEntity extends KineticBlockEntity {
@@ -51,6 +53,7 @@ public class WindingMachineBlockEntity extends KineticBlockEntity {
 
     public WindingMachineBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
+        setLazyTickRate(10);
     }
 
     @Override
@@ -63,7 +66,7 @@ public class WindingMachineBlockEntity extends KineticBlockEntity {
                 .allowExtraction(true)
                 .withCallback(this::onIOChange);
         spool = new TFMGItemBehavior(TFMGItemBehavior.SECONDARY_TYPE, "Spool", this, 1)
-                .withValidator((slot, item) -> item.getItem() instanceof IWind)
+                .withValidator((slot, item) -> item.getItem() instanceof IWindable)
                 .withStackSize(1)
                 .allowInsertion(true)
                 .allowExtraction(true)
@@ -119,13 +122,13 @@ public class WindingMachineBlockEntity extends KineticBlockEntity {
 
         ItemStack spoolItem = spool.getHandler().getStackInSlot(0);
         if (!spoolItem.isEmpty()) {
-            IWind spoolWind = (IWind) spoolItem.getItem();
+            IWindable spoolWindable = (IWindable) spoolItem.getItem();
             CreateLang.text(spoolItem.getDisplayName().getString().replace("[","").replace("]",""))
-                    .color(spoolWind.getRenderedColor(spoolItem))
+                    .color(spoolWindable.getRenderedColor(spoolItem))
                     .forGoggles(tooltip);
             CreateLang.translate("goggles.winding_machine.turns")
-                    .add(CreateLang.number(spoolWind.getWindings(spoolItem) - getAmountWinded()))
-                    .color(spoolWind.getRenderedColor(spoolItem))
+                    .add(CreateLang.number(spoolWindable.getWindings(spoolItem) - getAmountWinded()))
+                    .color(spoolWindable.getRenderedColor(spoolItem))
                     .forGoggles(tooltip);
 
             if (recipeExecutor.timer != -1) {
@@ -133,7 +136,7 @@ public class WindingMachineBlockEntity extends KineticBlockEntity {
                         .add(CreateLang.translate("goggles.winding_machine.progress"))
                         .add(CreateLang.number(getAmountWinded()))
                         .add(Component.literal("/" + calculateWindings(recipeExecutor.getRecipe().value().getProcessingDuration())))
-                        .color(spoolWind.getRenderedColor(spoolItem))
+                        .color(spoolWindable.getRenderedColor(spoolItem))
                         .forGoggles(tooltip);
             }
         }
@@ -153,8 +156,8 @@ public class WindingMachineBlockEntity extends KineticBlockEntity {
     protected boolean hasIngredients(TFMGRecipeWrapper input, WindingRecipe recipe) {
         int necessaryWindings = calculateWindings(recipe.getProcessingDuration());
         ItemStack spoolItem = spool.getHandler().getStackInSlot(0);
-        IWind wind = (IWind) spoolItem.getItem();
-        return !spoolItem.isEmpty() && wind.getWindings(spoolItem) >= necessaryWindings;
+        IWindable windable = (IWindable) spoolItem.getItem();
+        return !spoolItem.isEmpty() && windable.getWindings(spoolItem) >= necessaryWindings;
     }
 
     protected boolean checkFreeSpace(List<ItemStack> items, List<FluidStack> fluids) {
@@ -164,17 +167,17 @@ public class WindingMachineBlockEntity extends KineticBlockEntity {
     protected void consumeItems(TFMGRecipeWrapper input, WindingRecipe recipe) {
         int necessaryWindings = calculateWindings(recipe.getProcessingDuration());
         ItemStack spoolItem = spool.getHandler().getStackInSlot(0);
-        IWind spoolWind = (IWind) spoolItem.getItem();
-        int spoolWindings = spoolWind.getWindings(spoolItem);
-        spoolWind.setWindings(spoolItem, spoolWindings - necessaryWindings);
+        IWindable spoolWindable = (IWindable) spoolItem.getItem();
+        int spoolWindings = spoolWindable.getWindings(spoolItem);
+        spoolWindable.setWindings(spoolItem, spoolWindings - necessaryWindings);
         spool.getHandler().setStackInSlot(0, spoolItem);
     }
 
     protected void acceptResults(List<ItemStack> items, List<FluidStack> fluids) {
         int necessaryWindings = calculateWindings(recipeExecutor.getRecipe().value().getProcessingDuration());
         ItemStack result = items.getFirst();
-        IWind resultWind = (IWind) result.getItem();
-        resultWind.setWindings(result, necessaryWindings);
+        IWindable resultWindable = (IWindable) result.getItem();
+        resultWindable.setWindings(result, necessaryWindings);
         item.getHandler().setStackInSlot(0, result);
     }
 
@@ -203,6 +206,23 @@ public class WindingMachineBlockEntity extends KineticBlockEntity {
             if(speed != 0) {
                 recipeExecutor.update();
             }
+        }
+    }
+
+    @Override
+    public void lazyTick() {
+        super.lazyTick();
+
+        if(level.isClientSide) {
+            return;
+        }
+
+        ItemStack spoolStack = spool.getHandler().getStackInSlot(0);
+        boolean powered = getBlockState().getValue(POWERED);
+        boolean shouldPower = !spoolStack.isEmpty() && !spoolStack.is(TFMGItems.EMPTY_SPOOL);
+
+        if(powered != shouldPower) {
+            level.setBlock(getBlockPos(), getBlockState().setValue(POWERED, shouldPower), 1 | 2);
         }
     }
 

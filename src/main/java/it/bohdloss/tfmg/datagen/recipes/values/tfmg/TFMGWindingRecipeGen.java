@@ -16,7 +16,7 @@ public class TFMGWindingRecipeGen extends WindingRecipeGen {
             ELECTROMAGNETIC_COIL = create("electromagnetic_coil", b ->b
             .require(TFMGItems.UNFINISHED_ELECTROMAGNETIC_COIL)
             .require(TFMGItems.COPPER_SPOOL)
-            .output(coil100Turns())
+            .output(TFMGItems.ELECTROMAGNETIC_COIL)
             .duration(100));
 //            RESISTOR = create("resistor", b ->b TODO
 //                    .require(TFMGItems.UNFINISHED_RESISTOR)

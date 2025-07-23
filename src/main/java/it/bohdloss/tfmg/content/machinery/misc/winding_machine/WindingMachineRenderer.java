@@ -5,8 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import dev.engine_room.flywheel.lib.transform.TransformStack;
-import it.bohdloss.tfmg.DebugStuff;
-import it.bohdloss.tfmg.base.IWind;
+import it.bohdloss.tfmg.base.IWindable;
 import it.bohdloss.tfmg.registry.TFMGPartialModels;
 import it.bohdloss.tfmg.registry.TFMGTags;
 import net.createmod.catnip.render.CachedBuffers;
@@ -43,7 +42,7 @@ public class WindingMachineRenderer extends KineticBlockEntityRenderer<WindingMa
         ItemStack item = be.item.getHandler().getStackInSlot(0);
         boolean hasRecipe = be.recipeExecutor.timer != -1;
         if (!spool.isEmpty()) {
-            IWind spoolWind = (IWind) spool.getItem();
+            IWindable spoolWindable = (IWindable) spool.getItem();
             CachedBuffers.partial(TFMGPartialModels.SPOOL, blockState)
                     .light(light)
                     .center()
@@ -61,7 +60,7 @@ public class WindingMachineRenderer extends KineticBlockEntityRenderer<WindingMa
                         .rotateYDegrees(blockState.getValue(HORIZONTAL_FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot() - 180) : blockState.getValue(FACING).toYRot())
                         .translateZ(-0.4f)
                         .translateY(0.4f)
-                        .color(spoolWind.getRenderedColor(spool))
+                        .color(spoolWindable.getRenderedColor(spool))
                         .rotateXDegrees(angle)
                         .uncenter()
                         .renderInto(ms, vb);
@@ -72,7 +71,7 @@ public class WindingMachineRenderer extends KineticBlockEntityRenderer<WindingMa
                             .rotateYDegrees(blockState.getValue(HORIZONTAL_FACING).getAxis() == Direction.Axis.Z ? Math.abs(blockState.getValue(FACING).toYRot() - 180) : blockState.getValue(FACING).toYRot())
                             .translateY(0.4f)
                             .translateZ(0.1f)
-                            .color(spoolWind.getRenderedColor(spool))
+                            .color(spoolWindable.getRenderedColor(spool))
                             .rotateXDegrees(12)
                             .uncenter()
                             .renderInto(ms, vb);
