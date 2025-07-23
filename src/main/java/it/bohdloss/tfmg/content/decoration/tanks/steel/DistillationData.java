@@ -3,14 +3,17 @@ package it.bohdloss.tfmg.content.decoration.tanks.steel;
 import com.simibubi.create.api.boiler.BoilerHeater;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
+import com.simibubi.create.foundation.utility.CreateLang;
 import it.bohdloss.tfmg.content.machinery.oil_processing.distillation_tower.controller.DistillationControllerBlock;
 import it.bohdloss.tfmg.content.machinery.oil_processing.distillation_tower.controller.DistillationControllerBlockEntity;
 import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.data.Iterate;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -22,6 +25,8 @@ import java.util.List;
 
 // Parallel of BoilerData made specifically for the distillation tower
 public class DistillationData {
+    public static final int MAX_HEAT = 18;
+
     protected SteelTankBlockEntity lastKnownController;
 
     // Heat
@@ -57,6 +62,27 @@ public class DistillationData {
 
     public boolean isActuallyActive() {
         return isActive() && activeHeat != 0;
+    }
+
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        if(!isActive()) {
+            return false;
+        }
+
+        CreateLang.translate("goggles.distillation_tower.status")
+                .style(ChatFormatting.GRAY)
+                .forGoggles(tooltip, 1);
+
+        if (isActuallyActive()) {
+            CreateLang.translate("goggles.distillation_tower.level", activeHeat)
+                    .style(ChatFormatting.GOLD)
+                    .forGoggles(tooltip, 1);
+        } else {
+            CreateLang.translate("goggles.distillation_tower.level", activeHeat)
+                    .style(ChatFormatting.RED)
+                    .forGoggles(tooltip, 1);
+        }
+        return true;
     }
 
     public boolean updateTemperature(SteelTankBlockEntity controller) {

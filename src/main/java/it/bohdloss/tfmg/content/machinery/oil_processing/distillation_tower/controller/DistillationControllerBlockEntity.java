@@ -3,6 +3,8 @@ package it.bohdloss.tfmg.content.machinery.oil_processing.distillation_tower.con
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.utility.CreateLang;
+import it.bohdloss.tfmg.TFMGUtils;
 import it.bohdloss.tfmg.base.TFMGFluidBehavior;
 import it.bohdloss.tfmg.base.TFMGRecipeBehavior;
 import it.bohdloss.tfmg.content.decoration.tanks.steel.DistillationData;
@@ -14,7 +16,11 @@ import it.bohdloss.tfmg.registry.TFMGBlockEntities;
 import it.bohdloss.tfmg.registry.TFMGRecipeTypes;
 import it.bohdloss.tfmg.registry.TFMGTags;
 import net.createmod.catnip.animation.LerpedFloat;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,11 +45,11 @@ public class DistillationControllerBlockEntity extends SmartBlockEntity implemen
 
     // Temporary - not to be serialized
     protected SteelTankBlockEntity tower;
-    protected DistillationData distillationData;
     protected List<BlockPos> outputs = new ArrayList<>(6);
 
     // Rendering!
     protected LerpedFloat gaugeAngle = LerpedFloat.angular();
+    protected int outputLength;
 
     public DistillationControllerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -61,6 +67,7 @@ public class DistillationControllerBlockEntity extends SmartBlockEntity implemen
 
         recipeExecutor = new TFMGRecipeBehavior<DistillationRecipeInput, DistillationRecipe>(this, TFMGRecipeTypes.DISTILLATION.getType())
                 .withInput(() -> input)
+                .withDurationModifier(this::recipeDuration)
                 .withAdditionalIngredientCheck(this::hasIngredients)
                 .withCheckFreeSpace(this::checkFreeSpace)
                 .withResultsDo(this::acceptResults)
@@ -79,13 +86,58 @@ public class DistillationControllerBlockEntity extends SmartBlockEntity implemen
         );
     }
 
+    @Override
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        SteelTankBlockEntity tower = getTower();
+        if (tower != null) {
+            CreateLang.translate("goggles.distillation_tower.status")
+                    .style(ChatFormatting.GRAY)
+                    .forGoggles(tooltip, 1);
+
+            if (tower.distillationData.isActuallyActive()) {
+                CreateLang.translate("goggles.distillation_tower.level", tower.distillationData.activeHeat)
+                        .style(ChatFormatting.GOLD)
+                        .forGoggles(tooltip, 1);
+            } else {
+                CreateLang.translate("goggles.distillation_tower.level", tower.distillationData.activeHeat)
+                        .style(ChatFormatting.RED)
+                        .forGoggles(tooltip, 1);
+            }
+            if (!outputs.isEmpty()) {
+                CreateLang.translate("goggles.distillation_tower.found_outputs", outputLength)
+                        .style(ChatFormatting.GOLD)
+                        .forGoggles(tooltip, 1);
+            } else {
+                CreateLang.translate("goggles.distillation_tower.found_outputs", outputLength)
+                        .style(ChatFormatting.RED)
+                        .forGoggles(tooltip, 1);
+            }
+        } else {
+            CreateLang.translate("goggles.distillation_tower.tank_not_found")
+                    .style(ChatFormatting.RED)
+                    .forGoggles(tooltip, 1);
+        }
+        TFMGUtils.createFluidTooltip(this, tooltip, null);
+
+        return true;
+    }
+
     protected void onIOChange() {
         recipeExecutor.updateRecipe();
         notifyUpdate();
     }
 
+    protected int recipeDuration(int zero) {
+        DistillationData distillationData = getTower().distillationData; // tower might be null at this point
+        if(zero == 0) {
+            return DistillationData.MAX_HEAT - distillationData.activeHeat;
+        } else {
+            return (int) ((float) zero / ((float) distillationData.activeHeat / 2f));
+        }
+    }
+
     protected boolean hasIngredients(DistillationRecipeInput input, DistillationRecipe recipe) {
-        return distillationData.isActuallyActive();
+        return tower.distillationData.isActuallyActive();
     }
 
     protected boolean checkFreeSpace(List<ItemStack> items, List<FluidStack> fluids) {
@@ -123,19 +175,20 @@ public class DistillationControllerBlockEntity extends SmartBlockEntity implemen
             return;
         }
 
-        distillationData = tower.getDistillationData();
-        if(!distillationData.isActive()) {
+        if(!tower.getDistillationData().isActive()) {
             return;
         }
 
         // Update output column
         boolean changed = discoverOutputs(outputs);
+        if(changed) {
+            outputLength = outputs.size();
+            notifyUpdate();
+        }
         if(outputs.isEmpty()) {
             return;
         }
-        if(changed ||
-                (recipeExecutor.getRecipe() != null &&
-                        recipeExecutor.getRecipe().value().getFluidResults().size() != outputs.size())) {
+        if(changed || (recipeExecutor.getRecipe() != null && recipeExecutor.getRecipe().value().getFluidResults().size() != outputs.size())) {
             recipeExecutor.updateRecipe();
         }
 
@@ -185,5 +238,23 @@ public class DistillationControllerBlockEntity extends SmartBlockEntity implemen
             checkedPos = checkedPos.above();
         }
         return outputs.size() != prevLength;
+    }
+
+    @Override
+    protected void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        super.write(tag, registries, clientPacket);
+
+        if(clientPacket) {
+            tag.putInt("OutputLength", outputLength);
+        }
+    }
+
+    @Override
+    protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        super.read(tag, registries, clientPacket);
+
+        if(clientPacket) {
+            outputLength = tag.getInt("OutputLength");
+        }
     }
 }

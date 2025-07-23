@@ -1,20 +1,24 @@
 package it.bohdloss.tfmg.content.decoration.tanks.steel;
 
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
+import com.simibubi.create.foundation.utility.CreateLang;
 import it.bohdloss.tfmg.mixin.fluid_handling.FluidTankBlockEntityAccessor;
 import it.bohdloss.tfmg.mixin_interfaces.IOnRefreshCapability;
 import it.bohdloss.tfmg.registry.TFMGBlockEntities;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+
+import java.util.List;
 
 @EventBusSubscriber
 public class SteelTankBlockEntity extends FluidTankBlockEntity implements IOnRefreshCapability {
@@ -34,6 +38,18 @@ public class SteelTankBlockEntity extends FluidTankBlockEntity implements IOnRef
 
     protected FluidTankBlockEntityAccessor access() {
         return (FluidTankBlockEntityAccessor) this;
+    }
+
+    @Override
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        SteelTankBlockEntity controllerBE = (SteelTankBlockEntity) getControllerBE();
+        if (controllerBE == null) {
+            return false;
+        }
+        if (controllerBE.distillationData.addToGoggleTooltip(tooltip, isPlayerSneaking)) {
+            return true;
+        }
+        return super.addToGoggleTooltip(tooltip, isPlayerSneaking);
     }
 
     @SubscribeEvent
