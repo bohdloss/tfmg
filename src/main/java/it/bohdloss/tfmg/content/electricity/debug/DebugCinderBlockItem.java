@@ -1,11 +1,15 @@
 package it.bohdloss.tfmg.content.electricity.debug;
 
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.IMultiBlockEntityContainer;
 import it.bohdloss.tfmg.DebugStuff;
+import it.bohdloss.tfmg.TFMG;
 import it.bohdloss.tfmg.base.AbstractKineticMultiblock;
 import it.bohdloss.tfmg.base.AbstractMultiblock;
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankBlockEntity;
+import it.bohdloss.tfmg.content.electricity.base.ElectricBlockEntity;
+import it.bohdloss.tfmg.content.electricity.base.IElectric;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlockEntity;
 import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlockEntity;
@@ -67,6 +71,29 @@ public class DebugCinderBlockItem extends Item {
 //                DebugStuff.show("Item in slot " + i + ": " + cap.getStackInSlot(i));
 //            }
 //        }
+        if(level.getBlockEntity(pos) instanceof KineticBlockEntity be) {
+            if(context.getPlayer().isCrouching()) {
+                if(!level.isClientSide) {
+                    DebugStuff.show("Forcing kinetic network sync...");
+                    be.getOrCreateNetwork().sync();
+                }
+            } else {
+                DebugStuff.show(level.isClientSide ? "CLIENT" : "SERVER");
+                DebugStuff.show("Overstressed: " + be.isOverStressed());
+            }
+        }
+        if(level.getBlockEntity(pos) instanceof IElectric be) {
+            ElectricBlockEntity.extraDebug = true;
+            if(context.getPlayer().isCrouching()) {
+                if(!level.isClientSide) {
+                    DebugStuff.show("Forcing electrical network sync...");
+                    be.getOrCreateElectricalNetwork().sync();
+                }
+            } else {
+                DebugStuff.show(level.isClientSide ? "CLIENT" : "SERVER");
+                DebugStuff.show("Shorted: " + be.isShortCircuited());
+            }
+        }
         if(!level.isClientSide && level.getBlockEntity(pos) instanceof SteelTankBlockEntity be) {
             DebugStuff.show("Is boiler active? " + (be.boiler.isActive() ? "Yes" : "No"));
             DebugStuff.show(" -actually active: " + (be.boiler.activeHeat != 0 ? "Yes" : "No"));

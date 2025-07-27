@@ -19,6 +19,8 @@ public class ElectricSparkParticle extends CustomRotationParticle {
     protected int endFrames = 20;
     protected int totalFrames = 53;
 
+    int frame = 0;
+
     public ElectricSparkParticle(ClientLevel worldIn, double x, double y, double z, double vx, double vy, double vz,
                                  SpriteSet spriteSet, ParticleOptions data) {
         super(worldIn, x, y, z, spriteSet, 0);
@@ -31,13 +33,25 @@ public class ElectricSparkParticle extends CustomRotationParticle {
         this.endTicks = endFrames + (int) (this.random.nextFloat() * 5f - 4f);
         this.numLoops = (int) (1f + this.random.nextFloat() * 2f);
 
-        this.setFrame(0);
+        this.setFrame(frame);
         this.mirror = this.random.nextBoolean();
     }
 
     public void setFrame(int frame) {
         if (frame >= 0 && frame < totalFrames)
             setSprite(animatedSprite.get(frame, totalFrames));
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if(frame < totalFrames) {
+            setFrame(frame);
+            frame++;
+        } else {
+            frame = 0;
+        }
     }
 
     public static class Data extends BasicParticleData<ElectricSparkParticle> {

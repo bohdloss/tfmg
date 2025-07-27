@@ -34,6 +34,14 @@ import it.bohdloss.tfmg.content.decoration.tanks.cast_iron.CastIronTankBlock;
 import it.bohdloss.tfmg.content.decoration.tanks.cast_iron.CastIronTankItem;
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankBlock;
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankItem;
+import it.bohdloss.tfmg.content.electricity.BlockResistanceValues;
+import it.bohdloss.tfmg.content.electricity.connection.cable_hub.CableHubBlock;
+import it.bohdloss.tfmg.content.electricity.connection.diagonal.DiagonalCableBlock;
+import it.bohdloss.tfmg.content.electricity.connection.diagonal.DiagonalCableGenerator;
+import it.bohdloss.tfmg.content.electricity.connection.tube.CableTubeBlock;
+import it.bohdloss.tfmg.content.electricity.generators.creative_generator.CreativeGeneratorBlock;
+import it.bohdloss.tfmg.content.electricity.lights.LampGenerator;
+import it.bohdloss.tfmg.content.electricity.lights.LightBulbBlock;
 import it.bohdloss.tfmg.content.items.CoalCokeBlockItem;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceHatchBlock;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlock;
@@ -99,6 +107,7 @@ import static com.simibubi.create.foundation.data.CreateRegistrate.casingConnect
 import static com.simibubi.create.foundation.data.CreateRegistrate.connectedTextures;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.*;
+import static it.bohdloss.tfmg.content.electricity.lights.LightBulbBlock.LIGHT;
 import static it.bohdloss.tfmg.registry.TFMGBuilderTransformers.*;
 
 public class TFMGBlocks {
@@ -898,96 +907,96 @@ public class TFMGBlocks {
 //            .transform(pickaxeOnly())
 //            .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.partialBaseModel(c, p)))
 //            .register();
-//    public static final BlockEntry<CableHubBlock> BRASS_CABLE_HUB =
-//            REGISTRATE.block("brass_cable_hub", CableHubBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .transform(pickaxeOnly())
-//                    .item()
-//                    .build()
-//                    .register();
-//    public static final BlockEntry<CableHubBlock> COPPER_CABLE_HUB =
-//            REGISTRATE.block("copper_cable_hub", CableHubBlock::new)
-//                    .initialProperties(() -> Blocks.COPPER_BLOCK)
-//                    .properties(p -> p.sound(SoundType.COPPER))
-//                    .transform(pickaxeOnly())
-//                    .item()
-//                    .build()
-//                    .register();
-//    public static final BlockEntry<CableHubBlock> STEEL_CABLE_HUB =
-//            REGISTRATE.block("steel_cable_hub", CableHubBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .transform(pickaxeOnly())
-//                    .item()
-//                    .build()
-//                    .register();
-//    public static final BlockEntry<CableHubBlock> ALUMINUM_CABLE_HUB =
-//            REGISTRATE.block("aluminum_cable_hub", CableHubBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .transform(pickaxeOnly())
-//                    .item()
-//                    .build()
-//                    .register();
-//    public static final BlockEntry<CableHubBlock> STEEL_CASING_CABLE_HUB =
-//            REGISTRATE.block("steel_casing_cable_hub", CableHubBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .transform(pickaxeOnly())
-//                    .item()
-//                    .build()
-//                    .register();
-//    public static final BlockEntry<CableHubBlock> HEAVY_CABLE_HUB =
-//            REGISTRATE.block("heavy_cable_hub", CableHubBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .transform(pickaxeOnly())
-//                    .item()
-//                    .build()
-//                    .register();
-//
-//    public static final BlockEntry<CableTubeBlock> CABLE_TUBE =
-//            REGISTRATE.block("cable_tube", p -> new CableTubeBlock(p, false))
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .transform(pickaxeOnly())
-//                    .properties(p -> p.noOcclusion())
-//                    .blockstate(BlockStateGen.axisBlockProvider(false))
-//                    .item()
-//                    .build()
-//                    .register();
-//
-//    public static final BlockEntry<CableTubeBlock> CONCRETE_ENCASED_CABLE_TUBE =
-//            REGISTRATE.block("concrete_encased_cable_tube", p -> new CableTubeBlock(p, true))
-//                    .initialProperties(() -> Blocks.STONE)
-//                    .blockstate(BlockStateGen.axisBlockProvider(false))
-//                    .transform(pickaxeOnly())
-//                    .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.CABLE_TUBE.get().asItem()))
-//                    .register();
-//
-//    public static final BlockEntry<CableTubeBlock> ELECTRIC_POST =
-//            REGISTRATE.block("electric_post", p -> new CableTubeBlock(p, false))
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .blockstate(BlockStateGen.axisBlockProvider(false))
-//                    .transform(pickaxeOnly())
-//                    .item()
-//                    .build()
-//                    .register();
-//
-//    public static final BlockEntry<CableTubeBlock> CONCRETE_ENCASED_ELECTRIC_POST =
-//            REGISTRATE.block("concrete_encased_electric_post", p -> new CableTubeBlock(p, true))
-//                    .initialProperties(() -> Blocks.STONE)
-//                    .blockstate(BlockStateGen.axisBlockProvider(false))
-//                    .transform(pickaxeOnly())
-//                    .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.ELECTRIC_POST.get().asItem()))
-//                    .register();
-//
-//    public static final BlockEntry<DiagonalCableBlock> DIAGONAL_CABLE_BLOCK =
-//            REGISTRATE.block("diagonal_cable_block", DiagonalCableBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .transform(pickaxeOnly())
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .blockstate(new DiagonalCableGenerator()::generate)
-//                    .properties(p -> p.noOcclusion())
-//                    .item()
-//                    .transform(customItemModel())
-//                    .register();
-//
+    public static final BlockEntry<CableHubBlock> BRASS_CABLE_HUB =
+            REGISTRATE.block("brass_cable_hub", CableHubBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .item()
+                    .build()
+                    .register();
+    public static final BlockEntry<CableHubBlock> COPPER_CABLE_HUB =
+            REGISTRATE.block("copper_cable_hub", CableHubBlock::new)
+                    .initialProperties(() -> Blocks.COPPER_BLOCK)
+                    .properties(p -> p.sound(SoundType.COPPER))
+                    .transform(pickaxeOnly())
+                    .item()
+                    .build()
+                    .register();
+    public static final BlockEntry<CableHubBlock> STEEL_CABLE_HUB =
+            REGISTRATE.block("steel_cable_hub", CableHubBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .item()
+                    .build()
+                    .register();
+    public static final BlockEntry<CableHubBlock> ALUMINUM_CABLE_HUB =
+            REGISTRATE.block("aluminum_cable_hub", CableHubBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .item()
+                    .build()
+                    .register();
+    public static final BlockEntry<CableHubBlock> STEEL_CASING_CABLE_HUB =
+            REGISTRATE.block("steel_casing_cable_hub", CableHubBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .item()
+                    .build()
+                    .register();
+    public static final BlockEntry<CableHubBlock> HEAVY_CABLE_HUB =
+            REGISTRATE.block("heavy_cable_hub", CableHubBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .item()
+                    .build()
+                    .register();
+
+    public static final BlockEntry<CableTubeBlock> CABLE_TUBE =
+            REGISTRATE.block("cable_tube", p -> new CableTubeBlock(p, false, null))
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .properties(p -> p.noOcclusion())
+                    .blockstate(BlockStateGen.axisBlockProvider(false))
+                    .item()
+                    .build()
+                    .register();
+
+    public static final BlockEntry<CableTubeBlock> CONCRETE_ENCASED_CABLE_TUBE =
+            REGISTRATE.block("concrete_encased_cable_tube", p -> new CableTubeBlock(p, true, CABLE_TUBE::get))
+                    .initialProperties(() -> Blocks.STONE)
+                    .blockstate(BlockStateGen.axisBlockProvider(false))
+                    .transform(pickaxeOnly())
+                    .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.CABLE_TUBE.get().asItem()))
+                    .register();
+
+    public static final BlockEntry<CableTubeBlock> ELECTRIC_POST =
+            REGISTRATE.block("electric_post", p -> new CableTubeBlock(p, false, null))
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .blockstate(BlockStateGen.axisBlockProvider(false))
+                    .transform(pickaxeOnly())
+                    .item()
+                    .build()
+                    .register();
+
+    public static final BlockEntry<CableTubeBlock> CONCRETE_ENCASED_ELECTRIC_POST =
+            REGISTRATE.block("concrete_encased_electric_post", p -> new CableTubeBlock(p, true, ELECTRIC_POST::get))
+                    .initialProperties(() -> Blocks.STONE)
+                    .blockstate(BlockStateGen.axisBlockProvider(false))
+                    .transform(pickaxeOnly())
+                    .loot((lt, block) -> lt.dropOther(block, TFMGBlocks.ELECTRIC_POST.get().asItem()))
+                    .register();
+
+    public static final BlockEntry<DiagonalCableBlock> DIAGONAL_CABLE_BLOCK =
+            REGISTRATE.block("diagonal_cable_block", DiagonalCableBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate(new DiagonalCableGenerator()::generate)
+                    .properties(p -> p.noOcclusion())
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
 //    public static final BlockEntry<ElectricMotorBlock> ELECTRIC_MOTOR =
 //            REGISTRATE.block("electric_motor", ElectricMotorBlock::new)
 //                    .initialProperties(() -> Blocks.IRON_BLOCK)
@@ -999,14 +1008,14 @@ public class TFMGBlocks {
 //                    .item()
 //                    .transform(customItemModel())
 //                    .register();
-//
-//    public static final BlockEntry<CreativeGeneratorBlock> CREATIVE_GENERATOR = REGISTRATE.block("creative_generator", CreativeGeneratorBlock::new)
-//            .initialProperties(() -> Blocks.IRON_BLOCK)
-//            .properties(p -> p.requiresCorrectToolForDrops())
-//            .transform(pickaxeOnly())
-//            .simpleItem()
-//            .register();
-//
+
+    public static final BlockEntry<CreativeGeneratorBlock> CREATIVE_GENERATOR = REGISTRATE.block("creative_generator", CreativeGeneratorBlock::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .transform(pickaxeOnly())
+            .simpleItem()
+            .register();
+
 //    public static final BlockEntry<AccumulatorBlock> ACCUMULATOR =
 //            REGISTRATE.block("accumulator", AccumulatorBlock::new)
 //                    .initialProperties(() -> Blocks.IRON_BLOCK)
@@ -1017,54 +1026,58 @@ public class TFMGBlocks {
 //                    .build()
 //                    .register();
 //    ;
-//    public static final BlockEntry<LightBulbBlock> LIGHT_BULB =
-//            REGISTRATE.block("light_bulb", p -> new LightBulbBlock(p, TFMGBlockEntities.LIGHT_BULB, TFMGShapes.LIGHT_BULB))
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .properties(p -> p.lightLevel(s -> s.getValue(LIGHT)))
-//                    .transform(pickaxeOnly())
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .properties(BlockBehaviour.Properties::noOcclusion)
-//                    .blockstate(BlockStateGen.directionalBlockProvider(true))
-//                    .item()
-//                    .transform(customItemModel())
-//                    .register();
-//    public static final BlockEntry<LightBulbBlock> CIRCULAR_LIGHT =
-//            REGISTRATE.block("circular_light", p -> new LightBulbBlock(p, TFMGBlockEntities.CIRCULAR_LIGHT, TFMGShapes.CIRCULAR_LIGHT))
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .properties(p -> p.lightLevel(s -> s.getValue(LIGHT)))
-//                    .transform(pickaxeOnly())
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .properties(BlockBehaviour.Properties::noOcclusion)
-//                    .blockstate(new LampGenerator()::generate)
-//                    .lang("Circular Lamp")
-//                    .item()
-//                    .transform(customItemModel())
-//                    .register();
-//    public static final BlockEntry<LightBulbBlock> MODERN_LIGHT =
-//            REGISTRATE.block("modern_light", p -> new LightBulbBlock(p, TFMGBlockEntities.MODERN_LIGHT, TFMGShapes.MODERN_LIGHT))
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .properties(p -> p.lightLevel(s -> s.getValue(LIGHT)))
-//                    .transform(pickaxeOnly())
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .properties(BlockBehaviour.Properties::noOcclusion)
-//                    .blockstate(new LampGenerator()::generate)
-//                    .lang("Light Panel")
-//                    .item()
-//                    .transform(customItemModel())
-//                    .register();
-//    public static final BlockEntry<LightBulbBlock> ALUMINUM_LAMP =
-//            REGISTRATE.block("aluminum_lamp", p -> new LightBulbBlock(p, TFMGBlockEntities.ALUMINUM_LAMP, TFMGShapes.ALUMINUM_LAMP))
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .properties(p -> p.lightLevel(s -> s.getValue(LIGHT)))
-//                    .transform(pickaxeOnly())
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .properties(BlockBehaviour.Properties::noOcclusion)
-//                    .blockstate(new LampGenerator()::generate)
-//                    .lang("Aluminum Lamp")
-//                    .item()
-//                    .transform(customItemModel())
-//                    .register();
-//
+    public static final BlockEntry<LightBulbBlock> LIGHT_BULB =
+            REGISTRATE.block("light_bulb", p -> new LightBulbBlock(p, TFMGBlockEntities.LIGHT_BULB, TFMGShapes.LIGHT_BULB))
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.lightLevel(s -> s.getValue(LIGHT)))
+                    .transform(pickaxeOnly())
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate(BlockStateGen.directionalBlockProvider(true))
+                    .onRegister(x -> BlockResistanceValues.RESISTANCES.register(x, () -> 0.1))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<LightBulbBlock> CIRCULAR_LIGHT =
+            REGISTRATE.block("circular_light", p -> new LightBulbBlock(p, TFMGBlockEntities.CIRCULAR_LIGHT, TFMGShapes.CIRCULAR_LIGHT))
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.lightLevel(s -> s.getValue(LIGHT)))
+                    .transform(pickaxeOnly())
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate(new LampGenerator()::generate)
+                    .onRegister(x -> BlockResistanceValues.RESISTANCES.register(x, () -> 100))
+                    .lang("Circular Lamp")
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<LightBulbBlock> MODERN_LIGHT =
+            REGISTRATE.block("modern_light", p -> new LightBulbBlock(p, TFMGBlockEntities.MODERN_LIGHT, TFMGShapes.MODERN_LIGHT))
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.lightLevel(s -> s.getValue(LIGHT)))
+                    .transform(pickaxeOnly())
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate(new LampGenerator()::generate)
+                    .onRegister(x -> BlockResistanceValues.RESISTANCES.register(x, () -> 100))
+                    .lang("Light Panel")
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<LightBulbBlock> ALUMINUM_LAMP =
+            REGISTRATE.block("aluminum_lamp", p -> new LightBulbBlock(p, TFMGBlockEntities.ALUMINUM_LAMP, TFMGShapes.ALUMINUM_LAMP))
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .properties(p -> p.lightLevel(s -> s.getValue(LIGHT)))
+                    .transform(pickaxeOnly())
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate(new LampGenerator()::generate)
+                    .onRegister(x -> BlockResistanceValues.RESISTANCES.register(x, () -> 100))
+                    .lang("Aluminum Lamp")
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+
 //    public static final BlockEntry<NeonTubeBlock> NEON_TUBE =
 //            REGISTRATE.block("neon_tube", NeonTubeBlock::new)
 //                    .initialProperties(() -> Blocks.GLASS)

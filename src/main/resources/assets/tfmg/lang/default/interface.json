@@ -170,7 +170,19 @@
 
 
   "tfmg.subtitle.engine_sounds": "Engine Sounds",
-  "tfmg.subtitle.diesel_engine_sounds": "Diesel Engine Sounds"
+  "tfmg.subtitle.diesel_engine_sounds": "Diesel Engine Sounds",
 
+  "create.gui.goggles.electric_generator_stats": "Electric Generator Stats:",
+  "create.gui.goggles.electric_stats": "Electric Stats:",
+  "create.gui.goggles.at_current_voltage": "at current voltage",
+  "create.tooltip.powerProvided": "Power Generation:",
+  "create.tooltip.powerConsumed": "Power Consumption:",
 
+  "create.gui.contraptions.network_shorted": "It appears that this contraption has _short-circuited_. Add more power sources or _reduce_ _voltage_ on the components with a high _power_ _usage_.",
+  "create.gui.stressometer.shorted": "Short-Circuited",
+
+  "create.generic.unit.voltage": "volts",
+  "create.generic.unit.power": "watts",
+  "create.generic.unit.current": "amps",
+  "create.generic.unit.resistance": "ohms"
 }

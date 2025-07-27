@@ -36,6 +36,13 @@ import it.bohdloss.tfmg.content.decoration.tanks.aluminum.AluminumTankBlockEntit
 import it.bohdloss.tfmg.content.decoration.tanks.cast_iron.CastIronTankBlockEntity;
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankBlockEntity;
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankRenderer;
+import it.bohdloss.tfmg.content.electricity.base.ElectricBlockEntity;
+import it.bohdloss.tfmg.content.electricity.generators.creative_generator.CreativeGeneratorBlockEntity;
+import it.bohdloss.tfmg.content.electricity.lights.LightBulbBlockEntity;
+import it.bohdloss.tfmg.content.electricity.lights.LightBulbRenderer;
+import it.bohdloss.tfmg.content.electricity.lights.variants.AluminumLampRenderer;
+import it.bohdloss.tfmg.content.electricity.lights.variants.CircularLightRenderer;
+import it.bohdloss.tfmg.content.electricity.lights.variants.ModernLightRenderer;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceHatchBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceRenderer;
@@ -107,18 +114,18 @@ public class TFMGBlockEntities {
 //            .validBlocks(TFMGBlocks.NEON_TUBE)
 //            .renderer(() -> NeonTubeRenderer::new)
 //            .register();
-//
-//    public static final BlockEntityEntry<DiagonalCableBlockEntity> DIAGONAL_CABLE_BLOCK = REGISTRATE
-//            .blockEntity("diagonal_cable_block", DiagonalCableBlockEntity::new)
-//            .validBlocks(TFMGBlocks.DIAGONAL_CABLE_BLOCK)
-//            .register();
-//
-//    public static final BlockEntityEntry<CableTubeBlockEntity> CABLE_TUBE = REGISTRATE
-//            .blockEntity("cable_tube", CableTubeBlockEntity::new)
-//            .validBlocks(TFMGBlocks.CABLE_TUBE, TFMGBlocks.ELECTRIC_POST,
-//                    TFMGBlocks.CONCRETE_ENCASED_CABLE_TUBE, TFMGBlocks.CONCRETE_ENCASED_ELECTRIC_POST)
-//            .register();
-//
+
+    public static final BlockEntityEntry<ElectricBlockEntity> DIAGONAL_CABLE_BLOCK = REGISTRATE
+            .blockEntity("diagonal_cable_block", ElectricBlockEntity::new)
+            .validBlocks(TFMGBlocks.DIAGONAL_CABLE_BLOCK)
+            .register();
+
+    public static final BlockEntityEntry<ElectricBlockEntity> CABLE_TUBE = REGISTRATE
+            .blockEntity("cable_tube", ElectricBlockEntity::new)
+            .validBlocks(TFMGBlocks.CABLE_TUBE, TFMGBlocks.ELECTRIC_POST,
+                    TFMGBlocks.CONCRETE_ENCASED_CABLE_TUBE, TFMGBlocks.CONCRETE_ENCASED_ELECTRIC_POST)
+            .register();
+
 //    public static final BlockEntityEntry<RotorBlockEntity> ROTOR = REGISTRATE
 //            .blockEntity("rotor", RotorBlockEntity::new)
 //            .visual(() -> RotorVisual::new)
@@ -181,27 +188,27 @@ public class TFMGBlockEntities {
             .validBlocks(TFMGBlocks.MACHINE_INPUT)
             .renderer(() -> HalfShaftRenderer::new)
             .register();
-//    public static final BlockEntityEntry<LightBulbBlockEntity> LIGHT_BULB = REGISTRATE
-//            .blockEntity("light_bulb", LightBulbBlockEntity::new)
-//            .validBlocks(TFMGBlocks.LIGHT_BULB)
-//            .renderer(() -> LightBulbRenderer::new)
-//            .register();
-//    public static final BlockEntityEntry<LightBulbBlockEntity> CIRCULAR_LIGHT = REGISTRATE
-//            .blockEntity("circular_light", LightBulbBlockEntity::new)
-//            .validBlocks(TFMGBlocks.CIRCULAR_LIGHT)
-//            .renderer(() -> CircularLightRenderer::new)
-//            .register();
-//    public static final BlockEntityEntry<LightBulbBlockEntity> MODERN_LIGHT = REGISTRATE
-//            .blockEntity("modern_light", LightBulbBlockEntity::new)
-//            .validBlocks(TFMGBlocks.MODERN_LIGHT)
-//            .renderer(() -> ModernLightRenderer::new)
-//            .register();
-//    public static final BlockEntityEntry<LightBulbBlockEntity> ALUMINUM_LAMP = REGISTRATE
-//            .blockEntity("aluminum_lamp", LightBulbBlockEntity::new)
-//            .validBlocks(TFMGBlocks.ALUMINUM_LAMP)
-//            .renderer(() -> AluminumLampRenderer::new)
-//            .register();
-//
+    public static final BlockEntityEntry<LightBulbBlockEntity> LIGHT_BULB = REGISTRATE
+            .blockEntity("light_bulb", LightBulbBlockEntity::new)
+            .validBlocks(TFMGBlocks.LIGHT_BULB)
+            .renderer(() -> LightBulbRenderer::new)
+            .register();
+    public static final BlockEntityEntry<LightBulbBlockEntity> CIRCULAR_LIGHT = REGISTRATE
+            .blockEntity("circular_light", LightBulbBlockEntity::new)
+            .validBlocks(TFMGBlocks.CIRCULAR_LIGHT)
+            .renderer(() -> CircularLightRenderer::new)
+            .register();
+    public static final BlockEntityEntry<LightBulbBlockEntity> MODERN_LIGHT = REGISTRATE
+            .blockEntity("modern_light", LightBulbBlockEntity::new)
+            .validBlocks(TFMGBlocks.MODERN_LIGHT)
+            .renderer(() -> ModernLightRenderer::new)
+            .register();
+    public static final BlockEntityEntry<LightBulbBlockEntity> ALUMINUM_LAMP = REGISTRATE
+            .blockEntity("aluminum_lamp", LightBulbBlockEntity::new)
+            .validBlocks(TFMGBlocks.ALUMINUM_LAMP)
+            .renderer(() -> AluminumLampRenderer::new)
+            .register();
+
 //    public static final BlockEntityEntry<AccumulatorBlockEntity> ACCUMULATOR = REGISTRATE
 //            .blockEntity("accumulator", AccumulatorBlockEntity::new)
 //            .validBlocks(TFMGBlocks.ACCUMULATOR)
@@ -304,11 +311,11 @@ public class TFMGBlockEntities {
             .register();
 
 
-//    public static final BlockEntityEntry<CreativeGeneratorBlockEntity> CREATIVE_GENERATOR = REGISTRATE
-//            .blockEntity("creative_generator", CreativeGeneratorBlockEntity::new)
-//            .validBlocks(TFMGBlocks.CREATIVE_GENERATOR)
-//            .register();
-//
+    public static final BlockEntityEntry<CreativeGeneratorBlockEntity> CREATIVE_GENERATOR = REGISTRATE
+            .blockEntity("creative_generator", CreativeGeneratorBlockEntity::new)
+            .validBlocks(TFMGBlocks.CREATIVE_GENERATOR)
+            .register();
+
 //    public static final BlockEntityEntry<VoltMeterBlockEntity> VOLTMETER = REGISTRATE
 //            .blockEntity("voltmeter", VoltMeterBlockEntity::new)
 //            .validBlocks(TFMGBlocks.VOLTMETER)
@@ -425,17 +432,16 @@ public class TFMGBlockEntities {
 
 
 
-//    public static final BlockEntityEntry<CableHubBlockEntity> CABLE_HUB = REGISTRATE
-//            .blockEntity("cable_hub", CableHubBlockEntity::new)
-//            .validBlocks(TFMGBlocks.BRASS_CABLE_HUB,
-//                    TFMGBlocks.COPPER_CABLE_HUB,
-//                    TFMGBlocks.STEEL_CABLE_HUB,
-//                    TFMGBlocks.ALUMINUM_CABLE_HUB,
-//                    TFMGBlocks.HEAVY_CABLE_HUB,
-//                    TFMGBlocks.STEEL_CASING_CABLE_HUB
-////
-//            )
-//            .register();
+    public static final BlockEntityEntry<ElectricBlockEntity> CABLE_HUB = REGISTRATE
+            .blockEntity("cable_hub", ElectricBlockEntity::new)
+            .validBlocks(TFMGBlocks.BRASS_CABLE_HUB,
+                    TFMGBlocks.COPPER_CABLE_HUB,
+                    TFMGBlocks.STEEL_CABLE_HUB,
+                    TFMGBlocks.ALUMINUM_CABLE_HUB,
+                    TFMGBlocks.HEAVY_CABLE_HUB,
+                    TFMGBlocks.STEEL_CASING_CABLE_HUB
+            )
+            .register();
 
 
     public static final BlockEntityEntry<CokeOvenBlockEntity> COKE_OVEN = REGISTRATE

@@ -36,8 +36,9 @@ public enum TFMGParticleTypes {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerFactories(RegisterParticleProvidersEvent event) {
-        for (TFMGParticleTypes particle : values())
+        for (TFMGParticleTypes particle : values()) {
             particle.entry.registerFactory(event);
+        }
     }
 
     public ParticleType<?> get() {

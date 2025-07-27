@@ -5,6 +5,7 @@ import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipModifier;
+import it.bohdloss.tfmg.content.electricity.ElectricalNetworkManager;
 import it.bohdloss.tfmg.registry.*;
 import it.bohdloss.tfmg.worldgen.TFMGFeatures;
 import net.createmod.catnip.lang.FontHelper;
@@ -27,6 +28,8 @@ public class TFMG {
     public static final String MOD_ID = "tfmg";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final TFMGRegistrate REGISTRATE = TFMGRegistrate.create();
+    public static final ElectricalNetworkManager ELECTRICITY_MANAGER = new ElectricalNetworkManager();
+
     static {
         REGISTRATE.defaultCreativeTab((ResourceKey<CreativeModeTab>) null);
     }
