@@ -153,7 +153,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
         owner.setChanged();
     }
 
-    /// Find neighboring electric entities and merge their networks into one
+    /// Find neighboring electric entities and merge their networks into one.
     public final void attach() {
         initCache();
 
@@ -223,6 +223,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
         }
     }
 
+    /// Remove this component from its network, possibly splitting it into multiple networks.
     public final void detach() {
         initCache();
 
@@ -236,6 +237,13 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
 
         // Remove component
         previousNetwork.removeComponent(getBlockPos());
+
+        // Edge case: we just removed this component and now the network is empty.
+        // It was a lone component, just unregister the network and return.
+        if(previousNetwork.members.size() == 0) {
+            previousNetwork.owner.networks.remove(previousNetwork.id);
+            return;
+        }
 
         // Split network for every neighbor that may now be disconnected
         for(BlockPos pos : positions) {

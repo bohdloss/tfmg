@@ -152,14 +152,39 @@ public class ElectricalNetwork {
             throw new IllegalStateException("Trying to *sync* component to network it does not belong to");
         }
         component.network = id;
+
+        boolean dirty = false;
+
+        // Sync data from the component itself
+        float generatedVoltage = component.getGeneratedVoltage();
+        if(generatedVoltage != member.generatedVoltage) {
+            member.generatedVoltage = generatedVoltage;
+            dirty = true;
+        }
+        float resistance = component.getResistance();
+        if(resistance != member.resistance) {
+            member.resistance = resistance;
+            dirty = true;
+        }
+        float generatorResistance = component.getGeneratorResistance();
+        if(generatorResistance != member.generatorResistance) {
+            member.generatorResistance = generatorResistance;
+            dirty = true;
+        }
+
+        // If anything changed since we last checked, we must advance the simulation
+        if(dirty) {
+            owner.setDirty();
+            step();
+        }
+
+        // Provide component with updated data
         component.frequency = member.frequency;
         component.voltage = member.voltage;
         component.totalNetworkUsage = totalUsage;
         component.totalNetworkProduction = totalProduction;
         component.lastAmpsConsumed = member.ampsConsumed;
         component.lastAmpsProvided = member.ampsProvided;
-
-        owner.setDirty();
     }
 
     public boolean contains(BlockPos pos) {
@@ -174,7 +199,7 @@ public class ElectricalNetwork {
 
     // Advance the simulation
     public void step() {
-
+        owner.setDirty();
     }
 
     public static class Member {
@@ -182,6 +207,9 @@ public class ElectricalNetwork {
                 inst -> inst.group(
                         BlockPos.CODEC.fieldOf("Pos").forGetter(x -> x.pos),
                         Codec.list(BlockPos.CODEC).fieldOf("Connections").forGetter(x -> x.connections),
+                        Codec.FLOAT.fieldOf("GeneratedVoltage").forGetter(x -> x.generatedVoltage),
+                        Codec.FLOAT.fieldOf("Resistance").forGetter(x -> x.resistance),
+                        Codec.FLOAT.fieldOf("GeneratorResistance").forGetter(x -> x.generatorResistance),
                         Codec.FLOAT.fieldOf("Frequency").forGetter(x -> x.frequency),
                         Codec.FLOAT.fieldOf("Voltage").forGetter(x -> x.voltage),
                         Codec.FLOAT.fieldOf("AmpsConsumed").forGetter(x -> x.ampsConsumed),
@@ -194,15 +222,23 @@ public class ElectricalNetwork {
 
         public boolean marked;
 
+        // Data from the component
+        public float generatedVoltage;
+        public float resistance;
+        public float generatorResistance;
+
         // Compiled
         public float frequency;
         public float voltage;
         public float ampsConsumed;
         public float ampsProvided;
 
-        private static Member fromCodec(BlockPos pos, List<BlockPos> connections, Float frequency, Float voltage, Float ampsConsumed, Float ampsProvided) {
+        private static Member fromCodec(BlockPos pos, List<BlockPos> connections, Float generatedVoltage, Float resistance, Float generatorResistance, Float frequency, Float voltage, Float ampsConsumed, Float ampsProvided) {
             Member self = new Member(pos);
             self.connections.addAll(connections);
+            self.generatedVoltage = generatedVoltage;
+            self.resistance = resistance;
+            self.generatorResistance = generatorResistance;
             self.frequency = frequency;
             self.voltage = voltage;
             self.ampsConsumed = ampsConsumed;
