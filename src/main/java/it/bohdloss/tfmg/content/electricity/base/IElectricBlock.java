@@ -6,21 +6,17 @@ import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.advancement.AdvancementBehaviour;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public interface IElectricBlock extends IWrenchable {
-    boolean hasConnectorTowards(LevelReader world, BlockPos pos, BlockState state, Direction face);
-
     @Override
     default InteractionResult onWrenched(BlockState state, UseOnContext context) {
         Level level = context.getLevel();
@@ -35,7 +31,7 @@ public interface IElectricBlock extends IWrenchable {
             level.setBlock(pos, state, 0); // Reset it so ElectricBlockEntity can do its deed
         }
 
-        ElectricBlockEntity.switchToBlockState(level, pos, updateAfterWrenched(rotated, context));
+        ElectricData.switchToBlockState(level, pos, updateAfterWrenched(rotated, context));
 
         if (level.getBlockState(pos) != state) {
             IWrenchable.playRotateSound(level, pos);
@@ -51,7 +47,8 @@ public interface IElectricBlock extends IWrenchable {
     default void onPlace(@NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean isMoving) {
         BlockEntity blockEntity = worldIn.getBlockEntity(pos);
         if (blockEntity instanceof IElectric electricBlockEntity) {
-            electricBlockEntity.setPreventVoltageUpdate(0);
+            ElectricData data = electricBlockEntity.getElectricData();
+            data.preventNetworkUpdate = false;
 
             if (oldState.getBlock() != state.getBlock())
                 return;
@@ -60,7 +57,7 @@ public interface IElectricBlock extends IWrenchable {
             if (!areStatesElectricallyEquivalent(oldState, state))
                 return;
 
-            electricBlockEntity.setPreventVoltageUpdate(2);
+            data.preventNetworkUpdate = true;
         }
     }
 
@@ -74,21 +71,31 @@ public interface IElectricBlock extends IWrenchable {
         }
 
         BlockEntity blockEntity = worldIn.getBlockEntity(pos);
-        if (!(blockEntity instanceof IElectric ebe))
-            return;
-
-        if (ebe.getPreventVoltageUpdate() > 0) {
+        if (!(blockEntity instanceof IElectric ebe)) {
             return;
         }
 
         // Remove previous information when block is added
-        ebe.warnOfMovementElectrical();
-        ebe.clearElectricInformation();
-        ebe.setNeedsVoltageUpdate(true);
+        ElectricData data = ebe.getElectricData();
+        if(data.preventNetworkUpdate) {
+            return;
+        }
+
+        data.wasMoved = true;
+        data.clear();
+        data.connectNextTick = true;
     }
 
-    default void setPlacedBy(@NotNull Level worldIn, @NotNull BlockPos pos, @NotNull BlockState state, LivingEntity placer, @NotNull ItemStack stack) {
+    default void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         AdvancementBehaviour.setPlacedBy(worldIn, pos, placer);
+        if (worldIn.isClientSide)
+            return;
+
+        BlockEntity blockEntity = worldIn.getBlockEntity(pos);
+        if (blockEntity instanceof IElectric ebe) {
+            ElectricData data = ebe.getElectricData();
+            data.effects.queuePowerIndicators();
+        }
     }
 
     default float getElectricParticleTargetRadius() {
@@ -98,5 +105,4 @@ public interface IElectricBlock extends IWrenchable {
     default float getElectricParticleInitialRadius() {
         return .75f;
     }
-
 }

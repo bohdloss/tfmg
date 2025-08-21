@@ -1,15 +1,18 @@
 package it.bohdloss.tfmg.content.electricity.lights;
 
 import it.bohdloss.tfmg.content.electricity.base.ElectricBlockEntity;
+import it.bohdloss.tfmg.content.electricity.base.ElectricData;
 import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.nbt.NBTHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import static it.bohdloss.tfmg.content.electricity.lights.LightBulbBlock.FACING;
 import static it.bohdloss.tfmg.content.electricity.lights.LightBulbBlock.LIGHT;
 
 public class LightBulbBlockEntity extends ElectricBlockEntity {
@@ -26,11 +29,11 @@ public class LightBulbBlockEntity extends ElectricBlockEntity {
     public void tick() {
         super.tick();
 
-        if(!hasSignal && getVoltage() != 0) {
-            glow.chase(getConsumedCurrent() * 2.5, 0.4, LerpedFloat.Chaser.EXP);
+        if(!hasSignal && electricData.getVoltage() != 0) {
+            glow.chase(electricData.getConsumedCurrent() * 2.5, 0.4, LerpedFloat.Chaser.EXP);
             glow.tickChaser();
-            if (!level.isClientSide && Math.min(getVoltage() / 10, 15) != getBlockState().getValue(LIGHT)) {
-                level.setBlock(getBlockPos(), getBlockState().setValue(LIGHT, (int) Math.min(getVoltage() / 10, 15)),  16 | 2);
+            if (!level.isClientSide && Math.min(electricData.getVoltage() / 10, 15) != getBlockState().getValue(LIGHT)) {
+                level.setBlock(getBlockPos(), getBlockState().setValue(LIGHT, (int) Math.min(electricData.getVoltage() / 10, 15)),  16 | 2);
             }
         } else {
             if (!level.isClientSide && getBlockState().getValue(LIGHT) != 0) {
@@ -43,6 +46,16 @@ public class LightBulbBlockEntity extends ElectricBlockEntity {
             signalChanged = false;
             analogSignalChanged(level.getBestNeighborSignal(worldPosition));
         }
+    }
+
+    @Override
+    protected ElectricData instantiateElectric() {
+        return new ElectricData(this) {
+            @Override
+            public boolean hasConnectorTowards(Direction direction) {
+                return direction == getBlockState().getValue(FACING).getOpposite();
+            }
+        };
     }
 
     public void setColor(DyeColor color) {
@@ -65,9 +78,10 @@ public class LightBulbBlockEntity extends ElectricBlockEntity {
     }
 
     public void neighbourChanged() {
-        if (!hasLevel())
+        if (!hasLevel()) {
             return;
-        boolean powered = level.getBestNeighborSignal(worldPosition)>0;
+        }
+        boolean powered = level.getBestNeighborSignal(worldPosition) > 0;
         if (powered != hasSignal)
             signalChanged = true;
     }

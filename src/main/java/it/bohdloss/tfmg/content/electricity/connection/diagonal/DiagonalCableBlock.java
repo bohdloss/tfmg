@@ -5,6 +5,7 @@ import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 import it.bohdloss.tfmg.content.electricity.base.ElectricBlock;
 import it.bohdloss.tfmg.content.electricity.base.ElectricBlockEntity;
+import it.bohdloss.tfmg.content.electricity.base.ElectricData;
 import it.bohdloss.tfmg.content.electricity.base.IElectricBlock;
 import it.bohdloss.tfmg.registry.TFMGBlockEntities;
 import it.bohdloss.tfmg.registry.TFMGShapes;
@@ -35,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class DiagonalCableBlock extends ElectricBlock implements SimpleWaterloggedBlock, IBE<ElectricBlockEntity>, IElectricBlock {
+public class DiagonalCableBlock extends ElectricBlock implements SimpleWaterloggedBlock, IBE<DiagonalCableBlockEntity>, IElectricBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING_PRIMARY = DirectionProperty.create("facing_primary");
@@ -50,18 +51,13 @@ public class DiagonalCableBlock extends ElectricBlock implements SimpleWaterlogg
     }
 
     @Override
-    public Class<ElectricBlockEntity> getBlockEntityClass() {
-        return ElectricBlockEntity.class;
+    public Class<DiagonalCableBlockEntity> getBlockEntityClass() {
+        return DiagonalCableBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends ElectricBlockEntity> getBlockEntityType() {
+    public BlockEntityType<? extends DiagonalCableBlockEntity> getBlockEntityType() {
         return TFMGBlockEntities.DIAGONAL_CABLE_BLOCK.get();
-    }
-
-    @Override
-    public boolean hasConnectorTowards(LevelReader world, BlockPos pos, BlockState state, Direction face) {
-        return face == state.getValue(FACING_PRIMARY) || face == state.getValue(FACING_SECONDARY);
     }
 
     @Override
@@ -120,7 +116,7 @@ public class DiagonalCableBlock extends ElectricBlock implements SimpleWaterlogg
 
         BlockState newState = calculateRotatedState(state, clickedFace, primary, secondary);
 
-        ElectricBlockEntity.switchToBlockState(context.getLevel(), context.getClickedPos(), newState);
+        ElectricData.switchToBlockState(context.getLevel(), context.getClickedPos(), newState);
         IWrenchable.playRotateSound(context.getLevel(), context.getClickedPos());
 
         return result;

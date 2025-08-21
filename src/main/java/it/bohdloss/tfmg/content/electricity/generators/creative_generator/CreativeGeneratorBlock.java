@@ -16,11 +16,6 @@ public class CreativeGeneratorBlock extends ElectricBlock implements IBE<Creativ
     }
 
     @Override
-    public boolean hasConnectorTowards(LevelReader world, BlockPos pos, BlockState state, Direction face) {
-        return true;
-    }
-
-    @Override
     public Class<CreativeGeneratorBlockEntity> getBlockEntityClass() {
         return CreativeGeneratorBlockEntity.class;
     }

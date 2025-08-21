@@ -76,7 +76,7 @@ public class SpoolItem extends Item implements IWindable {
         WireSelection selection = stack.get(TFMGDataComponents.WIRE_SELECTION);
         if(selection != null) {
             BlockPos pos = selection.pos();
-            tooltipComponents.add(CreateLang.text("" + pos.getX() + " " + pos.getY() + " " + pos.getZ()).component()
+            tooltipComponents.add(CreateLang.text(pos.getX() + " " + pos.getY() + " " + pos.getZ()).component()
                     .withStyle(ChatFormatting.AQUA)
             );
         }

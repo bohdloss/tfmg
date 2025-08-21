@@ -5,7 +5,8 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
 import com.simibubi.create.foundation.utility.CreateLang;
-import it.bohdloss.tfmg.content.electricity.base.GeneratingElectricBlockEntity;
+import it.bohdloss.tfmg.content.electricity.base.ElectricBlockEntity;
+import it.bohdloss.tfmg.content.electricity.base.ElectricData;
 import net.createmod.catnip.math.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-public class CreativeGeneratorBlockEntity extends GeneratingElectricBlockEntity {
+public class CreativeGeneratorBlockEntity extends ElectricBlockEntity {
     protected ScrollValueBehaviour outputVoltage;
 
     public CreativeGeneratorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -31,26 +32,28 @@ public class CreativeGeneratorBlockEntity extends GeneratingElectricBlockEntity 
                 this, new CreativeGeneratorValueBox());
         outputVoltage.between(0, max);
         outputVoltage.value = 50;
-        outputVoltage.withCallback(i -> updateGeneratedVoltage());
+        outputVoltage.withCallback(i -> electricData.connectNextTick = true);
         behaviours.add(outputVoltage);
     }
 
     @Override
-    public void initialize() {
-        super.initialize();
-        if (!hasElectricalSource() || getGeneratedVoltage() > getTheoreticalVoltage()) {
-            updateGeneratedVoltage();
-        }
-    }
+    protected ElectricData instantiateElectric() {
+        return new ElectricData(this) {
+            @Override
+            public boolean hasConnectorTowards(Direction direction) {
+                return true;
+            }
 
-    @Override
-    public float getGeneratedVoltage() {
-        return outputVoltage.value * 10;
-    }
+            @Override
+            public float getGeneratedVoltage() {
+                return outputVoltage.value * 10;
+            }
 
-    @Override
-    public float calculateAmpsGenerated1Volt() {
-        return 1;
+            @Override
+            public float getGeneratorResistance() {
+                return 1;
+            }
+        };
     }
 
     static class CreativeGeneratorValueBox extends ValueBoxTransform.Sided {

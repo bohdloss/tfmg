@@ -28,7 +28,6 @@ public class TFMG {
     public static final String MOD_ID = "tfmg";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final TFMGRegistrate REGISTRATE = TFMGRegistrate.create();
-    public static final ElectricalNetworkManager ELECTRICITY_MANAGER = new ElectricalNetworkManager();
 
     static {
         REGISTRATE.defaultCreativeTab((ResourceKey<CreativeModeTab>) null);

@@ -52,6 +52,7 @@ public class LightBulbBlock extends ElectricBlock implements IBE<LightBulbBlockE
         this.blockEntityType = blockEntityType;
         this.shape = shape;
     }
+
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return shape.get(pState.getValue(FACING));
@@ -117,10 +118,5 @@ public class LightBulbBlock extends ElectricBlock implements IBE<LightBulbBlockE
     @Override
     public BlockEntityType<? extends LightBulbBlockEntity> getBlockEntityType() {
         return blockEntityType.get();
-    }
-
-    @Override
-    public boolean hasConnectorTowards(LevelReader world, BlockPos pos, BlockState state, Direction face) {
-        return face == state.getValue(FACING).getOpposite();
     }
 }

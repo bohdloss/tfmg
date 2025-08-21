@@ -40,7 +40,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-public class CableTubeBlock extends RotatedPillarBlock implements IElectricBlock, IBE<ElectricBlockEntity>, ConcreteloggedBlock {
+public class CableTubeBlock extends RotatedPillarBlock implements IElectricBlock, IBE<CableTubeBlockEntity>, ConcreteloggedBlock {
     public final int placementHelperId = PlacementHelpers.register(new PlacementHelper());
     public final boolean concreteEncased;
     public final Supplier<Block> nonEncased;
@@ -95,13 +95,8 @@ public class CableTubeBlock extends RotatedPillarBlock implements IElectricBlock
     }
 
     @Override
-    public boolean hasConnectorTowards(LevelReader world, BlockPos pos, BlockState state, Direction face) {
-        return face.getAxis() == state.getValue(AXIS);
-    }
-
-    @Override
-    public Class<ElectricBlockEntity> getBlockEntityClass() {
-        return ElectricBlockEntity.class;
+    public Class<CableTubeBlockEntity> getBlockEntityClass() {
+        return CableTubeBlockEntity.class;
     }
 
     @Override
@@ -124,7 +119,7 @@ public class CableTubeBlock extends RotatedPillarBlock implements IElectricBlock
     }
 
     @Override
-    public BlockEntityType<? extends ElectricBlockEntity> getBlockEntityType() {
+    public BlockEntityType<? extends CableTubeBlockEntity> getBlockEntityType() {
         return TFMGBlockEntities.CABLE_TUBE.get();
     }
 

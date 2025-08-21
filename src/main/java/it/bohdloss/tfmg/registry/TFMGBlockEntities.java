@@ -37,6 +37,9 @@ import it.bohdloss.tfmg.content.decoration.tanks.cast_iron.CastIronTankBlockEnti
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankBlockEntity;
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankRenderer;
 import it.bohdloss.tfmg.content.electricity.base.ElectricBlockEntity;
+import it.bohdloss.tfmg.content.electricity.connection.cable_hub.CableHubBlockEntity;
+import it.bohdloss.tfmg.content.electricity.connection.diagonal.DiagonalCableBlockEntity;
+import it.bohdloss.tfmg.content.electricity.connection.tube.CableTubeBlockEntity;
 import it.bohdloss.tfmg.content.electricity.generators.creative_generator.CreativeGeneratorBlockEntity;
 import it.bohdloss.tfmg.content.electricity.lights.LightBulbBlockEntity;
 import it.bohdloss.tfmg.content.electricity.lights.LightBulbRenderer;
@@ -115,13 +118,13 @@ public class TFMGBlockEntities {
 //            .renderer(() -> NeonTubeRenderer::new)
 //            .register();
 
-    public static final BlockEntityEntry<ElectricBlockEntity> DIAGONAL_CABLE_BLOCK = REGISTRATE
-            .blockEntity("diagonal_cable_block", ElectricBlockEntity::new)
+    public static final BlockEntityEntry<DiagonalCableBlockEntity> DIAGONAL_CABLE_BLOCK = REGISTRATE
+            .blockEntity("diagonal_cable_block", DiagonalCableBlockEntity::new)
             .validBlocks(TFMGBlocks.DIAGONAL_CABLE_BLOCK)
             .register();
 
-    public static final BlockEntityEntry<ElectricBlockEntity> CABLE_TUBE = REGISTRATE
-            .blockEntity("cable_tube", ElectricBlockEntity::new)
+    public static final BlockEntityEntry<CableTubeBlockEntity> CABLE_TUBE = REGISTRATE
+            .blockEntity("cable_tube", CableTubeBlockEntity::new)
             .validBlocks(TFMGBlocks.CABLE_TUBE, TFMGBlocks.ELECTRIC_POST,
                     TFMGBlocks.CONCRETE_ENCASED_CABLE_TUBE, TFMGBlocks.CONCRETE_ENCASED_ELECTRIC_POST)
             .register();
@@ -432,8 +435,8 @@ public class TFMGBlockEntities {
 
 
 
-    public static final BlockEntityEntry<ElectricBlockEntity> CABLE_HUB = REGISTRATE
-            .blockEntity("cable_hub", ElectricBlockEntity::new)
+    public static final BlockEntityEntry<CableHubBlockEntity> CABLE_HUB = REGISTRATE
+            .blockEntity("cable_hub", CableHubBlockEntity::new)
             .validBlocks(TFMGBlocks.BRASS_CABLE_HUB,
                     TFMGBlocks.COPPER_CABLE_HUB,
                     TFMGBlocks.STEEL_CABLE_HUB,

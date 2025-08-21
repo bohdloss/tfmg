@@ -1,179 +1,217 @@
 package it.bohdloss.tfmg.content.electricity;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.bohdloss.tfmg.content.electricity.base.ElectricData;
 import it.bohdloss.tfmg.content.electricity.base.IElectric;
+import net.minecraft.core.BlockPos;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class ElectricalNetwork {
-    public Long id;
-    public boolean initialized;
+    public static final Codec<ElectricalNetwork> CODEC = RecordCodecBuilder.create(
+            inst -> inst.group(
+                    Codec.LONG.fieldOf("Id").forGetter(i -> i.id),
+                    Codec.list(Member.CODEC).fieldOf("Members").forGetter(i -> i.members.values().stream().toList()),
+                    Codec.FLOAT.fieldOf("TotalUsage").forGetter(i -> i.totalUsage),
+                    Codec.FLOAT.fieldOf("TotalProduction").forGetter(i -> i.totalProduction)
+            ).apply(inst, ElectricalNetwork::fromCodec)
+    );
 
-    // Float represents power in Amps and 1 volt
-    public Map<IElectric, Float> sources = new HashMap<>();
-    public Map<IElectric, Float> members = new HashMap<>();
+    public ElectricalNetworkManager owner;
+    public final long id;
+    public final Map<BlockPos, Member> members = new HashMap<>();
 
-    private float currentPower;
-    private float currentConsumption;
-    private float unloadedPower;
-    private float unloadedConsumption;
-    private int unloadedMembers;
+    // Compiled
+    public float totalUsage;
+    public float totalProduction;
 
-    public void initFromTE(float maxUsage, float currentUsage, int members) {
-        unloadedPower = maxUsage;
-        unloadedConsumption = currentUsage;
-        unloadedMembers = members;
-        initialized = true;
-        updateConsumption();
-        updatePower();
+    protected static ElectricalNetwork fromCodec(Long id, List<Member> members, Float totalUsage, Float totalProduction) {
+        ElectricalNetwork self = new ElectricalNetwork(id);
+        for(Member member : members) {
+            self.members.put(member.pos, member);
+        }
+        self.totalUsage = totalUsage;
+        self.totalProduction = totalProduction;
+        return self;
     }
 
-    public void addSilently(IElectric be, float lastProducedAmps, float lastConsumedAmps) {
-        if (members.containsKey(be))
-            return;
-        if (be.isElectricalSource()) {
-            unloadedPower -= lastProducedAmps * positive(be.getGeneratedVoltage());
-            float addedPower = be.calculateAmpsGenerated1Volt();
-            sources.put(be, addedPower);
-        }
-
-        unloadedConsumption -= lastConsumedAmps * positive(be.getTheoreticalVoltage());
-        float consumptionApplied = be.calculateAmpsConsumed1Volt();
-        members.put(be, consumptionApplied);
-
-        unloadedMembers--;
-        if (unloadedMembers < 0) {
-            unloadedMembers = 0;
-        }
-        if (unloadedPower < 0) {
-            unloadedPower = 0;
-        }
-        if (unloadedConsumption < 0) {
-            unloadedConsumption = 0;
-        }
+    public ElectricalNetwork(long id) {
+        this.id = id;
     }
 
-    public void add(IElectric be) {
-        if (members.containsKey(be)) {
+    public void absorb(ElectricalNetwork network) {
+        if(network.id == this.id) {
             return;
         }
-        if (be.isElectricalSource()) {
-            sources.put(be, be.calculateAmpsGenerated1Volt());
+        for(Member member : network.members.values()) {
+            members.put(member.pos, member);
+            ElectricData memberData = getElectric(member.pos);
+            if(memberData != null) {
+                memberData.network = id;
+                memberData.connectNextTick = false;
+                memberData.componentDirty = true;
+            }
         }
-        members.put(be, be.calculateAmpsConsumed1Volt());
-        updateFromNetwork(be);
-        be.setElectricalNetworkDirty(true);
+        network.members.clear();
+        owner.networks.remove(network.id);
+        owner.setDirty();
     }
 
-    public void updatePowerFor(IElectric be, float power) {
-        sources.put(be, power);
-        updatePower();
-    }
-
-    public void updateConsumptionFor(IElectric be, float consumption) {
-        members.put(be, consumption);
-        updateConsumption();
-    }
-
-    public void remove(IElectric be) {
-        if (!members.containsKey(be)) {
-            return;
+    public void addConnection(BlockPos member, BlockPos connection) {
+        if(!members.containsKey(member)) {
+            throw new IllegalStateException("Trying to *connect* component that is not part of the network");
         }
-        if (be.isElectricalSource()) {
-            sources.remove(be);
-        }
-        members.remove(be);
-        be.updateFromElectricalNetwork(0, 0, 0);
-
-        if (members.isEmpty()) {
-            ElectricalNetworkManager.networks.get(be.getLevel()).remove(this.id);
-            return;
-        }
-
-        members.keySet()
-                .stream()
-                .findFirst()
-                .map(member -> { member.setElectricalNetworkDirty(true); return true; });
+        members.get(member).connections.add(connection);
+        owner.setDirty();
     }
 
-    public void sync() {
-        for (IElectric be : members.keySet()) {
-            updateFromNetwork(be);
+    public void addComponent(ElectricData component) {
+        if(members.containsKey(component.getBlockPos())) {
+            throw new IllegalStateException("Trying to *add* component that is already part of the network");
         }
+        BlockPos pos = component.getBlockPos();
+        members.put(pos, new Member(pos));
+        owner.setDirty();
     }
 
-    private void updateFromNetwork(IElectric be) {
-        be.updateFromElectricalNetwork(currentPower, currentConsumption, getSize());
-    }
-
-    public void updatePower() {
-        float newMaxConsumption = calculatePower();
-        if (currentPower != newMaxConsumption) {
-            currentPower = newMaxConsumption;
-            sync();
+    public void removeComponent(BlockPos pos) {
+        if(!members.containsKey(pos)) {
+            throw new IllegalStateException("Trying to *remove* component that is not part of the network");
         }
-    }
+        Member toRemove = members.get(pos);
 
-    public void updateConsumption() {
-        float newConsumption = calculateConsumption();
-        if (currentConsumption != newConsumption) {
-            currentConsumption = newConsumption;
-            sync();
+        // Disconnect neighbors
+        for(BlockPos connection : toRemove.connections) {
+            Member neighbor = members.get(connection);
+            neighbor.connections.remove(pos);
         }
+
+        members.remove(pos);
+        owner.setDirty();
     }
 
-    public void updateNetwork() {
-        float newConsumption = calculateConsumption();
-        float newMaxConsumption = calculatePower();
-        if (currentConsumption != newConsumption || currentPower != newMaxConsumption) {
-            currentConsumption = newConsumption;
-            currentPower = newMaxConsumption;
-            sync();
+    public @Nullable ElectricalNetwork splitNetwork(BlockPos startingPos) {
+        if(!members.containsKey(startingPos)) {
+            throw new IllegalStateException("Trying to *split* network starting from component that is not part of the network");
         }
-    }
 
-    public float calculatePower() {
-        float presentPower = 0;
-        for (Iterator<IElectric> iterator = sources.keySet().iterator(); iterator.hasNext();) {
-            IElectric be = iterator.next();
-            if (be.getLevel().getBlockEntity(be.getBlockPos()) != be) {
-                iterator.remove();
+        markNeighborsRecursive(members.get(startingPos));
+
+        // Move unmarked members to a new network
+        ElectricalNetwork newNetwork = null;
+        for(Member member : members.values()) {
+            if(member.marked) {
                 continue;
             }
-            presentPower += getActualPowerOf(be);
+
+            if(newNetwork == null) {
+                newNetwork = ElectricalNetworkManager.createNewNetwork(owner.level);
+            }
+
+            newNetwork.members.put(member.pos, member);
+            ElectricData memberData = getElectric(member.pos);
+            if(memberData != null) {
+                memberData.network = newNetwork.id;
+                memberData.connectNextTick = false;
+                memberData.componentDirty = true;
+            }
         }
-        float newMaxPower = presentPower + unloadedPower;
-        return newMaxPower;
+        members.values().removeIf(m -> !m.marked);
+        unmarkAll();
+        owner.setDirty();
+
+        return newNetwork;
     }
 
-    public float calculateConsumption() {
-        float presentConsumption = 0;
-        for (Iterator<IElectric> iterator = members.keySet().iterator(); iterator.hasNext();) {
-            IElectric be = iterator.next();
-            if (be.getLevel().getBlockEntity(be.getBlockPos()) != be) {
-                iterator.remove();
+    protected void markNeighborsRecursive(Member member) {
+        member.marked = true;
+        for(BlockPos connection : member.connections) {
+            Member neighbor = members.get(connection);
+            if(neighbor.marked) {
                 continue;
             }
-            presentConsumption += getActualConsumptionOf(be);
+
+            markNeighborsRecursive(neighbor);
         }
-        float newConsumption = presentConsumption + unloadedConsumption;
-        return newConsumption;
     }
 
-    public float getActualPowerOf(IElectric be) {
-        return sources.get(be) * positive(be.getGeneratedVoltage());
+    protected void unmarkAll() {
+        for(Member member : members.values()) {
+            member.marked = false;
+        }
     }
 
-    public float getActualConsumptionOf(IElectric be) {
-        return members.get(be) * positive(be.getTheoreticalVoltage());
+    public void syncComponent(ElectricData component) {
+        Member member = members.get(component.getBlockPos());
+        if (member == null) {
+            throw new IllegalStateException("Trying to *sync* component to network it does not belong to");
+        }
+        component.network = id;
+        component.frequency = member.frequency;
+        component.voltage = member.voltage;
+        component.totalNetworkUsage = totalUsage;
+        component.totalNetworkProduction = totalProduction;
+        component.lastAmpsConsumed = member.ampsConsumed;
+        component.lastAmpsProvided = member.ampsProvided;
+
+        owner.setDirty();
     }
 
-    private static float positive(float voltage) {
-        return Math.max(voltage, 0f);
+    public boolean contains(BlockPos pos) {
+        return members.containsKey(pos);
     }
 
-    public int getSize() {
-        return unloadedMembers + members.size();
+    public @Nullable ElectricData getElectric(BlockPos pos) {
+        return owner.level != null &&
+                owner.level.isLoaded(pos) &&
+                owner.level.getBlockEntity(pos) instanceof IElectric be ? be.getElectricData() : null;
+    }
+
+    // Advance the simulation
+    public void step() {
+
+    }
+
+    public static class Member {
+        public static final Codec<Member> CODEC = RecordCodecBuilder.create(
+                inst -> inst.group(
+                        BlockPos.CODEC.fieldOf("Pos").forGetter(x -> x.pos),
+                        Codec.list(BlockPos.CODEC).fieldOf("Connections").forGetter(x -> x.connections),
+                        Codec.FLOAT.fieldOf("Frequency").forGetter(x -> x.frequency),
+                        Codec.FLOAT.fieldOf("Voltage").forGetter(x -> x.voltage),
+                        Codec.FLOAT.fieldOf("AmpsConsumed").forGetter(x -> x.ampsConsumed),
+                        Codec.FLOAT.fieldOf("AmpsProvided").forGetter(x -> x.ampsProvided)
+                ).apply(inst, Member::fromCodec)
+        );
+
+        public final BlockPos pos;
+        public List<BlockPos> connections = new ArrayList<>();
+
+        public boolean marked;
+
+        // Compiled
+        public float frequency;
+        public float voltage;
+        public float ampsConsumed;
+        public float ampsProvided;
+
+        private static Member fromCodec(BlockPos pos, List<BlockPos> connections, Float frequency, Float voltage, Float ampsConsumed, Float ampsProvided) {
+            Member self = new Member(pos);
+            self.connections.addAll(connections);
+            self.frequency = frequency;
+            self.voltage = voltage;
+            self.ampsConsumed = ampsConsumed;
+            self.ampsProvided = ampsProvided;
+            return self;
+        }
+
+        public Member(BlockPos pos) {
+            this.pos = pos;
+        }
     }
 }

@@ -9,6 +9,7 @@ import it.bohdloss.tfmg.base.AbstractKineticMultiblock;
 import it.bohdloss.tfmg.base.AbstractMultiblock;
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankBlockEntity;
 import it.bohdloss.tfmg.content.electricity.base.ElectricBlockEntity;
+import it.bohdloss.tfmg.content.electricity.base.ElectricData;
 import it.bohdloss.tfmg.content.electricity.base.IElectric;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlockEntity;
@@ -37,13 +38,10 @@ public class DebugCinderBlockItem extends Item {
     public @NotNull InteractionResult useOn(@NotNull UseOnContext context) {
         BlockPos pos = context.getClickedPos();
         Level level = context.getLevel();
-//        if (level.getBlockEntity(pos) instanceof IElectric be) {
-//            if(level.isClientSide()) {
-//                DebugStuff.show("VOLTAGE {}", be.getData().voltage);
-//            } else {
-//                TFMG.LOGGER.debug("VOLTAGE {}", be.getData().voltage);
-//            }
-//        }
+        if (!level.isClientSide && level.getBlockEntity(pos) instanceof IElectric be) {
+            ElectricData data = be.getElectricData();
+            data.debug();
+        }
 
 
 //        if(!level.isClientSide && level.getBlockEntity(pos) instanceof BlastFurnaceOutputBlockEntity be) {
@@ -83,16 +81,16 @@ public class DebugCinderBlockItem extends Item {
             }
         }
         if(level.getBlockEntity(pos) instanceof IElectric be) {
-            ElectricBlockEntity.extraDebug = true;
-            if(context.getPlayer().isCrouching()) {
-                if(!level.isClientSide) {
-                    DebugStuff.show("Forcing electrical network sync...");
-                    be.getOrCreateElectricalNetwork().sync();
-                }
-            } else {
-                DebugStuff.show(level.isClientSide ? "CLIENT" : "SERVER");
-                DebugStuff.show("Shorted: " + be.isShortCircuited());
-            }
+//            ElectricBlockEntity.extraDebug = true;
+//            if(context.getPlayer().isCrouching()) {
+//                if(!level.isClientSide) {
+//                    DebugStuff.show("Forcing electrical network sync...");
+//                    be.getOrCreateElectricalNetwork().sync();
+//                }
+//            } else {
+//                DebugStuff.show(level.isClientSide ? "CLIENT" : "SERVER");
+//                DebugStuff.show("Shorted: " + be.isShortCircuited());
+//            }
         }
         if(!level.isClientSide && level.getBlockEntity(pos) instanceof SteelTankBlockEntity be) {
             DebugStuff.show("Is boiler active? " + (be.boiler.isActive() ? "Yes" : "No"));

@@ -11,23 +11,18 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class CableHubBlock extends ElectricBlock implements IBE<ElectricBlockEntity>, IWrenchable {
+public class CableHubBlock extends ElectricBlock implements IBE<CableHubBlockEntity>, IWrenchable {
     public CableHubBlock(Properties properties) {
         super(properties);
     }
 
     @Override
-    public boolean hasConnectorTowards(LevelReader world, BlockPos pos, BlockState state, Direction face) {
-        return true;
+    public Class<CableHubBlockEntity> getBlockEntityClass() {
+        return CableHubBlockEntity.class;
     }
 
     @Override
-    public Class<ElectricBlockEntity> getBlockEntityClass() {
-        return ElectricBlockEntity.class;
-    }
-
-    @Override
-    public BlockEntityType<? extends ElectricBlockEntity> getBlockEntityType() {
+    public BlockEntityType<? extends CableHubBlockEntity> getBlockEntityType() {
         return TFMGBlockEntities.CABLE_HUB.get();
     }
 }
