@@ -48,7 +48,7 @@ public interface IElectricBlock extends IWrenchable {
         BlockEntity blockEntity = worldIn.getBlockEntity(pos);
         if (blockEntity instanceof IElectric electricBlockEntity) {
             ElectricData data = electricBlockEntity.getElectricData();
-            data.preventNetworkUpdate = false;
+            data.preventConnection = false;
 
             if (oldState.getBlock() != state.getBlock())
                 return;
@@ -57,7 +57,7 @@ public interface IElectricBlock extends IWrenchable {
             if (!areStatesElectricallyEquivalent(oldState, state))
                 return;
 
-            data.preventNetworkUpdate = true;
+            data.preventConnection = true;
         }
     }
 
@@ -77,7 +77,7 @@ public interface IElectricBlock extends IWrenchable {
 
         // Remove previous information when block is added
         ElectricData data = ebe.getElectricData();
-        if(data.preventNetworkUpdate) {
+        if(data.preventConnection) {
             return;
         }
 

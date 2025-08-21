@@ -38,9 +38,9 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     protected boolean initialized;
 
     public ElectricEffectHandler effects;
-    public boolean preventNetworkUpdate;
+    public boolean preventConnection;
     public boolean wasMoved;
-    public boolean componentDirty;
+    public boolean syncNextTick;
     public boolean connectNextTick;
     public int flickerTally;
 
@@ -309,13 +309,13 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
             return;
         }
 
-        boolean created = false;
+//        boolean created = false;
 
         if(network == null) {
             // Means this has just been placed, generate a new network, then try to connect
             connectNextTick = true;
             ElectricalNetworkManager.createNewNetwork(this);
-            created = true;
+//            created = true;
             clear();
         } else {
             // Use the current network id as a cache searching for a network
@@ -327,10 +327,12 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
             if(electricalNetwork == null) {
                 connectNextTick = true;
                 ElectricalNetworkManager.createNewNetwork(this); // No hits -> create a new network
-                created = true;
+//                created = true;
                 clear();
             } else {
-                electricalNetwork.syncComponent(this);
+                network = electricalNetwork.id;
+                connectNextTick = false;
+                syncNextTick = true;
             }
         }
 //        TFMG.LOGGER.debug("(" + hashCode() + ") INIT " + (created ? "__CREATED__" : "") + " NETWORK [" + network + "] EXISTS: " + (fetchNetwork() != null));
@@ -349,19 +351,19 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
             return;
         }
 
-        if(connectNextTick && !preventNetworkUpdate) {
+        if(connectNextTick && !preventConnection) {
             attach();
         }
 
         effects.tick();
-        preventNetworkUpdate = false;
+        preventConnection = false;
 
         if(flickerTally != 0) {
             flickerTally--;
         }
 
-        if(componentDirty) {
-           componentDirty = false;
+        if(syncNextTick) {
+           syncNextTick = false;
 //           if(fetchNetwork() == null) {
 //               TFMG.LOGGER.debug("(" + hashCode() + ") Network is null. Init: " + initialized + " Network: " + network);
 //           } else {
@@ -389,14 +391,12 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
             tag.putLong("Network", network);
         }
 
-        if(clientPacket) {
-            tag.putFloat("Frequency", frequency);
-            tag.putFloat("Voltage", voltage);
-            tag.putFloat("TotalNetworkUsage", totalNetworkUsage);
-            tag.putFloat("TotalNetworkProduction", totalNetworkProduction);
-            tag.putFloat("LastAmpsConsumed", lastAmpsConsumed);
-            tag.putFloat("LastAmpsProvided", lastAmpsProvided);
-        }
+        tag.putFloat("Frequency", frequency);
+        tag.putFloat("Voltage", voltage);
+        tag.putFloat("TotalNetworkUsage", totalNetworkUsage);
+        tag.putFloat("TotalNetworkProduction", totalNetworkProduction);
+        tag.putFloat("LastAmpsConsumed", lastAmpsConsumed);
+        tag.putFloat("LastAmpsProvided", lastAmpsProvided);
 
         return tag;
     }
@@ -414,17 +414,15 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
             network = null;
         }
 
-        if(clientPacket) {
-            frequency = tag.getFloat("Frequency");
-            voltage = tag.getFloat("Voltage");
-            totalNetworkUsage = tag.getFloat("TotalNetworkUsage");
-            totalNetworkProduction = tag.getFloat("TotalNetworkProduction");
-            lastAmpsConsumed = tag.getFloat("LastAmpsConsumed");
-            lastAmpsProvided = tag.getFloat("LastAmpsProvided");
+        frequency = tag.getFloat("Frequency");
+        voltage = tag.getFloat("Voltage");
+        totalNetworkUsage = tag.getFloat("TotalNetworkUsage");
+        totalNetworkProduction = tag.getFloat("TotalNetworkProduction");
+        lastAmpsConsumed = tag.getFloat("LastAmpsConsumed");
+        lastAmpsProvided = tag.getFloat("LastAmpsProvided");
 
-            if (shortCircuitBefore != shortCircuit() && voltage != 0) {
-                effects.triggerShortCircuitEffect();
-            }
+        if (clientPacket && (shortCircuitBefore != shortCircuit() && voltage != 0)) {
+            effects.triggerShortCircuitEffect();
         }
     }
 

@@ -54,7 +54,7 @@ public class ElectricalNetwork {
             if(memberData != null) {
                 memberData.network = id;
                 memberData.connectNextTick = false;
-                memberData.componentDirty = true;
+                memberData.syncNextTick = true;
             }
         }
         network.members.clear();
@@ -118,7 +118,7 @@ public class ElectricalNetwork {
             if(memberData != null) {
                 memberData.network = newNetwork.id;
                 memberData.connectNextTick = false;
-                memberData.componentDirty = true;
+                memberData.syncNextTick = true;
             }
         }
         members.values().removeIf(m -> !m.marked);
@@ -153,24 +153,18 @@ public class ElectricalNetwork {
         }
         component.network = id;
 
-        boolean dirty = false;
-
         // Sync data from the component itself
         float generatedVoltage = component.getGeneratedVoltage();
-        if(generatedVoltage != member.generatedVoltage) {
-            member.generatedVoltage = generatedVoltage;
-            dirty = true;
-        }
         float resistance = component.getResistance();
-        if(resistance != member.resistance) {
-            member.resistance = resistance;
-            dirty = true;
-        }
         float generatorResistance = component.getGeneratorResistance();
-        if(generatorResistance != member.generatorResistance) {
-            member.generatorResistance = generatorResistance;
-            dirty = true;
-        }
+
+        boolean dirty = generatedVoltage != member.generatedVoltage ||
+                resistance != member.resistance ||
+                generatorResistance != member.generatorResistance;
+
+        member.generatedVoltage = generatedVoltage;
+        member.resistance = resistance;
+        member.generatorResistance = generatorResistance;
 
         // If anything changed since we last checked, we must advance the simulation
         if(dirty) {
