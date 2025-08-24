@@ -204,6 +204,10 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
             }
         }
 
+        if(winner == null) {
+            return;
+        }
+
         // This deletes the smaller networks, and updates the network ids of loaded block entities
         for(ElectricalNetwork loser : networks) {
             winner.absorb(loser);
@@ -220,7 +224,6 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
         DebugStuff.show("Network: " + network + (fetchNetwork() == null ? " (unreachable)" : ""));
         if(getLevel() != null) {
             DebugStuff.show("We are on " + (getLevel().isClientSide() ? "Client" : "Server"));
-//            DebugStuff.show("Pos: " + getBlockPos());
         }
         DebugStuff.show("Frequency: " + frequency);
         DebugStuff.show("Voltage: " + voltage);
@@ -248,35 +251,40 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
 
         // Edge case: we just removed this component and now the network is empty.
         // It was a lone component, just unregister the network and return.
-        if(previousNetwork.members.size() == 0) {
+        if(previousNetwork.members.isEmpty()) {
             previousNetwork.owner.networks.remove(previousNetwork.id);
-            return;
-        }
+        } else {
 
-        // Split network for every neighbor that may now be disconnected
-        for(BlockPos pos : positions) {
-            // Find the network that contains this position
-            ElectricalNetwork toSplit = null;
-            for(ElectricalNetwork check : networks) {
-                if(check.contains(pos)) {
-                    toSplit = check;
+            // Split network for every neighbor that may now be disconnected
+            for (BlockPos pos : positions) {
+                // Find the network that contains this position
+                ElectricalNetwork toSplit = null;
+                for (ElectricalNetwork check : networks) {
+                    if (check.contains(pos)) {
+                        toSplit = check;
+                    }
+                }
+
+                // The network `toSplit` should NEVER be null at this point, if it is, there's a logic error somewhere else
+                ElectricalNetwork newNetwork = toSplit.splitNetwork(pos);
+                if (newNetwork != null) {
+                    networks.add(newNetwork);
                 }
             }
 
-            // The network `toSplit` should NEVER be null at this point, if it is, there's a logic error somewhere else
-            ElectricalNetwork newNetwork = toSplit.splitNetwork(pos);
-            if(newNetwork != null) {
-                networks.add(newNetwork);
+            // Update all networks involved
+            for (ElectricalNetwork electricalNetwork : networks) {
+                electricalNetwork.step();
             }
-        }
-
-        // Update all networks involved
-        for(ElectricalNetwork electricalNetwork : networks) {
-            electricalNetwork.step();
         }
 
         positions.clear();
         networks.clear();
+
+        // At this point this component belongs to no network, so we initialize a new one
+        ElectricalNetworkManager.createNewNetwork(this);
+        syncNextTick = true;
+        clear();
     }
 
     /**
@@ -317,14 +325,11 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
             return;
         }
 
-//        boolean created = false;
-
         if(network == null) {
             // Means this has just been placed, generate a new network, then try to connect
             ElectricalNetworkManager.createNewNetwork(this);
             connectNextTick = true;
             syncNextTick = true;
-//            created = true;
             clear();
         } else {
             // Use the current network id as a cache searching for a network
@@ -336,7 +341,6 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
             if(electricalNetwork == null) {
                 connectNextTick = true;
                 ElectricalNetworkManager.createNewNetwork(this); // No hits -> create a new network
-//                created = true;
                 clear();
             } else {
                 network = electricalNetwork.id;
@@ -344,7 +348,6 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
                 syncNextTick = true;
             }
         }
-//        TFMG.LOGGER.debug("(" + hashCode() + ") INIT " + (created ? "__CREATED__" : "") + " NETWORK [" + network + "] EXISTS: " + (fetchNetwork() != null));
         owner.notifyUpdate();
     }
 
@@ -373,11 +376,6 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
 
         if(syncNextTick) {
            syncNextTick = false;
-//           if(fetchNetwork() == null) {
-//               TFMG.LOGGER.debug("(" + hashCode() + ") Network is null. Init: " + initialized + " Network: " + network);
-//           } else {
-//               TFMG.LOGGER.debug("(" + hashCode() + ") Obtain network returned something: " + fetchNetwork());
-//           }
            fetchNetwork().syncComponent(this);
            notifyUpdate();
         }
@@ -391,6 +389,8 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
         }
 
         detach();
+        fetchNetwork().removeComponent(getBlockPos());
+        fetchNetwork().owner.networks.remove(network);
     }
 
     public final CompoundTag write(HolderLookup.Provider registries, boolean clientPacket) {

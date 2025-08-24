@@ -40,6 +40,9 @@ public class ElectricalNetworkManager extends SavedData {
     public static ElectricalNetworkManager fromCodec(List<ElectricalNetwork> networks) {
         ElectricalNetworkManager self = new ElectricalNetworkManager();
         for(ElectricalNetwork network : networks) {
+            if(network.members.isEmpty()) {
+                continue;
+            }
             network.owner = self;
             self.networks.put(network.id, network);
         }
