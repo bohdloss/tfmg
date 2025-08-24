@@ -2,15 +2,13 @@ package it.bohdloss.tfmg.content.electricity;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.bohdloss.tfmg.DebugStuff;
 import it.bohdloss.tfmg.content.electricity.base.ElectricData;
 import it.bohdloss.tfmg.content.electricity.base.IElectric;
 import net.minecraft.core.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ElectricalNetwork {
     public static final Codec<ElectricalNetwork> CODEC = RecordCodecBuilder.create(
@@ -25,6 +23,7 @@ public class ElectricalNetwork {
     public ElectricalNetworkManager owner;
     public final long id;
     public final Map<BlockPos, Member> members = new HashMap<>();
+    public final Set<BlockPos> sources = new HashSet<>();
 
     // Compiled
     public float totalUsage;
@@ -34,6 +33,9 @@ public class ElectricalNetwork {
         ElectricalNetwork self = new ElectricalNetwork(id);
         for(Member member : members) {
             self.members.put(member.pos, member);
+            if(member.isSource()) {
+                self.sources.add(member.pos);
+            }
         }
         self.totalUsage = totalUsage;
         self.totalProduction = totalProduction;
@@ -50,6 +52,9 @@ public class ElectricalNetwork {
         }
         for(Member member : network.members.values()) {
             members.put(member.pos, member);
+            if(member.isSource()) {
+                sources.add(member.pos);
+            }
             ElectricData memberData = getElectric(member.pos);
             if(memberData != null) {
                 memberData.network = id;
@@ -58,6 +63,7 @@ public class ElectricalNetwork {
             }
         }
         network.members.clear();
+        network.sources.clear();
         owner.networks.remove(network.id);
         owner.setDirty();
     }
@@ -92,6 +98,7 @@ public class ElectricalNetwork {
         }
 
         members.remove(pos);
+        sources.remove(pos);
         owner.setDirty();
     }
 
@@ -114,6 +121,9 @@ public class ElectricalNetwork {
             }
 
             newNetwork.members.put(member.pos, member);
+            if(member.isSource()) {
+                newNetwork.sources.add(member.pos);
+            }
             ElectricData memberData = getElectric(member.pos);
             if(memberData != null) {
                 memberData.network = newNetwork.id;
@@ -121,6 +131,7 @@ public class ElectricalNetwork {
                 memberData.syncNextTick = true;
             }
         }
+        sources.removeIf(pos -> !members.get(pos).marked);
         members.values().removeIf(m -> !m.marked);
         unmarkAll();
         owner.setDirty();
@@ -154,9 +165,9 @@ public class ElectricalNetwork {
         component.network = id;
 
         // Sync data from the component itself
-        float generatedVoltage = component.getGeneratedVoltage();
-        float resistance = component.getResistance();
-        float generatorResistance = component.getGeneratorResistance();
+        float generatedVoltage = Math.max(0, component.getGeneratedVoltage());
+        float resistance = Math.max(0, component.getResistance());
+        float generatorResistance = Math.max(0, component.getGeneratorResistance());
 
         boolean dirty = generatedVoltage != member.generatedVoltage ||
                 resistance != member.resistance ||
@@ -165,6 +176,12 @@ public class ElectricalNetwork {
         member.generatedVoltage = generatedVoltage;
         member.resistance = resistance;
         member.generatorResistance = generatorResistance;
+
+        if(member.isSource()) {
+            sources.add(member.pos);
+        } else {
+            sources.remove(member.pos);
+        }
 
         // If anything changed since we last checked, we must advance the simulation
         if(dirty) {
@@ -193,6 +210,51 @@ public class ElectricalNetwork {
 
     // Advance the simulation
     public void step() {
+        // Dummy very stupid implementation: find source with the highest voltage and use that.
+        // Then sum up the max amperage of all the sources combined and use that.
+
+        // This doesn't account for components such as diodes or components that might change the voltage along the way
+        float totalAmps = 0;
+        float highestVoltage = 0;
+        for(BlockPos sourcePos : sources) {
+            Member source = members.get(sourcePos);
+            source.marked = true;
+
+            if(source.generatedVoltage > highestVoltage) {
+                highestVoltage = source.generatedVoltage;
+            }
+
+            float generatedAmps = source.calcGeneratedAmps();
+            source.ampsProvided = generatedAmps;
+            totalAmps += generatedAmps;
+        }
+        totalProduction = totalAmps;
+
+        // Calculate total consumption for all components and apply voltage
+        totalAmps = 0;
+
+        for(Member member : members.values()) {
+            member.frequency = 0;
+            member.voltage = highestVoltage;
+            float consumedAmps = member.calcConsumedAmps();
+            member.ampsConsumed = consumedAmps;
+            if(!member.isSource()) {
+                member.ampsProvided = 0;
+            }
+            totalAmps += consumedAmps;
+        }
+        totalUsage = totalAmps;
+
+        // FIXME auto update on ElectricData tick instead of this bs
+        for(Member member : members.values()) {
+            ElectricData data = getElectric(member.pos);
+            if(data != null) {
+                syncComponent(data);
+                data.syncNextTick = false;
+                data.notifyUpdate();
+            }
+        }
+
         owner.setDirty();
     }
 
@@ -238,6 +300,20 @@ public class ElectricalNetwork {
             self.ampsConsumed = ampsConsumed;
             self.ampsProvided = ampsProvided;
             return self;
+        }
+
+        public boolean isSource() {
+            return generatedVoltage != 0 && generatorResistance > 0;
+        }
+
+        public float calcGeneratedAmps() {
+            float amps = generatedVoltage / generatorResistance;
+            return Float.isFinite(amps) ? amps : 0;
+        }
+
+        public float calcConsumedAmps() {
+            float amps = voltage / resistance;
+            return Float.isFinite(amps) ? amps : 0;
         }
 
         public Member(BlockPos pos) {

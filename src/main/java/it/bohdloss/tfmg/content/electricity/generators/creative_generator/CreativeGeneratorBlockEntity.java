@@ -27,12 +27,11 @@ public class CreativeGeneratorBlockEntity extends ElectricBlockEntity {
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         super.addBehaviours(behaviours);
-        int max = 250;
         outputVoltage = new ScrollValueBehaviour(CreateLang.translateDirect("creative_generator.voltage_generation"),
                 this, new CreativeGeneratorValueBox());
-        outputVoltage.between(0, max);
+        outputVoltage.between(0, 250);
         outputVoltage.value = 50;
-        outputVoltage.withCallback(i -> electricData.connectNextTick = true);
+        outputVoltage.withCallback(i -> electricData.syncNextTick = true);
         behaviours.add(outputVoltage);
     }
 

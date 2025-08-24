@@ -178,6 +178,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
                 continue;
             }
 
+            neighborData.initCache();
             neighborData.positions.clear();
             neighborData.getPotentialNeighbors(neighborData.positions);
 
@@ -219,11 +220,18 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
         DebugStuff.show("Network: " + network + (fetchNetwork() == null ? " (unreachable)" : ""));
         if(getLevel() != null) {
             DebugStuff.show("We are on " + (getLevel().isClientSide() ? "Client" : "Server"));
-            DebugStuff.show("Pos: " + getBlockPos());
+//            DebugStuff.show("Pos: " + getBlockPos());
         }
+        DebugStuff.show("Frequency: " + frequency);
+        DebugStuff.show("Voltage: " + voltage);
+        DebugStuff.show("Production: " + lastAmpsProvided);
+        DebugStuff.show("Consumption: " + lastAmpsConsumed);
+        DebugStuff.show("Total Production: " + totalNetworkProduction);
+        DebugStuff.show("Total Usage: " + totalNetworkUsage);
     }
 
     /// Remove this component from its network, possibly splitting it into multiple networks.
+    /// FIXME better split algorithm
     public final void detach() {
         initCache();
 
@@ -313,8 +321,9 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
 
         if(network == null) {
             // Means this has just been placed, generate a new network, then try to connect
-            connectNextTick = true;
             ElectricalNetworkManager.createNewNetwork(this);
+            connectNextTick = true;
+            syncNextTick = true;
 //            created = true;
             clear();
         } else {
@@ -465,16 +474,6 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
         return getBlockState().getBlock();
     }
 
-    public final float calculateAmpsConsumed1Volt() {
-        float resistance = getResistance();
-        return resistance == 0 ? 0 : 1f / resistance;
-    }
-
-    public final float calculateAmpsGenerated1Volt() {
-        float resistance = getGeneratorResistance();
-        return resistance == 0 ? 0 : 1f / resistance;
-    }
-
     public final boolean isGenerator() {
         return getGeneratedVoltage() > 0;
     }
@@ -531,17 +530,25 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         boolean added = false;
 
-        float powerAtBase = calculateAmpsConsumed1Volt();
-        if (Mth.equal(powerAtBase, 0))
-            return added;
+        if (!Mth.equal(lastAmpsConsumed, 0)) {
+            CreateLang.translate("gui.goggles.electric_stats")
+                    .forGoggles(tooltip);
 
-        CreateLang.translate("gui.goggles.electric_stats")
-                .forGoggles(tooltip);
+            CreateLang.translate("tooltip.powerConsumed")
+                    .style(ChatFormatting.GRAY)
+                    .forGoggles(tooltip);
 
-        addPowerConsumptionStats(tooltip, powerAtBase);
+            CreateLang.number(lastAmpsConsumed)
+                    .translate("generic.unit.current")
+                    .style(ChatFormatting.AQUA)
+                    .space()
+                    .add(CreateLang.translate("gui.goggles.at_current_voltage")
+                            .style(ChatFormatting.DARK_GRAY))
+                    .forGoggles(tooltip, 1);
+            added |= true;
+        }
 
-        powerAtBase = calculateAmpsGenerated1Volt();
-        if (Mth.equal(powerAtBase, 0)) {
+        if (Mth.equal(lastAmpsProvided, 0)) {
             return added;
         }
 
@@ -551,13 +558,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
                 .style(ChatFormatting.GRAY)
                 .forGoggles(tooltip);
 
-        if (voltage != getGeneratedVoltage() && voltage != 0) {
-            powerAtBase *= getGeneratedVoltage() / voltage;
-        }
-
-        float powerTotal = Math.abs(powerAtBase * voltage);
-
-        CreateLang.number(powerTotal)
+        CreateLang.number(lastAmpsProvided)
                 .translate("generic.unit.current")
                 .style(ChatFormatting.AQUA)
                 .space()
@@ -566,21 +567,5 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
                 .forGoggles(tooltip, 1);
 
         return true;
-    }
-
-    protected void addPowerConsumptionStats(List<Component> tooltip, float powerAtBase) {
-        CreateLang.translate("tooltip.powerConsumed")
-                .style(ChatFormatting.GRAY)
-                .forGoggles(tooltip);
-
-        float powerTotal = powerAtBase * Math.abs(voltage);
-
-        CreateLang.number(powerTotal)
-                .translate("generic.unit.current")
-                .style(ChatFormatting.AQUA)
-                .space()
-                .add(CreateLang.translate("gui.goggles.at_current_voltage")
-                        .style(ChatFormatting.DARK_GRAY))
-                .forGoggles(tooltip, 1);
     }
 }
