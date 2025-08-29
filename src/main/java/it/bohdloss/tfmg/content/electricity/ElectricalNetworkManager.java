@@ -108,29 +108,6 @@ public class ElectricalNetworkManager extends SavedData {
         return space.networks.get(id);
     }
 
-    /// Creates a new electrical network with a universally unique id and places the component in it
-    public static void createNewNetwork(ElectricData data) {
-        if(data.isClient()) {
-            throw new IllegalStateException("Uninitialized level or client level");
-        }
-
-        Level level = data.getLevel();
-        RandomSource random = level.getRandom();
-        ElectricalNetworkManager space = spaces.computeIfAbsent(data.getLevel(), ElectricalNetworkManager::new);
-
-        long id = random.nextLong();
-        while(space.networks.containsKey(id)) {
-            id = random.nextLong();
-        }
-        ElectricalNetwork network = new ElectricalNetwork(id);
-        network.owner = space;
-        network.addComponent(data);
-        space.networks.put(id, network);
-        space.setDirty();
-
-        data.network = id;
-    }
-
     /// Creates a new electrical network with a universally unique id
     public static ElectricalNetwork createNewNetwork(LevelAccessor level) {
         if(level == null || level.isClientSide()) {

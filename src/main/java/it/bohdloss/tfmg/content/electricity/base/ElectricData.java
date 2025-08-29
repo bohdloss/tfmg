@@ -36,6 +36,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     public final SmartBlockEntity owner;
     public Long network;
     protected boolean initialized;
+    public long updates;
 
     public ElectricEffectHandler effects;
     public boolean preventConnection;
@@ -236,55 +237,12 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     /// Remove this component from its network, possibly splitting it into multiple networks.
     /// FIXME better split algorithm
     public final void detach() {
-        initCache();
-
-        positions.clear();
-        networks.clear();
-
-        // Collect current connections
+        // Split network
         ElectricalNetwork previousNetwork = fetchNetwork();
-        networks.add(previousNetwork);
-        positions.addAll(previousNetwork.members.get(getBlockPos()).connections);
+        previousNetwork.splitNetwork(getBlockPos());
 
-        // Remove component
-        previousNetwork.removeComponent(getBlockPos());
-
-        // Edge case: we just removed this component and now the network is empty.
-        // It was a lone component, just unregister the network and return.
-        if(previousNetwork.members.isEmpty()) {
-            previousNetwork.owner.networks.remove(previousNetwork.id);
-        } else {
-
-            // Split network for every neighbor that may now be disconnected
-            for (BlockPos pos : positions) {
-                // Find the network that contains this position
-                ElectricalNetwork toSplit = null;
-                for (ElectricalNetwork check : networks) {
-                    if (check.contains(pos)) {
-                        toSplit = check;
-                    }
-                }
-
-                // The network `toSplit` should NEVER be null at this point, if it is, there's a logic error somewhere else
-                ElectricalNetwork newNetwork = toSplit.splitNetwork(pos);
-                if (newNetwork != null) {
-                    networks.add(newNetwork);
-                }
-            }
-
-            // Update all networks involved
-            for (ElectricalNetwork electricalNetwork : networks) {
-                electricalNetwork.step();
-            }
-        }
-
-        positions.clear();
-        networks.clear();
-
-        // At this point this component belongs to no network, so we initialize a new one
-        ElectricalNetworkManager.createNewNetwork(this);
+        // At this point this component belongs to a network with a single component (itself)
         syncNextTick = true;
-        clear();
     }
 
     /**
@@ -327,7 +285,11 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
 
         if(network == null) {
             // Means this has just been placed, generate a new network, then try to connect
-            ElectricalNetworkManager.createNewNetwork(this);
+            ElectricalNetwork newNetwork = ElectricalNetworkManager.createNewNetwork(getLevel());
+            newNetwork.addComponent(this);
+            network = newNetwork.id;
+            updates = newNetwork.updates;
+
             connectNextTick = true;
             syncNextTick = true;
             clear();
@@ -340,12 +302,21 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
             ElectricalNetwork electricalNetwork = ElectricalNetworkManager.findFor(this, network);
             if(electricalNetwork == null) {
                 connectNextTick = true;
-                ElectricalNetworkManager.createNewNetwork(this); // No hits -> create a new network
+                ElectricalNetwork newNetwork = ElectricalNetworkManager.createNewNetwork(getLevel()); // No hits -> create a new network
+                newNetwork.addComponent(this);
+                network = newNetwork.id;
+                updates = newNetwork.updates;
+
+                connectNextTick = true;
+                syncNextTick = true;
                 clear();
             } else {
                 network = electricalNetwork.id;
+                updates = electricalNetwork.updates;
+
                 connectNextTick = false;
                 syncNextTick = true;
+                clear();
             }
         }
         owner.notifyUpdate();
@@ -374,9 +345,14 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
             flickerTally--;
         }
 
-        if(syncNextTick) {
+        ElectricalNetwork network = fetchNetwork();
+        if(syncNextTick || network.updates != updates) {
            syncNextTick = false;
-           fetchNetwork().syncComponent(this);
+
+           float previousVoltage = voltage;
+           network.syncComponent(this);
+           notifyVoltageChange(previousVoltage);
+
            notifyUpdate();
         }
     }
@@ -545,27 +521,29 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
                     .add(CreateLang.translate("gui.goggles.at_current_voltage")
                             .style(ChatFormatting.DARK_GRAY))
                     .forGoggles(tooltip, 1);
+
             added |= true;
         }
 
-        if (Mth.equal(lastAmpsProvided, 0)) {
-            return added;
+        if (!Mth.equal(lastAmpsProvided, 0)) {
+
+            CreateLang.translate("gui.goggles.electric_generator_stats")
+                    .forGoggles(tooltip);
+            CreateLang.translate("tooltip.powerProvided")
+                    .style(ChatFormatting.GRAY)
+                    .forGoggles(tooltip);
+
+            CreateLang.number(lastAmpsProvided)
+                    .translate("generic.unit.current")
+                    .style(ChatFormatting.AQUA)
+                    .space()
+                    .add(CreateLang.translate("gui.goggles.at_current_voltage")
+                            .style(ChatFormatting.DARK_GRAY))
+                    .forGoggles(tooltip, 1);
+
+            added |= true;
         }
 
-        CreateLang.translate("gui.goggles.electric_generator_stats")
-                .forGoggles(tooltip);
-        CreateLang.translate("tooltip.powerProvided")
-                .style(ChatFormatting.GRAY)
-                .forGoggles(tooltip);
-
-        CreateLang.number(lastAmpsProvided)
-                .translate("generic.unit.current")
-                .style(ChatFormatting.AQUA)
-                .space()
-                .add(CreateLang.translate("gui.goggles.at_current_voltage")
-                        .style(ChatFormatting.DARK_GRAY))
-                .forGoggles(tooltip, 1);
-
-        return true;
+        return added;
     }
 }

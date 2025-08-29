@@ -2,7 +2,6 @@ package it.bohdloss.tfmg.content.electricity;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import it.bohdloss.tfmg.DebugStuff;
 import it.bohdloss.tfmg.content.electricity.base.ElectricData;
 import it.bohdloss.tfmg.content.electricity.base.IElectric;
 import net.minecraft.core.BlockPos;
@@ -10,6 +9,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
+/// Fixme replace recursion with iteration
 public class ElectricalNetwork {
     public static final Codec<ElectricalNetwork> CODEC = RecordCodecBuilder.create(
             inst -> inst.group(
@@ -24,6 +24,7 @@ public class ElectricalNetwork {
     public final long id;
     public final Map<BlockPos, Member> members = new HashMap<>();
     public final Set<BlockPos> sources = new HashSet<>();
+    public long updates;
 
     // Compiled
     public float totalUsage;
@@ -58,6 +59,7 @@ public class ElectricalNetwork {
             ElectricData memberData = getElectric(member.pos);
             if(memberData != null) {
                 memberData.network = id;
+                memberData.updates = updates;
                 memberData.connectNextTick = false;
                 memberData.syncNextTick = true;
             }
@@ -102,53 +104,77 @@ public class ElectricalNetwork {
         owner.setDirty();
     }
 
-    public @Nullable ElectricalNetwork splitNetwork(BlockPos startingPos) {
+    public void splitNetwork(BlockPos startingPos) {
         if(!members.containsKey(startingPos)) {
             throw new IllegalStateException("Trying to *split* network starting from component that is not part of the network");
         }
 
-        markNeighborsRecursive(members.get(startingPos));
+        unmarkAll();
 
-        // Move unmarked members to a new network
-        ElectricalNetwork newNetwork = null;
-        for(Member member : members.values()) {
-            if(member.marked) {
-                continue;
-            }
+        // Disconnect the neighbors of the starting component from it
+        Member startingMember = members.get(startingPos);
+        for(BlockPos neighborPos : startingMember.connections) {
+            Member neighbor = members.get(neighborPos);
+            neighbor.connections.remove(startingPos);
+        }
 
-            if(newNetwork == null) {
-                newNetwork = ElectricalNetworkManager.createNewNetwork(owner.level);
-            }
+        // Move components that are connected together to new networks
+        for(BlockPos neighborPos : startingMember.connections) {
+            Member neighbor = members.get(neighborPos);
+            ElectricalNetwork newNetwork = reassignNetworkRecursive(neighbor, null);
 
-            newNetwork.members.put(member.pos, member);
-            if(member.isSource()) {
-                newNetwork.sources.add(member.pos);
-            }
-            ElectricData memberData = getElectric(member.pos);
-            if(memberData != null) {
-                memberData.network = newNetwork.id;
-                memberData.connectNextTick = false;
-                memberData.syncNextTick = true;
+            // Step newly created networks
+            if(newNetwork != null) {
+                newNetwork.step();
             }
         }
-        sources.removeIf(pos -> !members.get(pos).marked);
-        members.values().removeIf(m -> !m.marked);
-        unmarkAll();
-        owner.setDirty();
 
-        return newNetwork;
+        // Remove everything except for the starting component
+        sources.removeIf(pos -> !pos.equals(startingPos));
+        members.keySet().removeIf(pos -> !pos.equals(startingPos));
+
+        // Remove all connections of the starting member
+        startingMember.connections.clear();
+
+        // Step network
+        step();
+
+        owner.setDirty();
     }
 
-    protected void markNeighborsRecursive(Member member) {
+    protected ElectricalNetwork reassignNetworkRecursive(Member member, ElectricalNetwork network) {
+        if(member.marked) {
+            return network;
+        }
         member.marked = true;
+
+        // Initialize network (only for the first call of this method)
+        if(network == null) {
+            network = ElectricalNetworkManager.createNewNetwork(owner.level);
+        }
+
+        // Add this component to the new network
+        network.members.put(member.pos, member);
+        if(member.isSource()) {
+            network.sources.add(member.pos);
+        }
+
+        // Sync changes to block entity, if it is loaded
+        ElectricData memberData = getElectric(member.pos);
+        if(memberData != null) {
+            memberData.network = network.id;
+            memberData.updates = network.updates;
+            memberData.connectNextTick = false;
+            memberData.syncNextTick = true;
+        }
+
+        // Recursively apply the operation to connected members (supplying the newly created network)
         for(BlockPos connection : member.connections) {
             Member neighbor = members.get(connection);
-            if(neighbor.marked) {
-                continue;
-            }
-
-            markNeighborsRecursive(neighbor);
+            reassignNetworkRecursive(neighbor, network);
         }
+
+        return network;
     }
 
     protected void unmarkAll() {
@@ -157,6 +183,8 @@ public class ElectricalNetwork {
         }
     }
 
+    /// Syncs data from the component to the network and back, updating the network ({@link #step()}) if any changes
+    /// are detected since the last sync
     public void syncComponent(ElectricData component) {
         Member member = members.get(component.getBlockPos());
         if (member == null) {
@@ -196,6 +224,8 @@ public class ElectricalNetwork {
         component.totalNetworkProduction = totalProduction;
         component.lastAmpsConsumed = member.ampsConsumed;
         component.lastAmpsProvided = member.ampsProvided;
+
+        component.updates = updates;
     }
 
     public boolean contains(BlockPos pos) {
@@ -212,13 +242,13 @@ public class ElectricalNetwork {
     public void step() {
         // Dummy very stupid implementation: find source with the highest voltage and use that.
         // Then sum up the max amperage of all the sources combined and use that.
+        updates++;
 
         // This doesn't account for components such as diodes or components that might change the voltage along the way
         float totalAmps = 0;
         float highestVoltage = 0;
         for(BlockPos sourcePos : sources) {
             Member source = members.get(sourcePos);
-            source.marked = true;
 
             if(source.generatedVoltage > highestVoltage) {
                 highestVoltage = source.generatedVoltage;
@@ -244,16 +274,6 @@ public class ElectricalNetwork {
             totalAmps += consumedAmps;
         }
         totalUsage = totalAmps;
-
-        // FIXME auto update on ElectricData tick instead of this bs
-        for(Member member : members.values()) {
-            ElectricData data = getElectric(member.pos);
-            if(data != null) {
-                syncComponent(data);
-                data.syncNextTick = false;
-                data.notifyUpdate();
-            }
-        }
 
         owner.setDirty();
     }
