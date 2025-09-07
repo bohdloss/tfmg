@@ -83,7 +83,7 @@ public interface IElectricBlock extends IWrenchable {
 
         data.wasMoved = true;
         data.clear();
-        data.connectNextTick = true;
+        data.syncNextTick = true;
     }
 
     default void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {

@@ -2,6 +2,7 @@ package it.bohdloss.tfmg.content.electricity;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.bohdloss.tfmg.DebugStuff;
 import it.bohdloss.tfmg.content.electricity.base.ElectricData;
 import it.bohdloss.tfmg.content.electricity.base.IElectric;
 import net.minecraft.core.BlockPos;
@@ -52,17 +53,7 @@ public class ElectricalNetwork {
             return;
         }
         for(Member member : network.members.values()) {
-            members.put(member.pos, member);
-            if(member.isSource()) {
-                sources.add(member.pos);
-            }
-            ElectricData memberData = getElectric(member.pos);
-            if(memberData != null) {
-                memberData.network = id;
-                memberData.updates = updates;
-                memberData.connectNextTick = false;
-                memberData.syncNextTick = true;
-            }
+            addComponent(member);
         }
         network.members.clear();
         network.sources.clear();
@@ -79,15 +70,30 @@ public class ElectricalNetwork {
     }
 
     public void addComponent(ElectricData component) {
-        if(members.containsKey(component.getBlockPos())) {
+        addComponent(new Member(component.getBlockPos()));
+    }
+
+    public void addComponent(Member member) {
+        if(members.containsKey(member.pos)) {
             throw new IllegalStateException("Trying to *add* component that is already part of the network");
         }
-        BlockPos pos = component.getBlockPos();
-        members.put(pos, new Member(pos));
+        members.put(member.pos, member);
+        if(member.isSource()) {
+            sources.add(member.pos);
+        }
+
+        // Try to sync change with block entity if it is loaded
+        ElectricData electricData = getElectric(member.pos);
+        if(electricData != null) {
+            electricData.network = id;
+            electricData.updates = updates;
+            electricData.connectNextTick = false;
+            electricData.syncNextTick = true;
+        }
         owner.setDirty();
     }
 
-    public void removeComponent(BlockPos pos) {
+    public Member removeComponent(BlockPos pos) {
         if(!members.containsKey(pos)) {
             throw new IllegalStateException("Trying to *remove* component that is not part of the network");
         }
@@ -102,44 +108,69 @@ public class ElectricalNetwork {
         members.remove(pos);
         sources.remove(pos);
         owner.setDirty();
+        return toRemove;
     }
 
-    public void splitNetwork(BlockPos startingPos) {
+    /**
+     * Split this network into multiple, by first removing the component at the starting position and placing it in
+     * its own separate network, and then recalculating the connection points.
+     *
+     * Returns the id of the network the detached components now belongs to.
+     */
+    public long splitNetwork(BlockPos startingPos) {
         if(!members.containsKey(startingPos)) {
             throw new IllegalStateException("Trying to *split* network starting from component that is not part of the network");
         }
 
-        unmarkAll();
+        // Remove component
+        Member startingMember = removeComponent(startingPos);
 
-        // Disconnect the neighbors of the starting component from it
-        Member startingMember = members.get(startingPos);
-        for(BlockPos neighborPos : startingMember.connections) {
-            Member neighbor = members.get(neighborPos);
-            neighbor.connections.remove(startingPos);
-        }
+        // Create new network and add component to it
+        ElectricalNetwork detachedNetwork = ElectricalNetworkManager.createNewNetwork(owner.level);
+        detachedNetwork.addComponent(startingMember);
+        detachedNetwork.step();
 
-        // Move components that are connected together to new networks
-        for(BlockPos neighborPos : startingMember.connections) {
-            Member neighbor = members.get(neighborPos);
-            ElectricalNetwork newNetwork = reassignNetworkRecursive(neighbor, null);
+        List<ElectricalNetwork> createdNetworks = new ArrayList<>();
 
-            // Step newly created networks
-            if(newNetwork != null) {
-                newNetwork.step();
+        // If this component has only one (or zero) connections, then we can simply avoid traversing the component tree
+        if(startingMember.connections.size() > 1) {
+            unmarkAll();
+
+            // Move components that are connected together to new networks
+            ElectricalNetwork initialNetwork = null;
+            for (BlockPos neighborPos : startingMember.connections) {
+                Member neighbor = members.get(neighborPos);
+                ElectricalNetwork newNetwork = reassignNetworkRecursive(neighbor, initialNetwork);
+
+                // Newly created networks are stepped later (except for `this`)
+                initialNetwork = null;
+                if (newNetwork != null && newNetwork != this) {
+                    createdNetworks.add(newNetwork);
+                }
             }
         }
-
-        // Remove everything except for the starting component
-        sources.removeIf(pos -> !pos.equals(startingPos));
-        members.keySet().removeIf(pos -> !pos.equals(startingPos));
 
         // Remove all connections of the starting member
         startingMember.connections.clear();
 
-        // Step network
+        // Remove components that were moved to a new network
+        //
+        // This is deferred up until this point, so that all components are available while traversing connections.
+        sources.removeIf(pos -> {
+           Member member = members.get(pos);
+           return member == null || member.moved;
+        });
+        members.values().removeIf(m -> m.moved);
+
+        // Step networks
         step();
+        for(ElectricalNetwork newNetwork : createdNetworks) {
+            newNetwork.step(); // Step might call unmarkAll, which messes with the state. So we defer it until here.
+        }
 
         owner.setDirty();
+
+        return detachedNetwork.id;
     }
 
     protected ElectricalNetwork reassignNetworkRecursive(Member member, ElectricalNetwork network) {
@@ -154,18 +185,9 @@ public class ElectricalNetwork {
         }
 
         // Add this component to the new network
-        network.members.put(member.pos, member);
-        if(member.isSource()) {
-            network.sources.add(member.pos);
-        }
-
-        // Sync changes to block entity, if it is loaded
-        ElectricData memberData = getElectric(member.pos);
-        if(memberData != null) {
-            memberData.network = network.id;
-            memberData.updates = network.updates;
-            memberData.connectNextTick = false;
-            memberData.syncNextTick = true;
+        if(network != this) {
+            member.moved = true;
+            network.addComponent(member);
         }
 
         // Recursively apply the operation to connected members (supplying the newly created network)
@@ -180,6 +202,7 @@ public class ElectricalNetwork {
     protected void unmarkAll() {
         for(Member member : members.values()) {
             member.marked = false;
+            member.moved = false;
         }
     }
 
@@ -278,11 +301,20 @@ public class ElectricalNetwork {
         owner.setDirty();
     }
 
+    protected Iterator<Member> connectionsOf(Member member) {
+        return member.connections.stream().map(members::get).filter(Objects::nonNull).iterator();
+    }
+
+    @Override
+    public int hashCode() {
+        return Long.hashCode(id);
+    }
+
     public static class Member {
         public static final Codec<Member> CODEC = RecordCodecBuilder.create(
                 inst -> inst.group(
                         BlockPos.CODEC.fieldOf("Pos").forGetter(x -> x.pos),
-                        Codec.list(BlockPos.CODEC).fieldOf("Connections").forGetter(x -> x.connections),
+                        Codec.list(BlockPos.CODEC).fieldOf("Connections").forGetter(x -> x.connections.stream().toList()),
                         Codec.FLOAT.fieldOf("GeneratedVoltage").forGetter(x -> x.generatedVoltage),
                         Codec.FLOAT.fieldOf("Resistance").forGetter(x -> x.resistance),
                         Codec.FLOAT.fieldOf("GeneratorResistance").forGetter(x -> x.generatorResistance),
@@ -294,9 +326,10 @@ public class ElectricalNetwork {
         );
 
         public final BlockPos pos;
-        public List<BlockPos> connections = new ArrayList<>();
+        public Set<BlockPos> connections = new HashSet<>();
 
         public boolean marked;
+        public boolean moved;
 
         // Data from the component
         public float generatedVoltage;
@@ -338,6 +371,11 @@ public class ElectricalNetwork {
 
         public Member(BlockPos pos) {
             this.pos = pos;
+        }
+
+        @Override
+        public int hashCode() {
+            return pos.hashCode();
         }
     }
 }

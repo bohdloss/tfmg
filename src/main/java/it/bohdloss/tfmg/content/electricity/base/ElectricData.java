@@ -30,7 +30,9 @@ import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInformation {
     public final SmartBlockEntity owner;
@@ -54,8 +56,8 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     public float lastAmpsProvided;
 
     // Cache so that we don't allocate lists every time
-    protected List<BlockPos> positions;
-    protected List<ElectricalNetwork> networks;
+    protected Set<BlockPos> positions;
+    protected Set<ElectricalNetwork> networks;
 
     public ElectricData(SmartBlockEntity owner) {
         IElectric $ = (IElectric) owner; // Throw exception immediately if not the case :)
@@ -65,10 +67,10 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
 
     protected void initCache() {
         if(positions == null) {
-            positions = new ArrayList<>(6);
+            positions = new HashSet<>(6);
         }
         if(networks == null) {
-            networks = new ArrayList<>(6);
+            networks = new HashSet<>(6);
         }
     }
 
@@ -137,6 +139,11 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     }
 
     public final ElectricalNetwork fetchNetwork() {
+//        ElectricalNetwork electricalNetwork;
+//        if(network == null || (electricalNetwork = ElectricalNetworkManager.getNetworkById(getLevel(), network)) == null || !electricalNetwork.contains(getBlockPos())) {
+//            return initializeNetwork();
+//        }
+//        return electricalNetwork;
         return ElectricalNetworkManager.getNetworkById(getLevel(), network);
     }
 
@@ -173,11 +180,6 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
                 continue;
             }
             ElectricData neighborData = be.getElectricData();
-
-            // If both components are part of the same network, they are already connected
-            if(neighborData.network.equals(network)) {
-                continue;
-            }
 
             neighborData.initCache();
             neighborData.positions.clear();
@@ -235,11 +237,9 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     }
 
     /// Remove this component from its network, possibly splitting it into multiple networks.
-    /// FIXME better split algorithm
-    public final void detach() {
+    protected final void detach() {
         // Split network
-        ElectricalNetwork previousNetwork = fetchNetwork();
-        previousNetwork.splitNetwork(getBlockPos());
+        network = fetchNetwork().splitNetwork(getBlockPos());
 
         // At this point this component belongs to a network with a single component (itself)
         syncNextTick = true;
@@ -258,7 +258,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     /**
      * Positions added to `neighbors` will be checked for a connection.
      */
-    public void getPotentialNeighbors(List<BlockPos> neighbors) {
+    public void getPotentialNeighbors(Set<BlockPos> neighbors) {
         for(Direction direction : Iterate.directions) {
             if(hasConnectorTowards(direction)) {
                 neighbors.add(getBlockPos().relative(direction));
@@ -278,17 +278,14 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
      *  Duties of the electric block entity
      */
 
-    public final void initializeNetwork() {
-        if(isClient()) {
-            return;
-        }
-
+    public final ElectricalNetwork initializeNetwork() {
+        ElectricalNetwork chosenNetwork;
         if(network == null) {
             // Means this has just been placed, generate a new network, then try to connect
-            ElectricalNetwork newNetwork = ElectricalNetworkManager.createNewNetwork(getLevel());
-            newNetwork.addComponent(this);
-            network = newNetwork.id;
-            updates = newNetwork.updates;
+            chosenNetwork = ElectricalNetworkManager.createNewNetwork(getLevel());
+            chosenNetwork.addComponent(this);
+            network = chosenNetwork.id;
+            updates = chosenNetwork.updates;
 
             connectNextTick = true;
             syncNextTick = true;
@@ -299,20 +296,20 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
             // This is expected to be slower when placing a new electrical component merges multiple networks
             // into one, causing the network id to change for a component that is still unloaded (this one),
             // as it will trigger a linear search through networks to find it
-            ElectricalNetwork electricalNetwork = ElectricalNetworkManager.findFor(this, network);
-            if(electricalNetwork == null) {
+            chosenNetwork = ElectricalNetworkManager.findFor(this, network);
+            if(chosenNetwork == null) {
                 connectNextTick = true;
-                ElectricalNetwork newNetwork = ElectricalNetworkManager.createNewNetwork(getLevel()); // No hits -> create a new network
-                newNetwork.addComponent(this);
-                network = newNetwork.id;
-                updates = newNetwork.updates;
+                chosenNetwork = ElectricalNetworkManager.createNewNetwork(getLevel()); // No hits -> create a new network
+                chosenNetwork.addComponent(this);
+                network = chosenNetwork.id;
+                updates = chosenNetwork.updates;
 
                 connectNextTick = true;
                 syncNextTick = true;
                 clear();
             } else {
-                network = electricalNetwork.id;
-                updates = electricalNetwork.updates;
+                network = chosenNetwork.id;
+                updates = chosenNetwork.updates;
 
                 connectNextTick = false;
                 syncNextTick = true;
@@ -320,6 +317,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
             }
         }
         owner.notifyUpdate();
+        return chosenNetwork;
     }
 
     public final void tick() {
@@ -365,8 +363,11 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
         }
 
         detach();
-        fetchNetwork().removeComponent(getBlockPos());
-        fetchNetwork().owner.networks.remove(network);
+        ElectricalNetwork electricalNetwork = fetchNetwork();
+        electricalNetwork.removeComponent(getBlockPos());
+        electricalNetwork.owner.networks.remove(electricalNetwork.id);
+        network = null;
+        clear();
     }
 
     public final CompoundTag write(HolderLookup.Provider registries, boolean clientPacket) {
