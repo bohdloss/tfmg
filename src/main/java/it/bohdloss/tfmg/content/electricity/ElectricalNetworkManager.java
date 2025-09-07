@@ -2,15 +2,17 @@ package it.bohdloss.tfmg.content.electricity;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.bohdloss.tfmg.DebugStuff;
 import it.bohdloss.tfmg.TFMG;
 import it.bohdloss.tfmg.content.electricity.base.ElectricData;
+import it.bohdloss.tfmg.content.electricity.base.IElectric;
+import it.bohdloss.tfmg.content.electricity.base.UnloadedMember;
 import net.createmod.catnip.levelWrappers.WorldHelper;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -19,17 +21,19 @@ import net.neoforged.neoforge.event.level.LevelEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 @EventBusSubscriber
 public class ElectricalNetworkManager extends SavedData {
     public static final Map<LevelAccessor, ElectricalNetworkManager> spaces = new HashMap<>();
 
     public static final Codec<ElectricalNetworkManager> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-            Codec.list(ElectricalNetwork.CODEC).fieldOf("Networks").forGetter(x -> x.networks.values().stream().toList())
+            Codec.list(UnloadedMember.CODEC).fieldOf("ElectricalComponents").forGetter(x -> x.members.values().stream().toList())
     ).apply(inst, ElectricalNetworkManager::fromCodec));
 
-    public final Map<Long, ElectricalNetwork> networks = new HashMap<>();
     public ServerLevel level;
+    public final HashMap<BlockPos, UnloadedMember> members = new HashMap<>();
 
     private ElectricalNetworkManager() { }
 
@@ -37,16 +41,199 @@ public class ElectricalNetworkManager extends SavedData {
         this.level = level instanceof ServerLevel sLevel ? sLevel : null;
     }
 
-    public static ElectricalNetworkManager fromCodec(List<ElectricalNetwork> networks) {
+    public static ElectricalNetworkManager fromCodec(List<UnloadedMember> members) {
         ElectricalNetworkManager self = new ElectricalNetworkManager();
-        for(ElectricalNetwork network : networks) {
-            if(network.members.isEmpty()) {
-                continue;
-            }
-            network.owner = self;
-            self.networks.put(network.id, network);
+        for(UnloadedMember member : members) {
+            self.members.put(member.pos, member);
         }
         return self;
+    }
+
+    public static ElectricalNetworkManager getInstance(LevelAccessor level) {
+        if(level == null || level.isClientSide()) {
+            throw new IllegalStateException("Uninitialized level or client level");
+        }
+
+        return spaces.computeIfAbsent(level, ElectricalNetworkManager::new);
+    }
+
+    public static void add(LevelAccessor level, BlockPos pos) {
+        ElectricalNetworkManager space = getInstance(level);
+        if(!(level.getBlockEntity(pos) instanceof IElectric be)) {
+            return;
+        }
+        ElectricData data = be.getElectricData();
+        UnloadedMember member = space.members.computeIfAbsent(pos, UnloadedMember::new);
+        boolean dirty = member.sync(data);
+
+        // Calculate connections
+        Set<BlockPos> neighbors = new HashSet<>(6);
+        Set<BlockPos> neighborNeighbors = new HashSet<>(6);
+
+        data.getPotentialNeighbors(neighbors);
+        for(BlockPos neighborPos : neighbors) {
+            if(neighborPos.equals(pos)) {
+                continue;
+            }
+
+            if(!(space.level.getBlockEntity(neighborPos) instanceof IElectric neighborBe)) {
+                continue;
+            }
+
+            ElectricData neighborData = neighborBe.getElectricData();
+            neighborNeighbors.clear();
+            neighborData.getPotentialNeighbors(neighborNeighbors);
+
+            if(!neighborNeighbors.contains(pos)) {
+                continue;
+            }
+            UnloadedMember neighborMember = space.members.get(neighborPos);
+            if(neighborMember == null) {
+                neighborData.connectNextTick = true;
+                continue;
+            }
+            neighborMember.connections.add(pos);
+            member.connections.add(neighborPos);
+            dirty |= true;
+        }
+
+        if(dirty) {
+            update(level, pos);
+        }
+
+        space.setDirty();
+    }
+
+    public static void remove(LevelAccessor level, BlockPos pos) {
+        ElectricalNetworkManager space = getInstance(level);
+        UnloadedMember member = space.members.remove(pos);
+        if(member == null) {
+            return;
+        }
+
+        List<BlockPos> validConnections = new ArrayList<>();
+
+        // Disconnect neighbors
+        for(BlockPos neighborPos : member.connections) {
+            if(neighborPos.equals(pos)) {
+                continue;
+            }
+            UnloadedMember neighborMember = space.members.get(neighborPos);
+            if(neighborMember == null) {
+                continue;
+            }
+            neighborMember.connections.remove(pos);
+            validConnections.add(neighborPos);
+        }
+
+        for(BlockPos neighbor : validConnections) {
+            update(level, neighbor);
+        }
+
+        space.setDirty();
+    }
+
+    public static void sync(LevelAccessor level, BlockPos pos) {
+        ElectricalNetworkManager space = getInstance(level);
+        if(!(level.getBlockEntity(pos) instanceof IElectric be)) {
+            return;
+        }
+        ElectricData data = be.getElectricData();
+        UnloadedMember member = space.members.get(data.getBlockPos());
+        if(member == null) {
+            add(level, pos);
+        } else {
+            boolean dirty = member.sync(data);
+            if (dirty) {
+                update(level, data.getBlockPos());
+            }
+        }
+
+        space.setDirty();
+    }
+
+    protected void traverseAll(BlockPos startingPos, Consumer<UnloadedMember> callback) {
+        Set<BlockPos> visited = new HashSet<>();
+        List<BlockPos> toVisit = new ArrayList<>();
+
+        visited.add(startingPos);
+        toVisit.add(startingPos);
+
+        BlockPos nextPos;
+
+        Supplier<BlockPos> removeLast = () -> {
+            if(toVisit.isEmpty()) {
+                return null;
+            } else {
+                return toVisit.removeLast();
+            }
+        };
+
+        while((nextPos = removeLast.get()) != null) {
+            UnloadedMember member = members.get(nextPos);
+            if(member == null) {
+                continue;
+            }
+
+            for(BlockPos neighborPos : member.connections) {
+                if(visited.add(neighborPos)) {
+                    toVisit.add(neighborPos);
+                }
+            }
+
+            callback.accept(member);
+        }
+    }
+
+    public static void update(LevelAccessor level, BlockPos startingPos) {
+        ElectricalNetworkManager space = getInstance(level);
+        // Dummy very stupid implementation: find source with the highest voltage and use that.
+        // Then sum up the max amperage of all the sources combined and use that.
+
+        // This doesn't account for components such as diodes or components that might change the voltage along the way
+        final float[] totalAmps = {0};
+        final float[] highestVoltage = {0};
+        float totalProduction;
+        float totalUsage;
+
+        space.traverseAll(startingPos, source -> {
+            if(source.isSource()) {
+                if (source.generatedVoltage > highestVoltage[0]) {
+                    highestVoltage[0] = source.generatedVoltage;
+                }
+
+                float generatedAmps = source.calcGeneratedAmps();
+                source.ampsProvided = generatedAmps;
+                totalAmps[0] += generatedAmps;
+            }
+        });
+        totalProduction = totalAmps[0];
+
+        // Calculate total consumption for all components and apply voltage
+        totalAmps[0] = 0;
+
+        space.traverseAll(startingPos, member -> {
+            member.frequency = 0;
+            member.voltage = highestVoltage[0];
+            float consumedAmps = member.calcConsumedAmps();
+            member.ampsConsumed = consumedAmps;
+            if(!member.isSource()) {
+                member.ampsProvided = 0;
+            }
+            totalAmps[0] += consumedAmps;
+        });
+        totalUsage = totalAmps[0];
+
+        space.traverseAll(startingPos, member -> {
+            if(space.level.isLoaded(member.pos) && space.level.getBlockEntity(member.pos) instanceof IElectric be) {
+                ElectricData data = be.getElectricData();
+                data.totalNetworkUsage = totalUsage;
+                data.totalNetworkProduction = totalProduction;
+                data.syncNextTick = true;
+            }
+        });
+
+        space.setDirty();
     }
 
     public static @NotNull ElectricalNetworkManager load(@NotNull CompoundTag compoundTag, HolderLookup.@NotNull Provider registries) {
@@ -78,80 +265,5 @@ public class ElectricalNetworkManager extends SavedData {
             spaces.remove(level);
             TFMG.LOGGER.debug("Removed Electric Network Space for " + WorldHelper.getDimensionID(level));
         }
-    }
-
-//    /// Generates a new universally unique component id and assigns it
-//    public static void generateComponentId(ElectricData data) {
-//        if(data.isClient()) {
-//            throw new IllegalStateException("Uninitialized level or client level");
-//        }
-//
-//        Level level = data.getLevel();
-//        RandomSource random = level.getRandom();
-//        ElectricalNetworkManager space = spaces.computeIfAbsent(data.getLevel(), $ -> new ElectricalNetworkManager());
-//
-//        long id = random.nextLong();
-//        while(space.allComponents.contains(id)) {
-//            id = random.nextLong();
-//        }
-//
-//        data.id = id;
-//    }
-
-    /// Finds an electrical network given its level and id
-    public static ElectricalNetwork getNetworkById(LevelAccessor level, long id) {
-        if(level == null || level.isClientSide()) {
-            throw new IllegalStateException("Uninitialized level or client level");
-        }
-
-        ElectricalNetworkManager space = spaces.computeIfAbsent(level, ElectricalNetworkManager::new);
-        return space.networks.get(id);
-    }
-
-    /// Creates a new electrical network with a universally unique id
-    public static ElectricalNetwork createNewNetwork(LevelAccessor level) {
-        if(level == null || level.isClientSide()) {
-            throw new IllegalStateException("Uninitialized level or client level");
-        }
-
-        RandomSource random = level.getRandom();
-        ElectricalNetworkManager space = spaces.computeIfAbsent(level, ElectricalNetworkManager::new);
-
-        long id = random.nextLong();
-        while(space.networks.containsKey(id)) {
-            id = random.nextLong();
-        }
-        ElectricalNetwork network = new ElectricalNetwork(id);
-        network.owner = space;
-        space.networks.put(id, network);
-        space.setDirty();
-
-        return network;
-    }
-
-    /// Searches for the network this component belongs to given its id, prioritizing search in the network with the given id
-    public static ElectricalNetwork findFor(ElectricData data, Long networkId) {
-        if(data.isClient()) {
-            throw new IllegalStateException("Uninitialized level or client level");
-        }
-
-        ElectricalNetworkManager space = spaces.computeIfAbsent(data.getLevel(), ElectricalNetworkManager::new);
-
-        // Try with cache
-        if(networkId != null) {
-            ElectricalNetwork network = space.networks.get(networkId);
-            if(network != null && network.contains(data.getBlockPos())) {
-                return network;
-            }
-        }
-
-        // Slow search on miss
-        for(ElectricalNetwork network : space.networks.values()) {
-            if(network.contains(data.getBlockPos())) {
-                return network;
-            }
-        }
-
-        return null; // You should create a new network
     }
 }

@@ -9,6 +9,7 @@ import it.bohdloss.tfmg.base.AbstractKineticMultiblock;
 import it.bohdloss.tfmg.base.AbstractMultiblock;
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankBlockEntity;
 import it.bohdloss.tfmg.content.electricity.ElectricalNetwork;
+import it.bohdloss.tfmg.content.electricity.ElectricalNetworkManager;
 import it.bohdloss.tfmg.content.electricity.base.ElectricBlockEntity;
 import it.bohdloss.tfmg.content.electricity.base.ElectricData;
 import it.bohdloss.tfmg.content.electricity.base.IElectric;
@@ -43,12 +44,7 @@ public class DebugCinderBlockItem extends Item {
             ElectricData data = be.getElectricData();
             if(context.getPlayer().isCrouching()) {
                 DebugStuff.show("Updating network...");
-                ElectricalNetwork electricalNetwork = data.fetchNetwork();
-                if(electricalNetwork == null) {
-                    DebugStuff.show("No network");
-                } else {
-                    electricalNetwork.step();
-                }
+                ElectricalNetworkManager.update(level, pos);
             }
             data.debug();
         }
