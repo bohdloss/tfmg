@@ -23,6 +23,8 @@ public class UnloadedMember {
             ).apply(inst, UnloadedMember::fromCodec)
     );
 
+    public Long cluster;
+
     public final BlockPos pos;
     public Set<BlockPos> connections = new HashSet<>();
 
@@ -94,6 +96,10 @@ public class UnloadedMember {
         component.lastAmpsProvided = this.ampsProvided;
 
         return dirty;
+    }
+
+    public boolean isVoltageChanger() {
+        return false;
     }
 
     @Override

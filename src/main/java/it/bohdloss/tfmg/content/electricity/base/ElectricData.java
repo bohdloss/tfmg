@@ -9,7 +9,7 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import it.bohdloss.tfmg.DebugStuff;
 import it.bohdloss.tfmg.content.electricity.BlockResistanceValues;
-import it.bohdloss.tfmg.content.electricity.ElectricalNetwork;
+import it.bohdloss.tfmg.content.electricity.ElectricalCluster;
 import it.bohdloss.tfmg.content.electricity.ElectricalNetworkManager;
 import net.createmod.catnip.data.Iterate;
 import net.createmod.catnip.lang.FontHelper;
@@ -29,8 +29,6 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -141,26 +139,31 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     public final void attach() {
         connectNextTick = false;
 
-        ElectricalNetworkManager.add(getLevel(), getBlockPos());
+        ElectricalNetworkManager.getInstance(getLevel()).add(getBlockPos());
     }
 
     public final void debug() {
-        DebugStuff.show("Init: " + initialized);
-//        DebugStuff.show("Network: " + network + (fetchNetwork() == null ? " (unreachable)" : ""));
+//        DebugStuff.show("Init: " + initialized);
         if(getLevel() != null) {
-            DebugStuff.show("We are on " + (getLevel().isClientSide() ? "Client" : "Server"));
+            ElectricalCluster network = ElectricalNetworkManager.getInstance(getLevel()).clusterFor(getBlockPos());
+            if(network != null) {
+                DebugStuff.show("Network: " + network.id + " -> @" + Integer.toHexString(network.hashCode()));
+            } else {
+                DebugStuff.show("Network: " + network);
+            }
+//            DebugStuff.show("We are on " + (getLevel().isClientSide() ? "Client" : "Server"));
         }
-        DebugStuff.show("Frequency: " + frequency);
-        DebugStuff.show("Voltage: " + voltage);
-        DebugStuff.show("Production: " + lastAmpsProvided);
-        DebugStuff.show("Consumption: " + lastAmpsConsumed);
-        DebugStuff.show("Total Production: " + totalNetworkProduction);
-        DebugStuff.show("Total Usage: " + totalNetworkUsage);
+//        DebugStuff.show("Frequency: " + frequency);
+//        DebugStuff.show("Voltage: " + voltage);
+//        DebugStuff.show("Production: " + lastAmpsProvided);
+//        DebugStuff.show("Consumption: " + lastAmpsConsumed);
+//        DebugStuff.show("Total Production: " + totalNetworkProduction);
+//        DebugStuff.show("Total Usage: " + totalNetworkUsage);
     }
 
     /// Remove this component from its network, possibly splitting it into multiple networks.
     protected final void detach() {
-        ElectricalNetworkManager.remove(getLevel(), getBlockPos());
+        ElectricalNetworkManager.getInstance(getLevel()).remove(getBlockPos());
 
         // At this point this component belongs to a network with a single component (itself)
         syncNextTick = true;
@@ -226,7 +229,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
            syncNextTick = false;
 
            float previousVoltage = voltage;
-           ElectricalNetworkManager.sync(getLevel(), getBlockPos());
+           ElectricalNetworkManager.getInstance(getLevel()).sync(getBlockPos());
            notifyVoltageChange(previousVoltage);
 
            notifyUpdate();

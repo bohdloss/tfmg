@@ -1,21 +1,15 @@
 package it.bohdloss.tfmg.content.electricity.debug;
 
-import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.IMultiBlockEntityContainer;
 import it.bohdloss.tfmg.DebugStuff;
-import it.bohdloss.tfmg.TFMG;
 import it.bohdloss.tfmg.base.AbstractKineticMultiblock;
 import it.bohdloss.tfmg.base.AbstractMultiblock;
 import it.bohdloss.tfmg.content.decoration.tanks.steel.SteelTankBlockEntity;
-import it.bohdloss.tfmg.content.electricity.ElectricalNetwork;
 import it.bohdloss.tfmg.content.electricity.ElectricalNetworkManager;
-import it.bohdloss.tfmg.content.electricity.base.ElectricBlockEntity;
 import it.bohdloss.tfmg.content.electricity.base.ElectricData;
 import it.bohdloss.tfmg.content.electricity.base.IElectric;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlockEntity;
-import it.bohdloss.tfmg.content.machinery.metallurgy.coke_oven.CokeOvenBlockEntity;
-import it.bohdloss.tfmg.content.machinery.misc.air_intake.AirIntakeBlockEntity;
 import it.bohdloss.tfmg.content.machinery.oil_processing.pumpjack.pumpjack.hammer.PumpjackBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
@@ -23,7 +17,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.NotNull;
 
 public class DebugCinderBlockItem extends Item {
@@ -44,7 +37,7 @@ public class DebugCinderBlockItem extends Item {
             ElectricData data = be.getElectricData();
             if(context.getPlayer().isCrouching()) {
                 DebugStuff.show("Updating network...");
-                ElectricalNetworkManager.update(level, pos);
+                ElectricalNetworkManager.getInstance(level).update(pos);
             }
             data.debug();
         }

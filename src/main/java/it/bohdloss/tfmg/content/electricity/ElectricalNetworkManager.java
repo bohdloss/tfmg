@@ -1,8 +1,8 @@
 package it.bohdloss.tfmg.content.electricity;
 
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import it.bohdloss.tfmg.DebugStuff;
 import it.bohdloss.tfmg.TFMG;
 import it.bohdloss.tfmg.content.electricity.base.ElectricData;
 import it.bohdloss.tfmg.content.electricity.base.IElectric;
@@ -21,8 +21,7 @@ import net.neoforged.neoforge.event.level.LevelEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 @EventBusSubscriber
 public class ElectricalNetworkManager extends SavedData {
@@ -33,7 +32,16 @@ public class ElectricalNetworkManager extends SavedData {
     ).apply(inst, ElectricalNetworkManager::fromCodec));
 
     public ServerLevel level;
+
+    // The source of truth
     public final HashMap<BlockPos, UnloadedMember> members = new HashMap<>();
+
+    // Generated known networks
+    public final HashMap<Long, ElectricalCluster> clusters = new HashMap<>();
+
+    // TODO
+    // HashMap<ChunkPos, List<Long>> type of thing
+    // Optimize for networks that lay completely outside of the loaded chunk range.
 
     private ElectricalNetworkManager() { }
 
@@ -46,6 +54,9 @@ public class ElectricalNetworkManager extends SavedData {
         for(UnloadedMember member : members) {
             self.members.put(member.pos, member);
         }
+
+        self.calculateAllClusters();
+
         return self;
     }
 
@@ -57,13 +68,71 @@ public class ElectricalNetworkManager extends SavedData {
         return spaces.computeIfAbsent(level, ElectricalNetworkManager::new);
     }
 
-    public static void add(LevelAccessor level, BlockPos pos) {
-        ElectricalNetworkManager space = getInstance(level);
+    /// Expensive!!
+    protected void clearAllClusters() {
+        members.values().forEach(x -> x.cluster = null);
+        clusters.clear();
+    }
+
+    /// It is the caller's responsibility to clear the clusters from both the global hashmap and the individual members
+    /// beforehand
+    protected void calculateAllClusters() {
+        for(UnloadedMember member : members.values()) {
+            calculateClustersFrom(member.pos);
+        }
+    }
+
+    protected void clearClustersFrom(BlockPos startingPos) {
+        traverseAll(
+                startingPos,
+                (from, to) -> {
+                    if(to.cluster != null) {
+                        clusters.remove(to.cluster);
+                    }
+                    to.cluster = null;
+                }
+        );
+    }
+
+    /// It is the caller's responsibility to clear the clusters from both the global hashmap and the individual members
+    /// beforehand
+    protected void calculateClustersFrom(BlockPos startingPos) {
+        final ElectricalCluster[] cluster = { null };
+        traverseAll(
+                startingPos,
+                (from, to) -> {
+                    if(to.isSource()) {
+                        if (cluster[0] == null) { // This delay in the creation prevents empty clusters
+                            cluster[0] = createNewCluster();
+                        }
+                        to.cluster = cluster[0].id;
+                    }
+                },
+                (from, to) -> to.cluster == null && !to.isVoltageChanger() // Only keep traversing if the element's cluster is null
+        );
+    }
+
+    /// Creates a new electrical network with a universally unique id
+    protected ElectricalCluster createNewCluster() {
+        Random random = new Random();
+
+        long id = random.nextLong();
+        while(clusters.containsKey(id)) {
+            id = random.nextLong();
+        }
+        ElectricalCluster network = new ElectricalCluster(id);
+        clusters.put(id, network);
+        setDirty();
+
+        return network;
+    }
+
+    public void add(BlockPos pos) {
         if(!(level.getBlockEntity(pos) instanceof IElectric be)) {
             return;
         }
         ElectricData data = be.getElectricData();
-        UnloadedMember member = space.members.computeIfAbsent(pos, UnloadedMember::new);
+        UnloadedMember member = members.computeIfAbsent(pos, UnloadedMember::new);
         boolean dirty = member.sync(data);
 
         // Calculate connections
@@ -76,7 +145,7 @@ public class ElectricalNetworkManager extends SavedData {
                 continue;
             }
 
-            if(!(space.level.getBlockEntity(neighborPos) instanceof IElectric neighborBe)) {
+            if(!(level.getBlockEntity(neighborPos) instanceof IElectric neighborBe)) {
                 continue;
             }
 
@@ -87,29 +156,35 @@ public class ElectricalNetworkManager extends SavedData {
             if(!neighborNeighbors.contains(pos)) {
                 continue;
             }
-            UnloadedMember neighborMember = space.members.get(neighborPos);
+            UnloadedMember neighborMember = members.get(neighborPos);
             if(neighborMember == null) {
                 neighborData.connectNextTick = true;
                 continue;
             }
             neighborMember.connections.add(pos);
             member.connections.add(neighborPos);
-            dirty |= true;
+            dirty = true;
         }
+
+        clearClustersFrom(pos);
+        calculateClustersFrom(pos);
 
         if(dirty) {
-            update(level, pos);
+            update(pos);
         }
 
-        space.setDirty();
+        setDirty();
     }
 
-    public static void remove(LevelAccessor level, BlockPos pos) {
-        ElectricalNetworkManager space = getInstance(level);
-        UnloadedMember member = space.members.remove(pos);
+    public void remove(BlockPos pos) {
+        UnloadedMember member = members.get(pos);
         if(member == null) {
             return;
         }
+
+        clearClustersFrom(pos);
+
+        members.remove(pos);
 
         List<BlockPos> validConnections = new ArrayList<>();
 
@@ -118,7 +193,7 @@ public class ElectricalNetworkManager extends SavedData {
             if(neighborPos.equals(pos)) {
                 continue;
             }
-            UnloadedMember neighborMember = space.members.get(neighborPos);
+            UnloadedMember neighborMember = members.get(neighborPos);
             if(neighborMember == null) {
                 continue;
             }
@@ -127,41 +202,76 @@ public class ElectricalNetworkManager extends SavedData {
         }
 
         for(BlockPos neighbor : validConnections) {
-            update(level, neighbor);
+            calculateClustersFrom(neighbor);
         }
 
-        space.setDirty();
+        for(BlockPos neighbor : validConnections) {
+            update(neighbor);
+        }
+
+        setDirty();
     }
 
-    public static void sync(LevelAccessor level, BlockPos pos) {
-        ElectricalNetworkManager space = getInstance(level);
+    public void sync(BlockPos pos) {
         if(!(level.getBlockEntity(pos) instanceof IElectric be)) {
             return;
         }
         ElectricData data = be.getElectricData();
-        UnloadedMember member = space.members.get(data.getBlockPos());
+        UnloadedMember member = members.get(pos);
         if(member == null) {
-            add(level, pos);
+            add(pos);
         } else {
+            boolean wasSource = member.isSource();
             boolean dirty = member.sync(data);
+            boolean isSource = member.isSource();
+
+            if(isSource && !wasSource) {
+                clearClustersFrom(pos);
+                calculateClustersFrom(pos);
+            }
+
             if (dirty) {
-                update(level, data.getBlockPos());
+                update(pos);
             }
         }
 
-        space.setDirty();
+        setDirty();
     }
 
-    protected void traverseAll(BlockPos startingPos, Consumer<UnloadedMember> callback) {
+    public ElectricalCluster clusterFor(BlockPos pos) {
+        if(!(level.getBlockEntity(pos) instanceof IElectric be)) {
+            return null;
+        }
+        UnloadedMember member = members.get(pos);
+        if(member != null) {
+            return clusters.get(member.cluster);
+        }
+        return null;
+    }
+
+    protected void traverseAll(
+            BlockPos startingPos,
+            BiConsumer<UnloadedMember, UnloadedMember> callback
+    ) {
+        traverseAll(startingPos, callback, (x, y) -> true);
+    }
+
+    protected void traverseAll(
+            BlockPos startingPos,
+            BiConsumer<UnloadedMember, UnloadedMember> callback,
+            BiPredicate<UnloadedMember, UnloadedMember> filter
+    ) {
+        UnloadedMember startingMember = members.get(startingPos);
+
         Set<BlockPos> visited = new HashSet<>();
-        List<BlockPos> toVisit = new ArrayList<>();
+        List<Pair<UnloadedMember, UnloadedMember>> toVisit = new ArrayList<>();
 
         visited.add(startingPos);
-        toVisit.add(startingPos);
+        toVisit.add(Pair.of(null, startingMember));
 
-        BlockPos nextPos;
+        Pair<UnloadedMember, UnloadedMember> memberPair;
 
-        Supplier<BlockPos> removeLast = () -> {
+        Supplier<Pair<UnloadedMember, UnloadedMember>> removeLast = () -> {
             if(toVisit.isEmpty()) {
                 return null;
             } else {
@@ -169,24 +279,26 @@ public class ElectricalNetworkManager extends SavedData {
             }
         };
 
-        while((nextPos = removeLast.get()) != null) {
-            UnloadedMember member = members.get(nextPos);
-            if(member == null) {
+        while((memberPair = removeLast.get()) != null) {
+            if(!filter.test(memberPair.getFirst(), memberPair.getSecond())) {
                 continue;
             }
 
-            for(BlockPos neighborPos : member.connections) {
+            for(BlockPos neighborPos : memberPair.getSecond().connections) {
+                UnloadedMember neighborMember = members.get(neighborPos);
+                if(neighborMember == null) {
+                    continue;
+                }
                 if(visited.add(neighborPos)) {
-                    toVisit.add(neighborPos);
+                    toVisit.add(Pair.of(memberPair.getSecond(), neighborMember));
                 }
             }
 
-            callback.accept(member);
+            callback.accept(memberPair.getFirst(), memberPair.getSecond());
         }
     }
 
-    public static void update(LevelAccessor level, BlockPos startingPos) {
-        ElectricalNetworkManager space = getInstance(level);
+    public void update(BlockPos startingPos) {
         // Dummy very stupid implementation: find source with the highest voltage and use that.
         // Then sum up the max amperage of all the sources combined and use that.
 
@@ -196,14 +308,14 @@ public class ElectricalNetworkManager extends SavedData {
         float totalProduction;
         float totalUsage;
 
-        space.traverseAll(startingPos, source -> {
-            if(source.isSource()) {
-                if (source.generatedVoltage > highestVoltage[0]) {
-                    highestVoltage[0] = source.generatedVoltage;
+        traverseAll(startingPos, (from, to) -> {
+            if(to.isSource()) {
+                if (to.generatedVoltage > highestVoltage[0]) {
+                    highestVoltage[0] = to.generatedVoltage;
                 }
 
-                float generatedAmps = source.calcGeneratedAmps();
-                source.ampsProvided = generatedAmps;
+                float generatedAmps = to.calcGeneratedAmps();
+                to.ampsProvided = generatedAmps;
                 totalAmps[0] += generatedAmps;
             }
         });
@@ -212,20 +324,20 @@ public class ElectricalNetworkManager extends SavedData {
         // Calculate total consumption for all components and apply voltage
         totalAmps[0] = 0;
 
-        space.traverseAll(startingPos, member -> {
-            member.frequency = 0;
-            member.voltage = highestVoltage[0];
-            float consumedAmps = member.calcConsumedAmps();
-            member.ampsConsumed = consumedAmps;
-            if(!member.isSource()) {
-                member.ampsProvided = 0;
+        traverseAll(startingPos, (from, to) -> {
+            to.frequency = 0;
+            to.voltage = highestVoltage[0];
+            float consumedAmps = to.calcConsumedAmps();
+            to.ampsConsumed = consumedAmps;
+            if(!to.isSource()) {
+                to.ampsProvided = 0;
             }
             totalAmps[0] += consumedAmps;
         });
         totalUsage = totalAmps[0];
 
-        space.traverseAll(startingPos, member -> {
-            if(space.level.isLoaded(member.pos) && space.level.getBlockEntity(member.pos) instanceof IElectric be) {
+        traverseAll(startingPos, (from, to) -> {
+            if(level.isLoaded(to.pos) && level.getBlockEntity(to.pos) instanceof IElectric be) {
                 ElectricData data = be.getElectricData();
                 data.totalNetworkUsage = totalUsage;
                 data.totalNetworkProduction = totalProduction;
@@ -233,7 +345,7 @@ public class ElectricalNetworkManager extends SavedData {
             }
         });
 
-        space.setDirty();
+        setDirty();
     }
 
     public static @NotNull ElectricalNetworkManager load(@NotNull CompoundTag compoundTag, HolderLookup.@NotNull Provider registries) {
