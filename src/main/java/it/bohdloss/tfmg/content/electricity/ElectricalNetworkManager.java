@@ -100,7 +100,6 @@ public class ElectricalNetworkManager extends SavedData {
                     }
                     to.cluster = null;
                 },
-                (from, to) -> true,
                 (neverVisited, from, to) -> neverVisited && !goesThroughVoltageChanger(from, to)
         );
     }
@@ -132,8 +131,6 @@ public class ElectricalNetworkManager extends SavedData {
                         to.cluster = cluster[0].id;
                     }
                 },
-                // Only keep traversing if the element's cluster is null
-                (from, to) -> to.cluster == null,
                 // We don't need to re-visit already seen components
                 // We also don't go past voltage changers' output connections
                 (neverVisited, from, to) -> neverVisited && !goesThroughVoltageChanger(from, to)
@@ -256,10 +253,16 @@ public class ElectricalNetworkManager extends SavedData {
             add(pos);
         } else {
             boolean wasSource = member.isSource();
-            boolean dirty = member.sync(data);
-            boolean isSource = member.isSource();
+            float prevGenVoltage = member.generatedVoltage;
+            float preGenResistance = member.generatorResistance;
 
-            if(isSource && !wasSource) {
+            boolean dirty = member.sync(data);
+
+            boolean isSource = member.isSource();
+            float genVoltage = member.generatedVoltage;
+            float genResistance = member.generatorResistance;
+
+            if(wasSource != isSource || prevGenVoltage != genVoltage || preGenResistance != genResistance) {
                 clearClustersFrom(pos);
                 calculateClustersFrom(pos);
             }
@@ -290,7 +293,6 @@ public class ElectricalNetworkManager extends SavedData {
         traverseAll(
                 startingPos,
                 callback,
-                (from, to) -> true,
                 (neverVisited, from, to) -> neverVisited
         );
     }
@@ -298,7 +300,6 @@ public class ElectricalNetworkManager extends SavedData {
     protected void traverseAll(
             BlockPos startingPos,
             BiConsumer<UnloadedMember, UnloadedMember> callback,
-            BiPredicate<UnloadedMember, UnloadedMember> filter,
             TriPredicate<Boolean, UnloadedMember, UnloadedMember> shouldTraverse
     ) {
         UnloadedMember startingMember = members.get(startingPos);
@@ -320,9 +321,7 @@ public class ElectricalNetworkManager extends SavedData {
         };
 
         while((memberPair = removeLast.get()) != null) {
-            if(!filter.test(memberPair.getFirst(), memberPair.getSecond())) {
-                continue;
-            }
+            callback.accept(memberPair.getFirst(), memberPair.getSecond());
 
             for(BlockPos neighborPos : memberPair.getSecond().getConnections()) {
                 UnloadedMember neighborMember = members.get(neighborPos);
@@ -335,8 +334,6 @@ public class ElectricalNetworkManager extends SavedData {
                     toVisit.add(Pair.of(memberPair.getSecond(), neighborMember));
                 }
             }
-
-            callback.accept(memberPair.getFirst(), memberPair.getSecond());
         }
     }
 
