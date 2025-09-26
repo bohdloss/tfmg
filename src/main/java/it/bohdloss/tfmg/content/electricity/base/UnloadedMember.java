@@ -17,6 +17,8 @@ public class UnloadedMember {
                     Codec.FLOAT.fieldOf("GeneratedVoltage").forGetter(x -> x.generatedVoltage),
                     Codec.FLOAT.fieldOf("Resistance").forGetter(x -> x.resistance),
                     Codec.FLOAT.fieldOf("GeneratorResistance").forGetter(x -> x.generatorResistance),
+                    Codec.FLOAT.fieldOf("InputOutputMultiplier").forGetter(x -> x.inputOutputMultiplier),
+                    Codec.FLOAT.fieldOf("OutputInputMultiplier").forGetter(x -> x.outputInputMultiplier),
                     Codec.FLOAT.fieldOf("Frequency").forGetter(x -> x.frequency),
                     Codec.FLOAT.fieldOf("Voltage").forGetter(x -> x.voltage),
                     Codec.FLOAT.fieldOf("WattsConsumed").forGetter(x -> x.wattsConsumed),
@@ -36,6 +38,9 @@ public class UnloadedMember {
     public float resistance;
     public float generatorResistance;
 
+    public float inputOutputMultiplier;
+    public float outputInputMultiplier;
+
     // Compiled
     public float frequency;
     public float voltage;
@@ -44,7 +49,7 @@ public class UnloadedMember {
 
     public float wattsReceived; // Different sources may receive different amounts of energy (such as when diodes are involved)
 
-    private static UnloadedMember fromCodec(BlockPos pos, List<BlockPos> connections, List<BlockPos> outputs, Float generatedVoltage, Float resistance, Float generatorResistance, Float frequency, Float voltage, Float wattsConsumed, Float wattsProvided, Float wattsReceived) {
+    private static UnloadedMember fromCodec(BlockPos pos, List<BlockPos> connections, List<BlockPos> outputs, Float generatedVoltage, Float resistance, Float generatorResistance, Float inputOutputMultiplier, Float outputInputMultiplier, Float frequency, Float voltage, Float wattsConsumed, Float wattsProvided, Float wattsReceived) {
         UnloadedMember self = new UnloadedMember(pos);
         self.connections.addAll(connections);
         self.connections.remove(pos); // Prevent connections to itself
@@ -53,6 +58,8 @@ public class UnloadedMember {
         self.generatedVoltage = generatedVoltage;
         self.resistance = resistance;
         self.generatorResistance = generatorResistance;
+        self.inputOutputMultiplier = inputOutputMultiplier;
+        self.outputInputMultiplier = outputInputMultiplier;
         self.frequency = frequency;
         self.voltage = voltage;
         self.wattsConsumed = wattsConsumed;
@@ -85,19 +92,25 @@ public class UnloadedMember {
         float resistance = Math.max(0, component.getResistance());
         float generatorResistance = Math.max(0, component.getGeneratorResistance());
 
+        float inputOutputMultiplier = Math.max(0, component.getInputOutputVoltageMultiplier());
+        float outputInputMultiplier = Math.max(0, component.getOutputInputVoltageMultiplier());
+
         boolean dirty = generatedVoltage != this.generatedVoltage ||
                 resistance != this.resistance ||
-                generatorResistance != this.generatorResistance;
+                generatorResistance != this.generatorResistance ||
+                inputOutputMultiplier != this.inputOutputMultiplier ||
+                outputInputMultiplier != this.outputInputMultiplier;
 
         this.generatedVoltage = generatedVoltage;
         this.resistance = resistance;
         this.generatorResistance = generatorResistance;
 
+        this.inputOutputMultiplier = inputOutputMultiplier;
+        this.outputInputMultiplier = outputInputMultiplier;
+
         // Provide component with updated data
         component.frequency = this.frequency;
         component.voltage = this.voltage;
-//        component.totalNetworkUsage = totalUsage; // FIXME
-        component.totalNetworkProduction = this.wattsReceived;
         component.lastWattsConsumed = this.wattsConsumed;
         component.lastWattsProvided = this.wattsProvided;
 

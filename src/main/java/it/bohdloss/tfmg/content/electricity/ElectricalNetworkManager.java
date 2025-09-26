@@ -19,6 +19,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.util.TriPredicate;
 import net.neoforged.neoforge.event.level.LevelEvent;
+import org.apache.logging.log4j.util.TriConsumer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -94,7 +95,7 @@ public class ElectricalNetworkManager extends SavedData {
     protected void clearClustersFrom(BlockPos startingPos) {
         traverseAll(
                 startingPos,
-                (from, to) -> {
+                (neverVisited, from, to) -> {
                     if(to.cluster != null) {
                         clusters.remove(to.cluster);
                     }
@@ -114,7 +115,7 @@ public class ElectricalNetworkManager extends SavedData {
         final ElectricalCluster[] cluster = { null };
         traverseAll(
                 startingPos,
-                (from, to) -> {
+                (neverVisited, from, to) -> {
                     if(to.isSource()) {
                         if (cluster[0] == null) { // This delay in the creation prevents empty clusters
                             cluster[0] = createNewCluster();
@@ -288,7 +289,7 @@ public class ElectricalNetworkManager extends SavedData {
 
     protected void traverseAll(
             BlockPos startingPos,
-            BiConsumer<UnloadedMember, UnloadedMember> callback
+            TriConsumer<Boolean, UnloadedMember, UnloadedMember> callback
     ) {
         traverseAll(
                 startingPos,
@@ -299,7 +300,7 @@ public class ElectricalNetworkManager extends SavedData {
 
     protected void traverseAll(
             BlockPos startingPos,
-            BiConsumer<UnloadedMember, UnloadedMember> callback,
+            TriConsumer<Boolean, UnloadedMember, UnloadedMember> callback,
             TriPredicate<Boolean, UnloadedMember, UnloadedMember> shouldTraverse
     ) {
         UnloadedMember startingMember = members.get(startingPos);
@@ -321,7 +322,7 @@ public class ElectricalNetworkManager extends SavedData {
         };
 
         while((memberPair = removeLast.get()) != null) {
-            callback.accept(memberPair.getFirst(), memberPair.getSecond());
+            callback.accept(!visited.contains(memberPair.getSecond().pos), memberPair.getFirst(), memberPair.getSecond());
 
             for(BlockPos neighborPos : memberPair.getSecond().getConnections()) {
                 UnloadedMember neighborMember = members.get(neighborPos);
@@ -343,56 +344,64 @@ public class ElectricalNetworkManager extends SavedData {
         float totalProduction;
         float totalUsage;
 
-//        List<ElectricalCluster> foundClusters = new ArrayList<>();
-//
-//        // First pass: reset compiled component data and find all clusters
-//        traverseAll(startingPos, (from, to) -> {
-//            ElectricalCluster cluster;
-//            if(to.cluster != null && (cluster = clusters.get(to.cluster)) != null) {
-//                foundClusters.add(cluster);
-//            }
-//
-//            to.frequency = 0;
-//            to.voltage = 0;
-//            to.wattsConsumed = 0;
-//            to.wattsProvided = 0;
-//            to.wattsReceived = 0;
-//        });
+        List<ElectricalCluster> foundClusters = new ArrayList<>();
 
-        traverseAll(startingPos, (from, to) -> {
-            if(to.isSource()) {
-                if (to.generatedVoltage > highestVoltage[0]) {
-                    highestVoltage[0] = to.generatedVoltage;
+        // First pass: reset compiled component data and find all clusters
+        traverseAll(startingPos, (neverVisited, from, to) -> {
+            ElectricalCluster cluster;
+            if(to.cluster != null && (cluster = clusters.get(to.cluster)) != null) {
+                foundClusters.add(cluster);
+            }
+
+            to.frequency = 0;
+            to.voltage = 0;
+            to.wattsConsumed = 0;
+            to.wattsProvided = 0;
+            to.wattsReceived = 0;
+        });
+
+        float[] remainingWatts = { 0 };
+        for(ElectricalCluster cluster : foundClusters) {
+            float clusterVoltage = cluster.highestVoltage;
+            remainingWatts[0] += cluster.totalWatts;
+
+            traverseAll(cluster.referenceSource, (neverVisited, from, to) -> {
+                float voltage = from == null ? clusterVoltage : from.voltage;
+
+                if(from != null && from.hasOutput(to.pos)) {
+                    voltage *= from.inputOutputMultiplier;
+                }
+                if(from != null && to.hasOutput(from.pos)) {
+                    voltage *= to.outputInputMultiplier;
                 }
 
-                float generatedWatts = to.calcGeneratedAmps() * to.generatedVoltage;
-                to.wattsProvided = generatedWatts;
-                totalWatts[0] += generatedWatts;
-            }
-        });
-        totalProduction = totalWatts[0];
+                if(voltage > to.voltage) {
+                    to.voltage = voltage;
+                }
 
-        // Calculate total consumption for all components and apply voltage
-        totalWatts[0] = 0;
+                to.frequency = 0;
 
-        traverseAll(startingPos, (from, to) -> {
-            to.frequency = 0;
-            to.voltage = highestVoltage[0];
-            float consumedWatts = to.calcConsumedAmps(to.voltage) * to.voltage;
-            to.wattsConsumed = consumedWatts;
-            to.wattsReceived = totalProduction;
-            if(!to.isSource()) {
-                to.wattsProvided = 0;
-            }
-            totalWatts[0] += consumedWatts;
-        });
-        totalUsage = totalWatts[0];
+                float consumedWatts = to.calcConsumedAmps(to.voltage) * to.voltage;
+                float wattsDiff = consumedWatts - to.wattsConsumed;
+                to.wattsConsumed += wattsDiff;
+                if(neverVisited) {
+                    to.wattsReceived += cluster.totalWatts;
+                }
+                remainingWatts[0] -= wattsDiff;
 
-        traverseAll(startingPos, (from, to) -> {
+                if(to.isSource()) {
+                    to.wattsProvided = to.calcGeneratedAmps() * to.generatedVoltage;
+                }
+            },
+            // TODO this will loop forever with a component that INCREASES voltage when connecting its output with its input in any way
+            // FIXME Handle detecting this and destroying the voltage modifying component
+            (neverVisited, from, to) -> neverVisited || from.voltage > to.voltage);
+        }
+
+        traverseAll(startingPos, (neverVisited, from, to) -> {
             if(level.isLoaded(to.pos) && level.getBlockEntity(to.pos) instanceof IElectric be) {
                 ElectricData data = be.getElectricData();
-                data.totalNetworkUsage = totalUsage;
-                data.totalNetworkProduction = totalProduction;
+                data.shortCircuit = remainingWatts[0] < 0;
                 data.syncNextTick = true;
             }
         });

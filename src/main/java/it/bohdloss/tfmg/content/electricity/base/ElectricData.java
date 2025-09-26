@@ -46,8 +46,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     // Compiled electric values
     public float frequency;
     public float voltage;
-    public float totalNetworkUsage;
-    public float totalNetworkProduction;
+    public boolean shortCircuit;
     public float lastWattsConsumed;
     public float lastWattsProvided;
 
@@ -64,8 +63,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     public final void clear() {
         frequency = 0;
         voltage = 0;
-        totalNetworkUsage = 0;
-        totalNetworkProduction = 0;
+        shortCircuit = false;
         lastWattsConsumed = 0;
         lastWattsProvided = 0;
     }
@@ -111,7 +109,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     }
 
     public final boolean shortCircuit() {
-        return totalNetworkUsage > totalNetworkProduction;
+        return shortCircuit;
     }
 
     /**
@@ -155,9 +153,9 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
 //            DebugStuff.show("We are on " + (getLevel().isClientSide() ? "Client" : "Server"));
         }
 //        DebugStuff.show("Frequency: " + frequency);
-//        DebugStuff.show("Voltage: " + voltage);
-//        DebugStuff.show("Production: " + lastAmpsProvided);
-//        DebugStuff.show("Consumption: " + lastAmpsConsumed);
+        DebugStuff.show("Voltage: " + voltage);
+        DebugStuff.show("Production: " + lastWattsProvided);
+        DebugStuff.show("Consumption: " + lastWattsConsumed);
 //        DebugStuff.show("Total Production: " + totalNetworkProduction);
 //        DebugStuff.show("Total Usage: " + totalNetworkUsage);
     }
@@ -267,8 +265,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
 
         tag.putFloat("Frequency", frequency);
         tag.putFloat("Voltage", voltage);
-        tag.putFloat("TotalNetworkUsage", totalNetworkUsage);
-        tag.putFloat("TotalNetworkProduction", totalNetworkProduction);
+        tag.putBoolean("ShortCircuit", shortCircuit);
         tag.putFloat("LastWattsConsumed", lastWattsConsumed);
         tag.putFloat("LastWattsProvided", lastWattsProvided);
 
@@ -284,8 +281,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
 
         frequency = tag.getFloat("Frequency");
         voltage = tag.getFloat("Voltage");
-        totalNetworkUsage = tag.getFloat("TotalNetworkUsage");
-        totalNetworkProduction = tag.getFloat("TotalNetworkProduction");
+        shortCircuit = tag.getBoolean("ShortCircuit");
         lastWattsConsumed = tag.getFloat("LastWattsConsumed");
         lastWattsProvided = tag.getFloat("LastWattsProvided");
 
