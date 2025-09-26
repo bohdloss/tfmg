@@ -74,16 +74,6 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
         return frequency > 0;
     }
 
-    /// Watts
-    public final float getConsumedPower() {
-        return getConsumedWattage() * getVoltage();
-    }
-
-    /// Watts
-    public final float getGeneratedPower() {
-        return getGeneratedWattage() * getGeneratedVoltage();
-    }
-
     /// Ohms
     public float getResistance() {
         return (float) BlockResistanceValues.getResistance(getPowerConfigKey());
@@ -94,14 +84,25 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
         return (float) BlockResistanceValues.getGeneratorResistance(getPowerConfigKey());
     }
 
-    /// Amps
+    /// Watts
     public final float getConsumedWattage() {
         return lastWattsConsumed;
     }
 
-    /// Amps
+    /// Watts
     public final float getGeneratedWattage() {
         return lastWattsProvided;
+    }
+
+    /// Amps
+    public final float getConsumedAmps() {
+        return voltage == 0 ? 0 : lastWattsConsumed / voltage;
+    }
+
+    /// Amps
+    public final float getGeneratedAmps() {
+        float voltage = getGeneratedVoltage();
+        return voltage == 0 ? 0 : lastWattsConsumed / voltage;
     }
 
     /// Volts
