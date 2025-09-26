@@ -3,10 +3,12 @@ package it.bohdloss.tfmg.registry;
 import com.simibubi.create.AllMountedStorageTypes;
 import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.contraptions.bearing.StabilizedBearingMovementBehaviour;
+import com.simibubi.create.content.decoration.encasing.EncasingRegistry;
 import com.simibubi.create.content.decoration.slidingDoor.SlidingDoorBlock;
 import com.simibubi.create.content.fluids.tank.FluidTankGenerator;
 import com.simibubi.create.content.fluids.tank.FluidTankMovementBehavior;
 import com.simibubi.create.content.kinetics.gearbox.GearboxBlock;
+import com.simibubi.create.content.kinetics.motor.CreativeMotorGenerator;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockModel;
 import com.simibubi.create.content.kinetics.simpleRelays.CogwheelBlockItem;
 import com.simibubi.create.foundation.block.connected.HorizontalCTBehaviour;
@@ -42,6 +44,8 @@ import it.bohdloss.tfmg.content.electricity.connection.tube.CableTubeBlock;
 import it.bohdloss.tfmg.content.electricity.generators.creative_generator.CreativeGeneratorBlock;
 import it.bohdloss.tfmg.content.electricity.lights.LampGenerator;
 import it.bohdloss.tfmg.content.electricity.lights.LightBulbBlock;
+import it.bohdloss.tfmg.content.electricity.utilities.diode.ElectricDiodeBlock;
+import it.bohdloss.tfmg.content.electricity.utilities.diode.EncasedDiodeBlock;
 import it.bohdloss.tfmg.content.items.CoalCokeBlockItem;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceHatchBlock;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlock;
@@ -1089,25 +1093,25 @@ public class TFMGBlocks {
 //                    .item()
 //                    .transform(customItemModel())
 //                    .register();
-//
-//    public static final BlockEntry<ElectricDiodeBlock> DIODE =
-//            REGISTRATE.block("electric_diode", ElectricDiodeBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .transform(pickaxeOnly())
-//                    .properties(BlockBehaviour.Properties::noOcclusion)
-//                    .blockstate(new CreativeMotorGenerator()::generate)
-//                    .lang("Diode")
-//                    .item()
-//                    .transform(customItemModel())
-//                    .register();
-//    public static final BlockEntry<EncasedDiodeBlock> ENCASED_DIODE =
-//            REGISTRATE.block("encased_diode", EncasedDiodeBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .transform(pickaxeOnly())
-//                    .transform(EncasingRegistry.addVariantTo(DIODE))
-//                    .blockstate(BlockStateGen.directionalBlockProvider(false))
-//                    .register();
-//
+
+    public static final BlockEntry<ElectricDiodeBlock> DIODE =
+            REGISTRATE.block("electric_diode", ElectricDiodeBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate(new CreativeMotorGenerator()::generate)
+                    .lang("Diode")
+                    .item()
+                    .transform(customItemModel())
+                    .register();
+    public static final BlockEntry<EncasedDiodeBlock> ENCASED_DIODE =
+            REGISTRATE.block("encased_diode", EncasedDiodeBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .transform(EncasingRegistry.addVariantTo(DIODE))
+                    .blockstate(BlockStateGen.directionalBlockProvider(false))
+                    .register();
+
 //    public static final BlockEntry<PotentiometerBlock> POTENTIOMETER =
 //            REGISTRATE.block("potentiometer", PotentiometerBlock::new)
 //                    .initialProperties(() -> Blocks.IRON_BLOCK)

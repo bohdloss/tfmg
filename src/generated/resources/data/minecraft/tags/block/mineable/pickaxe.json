@@ -63,6 +63,8 @@
     "tfmg:circular_light",
     "tfmg:modern_light",
     "tfmg:aluminum_lamp",
+    "tfmg:electric_diode",
+    "tfmg:encased_diode",
     "tfmg:brick_smokestack",
     "tfmg:metal_smokestack",
     "tfmg:concrete_smokestack",

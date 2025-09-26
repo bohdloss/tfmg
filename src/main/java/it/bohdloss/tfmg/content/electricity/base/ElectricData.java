@@ -48,8 +48,8 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     public float voltage;
     public float totalNetworkUsage;
     public float totalNetworkProduction;
-    public float lastAmpsConsumed;
-    public float lastAmpsProvided;
+    public float lastWattsConsumed;
+    public float lastWattsProvided;
 
     public ElectricData(SmartBlockEntity owner) {
         IElectric $ = (IElectric) owner; // Throw exception immediately if not the case :)
@@ -66,8 +66,8 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
         voltage = 0;
         totalNetworkUsage = 0;
         totalNetworkProduction = 0;
-        lastAmpsConsumed = 0;
-        lastAmpsProvided = 0;
+        lastWattsConsumed = 0;
+        lastWattsProvided = 0;
     }
 
     public final boolean isAlternating() {
@@ -76,12 +76,12 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
 
     /// Watts
     public final float getConsumedPower() {
-        return getConsumedCurrent() * getVoltage();
+        return getConsumedWattage() * getVoltage();
     }
 
     /// Watts
     public final float getGeneratedPower() {
-        return getGeneratedCurrent() * getGeneratedVoltage();
+        return getGeneratedWattage() * getGeneratedVoltage();
     }
 
     /// Ohms
@@ -95,13 +95,13 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     }
 
     /// Amps
-    public final float getConsumedCurrent() {
-        return lastAmpsConsumed;
+    public final float getConsumedWattage() {
+        return lastWattsConsumed;
     }
 
     /// Amps
-    public final float getGeneratedCurrent() {
-        return lastAmpsProvided;
+    public final float getGeneratedWattage() {
+        return lastWattsProvided;
     }
 
     /// Volts
@@ -191,6 +191,21 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     }
 
     /**
+     * Positions added to `outputs` will be marked as output connections when calculating the voltage modification
+     * of this component. Must be a subset of the potential neighbors.
+     *
+     * This doesn't necessarily indicate the direction of flow, all it does is give an arbitrary directionality
+     * to the voltage multiplier.
+     */
+    public void getOutputConnections(Set<BlockPos> outputs) {}
+
+    /// In a voltage altering component, the voltage going from the input to the output will be multiplied by this value
+    public float getInputOutputVoltageMultiplier() { return 1; }
+
+    /// In a voltage altering component, the voltage going from the output to the input will be multiplied by this value
+    public float getOutputInputVoltageMultiplier() { return 1; }
+
+    /**
      * Convenience method to determine the possible connection points of a simple electrical component.
      * If you need more complex logic for determining connections, consider overriding `getPotentialNeighbors` instead.
      */
@@ -253,8 +268,8 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
         tag.putFloat("Voltage", voltage);
         tag.putFloat("TotalNetworkUsage", totalNetworkUsage);
         tag.putFloat("TotalNetworkProduction", totalNetworkProduction);
-        tag.putFloat("LastAmpsConsumed", lastAmpsConsumed);
-        tag.putFloat("LastAmpsProvided", lastAmpsProvided);
+        tag.putFloat("LastWattsConsumed", lastWattsConsumed);
+        tag.putFloat("LastWattsProvided", lastWattsProvided);
 
         return tag;
     }
@@ -270,8 +285,8 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
         voltage = tag.getFloat("Voltage");
         totalNetworkUsage = tag.getFloat("TotalNetworkUsage");
         totalNetworkProduction = tag.getFloat("TotalNetworkProduction");
-        lastAmpsConsumed = tag.getFloat("LastAmpsConsumed");
-        lastAmpsProvided = tag.getFloat("LastAmpsProvided");
+        lastWattsConsumed = tag.getFloat("LastWattsConsumed");
+        lastWattsProvided = tag.getFloat("LastWattsProvided");
 
         if (clientPacket && (shortCircuitBefore != shortCircuit() && voltage != 0)) {
             effects.triggerShortCircuitEffect();
@@ -373,7 +388,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         boolean added = false;
 
-        if (!Mth.equal(lastAmpsConsumed, 0)) {
+        if (!Mth.equal(lastWattsConsumed, 0)) {
             CreateLang.translate("gui.goggles.electric_stats")
                     .forGoggles(tooltip);
 
@@ -381,8 +396,8 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
                     .style(ChatFormatting.GRAY)
                     .forGoggles(tooltip);
 
-            CreateLang.number(lastAmpsConsumed)
-                    .translate("generic.unit.current")
+            CreateLang.number(lastWattsConsumed)
+                    .translate("generic.unit.power")
                     .style(ChatFormatting.AQUA)
                     .space()
                     .add(CreateLang.translate("gui.goggles.at_current_voltage")
@@ -392,7 +407,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
             added |= true;
         }
 
-        if (!Mth.equal(lastAmpsProvided, 0)) {
+        if (!Mth.equal(lastWattsProvided, 0)) {
 
             CreateLang.translate("gui.goggles.electric_generator_stats")
                     .forGoggles(tooltip);
@@ -400,8 +415,8 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
                     .style(ChatFormatting.GRAY)
                     .forGoggles(tooltip);
 
-            CreateLang.number(lastAmpsProvided)
-                    .translate("generic.unit.current")
+            CreateLang.number(lastWattsProvided)
+                    .translate("generic.unit.power")
                     .style(ChatFormatting.AQUA)
                     .space()
                     .add(CreateLang.translate("gui.goggles.at_current_voltage")

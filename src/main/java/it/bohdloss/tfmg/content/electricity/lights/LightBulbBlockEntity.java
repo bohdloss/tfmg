@@ -30,7 +30,7 @@ public class LightBulbBlockEntity extends ElectricBlockEntity {
         super.tick();
 
         if(!hasSignal && electricData.getVoltage() != 0) {
-            glow.chase(electricData.getConsumedCurrent() * 2.5, 0.4, LerpedFloat.Chaser.EXP);
+            glow.chase(electricData.getConsumedWattage() * 2.5, 0.4, LerpedFloat.Chaser.EXP);
             glow.tickChaser();
             if (!level.isClientSide && Math.min(electricData.getVoltage() / 10, 15) != getBlockState().getValue(LIGHT)) {
                 level.setBlock(getBlockPos(), getBlockState().setValue(LIGHT, (int) Math.min(electricData.getVoltage() / 10, 15)),  16 | 2);

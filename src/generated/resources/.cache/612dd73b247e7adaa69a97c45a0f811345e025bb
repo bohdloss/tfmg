@@ -1,4 +1,4 @@
-// 1.21.1	2025-07-27T23:28:44.027369057	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2025-09-20T15:59:29.023767356	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 e982a263b6af75821042107fdeff7bd809436d08 assets/tfmg/blockstates/air_intake.json
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
 b7f5146505c40c08cdea7ad01fa99048b7ac5451 assets/tfmg/blockstates/aluminum_block.json
@@ -135,7 +135,9 @@ da3ce72a164ba44b83d2e0a34aba7a2e0bf1f7e0 assets/tfmg/blockstates/deepslate_lead_
 0c1f4a179de5361677ab6a190f3b3279374dfdf0 assets/tfmg/blockstates/deepslate_nickel_ore.json
 b893f9afd6bd02e680fcc301ec1d7ad5c790f1b0 assets/tfmg/blockstates/diagonal_cable_block.json
 03983ce3de10310cd75b98f17c9161653b7034cd assets/tfmg/blockstates/diesel.json
+fce44cbe5ec7bc7ec527327088be37cea56ac85c assets/tfmg/blockstates/electric_diode.json
 edaa0018b0c7dffe0b552e5f7dd539c5484600fb assets/tfmg/blockstates/electric_post.json
+e452793b4673eaf1821619357692b41c297988f7 assets/tfmg/blockstates/encased_diode.json
 08007e8e0e57b4ad322e9125fd05b010aa9a5a0b assets/tfmg/blockstates/exhaust.json
 41ad3bce75918278f4f48ca3ecf23b1980f9963d assets/tfmg/blockstates/factory_floor.json
 10f47e08c249406dd1f2122d1e209998c45d848d assets/tfmg/blockstates/factory_floor_slab.json
@@ -398,8 +400,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-6500c1c49839b210147927f76cf1ad1a64c8497a assets/tfmg/lang/en_ud.json
-162a13d6e47c756ac3eae28cd59e5f85b49c4027 assets/tfmg/lang/en_us.json
+8436190fad7b835735b0d43017d3ca03225fcdd3 assets/tfmg/lang/en_ud.json
+75f299bcdbd209ad75926b5b3d0961817109597e assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 1d33a893d6ac05f9adaceb7f84423ebe9b195c01 assets/tfmg/models/block/aluminum_cable_hub.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
@@ -1158,6 +1160,7 @@ f3a706999351ee0f88946f8d5e3cdea38ac88ac4 assets/tfmg/models/item/deepslate_lead_
 9d8a7735ff089faef94dde738d075a805def2a70 assets/tfmg/models/item/deepslate_nickel_ore.json
 5f0b92a0b3e8cba17fe0e4f18aed56c2d9e3ed22 assets/tfmg/models/item/diagonal_cable_block.json
 3497bcbaee50b2f766de659043bf3c36823b570d assets/tfmg/models/item/diesel_bucket.json
+d2ddba2549ea27f94ff7de3f91414235edd9e827 assets/tfmg/models/item/electric_diode.json
 deb7528506dca13e6f3c7a9057105b97c7faddef assets/tfmg/models/item/electric_post.json
 7b898ca0de43a97cda3733b254c3aa112f6a5251 assets/tfmg/models/item/electromagnetic_coil.json
 969c1a0cf944e95b0807ba0d9fe0641e052e1a7f assets/tfmg/models/item/empty_circuit_board.json
@@ -1641,7 +1644,7 @@ ded1913401f4b56ac3175be37bf30ffadab245c8 data/create/tags/item/crushed_raw_mater
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/infiniburn_overworld.json
 543dbb3bba839c96d454f6e26e7e97ce5ae9dc4e data/minecraft/tags/block/lush_ground_replaceable.json
 7f32a5d63a155caa8d1588cb982d9a963a12fd95 data/minecraft/tags/block/mineable/axe.json
-04f4ff8785376d00e71a2122348ad13638eb8804 data/minecraft/tags/block/mineable/pickaxe.json
+a38bfb6e6dc24ce2195529853731026efad95bc2 data/minecraft/tags/block/mineable/pickaxe.json
 9c7d1d075d20521106a7076ae12804d8e2ac6764 data/minecraft/tags/block/mineable/shovel.json
 543dbb3bba839c96d454f6e26e7e97ce5ae9dc4e data/minecraft/tags/block/moss_replaceable.json
 dfca9f1cc79d30334f344f024c13a7c717bf4027 data/minecraft/tags/block/needs_iron_tool.json
@@ -2019,7 +2022,9 @@ bfc26d79526b9d48f1bb8aaf0bfefb1502216bc9 data/tfmg/loot_table/blocks/cyan_rebar_
 a42089cf1e3d74e056a21a11a8e8ab1ebd63c745 data/tfmg/loot_table/blocks/deepslate_lithium_ore.json
 95144a910f109be96f010b8ce10cd0ea370f86b4 data/tfmg/loot_table/blocks/deepslate_nickel_ore.json
 32dce4aa90a68ed0c3988863fbcf05f3a8d22b40 data/tfmg/loot_table/blocks/diagonal_cable_block.json
+5d500af70bee2658fe37e7be1dd252a2ccb75a7e data/tfmg/loot_table/blocks/electric_diode.json
 4166590bfa4d891f7ddc21d8f116e08a57bbc9db data/tfmg/loot_table/blocks/electric_post.json
+7b5b916ebb11d9f7a634add40226533fee29aa82 data/tfmg/loot_table/blocks/encased_diode.json
 f110a1f94b2b12bc3301728fdbf0c885c1c5e461 data/tfmg/loot_table/blocks/exhaust.json
 dd2ace3ebd61456b31d0069bfd8abe19111f748c data/tfmg/loot_table/blocks/factory_floor.json
 a84d11a777ea8334c27703b96830a1e1df7b2d04 data/tfmg/loot_table/blocks/factory_floor_slab.json

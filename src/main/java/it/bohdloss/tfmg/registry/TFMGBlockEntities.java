@@ -46,6 +46,7 @@ import it.bohdloss.tfmg.content.electricity.lights.LightBulbRenderer;
 import it.bohdloss.tfmg.content.electricity.lights.variants.AluminumLampRenderer;
 import it.bohdloss.tfmg.content.electricity.lights.variants.CircularLightRenderer;
 import it.bohdloss.tfmg.content.electricity.lights.variants.ModernLightRenderer;
+import it.bohdloss.tfmg.content.electricity.utilities.diode.ElectricDiodeBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceHatchBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceRenderer;
@@ -216,13 +217,13 @@ public class TFMGBlockEntities {
 //            .blockEntity("accumulator", AccumulatorBlockEntity::new)
 //            .validBlocks(TFMGBlocks.ACCUMULATOR)
 //            .register();
-//
-//    public static final BlockEntityEntry<ElectricDiodeBlockEntity> DIODE = REGISTRATE
-//            .blockEntity("electric_diode", ElectricDiodeBlockEntity::new)
-//            .validBlocks(TFMGBlocks.DIODE, TFMGBlocks.ENCASED_DIODE)
-//            .register();
-//
-//
+
+    public static final BlockEntityEntry<ElectricDiodeBlockEntity> DIODE = REGISTRATE
+            .blockEntity("electric_diode", ElectricDiodeBlockEntity::new)
+            .validBlocks(TFMGBlocks.DIODE, TFMGBlocks.ENCASED_DIODE)
+            .register();
+
+
 //    public static final BlockEntityEntry<RegularEngineBlockEntity> REGULAR_ENGINE = REGISTRATE
 //            .blockEntity("regular_engine", RegularEngineBlockEntity::new)
 //            .visual(() -> RegularEngineVisual::new, true)
