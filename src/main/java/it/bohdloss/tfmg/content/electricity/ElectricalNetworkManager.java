@@ -341,8 +341,8 @@ public class ElectricalNetworkManager extends SavedData {
     }
 
     public void update(BlockPos startingPos) {
-        final float[] totalAmps = {0};
-        final float[] highestVoltage = {0};
+        final float[] totalWatts = { 0 };
+        final float[] highestVoltage = { 0 };
         float totalProduction;
         float totalUsage;
 
@@ -368,28 +368,28 @@ public class ElectricalNetworkManager extends SavedData {
                     highestVoltage[0] = to.generatedVoltage;
                 }
 
-                float generatedAmps = to.calcGeneratedAmps();
-                to.wattsProvided = generatedAmps;
-                totalAmps[0] += generatedAmps;
+                float generatedWatts = to.calcGeneratedAmps() * to.generatedVoltage;
+                to.wattsProvided = generatedWatts;
+                totalWatts[0] += generatedWatts;
             }
         });
-        totalProduction = totalAmps[0];
+        totalProduction = totalWatts[0];
 
         // Calculate total consumption for all components and apply voltage
-        totalAmps[0] = 0;
+        totalWatts[0] = 0;
 
         traverseAll(startingPos, (from, to) -> {
             to.frequency = 0;
             to.voltage = highestVoltage[0];
-            float consumedAmps = to.calcConsumedAmps();
-            to.wattsConsumed = consumedAmps;
+            float consumedWatts = to.calcConsumedAmps(to.voltage) * to.voltage;
+            to.wattsConsumed = consumedWatts;
             to.wattsReceived = totalProduction;
             if(!to.isSource()) {
                 to.wattsProvided = 0;
             }
-            totalAmps[0] += consumedAmps;
+            totalWatts[0] += consumedWatts;
         });
-        totalUsage = totalAmps[0];
+        totalUsage = totalWatts[0];
 
         traverseAll(startingPos, (from, to) -> {
             if(level.isLoaded(to.pos) && level.getBlockEntity(to.pos) instanceof IElectric be) {

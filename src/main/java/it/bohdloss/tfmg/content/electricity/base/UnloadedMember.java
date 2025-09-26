@@ -70,7 +70,7 @@ public class UnloadedMember {
         return Float.isFinite(amps) ? amps : 0;
     }
 
-    public float calcConsumedAmps() {
+    public float calcConsumedAmps(float voltage) {
         float amps = voltage / resistance;
         return Float.isFinite(amps) ? amps : 0;
     }
