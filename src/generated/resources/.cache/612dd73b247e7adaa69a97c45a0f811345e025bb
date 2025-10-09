@@ -1,4 +1,4 @@
-// 1.21.1	2025-09-20T15:59:29.023767356	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2025-10-05T15:27:12.132753043	Registrate Provider for tfmg [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 e982a263b6af75821042107fdeff7bd809436d08 assets/tfmg/blockstates/air_intake.json
 e7f63aadfc892e337d9f87b5e50af8b1c7e4103f assets/tfmg/blockstates/aluminum_bars.json
 b7f5146505c40c08cdea7ad01fa99048b7ac5451 assets/tfmg/blockstates/aluminum_block.json
@@ -379,6 +379,7 @@ bd4a817323670440ca51c3a038382cd6362285b2 assets/tfmg/blockstates/steel_trapdoor.
 e7bbd21def546ff0b7db68091c877da4ac3fe301 assets/tfmg/blockstates/sulfur.json
 1225bd391dc2c4092ffc6c643e39c9f501f43afb assets/tfmg/blockstates/sulfuric_acid.json
 5a477cb69a83689c52ad333d7dbc3c4c93680c6d assets/tfmg/blockstates/surface_scanner.json
+22e56693892c3c7113999216111223b271cf7783 assets/tfmg/blockstates/transformer.json
 3ae604025ac79eccc5fd1ff34d3854c50b17ce76 assets/tfmg/blockstates/white_caution_block.json
 f0008a901bc09a81bfc3679eccf2e2eaea316a50 assets/tfmg/blockstates/white_concrete.json
 624366f1e6f02b5cc0819f7d2f56920e5b8d0557 assets/tfmg/blockstates/white_concrete_slab.json
@@ -400,8 +401,8 @@ a1988ec6a98f23cad8321b46345fbf1c5fd20489 assets/tfmg/blockstates/yellow_rebar_co
 c58fa20c091e5ecddfb7164cba45538a8f911431 assets/tfmg/blockstates/yellow_rebar_concrete_wall.json
 0271e2b940bb94cdb7e951b81e277ee633d64d62 assets/tfmg/blockstates/zinc_frame.json
 1bd66f29acffb67f30bfe94c8535509bd009beab assets/tfmg/blockstates/zinc_truss.json
-8436190fad7b835735b0d43017d3ca03225fcdd3 assets/tfmg/lang/en_ud.json
-75f299bcdbd209ad75926b5b3d0961817109597e assets/tfmg/lang/en_us.json
+0db076d8e82ef2ae28839d38d1887f07f6d403e9 assets/tfmg/lang/en_ud.json
+4bc19db0346d34661c3a853aaa4d277eacb3653b assets/tfmg/lang/en_us.json
 9e6a6b62f5e7528c4e4d4f72f3510edcd8f0c078 assets/tfmg/models/block/aluminum_block.json
 1d33a893d6ac05f9adaceb7f84423ebe9b195c01 assets/tfmg/models/block/aluminum_cable_hub.json
 da469bf3233944085f07d4ef437827061e408838 assets/tfmg/models/block/aluminum_cap.json
@@ -1472,6 +1473,7 @@ e2fb504cbb8808de330d4ea87030f0d089921e23 assets/tfmg/models/item/surface_scanner
 5f0ee848bf0cb4b1f7dee26a9555c6ca8ce2cd31 assets/tfmg/models/item/synthetic_string.json
 72da5f91f1992b502e90c8fc84d654e075163eb7 assets/tfmg/models/item/thermite_grenade.json
 31ca5e14f8583f2e73a3aeea14e129026ec79974 assets/tfmg/models/item/thermite_powder.json
+ceca2b38bca3eca6e17419064b782ad745dd229b assets/tfmg/models/item/transformer.json
 cd6944ca5fe85883cdc520778f9b2ecf4830c2de assets/tfmg/models/item/transistor_item.json
 f56b4e352ffdd38cf71b10c4e2789eade1949e27 assets/tfmg/models/item/turbo.json
 a11cee5b22052675790c9115cf615b3a2beeee01 assets/tfmg/models/item/unfinished_capacitor.json
@@ -1644,7 +1646,7 @@ ded1913401f4b56ac3175be37bf30ffadab245c8 data/create/tags/item/crushed_raw_mater
 7f2ce9c0c2595d78a2230a5e478bd1ece53f63d1 data/minecraft/tags/block/infiniburn_overworld.json
 543dbb3bba839c96d454f6e26e7e97ce5ae9dc4e data/minecraft/tags/block/lush_ground_replaceable.json
 7f32a5d63a155caa8d1588cb982d9a963a12fd95 data/minecraft/tags/block/mineable/axe.json
-a38bfb6e6dc24ce2195529853731026efad95bc2 data/minecraft/tags/block/mineable/pickaxe.json
+c0cb672c1ebac0268d90154b78a79cf4a74cb075 data/minecraft/tags/block/mineable/pickaxe.json
 9c7d1d075d20521106a7076ae12804d8e2ac6764 data/minecraft/tags/block/mineable/shovel.json
 543dbb3bba839c96d454f6e26e7e97ce5ae9dc4e data/minecraft/tags/block/moss_replaceable.json
 dfca9f1cc79d30334f344f024c13a7c717bf4027 data/minecraft/tags/block/needs_iron_tool.json
@@ -2253,6 +2255,7 @@ aad98868e2a12899a9ae9f30ce409b936d9ba7bd data/tfmg/loot_table/blocks/steel_trapd
 4fc73fc7c1ae78f0571798470423a1245d27f6f6 data/tfmg/loot_table/blocks/steel_truss.json
 65ebbfb787101b8df455632f211bb3bfb511d3b3 data/tfmg/loot_table/blocks/sulfur.json
 b9d01fccfddf5458a705560da5cd2450bdfde9ec data/tfmg/loot_table/blocks/surface_scanner.json
+b112d5170c07072a431a3e36476a653ff2647160 data/tfmg/loot_table/blocks/transformer.json
 295dc761fbdb402edc3f990ec2d676e0f6fc29bf data/tfmg/loot_table/blocks/white_caution_block.json
 fd2fb6c0994493120deeb157598e679bdb9f7f6b data/tfmg/loot_table/blocks/white_concrete.json
 396ddaa69cbf3ef1e75608597214f4eb9b48efc9 data/tfmg/loot_table/blocks/white_concrete_slab.json

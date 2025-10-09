@@ -453,6 +453,7 @@
   "block.tfmg.surface_scanner.tooltip.behaviour1": "The machines top 5x5 grid shows the surrounding chunks with its chunk in the center, the chunks that have atleast 1 oil deposit in them should glow. If the surface does not start to glow within a few seconds then it is likely that there are no oil deposits nearby. Chunks can be seen ingame with F3+G",
   "block.tfmg.surface_scanner.tooltip.condition1": "When powered from below with a Machine Input",
   "block.tfmg.surface_scanner.tooltip.summary": "Helps to find chunks with oil",
+  "block.tfmg.transformer": "Transformer",
   "block.tfmg.transformer.tooltip.behaviour1": "Needs 2 electromagnetic coils of different turn amounts that have to be put on the transformer where the output (indicated by a small line of copper) outputs voltage based on the ratio of the 2 coils (for example if the input has a coil with 50 turns and the output has one with a 100 then the voltage is doubled since 100/50 = 2)",
   "block.tfmg.transformer.tooltip.summary": "Changes the voltage in a circuit",
   "block.tfmg.voltage_observer.tooltip.summary": "Powers redstone when any voltage is detected",

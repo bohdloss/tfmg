@@ -47,6 +47,8 @@ import it.bohdloss.tfmg.content.electricity.lights.variants.AluminumLampRenderer
 import it.bohdloss.tfmg.content.electricity.lights.variants.CircularLightRenderer;
 import it.bohdloss.tfmg.content.electricity.lights.variants.ModernLightRenderer;
 import it.bohdloss.tfmg.content.electricity.utilities.diode.ElectricDiodeBlockEntity;
+import it.bohdloss.tfmg.content.electricity.utilities.transformer.TransformerBlockEntity;
+import it.bohdloss.tfmg.content.electricity.utilities.transformer.TransformerRenderer;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceHatchBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlockEntity;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceRenderer;
@@ -331,11 +333,11 @@ public class TFMGBlockEntities {
 //            .validBlocks(TFMGBlocks.TRAFFIC_LIGHT)
 //            .renderer(() -> TrafficLightRenderer::new)
 //            .register();
-//    public static final BlockEntityEntry<TransformerBlockEntity> TRANSFORMER = REGISTRATE
-//            .blockEntity("transformer", TransformerBlockEntity::new)
-//            .validBlocks(TFMGBlocks.TRANSFORMER)
-//            .renderer(() -> TransformerRenderer::new)
-//            .register();
+    public static final BlockEntityEntry<TransformerBlockEntity> TRANSFORMER = REGISTRATE
+            .blockEntity("transformer", TransformerBlockEntity::new)
+            .validBlocks(TFMGBlocks.TRANSFORMER)
+            .renderer(() -> TransformerRenderer::new)
+            .register();
 //    public static final BlockEntityEntry<FuseBlockEntity> FUSE_BLOCK = REGISTRATE
 //            .blockEntity("fuse_block", FuseBlockEntity::new)
 //            //  .validBlocks(TFMGBlocks.FUSE_BLOCK)

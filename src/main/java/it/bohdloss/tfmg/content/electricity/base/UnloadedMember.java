@@ -17,8 +17,11 @@ public class UnloadedMember {
                     Codec.FLOAT.fieldOf("GeneratedVoltage").forGetter(x -> x.generatedVoltage),
                     Codec.FLOAT.fieldOf("Resistance").forGetter(x -> x.resistance),
                     Codec.FLOAT.fieldOf("GeneratorResistance").forGetter(x -> x.generatorResistance),
-                    Codec.FLOAT.fieldOf("InputOutputMultiplier").forGetter(x -> x.inputOutputMultiplier),
-                    Codec.FLOAT.fieldOf("OutputInputMultiplier").forGetter(x -> x.outputInputMultiplier),
+                    Codec.FLOAT.fieldOf("GeneratorFrequency").forGetter(x -> x.generatorFrequency),
+                    Codec.FLOAT.fieldOf("InputOutputMultiplier").forGetter(x -> x.inputOutputVoltageMultiplier),
+                    Codec.FLOAT.fieldOf("OutputInputMultiplier").forGetter(x -> x.outputInputVoltageMultiplier),
+                    Codec.FLOAT.fieldOf("InputOutputFrequencyMultiplier").forGetter(x -> x.inputOutputFrequencyMultiplier),
+                    Codec.FLOAT.fieldOf("OutputInputFrequencyMultiplier").forGetter(x -> x.outputInputFrequencyMultiplier),
                     Codec.FLOAT.fieldOf("Frequency").forGetter(x -> x.frequency),
                     Codec.FLOAT.fieldOf("Voltage").forGetter(x -> x.voltage),
                     Codec.FLOAT.fieldOf("WattsConsumed").forGetter(x -> x.wattsConsumed),
@@ -37,9 +40,13 @@ public class UnloadedMember {
     public float generatedVoltage;
     public float resistance;
     public float generatorResistance;
+    public float generatorFrequency;
 
-    public float inputOutputMultiplier;
-    public float outputInputMultiplier;
+    public float inputOutputVoltageMultiplier;
+    public float outputInputVoltageMultiplier;
+
+    public float inputOutputFrequencyMultiplier;
+    public float outputInputFrequencyMultiplier;
 
     // Compiled
     public float frequency;
@@ -49,7 +56,24 @@ public class UnloadedMember {
 
     public float wattsReceived; // Different sources may receive different amounts of energy (such as when diodes are involved)
 
-    private static UnloadedMember fromCodec(BlockPos pos, List<BlockPos> connections, List<BlockPos> outputs, Float generatedVoltage, Float resistance, Float generatorResistance, Float inputOutputMultiplier, Float outputInputMultiplier, Float frequency, Float voltage, Float wattsConsumed, Float wattsProvided, Float wattsReceived) {
+    private static UnloadedMember fromCodec(
+            BlockPos pos,
+            List<BlockPos> connections,
+            List<BlockPos> outputs,
+            Float generatedVoltage,
+            Float resistance,
+            Float generatorResistance,
+            Float generatorFrequency,
+            Float inputOutputMultiplier,
+            Float outputInputMultiplier,
+            Float inputOutputFrequencyMultiplier,
+            Float outputInputFrequencyMultiplier,
+            Float frequency,
+            Float voltage,
+            Float wattsConsumed,
+            Float wattsProvided,
+            Float wattsReceived
+    ) {
         UnloadedMember self = new UnloadedMember(pos);
         self.connections.addAll(connections);
         self.connections.remove(pos); // Prevent connections to itself
@@ -58,8 +82,11 @@ public class UnloadedMember {
         self.generatedVoltage = generatedVoltage;
         self.resistance = resistance;
         self.generatorResistance = generatorResistance;
-        self.inputOutputMultiplier = inputOutputMultiplier;
-        self.outputInputMultiplier = outputInputMultiplier;
+        self.generatorFrequency = generatorFrequency;
+        self.inputOutputVoltageMultiplier = inputOutputMultiplier;
+        self.outputInputVoltageMultiplier = outputInputMultiplier;
+        self.inputOutputFrequencyMultiplier = inputOutputFrequencyMultiplier;
+        self.outputInputFrequencyMultiplier = outputInputFrequencyMultiplier;
         self.frequency = frequency;
         self.voltage = voltage;
         self.wattsConsumed = wattsConsumed;
@@ -91,22 +118,31 @@ public class UnloadedMember {
         float generatedVoltage = Math.max(0, component.getGeneratedVoltage());
         float resistance = Math.max(0, component.getResistance());
         float generatorResistance = Math.max(0, component.getGeneratorResistance());
+        float generatorFrequency = Math.max(0, component.getGeneratorFrequency());
 
-        float inputOutputMultiplier = Math.max(0, component.getInputOutputVoltageMultiplier());
-        float outputInputMultiplier = Math.max(0, component.getOutputInputVoltageMultiplier());
+        float inputOutputVoltageMultiplier = Math.max(0, component.getInputOutputVoltageMultiplier());
+        float outputInputVoltageMultiplier = Math.max(0, component.getOutputInputVoltageMultiplier());
+        float inputOutputFrequencyMultiplier = Math.max(0, component.getInputOutputFrequencyMultiplier());
+        float outputInputFrequencyMultiplier = Math.max(0, component.getOutputInputFrequencyMultiplier());
 
         boolean dirty = generatedVoltage != this.generatedVoltage ||
                 resistance != this.resistance ||
                 generatorResistance != this.generatorResistance ||
-                inputOutputMultiplier != this.inputOutputMultiplier ||
-                outputInputMultiplier != this.outputInputMultiplier;
+                generatorFrequency != this.generatorFrequency ||
+                inputOutputVoltageMultiplier != this.inputOutputVoltageMultiplier ||
+                outputInputVoltageMultiplier != this.outputInputVoltageMultiplier ||
+                inputOutputFrequencyMultiplier != this.inputOutputFrequencyMultiplier ||
+                outputInputFrequencyMultiplier != this.outputInputFrequencyMultiplier;
 
         this.generatedVoltage = generatedVoltage;
         this.resistance = resistance;
         this.generatorResistance = generatorResistance;
+        this.generatorFrequency = generatorFrequency;
 
-        this.inputOutputMultiplier = inputOutputMultiplier;
-        this.outputInputMultiplier = outputInputMultiplier;
+        this.inputOutputVoltageMultiplier = inputOutputVoltageMultiplier;
+        this.outputInputVoltageMultiplier = outputInputVoltageMultiplier;
+        this.inputOutputFrequencyMultiplier = inputOutputFrequencyMultiplier;
+        this.outputInputFrequencyMultiplier = outputInputFrequencyMultiplier;
 
         // Provide component with updated data
         component.frequency = this.frequency;

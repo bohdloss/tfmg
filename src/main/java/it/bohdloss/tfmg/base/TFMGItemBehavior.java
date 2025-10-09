@@ -84,6 +84,11 @@ public class TFMGItemBehavior extends BlockEntityBehaviour {
         return handler;
     }
 
+    /// Literally just a shorthand for `getHandler().getStackInSlot(0)``
+    public ItemStack firstItem() {
+        return getHandler().getStackInSlot(0);
+    }
+
     @Override
     public BehaviourType<?> getType() {
         return type;

@@ -10,6 +10,7 @@ public class ElectricalCluster {
 
     public float highestVoltage;
     public float totalWatts;
+    public float frequency;
 
     public ElectricalCluster(long id) {
         this.id = id;

@@ -46,6 +46,7 @@ import it.bohdloss.tfmg.content.electricity.lights.LampGenerator;
 import it.bohdloss.tfmg.content.electricity.lights.LightBulbBlock;
 import it.bohdloss.tfmg.content.electricity.utilities.diode.ElectricDiodeBlock;
 import it.bohdloss.tfmg.content.electricity.utilities.diode.EncasedDiodeBlock;
+import it.bohdloss.tfmg.content.electricity.utilities.transformer.TransformerBlock;
 import it.bohdloss.tfmg.content.items.CoalCokeBlockItem;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceHatchBlock;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceOutputBlock;
@@ -1216,15 +1217,15 @@ public class TFMGBlocks {
 //                    .transform(customItemModel())
 //                    .register();
 //
-//    public static final BlockEntry<TransformerBlock> TRANSFORMER =
-//            REGISTRATE.block("transformer", TransformerBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .transform(pickaxeOnly())
-//                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
-//                    .properties(BlockBehaviour.Properties::noOcclusion)
-//                    .item()
-//                    .transform(customItemModel())
-//                    .register();
+    public static final BlockEntry<TransformerBlock> TRANSFORMER =
+            REGISTRATE.block("transformer", TransformerBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .blockstate(BlockStateGen.horizontalBlockProvider(true))
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .item()
+                    .transform(customItemModel())
+                    .register();
 //
 //
 //    public static final BlockEntry<ConverterBlock> CONVERTER =
