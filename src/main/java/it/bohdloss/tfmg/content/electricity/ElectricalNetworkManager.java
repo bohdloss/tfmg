@@ -270,7 +270,9 @@ public class ElectricalNetworkManager extends SavedData {
             float prevGenVoltage = member.generatedVoltage;
             float preGenResistance = member.generatorResistance;
             float preIOMul = member.inputOutputVoltageMultiplier;
-            float oreOIMul = member.outputInputVoltageMultiplier;
+            float preOIMul = member.outputInputVoltageMultiplier;
+            float preFreqIOMul = member.inputOutputFrequencyMultiplier;
+            float preFreqOIMul = member.outputInputFrequencyMultiplier;
 
             boolean dirty = member.sync(data);
 
@@ -279,8 +281,10 @@ public class ElectricalNetworkManager extends SavedData {
             float genResistance = member.generatorResistance;
             float IOMul = member.inputOutputVoltageMultiplier;
             float OIMul = member.outputInputVoltageMultiplier;
+            float freqIOMul = member.inputOutputFrequencyMultiplier;
+            float freqOIMul = member.outputInputFrequencyMultiplier;
 
-            if(wasSource != isSource || prevGenVoltage != genVoltage || preGenResistance != genResistance || preIOMul != IOMul || oreOIMul != OIMul) {
+            if(wasSource != isSource || prevGenVoltage != genVoltage || preGenResistance != genResistance || preIOMul != IOMul || preOIMul != OIMul || preFreqIOMul != freqIOMul || preFreqOIMul != freqOIMul) {
                 clearClustersFrom(pos);
                 calculateClustersFrom(pos);
             }
@@ -372,7 +376,7 @@ public class ElectricalNetworkManager extends SavedData {
         float totalProduction;
         float totalUsage;
 
-        List<ElectricalCluster> foundClusters = new ArrayList<>();
+        Set<ElectricalCluster> foundClusters = new HashSet<>();
 
         // First pass: reset compiled component data and find all clusters
         traverseAll(startingPos, (neverVisited, from, to) -> {
@@ -389,6 +393,7 @@ public class ElectricalNetworkManager extends SavedData {
         });
 
         Set<BlockPos> plsDestroy = new HashSet<>();
+        Set<BlockPos> shortedClusters = new HashSet<>();
 
         float[] remainingWatts = { 0 };
         for(ElectricalCluster cluster : foundClusters) {
@@ -439,7 +444,7 @@ public class ElectricalNetworkManager extends SavedData {
             },
             (neverVisited, from, to) -> {
                 Boolean last = voltageChangerVisitedDirection.get(to.pos);
-                if(to.isVoltageChanger() && !neverVisited && from.voltage >= to.voltage && last != null && !to.hasOutput(from.pos) == last) {
+                if(to.isVoltageChanger() && !neverVisited && from.voltage > to.voltage && last != null && !to.hasOutput(from.pos) == last) {
                     plsDestroy.add(to.pos);
                 }
                 if(from.isVoltageChanger() && !voltageChangerVisitedDirection.containsKey(from.pos)) {

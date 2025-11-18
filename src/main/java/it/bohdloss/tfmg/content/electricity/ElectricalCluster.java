@@ -2,6 +2,8 @@ package it.bohdloss.tfmg.content.electricity;
 
 import net.minecraft.core.BlockPos;
 
+import java.util.Objects;
+
 public class ElectricalCluster {
     public final long id;
 
@@ -14,5 +16,17 @@ public class ElectricalCluster {
 
     public ElectricalCluster(long id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ElectricalCluster that = (ElectricalCluster) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
