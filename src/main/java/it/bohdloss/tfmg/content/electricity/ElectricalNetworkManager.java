@@ -103,7 +103,7 @@ public class ElectricalNetworkManager extends SavedData {
 
                     return true;
                 },
-                (neverVisited, from, to) -> neverVisited && !goesThroughVoltageChanger(from, to)
+                (nVisited, from, to) -> nVisited == 0 && !goesThroughVoltageChanger(from, to)
         );
     }
 
@@ -143,7 +143,7 @@ public class ElectricalNetworkManager extends SavedData {
                 },
                 // We don't need to re-visit already seen components
                 // We also don't go past voltage changers' output connections
-                (neverVisited, from, to) -> neverVisited && !goesThroughVoltageChanger(from, to)
+                (nVisited, from, to) -> nVisited == 0 && !goesThroughVoltageChanger(from, to)
         );
 
         for(BlockPos pos : plsDestroy) {
@@ -310,32 +310,32 @@ public class ElectricalNetworkManager extends SavedData {
 
     protected void traverseAll(
             BlockPos startingPos,
-            TriConsumer<Boolean, UnloadedMember, UnloadedMember> callback
+            TriConsumer<Integer, UnloadedMember, UnloadedMember> callback
     ) {
         traverseAll(
                 startingPos,
-                (neverVisited, from, to) -> {
-                    callback.accept(neverVisited, from, to);
+                (nVisited, from, to) -> {
+                    callback.accept(nVisited, from, to);
                     return true;
                 },
-                (neverVisited, from, to) -> neverVisited
+                (nVisited, from, to) -> nVisited == 0
         );
     }
 
     protected void traverseAll(
             BlockPos startingPos,
-            TriPredicate<Boolean, UnloadedMember, UnloadedMember> callback,
-            TriPredicate<Boolean, UnloadedMember, UnloadedMember> shouldTraverse
+            TriPredicate<Integer, UnloadedMember, UnloadedMember> callback,
+            TriPredicate<Integer, UnloadedMember, UnloadedMember> shouldTraverse
     ) {
         UnloadedMember startingMember = members.get(startingPos);
         if(startingMember == null) {
             return;
         }
 
-        Set<BlockPos> visited = new HashSet<>();
+        Map<BlockPos, Integer> visited = new HashMap<>();
         List<Pair<UnloadedMember, UnloadedMember>> toVisit = new ArrayList<>();
 
-        visited.add(startingPos);
+        visited.put(startingPos, 1);
         toVisit.add(Pair.of(null, startingMember));
 
         Pair<UnloadedMember, UnloadedMember> memberPair;
@@ -349,7 +349,7 @@ public class ElectricalNetworkManager extends SavedData {
         };
 
         while((memberPair = removeLast.get()) != null) {
-            boolean keepGoing = callback.test(!visited.contains(memberPair.getSecond().pos), memberPair.getFirst(), memberPair.getSecond());
+            boolean keepGoing = callback.test(visited.getOrDefault(memberPair.getSecond().pos, 0), memberPair.getFirst(), memberPair.getSecond());
 
             // Stop traversing this branch
             if(!keepGoing) {
@@ -361,9 +361,9 @@ public class ElectricalNetworkManager extends SavedData {
                 if(neighborMember == null) {
                     continue;
                 }
-                boolean neverVisited = !visited.contains(neighborPos);
-                if(shouldTraverse.test(neverVisited, memberPair.getSecond(), neighborMember)) {
-                    visited.add(neighborPos);
+                int nVisited = visited.getOrDefault(neighborPos, 0);
+                if(shouldTraverse.test(nVisited, memberPair.getSecond(), neighborMember)) {
+                    visited.put(neighborPos, nVisited + 1);
                     toVisit.add(Pair.of(memberPair.getSecond(), neighborMember));
                 }
             }
@@ -393,16 +393,18 @@ public class ElectricalNetworkManager extends SavedData {
         });
 
         Set<BlockPos> plsDestroy = new HashSet<>();
-        Set<BlockPos> shortedClusters = new HashSet<>();
+//        Set<BlockPos> shortedClusters = new HashSet<>();
 
         float[] remainingWatts = { 0 };
         for(ElectricalCluster cluster : foundClusters) {
             float clusterVoltage = cluster.highestVoltage;
             remainingWatts[0] += cluster.totalWatts;
 
-            HashMap<BlockPos, Boolean> voltageChangerVisitedDirection = new HashMap<>();
+//            HashMap<BlockPos, Boolean> voltageChangerVisitedDirection = new HashMap<>();
 
-            traverseAll(cluster.referenceSource, (neverVisited, from, to) -> {
+            final int MAX_ITERATIONS = 100;
+
+            traverseAll(cluster.referenceSource, (nVisited, from, to) -> {
                 float voltage = from == null ? clusterVoltage : from.voltage;
                 float frequency = from == null ? cluster.frequency : from.frequency;
 
@@ -422,16 +424,17 @@ public class ElectricalNetworkManager extends SavedData {
 
                 to.voltage = Math.max(to.voltage, voltage);
 
-                if(neverVisited) {
+                if(nVisited == 0) {
                     to.frequency = frequency;
                 } else if(to.frequency != frequency){
                     plsDestroy.add(from.pos);
+                    return false;
                 }
 
                 float consumedWatts = to.calcConsumedAmps(to.voltage) * to.voltage;
                 float wattsDiff = consumedWatts - to.wattsConsumed;
                 to.wattsConsumed += wattsDiff;
-                if(neverVisited) {
+                if(nVisited == 0) {
                     to.wattsReceived += cluster.totalWatts;
                 }
                 remainingWatts[0] -= wattsDiff;
@@ -442,18 +445,19 @@ public class ElectricalNetworkManager extends SavedData {
 
                 return true;
             },
-            (neverVisited, from, to) -> {
-                Boolean last = voltageChangerVisitedDirection.get(to.pos);
-                if(to.isVoltageChanger() && !neverVisited && from.voltage > to.voltage && last != null && !to.hasOutput(from.pos) == last) {
+            (nVisited, from, to) -> {
+                float transferredVoltage = from.voltage;
+                if(from != null && from.hasOutput(to.pos)) {
+                    transferredVoltage *= from.inputOutputVoltageMultiplier;
+                }
+                if(from != null && to.hasOutput(from.pos)) {
+                    transferredVoltage *= to.outputInputVoltageMultiplier;
+                }
+
+                if(to.isVoltageChanger() && nVisited > MAX_ITERATIONS && transferredVoltage > to.voltage) {
                     plsDestroy.add(to.pos);
                 }
-                if(from.isVoltageChanger() && !voltageChangerVisitedDirection.containsKey(from.pos)) {
-                    voltageChangerVisitedDirection.put(from.pos, from.hasOutput(to.pos));
-                }
-                if(to.isVoltageChanger() && !voltageChangerVisitedDirection.containsKey(to.pos)) {
-                    voltageChangerVisitedDirection.put(to.pos, !to.hasOutput(from.pos));
-                }
-                return neverVisited || (from.voltage > to.voltage && !to.isVoltageChanger());
+                return nVisited == 0 || transferredVoltage > to.voltage;
             });
         }
 
