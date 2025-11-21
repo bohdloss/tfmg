@@ -111,6 +111,26 @@ public class ElectricalNetworkManager extends SavedData {
         return from.hasOutput(to.pos) || to.hasOutput(from.pos);
     }
 
+    public static float transferredVoltage(float voltage, UnloadedMember from, UnloadedMember to) {
+        if(from != null && from.hasOutput(to.pos)) {
+            voltage *= from.inputOutputVoltageMultiplier;
+        }
+        if(from != null && to.hasOutput(from.pos)) {
+            voltage *= to.outputInputVoltageMultiplier;
+        }
+        return voltage;
+    }
+
+    public static float transferredFrequency(float frequency, UnloadedMember from, UnloadedMember to) {
+        if(from != null && from.hasOutput(to.pos)) {
+            frequency *= from.inputOutputFrequencyMultiplier;
+        }
+        if(from != null && to.hasOutput(from.pos)) {
+            frequency *= to.outputInputFrequencyMultiplier;
+        }
+        return frequency;
+    }
+
     /// It is the caller's responsibility to clear the clusters from both the global hashmap and the individual members
     /// beforehand
     protected void calculateClustersFrom(BlockPos startingPos) {
@@ -408,14 +428,8 @@ public class ElectricalNetworkManager extends SavedData {
                 float voltage = from == null ? clusterVoltage : from.voltage;
                 float frequency = from == null ? cluster.frequency : from.frequency;
 
-                if(from != null && from.hasOutput(to.pos)) {
-                    voltage *= from.inputOutputVoltageMultiplier;
-                    frequency *= from.inputOutputFrequencyMultiplier;
-                }
-                if(from != null && to.hasOutput(from.pos)) {
-                    voltage *= to.outputInputVoltageMultiplier;
-                    frequency *= to.outputInputFrequencyMultiplier;
-                }
+                voltage = transferredVoltage(voltage, from, to);
+                frequency = transferredFrequency(frequency, from, to);
 
                 // If the voltage is 0 after traversing voltage modifiers, stop traversing this branch
                 if(voltage == 0) {
@@ -446,13 +460,7 @@ public class ElectricalNetworkManager extends SavedData {
                 return true;
             },
             (nVisited, from, to) -> {
-                float transferredVoltage = from.voltage;
-                if(from != null && from.hasOutput(to.pos)) {
-                    transferredVoltage *= from.inputOutputVoltageMultiplier;
-                }
-                if(from != null && to.hasOutput(from.pos)) {
-                    transferredVoltage *= to.outputInputVoltageMultiplier;
-                }
+                float transferredVoltage = transferredVoltage(from.voltage, from, to);
 
                 if(to.isVoltageChanger() && nVisited > MAX_ITERATIONS && transferredVoltage > to.voltage) {
                     plsDestroy.add(to.pos);
