@@ -391,11 +391,6 @@ public class ElectricalNetworkManager extends SavedData {
     }
 
     public void update(BlockPos startingPos) {
-        final float[] totalWatts = { 0 };
-        final float[] highestVoltage = { 0 };
-        float totalProduction;
-        float totalUsage;
-
         Set<ElectricalCluster> foundClusters = new HashSet<>();
 
         // First pass: reset compiled component data and find all clusters
@@ -405,6 +400,7 @@ public class ElectricalNetworkManager extends SavedData {
                 foundClusters.add(cluster);
             }
 
+            to.amps = 0;
             to.frequency = 0;
             to.voltage = 0;
             to.wattsConsumed = 0;
@@ -419,8 +415,6 @@ public class ElectricalNetworkManager extends SavedData {
         for(ElectricalCluster cluster : foundClusters) {
             float clusterVoltage = cluster.highestVoltage;
             remainingWatts[0] += cluster.totalWatts;
-
-//            HashMap<BlockPos, Boolean> voltageChangerVisitedDirection = new HashMap<>();
 
             final int MAX_ITERATIONS = 100;
 

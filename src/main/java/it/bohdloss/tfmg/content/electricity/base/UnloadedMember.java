@@ -22,11 +22,11 @@ public class UnloadedMember {
                     Codec.FLOAT.fieldOf("OutputInputMultiplier").forGetter(x -> x.outputInputVoltageMultiplier),
                     Codec.FLOAT.fieldOf("InputOutputFrequencyMultiplier").forGetter(x -> x.inputOutputFrequencyMultiplier),
                     Codec.FLOAT.fieldOf("OutputInputFrequencyMultiplier").forGetter(x -> x.outputInputFrequencyMultiplier),
+                    Codec.FLOAT.fieldOf("Amps").forGetter(x -> x.amps),
                     Codec.FLOAT.fieldOf("Frequency").forGetter(x -> x.frequency),
                     Codec.FLOAT.fieldOf("Voltage").forGetter(x -> x.voltage),
                     Codec.FLOAT.fieldOf("WattsConsumed").forGetter(x -> x.wattsConsumed),
-                    Codec.FLOAT.fieldOf("WattsProvided").forGetter(x -> x.wattsProvided),
-                    Codec.FLOAT.fieldOf("WattsReceived").forGetter(x -> x.wattsReceived)
+                    Codec.FLOAT.fieldOf("WattsProvided").forGetter(x -> x.wattsProvided)
             ).apply(inst, UnloadedMember::fromCodec)
     );
 
@@ -49,6 +49,7 @@ public class UnloadedMember {
     public float outputInputFrequencyMultiplier;
 
     // Compiled
+    public float amps;
     public float frequency;
     public float voltage;
     public float wattsConsumed;
@@ -68,11 +69,11 @@ public class UnloadedMember {
             Float outputInputMultiplier,
             Float inputOutputFrequencyMultiplier,
             Float outputInputFrequencyMultiplier,
+            Float amps,
             Float frequency,
             Float voltage,
             Float wattsConsumed,
-            Float wattsProvided,
-            Float wattsReceived
+            Float wattsProvided
     ) {
         UnloadedMember self = new UnloadedMember(pos);
         self.connections.addAll(connections);
@@ -87,11 +88,11 @@ public class UnloadedMember {
         self.outputInputVoltageMultiplier = outputInputMultiplier;
         self.inputOutputFrequencyMultiplier = inputOutputFrequencyMultiplier;
         self.outputInputFrequencyMultiplier = outputInputFrequencyMultiplier;
+        self.amps = amps;
         self.frequency = frequency;
         self.voltage = voltage;
         self.wattsConsumed = wattsConsumed;
         self.wattsProvided = wattsProvided;
-        self.wattsReceived = wattsReceived;
         return self;
     }
 
