@@ -400,7 +400,7 @@ public class ElectricalNetworkManager extends SavedData {
                 foundClusters.add(cluster);
             }
 
-            to.amps = 0;
+            to.current = 0;
             to.frequency = 0;
             to.voltage = 0;
             to.wattsConsumed = 0;

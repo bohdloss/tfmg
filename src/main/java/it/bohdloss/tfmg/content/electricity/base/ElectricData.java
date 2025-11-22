@@ -44,6 +44,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     public int flickerTally;
 
     // Compiled electric values
+    public float current;
     public float frequency;
     public float voltage;
     public boolean shortCircuit;
@@ -61,6 +62,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
      */
 
     public final void clear() {
+        current = 0;
         frequency = 0;
         voltage = 0;
         shortCircuit = false;
@@ -101,6 +103,11 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     public final float getGeneratedAmps() {
         float voltage = getGeneratedVoltage();
         return voltage == 0 ? 0 : lastWattsConsumed / voltage;
+    }
+
+    /// Different from consumed amps or generated amps - represents the current that passes through this component.
+    public final float getCurrent() {
+        return current;
     }
 
     /// Volts
@@ -165,6 +172,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
             }
 //            DebugStuff.show("We are on " + (getLevel().isClientSide() ? "Client" : "Server"));
         }
+        DebugStuff.show("Current: " + current);
 //        DebugStuff.show("Frequency: " + frequency);
         DebugStuff.show("Voltage: " + voltage);
         DebugStuff.show("Production: " + lastWattsProvided);
@@ -282,6 +290,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     public final CompoundTag write(HolderLookup.Provider registries, boolean clientPacket) {
         CompoundTag tag = new CompoundTag();
 
+        tag.putFloat("Current", current);
         tag.putFloat("Frequency", frequency);
         tag.putFloat("Voltage", voltage);
         tag.putBoolean("ShortCircuit", shortCircuit);
@@ -298,6 +307,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
             return;
         }
 
+        current = tag.getFloat("Current");
         frequency = tag.getFloat("Frequency");
         voltage = tag.getFloat("Voltage");
         shortCircuit = tag.getBoolean("ShortCircuit");
@@ -311,11 +321,11 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
 
     @OnlyIn(Dist.CLIENT)
     public void tickAudio() {
-        float componentVoltage = getVoltage();
-        if (componentVoltage == 0) {
+        float current = getCurrent();
+        if (current == 0) {
             return;
         }
-        float pitch = Mth.clamp((componentVoltage / 256f) + .45f, .85f, 1f);
+        float pitch = Mth.clamp((current / 256f) + .45f, .85f, 1f);
 
         SoundScapes.play(SoundScapes.AmbienceGroup.KINETIC, getBlockPos(), pitch); // TODO electric hum
     }

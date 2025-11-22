@@ -22,7 +22,7 @@ public class UnloadedMember {
                     Codec.FLOAT.fieldOf("OutputInputMultiplier").forGetter(x -> x.outputInputVoltageMultiplier),
                     Codec.FLOAT.fieldOf("InputOutputFrequencyMultiplier").forGetter(x -> x.inputOutputFrequencyMultiplier),
                     Codec.FLOAT.fieldOf("OutputInputFrequencyMultiplier").forGetter(x -> x.outputInputFrequencyMultiplier),
-                    Codec.FLOAT.fieldOf("Amps").forGetter(x -> x.amps),
+                    Codec.FLOAT.fieldOf("Current").forGetter(x -> x.current),
                     Codec.FLOAT.fieldOf("Frequency").forGetter(x -> x.frequency),
                     Codec.FLOAT.fieldOf("Voltage").forGetter(x -> x.voltage),
                     Codec.FLOAT.fieldOf("WattsConsumed").forGetter(x -> x.wattsConsumed),
@@ -49,7 +49,7 @@ public class UnloadedMember {
     public float outputInputFrequencyMultiplier;
 
     // Compiled
-    public float amps;
+    public float current;
     public float frequency;
     public float voltage;
     public float wattsConsumed;
@@ -69,7 +69,7 @@ public class UnloadedMember {
             Float outputInputMultiplier,
             Float inputOutputFrequencyMultiplier,
             Float outputInputFrequencyMultiplier,
-            Float amps,
+            Float current,
             Float frequency,
             Float voltage,
             Float wattsConsumed,
@@ -88,7 +88,7 @@ public class UnloadedMember {
         self.outputInputVoltageMultiplier = outputInputMultiplier;
         self.inputOutputFrequencyMultiplier = inputOutputFrequencyMultiplier;
         self.outputInputFrequencyMultiplier = outputInputFrequencyMultiplier;
-        self.amps = amps;
+        self.current = current;
         self.frequency = frequency;
         self.voltage = voltage;
         self.wattsConsumed = wattsConsumed;
@@ -146,6 +146,7 @@ public class UnloadedMember {
         this.outputInputFrequencyMultiplier = outputInputFrequencyMultiplier;
 
         // Provide component with updated data
+        component.current = this.current;
         component.frequency = this.frequency;
         component.voltage = this.voltage;
         component.lastWattsConsumed = this.wattsConsumed;
