@@ -9,24 +9,59 @@ import java.util.List;
 import java.util.Set;
 
 public class UnloadedMember {
+    private record UnloadedMemberChunk1(
+            BlockPos pos,
+            List<BlockPos> connections,
+            List<BlockPos> outputs,
+            float generatedVoltage,
+            float resistance,
+            float generatorResistance,
+            float generatorFrequency,
+            float inputOutputVoltageMultiplier,
+            float outputInputVoltageMultiplier,
+            float inputOutputFrequencyMultiplier,
+            float outputInputFrequencyMultiplier,
+            float current,
+            float frequency,
+            float voltage,
+            float wattsConsumed,
+            float wattsProvided
+    ) {
+        final static Codec<UnloadedMemberChunk1> CODEC = RecordCodecBuilder.create(
+                inst2 -> inst2.group(
+                        BlockPos.CODEC.fieldOf("Pos").forGetter(UnloadedMemberChunk1::pos),
+                        Codec.list(BlockPos.CODEC).fieldOf("Connections").forGetter(UnloadedMemberChunk1::connections),
+                        Codec.list(BlockPos.CODEC).fieldOf("Outputs").forGetter(UnloadedMemberChunk1::outputs),
+                        Codec.FLOAT.fieldOf("GeneratedVoltage").forGetter(UnloadedMemberChunk1::generatedVoltage),
+                        Codec.FLOAT.fieldOf("Resistance").forGetter(UnloadedMemberChunk1::resistance),
+                        Codec.FLOAT.fieldOf("GeneratorResistance").forGetter(UnloadedMemberChunk1::generatorResistance),
+                        Codec.FLOAT.fieldOf("GeneratorFrequency").forGetter(UnloadedMemberChunk1::generatorFrequency),
+                        Codec.FLOAT.fieldOf("InputOutputVoltageMultiplier").forGetter(UnloadedMemberChunk1::inputOutputVoltageMultiplier),
+                        Codec.FLOAT.fieldOf("OutputInputVoltageMultiplier").forGetter(UnloadedMemberChunk1::outputInputVoltageMultiplier),
+                        Codec.FLOAT.fieldOf("InputOutputFrequencyMultiplier").forGetter(UnloadedMemberChunk1::inputOutputFrequencyMultiplier),
+                        Codec.FLOAT.fieldOf("OutputInputFrequencyMultiplier").forGetter(UnloadedMemberChunk1::outputInputFrequencyMultiplier),
+                        Codec.FLOAT.fieldOf("Current").forGetter(UnloadedMemberChunk1::current),
+                        Codec.FLOAT.fieldOf("Frequency").forGetter(UnloadedMemberChunk1::frequency),
+                        Codec.FLOAT.fieldOf("Voltage").forGetter(UnloadedMemberChunk1::voltage),
+                        Codec.FLOAT.fieldOf("WattsConsumed").forGetter(UnloadedMemberChunk1::wattsConsumed),
+                        Codec.FLOAT.fieldOf("WattsProvided").forGetter(UnloadedMemberChunk1::wattsProvided)
+                ).apply(inst2, UnloadedMemberChunk1::new)
+        );
+    }
+    private record UnloadedMemberChunk2(
+            float wattsReceived
+    ) {
+        final static Codec<UnloadedMemberChunk2> CODEC = RecordCodecBuilder.create(
+                inst2 -> inst2.group(
+                        Codec.FLOAT.fieldOf("WattsReceived").forGetter(UnloadedMemberChunk2::wattsReceived)
+                ).apply(inst2, UnloadedMemberChunk2::new)
+        );
+    }
+
     public static final Codec<UnloadedMember> CODEC = RecordCodecBuilder.create(
             inst -> inst.group(
-                    BlockPos.CODEC.fieldOf("Pos").forGetter(x -> x.pos),
-                    Codec.list(BlockPos.CODEC).fieldOf("Connections").forGetter(x -> x.connections.stream().toList()),
-                    Codec.list(BlockPos.CODEC).fieldOf("Outputs").forGetter(x -> x.outputs.stream().toList()),
-                    Codec.FLOAT.fieldOf("GeneratedVoltage").forGetter(x -> x.generatedVoltage),
-                    Codec.FLOAT.fieldOf("Resistance").forGetter(x -> x.resistance),
-                    Codec.FLOAT.fieldOf("GeneratorResistance").forGetter(x -> x.generatorResistance),
-                    Codec.FLOAT.fieldOf("GeneratorFrequency").forGetter(x -> x.generatorFrequency),
-                    Codec.FLOAT.fieldOf("InputOutputMultiplier").forGetter(x -> x.inputOutputVoltageMultiplier),
-                    Codec.FLOAT.fieldOf("OutputInputMultiplier").forGetter(x -> x.outputInputVoltageMultiplier),
-                    Codec.FLOAT.fieldOf("InputOutputFrequencyMultiplier").forGetter(x -> x.inputOutputFrequencyMultiplier),
-                    Codec.FLOAT.fieldOf("OutputInputFrequencyMultiplier").forGetter(x -> x.outputInputFrequencyMultiplier),
-                    Codec.FLOAT.fieldOf("Current").forGetter(x -> x.current),
-                    Codec.FLOAT.fieldOf("Frequency").forGetter(x -> x.frequency),
-                    Codec.FLOAT.fieldOf("Voltage").forGetter(x -> x.voltage),
-                    Codec.FLOAT.fieldOf("WattsConsumed").forGetter(x -> x.wattsConsumed),
-                    Codec.FLOAT.fieldOf("WattsProvided").forGetter(x -> x.wattsProvided)
+                    UnloadedMemberChunk1.CODEC.fieldOf("Chunk1").forGetter(UnloadedMember::serializeChunk1),
+                    UnloadedMemberChunk2.CODEC.fieldOf("Chunk2").forGetter(UnloadedMember::serializeChunk2)
             ).apply(inst, UnloadedMember::fromCodec)
     );
 
@@ -54,46 +89,59 @@ public class UnloadedMember {
     public float voltage;
     public float wattsConsumed;
     public float wattsProvided;
-
     public float wattsReceived; // Different sources may receive different amounts of energy (such as when diodes are involved)
 
     private static UnloadedMember fromCodec(
-            BlockPos pos,
-            List<BlockPos> connections,
-            List<BlockPos> outputs,
-            Float generatedVoltage,
-            Float resistance,
-            Float generatorResistance,
-            Float generatorFrequency,
-            Float inputOutputMultiplier,
-            Float outputInputMultiplier,
-            Float inputOutputFrequencyMultiplier,
-            Float outputInputFrequencyMultiplier,
-            Float current,
-            Float frequency,
-            Float voltage,
-            Float wattsConsumed,
-            Float wattsProvided
+            UnloadedMemberChunk1 chunk1,
+            UnloadedMemberChunk2 chunk2
     ) {
-        UnloadedMember self = new UnloadedMember(pos);
-        self.connections.addAll(connections);
-        self.connections.remove(pos); // Prevent connections to itself
-        self.outputs.addAll(outputs);
+        UnloadedMember self = new UnloadedMember(chunk1.pos);
+        self.connections.addAll(chunk1.connections);
+        self.connections.remove(chunk1.pos); // Prevent connections to itself
+        self.outputs.addAll(chunk1.outputs);
         self.outputs.removeIf(out -> !self.connections.contains(out)); // `outputs` is a subset of `connections`
-        self.generatedVoltage = generatedVoltage;
-        self.resistance = resistance;
-        self.generatorResistance = generatorResistance;
-        self.generatorFrequency = generatorFrequency;
-        self.inputOutputVoltageMultiplier = inputOutputMultiplier;
-        self.outputInputVoltageMultiplier = outputInputMultiplier;
-        self.inputOutputFrequencyMultiplier = inputOutputFrequencyMultiplier;
-        self.outputInputFrequencyMultiplier = outputInputFrequencyMultiplier;
-        self.current = current;
-        self.frequency = frequency;
-        self.voltage = voltage;
-        self.wattsConsumed = wattsConsumed;
-        self.wattsProvided = wattsProvided;
+        self.generatedVoltage = chunk1.generatedVoltage;
+        self.resistance = chunk1.resistance;
+        self.generatorResistance = chunk1.generatorResistance;
+        self.generatorFrequency = chunk1.generatorFrequency;
+        self.inputOutputVoltageMultiplier = chunk1.inputOutputVoltageMultiplier;
+        self.outputInputVoltageMultiplier = chunk1.outputInputVoltageMultiplier;
+        self.inputOutputFrequencyMultiplier = chunk1.inputOutputFrequencyMultiplier;
+        self.outputInputFrequencyMultiplier = chunk1.outputInputFrequencyMultiplier;
+        self.current = chunk1.current;
+        self.frequency = chunk1.frequency;
+        self.voltage = chunk1.voltage;
+        self.wattsConsumed = chunk1.wattsConsumed;
+        self.wattsProvided = chunk1.wattsProvided;
+        self.wattsReceived = chunk2.wattsReceived;
         return self;
+    }
+
+    private UnloadedMemberChunk1 serializeChunk1() {
+        return new UnloadedMemberChunk1(
+                pos,
+                connections.stream().toList(),
+                outputs.stream().toList(),
+                generatedVoltage,
+                resistance,
+                generatorResistance,
+                generatorFrequency,
+                inputOutputVoltageMultiplier,
+                outputInputVoltageMultiplier,
+                inputOutputFrequencyMultiplier,
+                outputInputFrequencyMultiplier,
+                current,
+                frequency,
+                voltage,
+                wattsConsumed,
+                wattsProvided
+        );
+    }
+
+    private UnloadedMemberChunk2 serializeChunk2() {
+        return new UnloadedMemberChunk2(
+                wattsReceived
+        );
     }
 
     public boolean isSource() {
