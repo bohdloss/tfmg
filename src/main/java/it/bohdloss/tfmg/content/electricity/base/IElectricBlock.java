@@ -28,7 +28,7 @@ public interface IElectricBlock extends IWrenchable {
 
         if(this instanceof IRotate) {
             KineticBlockEntity.switchToBlockState(level, pos, updateAfterWrenched(rotated, context));
-            level.setBlock(pos, state, 0); // Reset it so ElectricBlockEntity can do its deed
+            level.setBlock(pos, state, 16); // Reset it so ElectricBlockEntity can do its deed
         }
 
         ElectricData.switchToBlockState(level, pos, updateAfterWrenched(rotated, context));

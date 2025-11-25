@@ -12,11 +12,21 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.HashMap;
+
 public class TFMGColoredFires {
 
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(Registries.BLOCK, TFMG.MOD_ID);
 
+    public static final HashMap<String, String> TRANSLATIONS;
+
+    static {
+        TRANSLATIONS = new HashMap<>();
+        TRANSLATIONS.put("block.tfmg.green_fire", "Zinc Fire");
+        TRANSLATIONS.put("block.tfmg.blue_fire", "Copper Fire");
+        TRANSLATIONS.put("block.tfmg.lithium_fire", "Lithium Fire");
+    }
 
     public static final DeferredHolder<Block, GreenFireBlock> GREEN_FIRE = BLOCKS.register("green_fire",
             () -> new GreenFireBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FIRE)

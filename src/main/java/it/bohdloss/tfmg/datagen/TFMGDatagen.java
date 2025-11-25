@@ -9,6 +9,7 @@ import it.bohdloss.tfmg.datagen.recipes.TFMGRecipeProvider;
 import it.bohdloss.tfmg.datagen.recipes.values.TFMGStandardRecipeGen;
 import it.bohdloss.tfmg.datagen.recipes.values.create.TFMGMechanicalCraftingRecipeGen;
 import it.bohdloss.tfmg.datagen.recipes.values.create.TFMGSequencedAssemblyRecipeGen;
+import it.bohdloss.tfmg.registry.TFMGColoredFires;
 import it.bohdloss.tfmg.registry.TFMGGeneratedEntriesProvider;
 import it.bohdloss.tfmg.registry.TFMGRegistrateTags;
 import net.createmod.ponder.foundation.PonderIndex;
@@ -70,6 +71,10 @@ public class TFMGDatagen {
 
             provideDefaultLang("interface", langConsumer);
             provideDefaultLang("tooltips", langConsumer);
+
+            for(Map.Entry<String, String> pair : TFMGColoredFires.TRANSLATIONS.entrySet()) {
+                langConsumer.accept(pair.getKey(), pair.getValue());
+            }
 
             providePonderLang(langConsumer);
         });
