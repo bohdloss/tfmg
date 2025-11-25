@@ -192,7 +192,8 @@ public class ElectricalNetworkManager extends SavedData {
         }
         ElectricData data = be.getElectricData();
         UnloadedMember member = members.computeIfAbsent(pos, UnloadedMember::new);
-        boolean dirty = member.sync(data);
+        int status = member.sync(data);
+        boolean dirty = (status & UnloadedMember.COMPONENT_DIRTY) != 0;
 
         // Calculate connections
         Set<BlockPos> neighbors = new HashSet<>(6);
@@ -286,30 +287,15 @@ public class ElectricalNetworkManager extends SavedData {
         if(member == null) {
             add(pos);
         } else {
-            boolean wasSource = member.isSource();
-            float prevGenVoltage = member.generatedVoltage;
-            float preGenResistance = member.generatorResistance;
-            float preIOMul = member.inputOutputVoltageMultiplier;
-            float preOIMul = member.outputInputVoltageMultiplier;
-            float preFreqIOMul = member.inputOutputFrequencyMultiplier;
-            float preFreqOIMul = member.outputInputFrequencyMultiplier;
 
-            boolean dirty = member.sync(data);
+            int status = member.sync(data);
 
-            boolean isSource = member.isSource();
-            float genVoltage = member.generatedVoltage;
-            float genResistance = member.generatorResistance;
-            float IOMul = member.inputOutputVoltageMultiplier;
-            float OIMul = member.outputInputVoltageMultiplier;
-            float freqIOMul = member.inputOutputFrequencyMultiplier;
-            float freqOIMul = member.outputInputFrequencyMultiplier;
-
-            if(wasSource != isSource || prevGenVoltage != genVoltage || preGenResistance != genResistance || preIOMul != IOMul || preOIMul != OIMul || preFreqIOMul != freqIOMul || preFreqOIMul != freqOIMul) {
+            if((status & UnloadedMember.CLUSTER_DIRTY) != 0) {
                 clearClustersFrom(pos);
                 calculateClustersFrom(pos);
             }
 
-            if (dirty) {
+            if ((status & UnloadedMember.COMPONENT_DIRTY) != 0) {
                 update(pos);
             }
         }
@@ -401,7 +387,7 @@ public class ElectricalNetworkManager extends SavedData {
             }
 
             to.current = 0;
-            to.frequency = 0;
+            to.frequency = -1; // Uninitialized, invalid value
             to.voltage = 0;
             to.wattsConsumed = 0;
             to.wattsProvided = 0;
@@ -429,10 +415,12 @@ public class ElectricalNetworkManager extends SavedData {
                 if(voltage == 0) {
                     return false;
                 }
+                if(voltage < to.voltage) {
+                    return false;
+                }
+                to.voltage = voltage;
 
-                to.voltage = Math.max(to.voltage, voltage);
-
-                if(nVisited == 0) {
+                if(to.frequency == -1) {
                     to.frequency = frequency;
                 } else if(to.frequency != frequency){
                     plsDestroy.add(from.pos);

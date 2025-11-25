@@ -91,6 +91,9 @@ public class UnloadedMember {
     public float wattsProvided;
     public float wattsReceived; // Different sources may receive different amounts of energy (such as when diodes are involved)
 
+    // Temporary
+    public float satisfaction;
+
     private static UnloadedMember fromCodec(
             UnloadedMemberChunk1 chunk1,
             UnloadedMemberChunk2 chunk2
@@ -162,8 +165,12 @@ public class UnloadedMember {
         this.pos = pos;
     }
 
-    public boolean sync(ElectricData component) {
+    public static final int COMPONENT_DIRTY = 1;
+    public static final int CLUSTER_DIRTY = 1 << 1;
+
+    public int sync(ElectricData component) {
         // Sync data from the component itself
+        boolean wasSource = isSource();
         float generatedVoltage = Math.max(0, component.getGeneratedVoltage());
         float resistance = Math.max(0, component.getResistance());
         float generatorResistance = Math.max(0, component.getGeneratorResistance());
@@ -174,10 +181,17 @@ public class UnloadedMember {
         float inputOutputFrequencyMultiplier = Math.max(0, component.getInputOutputFrequencyMultiplier());
         float outputInputFrequencyMultiplier = Math.max(0, component.getOutputInputFrequencyMultiplier());
 
-        boolean dirty = generatedVoltage != this.generatedVoltage ||
+        boolean componentDirty = generatedVoltage != this.generatedVoltage ||
                 resistance != this.resistance ||
                 generatorResistance != this.generatorResistance ||
                 generatorFrequency != this.generatorFrequency ||
+                inputOutputVoltageMultiplier != this.inputOutputVoltageMultiplier ||
+                outputInputVoltageMultiplier != this.outputInputVoltageMultiplier ||
+                inputOutputFrequencyMultiplier != this.inputOutputFrequencyMultiplier ||
+                outputInputFrequencyMultiplier != this.outputInputFrequencyMultiplier;
+
+        boolean clusterDirty = generatedVoltage != this.generatedVoltage ||
+                generatorResistance != this.generatorResistance ||
                 inputOutputVoltageMultiplier != this.inputOutputVoltageMultiplier ||
                 outputInputVoltageMultiplier != this.outputInputVoltageMultiplier ||
                 inputOutputFrequencyMultiplier != this.inputOutputFrequencyMultiplier ||
@@ -193,14 +207,16 @@ public class UnloadedMember {
         this.inputOutputFrequencyMultiplier = inputOutputFrequencyMultiplier;
         this.outputInputFrequencyMultiplier = outputInputFrequencyMultiplier;
 
+        clusterDirty |= wasSource != isSource();
+
         // Provide component with updated data
         component.current = this.current;
-        component.frequency = this.frequency;
+        component.frequency = Math.max(0, this.frequency); // In case it is uninitialized and has value -1
         component.voltage = this.voltage;
         component.lastWattsConsumed = this.wattsConsumed;
         component.lastWattsProvided = this.wattsProvided;
 
-        return dirty;
+        return (componentDirty ? COMPONENT_DIRTY : 0) | (clusterDirty ? CLUSTER_DIRTY : 0);
     }
 
     public void addConnection(BlockPos to, boolean isOutput) {
