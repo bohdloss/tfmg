@@ -21,6 +21,7 @@ public class MachineConfig extends ConfigBase {
     public final ConfigInt accumulatorVoltage = i(12, 1, "accumulatorVoltage", Comments.accumulatorVoltage);
     public final ConfigInt accumulatorMaxAmpOutput = i(20, 1, "accumulatorMaxAmpOutput", Comments.accumulatorMaxAmpOutput);
     public final ConfigInt accumulatorChargingRate = i(100, 1, "accumulatorChargingRate", Comments.accumulatorChargingRate);
+    public final ConfigInt accumulatorMaxHeight = i(16, 1, 64, "accumulatorMaxHeight", Comments.accumulatorMaxHeight);
 
     public final ConfigGroup firebox = group(1, "firebox", "Firebox");
     public final ConfigBool fireboxExhaustRequirement = b(true, "fireboxExhaustRequirement", Comments.fireboxExhaustRequirement);
@@ -72,6 +73,7 @@ public class MachineConfig extends ConfigBase {
         static String accumulatorVoltage = "Determines the voltage accumulators output.";
         static String accumulatorMaxAmpOutput = "Sets the maximum amperage an accumulator can provide.";
         static String accumulatorChargingRate = "Sets the maximum charging rate of accumulators.";
+        static String accumulatorMaxHeight = "Sets the maximum height of multiblock accumulators.";
         static String fireboxExhaustRequirement = "If set to true,fireboxes will require exhaust management.";
         static String fireboxFuelConsumption = "Determines the rating of fuel a firebox needs to run for 3 seconds.";
         static String graphiteElectrodeCurrent = "The minimum electric current that will make graphite electrodes superheated.";

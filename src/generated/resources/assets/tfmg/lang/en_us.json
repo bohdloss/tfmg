@@ -1,5 +1,6 @@
 {
   "OwO": "UwU",
+  "block.tfmg.accumulator": "Accumulator",
   "block.tfmg.accumulator.tooltip.summary": "Holds a Large Amount of energy (inserted from bottom) that can be outputted Slowly from the Top",
   "block.tfmg.air_intake": "Air Intake",
   "block.tfmg.aluminum_bars": "Aluminum Bars",
@@ -404,6 +405,7 @@
   "block.tfmg.red_rebar_concrete_slab": "Red Rebar Concrete Slab",
   "block.tfmg.red_rebar_concrete_stairs": "Red Rebar Concrete Stairs",
   "block.tfmg.red_rebar_concrete_wall": "Red Rebar Concrete Wall",
+  "block.tfmg.resistor": "Resistor",
   "block.tfmg.resistor.tooltip.behaviour1": "Adds the resistors respective resistance (to see how to change its resistance look at the winding machines tooltip) to whatever electric group its target block is in",
   "block.tfmg.resistor.tooltip.condition1": "When placed on a block within a group",
   "block.tfmg.resistor.tooltip.summary": "Adds resistance to a network",

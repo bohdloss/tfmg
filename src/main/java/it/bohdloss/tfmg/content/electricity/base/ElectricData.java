@@ -182,7 +182,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     }
 
     /// Remove this component from its network, possibly splitting it into multiple networks.
-    protected final void detach() {
+    public final void detach() {
         ElectricalNetworkManager.getInstance(getLevel()).remove(getBlockPos());
 
         // At this point this component belongs to a network with a single component (itself)

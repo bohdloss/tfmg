@@ -52,16 +52,29 @@ public class FireboxBlockEntity extends AbstractMultiblock implements IHaveGoggl
                 .allowInsertion(true)
                 .syncCapacity(true)
                 .withCallback(this::notifyUpdate);
-        exhaust = new TFMGFluidBehavior(TFMGFluidBehavior.SECONDARY_TYPE, "Exhaust", this, CAPACITY_MULTIPLIER)
-                .withValidator(fluidStack -> fluidStack.getFluid().isSame(TFMGFluids.CARBON_DIOXIDE.get()))
-                .allowExtraction(true)
-                .allowInsertion(false)
-                .syncCapacity(true)
-                .withCallback(this::notifyUpdate);
-        allCaps = new CombinedTankWrapper(exhaust.getCapability(), fuel.getCapability());
+
+        if(exhaustRequirement()) {
+            exhaust = new TFMGFluidBehavior(TFMGFluidBehavior.SECONDARY_TYPE, "Exhaust", this, CAPACITY_MULTIPLIER)
+                    .withValidator(fluidStack -> fluidStack.getFluid().isSame(TFMGFluids.CARBON_DIOXIDE.get()))
+                    .allowExtraction(true)
+                    .allowInsertion(false)
+                    .syncCapacity(true)
+                    .withCallback(this::notifyUpdate);
+        }
+        if(exhaust != null) {
+            allCaps = new CombinedTankWrapper(exhaust.getCapability(), fuel.getCapability());
+        } else {
+            allCaps = new CombinedTankWrapper(fuel.getCapability());
+        }
 
         behaviours.add(fuel);
-        behaviours.add(exhaust);
+        if(exhaust != null) {
+            behaviours.add(exhaust);
+        }
+    }
+
+    public static boolean exhaustRequirement() {
+        return TFMGConfigs.common().machines.fireboxExhaustRequirement.get();
     }
 
     @SubscribeEvent
@@ -100,7 +113,9 @@ public class FireboxBlockEntity extends AbstractMultiblock implements IHaveGoggl
 
         if(canBurn) {
             fuel.getHandler().drain(fuelConsumption, IFluidHandler.FluidAction.EXECUTE);
-            exhaust.getHandler().fill(new FluidStack(TFMGFluids.CARBON_DIOXIDE, EXHAUST_PRODUCTION), IFluidHandler.FluidAction.EXECUTE);
+            if(exhaust != null) {
+                exhaust.getHandler().fill(new FluidStack(TFMGFluids.CARBON_DIOXIDE, EXHAUST_PRODUCTION), IFluidHandler.FluidAction.EXECUTE);
+            }
         }
 
         boolean isBurning = level.getBlockState(getBlockPos()).getValue(FireboxBlock.HEAT_LEVEL) != BlazeBurnerBlock.HeatLevel.NONE;
@@ -117,11 +132,14 @@ public class FireboxBlockEntity extends AbstractMultiblock implements IHaveGoggl
     public boolean canBurn() {
         int fuelConsumption = TFMGConfigs.common().machines.fireboxFuelConsumption.get();
         FluidStack fuelExtract = fuel.getHandler().drain(fuelConsumption, IFluidHandler.FluidAction.SIMULATE);
-        int exhaustFill = exhaust.getHandler().fill(new FluidStack(TFMGFluids.CARBON_DIOXIDE, EXHAUST_PRODUCTION), IFluidHandler.FluidAction.SIMULATE);
+        int exhaustFill = 0;
+        if(exhaust != null) {
+            exhaustFill = exhaust.getHandler().fill(new FluidStack(TFMGFluids.CARBON_DIOXIDE, EXHAUST_PRODUCTION), IFluidHandler.FluidAction.SIMULATE);
+        }
 
         return fuelExtract.is(TFMGTags.TFMGFluidTags.FIREBOX_FUEL.tag) &&
                 fuelExtract.getAmount() == fuelConsumption &&
-                exhaustFill == EXHAUST_PRODUCTION;
+                (exhaust == null || exhaustFill == EXHAUST_PRODUCTION);
     }
 
     @Override
@@ -198,7 +216,9 @@ public class FireboxBlockEntity extends AbstractMultiblock implements IHaveGoggl
     @Override
     public void setTankSize(int tank, int blocks) {
         fuel.getHandler().setCapacity(CAPACITY_MULTIPLIER * blocks);
-        exhaust.getHandler().setCapacity(CAPACITY_MULTIPLIER * blocks);
+        if(exhaust != null) {
+            exhaust.getHandler().setCapacity(CAPACITY_MULTIPLIER * blocks);
+        }
     }
 
     @Override

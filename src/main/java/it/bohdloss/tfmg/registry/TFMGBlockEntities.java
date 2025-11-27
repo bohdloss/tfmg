@@ -46,7 +46,9 @@ import it.bohdloss.tfmg.content.electricity.lights.LightBulbRenderer;
 import it.bohdloss.tfmg.content.electricity.lights.variants.AluminumLampRenderer;
 import it.bohdloss.tfmg.content.electricity.lights.variants.CircularLightRenderer;
 import it.bohdloss.tfmg.content.electricity.lights.variants.ModernLightRenderer;
+import it.bohdloss.tfmg.content.electricity.storage.AccumulatorBlockEntity;
 import it.bohdloss.tfmg.content.electricity.utilities.diode.ElectricDiodeBlockEntity;
+import it.bohdloss.tfmg.content.electricity.utilities.resistor.ResistorBlockEntity;
 import it.bohdloss.tfmg.content.electricity.utilities.transformer.TransformerBlockEntity;
 import it.bohdloss.tfmg.content.electricity.utilities.transformer.TransformerRenderer;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceHatchBlockEntity;
@@ -106,10 +108,10 @@ public class TFMGBlockEntities {
 //            REGISTRATE.blockEntity("copycat_cable", CopycatCableBlockEntity::new)
 //                    .validBlocks(TFMGBlocks.COPYCAT_CABLE_BLOCK)
 //                    .register();
-//    public static final BlockEntityEntry<ResistorBlockEntity> RESISTOR = REGISTRATE
-//            .blockEntity("resistor", ResistorBlockEntity::new)
-//            .validBlocks(TFMGBlocks.RESISTOR)
-//            .register();
+    public static final BlockEntityEntry<ResistorBlockEntity> RESISTOR = REGISTRATE
+            .blockEntity("resistor", ResistorBlockEntity::new)
+            .validBlocks(TFMGBlocks.RESISTOR)
+            .register();
 //    public static final BlockEntityEntry<StatorBlockEntity> STATOR = REGISTRATE
 //            .blockEntity("stator", StatorBlockEntity::new)
 //            .validBlocks(TFMGBlocks.STATOR)
@@ -215,10 +217,10 @@ public class TFMGBlockEntities {
             .renderer(() -> AluminumLampRenderer::new)
             .register();
 
-//    public static final BlockEntityEntry<AccumulatorBlockEntity> ACCUMULATOR = REGISTRATE
-//            .blockEntity("accumulator", AccumulatorBlockEntity::new)
-//            .validBlocks(TFMGBlocks.ACCUMULATOR)
-//            .register();
+    public static final BlockEntityEntry<AccumulatorBlockEntity> ACCUMULATOR = REGISTRATE
+            .blockEntity("accumulator", AccumulatorBlockEntity::new)
+            .validBlocks(TFMGBlocks.ACCUMULATOR)
+            .register();
 
     public static final BlockEntityEntry<ElectricDiodeBlockEntity> DIODE = REGISTRATE
             .blockEntity("electric_diode", ElectricDiodeBlockEntity::new)

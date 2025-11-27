@@ -13,6 +13,7 @@ import java.util.Objects;
 
 public record Resistance(int value) {
     public static final Resistance DEFAULT = new Resistance(0);
+    public static final SpoolAmount MAX = new SpoolAmount(1000);
 
     public static final Codec<Resistance> CODEC = ExtraCodecs.NON_NEGATIVE_INT.comapFlatMap(
             value -> DataResult.success(new Resistance(value)),

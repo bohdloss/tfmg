@@ -251,7 +251,10 @@ public class UnloadedMember {
     }
 
     public boolean isVoltageChanger() {
-        return !outputs.isEmpty();
+        return !outputs.isEmpty() && ((inputOutputVoltageMultiplier != 1) ||
+                (outputInputVoltageMultiplier != 1) ||
+                (inputOutputFrequencyMultiplier != 1) ||
+                (outputInputFrequencyMultiplier != 1));
     }
 
     @Override

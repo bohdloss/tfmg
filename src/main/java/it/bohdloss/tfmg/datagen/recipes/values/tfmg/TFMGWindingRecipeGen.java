@@ -2,6 +2,7 @@ package it.bohdloss.tfmg.datagen.recipes.values.tfmg;
 
 import it.bohdloss.tfmg.TFMG;
 import it.bohdloss.tfmg.datagen.recipes.builder.WindingRecipeGen;
+import it.bohdloss.tfmg.registry.TFMGBlocks;
 import it.bohdloss.tfmg.registry.TFMGItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -17,13 +18,13 @@ public class TFMGWindingRecipeGen extends WindingRecipeGen {
             .require(TFMGItems.UNFINISHED_ELECTROMAGNETIC_COIL)
             .require(TFMGItems.COPPER_SPOOL)
             .output(TFMGItems.ELECTROMAGNETIC_COIL)
-            .duration(100));
-//            RESISTOR = create("resistor", b ->b TODO
-//                    .require(TFMGItems.UNFINISHED_RESISTOR)
-//                    .require(TFMGItems.CONSTANTAN_SPOOL)
-//                    .output(resistor10Ohms())
-//                    .duration(50))
-//                    ;
+            .duration(100)),
+            RESISTOR = create("resistor", b ->b
+                    .require(TFMGItems.UNFINISHED_RESISTOR)
+                    .require(TFMGItems.CONSTANTAN_SPOOL)
+                    .output(TFMGBlocks.RESISTOR.asItem())
+                    .duration(50))
+                    ;
 
     public TFMGWindingRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, TFMG.MOD_ID);

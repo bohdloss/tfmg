@@ -108,7 +108,7 @@ public class ElectricalNetworkManager extends SavedData {
     }
 
     public static boolean goesThroughVoltageChanger(UnloadedMember from, UnloadedMember to) {
-        return from.hasOutput(to.pos) || to.hasOutput(from.pos);
+        return (from.isVoltageChanger() && from.hasOutput(to.pos)) || (to.isVoltageChanger() && to.hasOutput(from.pos));
     }
 
     public static float transferredVoltage(float voltage, UnloadedMember from, UnloadedMember to) {

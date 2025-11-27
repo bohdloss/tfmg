@@ -44,8 +44,13 @@ import it.bohdloss.tfmg.content.electricity.connection.tube.CableTubeBlock;
 import it.bohdloss.tfmg.content.electricity.generators.creative_generator.CreativeGeneratorBlock;
 import it.bohdloss.tfmg.content.electricity.lights.LampGenerator;
 import it.bohdloss.tfmg.content.electricity.lights.LightBulbBlock;
+import it.bohdloss.tfmg.content.electricity.storage.AccumulatorBlock;
+import it.bohdloss.tfmg.content.electricity.storage.AccumulatorItem;
+import it.bohdloss.tfmg.content.electricity.storage.CapacitorCTBehavior;
 import it.bohdloss.tfmg.content.electricity.utilities.diode.ElectricDiodeBlock;
 import it.bohdloss.tfmg.content.electricity.utilities.diode.EncasedDiodeBlock;
+import it.bohdloss.tfmg.content.electricity.utilities.resistor.ResistorBlock;
+import it.bohdloss.tfmg.content.electricity.utilities.resistor.ResistorBlockItem;
 import it.bohdloss.tfmg.content.electricity.utilities.transformer.TransformerBlock;
 import it.bohdloss.tfmg.content.items.CoalCokeBlockItem;
 import it.bohdloss.tfmg.content.machinery.metallurgy.blast_furnace.BlastFurnaceHatchBlock;
@@ -885,17 +890,17 @@ public class TFMGBlocks {
 //                    .item()
 //                    .transform(customItemModel())
 //                    .register();
-//
-//    public static final BlockEntry<ResistorBlock> RESISTOR =
-//            REGISTRATE.block("resistor", ResistorBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .transform(pickaxeOnly())
-//                    .properties(BlockBehaviour.Properties::noOcclusion)
-//                    .addLayer(() -> RenderType::cutoutMipped)
-//                    .blockstate(BlockStateGen.directionalBlockProvider(true))
-//                    .item(ResistorBlockItem::new)
-//                    .transform(customItemModel())
-//                    .register();
+
+    public static final BlockEntry<ResistorBlock> RESISTOR =
+            REGISTRATE.block("resistor", ResistorBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .blockstate(BlockStateGen.directionalBlockProvider(true))
+                    .item(ResistorBlockItem::new)
+                    .transform(customItemModel())
+                    .register();
 //    public static final BlockEntry<CopycatCableBlock> COPYCAT_CABLE_BLOCK =
 //            REGISTRATE.block("copycat_cable_block", CopycatCableBlock::new)
 //                    .transform(TFMGBuilderTransformers.copycatCable())
@@ -1021,16 +1026,16 @@ public class TFMGBlocks {
             .simpleItem()
             .register();
 
-//    public static final BlockEntry<AccumulatorBlock> ACCUMULATOR =
-//            REGISTRATE.block("accumulator", AccumulatorBlock::new)
-//                    .initialProperties(() -> Blocks.IRON_BLOCK)
-//                    .transform(pickaxeOnly())
-//                    .onRegister(connectedTextures(() -> new CapacitorCTBehavior(TFMGSpriteShifts.ACCUMULATOR)))
-//                    .blockstate(BlockStateGen.directionalBlockProvider(true))
-//                    .item(AccumulatorItem::new)
-//                    .build()
-//                    .register();
-//    ;
+    public static final BlockEntry<AccumulatorBlock> ACCUMULATOR =
+            REGISTRATE.block("accumulator", AccumulatorBlock::new)
+                    .initialProperties(() -> Blocks.IRON_BLOCK)
+                    .transform(pickaxeOnly())
+                    .onRegister(connectedTextures(() -> new CapacitorCTBehavior(TFMGSpriteShifts.ACCUMULATOR)))
+                    .blockstate(BlockStateGen.directionalBlockProvider(true))
+                    .item(AccumulatorItem::new)
+                    .build()
+                    .register();
+    ;
     public static final BlockEntry<LightBulbBlock> LIGHT_BULB =
             REGISTRATE.block("light_bulb", p -> new LightBulbBlock(p, TFMGBlockEntities.LIGHT_BULB, TFMGShapes.LIGHT_BULB))
                     .initialProperties(() -> Blocks.IRON_BLOCK)

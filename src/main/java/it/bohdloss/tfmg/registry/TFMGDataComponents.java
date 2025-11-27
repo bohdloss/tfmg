@@ -1,13 +1,16 @@
 package it.bohdloss.tfmg.registry;
 
+import com.mojang.serialization.Codec;
 import it.bohdloss.tfmg.content.electricity.utilities.fuse_block.AmpRating;
 import it.bohdloss.tfmg.content.electricity.utilities.resistor.Resistance;
 import it.bohdloss.tfmg.content.electricity.connection.SpoolAmount;
 import it.bohdloss.tfmg.content.electricity.connection.WireSelection;
 import it.bohdloss.tfmg.content.electricity.utilities.transformer.CoilTurns;
+import it.bohdloss.tfmg.content.items.AccumulatorStorage;
 import it.bohdloss.tfmg.content.items.FluidAmount;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -40,6 +43,11 @@ public class TFMGDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<FluidAmount>> FLUID_AMOUNT = DATA_COMPONENTS.registerComponentType(
             "amount",
             builder -> builder.persistent(FluidAmount.CODEC).networkSynchronized(FluidAmount.STREAM_CODEC)
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<AccumulatorStorage>> ACCUMULATOR_STORAGE = DATA_COMPONENTS.registerComponentType(
+            "storage",
+            builder -> builder.persistent(AccumulatorStorage.CODEC).networkSynchronized(AccumulatorStorage.STREAM_CODEC)
     );
 
     public static void register(IEventBus eventBus) {
