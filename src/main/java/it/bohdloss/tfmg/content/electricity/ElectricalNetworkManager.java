@@ -3,6 +3,7 @@ package it.bohdloss.tfmg.content.electricity;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.bohdloss.tfmg.DebugStuff;
 import it.bohdloss.tfmg.TFMG;
 import it.bohdloss.tfmg.content.electricity.base.ElectricData;
 import it.bohdloss.tfmg.content.electricity.base.IElectric;
@@ -19,8 +20,10 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.util.TriPredicate;
 import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import org.apache.logging.log4j.util.TriConsumer;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.*;
@@ -30,10 +33,19 @@ public class ElectricalNetworkManager extends SavedData {
     public static final Map<LevelAccessor, ElectricalNetworkManager> spaces = new HashMap<>();
 
     public static final Codec<ElectricalNetworkManager> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-            Codec.list(UnloadedMember.CODEC).fieldOf("ElectricalComponents").forGetter(x -> x.members.values().stream().toList())
+            Codec.list(UnloadedMember.CODEC).fieldOf("ElectricalComponents").orElse(List.of()).forGetter(x -> x.members.values().stream().toList()),
+            Codec.list(Codec.pair(BlockPos.CODEC, Codec.LONG)).fieldOf("ScheduledTicks").orElse(List.of()).forGetter(x -> x.scheduledTicks.entrySet().stream().map(y -> new Pair<BlockPos, Long>(y.getKey(), y.getValue())).toList()),
+            Codec.LONG.fieldOf("Time").orElse(0L).forGetter(x -> x.time)
     ).apply(inst, ElectricalNetworkManager::fromCodec));
 
     public ServerLevel level;
+
+    // Absolute time value after which an update should take place
+    // The next scheduled update is set to the estimated time until the first accumulator will run out of power.
+    public final HashMap<BlockPos, Long> scheduledTicks = new HashMap<>();
+
+    // The time of this electrical network manager. Similar to LevelData::getGameTime except more reliable
+    public long time;
 
     // The source of truth
     public final HashMap<BlockPos, UnloadedMember> members = new HashMap<>();
@@ -51,6 +63,7 @@ public class ElectricalNetworkManager extends SavedData {
     // TODO
     // HashMap<ChunkPos, List<Long>> type of thing
     // Optimize for networks that lay completely outside of the loaded chunk range.
+    // But why, if they're outside chunk range they just won't be updated, no?
 
     private ElectricalNetworkManager() { }
 
@@ -58,11 +71,15 @@ public class ElectricalNetworkManager extends SavedData {
         this.level = level instanceof ServerLevel sLevel ? sLevel : null;
     }
 
-    public static ElectricalNetworkManager fromCodec(List<UnloadedMember> members) {
+    public static ElectricalNetworkManager fromCodec(List<UnloadedMember> members, List<Pair<BlockPos, Long>> scheduledTicks, Long time) {
         ElectricalNetworkManager self = new ElectricalNetworkManager();
         for(UnloadedMember member : members) {
             self.members.put(member.pos, member);
         }
+        for(Pair<BlockPos, Long> scheduledTick : scheduledTicks) {
+            self.scheduledTicks.put(scheduledTick.getFirst(), scheduledTick.getSecond());
+        }
+        self.time = time;
 
         self.calculateAllClusters();
 
@@ -95,7 +112,7 @@ public class ElectricalNetworkManager extends SavedData {
     protected void clearClustersFrom(BlockPos startingPos) {
         traverseAll(
                 startingPos,
-                (neverVisited, from, to) -> {
+                (nVisited, from, to) -> {
                     if(to.cluster != null) {
                         clusters.remove(to.cluster);
                     }
@@ -138,10 +155,27 @@ public class ElectricalNetworkManager extends SavedData {
         HashSet<BlockPos> plsDestroy = new HashSet<>();
         traverseAll(
                 startingPos,
-                (neverVisited, from, to) -> {
+                (nVisited, from, to) -> {
+                    if(to.accumulator != null) {
+                        // Before we check if it is a source, we MUST update the charge of the accumulator
+                        to.accumulator.updateCharge(to, time);
+
+                        // Schedule next tick while we're at it
+                        long nextUpdate = to.accumulator.ticksUntilCharged(to);
+
+                        // We only really need to schedule the update if it's DISCHARGING
+                        if(nextUpdate < 0f) {
+                            DebugStuff.show("Scheduling update " + (-nextUpdate) + " ticks from now at " + to.pos.toShortString());
+                            scheduledTicks.put(to.pos, time - nextUpdate); // Minus because we normalize it back to positive
+                        } else {
+                            scheduledTicks.remove(to.pos);
+                        }
+                    } else {
+                        scheduledTicks.remove(to.pos);
+                    }
                     if(to.isSource()) {
                         if (cluster[0] == null) { // This delay in the creation prevents empty clusters
-                            cluster[0] = createNewCluster();
+                            cluster[0] = createNewCluster(); // FIXME under some conditions this currently leaks "ghost" orphaned clusters.
                             cluster[0].frequency = to.generatorFrequency;
                         }
 
@@ -171,7 +205,7 @@ public class ElectricalNetworkManager extends SavedData {
         }
     }
 
-    /// Creates a new electrical network with a universally unique id
+    /// Creates a new electrical cluster with a universally unique id
     protected ElectricalCluster createNewCluster() {
         Random random = new Random();
 
@@ -179,11 +213,11 @@ public class ElectricalNetworkManager extends SavedData {
         while(clusters.containsKey(id)) {
             id = random.nextLong();
         }
-        ElectricalCluster network = new ElectricalCluster(id);
-        clusters.put(id, network);
+        ElectricalCluster cluster = new ElectricalCluster(id);
+        clusters.put(id, cluster);
         setDirty();
 
-        return network;
+        return cluster;
     }
 
     public void add(BlockPos pos) {
@@ -191,14 +225,18 @@ public class ElectricalNetworkManager extends SavedData {
             return;
         }
         ElectricData data = be.getElectricData();
-        UnloadedMember member = members.computeIfAbsent(pos, UnloadedMember::new);
-        int status = member.sync(data);
+        UnloadedMember member = members.get(pos);
+        if(member != null) {
+            remove(pos); // Because otherwise some constraints about clusters are not respected
+        }
+        member = members.computeIfAbsent(pos, UnloadedMember::new);
+        int status = member.sync(time, data);
         boolean dirty = (status & UnloadedMember.COMPONENT_DIRTY) != 0;
 
         // Calculate connections
-        Set<BlockPos> neighbors = new HashSet<>(6);
+        Set<BlockPos> neighbors = new HashSet<>();
         Set<BlockPos> outputs = new HashSet<>();
-        Set<BlockPos> neighborNeighbors = new HashSet<>(6);
+        Set<BlockPos> neighborNeighbors = new HashSet<>();
         Set<BlockPos> neighborOutputs = new HashSet<>();
 
         data.getPotentialNeighbors(neighbors);
@@ -247,6 +285,7 @@ public class ElectricalNetworkManager extends SavedData {
         if(member == null) {
             return;
         }
+        scheduledTicks.remove(pos);
 
         clearClustersFrom(pos);
 
@@ -287,8 +326,7 @@ public class ElectricalNetworkManager extends SavedData {
         if(member == null) {
             add(pos);
         } else {
-
-            int status = member.sync(data);
+            int status = member.sync(time, data);
 
             if((status & UnloadedMember.CLUSTER_DIRTY) != 0) {
                 clearClustersFrom(pos);
@@ -301,6 +339,19 @@ public class ElectricalNetworkManager extends SavedData {
         }
 
         setDirty();
+    }
+
+    public void syncCharge(BlockPos pos) {
+        if(!(level.getBlockEntity(pos) instanceof IElectric be)) {
+            return;
+        }
+        ElectricData data = be.getElectricData();
+        UnloadedMember member = members.get(pos);
+        if(member != null && member.accumulator != null) {
+            member.accumulator.updateCharge(member, time);
+            setDirty();
+            data.onChargeChange(member.accumulator.charge);
+        }
     }
 
     public ElectricalCluster clusterFor(BlockPos pos) {
@@ -316,7 +367,7 @@ public class ElectricalNetworkManager extends SavedData {
 
     protected void traverseAll(
             BlockPos startingPos,
-            TriConsumer<Integer, UnloadedMember, UnloadedMember> callback
+            TriConsumer<Integer, @Nullable UnloadedMember, UnloadedMember> callback
     ) {
         traverseAll(
                 startingPos,
@@ -330,7 +381,7 @@ public class ElectricalNetworkManager extends SavedData {
 
     protected void traverseAll(
             BlockPos startingPos,
-            TriPredicate<Integer, UnloadedMember, UnloadedMember> callback,
+            TriPredicate<Integer, @Nullable UnloadedMember, UnloadedMember> callback,
             TriPredicate<Integer, UnloadedMember, UnloadedMember> shouldTraverse
     ) {
         UnloadedMember startingMember = members.get(startingPos);
@@ -355,7 +406,7 @@ public class ElectricalNetworkManager extends SavedData {
         };
 
         while((memberPair = removeLast.get()) != null) {
-            boolean keepGoing = callback.test(visited.getOrDefault(memberPair.getSecond().pos, 0), memberPair.getFirst(), memberPair.getSecond());
+            boolean keepGoing = callback.test(visited.getOrDefault(memberPair.getSecond().pos, 1) - 1, memberPair.getFirst(), memberPair.getSecond());
 
             // Stop traversing this branch
             if(!keepGoing) {
@@ -386,6 +437,10 @@ public class ElectricalNetworkManager extends SavedData {
                 foundClusters.add(cluster);
             }
 
+            if(to.accumulator != null) {
+                to.accumulator.updateCharge(to, time); // Update charge before updating voltage to avoid incorrect calculations
+            }
+
             to.current = 0;
             to.frequency = -1; // Uninitialized, invalid value
             to.voltage = 0;
@@ -410,6 +465,11 @@ public class ElectricalNetworkManager extends SavedData {
 
                 voltage = transferredVoltage(voltage, from, to);
                 frequency = transferredFrequency(frequency, from, to);
+
+                if(to.isVoltageChanger() && nVisited > MAX_ITERATIONS) {
+                    plsDestroy.add(to.pos);
+                    return false;
+                }
 
                 // If the voltage is 0 after traversing voltage modifiers, stop traversing this branch
                 if(voltage == 0) {
@@ -443,15 +503,12 @@ public class ElectricalNetworkManager extends SavedData {
             },
             (nVisited, from, to) -> {
                 float transferredVoltage = transferredVoltage(from.voltage, from, to);
-
-                if(to.isVoltageChanger() && nVisited > MAX_ITERATIONS && transferredVoltage > to.voltage) {
-                    plsDestroy.add(to.pos);
-                }
                 return nVisited == 0 || transferredVoltage > to.voltage;
             });
         }
 
         traverseAll(startingPos, (neverVisited, from, to) -> {
+            to.satisfaction = (remainingWatts[0] < 0) ? 0 : to.wattsConsumed;
             if(level.isLoaded(to.pos) && level.getBlockEntity(to.pos) instanceof IElectric be) {
                 ElectricData data = be.getElectricData();
                 data.shortCircuit = remainingWatts[0] < 0;
@@ -459,11 +516,11 @@ public class ElectricalNetworkManager extends SavedData {
             }
         });
 
+        setDirty();
+
         for(BlockPos pos : plsDestroy) {
             level.destroyBlock(pos, true);
         }
-
-        setDirty();
     }
 
     public static @NotNull ElectricalNetworkManager load(@NotNull CompoundTag compoundTag, HolderLookup.@NotNull Provider registries) {
@@ -473,6 +530,39 @@ public class ElectricalNetworkManager extends SavedData {
     @Override
     public @NotNull CompoundTag save(@NotNull CompoundTag compoundTag, HolderLookup.@NotNull Provider registries) {
         return (CompoundTag) CODEC.encodeStart(NbtOps.INSTANCE, this).getOrThrow();
+    }
+
+    @SubscribeEvent
+    public static void tickWorld(LevelTickEvent.Post event) {
+        if(event.getLevel() instanceof ServerLevel level) {
+            ElectricalNetworkManager manager = getInstance(level);
+
+            manager.time++; // <<= !!!!!!!
+
+            List<BlockPos> doUpdate = null;
+
+            for(Map.Entry<BlockPos, Long> clock : manager.scheduledTicks.entrySet()) {
+                if(manager.time >= clock.getValue()) {
+                    if(doUpdate == null) {
+                        doUpdate = new ArrayList<>();
+                    }
+                    doUpdate.add(clock.getKey());
+                } else {
+                    clock.setValue(clock.getValue() - 1);
+                }
+            }
+            if(doUpdate != null) {
+                for(BlockPos pos : doUpdate) {
+                    manager.scheduledTicks.remove(pos);
+                }
+                for(BlockPos pos : doUpdate) {
+                    DebugStuff.show("Running update at " + pos.toShortString());
+                    manager.clearClustersFrom(pos);
+                    manager.calculateClustersFrom(pos);
+                    manager.update(pos);
+                }
+            }
+        }
     }
 
     @SubscribeEvent

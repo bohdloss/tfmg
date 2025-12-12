@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.List;
 
 public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, IHaveGoggleInformation, IHaveHoveringInformation {
-    public final ElectricData electricData = instantiateElectric();
+    private ElectricData electricData;
 
     public ElectricBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -31,47 +31,50 @@ public class ElectricBlockEntity extends SmartBlockEntity implements IElectric, 
     @Override
     public void tick() {
         super.tick();
-        electricData.tick();
+        getElectricData().tick();
     }
 
     @Override
     public void lazyTick() {
         super.lazyTick();
-        electricData.lazyTick();
+        getElectricData().lazyTick();
     }
 
     @Override
     public void remove() {
         super.remove();
-        electricData.remove();
+        getElectricData().remove();
     }
 
     @Override
     protected void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
-        tag.put("ElectricalData", electricData.write(registries, clientPacket));
+        tag.put("ElectricalData", getElectricData().write(registries, clientPacket));
 
         super.write(tag, registries, clientPacket);
     }
 
     @Override
     protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
-        electricData.read(tag.getCompound("ElectricalData"), registries, clientPacket);
+        getElectricData().read(tag.getCompound("ElectricalData"), registries, clientPacket);
 
         super.read(tag, registries, clientPacket);
     }
 
     @Override
     public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        return electricData.addToTooltip(tooltip, isPlayerSneaking);
+        return getElectricData().addToTooltip(tooltip, isPlayerSneaking);
     }
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        return electricData.addToGoggleTooltip(tooltip, isPlayerSneaking);
+        return getElectricData().addToGoggleTooltip(tooltip, isPlayerSneaking);
     }
 
     @Override
     public ElectricData getElectricData() {
+        if(electricData == null) {
+            electricData = instantiateElectric();
+        }
         return electricData;
     }
 }

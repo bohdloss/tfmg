@@ -1,5 +1,6 @@
 package it.bohdloss.tfmg.content.electricity.utilities.resistor;
 
+import it.bohdloss.tfmg.content.electricity.base.CurrentCalculation;
 import it.bohdloss.tfmg.content.electricity.base.ElectricBlockEntity;
 import it.bohdloss.tfmg.content.electricity.base.ElectricData;
 import net.minecraft.core.BlockPos;
@@ -25,8 +26,8 @@ public class ResistorBlockEntity extends ElectricBlockEntity {
             }
 
             @Override
-            public float getResistance() {
-                return resistance;
+            public CurrentCalculation getResistance() {
+                return CurrentCalculation.resistance(resistance);
             }
         };
     }

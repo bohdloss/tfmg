@@ -10,7 +10,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.energy.EnergyStorage;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.IFluidTank;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
@@ -28,12 +27,13 @@ public class TFMGEnergyBehavior extends BlockEntityBehaviour {
     private final TFMGEnergyStorage handler;
     private final TFMGEnergyFluidTank fluid;
     private final OutwardHandler capability;
-    public int maxExtraction = 0;
-    public int maxInsertion = 0;
+    public float maxExtraction = 0;
+    public float maxInsertion = 0;
     public boolean syncCapacity = true;
     public Runnable updateCallback;
+    public Runnable capabilityCallback;
 
-    public TFMGEnergyBehavior(BehaviourType<TFMGEnergyBehavior> type, String name, SmartBlockEntity be, int capacity) {
+    public TFMGEnergyBehavior(BehaviourType<TFMGEnergyBehavior> type, String name, SmartBlockEntity be, float capacity) {
         super(be);
         this.type = type;
         this.name = name;
@@ -47,12 +47,17 @@ public class TFMGEnergyBehavior extends BlockEntityBehaviour {
         return this;
     }
 
-    public TFMGEnergyBehavior maxExtraction(int maxExtraction) {
+    public TFMGEnergyBehavior withCapabilityCallback(Runnable capabilityCallback) {
+        this.capabilityCallback = capabilityCallback == null ? () -> {} : capabilityCallback;
+        return this;
+    }
+
+    public TFMGEnergyBehavior maxExtraction(float maxExtraction) {
         this.maxExtraction = maxExtraction;
         return this;
     }
 
-    public TFMGEnergyBehavior maxInsertion(int maxInsertion) {
+    public TFMGEnergyBehavior maxInsertion(float maxInsertion) {
         this.maxInsertion = maxInsertion;
         return this;
     }
@@ -70,7 +75,7 @@ public class TFMGEnergyBehavior extends BlockEntityBehaviour {
         return fluid;
     }
 
-    public EnergyStorage getHandler() {
+    public TFMGEnergyStorage getHandler() {
         return handler;
     }
 
@@ -96,12 +101,20 @@ public class TFMGEnergyBehavior extends BlockEntityBehaviour {
     private record OutwardHandler(TFMGEnergyBehavior owner) implements IEnergyStorage {
         @Override
         public int receiveEnergy(int toReceive, boolean simulate) {
-            return owner.handler.receiveEnergy(Math.min(toReceive, owner.maxInsertion), simulate);
+            int inserted = owner.handler.receiveEnergy(Math.min(toReceive, (int) owner.maxInsertion), simulate);
+            if(inserted > 0 && !simulate) {
+                owner.capabilityCallback.run();
+            }
+            return inserted;
         }
 
         @Override
         public int extractEnergy(int toExtract, boolean simulate) {
-            return owner.handler.extractEnergy(Math.min(toExtract, owner.maxExtraction), simulate);
+            int extracted = owner.handler.extractEnergy(Math.min(toExtract, (int) owner.maxExtraction), simulate);
+            if(extracted > 0 && !simulate) {
+                owner.capabilityCallback.run();
+            }
+            return extracted;
         }
 
         @Override
@@ -227,9 +240,14 @@ public class TFMGEnergyBehavior extends BlockEntityBehaviour {
 
     public static class TFMGEnergyStorage extends EnergyStorage {
         private final TFMGEnergyBehavior owner;
+        protected float energy;
+        protected float capacity;
+        protected float maxReceive;
+        protected float maxExtract;
 
-        public TFMGEnergyStorage(TFMGEnergyBehavior owner, int capacity) {
-            super(capacity);
+        public TFMGEnergyStorage(TFMGEnergyBehavior owner, float capacity) {
+            super(0);
+            this.capacity = capacity;
             this.owner = owner;
         }
 
@@ -239,7 +257,7 @@ public class TFMGEnergyBehavior extends BlockEntityBehaviour {
                 return 0;
             }
 
-            int energyReceived = Mth.clamp(this.capacity - this.energy, 0, Math.min(this.maxReceive, toReceive));
+            int energyReceived = Mth.clamp((int) this.capacity - (int) this.energy, 0, Math.min((int) this.maxReceive, toReceive));
             if (!simulate) {
                 this.energy += energyReceived;
                 owner.updateCallback.run();
@@ -253,7 +271,7 @@ public class TFMGEnergyBehavior extends BlockEntityBehaviour {
                 return 0;
             }
 
-            int energyExtracted = Math.min(this.energy, Math.min(this.maxExtract, toExtract));
+            int energyExtracted = Math.min((int) this.energy, Math.min((int) this.maxExtract, toExtract));
             if (!simulate) {
                 this.energy -= energyExtracted;
                 owner.updateCallback.run();
@@ -261,29 +279,58 @@ public class TFMGEnergyBehavior extends BlockEntityBehaviour {
             return energyExtracted;
         }
 
+
+        @Override
+        public int getEnergyStored() {
+            return (int) energy;
+        }
+
+        @Override
+        public int getMaxEnergyStored() {
+            return (int) capacity;
+        }
+
+        @Override
+        public boolean canExtract() {
+            return ((int) maxExtract) > 0f;
+        }
+
+        @Override
+        public boolean canReceive() {
+            return ((int) maxReceive) > 0f;
+        }
+
         public @NotNull CompoundTag writeToNBT(HolderLookup.@NotNull Provider lookupProvider, @NotNull CompoundTag nbt) {
             if(owner.syncCapacity) {
-                nbt.putInt("Capacity", capacity);
+                nbt.putFloat("Capacity", capacity);
             }
-            nbt.putInt("Energy", energy);
+            nbt.putFloat("Energy", energy);
             return nbt;
         }
 
         public void readFromNBT(HolderLookup.@NotNull Provider lookupProvider, @NotNull CompoundTag nbt) {
             if(owner.syncCapacity) {
-                this.capacity = nbt.getInt("Capacity");
+                this.capacity = nbt.getFloat("Capacity");
             }
-            energy = nbt.getInt("Energy");
+            energy = nbt.getFloat("Energy");
         }
 
-        public void setMaxEnergyStored(int capacity) {
+        public void setMaxEnergyStored(float capacity) {
             this.capacity = capacity;
             owner.updateCallback.run();
         }
 
-        public void setEnergyStored(int energy) {
+        public float getMaxEnergyStoredF() {
+            return capacity;
+        }
+
+        public void setEnergyStored(float energy) {
             this.energy = energy;
             owner.updateCallback.run();
+        }
+
+        public float getEnergyStoredF() {
+            return energy;
         }
     }
 }

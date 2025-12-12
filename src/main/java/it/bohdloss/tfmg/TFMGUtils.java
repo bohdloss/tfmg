@@ -513,4 +513,11 @@ public class TFMGUtils {
             }
         }
     }
+
+    /// `+Infinity`, `-Infinity`, `NaN` => all converted to `0f`.
+    ///
+    /// Everything else returned as is.
+    public static float rationalize(float value) {
+        return Float.isFinite(value) ? Math.max(0f, value) : 0f;
+    }
 }

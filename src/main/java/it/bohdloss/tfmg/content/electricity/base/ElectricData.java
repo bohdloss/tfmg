@@ -8,6 +8,7 @@ import com.simibubi.create.foundation.sound.SoundScapes;
 import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import it.bohdloss.tfmg.DebugStuff;
+import it.bohdloss.tfmg.config.TFMGConfigs;
 import it.bohdloss.tfmg.content.electricity.BlockResistanceValues;
 import it.bohdloss.tfmg.content.electricity.ElectricalCluster;
 import it.bohdloss.tfmg.content.electricity.ElectricalNetworkManager;
@@ -61,6 +62,24 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
      *  Public Interface
      */
 
+    public static float coulombToFe(float charge, float voltage) {
+        // Watt * seconds = joules
+        // (W[atts] * t[icks]) = (W * (t[ime] / 20)) = (W * t) / 20 = J / 20
+        float feToJoules = ((float) (double) TFMGConfigs.common().machines.FEtoWattTickConversionRate.get()) / 20f;
+
+        // W (joules) = C (coulombs) * V (volts)
+        float chargeJoules = charge * voltage;
+
+        float joulesToFe = feToJoules <= 0f ? 0f : (1f / feToJoules);
+        return chargeJoules * joulesToFe;
+    }
+
+    public static float feToCoulomb(float fe, float  voltage) {
+        float feToJoules = ((float) (double) TFMGConfigs.common().machines.FEtoWattTickConversionRate.get()) / 20f;
+        float chargeJoules = fe * feToJoules;
+        return chargeJoules / voltage;
+    }
+
     public final void clear() {
         current = 0;
         frequency = 0;
@@ -75,13 +94,13 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     }
 
     /// Ohms
-    public float getResistance() {
-        return (float) BlockResistanceValues.getResistance(getPowerConfigKey());
+    public CurrentCalculation getResistance() {
+        return CurrentCalculation.resistance((float) BlockResistanceValues.getResistance(getPowerConfigKey()));
     }
 
     /// Ohms
-    public float getGeneratorResistance() {
-        return (float) BlockResistanceValues.getGeneratorResistance(getPowerConfigKey());
+    public CurrentCalculation getGeneratorResistance() {
+        return CurrentCalculation.resistance((float) BlockResistanceValues.getGeneratorResistance(getPowerConfigKey()));
     }
 
     /// Watts
@@ -161,6 +180,10 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
         ElectricalNetworkManager.getInstance(getLevel()).add(getBlockPos());
     }
 
+    public final void syncCharge() {
+        ElectricalNetworkManager.getInstance(getLevel()).syncCharge(getBlockPos());
+    }
+
     public final void debug() {
 //        DebugStuff.show("Init: " + initialized);
         if(getLevel() != null) {
@@ -194,6 +217,24 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
      * at this point.
      */
     public void onVoltageChange(float previousVoltage) { }
+
+    /// Called during sync with the value of the component's charge, in Coulombs (C)
+    public void onChargeChange(float charge) { }
+
+    /// Called during sync to determine the value of electrical charge in Coulombs.
+    ///
+    /// Return a negative value to keep the currently stored value inside the network instead of overriding it.
+    public float getCharge() { return 0f; }
+
+    /// Called during sync to determine the capacity of electric charge in Coulombs.
+    /// Any value greater than `0` changes the behavior of this component to that of an accumulator.
+    ///
+    /// An accumulator charges at the same rate that it consumes electricity, and discharges at the same rate
+    /// that it produces it. If this component is also an electricity source, keep in mind it will stop generating
+    /// electricity if the charge reaches `0` (e.g. it discharges faster than it charges).
+    ///
+    ///
+    public float getMaxCharge() { return 0f; }
 
     /*
      *  Connectivity
@@ -269,9 +310,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
         if(syncNextTick) {
            syncNextTick = false;
 
-           float previousVoltage = voltage;
            ElectricalNetworkManager.getInstance(getLevel()).sync(getBlockPos());
-           notifyVoltageChange(previousVoltage);
 
            notifyUpdate();
         }
@@ -359,7 +398,7 @@ public class ElectricData implements IHaveGoggleInformation, IHaveHoveringInform
     }
 
     public final boolean isGenerator() {
-        return getGeneratedVoltage() > 0;
+        return getGeneratedVoltage() > 0 && getGeneratorResistance().calcCurrent(getGeneratedVoltage()) > 0;
     }
 
     public static void switchToBlockState(Level world, BlockPos pos, BlockState state) {

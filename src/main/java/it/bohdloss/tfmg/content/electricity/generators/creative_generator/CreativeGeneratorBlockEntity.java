@@ -5,6 +5,7 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
 import com.simibubi.create.foundation.utility.CreateLang;
+import it.bohdloss.tfmg.content.electricity.base.CurrentCalculation;
 import it.bohdloss.tfmg.content.electricity.base.ElectricBlockEntity;
 import it.bohdloss.tfmg.content.electricity.base.ElectricData;
 import net.createmod.catnip.math.VecHelper;
@@ -31,7 +32,7 @@ public class CreativeGeneratorBlockEntity extends ElectricBlockEntity {
                 this, new CreativeGeneratorValueBox());
         outputVoltage.between(0, 250);
         outputVoltage.value = 50;
-        outputVoltage.withCallback(i -> electricData.syncNextTick = true);
+        outputVoltage.withCallback(i -> getElectricData().syncNextTick = true);
         behaviours.add(outputVoltage);
     }
 
@@ -49,8 +50,8 @@ public class CreativeGeneratorBlockEntity extends ElectricBlockEntity {
             }
 
             @Override
-            public float getGeneratorResistance() {
-                return 1;
+            public CurrentCalculation getGeneratorResistance() {
+                return CurrentCalculation.resistance(1);
             }
         };
     }

@@ -6,6 +6,7 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import it.bohdloss.tfmg.base.AbstractMultiblock;
 import it.bohdloss.tfmg.base.TFMGEnergyBehavior;
 import it.bohdloss.tfmg.config.TFMGConfigs;
+import it.bohdloss.tfmg.content.electricity.base.CurrentCalculation;
 import it.bohdloss.tfmg.content.electricity.base.ElectricData;
 import it.bohdloss.tfmg.content.electricity.base.IElectric;
 import it.bohdloss.tfmg.registry.TFMGBlockEntities;
@@ -28,9 +29,10 @@ import java.util.Set;
 
 @EventBusSubscriber
 public class AccumulatorBlockEntity extends AbstractMultiblock implements IElectric, IHaveGoggleInformation, IHaveHoveringInformation {
-    public final ElectricData electricData = instantiateElectric();
+    private ElectricData electricData;
 
     protected TFMGEnergyBehavior energy;
+    protected boolean updateCharge;
 
     public AccumulatorBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
@@ -41,8 +43,10 @@ public class AccumulatorBlockEntity extends AbstractMultiblock implements IElect
         energy = new TFMGEnergyBehavior(TFMGEnergyBehavior.TYPE, "Energy", this, TFMGConfigs.common().machines.accumulatorStorage.get())
                 .syncCapacity(true)
                 .withCallback(this::notifyUpdate)
-                .maxExtraction(TFMGConfigs.common().machines.accumulatorMaxAmpOutput.get() /* FIXME wrong!!! */)
-                .maxInsertion(TFMGConfigs.common().machines.accumulatorChargingRate.get() /* FIXME WRONG"!!!! */);
+                .withCapabilityCallback(this::syncNetwork)
+                // The charge/discharge rates are in amperes, so this is the amount of coulombs that can pass in one second... so we divide
+                .maxExtraction(ElectricData.coulombToFe(((float) TFMGConfigs.common().machines.accumulatorMaxAmpOutput.get()) / 20f, getElectricData().getGeneratedVoltage()))
+                .maxInsertion(ElectricData.coulombToFe(((float) TFMGConfigs.common().machines.accumulatorChargingRate.get()) / 20f, getElectricData().getGeneratedVoltage()));
 
         behaviours.add(energy);
     }
@@ -52,10 +56,13 @@ public class AccumulatorBlockEntity extends AbstractMultiblock implements IElect
         event.registerBlockEntity(
                 Capabilities.EnergyStorage.BLOCK,
                 TFMGBlockEntities.ACCUMULATOR.get(),
-                (be, _direction) -> {
-                    return ((AccumulatorBlockEntity) be.getControllerBE()).energy.getCapability();
-                }
+                (be, _direction) -> ((AccumulatorBlockEntity) be.getControllerBE()).energy.getCapability()
         );
+    }
+
+    protected void syncNetwork() {
+        updateCharge = true;
+        getElectricData().syncNextTick = true;
     }
 
     protected ElectricData instantiateElectric() {
@@ -77,12 +84,79 @@ public class AccumulatorBlockEntity extends AbstractMultiblock implements IElect
             public void getPotentialNeighbors(Set<BlockPos> neighbors) {
                 super.getPotentialNeighbors(neighbors);
 
+                if(getHeight() == 1) {
+                    return;
+                }
+
                 if(isController()) {
                     neighbors.add(getTopBlock());
                 }
                 if(getTopBlock().equals(getBlockPos())) {
                     neighbors.add(getController());
                 }
+            }
+
+            @Override
+            public void onChargeChange(float charge) {
+                if(!isController()) {
+                    return;
+                }
+
+                AccumulatorBlockEntity be = (AccumulatorBlockEntity) getControllerBE();
+                be.energy.getHandler().setEnergyStored(Math.round(ElectricData.coulombToFe(charge, getGeneratedVoltage())));
+            }
+
+            @Override
+            public float getMaxCharge() {
+                if(!isController()) {
+                    return 0f;
+                }
+
+                return ElectricData.feToCoulomb(energy.getHandler().getMaxEnergyStoredF(), getGeneratedVoltage());
+            }
+
+            @Override
+            public float getCharge() {
+                if(!isController()) {
+                    return -1f;
+                }
+
+                if(updateCharge) {
+                    updateCharge = false;
+
+                   return ElectricData.feToCoulomb(energy.getHandler().getEnergyStoredF(), getGeneratedVoltage());
+                } else {
+                    return -1f; // Don't update network
+                }
+            }
+
+            @Override
+            public CurrentCalculation getResistance() {
+                if(!isController()) {
+                    return CurrentCalculation.constant(0);
+                }
+                return CurrentCalculation.constant(TFMGConfigs.common().machines.accumulatorChargingRate.get());
+            }
+
+            @Override
+            public float getGeneratedVoltage() {
+                if(!isController()) {
+                    return 0f;
+                }
+                return TFMGConfigs.common().machines.accumulatorVoltage.get();
+            }
+
+            @Override
+            public CurrentCalculation getGeneratorResistance() {
+                if(!isController()) {
+                    return CurrentCalculation.constant(0);
+                }
+                return CurrentCalculation.constant(TFMGConfigs.common().machines.accumulatorMaxAmpOutput.get());
+            }
+
+            @Override
+            public float getGeneratorFrequency() {
+                return 0f;
             }
         };
     }
@@ -99,11 +173,11 @@ public class AccumulatorBlockEntity extends AbstractMultiblock implements IElect
             return;
         }
 
-        if(getLevel().getBlockEntity(getController()) instanceof IElectric be) {
+        if(getLevel().getBlockEntity(getController()) instanceof AccumulatorBlockEntity be) {
             be.getElectricData().detach();
             be.getElectricData().connectNextTick = true;
         }
-        if(getLevel().getBlockEntity(getTopBlock()) instanceof IElectric be) {
+        if(getLevel().getBlockEntity(getTopBlock()) instanceof AccumulatorBlockEntity be) {
             be.getElectricData().detach();
             be.getElectricData().connectNextTick = true;
         }
@@ -145,7 +219,7 @@ public class AccumulatorBlockEntity extends AbstractMultiblock implements IElect
 
     @Override
     public void setTankSize(int tank, int blocks) {
-        energy.asFluidHandler().setCapacity(TFMGConfigs.common().machines.accumulatorStorage.get() * blocks);
+        energy.getHandler().setMaxEnergyStored(TFMGConfigs.common().machines.accumulatorStorage.get() * blocks);
     }
 
     @Override
@@ -181,7 +255,12 @@ public class AccumulatorBlockEntity extends AbstractMultiblock implements IElect
 //                updateNextTick();
 //        }
 
-        electricData.tick();
+        getElectricData().tick();
+
+        // When `updateCharge` is true, it means we own the latest "true" value for the energy, so we must not override it
+        if(!getLevel().isClientSide() && isController() && !updateCharge) {
+            getElectricData().syncCharge();
+        }
     }
 
 //    public boolean canPower() {
@@ -213,41 +292,47 @@ public class AccumulatorBlockEntity extends AbstractMultiblock implements IElect
     @Override
     public void lazyTick() {
         super.lazyTick();
-        electricData.lazyTick();
+        getElectricData().lazyTick();
     }
 
     @Override
     public void remove() {
         super.remove();
-        electricData.remove();
+        getElectricData().remove();
     }
 
     @Override
     protected void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
-        tag.put("ElectricalData", electricData.write(registries, clientPacket));
+        tag.put("ElectricalData", getElectricData().write(registries, clientPacket));
+        tag.putBoolean("UpdateCharge", updateCharge);
 
         super.write(tag, registries, clientPacket);
     }
 
     @Override
     protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
-        electricData.read(tag.getCompound("ElectricalData"), registries, clientPacket);
+        getElectricData().read(tag.getCompound("ElectricalData"), registries, clientPacket);
+        updateCharge = tag.getBoolean("UpdateCharge");
 
         super.read(tag, registries, clientPacket);
     }
 
     @Override
     public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        return electricData.addToTooltip(tooltip, isPlayerSneaking);
+        return ((AccumulatorBlockEntity) getControllerBE()).getElectricData().addToTooltip(tooltip, isPlayerSneaking);
     }
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        return electricData.addToGoggleTooltip(tooltip, isPlayerSneaking);
+        return ((AccumulatorBlockEntity) getControllerBE()).getElectricData().addToGoggleTooltip(tooltip, isPlayerSneaking);
     }
 
     @Override
     public ElectricData getElectricData() {
+        if(electricData == null) {
+            electricData = instantiateElectric();
+        }
         return electricData;
     }
+
 }
